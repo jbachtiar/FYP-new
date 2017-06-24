@@ -1,0 +1,8 @@
+typings
+/src/**/*.js
+*.map
+node_modules
+npm-debug.log*
+dist/*
+
+.DS_Store
