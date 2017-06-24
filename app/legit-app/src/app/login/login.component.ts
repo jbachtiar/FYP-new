@@ -26,9 +26,9 @@ export class LoginComponent implements OnInit {
       .subscribe(
           res => {
             if(res.status === 'Login successful'){
-              console.log("user has logged in");
+              console.log(res.status);
             }else{
-              console.log("user has failed to log in");
+              console.log(res.status);
             }
           }
     )

@@ -9,10 +9,17 @@ export class AuthenticationService {
     login(username: string, password: string){
         let params: URLSearchParams = new URLSearchParams();
         let headers= new Headers();
+        
+        
+        headers.append (
+           'Content-type','application/x-www-form-urlencoded'
+        );
+     
         params.set('email', username);
         params.set('password', password);
-        return this._http.post('http://localhost:8084/FYP/API/authentication/login',params, {headers: headers} )
-            .map(res => res.json()['status']);
+
+        return this._http.post('http://localhost:8084/FYP/API/authentication/login',params.toString(), {headers: headers} )
+            .map(res => res.json());
     }
 
 }
