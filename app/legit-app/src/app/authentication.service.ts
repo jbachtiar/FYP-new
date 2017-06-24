@@ -6,12 +6,13 @@ import 'rxjs/add/operator/map'
 @Injectable()
 export class AuthenticationService {
     constructor(private _http: Http) { }
-
     login(username: string, password: string){
-        // let params: URLSearchParams = new URLSearchParams();
-        // params.set('username', username);
-        // params.set('password', password);
-        // return this.http.get('http://localhost:8084/FYP/API/authentication/', { search: params } )
+        let params: URLSearchParams = new URLSearchParams();
+        let headers= new Headers();
+        params.set('email', username);
+        params.set('password', password);
+        return this._http.post('http://localhost:8084/FYP/API/authentication/login',params, {headers: headers} )
+            .map(res => res.json()['status']);
     }
 
 }

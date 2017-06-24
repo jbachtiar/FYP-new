@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../authentication.service'
 
+
+
 @Component({
   selector: 'login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
+  providers: [AuthenticationService]
+
 })
 export class LoginComponent implements OnInit {
   private user: any = {};
@@ -18,16 +22,16 @@ export class LoginComponent implements OnInit {
   login(){
     this.loading = true;
     //calling service
-    // this.authenticationService.login(this.user.username, this.user.password)
-    // .subscribe(
-    //     res => {
-    //       if(res.status === 200){
-    //         console.log("user has logged in");
-    //       }else{
-    //         console.log("user has failed to log in");
-    //       }
-    //     }
-    // )
+    this.authenticationService.login(this.user.username, this.user.password)
+      .subscribe(
+          res => {
+            if(res.status === 'Login successful'){
+              console.log("user has logged in");
+            }else{
+              console.log("user has failed to log in");
+            }
+          }
+    )
     this.loading = false; 
   }
 }

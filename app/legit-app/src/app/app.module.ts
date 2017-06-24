@@ -23,6 +23,6 @@ import { HttpModule } from '@angular/http';
     HttpModule
   ],
   providers: [AuthenticationService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }
