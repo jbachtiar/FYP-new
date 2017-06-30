@@ -12,6 +12,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -39,7 +41,7 @@ public class StaffDAO {
 
         } catch (SQLException ex) {
             
-            return "SQLException Caught";
+            handleSQLException(ex, sql);
             
         } finally {
             ConnectionManager.close(conn, stmt, rs);
@@ -47,6 +49,42 @@ public class StaffDAO {
         
         return "Success";
         
+    }
+    
+     public static Staff retrieveStaffById(int id) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Staff staff = null;
+        
+        String sql = "SELECT * FROM Staff WHERE id = ? "; 
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, id);
+            rs = stmt.executeQuery();
+            
+            while (rs.next()) {
+                
+                String password = rs.getString(5);
+                staff = new Staff(id, password);
+             
+            }
+
+        } catch (SQLException ex) {
+            handleSQLException(ex, sql);
+        } finally {
+            ConnectionManager.close(conn, stmt, rs);
+        }
+        return staff;
+    }
+     
+     private static void handleSQLException(SQLException ex, String sql, String... parameters) {
+        String msg = "Unable to access data; SQL=" + sql + "\n";
+        for (String parameter : parameters) {
+            msg += "," + parameter;
+        }
+        Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, msg, ex);
     }
     
 }

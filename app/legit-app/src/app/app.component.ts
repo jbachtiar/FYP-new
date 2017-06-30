@@ -22,5 +22,9 @@ export class AppComponent {
       let link = ['/register'];
       this._router.navigate(link);
     }
+    if (feature == "accountCreation"){
+      let link = ['/accountCreation'];
+      this._router.navigate(link);
+    }
 	}
 }

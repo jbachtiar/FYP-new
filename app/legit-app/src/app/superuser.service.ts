@@ -4,9 +4,9 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map'
 
 @Injectable()
-export class AuthenticationService {
+export class SuperuserService {
     constructor(private _http: Http) { }
-    login(username: string, password: string){
+    addAdmin(id: string, password: string){
         let params: URLSearchParams = new URLSearchParams();
         let headers= new Headers();
         
@@ -15,11 +15,13 @@ export class AuthenticationService {
            'Content-type','application/x-www-form-urlencoded'
         );
      
-        params.set('email', username);
+        params.set('id', id);
         params.set('password', password);
 
-        return this._http.post('http://localhost:8084/FYP-backend/API/authentication/login',params.toString(), {headers: headers} )
+        return this._http.post('http://localhost:8084/FYP-backend/API/superuser/addAdmin',params.toString(), {headers: headers} )
             .map(res => res.json());
-    }
+    }    
+    
+    
 
 }
