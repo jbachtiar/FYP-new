@@ -80,6 +80,64 @@ public class CustomerDAO {
         return password;
     }
     
+    
+    public static int retrieveNumOfCustomers() {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        int numOfCustomer=0;
+        
+        String sql = "SELECT count(*) FROM customer"; 
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+             rs = stmt.executeQuery();
+            
+            while (rs.next()) {
+                numOfCustomer = rs.getInt(1);
+             
+            }
+
+        } catch (SQLException ex) {
+            handleSQLException(ex, sql);
+        } finally {
+            ConnectionManager.close(conn, stmt, rs);
+        }
+        return numOfCustomer;
+    }
+        
+     public static void insertCustomer(String firstName, String lastName, String contact, String address, String password, String email ) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        int numOfCustomer=0;
+        
+        String sql = "INSERT into customer values(?,?,?,?,?,?,?)";
+ 
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            numOfCustomer =retrieveNumOfCustomers();
+            stmt.setInt(1, (numOfCustomer+1));
+            stmt.setString(2,firstName);
+            stmt.setString(3, contact);
+            stmt.setString(4, address);
+            stmt.setString(5, password);
+            stmt.setString(6, email);
+            stmt.setString(7, lastName);
+            stmt.executeUpdate();
+            
+        } catch (SQLException ex) {
+            handleSQLException(ex, sql);
+        } finally {
+            ConnectionManager.close(conn, stmt, rs);
+        }
+    
+    }
+    
+    
+    
+    
     private static void handleSQLException(SQLException ex, String sql, String... parameters) {
         String msg = "Unable to access data; SQL=" + sql + "\n";
         for (String parameter : parameters) {
