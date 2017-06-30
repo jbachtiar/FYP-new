@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
   login(){
     this.loading = true;
     //calling service
-    this.authenticationService.login(this.user.username, this.user.password)
+    this.authenticationService.login(this.user.email, this.user.password)
       .subscribe(
           res => {
             if(res.status === 'Login successful'){
