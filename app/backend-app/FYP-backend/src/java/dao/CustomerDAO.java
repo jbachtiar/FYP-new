@@ -28,7 +28,7 @@ public class CustomerDAO {
         ResultSet rs = null;
         Customer customer = null;
         
-        String sql = "SELECT * FROM customer WHERE contact = ? "; 
+        String sql = "SELECT * FROM customer WHERE email = ? "; 
         try {
             conn = ConnectionManager.getConnection();
             stmt = conn.prepareStatement(sql);
@@ -37,12 +37,13 @@ public class CustomerDAO {
             
             while (rs.next()) {
                 int id = rs.getInt(1);
-                String name = rs.getString(2);
-                String contact = rs.getString(3);
-                String address = rs.getString(4);
-                String password = rs.getString(5);
-                String paymentMethod = rs.getString(6);
-                customer = new Customer(id,name, contact, address, password, paymentMethod);
+                String firstName = rs.getString(2);
+                String lastName = rs.getString(3);
+                String contact = rs.getString(4);
+                String address = rs.getString(5);
+                String password = rs.getString(6);
+              
+                customer = new Customer(id,firstName,lastName, contact, address, password, email);
              
             }
 
@@ -60,7 +61,7 @@ public class CustomerDAO {
         ResultSet rs = null;
         String password = null;
         
-        String sql = "SELECT password FROM customer WHERE contact =  ? "; 
+        String sql = "SELECT password FROM customer WHERE email =  ? "; 
         try {
             conn = ConnectionManager.getConnection();
             stmt = conn.prepareStatement(sql);
@@ -120,11 +121,12 @@ public class CustomerDAO {
             numOfCustomer =retrieveNumOfCustomers();
             stmt.setInt(1, (numOfCustomer+1));
             stmt.setString(2,firstName);
-            stmt.setString(3, contact);
-            stmt.setString(4, address);
-            stmt.setString(5, password);
-            stmt.setString(6, email);
-            stmt.setString(7, lastName);
+            stmt.setString(3, lastName);
+            stmt.setString(4, contact);
+            stmt.setString(5, address);
+            stmt.setString(6, password);
+            stmt.setString(7, email);
+           
             stmt.executeUpdate();
             
         } catch (SQLException ex) {

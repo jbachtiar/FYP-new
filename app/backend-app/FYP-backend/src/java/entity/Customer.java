@@ -11,27 +11,34 @@ package entity;
  */
 public class Customer {
     private int custID;
-    private String name;
+    private String firstName;
+    private String lastName;
     private String contact;
     private String address;
     private String password;
-    private String paymentMethod;
+    private String email;
 
-    public Customer(int custID, String name, String contact, String address, String password, String paymentMethod) {
+    public Customer(int custID, String firstName, String lastName, String contact, String address, String password, String email) {
         this.custID = custID;
-        this.name = name;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.contact = contact;
         this.address = address;
         this.password = password;
-        this.paymentMethod = paymentMethod;
+        this.email= email;
+
     }
 
     public void setCustID(int custID) {
         this.custID = custID;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+    
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public void setContact(String contact) {
@@ -46,16 +53,20 @@ public class Customer {
         this.password = password;
     }
 
-    public void setPaymentMethod(String paymentMethod) {
-        this.paymentMethod = paymentMethod;
+    public void setEmail(String email) {
+        this.email = email;
     }
     
     public int getCustID() {
         return custID;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
+    }
+    
+    public String getLastName() {
+        return lastName;
     }
 
     public String getContact() {
@@ -70,8 +81,8 @@ public class Customer {
         return password;
     }
 
-    public String getPaymentMethod() {
-        return paymentMethod;
+    public String getEmail() {
+        return email;
     }
     
     
