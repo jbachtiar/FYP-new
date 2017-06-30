@@ -8,6 +8,7 @@ import { routing }        from './app.routing';
 import { FormsModule }   from '@angular/forms';
 import { Router } from "@angular/router";
 import { AuthenticationService } from './authentication.service'
+import { RegistrationService } from './registration.service'
 import { HttpModule } from '@angular/http';
 
 @NgModule({
@@ -22,7 +23,7 @@ import { HttpModule } from '@angular/http';
     routing,
     HttpModule
   ],
-  providers: [AuthenticationService],
+  providers: [AuthenticationService, RegistrationService],
   bootstrap: [AppComponent],
 })
 export class AppModule { }
