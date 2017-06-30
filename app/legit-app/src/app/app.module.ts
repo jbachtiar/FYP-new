@@ -7,8 +7,8 @@ import { RegisterComponent } from './register/register.component';
 import { routing }        from './app.routing';
 import { FormsModule }   from '@angular/forms';
 import { Router } from "@angular/router";
-
-
+import { AuthenticationService } from './authentication.service'
+import { HttpModule } from '@angular/http';
 
 @NgModule({
   declarations: [
@@ -19,9 +19,10 @@ import { Router } from "@angular/router";
   imports: [
     BrowserModule,
     FormsModule,
-    routing
+    routing,
+    HttpModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [AuthenticationService],
+  bootstrap: [AppComponent],
 })
 export class AppModule { }
