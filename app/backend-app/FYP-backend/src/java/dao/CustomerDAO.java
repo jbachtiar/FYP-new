@@ -36,14 +36,18 @@ public class CustomerDAO {
             rs = stmt.executeQuery();
             
             while (rs.next()) {
-                int id = rs.getInt(1);
+                
                 String firstName = rs.getString(2);
                 String lastName = rs.getString(3);
-                String contact = rs.getString(4);
+                String phoneNumber = rs.getString(4);
                 String address = rs.getString(5);
-                String password = rs.getString(6);
+                String unitNumber = rs.getString(6);
+                String country = rs.getString(7);
+                String postalCode = rs.getString(8);
+                String password = rs.getString(9);
+                String verified = rs.getString(10);
               
-                customer = new Customer(id,firstName,lastName, contact, address, password, email);
+                customer = new Customer(email,firstName,lastName, phoneNumber, address, unitNumber, country, postalCode, password, verified);
              
             }
 
@@ -107,25 +111,28 @@ public class CustomerDAO {
         return numOfCustomer;
     }
         
-     public static void insertCustomer(String firstName, String lastName, String contact, String address, String password, String email ) {
+     public static void insertCustomer(String email, String firstName, String lastName, String phoneNumber, String address, String unitNumber, String country, String postalCode, String password, String verified ) {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         int numOfCustomer=0;
         
-        String sql = "INSERT into customer values(?,?,?,?,?,?,?)";
+        String sql = "INSERT into customer values(?,?,?,?,?,?,?,?,?,?)";
  
         try {
             conn = ConnectionManager.getConnection();
             stmt = conn.prepareStatement(sql);
             numOfCustomer =retrieveNumOfCustomers();
-            stmt.setInt(1, (numOfCustomer+1));
+            stmt.setString(1, email);
             stmt.setString(2,firstName);
             stmt.setString(3, lastName);
-            stmt.setString(4, contact);
+            stmt.setString(4, phoneNumber);
             stmt.setString(5, address);
-            stmt.setString(6, password);
-            stmt.setString(7, email);
+            stmt.setString(6, unitNumber);
+            stmt.setString(7, country);
+            stmt.setString(8, postalCode);
+            stmt.setString(9, password);
+            stmt.setString(10, verified);
            
             stmt.executeUpdate();
             
