@@ -24,16 +24,19 @@ public class StaffDAO {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        Customer customer = null;
-        
-        String sql = "INSERT INTO STAFF VALUES (?,?)";
+       
+        String sql = "INSERT INTO STAFF VALUES (?,?,?,?,?,?)";
         
         try {
             
             conn = ConnectionManager.getConnection();
             stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, s.getId());
-            stmt.setString(2,s.getPassword());
+            stmt.setString(1, s.getEmail());
+            stmt.setString(2, s.getFirstName());
+            stmt.setString(3, s.getLastName());
+            stmt.setString(4, s.getPhoneNumber());
+            stmt.setString(5, s.getPassword());
+            stmt.setString(6, s.getRoleCode());
             
             stmt.executeUpdate();
 
