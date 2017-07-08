@@ -13,57 +13,26 @@
         </div>
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !email.valid }">
             <label for="email">Email</label>
-            <input type="text" class="form-control" name="email" [(ngModel)]="user.email" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" #email="ngModel" required />
-            <div *ngIf="email.touched || f.submitted" class="help-block">
-                <div [hidden]="!email.hasError('required')">Email is required</div>
-                <div [hidden]="!email.hasError('pattern')">Email format should be 
-                     <small><b>joe@abc.com</b></small>
-                </div>
-            </div> 
+            <input type="text" class="form-control" name="email" [(ngModel)]="user.email" #email="ngModel" required />
+            <div *ngIf="f.submitted && !email.valid" class="help-block">Email is required</div>
         </div>
-
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !contact.valid }">
             <label for="contact">Contact</label>
-            <input type="text" class="form-control" name="contact" [(ngModel)]="user.contact" #contact="ngModel" required pattern="[0-9]*" />
-            <div *ngIf="contact.touched || f.submitted" class="help-block">
-                <div [hidden]="!contact.hasError('required')">Contact is required</div>
-                <div [hidden]="!contact.hasError('pattern')">Only digit is allowed </div>
-            </div>
+            <input type="text" class="form-control" name="contact" [(ngModel)]="user.contact" #contact="ngModel" required />
+            <div *ngIf="f.submitted && !contact.valid" class="help-block">Contact is required</div>
         </div>
 
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !address.valid }">
             <label for="address">Address</label>
-            <input type="text" class="form-control" name="address" [(ngModel)]="user.address" #address="ngModel" required  />
+            <input type="text" class="form-control" name="address" [(ngModel)]="user.address" #address="ngModel" required />
             <div *ngIf="f.submitted && !address.valid" class="help-block">Address is required</div>
-        </div>
-
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !postalCode.valid }">
-            <label for="postalCode">Postal Code</label>
-            <input type="text" class="form-control" name="postalCode" [(ngModel)]="user.postalCode" #postalCode="ngModel" required  />
-            <div *ngIf="f.submitted && !postalCode.valid" class="help-block">Postal Code is required</div>
         </div>
 
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
             <label for="password">Password</label>
-            <input type="password" class="form-control" id="password" name="password" [(ngModel)]="user.password" #password="ngModel" required />
-            <div *ngIf="password.touched || f.submitted" class="help-block">
-                <div [hidden]="!password.hasError('required')">Password is required</div>
-            </div> 
+            <input type="password" class="form-control" name="password" [(ngModel)]="user.password" #password="ngModel" required />
+            <div *ngIf="f.submitted && !password.valid" class="help-block">Password is required</div>
         </div>
-        
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !confirmPassword.valid }">
-            <label for="confirmPassword">Retype Password</label>
-            <input type="password" class="form-control"  id="confirmPassword" name="confirmPassword"  required validateEqual="password" [(ngModel)]="user.confirmPassword" #confirmPassword="ngModel"/>
-           <div *ngIf="confirmPassword.touched || f.submitted" class="help-block">
-                <div [hidden]="!confirmPassword.hasError('required')">Password is required</div>
-                <div *ngIf="confirmPassword.errors?.validateEqual">
-                    Passwords did not match 
-                </div>
-            </div>
-        
-        
-        </div>
-
         <div class="form-group">
             <button [disabled]="loading" class="btn btn-primary">Register</button>
             <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />

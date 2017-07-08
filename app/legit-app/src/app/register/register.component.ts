@@ -19,7 +19,7 @@ export class RegisterComponent implements OnInit {
   register(){
     this.loading = true;
     //calling service
-    this.registrationService.register(this.user.firstName, this.user.lastName, this.user.email, this.user.contact, this.user.address, this.user.postalCode, this.user.password )
+    this.registrationService.register(this.user.firstName, this.user.lastName, this.user.email, this.user.contact, this.user.address, this.user.password )
       .subscribe(
           res => {
             if(res.status === 'Login successful'){

@@ -111,24 +111,28 @@ public class CustomerDAO {
         return numOfCustomer;
     }
         
-     public static void insertCustomer(String email, String firstName, String lastName, String phoneNumber, String address, String postalCode, String password ) {
+     public static void insertCustomer(String email, String firstName, String lastName, String phoneNumber, String address, String unitNumber, String country, String postalCode, String password, String verified ) {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        String sql = "INSERT into customer values(?,?,?,?,?,?,?,?,?)";
+        int numOfCustomer=0;
+        
+        String sql = "INSERT into customer values(?,?,?,?,?,?,?,?,?,?)";
  
         try {
             conn = ConnectionManager.getConnection();
             stmt = conn.prepareStatement(sql);
+            numOfCustomer =retrieveNumOfCustomers();
             stmt.setString(1, email);
             stmt.setString(2,firstName);
             stmt.setString(3, lastName);
             stmt.setString(4, phoneNumber);
             stmt.setString(5, address);
-            stmt.setString(6, "Singapore");
-            stmt.setString(7, postalCode);
-            stmt.setString(8, password);
-            stmt.setString(9, "N");
+            stmt.setString(6, unitNumber);
+            stmt.setString(7, country);
+            stmt.setString(8, postalCode);
+            stmt.setString(9, password);
+            stmt.setString(10, verified);
            
             stmt.executeUpdate();
             
