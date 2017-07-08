@@ -13,7 +13,7 @@ export interface LoginPopupModel {
 
 @Component({  
     selector: 'login-popup',
-    template: './login-popup.component.html',
+    templateUrl: './login-popup.component.html',
     providers: [AuthenticationService, AlertService]
 })
 export class LoginPopupComponent extends DialogComponent<LoginPopupModel, boolean> implements LoginPopupModel {
@@ -44,11 +44,12 @@ export class LoginPopupComponent extends DialogComponent<LoginPopupModel, boolea
         .subscribe(
             res => {
                 if(res.status === 'Login successful'){
-                this.router.navigate([this.returnUrl]);
-                console.log(res.status);
+                    console.log(res.status);
+                    this.confirm()
+                    this.router.navigate([this.returnUrl]);
                 }else{
-                this.alertService.error(res.status);
-                console.log(res.status);
+                    console.log(res.status);
+                    this.alertService.error(res.status);
                 }
             }
         )

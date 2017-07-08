@@ -8,7 +8,8 @@
         <li class="nav-item" routerLinkActive = "active"><a class="nav-link" routerLink="/contact">Contact</a></li>
     </ul>
     <ul class = "nav navbar-nav pull-right">
-        <li class="nav-item" routerLinkActive = "active"><a class="nav-link" routerLink="/login">Login</a></li>
+        <button class="btn btn-default" (click)=showLogin()>Login</button>
+        <!--<li class="nav-item" routerLinkActive = "active" (click)="showLogin"><a class="nav-link" >Login</a></li>-->
     </ul>
 </div>
 <router-outlet></router-outlet>
