@@ -11,7 +11,8 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
-import { LoginPopupComponent } from './login/login-popup.component'
+import { LoginPopupComponent } from './login/login-popup.component';
+import { AlertComponent } from './alert/alert.component';
            
 import { AuthenticationService } from './authentication.service'
 import { RegistrationService } from './registration.service'
@@ -25,7 +26,8 @@ import { BootstrapModalModule } from 'ng2-bootstrap-modal';
     RegisterComponent,
     HomeComponent,
     NavbarComponent,
-    LoginPopupComponent
+    LoginPopupComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,

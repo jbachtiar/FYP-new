@@ -16,7 +16,7 @@ export interface LoginPopupModel {
     template: './login-popup.component.html',
     providers: [AuthenticationService, AlertService]
 })
-export class LoginPopupComponent extends DialogComponent<ConfirmModel, boolean> implements ConfirmModel {
+export class LoginPopupComponent extends DialogComponent<LoginPopupModel, boolean> implements LoginPopupModel {
     title: string;
     message: string;
     private user: any = {};
