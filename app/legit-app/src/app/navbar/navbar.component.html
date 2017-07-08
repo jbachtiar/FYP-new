@@ -8,7 +8,8 @@
         <li class="nav-item" routerLinkActive = "active"><a class="nav-link" routerLink="/contact">Contact</a></li>
     </ul>
     <ul class = "nav navbar-nav pull-right">
-        <button class="btn btn-default" (click)=showLogin()>Login</button>
+        <button *ngIf = "!authenticated" class="btn btn-default" (click)=showLogin()>Login</button>
+        <button *ngIf = "authenticated"class="btn btn-default" (click)="logout()">Logout</button>
         <!--<li class="nav-item" routerLinkActive = "active" (click)="showLogin"><a class="nav-link" >Login</a></li>-->
     </ul>
 </div>
