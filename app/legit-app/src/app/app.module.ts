@@ -1,17 +1,22 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule }   from '@angular/forms';
+import { Router } from "@angular/router";
+import { HttpModule } from '@angular/http';
+
+import { routing }        from './app.routing';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-import { routing }        from './app.routing';
-import { FormsModule }   from '@angular/forms';
-import { Router } from "@angular/router";
-import { AuthenticationService } from './authentication.service'
-import { RegistrationService } from './registration.service'
-import { HttpModule } from '@angular/http';
 import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { LoginPopupComponent } from './login/login-popup.component'
+           
+import { AuthenticationService } from './authentication.service'
+import { RegistrationService } from './registration.service'
+
+import { BootstrapModalModule } from 'ng2-bootstrap-modal';
 
 @NgModule({
   declarations: [
@@ -19,15 +24,18 @@ import { NavbarComponent } from './navbar/navbar.component';
     LoginComponent,
     RegisterComponent,
     HomeComponent,
-    NavbarComponent
+    NavbarComponent,
+    LoginPopupComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    HttpModule,
     routing,
-    HttpModule
+    BootstrapModalModule
   ],
   providers: [AuthenticationService, RegistrationService],
   bootstrap: [AppComponent],
+  entryComponents : [LoginPopupComponent]
 })
 export class AppModule { }
