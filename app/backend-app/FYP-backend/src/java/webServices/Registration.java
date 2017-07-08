@@ -30,14 +30,14 @@ public class Registration {
     @POST
     @Path("/insert")
     @Produces(MediaType.APPLICATION_JSON)
-    public String login (@FormParam("email") String email,@FormParam("firstName") String firstName, @FormParam("lastName") String lastName, @FormParam("phoneNumber") String phoneNumber, @FormParam("address") String address, @FormParam("unitNumber") String unitNumber, @FormParam("country") String country, @FormParam("postalCode") String postalCode,@FormParam("password") String password, @FormParam("verified") String verified  ){
+    public String login (@FormParam("email") String email,@FormParam("firstName") String firstName, @FormParam("lastName") String lastName, @FormParam("phoneNumber") String phoneNumber, @FormParam("address") String address, @FormParam("postalCode") String postalCode, @FormParam("password") String password){
         //String password = CustomerDAO.retrievePasswordByEmail(email);
         HashMap<String, String> responseMap = new HashMap<String, String>();
         Gson gson = new GsonBuilder().create();
         String status = "";
     
          
-        CustomerDAO.insertCustomer(email,firstName,lastName, phoneNumber, address, unitNumber, country, postalCode, password, verified);
+        CustomerDAO.insertCustomer(email,firstName,lastName, phoneNumber, address, postalCode, password);
         status = "Insert successful";
                  
         responseMap.put("status", status);
