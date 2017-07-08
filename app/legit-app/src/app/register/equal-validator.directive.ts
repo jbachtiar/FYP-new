@@ -8,6 +8,7 @@ import { NG_VALIDATORS,Validator,
         { provide: NG_VALIDATORS, useExisting: forwardRef(() => EqualValidator), multi: true }
     ]
 })
+
 export class EqualValidator implements Validator {
     constructor( @Attribute('validateEqual') public validateEqual: string) {}
  
