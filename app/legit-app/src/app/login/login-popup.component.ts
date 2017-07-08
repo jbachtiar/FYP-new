@@ -42,13 +42,23 @@ export class LoginPopupComponent extends DialogComponent<LoginPopupModel, boolea
         //calling service
         this.authenticationService.login(this.user.email, this.user.password)
         .subscribe(
+        //     data => {
+        //     console.log(data);
+        //     this.router.navigate([this.returnUrl]);
+        //   },
+        //   error => {
+        //     console.log(error);
+        //     this.alertService.error(error);
+        //     this.loading = false;
+        //   });
             res => {
+                console.log("RES: " + res);
                 if(res.status === 'Login successful'){
-                    console.log(res.status);
+                    console.log("RES STATUS :" + res.status);
                     this.confirm()
-                    this.router.navigate([this.returnUrl]);
+                    // this.router.navigate([this.returnUrl]);
                 }else{
-                    console.log(res.status);
+                    console.log("RES STATUS :" + res.status);
                     this.alertService.error(res.status);
                 }
             }

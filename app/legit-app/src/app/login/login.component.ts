@@ -32,16 +32,25 @@ export class LoginComponent implements OnInit {
     //calling service
     this.authenticationService.login(this.user.email, this.user.password)
       .subscribe(
-          res => {
-            if(res.status === 'Login successful'){
-              console.log(res.status);
-              this.router.navigate([this.returnUrl]);
-            }else{
-              console.log(res.status);
-              this.alertService.error(res.status);
-            }
-          }
-    )
+          data => {
+            console.log(data);
+            this.router.navigate([this.returnUrl]);
+          },
+          error => {
+            console.log(error);
+            this.alertService.error(error);
+            this.loading = false;
+          });
+          //   if(res.status === 'Login successful'){
+          //     console.log(res.status);
+          //     this.router.navigate([this.returnUrl]);
+          //   }else{
+          //     console.log(res.status);
+          //     this.alertService.error(res.status);
+          //   }
+          // }
+          
+    // )
     this.loading = false; 
   }
 }
