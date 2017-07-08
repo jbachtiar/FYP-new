@@ -16,19 +16,17 @@ public class Customer {
     private String lastName;
     private String phoneNumber;
     private String address;
-    private String unitNumber;
     private String country;
     private String postalCode;
     private String password;
     private String verified;
 
-    public Customer(String email, String firstName, String lastName, String phoneNumber, String address, String unitNumber, String country, String postalCode, String password, String verified) {
+    public Customer(String email, String firstName, String lastName, String phoneNumber, String address, String country, String postalCode, String password, String verified) {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
         this.address = address;
-        this.unitNumber = unitNumber;
         this.country = country;
         this.postalCode = postalCode;
         this.password = password;
@@ -55,11 +53,7 @@ public class Customer {
         this.address = address;
     }
 
-    public void setUnitNumber(String unitNumber) {
-        this.unitNumber = unitNumber;
-    }
-
-    public void setCountry(String country) {
+     public void setCountry(String country) {
         this.country = country;
     }
 
@@ -93,10 +87,6 @@ public class Customer {
 
     public String getAddress() {
         return address;
-    }
-
-    public String getUnitNumber() {
-        return unitNumber;
     }
 
     public String getCountry() {

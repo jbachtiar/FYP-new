@@ -41,13 +41,12 @@ public class CustomerDAO {
                 String lastName = rs.getString(3);
                 String phoneNumber = rs.getString(4);
                 String address = rs.getString(5);
-                String unitNumber = rs.getString(6);
-                String country = rs.getString(7);
-                String postalCode = rs.getString(8);
-                String password = rs.getString(9);
-                String verified = rs.getString(10);
+                String country = rs.getString(6);
+                String postalCode = rs.getString(7);
+                String password = rs.getString(8);
+                String verified = rs.getString(9);
               
-                customer = new Customer(email,firstName,lastName, phoneNumber, address, unitNumber, country, postalCode, password, verified);
+                customer = new Customer(email,firstName,lastName, phoneNumber, address, country, postalCode, password, verified);
              
             }
 
