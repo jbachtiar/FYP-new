@@ -19,6 +19,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 //import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+import tokenManagement.tokenManagement;
 
 
 /**
@@ -38,6 +39,7 @@ public class Authentication {
         
         String response = "";
         String status = "";
+        String token = "";
         if (email != null && !email.equals("")) {
                 //String twoDigitsPostalCode = postalCode.substring(0,2);
                 Customer customer = CustomerDAO.retrieveCustomerByEmail(email);
@@ -52,11 +54,14 @@ public class Authentication {
                             //out.println("exist");
                             //String name = customer.getName();
                             status = "Login successful";
+                            token = tokenManagement.createJWT(email, "highlander", "login");
                             //String address = fireStation.getAddress();
                             //responseMap.put("Customer ", name);
                             //responseMap.put("address", address);
                             //responseMap.put("status", STATUS_OK);
                             responseMap.put("status", status);
+                            responseMap.put("token", token);
+                            
                         } else {
                             status = "Invalid password";
                             responseMap.put("status", status);
