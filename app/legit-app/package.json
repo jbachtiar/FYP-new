@@ -25,8 +25,7 @@
     "core-js": "^2.4.1",
     "ng2-bootstrap-modal": "^1.0.1",
     "rxjs": "^5.1.0",
-    "zone.js": "^0.8.4",
-    "ng2-bootstrap-modal": "^3.10.10"
+    "zone.js": "^0.8.4"
   },
   "devDependencies": {
     "@angular/cli": "1.1.2",
