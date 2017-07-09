@@ -18,6 +18,7 @@ import { AuthenticationService } from './authentication.service'
 import { RegistrationService } from './registration.service'
 
 import { BootstrapModalModule } from 'ng2-bootstrap-modal';
+import { ProductComponent } from './product/product.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { BootstrapModalModule } from 'ng2-bootstrap-modal';
     HomeComponent,
     NavbarComponent,
     LoginPopupComponent,
-    AlertComponent
+    AlertComponent,
+    ProductComponent
   ],
   imports: [
     BrowserModule,
