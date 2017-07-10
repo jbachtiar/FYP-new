@@ -1,0 +1,40 @@
+<div class="col-md-9 col-md-offset-1">
+        <h4>My Profile</h4>
+
+        <app-inline-edit [(ngModel)]="firstName" label="First Name" [required]="true" type="text">
+        </app-inline-edit>    
+
+        <app-inline-edit [(ngModel)]="lastName" label="Last Name" [required]="true" type="text">
+        </app-inline-edit>    
+
+        <app-inline-edit [(ngModel)]="contact" label="Contact Number" [required]="true" type="text">
+        </app-inline-edit>    
+
+        <app-inline-edit [(ngModel)]="address" label="Address" [required]="true" type="text">
+        </app-inline-edit>  
+
+        <app-inline-edit [(ngModel)]="postalCode" label="Postal Code" [required]="true" type="text">
+        </app-inline-edit>    
+
+        <app-inline-edit [(ngModel)]="password" label="Password" [required]="true" type="text">
+        </app-inline-edit>  
+
+        <div class="form-group">
+                <button ng-click="update()" [disabled]="loading" class="btn btn-primary">Update</button>
+               
+        </div>
+
+     
+
+
+
+
+
+
+
+
+
+
+
+
+</div>

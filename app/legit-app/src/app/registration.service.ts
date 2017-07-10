@@ -21,7 +21,7 @@ export class RegistrationService {
         params.set('lastName', lastName);
         params.set('phoneNumber', contact);
         params.set('address', address);
-         params.set('postalCode', postalCode);
+        params.set('postalCode', postalCode);
         params.set('password', password);
         params.set('email', email);
 

@@ -13,12 +13,19 @@ import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { LoginPopupComponent } from './login/login-popup.component';
 import { AlertComponent } from './alert/alert.component';
-           
+import { ProfileComponent } from './profile/profile.component'
+
 import { AuthenticationService } from './authentication.service'
 import { RegistrationService } from './registration.service'
+import { ProfileService } from './profile.service'
 
 import { BootstrapModalModule } from 'ng2-bootstrap-modal';
 import { ProductComponent } from './product/product.component';
+
+import { EqualValidator } from './register/equal-validator.directive';
+import { InlineEditComponent } from './custom/inline-edit.component';
+
+
 
 @NgModule({
   declarations: [
@@ -29,7 +36,12 @@ import { ProductComponent } from './product/product.component';
     NavbarComponent,
     LoginPopupComponent,
     AlertComponent,
-    ProductComponent
+    ProductComponent,
+    ProfileComponent,
+    EqualValidator,
+    InlineEditComponent,
+
+  
   ],
   imports: [
     BrowserModule,
@@ -38,7 +50,7 @@ import { ProductComponent } from './product/product.component';
     routing,
     BootstrapModalModule
   ],
-  providers: [AuthenticationService, RegistrationService],
+  providers: [AuthenticationService, RegistrationService, ProfileService],
   bootstrap: [AppComponent],
   entryComponents : [LoginPopupComponent]
 })
