@@ -12,6 +12,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -42,7 +44,7 @@ public class StaffDAO {
 
         } catch (SQLException ex) {
             
-            return "SQLException Caught";
+           handleSQLException(ex, sql);
             
         } finally {
             ConnectionManager.close(conn, stmt, rs);
@@ -50,6 +52,47 @@ public class StaffDAO {
         
         return "Success";
         
+    }
+    
+    public static Staff retrieveStaffByEmail(String email) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Staff staff = null;
+        
+        String sql = "SELECT * FROM staff WHERE email = ? "; 
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, email);
+            rs = stmt.executeQuery();
+            
+            while (rs.next()) {
+                
+                String firstName = rs.getString(2);
+                String lastName = rs.getString(3);
+                String phoneNumber = rs.getString(4);
+                String password = rs.getString(5);
+                String roleCode = rs.getString(6);
+               
+                staff = new Staff(email,firstName,lastName, phoneNumber, password, roleCode);
+             
+            }
+
+        } catch (SQLException ex) {
+            handleSQLException(ex, sql);
+        } finally {
+            ConnectionManager.close(conn, stmt, rs);
+        }
+        return staff;
+    }
+    
+    private static void handleSQLException(SQLException ex, String sql, String... parameters) {
+        String msg = "Unable to access data; SQL=" + sql + "\n";
+        for (String parameter : parameters) {
+            msg += "," + parameter;
+        }
+        Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, msg, ex);
     }
     
 }
