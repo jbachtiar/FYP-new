@@ -13,12 +13,12 @@ import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { LoginPopupComponent } from './login/login-popup.component';
 import { AlertComponent } from './alert/alert.component';
+import { ProductListComponent } from './product-list/product-list.component';
            
 import { AuthenticationService } from './authentication.service'
 import { RegistrationService } from './registration.service'
 
 import { BootstrapModalModule } from 'ng2-bootstrap-modal';
-import { ProductListComponent } from './product-list/product-list.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +36,7 @@ import { ProductListComponent } from './product-list/product-list.component';
     FormsModule,
     HttpModule,
     routing,
-    BootstrapModalModule
+    BootstrapModalModule,
   ],
   providers: [AuthenticationService, RegistrationService],
   bootstrap: [AppComponent],
