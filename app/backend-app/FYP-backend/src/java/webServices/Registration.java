@@ -32,7 +32,7 @@ public class Registration {
     @Produces(MediaType.APPLICATION_JSON)
     public String login (@FormParam("email") String email,@FormParam("firstName") String firstName, @FormParam("lastName") String lastName, @FormParam("phoneNumber") String phoneNumber, @FormParam("address") String address, @FormParam("postalCode") String postalCode, @FormParam("password") String password){
         //String password = CustomerDAO.retrievePasswordByEmail(email);
-        HashMap<String, String> responseMap = new HashMap<String, String>();
+        HashMap<String, String> responseMap = new HashMap();
         Gson gson = new GsonBuilder().create();
         String status = "";
     
