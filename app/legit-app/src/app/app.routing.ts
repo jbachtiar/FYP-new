@@ -5,7 +5,8 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component'
 import { HomeComponent } from './home/home.component'
 import { ProfileComponent } from './profile/profile.component'
-import {InlineEditComponent } from './custom/inline-edit.component'
+import { InlineEditComponent } from './custom/inline-edit.component'
+import { ProductListComponent } from './product-list/product-list.component'
 
 const appRoutes: Routes = [
     { path: '', component: HomeComponent},
@@ -14,6 +15,8 @@ const appRoutes: Routes = [
     { path: 'register', component: RegisterComponent },
     { path: 'profile', component:  ProfileComponent },
     { path: 'custom', component:  InlineEditComponent },
+    { path: 'products', component: ProductListComponent },
+    // { path: 'products/:product_id',component: ProductDetail },
 ];
 
 export const routing = RouterModule.forRoot(appRoutes);
