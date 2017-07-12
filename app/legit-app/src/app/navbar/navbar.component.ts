@@ -21,7 +21,7 @@ export class NavbarComponent implements OnInit {
       private dialogService:DialogService, 
       private authenticationService: AuthenticationService,
       private router: Router) {
-    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+      this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
         console.log("CURRENT USER: " + this.currentUser)
         if(this.currentUser!=null){
             this.authenticated = true;

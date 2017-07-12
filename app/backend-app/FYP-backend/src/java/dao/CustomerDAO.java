@@ -136,6 +136,36 @@ public class CustomerDAO {
         } finally {
             ConnectionManager.close(conn, stmt, rs);
         }
+     }
+        
+        public static void updateCustomer(String email, String firstName, String lastName, String phoneNumber, String address, String postalCode, String password ) {
+            Connection conn = null;
+            PreparedStatement stmt = null;
+            ResultSet rs = null;
+            String sql = "update customer set first_name=?, last_name=?, phone_number=?, address=?, country=?, postal_code=?, password=? where email=?";
+ 
+            try {
+                conn = ConnectionManager.getConnection();
+                stmt = conn.prepareStatement(sql);
+              
+                stmt.setString(1,firstName);
+                stmt.setString(2, lastName);
+                stmt.setString(3, phoneNumber);
+                stmt.setString(4, address);
+                stmt.setString(5, "Singapore");
+                stmt.setString(6, postalCode);
+                stmt.setString(7, password);
+                stmt.setString(8, email);
+       
+
+                stmt.executeUpdate();
+
+            } catch (SQLException ex) {
+                handleSQLException(ex, sql);
+            } finally {
+                ConnectionManager.close(conn, stmt, rs);
+            }
+    
     
     }
     

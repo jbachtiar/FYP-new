@@ -27,7 +27,7 @@ public class tokenManagement {
     public static void main(String[] args) {
         String token = (createJWT("huiyan", "clarissa", "token"));   
         System.out.println(token);
-        parseJWT(token);
+        System.out.println(parseJWT(token));
         
     }
     
@@ -63,16 +63,17 @@ public class tokenManagement {
     }
     
     //JWT validation
-    public static void parseJWT(String jwt) {
+    public static String parseJWT(String jwt) {
  
     //This line will throw an exception if it is not a signed JWS (as expected)
-    Claims claims = Jwts.parser()         
-       .setSigningKey(DatatypeConverter.parseBase64Binary("z4z4Lab#?DUQVP4&"))
-       .parseClaimsJws(jwt).getBody();
-    System.out.println("ID: " + claims.getId());
-    System.out.println("Subject: " + claims.getSubject());
-    System.out.println("Issuer: " + claims.getIssuer());
-    System.out.println("Expiration: " + claims.getExpiration());
+        Claims claims = Jwts.parser()         
+           .setSigningKey(DatatypeConverter.parseBase64Binary("z4z4Lab#?DUQVP4&"))
+           .parseClaimsJws(jwt).getBody();
+        return claims.getId();
+      /*System.out.println("ID: " + claims.getId());
+        System.out.println("Subject: " + claims.getSubject());
+        System.out.println("Issuer: " + claims.getIssuer());
+        System.out.println("Expiration: " + claims.getExpiration()); */
     }
     
 }
