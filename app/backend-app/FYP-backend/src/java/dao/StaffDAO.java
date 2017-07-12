@@ -54,6 +54,39 @@ public class StaffDAO {
         
     }
     
+    public static String updateStaff(Staff s){
+        
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+       
+        String sql = "UPDATE Staff SET first_name = ?, last_name = ?, phone_num = ?, password = ?, role_code = ? WHERE email =?";
+        
+        try {
+            
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(6, s.getEmail());
+            stmt.setString(1, s.getFirstName());
+            stmt.setString(2, s.getLastName());
+            stmt.setString(3, s.getPhoneNumber());
+            stmt.setString(4, s.getPassword());
+            stmt.setString(5, s.getRoleCode());
+            
+            stmt.executeUpdate();
+
+        } catch (SQLException ex) {
+            
+           handleSQLException(ex, sql);
+            
+        } finally {
+            ConnectionManager.close(conn, stmt, rs);
+        }
+        
+        return "Success";
+        
+    }
+    
     public static Staff retrieveStaffByEmail(String email) {
         Connection conn = null;
         PreparedStatement stmt = null;

@@ -6,7 +6,7 @@
 package webServices;
 
 //import javax.ws.rs.GET;
-import com.google.gson.Gson;
+    import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dao.CustomerDAO;
 import dao.StaffDAO;
@@ -113,6 +113,7 @@ public class Authentication {
                             //responseMap.put("address", address);
                             //responseMap.put("status", STATUS_OK);
                             responseMap.put("status", status);
+                            responseMap.put("user", email);
                         } else {
                             status = "Invalid password";
                             responseMap.put("status", status);
