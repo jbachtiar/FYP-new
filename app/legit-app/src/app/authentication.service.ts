@@ -18,15 +18,15 @@ export class AuthenticationService {
         return this._http.post('http://localhost:8084/FYP-backend/API/authentication/login',params.toString(), {headers: headers} )
             .map(res => {
                 // login successful if there's a jwt token in the response
-                let user = res.json();
-                if (user && user.token) {
+                let responseJson = res.json();
+                if (responseJson && responseJson.token) {
                     console.log("USER: " + user);
                     console.log("TOKEN:" + user.token);
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
                     localStorage.setItem('currentUser', JSON.stringify(user));
                     localStorage.setItem('token', user.token);
                 }
-                return user;
+                return responseJson;
             });
         }
 
