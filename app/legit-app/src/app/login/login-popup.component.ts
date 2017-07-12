@@ -53,8 +53,8 @@ export class LoginPopupComponent extends DialogComponent<LoginPopupModel, boolea
         //   });
             res => {
                 console.log("RES: " + res);
-                if(res.status === 'Login successful'){
-                    console.log("RES STATUS :" + res.status);
+                if(res.status === '200'){
+                    console.log("RES STATUS :" + "Login successful");
                     this.confirm()
                     // this.router.navigate([this.returnUrl]);
                 }else{

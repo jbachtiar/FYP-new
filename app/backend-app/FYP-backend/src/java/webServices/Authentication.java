@@ -53,7 +53,7 @@ public class Authentication {
                         if(password.equals(customer.getPassword())){
                             //out.println("exist");
                             //String name = customer.getName();
-                            status = "Login successful";
+                            status = "200";
                             token = tokenManagement.createJWT(email, "highlander", "login");
                             //String address = fireStation.getAddress();
                             //responseMap.put("Customer ", name);

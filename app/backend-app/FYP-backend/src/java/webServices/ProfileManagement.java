@@ -40,21 +40,29 @@ public class ProfileManagement {
         String status = "";
         String email=tokenManagement.parseJWT(token);
         Customer customer=CustomerDAO.retrieveCustomerByEmail(email);
-        String firstName= customer.getFirstName();
-        String lastName =customer.getLastName();
-        String phoneNumber=customer.getPhoneNumber();
-        String address=customer.getAddress();
-        String postalCode=customer.getPostalCode();
-        String password=customer.getPassword();
         
-        responseMap.put("firstName", firstName);
-        responseMap.put("lastName", lastName );
-        responseMap.put("phoneNumber", phoneNumber);
-        responseMap.put("address", address);
-        responseMap.put("postalCode", postalCode);
-        responseMap.put("password", password);
-        status="Retrieve successful";
-        responseMap.put("status", status);
+        if (customer == null) {
+            status = "User not found";
+            //responseMap.put("status", STATUS_NOT_FOUND);
+            responseMap.put("status", status);
+        }else{
+            
+            String firstName= customer.getFirstName();
+            String lastName =customer.getLastName();
+            String phoneNumber=customer.getPhoneNumber();
+            String address=customer.getAddress();
+            String postalCode=customer.getPostalCode();
+            String password=customer.getPassword();
+
+            responseMap.put("firstName", firstName);
+            responseMap.put("lastName", lastName );
+            responseMap.put("phoneNumber", phoneNumber);
+            responseMap.put("address", address);
+            responseMap.put("postalCode", postalCode);
+            responseMap.put("password", password);
+            status="200";
+            responseMap.put("status", status);
+        }
        
          //responseMap.put("status", STATUS_ERROR_NULL_PASSWORD);
         return gson.toJson(responseMap);
@@ -79,7 +87,7 @@ public class ProfileManagement {
         }else{
         
             CustomerDAO.updateCustomer(email,firstName,lastName, phoneNumber, address, postalCode, password);
-            status = "Update successful";
+            status = "200";
             responseMap.put("status", status);
         }
       

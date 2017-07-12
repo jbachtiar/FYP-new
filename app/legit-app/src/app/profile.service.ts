@@ -25,8 +25,8 @@ export class ProfileService {
         );
         return this._http.post('http://localhost:8084/FYP-backend/API/profile/retrieve',params.toString(), {headers: headers} )
 
-      //  let options = new RequestOptions({ headers: headers, params: params });
-      //  return this._http.get('http://localhost:8084/FYP-backend/API/profile/retrieve', options )
+       // let options = new RequestOptions({ headers: headers, params: params });
+       // return this._http.get('http://localhost:8084/FYP-backend/API/profile/retrieve', options )
             .map(res => {
                 // login successful if there's a jwt token in the response
                 let user = res.json();

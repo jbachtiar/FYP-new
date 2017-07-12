@@ -22,10 +22,10 @@ export class RegisterComponent implements OnInit {
     this.registrationService.register(this.user.firstName, this.user.lastName, this.user.email, this.user.contact, this.user.address, this.user.postalCode, this.user.password )
       .subscribe(
           res => {
-            if(res.status === 'Login successful'){
-              console.log(res.status);
+            if(res.status === '200'){
+              console.log("Login successful");
             }else{
-              console.log(res.status);
+              console.log("Login failed");
             }
           }
     )

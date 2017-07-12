@@ -38,7 +38,7 @@ public class Registration {
     
          
         CustomerDAO.insertCustomer(email,firstName,lastName, phoneNumber, address, postalCode, password);
-        status = "Insert successful";
+        status = "200";
                  
         responseMap.put("status", status);
       

@@ -35,8 +35,8 @@ constructor(private profileService: ProfileService  ) {
     
      this.profileService.displayProfile(this.token).subscribe(
           res => {
-            if(res.status === 'Retrieve successful'){
-              console.log("display service is called");
+            if(res.status === '200'){
+              console.log("Retrieve successful");
               this.customer=this.profileService.getCustomer();
               this.firstName= this.customer.firstName;
               this.lastName= this.customer.lastName;
@@ -46,6 +46,7 @@ constructor(private profileService: ProfileService  ) {
               this.password= this.customer.password;
             
             }else{
+                console.log("Retrieve failed");
               
             }
           }
@@ -62,10 +63,10 @@ constructor(private profileService: ProfileService  ) {
     this.profileService.updateProfile(this.token, this.firstName, this.lastName, this.contact, this.address, this.postalCode, this.password)
     .subscribe(
           res => {
-          if(res.status === 'Update successful'){
-              console.log(res.status);
+          if(res.status === '200'){
+              console.log("Update successful");
             }else{
-              console.log(res.status);
+              console.log("Update failed");
             }
           }
     )
