@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -48,6 +49,36 @@ public class StaffRoleDAO {
             ConnectionManager.close(conn, stmt, rs);
         }
         return staffRole;
+    }
+    
+    public static ArrayList<StaffRole> retrieveAllRole() {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        StaffRole staffRole = null;
+        ArrayList<StaffRole> staffList = null;
+        
+        String sql = "SELECT * FROM staff_role"; 
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            rs = stmt.executeQuery();
+            
+            while (rs.next()) {
+                String roleCode = rs.getString(1);
+                String roleName = rs.getString(2);
+                
+              
+                staffRole = new StaffRole(roleCode, roleName);
+                staffList.add(staffRole);
+            }
+
+        } catch (SQLException ex) {
+            handleSQLException(ex, sql);
+        } finally {
+            ConnectionManager.close(conn, stmt, rs);
+        }
+        return staffList;
     }
     
    
