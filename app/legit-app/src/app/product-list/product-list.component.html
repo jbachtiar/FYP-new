@@ -1,15 +1,37 @@
-<div class="container-fluid-offset-2">
-  <div class = "text-center">
-    <div class="row">
-      <div *ngFor="let product of pagedProducts">
-        <div class="col-sm-4">
-          <!--url('/assets/images/floral_bg.jpg')-->
-          <img src="/assets/images/product_{{product.id}}.png" alt="..." class="img-thumbnail" (click)="onSelect(product)"><br/>
-          <h5><a (click)="onSelect(product)">{{product.name}}</a></h5>
-          <h6> Starting from ${{product.price}} </h6><br/><br/>
+<head>
+    <title></title>
+    <style>
+        .container {
+           height: 1000px
+        }
+
+    </style>
+   
+</head>
+
+<div class ="container" (mouseout)= mouseOut()>
+
+<div class="container-fluid-offset-6" >
+   <div class = "text-center">
+        <div class="row">
+            <div  *ngFor="let product of pagedProducts" >
+                <div class="col-sm-4">
+                    <div  (mouseenter)= mouseEnter(product.id) >
+                        <!--url('/assets/images/floral_bg.jpg')-->
+                        <img style="height:400px;width:610px" onmouseover="this.style='height:350px;width:610px'" onmouseout="this.style='height:400px;width:610px'" src="/assets/images/product_{{product.id}}.png" alt="..." class="img-thumbnail" (click)="onSelect(product)"><br/> 
+            <!--      <img style="height:400px;width:610px"  src="/assets/images/product_{{product.id}}.png" alt="..." class="img-thumbnail" (click)="onSelect(product)"><br/> -->
+                    </div>
+            
+                    <div  *ngIf = "product.quickView" height="100px" (click)=showQuickView()>QUICK VIEW</div> 
+                        <!--  <div [hidden]="!product.quickView"  height="30px" width="610px" (click)=showQuickView()>QUICK VIEW</div> -->
+                    <h5><a (click)="onSelect(product)">{{product.name}}</a></h5>
+                    <h6> Starting from ${{product.price}} </h6><br/><br/>
+                </div>
+            </div>
         </div>
-      </div>
-  </div>
+    </div>
+</div>
+
 </div>
 <!-- pager -->
 <div class="text-center">

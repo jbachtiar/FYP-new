@@ -49,4 +49,14 @@ export class ProductListComponent implements OnInit {
         // get current page of items
         this.pagedProducts = this.products.slice(this.pager.startIndex, this.pager.endIndex + 1);
   }
+
+  mouseEnter(productId){
+    this.products[productId-1].quickView=true;
+  }
+
+  mouseOut(){
+    for(var i=0; i<this.products.length; i++){
+      this.products[i].quickView=false;
+    }
+  }
 }
