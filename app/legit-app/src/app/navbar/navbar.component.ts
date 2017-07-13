@@ -14,16 +14,16 @@ import { DialogService } from "ng2-bootstrap-modal";
   providers: [AuthenticationService]
 })
 export class NavbarComponent implements OnInit {
-    private currentUser;
+    private token;
     private authenticated = false;
 
   constructor(
       private dialogService:DialogService, 
       private authenticationService: AuthenticationService,
       private router: Router) {
-      this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        console.log("CURRENT USER: " + this.currentUser)
-        if(this.currentUser!=null){
+        this.token = localStorage.getItem('token');
+        console.log("TOKEN: " + this.token)
+        if(this.token!=null){
             this.authenticated = true;
         }
         console.log("AUTHENTICATED: " + this.authenticated);
