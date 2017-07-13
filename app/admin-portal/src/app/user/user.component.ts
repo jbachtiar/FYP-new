@@ -19,7 +19,7 @@ export class UserComponent implements OnInit {
     this.email = "ming@ming.com";
     this.firstName = "Ming";
     this.lastName = "Highlander";
-    this.phoneNumber = "123123123";
+    this.phoneNumber = "231";
     this.password = "Ming123";
     this.roleCode = "Admin"
   }
@@ -33,7 +33,7 @@ export class UserComponent implements OnInit {
     .subscribe(
               res => {
                 if(res.status === 'Profile Updated Successfully'){
-                  console.log(res.status);
+                  console.log(res.status);                                          
                 }else{
                   console.log(res.status);
                 }

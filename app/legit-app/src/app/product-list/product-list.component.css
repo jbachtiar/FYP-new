@@ -1,0 +1,73 @@
+img{
+    border: 0px;
+}
+
+img:hover {
+    box-shadow: 3px 3px 5px 5px #888888
+}
+
+
+.overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: white;
+  opacity: 20%;
+  overflow: hidden;
+  width: 100%;
+  height: 0;
+  transition: .5s ease;
+}
+
+.quickview {
+  position: relative;
+}
+.quickview:hover .overlay {
+  height: 15%;
+}
+
+.quickview-text {
+  white-space: nowrap; 
+  color: #888888;
+  font-size: 18px;
+  position: absolute;
+  overflow: hidden;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+}
+
+img{
+    width: 1000px;
+    
+}
+
+.product-name{
+    font-size: 24px;
+    color: goldenrod; 
+}
+
+.product-price{
+    font-size: 18px;
+    color: black; 
+}
+
+.page-tab{
+    color: #888888; 
+    border: 0px;
+}
+.page-tab:hover {
+    color: goldenrod; 
+    border: 0px;
+    border-radius: 0px;
+    background: lightgray; 
+}
+
+.page-tab:active,:target, :focus {
+    color: lightgray; 
+    border: 0px;
+    border-radius: 0px;
+    background: goldenrod; 
+}
