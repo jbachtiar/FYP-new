@@ -1,0 +1,85 @@
+    <div class="container-fluid" >
+        <div class="row">
+            <div class="col-lg-4 col-md-7">
+                <div class="card card-user">
+                    <div class="image">
+                        <img src="assets/img/background.jpg" alt="..."/>
+                    </div>
+                    <div class="content">
+                        <div class="author">
+                          <img class="avatar border-white" src="assets/img/user.png" alt="..."/>
+                          <h4 class="title">{{firstName}} {{lastName}}<br />
+                             <a href="#"><small>{{roleCode}}</small></a>
+                          </h4>
+                        </div>
+                    </div>
+                  
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-7">
+                <div class="card">
+                    <div class="header">
+                        <h4 class="title">Edit Profile</h4>
+                    </div>
+                    <hr>
+                    <div class="content">
+                        <form name="form" (ngSubmit)="updateProfile()" #f="ngForm" novalidate>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Email Address</label>
+                                        <input type="email" class="form-control border-input" placeholder="Email" value={{email}} disabled>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Phone Number</label>
+                                        <input type="text" class="form-control border-input" placeholder="Phone Number" value={{phoneNumber}}>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>First Name</label>
+                                        <input type="text" class="form-control border-input" placeholder="First Name" value={{firstName}} disabled> 
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Last Name</label>
+                                        <input type="text" class="form-control border-input" placeholder="Last Name" value={{lastName}} disabled>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Password</label>
+                                        <input type="password" class="form-control border-input" placeholder="Password" value={{password}}> 
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Confirm Password</label>
+                                        <input type="password" class="form-control border-input" placeholder="Confirm Password">
+                                    </div>
+                                </div>
+                            </div>
+                            
+
+
+
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-info btn-fill btn-wd">Update Profile</button>
+                            </div>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>

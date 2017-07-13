@@ -1,0 +1,76 @@
+    <div class="container-fluid" >
+        <div class="row">
+            <div class="col-lg-6 col-md-5">
+                <div class="card">
+                    <div class="header">
+                        <h4 class="title">Add New Staff</h4>
+                    </div>
+                    <hr>
+                    <div class="content">
+                        <form name="form" (ngSubmit)="addNewStaff()" #f="ngForm" novalidate>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Email address</label>
+                                        <input type="text" class="form-control border-input" [(ngModel)]="newUser.email" name="email" placeholder="Email" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Phone Number</label>
+                                        <input type="text" class="form-control border-input" [(ngModel)]="newUser.phoneNumber" name="phoneNumber"placeholder="Phone Number" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>First Name</label>
+                                        <input type="text" class="form-control border-input" [(ngModel)]="newUser.firstName" name="firstName"  placeholder="First Name" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Last Name</label>
+                                        <input type="text" class="form-control border-input" [(ngModel)]="newUser.lastName" name="lastName" placeholder="Last Name" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Password</label>
+                                        <input type="password" class="form-control border-input" [(ngModel)]="newUser.password" name="newPassword" placeholder="Password" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Role Code</label>
+                                        <input type="text" class="form-control border-input" [(ngModel)]="newUser.roleCode" name="roleCode" placeholder="Role Code" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="text-center">
+                                <button class="btn btn-info btn-fill btn-wd">Add Staff</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-5">
+                <div class="card">
+                    <div class="header">
+                        <h4 class="title">Staff List</h4>
+                    </div>
+                    <hr>
+                    <div class="content">
+                        
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>

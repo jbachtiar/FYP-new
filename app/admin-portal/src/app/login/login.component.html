@@ -1,0 +1,23 @@
+
+
+    <div class="col-lg-4 col-md-4 col-xs-10 col-xs-offset-1 col-md-offset-4 col-lg-offset-4">
+        <div class="card">
+            <h2 style="text-align:center">Login</h2>
+            <form name="form" (ngSubmit)="login()" #f="ngForm" novalidate>
+                <div class="col-md-10 col-md-offset-1 form-group" [ngClass]="{ 'has-error': f.submitted && !email.valid }">
+                    <label for="email">Email</label>
+                    <input placeholder ="Email" type="text" class="card-input form-control" name="email" [(ngModel)]="user.email" #email="ngModel" required />
+                    <div *ngIf="f.submitted && !email.valid" class="help-block">Email is required</div>
+                </div>
+                <div class=" col-md-10 col-md-offset-1 form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+                    <label for="password">Password</label>
+                    <input placeholder="Password" type="password" class="card-input form-control" name="password" [(ngModel)]="user.password" #password="ngModel" required />
+                    <div *ngIf="f.submitted && !password.valid" class="help-block">Password is required</div>
+                </div>
+                <div class="form-group" style="text-align:center">
+                    <button style="margin-bottom : 10px" [disabled]="loading" class="btn btn-primary">Login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
