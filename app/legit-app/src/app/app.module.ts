@@ -17,6 +17,8 @@ import { ProfileComponent } from './profile/profile.component'
 import { ProductListComponent } from './product-list/product-list.component';
 import { InlineEditComponent } from './custom/inline-edit.component';
            
+import { CONFIG } from './config/config.component';
+
 import { AuthenticationService } from './authentication.service'
 import { RegistrationService } from './registration.service'
 import { ProfileService } from './profile.service'
