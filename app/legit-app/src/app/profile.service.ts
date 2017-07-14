@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
+import { CONFIG } from './config/config.component'
 
 
 @Injectable()
@@ -20,10 +21,12 @@ export class ProfileService {
         let params: URLSearchParams = new URLSearchParams();
         params.set('token', token);
         let headers= new Headers();
+        let url = CONFIG.profileBackendUrl;
+
         headers.append (
            'Content-type','application/x-www-form-urlencoded'
         );
-        return this._http.post('http://localhost:8084/FYP-backend/API/profile/retrieve',params.toString(), {headers: headers} )
+        return this._http.post(url+'/retrieve',params.toString(), {headers: headers} )
 
        // let options = new RequestOptions({ headers: headers, params: params });
        // return this._http.get('http://localhost:8084/FYP-backend/API/profile/retrieve', options )
@@ -57,7 +60,8 @@ export class ProfileService {
         headers.append (
            'Content-type','application/x-www-form-urlencoded'
         );
-        return this._http.post('http://localhost:8084/FYP-backend/API/profile/update',params.toString(), {headers: headers} )
+        let url = CONFIG.profileBackendUrl;
+        return this._http.post(url + '/update',params.toString(), {headers: headers} )
              .map(res => res.json());
                 
             

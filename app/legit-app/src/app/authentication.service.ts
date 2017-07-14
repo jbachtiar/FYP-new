@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+
 import 'rxjs/add/operator/map'
+import { CONFIG } from './config/config.component';
+
 
 @Injectable()
 export class AuthenticationService {
@@ -15,7 +18,7 @@ export class AuthenticationService {
         headers.append (
            'Content-type','application/x-www-form-urlencoded'
         );
-        return this._http.post('http://localhost:8084/FYP-backend/API/authentication/login',params.toString(), {headers: headers} )
+        return this._http.post(CONFIG.authenticationBackendUrl,params.toString(), {headers: headers} )
             .map(res => {
                 // login successful if there's a jwt token in the response
                 let responseJson = res.json();
