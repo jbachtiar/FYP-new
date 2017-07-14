@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+
 import { RegistrationService } from '../registration.service'
 
 @Component({
@@ -10,10 +12,17 @@ import { RegistrationService } from '../registration.service'
 export class RegisterComponent implements OnInit {
   private user: any = {};
   private loading: boolean = false;
+  private returnUrl: string;
+
   
-  constructor(private registrationService: RegistrationService) { }
+  constructor(
+    private registrationService: RegistrationService,
+    private route: ActivatedRoute,
+    private router: Router,) { }
 
   ngOnInit() {
+    // this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    this.returnUrl = '/'
   }
 
   register(){
@@ -23,9 +32,10 @@ export class RegisterComponent implements OnInit {
       .subscribe(
           res => {
             if(res.status === '200'){
-              console.log("Login successful");
+              console.log("Registration successful");
+              this.router.navigate([this.returnUrl]);
             }else{
-              console.log("Login failed");
+              console.log("Registration failed");
             }
           }
     )
