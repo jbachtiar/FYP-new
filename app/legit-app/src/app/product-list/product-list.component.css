@@ -2,7 +2,7 @@ img{
     border: 0px;
 }
 
-img:hover {
+.img-product:hover {
     box-shadow: 3px 3px 5px 5px #888888
 }
 
@@ -37,26 +37,25 @@ img:hover {
   left: 50%;
   transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
-}
-
-img{
-    width: 1000px;
-    
+  font-family: Georgia;
 }
 
 .product-name{
     font-size: 24px;
-    color: goldenrod; 
+    color: goldenrod;
+    font-family: Georgia; 
 }
 
 .product-price{
     font-size: 18px;
     color: black; 
+    font-family: Georgia;
 }
 
 .page-tab{
     color: #888888; 
     border: 0px;
+    font-family: Georgia; 
 }
 .page-tab:hover {
     color: goldenrod; 
@@ -65,9 +64,42 @@ img{
     background: lightgray; 
 }
 
-.page-tab:active,:target, :focus {
+.page-tab:active, select {
     color: lightgray; 
     border: 0px;
     border-radius: 0px;
-    background: goldenrod; 
+    background: goldenrod;
+    font-family: Georgia; 
+}
+
+.parallax {
+    /* The image used */
+    background-image: url("/assets/images/fabric-bg.jpg");
+
+    /* Set a specific height */
+    min-height: 400px; 
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+p{
+    color: goldenrod;
+    font-size: 16px;
+    margin-top: 20px;
+    margin-bottom: 40px;
+    font-family: Georgia;
+}
+
+.fabric-title{
+    color : white;
+    font-size: 30px;
+    letter-spacing: 5px;
+    line-height: 400px;
+    text-shadow: 3px 3px 10px black;
+    font-family: Georgia;
+    border: 10px double white;
 }

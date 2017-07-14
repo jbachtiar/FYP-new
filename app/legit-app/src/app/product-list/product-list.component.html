@@ -1,11 +1,20 @@
+<div class="parallax text-center">
+    <p class="fabric-title">FABRIC</p>
+</div>
+
 <div class="container">
   <div class = "text-center">
+    <div class="row">
+              <p class="col-md-8 col-md-offset-2">I'm a paragraph. Click here to add your own text and edit me. It’s easy. Just click “Edit Text” or double click me to add your own content and make changes to the font. I’m a great place for you to tell a story and let your users know a little more about you</p>
+  
+    </div>  
+    <hr>
     <div class="row">
       <div *ngFor="let product of pagedProducts">
         <div class="col-sm-4 col-lg-4 col-md-4">
           <!--url('/assets/images/floral_bg.jpg')-->
           <div class="quickview">
-            <img src="/assets/images/product_{{product.id}}.png" alt="..." class="img-thumbnail" (click)="onSelect(product)"><br/>
+            <img src="/assets/images/product_{{product.id}}.png" alt="..." class="img-thumbnail img-product" (click)="onSelect(product)"><br/>
 
             <div class="overlay">
                 <div class="quickview-text">Quick View</div>

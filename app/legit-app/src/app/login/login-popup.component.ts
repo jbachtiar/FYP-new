@@ -14,6 +14,7 @@ export interface LoginPopupModel {
 @Component({  
     selector: 'login-popup',
     templateUrl: './login-popup.component.html',
+    styleUrls: ['./login-popup.component.css'],
     providers: [AuthenticationService, AlertService]
 })
 export class LoginPopupComponent extends DialogComponent<LoginPopupModel, boolean> implements LoginPopupModel {

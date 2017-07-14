@@ -1,5 +1,16 @@
-h2{
+.modal-content{
+    border-radius: 0px;
+}
+
+.modal-title{
     font-family: Georgia;
+    font-size: 30px;
+    color: #888888;
+}
+
+label{
+    font-family: Georgia;
+    font-size: 14px;
     color: #888888;
 }
 
@@ -20,4 +31,9 @@ input[type=text],[type=password] {
     padding-bottom: 5px;
     padding-left: 40px;
     margin-top: 10px;
+}
+
+button :active{
+    border: 1px solid goldenrod;
+    background-color: black; 
 }
