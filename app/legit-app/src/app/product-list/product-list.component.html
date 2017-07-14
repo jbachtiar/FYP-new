@@ -12,16 +12,15 @@
     <div class="row">
       <div *ngFor="let product of pagedProducts">
         <div class="col-sm-4 col-lg-4 col-md-4">
-          <!--url('/assets/images/floral_bg.jpg')-->
           <div class="quickview">
             <img src="/assets/images/{{product.id}}.png" alt="..." class="img-thumbnail img-product" (click)="onSelect(product)"><br/>
-
             <div class="overlay">
                 <div class="quickview-text">Quick View</div>
             </div>
           </div>
         <h5 class="product-name"><a class="product-name" (click)="onSelect(product)">{{product.name}}</a></h5>
-        <h6 class="product-price"><a class="product-price" style="font-size:12px"> starting from</a> ${{product.price}} </h6>
+        <span class="label label-warning">{{product.collection}}</span>
+        <h6 class="product-price"><a class="product-price" style="font-size:13px"> Starting from</a> ${{product.price}} </h6><br/><br/>
         
         </div>
       </div>
