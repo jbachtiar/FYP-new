@@ -21,15 +21,15 @@ export class NavbarComponent implements OnInit {
       private dialogService:DialogService, 
       private authenticationService: AuthenticationService,
       private router: Router) {
+    }
+
+    ngOnInit() {
         this.token = localStorage.getItem('token');
         console.log("TOKEN: " + this.token)
         if(this.token!=null){
             this.authenticated = true;
         }
         console.log("AUTHENTICATED: " + this.authenticated);
-    }
-
-    ngOnInit() {
     }
 
     showLogin() {
