@@ -27,31 +27,23 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
-  login(){
-    this.loading = true;
-    //calling service
-    this.authenticationService.login(this.user.email, this.user.password)
-      .subscribe(
-          data => {
-            console.log(data);
-            this.router.navigate([this.returnUrl]);
-          },
-          error => {
-            console.log(error);
-            this.alertService.error(error);
-            this.loading = false;
-          });
-          //   if(res.status === 'Login successful'){
-          //     console.log(res.status);
-          //     this.router.navigate([this.returnUrl]);
-          //   }else{
-          //     console.log(res.status);
-          //     this.alertService.error(res.status);
-          //   }
-          // }
-          
-    // )
-    this.loading = false; 
-    
+login(){
+        this.loading = true;
+        //calling service
+        this.authenticationService.login(this.user.email, this.user.password)
+        .subscribe(
+            res => {
+                console.log("RES: " + res);
+                if(res.status === '200'){
+                    console.log("RES STATUS :" + "Login successful");
+                    this.router.navigate([this.returnUrl]);
+                }else{
+                    console.log("RES STATUS :" + res.status);
+                    this.alertService.error(res.status);
+                }
+            }
+        )
+      this.loading = false; 
   }
 }
+
