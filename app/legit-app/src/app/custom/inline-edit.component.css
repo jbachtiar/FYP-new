@@ -1,0 +1,5 @@
+input[type=text],[type=password] {
+    border-radius: 0px;
+    border: none;
+    border-bottom: 1px solid goldenrod;
+}

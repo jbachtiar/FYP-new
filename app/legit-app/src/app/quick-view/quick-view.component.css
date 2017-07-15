@@ -16,7 +16,7 @@
 .modal-dialog {
     position: relative;
     margin: 0 auto;
-    top: 12%;
+    top: 20%;
 }
 
 #container {
@@ -27,3 +27,8 @@
     background-color: rgba(22,22,22,0.5); /* complimenting your modal colors */
 }
 
+.product-name{
+    font-size: 24px;
+    color: goldenrod;
+    font-family: Georgia; 
+}
