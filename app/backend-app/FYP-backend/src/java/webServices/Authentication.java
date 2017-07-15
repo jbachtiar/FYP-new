@@ -6,7 +6,7 @@
 package webServices;
 
 //import javax.ws.rs.GET;
-    import com.google.gson.Gson;
+import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dao.CustomerDAO;
 import dao.StaffDAO;

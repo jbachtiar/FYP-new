@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../product.service'
 import { PagerService } from '../pager.service'
 import { Router } from '@angular/router';
+import { DialogService } from "ng2-bootstrap-modal";
+import { QuickViewComponent } from '../quick-view/quick-view.component';
 
 @Component({
   selector: 'app-product-list',
@@ -22,6 +24,7 @@ export class ProductListComponent implements OnInit {
   constructor(
     private productService:ProductService, 
     private pagerService: PagerService,
+    private dialogService:DialogService, 
     private router: Router) { }
     
   ngOnInit() {
@@ -48,5 +51,24 @@ export class ProductListComponent implements OnInit {
  
         // get current page of items
         this.pagedProducts = this.products.slice(this.pager.startIndex, this.pager.endIndex + 1);
+  }
+
+  showQuickView(productId){
+     let disposable = this.dialogService.addDialog( QuickViewComponent, {
+            title:'QuickView', 
+            message:'',
+            productId: productId})
+          .subscribe((isConfirmed)=>{
+              //We get dialog result
+              if(isConfirmed) {
+                  window.location.reload();
+              }
+              else {
+                  //do nothing
+              }
+          });
+    
+    
+
   }
 }

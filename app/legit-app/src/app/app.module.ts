@@ -4,6 +4,7 @@ import { FormsModule }   from '@angular/forms';
 import { Router } from "@angular/router";
 import { HttpModule } from '@angular/http';
 
+
 import { routing }        from './app.routing';
 
 import { AppComponent } from './app.component';
@@ -22,11 +23,13 @@ import { CONFIG } from './config/config.component';
 import { AuthenticationService } from './authentication.service'
 import { RegistrationService } from './registration.service'
 import { ProfileService } from './profile.service'
+import { ProductService } from './product.service'
 import { AuthGuard } from './guard/auth.guard'
 
 import { BootstrapModalModule } from 'ng2-bootstrap-modal';
 
 import { EqualValidator } from './register/equal-validator.directive';
+import { QuickViewComponent } from './quick-view/quick-view.component';
 
 
 
@@ -42,22 +45,26 @@ import { EqualValidator } from './register/equal-validator.directive';
     ProfileComponent,
     EqualValidator,
     InlineEditComponent,
-    ProductListComponent
+    ProductListComponent,
+    QuickViewComponent,
+    
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     routing,
-    BootstrapModalModule,
+    BootstrapModalModule
+ 
   ],
   providers: [
     AuthenticationService, 
     RegistrationService, 
     ProfileService,
+    ProductService,
     AuthGuard
     ],
   bootstrap: [AppComponent],
-  entryComponents : [LoginPopupComponent]
+  entryComponents : [LoginPopupComponent, QuickViewComponent]
 })
 export class AppModule { }

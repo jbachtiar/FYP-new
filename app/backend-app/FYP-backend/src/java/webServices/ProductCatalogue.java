@@ -17,6 +17,7 @@ import java.sql.SQLException;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 
@@ -89,10 +90,51 @@ public class ProductCatalogue {
                 temp.addProperty("collection", p.getCollection().getCollectionName());
                 patterns.add(temp);
                 
+                
             }
 
             jsonOutput.add("patterns", patterns);
             
+        }catch(SQLException e){
+        
+            jsonOutput.addProperty("status","error");
+            
+        }
+        
+        String finalJsonOutput = gson.toJson(jsonOutput);
+        return finalJsonOutput;
+    }
+    
+    
+    @GET
+    @Path("/pattern")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getPatternById(@QueryParam("productId") String productId){
+        
+        
+      
+        JsonObject jsonOutput = new JsonObject();
+        Gson gson = new GsonBuilder().create();
+        PatternDAO patternDAO = new PatternDAO();
+     
+
+        try{
+            
+            Pattern p = patternDAO.retrievePatternById(productId);
+            if(p==null){
+                jsonOutput.addProperty("status", "Pattern not found");
+           
+            }else{
+                jsonOutput.addProperty("status","200");
+                JsonObject temp = new JsonObject();
+                temp.addProperty("id", p.getPatternID());
+                temp.addProperty("name", p.getPatternName());
+                temp.addProperty("price", p.getPatternPrice());
+                temp.addProperty("collection", p.getCollection().getCollectionName());
+                jsonOutput.add("pattern", temp);
+                
+                 
+            }
         }catch(SQLException e){
         
             jsonOutput.addProperty("status","error");
