@@ -1,33 +1,35 @@
-<div class="modal-dialog">
+<div id="container">
+  <div class="modal-dialog">
 
-  <div class="modal-content">
-    <div class="modal-header">
-      <button type="button" class="close" (click)="close()">&times;</button>
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" (click)="close()">&times;</button>
 
-    </div>
+      </div>
 
-    <div class="modal-body">
+      <div class="modal-body">
 
-      <alert></alert>
+        <alert></alert>
 
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-md-8"><img src="/assets/images/{{productId}}.png" class="img-responsive" alt="Some picture"></div>
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-8"><img src="/assets/images/{{productId}}.png" class="img-responsive" alt="Some picture"></div>
 
-          <div text-left class="col-md-4"><a style="font-size:15px" class="product-name">{{product.name}}</a></div> <br>
-          <span text-left style="font-size:15px" class="label label-warning">{{product.collection}}</span> <br><br>
-          <div text-left class="product-price"><a class="product-price" style="font-size:15px"> Starting from</a> ${{product.price}} </div>
-          <div>
-            <a>
-              <u>View Full Detail</u>
-            </a>
-          </div> <br>
+            <div text-left class="col-md-4"><a style="font-size:15px" class="product-name">{{product.name}}</a></div> <br>
+            <span text-left style="font-size:15px" class="label label-warning">{{product.collection}}</span> <br><br>
+            <div text-left class="product-price"><a class="product-price" style="font-size:15px"> Starting from</a> ${{product.price}} </div>
+            <div>
+              <a>
+                <u>View Full Detail</u>
+              </a>
+            </div> <br>
 
-          <button type="button" class="button" data-dismiss="modal">Add to Cart</button>
+            <button type="button" class="button" data-dismiss="modal">Add to Cart</button>
+          </div>
         </div>
       </div>
+
+
     </div>
-
-
   </div>
 </div>
