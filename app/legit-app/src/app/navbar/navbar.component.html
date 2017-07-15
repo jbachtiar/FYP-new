@@ -1,19 +1,19 @@
 <div class="container-fluid">
-    <a class="navbar-brand" routerLink=''>Highlander</a>
-    <ul class="nav navbar-nav">
-        <li class="nav-item" routerLinkActive = "active" [routerLinkActiveOptions] = "{exact: true}"><a class="nav-link" routerLink=''>Home</a></li>
-        <li class="nav-item" routerLinkActive = "active"><a class="nav-link" routerLink="/about">About</a></li>
-        <li class="nav-item" routerLinkActive = "active"><a class="nav-link" routerLink="/products">Fabrics</a></li>
-        <li class="nav-item" routerLinkActive = "active"><a class="nav-link" routerLink="/accessories">Home Accesssories</a></li>
-        <li class="nav-item" routerLinkActive = "active"><a class="nav-link" routerLink="/contact">Contact</a></li>
-    </ul>
-    <ul class = "nav navbar-nav pull-right">
-        <button *ngIf = "!authenticated" class="btn btn-default" (click)=showLogin()>Login</button>
-        <a routerLink="../register"><button *ngIf = "!authenticated"class="btn btn-default">Register</button> </a>
-        <a routerLink="../profile"><button *ngIf = "authenticated"class="btn btn-default">My Account</button> </a>
-        <button *ngIf = "authenticated"class="btn btn-default" (click)="logout()">Logout</button>
-      
-        <!--<li class="nav-item" routerLinkActive = "active" (click)="showLogin"><a class="nav-link" >Login</a></li>-->
-    </ul>
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <a class="navbar-brand" routerLink=''>Highlander</a>
+        <ul class="nav navbar-nav">
+            <li class="nav-item" routerLinkActive = "active" [routerLinkActiveOptions] = "{exact: true}"><a class="nav-link" routerLink=''>Home</a></li>
+            <li class="nav-item" routerLinkActive = "active"><a class="nav-link" routerLink="/about">About</a></li>
+            <li class="nav-item" routerLinkActive = "active"><a class="nav-link" routerLink="/products">Fabrics</a></li>
+            <li class="nav-item" routerLinkActive = "active"><a class="nav-link" routerLink="/accessories">Home Accesssories</a></li>
+            <li class="nav-item" routerLinkActive = "active"><a class="nav-link" routerLink="/contact">Contact</a></li>
+        </ul>
+        <ul class = "nav navbar-nav pull-right">
+            <button *ngIf = "!authenticated" class="btn btn-default" (click)=showLogin()>Login</button>
+            <a routerLink="../register"><button *ngIf = "!authenticated"class="btn btn-default">Register</button> </a>
+            <a routerLink="../profile"><button *ngIf = "authenticated"class="btn btn-default">My Account</button> </a>
+            <button *ngIf = "authenticated"class="btn btn-default" (click)="logout()">Logout</button>
+        </ul>
+    </nav>
 </div>
 <router-outlet></router-outlet>
