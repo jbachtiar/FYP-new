@@ -61,7 +61,7 @@ export class ProfileService {
         )
 
         let url = CONFIG.profileBackendUrl;
-        return this._http.post(url + '/update',params.toString(), {headers} )
+        return this._http.put(url + '/update',params.toString(), {headers} )
              .map(res => res.json());
                 
             
