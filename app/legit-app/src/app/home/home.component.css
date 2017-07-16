@@ -1,8 +1,72 @@
-body{
-    background-image: url('/assets/images/floral_bg.jpg');
-    background-size: cover;
-    background-position: center center;
+body { 
+    padding-top: 65px; 
+}
+img{
+    border: 0px;
+}
+
+.img-product:hover {
+    box-shadow: 3px 3px 5px 5px #888888
+}
+
+.page-tab{
+    color: #888888; 
+    border: 0px;
+    font-family: Georgia;  
+}
+.page-tab:hover {
+    color: goldenrod; 
+    border: 0px;
+    border-radius: 0px;
+    background: lightgray; 
+}
+
+.page-tab:active, select {
+    color: lightgray; 
+    border: 0px;
+    border-radius: 0px;
+    background: goldenrod;
+    font-family: Georgia; 
+}
+
+.parallax {
+    /* The image used */
+    background-image: url("/assets/images/home.jpg");
+
+    /* Set a specific height */
+    min-height: 400px; 
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
     background-repeat: no-repeat;
-    width: 100%;
-    height: 100%;
-    }
+    background-size: cover;
+}
+
+p{
+    color: goldenrod;
+    font-size: 16px;
+    margin-top: 20px;
+    margin-bottom: 40px;
+    font-family: Georgia;
+}
+
+.home-title{
+    color : white;
+    font-size: 30px;
+    letter-spacing: 5px;
+    line-height: 400px;
+    text-shadow: 3px 3px 10px black;
+    font-family: Georgia;
+    border: 10px double white;
+}
+
+hr {
+    border: 0;
+    clear:both;
+    display:block;
+    width: 96%;                
+    background-color: goldenrod;
+    height: 1px;
+}
+

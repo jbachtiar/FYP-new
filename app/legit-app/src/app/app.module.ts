@@ -4,7 +4,6 @@ import { FormsModule }   from '@angular/forms';
 import { Router } from "@angular/router";
 import { HttpModule } from '@angular/http';
 
-
 import { routing }        from './app.routing';
 
 import { AppComponent } from './app.component';
@@ -30,6 +29,7 @@ import { BootstrapModalModule } from 'ng2-bootstrap-modal';
 
 import { EqualValidator } from './register/equal-validator.directive';
 import { QuickViewComponent } from './quick-view/quick-view.component';
+import { FooterComponent } from './footer/footer.component';
 
 
 
@@ -47,6 +47,7 @@ import { QuickViewComponent } from './quick-view/quick-view.component';
     InlineEditComponent,
     ProductListComponent,
     QuickViewComponent,
+    FooterComponent,
     
   ],
   imports: [
@@ -54,8 +55,7 @@ import { QuickViewComponent } from './quick-view/quick-view.component';
     FormsModule,
     HttpModule,
     routing,
-    BootstrapModalModule
- 
+    BootstrapModalModule,
   ],
   providers: [
     AuthenticationService, 
