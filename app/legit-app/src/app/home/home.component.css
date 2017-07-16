@@ -9,6 +9,37 @@ img{
     box-shadow: 3px 3px 5px 5px #888888
 }
 
+h5{
+    font-family: garamond,serif;
+    font-size: 15px;
+    color:#B0A171;
+}
+
+p.solid {
+    border-style: solid;
+    border-color: #B0A171;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    padding: 5px;
+    color: #B0A171;
+}
+
+p.separator{
+    border-style: solid;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    border-color: #B0A171;
+    border-width: 8px;
+    width: 8%;
+    
+}
+
+p.solid:hover{
+    color:white;
+    background-color: #B0A171;
+}
+
 .page-tab{
     color: #888888; 
     border: 0px;
@@ -31,10 +62,9 @@ img{
 
 .parallax {
     /* The image used */
-    background-image: url("/assets/images/home.jpg");
+    background-image: url("/assets/images/home2.jpg");
 
-    /* Set a specific height */
-    min-height: 400px; 
+    min-height: 550px; 
 
     /* Create the parallax scrolling effect */
     background-attachment: fixed;
@@ -43,12 +73,22 @@ img{
     background-size: cover;
 }
 
-p{
+.row-header{
     color: goldenrod;
     font-size: 16px;
     margin-top: 20px;
     margin-bottom: 40px;
     font-family: Georgia;
+}
+
+.header-title{
+    font-size: 30px;
+    font-family: impact,impact-w01-2010,impact-w02-2010,impact-w10-2010,sans-serif;
+    color: #B0A171;
+}
+
+.header-intro{
+    color: #4D4B4B;
 }
 
 .home-title{
@@ -59,14 +99,12 @@ p{
     text-shadow: 3px 3px 10px black;
     font-family: Georgia;
     border: 10px double white;
+    min-height: 550px; 
 }
 
-hr {
-    border: 0;
-    clear:both;
-    display:block;
-    width: 96%;                
-    background-color: goldenrod;
-    height: 1px;
+row.img{
+    width: 50px;
+    height: 50px;
 }
+
 
