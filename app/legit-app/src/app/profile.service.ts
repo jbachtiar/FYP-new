@@ -18,15 +18,14 @@ export class ProfileService {
     constructor(private _http: Http) { }
     
     displayProfile(token: string){
-        let params: URLSearchParams = new URLSearchParams();
-        params.set('token', token);
+      //  let params: URLSearchParams = new URLSearchParams();
+      //  params.set('token', token);
         let headers= new Headers();
         let url = CONFIG.profileBackendUrl;
 
-        headers.append (
-           'Content-type','application/x-www-form-urlencoded'
-        );
-        return this._http.post(url+'/retrieve',params.toString(), {headers: headers} )
+        headers.append ('Authorization', token);
+
+        return this._http.get(url+'/retrieve', {headers} )
 
        // let options = new RequestOptions({ headers: headers, params: params });
        // return this._http.get('http://localhost:8084/FYP-backend/API/profile/retrieve', options )
@@ -47,9 +46,8 @@ export class ProfileService {
             });
         }
 
-        updateProfile(token: string , firstName: string, lastName:string, contact:string, address: string, postalCode: string, password: string){
+    updateProfile(token: string , firstName: string, lastName:string, contact:string, address: string, postalCode: string, password: string){
         let params: URLSearchParams = new URLSearchParams();
-        params.set('token', token);
         params.set('firstName', firstName);
         params.set('lastName', lastName);
         params.set('phoneNumber',contact);
@@ -57,16 +55,18 @@ export class ProfileService {
         params.set('postalCode', postalCode);
         params.set('password', password);
         let headers= new Headers();
+        headers.append ('Authorization', token);
         headers.append (
            'Content-type','application/x-www-form-urlencoded'
-        );
+        )
+
         let url = CONFIG.profileBackendUrl;
-        return this._http.post(url + '/update',params.toString(), {headers: headers} )
+        return this._http.post(url + '/update',params.toString(), {headers} )
              .map(res => res.json());
                 
             
 
-        }
+    }
 
    
 

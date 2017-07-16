@@ -5,20 +5,18 @@
  */
 package webServices;
 
-//import javax.ws.rs.GET;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dao.CustomerDAO;
 import entity.Customer;
 import java.util.HashMap;
 import javax.ws.rs.FormParam;
-//import javax.ws.rs.MatrixParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
-//import javax.ws.rs.MatrixParam;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-//import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import tokenManagement.tokenManagement;
 
@@ -30,14 +28,15 @@ import tokenManagement.tokenManagement;
 @Path("/profile")
 public class ProfileManagement {
     
-    @POST
+    @GET
     @Path("/retrieve")
     @Produces(MediaType.APPLICATION_JSON)
-    public String retrieve (@FormParam("token") String token){
+    public String retrieve (@Context HttpHeaders httpHeaders){
         //String password = CustomerDAO.retrievePasswordByEmail(email);
         HashMap<String, String> responseMap = new HashMap<>();
         Gson gson = new GsonBuilder().create();
-        String status = "";
+        String status;
+        String token = httpHeaders.getRequestHeader("Authorization").get(0);
         String email=tokenManagement.parseJWT(token);
         Customer customer=CustomerDAO.retrieveCustomerByEmail(email);
         
@@ -71,12 +70,12 @@ public class ProfileManagement {
       @POST
       @Path("/update")
       @Produces(MediaType.APPLICATION_JSON)
-      public String updateCustomer (@FormParam("token") String token,@FormParam("firstName") String firstName, @FormParam("lastName") String lastName, @FormParam("phoneNumber") String phoneNumber, @FormParam("address") String address, @FormParam("postalCode") String postalCode, @FormParam("password") String password){
+      public String updateCustomer (@Context HttpHeaders httpHeaders, @FormParam("firstName") String firstName, @FormParam("lastName") String lastName, @FormParam("phoneNumber") String phoneNumber, @FormParam("address") String address, @FormParam("postalCode") String postalCode, @FormParam("password") String password){
         //String password = CustomerDAO.retrievePasswordByEmail(email);
         HashMap<String, String> responseMap = new HashMap<>();
         Gson gson = new GsonBuilder().create();
-        String status = "";
-       
+        String status;
+        String token = httpHeaders.getRequestHeader("Authorization").get(0);
         String email=tokenManagement.parseJWT(token);
         Customer customer = CustomerDAO.retrieveCustomerByEmail(email);
                 
