@@ -19,8 +19,8 @@
             <span text-left class="col-md-4" style="font-size:15px" class="label label-warning">{{product.collection}}</span> <br><br>
             <div text-left class="product-price"><a class="product-price" style="font-size:15px"> Starting from</a> ${{product.price}} </div>
             <div> <br>
-              <a>
-                <u>View Full Detail</u>
+              <a  [routerLink]="['/productDetails', productId]">
+                <u (click)=closeModal()>View Full Detail</u>
               </a>
             </div> <br>
             <button type="button" class="button" data-dismiss="modal">Add to Cart</button>
