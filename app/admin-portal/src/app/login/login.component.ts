@@ -27,10 +27,11 @@ export class LoginComponent implements OnInit {
         this.authenticationService.login(this.user.email, this.user.password)
           .subscribe(
               res => {
-                if(res.status === 'Login successful'){
+                if(res.status === '200'){
                   console.log(res.status);
                   console.log(res.user);
-                  this.router.navigate(['./homepage']);
+                  //this.router.navigate(['./homepage']);
+                  window.location.reload();
                 }else{
                   console.log(res.status);
                 }

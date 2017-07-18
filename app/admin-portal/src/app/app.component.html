@@ -1,6 +1,7 @@
 <!--The whole content below can be removed with the new code.-->
 <div>
-    <homepage></homepage>
+    <login *ngIf = "!authenticated"></login>
+    <homepage *ngIf = "authenticated"></homepage>
 </div>
 
 

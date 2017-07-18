@@ -7,4 +7,15 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app';
+  private token;
+  private authenticated = false;
+
+  ngOnInit() {
+        this.token = localStorage.getItem('token');
+        console.log("TOKEN: " + this.token)
+        if(this.token!=null){
+            this.authenticated = true;
+        }
+        console.log("AUTHENTICATED: " + this.authenticated);
+    }
 }

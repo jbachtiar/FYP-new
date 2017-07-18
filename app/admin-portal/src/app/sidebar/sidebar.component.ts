@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { AuthenticationService } from '../services/authentication.service';
+
 declare var $:any;
 
 export interface RouteInfo {
@@ -24,10 +26,15 @@ export const ROUTES: RouteInfo[] = [
     moduleId: module.id,
     selector: 'sidebar-cmp',
     templateUrl: 'sidebar.component.html',
+    providers: [AuthenticationService],
 })
 
 export class SidebarComponent implements OnInit {
     public menuItems: any[];
+
+    constructor(private authenticationService: AuthenticationService,){
+    }
+
     ngOnInit() {
         this.menuItems = ROUTES.filter(menuItem => menuItem);
     }
@@ -36,6 +43,10 @@ export class SidebarComponent implements OnInit {
             return false;
         }
         return true;
+    }
+    logout(){
+        this.authenticationService.logout();
+        window.location.reload();
     }
 
 }

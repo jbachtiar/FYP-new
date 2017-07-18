@@ -6,6 +6,7 @@ import { FormsModule }   from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule }   from '@angular/router';
 
+import { CONFIG } from './config/config.component';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -13,6 +14,7 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { UserComponent } from './user/user.component';
 import { StaffmanagementComponent } from './staffmanagement/staffmanagement.component';
+import { AuthGuard } from './guard/guard'
 
 @NgModule({
   declarations: [
@@ -29,9 +31,11 @@ import { StaffmanagementComponent } from './staffmanagement/staffmanagement.comp
     FormsModule,
     routing,
     HttpModule,
-    RouterModule
+    RouterModule,
   ],
-  providers: [],
+  providers: [
+    AuthGuard,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

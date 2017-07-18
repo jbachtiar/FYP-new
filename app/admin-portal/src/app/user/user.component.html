@@ -28,13 +28,13 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Email Address</label>
-                                        <input type="email" class="form-control border-input" placeholder="Email" value={{email}} disabled>
+                                        <input type="email" class="form-control border-input" placeholder="Email" [(ngModel)]="email" name="email" disabled>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Phone Number</label>
-                                        <input type="text" class="form-control border-input" placeholder="Phone Number" value={{phoneNumber}}>
+                                        <input type="text" class="form-control border-input" placeholder="Phone Number" [(ngModel)]="phoneNumber" name="phoneNumber">
                                     </div>
                                 </div>
                             </div>
@@ -43,13 +43,13 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>First Name</label>
-                                        <input type="text" class="form-control border-input" placeholder="First Name" value={{firstName}} disabled> 
+                                        <input type="text" class="form-control border-input" placeholder="First Name" [(ngModel)]="firstName" name="firstName" disabled> 
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Last Name</label>
-                                        <input type="text" class="form-control border-input" placeholder="Last Name" value={{lastName}} disabled>
+                                        <input type="text" class="form-control border-input" placeholder="Last Name" [(ngModel)]="lastName" name="lastName" disabled>
                                     </div>
                                 </div>
                             </div>
@@ -57,7 +57,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Password</label>
-                                        <input type="password" class="form-control border-input" placeholder="Password" value={{password}}> 
+                                        <input type="password" class="form-control border-input" placeholder="Password" [(ngModel)]="password" name="password" > 
                                     </div>
                                 </div>
                                 <div class="col-md-6">

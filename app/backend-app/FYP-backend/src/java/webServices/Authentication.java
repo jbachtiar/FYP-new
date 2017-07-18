@@ -99,6 +99,7 @@ public class Authentication {
         
         String response = "";
         String status = "";
+        String token = "";
         if (email != null && !email.equals("")) {
                 //String twoDigitsPostalCode = postalCode.substring(0,2);
                 Staff staff = StaffDAO.retrieveStaffByEmail(email);
@@ -112,13 +113,15 @@ public class Authentication {
                         if(password.equals(staff.getPassword())){
                             //out.println("exist");
                             //String name = customer.getName();
-                            status = "Login successful";
+                            status = "200";
+                            token = tokenManagement.createJWT(email, "highlander", "login");
                             //String address = fireStation.getAddress();
                             //responseMap.put("Customer ", name);
                             //responseMap.put("address", address);
                             //responseMap.put("status", STATUS_OK);
                             responseMap.put("status", status);
-                            responseMap.put("user", email);
+                            responseMap.put("token", token);
+                            
                         } else {
                             status = "Invalid password";
                             responseMap.put("status", status);
