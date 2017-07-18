@@ -49,4 +49,8 @@ export class QuickViewComponent extends DialogComponent<QuickViewPopupModel, boo
 
   }
 
+  closeModal(){
+    this.confirm();
+  }
+
 }

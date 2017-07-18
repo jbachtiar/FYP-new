@@ -7,6 +7,7 @@ import { HomeComponent } from './home/home.component'
 import { ProfileComponent } from './profile/profile.component'
 import { InlineEditComponent } from './custom/inline-edit.component'
 import { ProductListComponent } from './product-list/product-list.component'
+import { ProductDetailComponent } from './product-detail/product-detail.component'
 import { AuthGuard } from './guard/auth.guard'
 
 const appRoutes: Routes = [
@@ -17,7 +18,7 @@ const appRoutes: Routes = [
     { path: 'profile', component:  ProfileComponent, canActivate: [AuthGuard] },
     { path: 'custom', component:  InlineEditComponent },
     { path: 'products', component: ProductListComponent },
-    // { path: 'products/:product_id',component: ProductDetail },
+    { path: 'productDetails/:productId',component: ProductDetailComponent },
 ];
 
 export const routing = RouterModule.forRoot(appRoutes);
