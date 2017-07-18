@@ -26,7 +26,6 @@ import { ProductService } from './product.service'
 import { AuthGuard } from './guard/auth.guard'
 
 import { BootstrapModalModule } from 'ng2-bootstrap-modal';
-import { AngularFontAwesomeModule } from 'angular-font-awesome/angular-font-awesome';
 
 import { EqualValidator } from './register/equal-validator.directive';
 import { QuickViewComponent } from './quick-view/quick-view.component';
@@ -57,7 +56,6 @@ import { FooterComponent } from './footer/footer.component';
     HttpModule,
     routing,
     BootstrapModalModule,
-    AngularFontAwesomeModule
   ],
   providers: [
     AuthenticationService, 
