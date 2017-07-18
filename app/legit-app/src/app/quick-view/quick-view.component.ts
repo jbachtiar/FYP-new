@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { DialogComponent, DialogService } from "ng2-bootstrap-modal";
 import { AlertService } from '../alert.service';
 import { ProductService } from '../product.service';
+import { ZoomableDirective } from 'ng2-zoomable';
 
 
 export interface QuickViewPopupModel {
@@ -21,6 +22,8 @@ export class QuickViewComponent extends DialogComponent<QuickViewPopupModel, boo
     message: string;
     productId: string; 
     product: any = {};
+    jQuery: any;
+
   
     constructor(
         dialogService: DialogService,
@@ -46,6 +49,10 @@ export class QuickViewComponent extends DialogComponent<QuickViewPopupModel, boo
        
     
       });
+
+      this.jQuery(document).ready(function($){ //fire on DOM ready
+           $('#myimage').ddpowerzoomer();
+      })
 
   }
 

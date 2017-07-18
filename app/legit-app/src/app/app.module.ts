@@ -26,7 +26,7 @@ import { ProductService } from './product.service'
 import { AuthGuard } from './guard/auth.guard'
 
 import { BootstrapModalModule } from 'ng2-bootstrap-modal';
-
+import { ZoomableDirective } from 'ng2-zoomable';
 import { EqualValidator } from './register/equal-validator.directive';
 import { QuickViewComponent } from './quick-view/quick-view.component';
 import { FooterComponent } from './footer/footer.component';
@@ -50,6 +50,7 @@ import { ProductDetailComponent } from './product-detail/product-detail.componen
     QuickViewComponent,
     FooterComponent,
     ProductDetailComponent,
+    ZoomableDirective
     
   ],
   imports: [
