@@ -79,7 +79,7 @@ public class Admin {
             //responseMap.put("status", STATUS_NOT_FOUND);
             responseMap.put("status", status);
         }else{
-            Staff updateStaff = new Staff(email,firstName,lastName, phoneNumber, password, roleCode);
+            Staff updateStaff = new Staff(email, firstName, lastName, phoneNumber, password, roleCode);
             StaffDAO.updateStaff(updateStaff);
             status = "200";
             responseMap.put("status", status);
