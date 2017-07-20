@@ -37,8 +37,8 @@ export class ProductListComponent implements OnInit {
   }
 
   onSelect(product): void {
-		let link = ['/products', product.id];
-		this.router.navigate(link);
+		let link = ['/productDetails', {productId: product.id, fabricId: product.fabric_id, colourId: product.colour_id}];
+    this.router.navigate(link);
 	}
 
   setPage(page: number) {
