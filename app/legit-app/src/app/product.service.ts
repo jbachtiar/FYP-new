@@ -14,11 +14,82 @@ export class ProductService {
     getProductList() {
         let params: URLSearchParams = new URLSearchParams();
         let url = CONFIG.productListBackendUrl;
+        let mockJson = {
+  "status": "200",
+  "products": [
+    {
+      "id": "1",
+      "name": "Product 1",
+      "pattern_id": "1",
+      "fabric_id": "1",
+      "colour_id": "1",
+      "pattern_name": "hello kitty",
+      "fabric_name": "wool",
+      "colour_name": "red",
+      "pattern_price": "100",
+      "fabric_price": "30",
+      "colour_price": "20"
+    },
+    {
+      "id": "2",
+      "name": "Product 1",
+      "pattern_id": "1",
+      "fabric_id": "1",
+      "colour_id": "1",
+      "pattern_name": "hello kitty",
+      "fabric_name": "wool",
+      "colour_name": "red",
+      "pattern_price": "100",
+      "fabric_price": "30",
+      "colour_price": "20"
+    },
+    {
+      "id": "3",
+      "name": "Product 1",
+      "pattern_id": "1",
+      "fabric_id": "1",
+      "colour_id": "1",
+      "pattern_name": "hello kitty",
+      "fabric_name": "wool",
+      "colour_name": "red",
+      "pattern_price": "100",
+      "fabric_price": "30",
+      "colour_price": "20"
+    },
+    {
+      "id": "4",
+      "name": "Product 1",
+      "pattern_id": "1",
+      "fabric_id": "1",
+      "colour_id": "1",
+      "pattern_name": "hello kitty",
+      "fabric_name": "wool",
+      "colour_name": "red",
+      "pattern_price": "100",
+      "fabric_price": "30",
+      "colour_price": "20"
+    },
+    {
+      "id": "5",
+      "name": "Product 1",
+      "pattern_id": "1",
+      "fabric_id": "1",
+      "colour_id": "1",
+      "pattern_name": "hello kitty",
+      "fabric_name": "wool",
+      "colour_name": "red",
+      "pattern_price": "100",
+      "fabric_price": "30",
+      "colour_price": "20"
+    }
+  ]
+}
+
         return this._http.get(url)
             .map(res => {
                 //console.log("product is loaded"+res.json().patterns);
-                return res.json().patterns;
-               
+                // return res.json().patterns;
+                return mockJson.products;
             });
     }
 
