@@ -26,7 +26,7 @@ public class ProductCatelogue {
 
   
     @GET
-    @Path("/uniqueProducts")
+    @Path("/uniquePatterns")
     @Produces(MediaType.APPLICATION_JSON)
     public String getProductsCatalogue(){
 
