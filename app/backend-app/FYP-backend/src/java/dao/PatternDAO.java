@@ -55,7 +55,7 @@ public class PatternDAO {
         return patternArrayList.toArray(new Pattern[patternArrayList.size()]);
     }
     
-       public Pattern retrievePatternById(String pattern_id) throws SQLException{
+       public static Pattern retrievePatternById(String pattern_id) throws SQLException{
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -87,6 +87,33 @@ public class PatternDAO {
     }
        
        
+    public static ArrayList<String> getTagsByPatternId(String patternId)  throws SQLException{
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        ArrayList<String> tags = new ArrayList();
+        
+        String sql = "SELECT * FROM pattern p, tag t, pattern_tag pt where p.pattern_id=pt.pattern_id and pt.tag_id =t.tag_id and p.pattern_id=?"; 
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, patternId);
+            rs = stmt.executeQuery();
+            
+            while (rs.next()) {
+                
+                tags.add(rs.getString("TAG_NAME"));
+           
+            }
+
+        } finally {
+            ConnectionManager.close(conn, stmt, rs);
+        }
+        return tags;
        
+       
+       
+    
+    }
     
 }

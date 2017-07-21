@@ -26,8 +26,8 @@ import javax.ws.rs.core.MediaType;
  * @author Ong Yi Xuan
  */
 
-@Path("/ProductCatalogue")
-public class ProductCatalogue {
+@Path("/PatternCatalogue")
+public class PatternCatalogue {
     
     @GET
     @Path("/fabrics")
