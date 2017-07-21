@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule }   from '@angular/forms';
 import { Router } from "@angular/router";
 import { HttpModule } from '@angular/http';
+import { CommonModule } from '@angular/common';
+
 
 import { routing }        from './app.routing';
 
@@ -31,6 +33,8 @@ import { EqualValidator } from './register/equal-validator.directive';
 import { QuickViewComponent } from './quick-view/quick-view.component';
 import { FooterComponent } from './footer/footer.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
+import { MyaccountComponent } from './myaccount/myaccount.component';
+import { TrackOrderComponent } from './track-order/track-order.component';
 
 
 
@@ -50,6 +54,8 @@ import { ProductDetailComponent } from './product-detail/product-detail.componen
     QuickViewComponent,
     FooterComponent,
     ProductDetailComponent,
+    MyaccountComponent,
+    TrackOrderComponent,
     
   ],
   imports: [
@@ -58,6 +64,7 @@ import { ProductDetailComponent } from './product-detail/product-detail.componen
     HttpModule,
     routing,
     BootstrapModalModule,
+    CommonModule,
   ],
   providers: [
     AuthenticationService, 

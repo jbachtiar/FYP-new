@@ -1,6 +1,13 @@
 h2{
     font-family: Georgia;
+    font-size: 22px;
     color: #888888;
+}
+
+hr{
+    color: goldenrod;
+    background-color: goldenrod;
+    height: 0.5px;
 }
 
 .button{
