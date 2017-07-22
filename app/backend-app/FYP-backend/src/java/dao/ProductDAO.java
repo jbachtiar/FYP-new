@@ -64,5 +64,44 @@ public class ProductDAO {
         return productArrayList.toArray(new Product[productArrayList.size()]);
     }
     
+     public static Product retrieveProductById(String sku) throws SQLException{
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Product product = null;
+        
+        String sql = "SELECT * from product where sku=? "; 
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, sku);
+            rs = stmt.executeQuery();
+            
+            while (rs.next()) {
+                
+                String patternID = rs.getString("PATTERN_ID");
+                String colourID = rs.getString("COLOUR_ID");
+                String fabricID = rs.getString("FABRIC_ID");
+                double colorPrice = rs.getDouble("COLOUR_PRICE");
+                String imageUrl = rs.getString("IMAGE_URL");
+                
+                Fabric f= FabricDAO.getFabricById(fabricID);
+                Colour c= ColorDAO.getColorById(colourID);
+                Pattern p= PatternDAO.retrievePatternById(patternID);
+                Collection col= p.getCollection();
+                ArrayList<String> tags= PatternDAO.getTagsByPatternId(patternID);
+                
+                product = new Product(sku,patternID, p.getPatternName(), p.getPatternPrice(), f.getFabricID(), f.getFabricName(), f.getFabricPrice(), c.getColourID(), c.getColourName(), colorPrice, col.getCollectionID(), col.getCollectionName(), imageUrl, tags );
+            }
+
+        } finally {
+            ConnectionManager.close(conn, stmt, rs);
+        }
+        return product;
+    }
+       
+    
+    
+    
     
 }

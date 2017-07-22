@@ -4,4 +4,5 @@ export const stagConfig = {
     productListBackendUrl:'',
     profileBackendUrl:'',
     quickViewBackendUrl:'',
+    fabricBackendUrl:""
 }

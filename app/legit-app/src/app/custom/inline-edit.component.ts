@@ -1,10 +1,4 @@
-import { Component,
-  Input,
-  ElementRef,
-  ViewChild,
-  Renderer,
-  forwardRef,
-  OnInit } from '@angular/core';
+import { Component, Input, ElementRef,ViewChild,Renderer,forwardRef,OnInit } from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 
 const INLINE_EDIT_CONTROL_VALUE_ACCESSOR = {

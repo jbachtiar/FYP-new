@@ -20,7 +20,7 @@ export class ProductService {
     {
       "id": "1",
       "name": "Product 1",
-      "pattern_id": "1",
+      "pattern_id": "2",
       "fabric_id": "1",
       "colour_id": "1",
       "pattern_name": "hello kitty",
@@ -33,7 +33,7 @@ export class ProductService {
     {
       "id": "2",
       "name": "Product 1",
-      "pattern_id": "1",
+      "pattern_id": "2",
       "fabric_id": "1",
       "colour_id": "1",
       "pattern_name": "hello kitty",
@@ -46,7 +46,7 @@ export class ProductService {
     {
       "id": "3",
       "name": "Product 1",
-      "pattern_id": "1",
+      "pattern_id": "2",
       "fabric_id": "1",
       "colour_id": "1",
       "pattern_name": "hello kitty",
@@ -59,7 +59,7 @@ export class ProductService {
     {
       "id": "4",
       "name": "Product 1",
-      "pattern_id": "1",
+      "pattern_id": "2",
       "fabric_id": "1",
       "colour_id": "1",
       "pattern_name": "hello kitty",
@@ -72,7 +72,7 @@ export class ProductService {
     {
       "id": "5",
       "name": "Product 1",
-      "pattern_id": "1",
+      "pattern_id": "2",
       "fabric_id": "1",
       "colour_id": "1",
       "pattern_name": "hello kitty",
@@ -95,11 +95,11 @@ export class ProductService {
 
     getProductById(productId: string) {
         let url = CONFIG.quickViewBackendUrl;
-        let finalUrl= url+"?productId="+productId;
+        let finalUrl= url+"?sku=00"+productId;
         return this._http.get(finalUrl).map(res => {
                  console.log("product is loaded"+res.json().status);
                 
-                 return res.json().pattern;
+                 return res.json().product;
               
         });
     }

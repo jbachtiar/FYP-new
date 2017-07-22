@@ -9,19 +9,20 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import dao.ProductDAO;;
+import dao.ProductDAO;
 import entity.Product;
 import java.sql.SQLException;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.Produces;;
+import javax.ws.rs.Produces;import javax.ws.rs.QueryParam;
+;
 import javax.ws.rs.core.MediaType;
 
 /**
  *
  * @author Huiyan
  */
-@Path("/ProductCatalogue")
+@Path("/ProductCatelogue")
 public class ProductCatelogue {
 
   
@@ -70,6 +71,57 @@ public class ProductCatelogue {
 
             jsonOutput.add("products", products);
             
+        }catch(SQLException e){
+        
+            jsonOutput.addProperty("status","error");
+            
+        }
+        
+        String finalJsonOutput = gson.toJson(jsonOutput);
+        return finalJsonOutput;
+    }
+    
+      
+    @GET
+    @Path("/product")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getPatternById(@QueryParam("sku") String sku){
+        
+        
+      
+        JsonObject jsonOutput = new JsonObject();
+        Gson gson = new GsonBuilder().create();
+     
+        try{
+            
+            Product p = ProductDAO.retrieveProductById(sku);
+            if(p==null){
+                jsonOutput.addProperty("status", "Product not found");
+           
+            }else{
+                jsonOutput.addProperty("status","200");
+                JsonObject temp = new JsonObject();
+                temp.addProperty("SKU", p.getSKU());
+                temp.addProperty("pattern_id", p.getPatternID());
+                temp.addProperty("fabric_id", p.getFabricID());
+                temp.addProperty("collection_id", p.getCollectionID());
+                temp.addProperty("colour_id", p.getColorID());
+                
+                temp.addProperty("pattern_name", p.getPatternName());
+                temp.addProperty("fabric_name", p.getFabricName());
+                temp.addProperty("collection_name", p.getCollectionName());
+                temp.addProperty("colour_name", p.getColorName());
+                
+                temp.addProperty("pattern_price", p.getFabricPrice());
+                temp.addProperty("fabric_price", p.getFabricPrice());
+                temp.addProperty("colour_price", p.getFabricPrice());
+                temp.addProperty("image_url", p.getImageUrl());
+                JsonArray tags = gson.toJsonTree(p.getTags()).getAsJsonArray(); // convert arraylist to jsonArray
+                temp.add("tags", tags);
+                jsonOutput.add("product", temp);
+                
+                 
+            }
         }catch(SQLException e){
         
             jsonOutput.addProperty("status","error");

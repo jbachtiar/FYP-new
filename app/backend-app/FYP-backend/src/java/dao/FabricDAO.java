@@ -6,9 +6,7 @@
 package dao;
 
 import database.ConnectionManager;
-import entity.Collection;
 import entity.Fabric;
-import entity.Pattern;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -88,6 +86,44 @@ public class FabricDAO {
         return f;
    
     }
+     
+       
+     public static ArrayList<Fabric> getFabricSByPatternId(String patternId) throws SQLException{
+        
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        ArrayList<Fabric> fabrics = new ArrayList() ;
+        Fabric f;
+  
+        
+        String sql = "SELECT * FROM fabric f, pattern_fabric pf, pattern p where p.pattern_id =? and p.pattern_id=pf.pattern_id and pf.fabric_id=f.fabric_id "; 
+        
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, patternId);
+            rs = stmt.executeQuery();
+        
+            
+            while (rs.next()) {
+                
+                String fabricId = rs.getString("fabric_id");
+                String fabricName = rs.getString("fabric_name");
+                String fabricDes= rs.getString("fabric_description");
+                double fabricPrice= rs.getDouble("fabric_price");
+                f= new Fabric (fabricId, fabricName, fabricDes, fabricPrice);
+                fabrics.add(f);
+            }
+
+        } finally {
+            ConnectionManager.close(conn, stmt, rs);
+        }
+        
+        return fabrics;
+   
+    }
+    
     
     
     
