@@ -12,6 +12,41 @@ import { QuickViewComponent } from '../quick-view/quick-view.component';
   providers: [ProductService, PagerService]
 })
 export class ProductListComponent implements OnInit {
+  
+  selectedCollection:any = 0;
+  collections = [
+       {id: "CO1", name: "2019 Spring"},
+       {id: "CO2", name: "2018 Spring"},
+       {id: "CO3", name: "2018 Summer"},
+       {id: "CO4", name: "2017 Spring"},
+       {id: "CO5", name: "2017 Winter"}
+     ];
+
+  selectedFabric:any = 0;
+  fabrics = [
+       {id: "F1", name: "Silk"},
+       {id: "F2", name: "Modal"},
+       {id: "F3", name: "Long Staple Cotton"},
+       {id: "F4", name: "Cotton"},
+       {id: "F5", name: "Lyocell Tencel"},
+       {id: "F6", name: "Polyester-Cotton"}
+     ];
+
+  selectedColour:any = 0;
+  colours = [
+       {id: "C1", name: "White"},
+       {id: "C2", name: "Black"},
+       {id: "C3", name: "Red"},
+       {id: "C4", name: "Yellow"},
+       {id: "C5", name: "Blue"},
+       {id: "C6", name: "Green"},
+       {id: "C7", name: "Pink"},
+       {id: "C8", name: "Purple"},
+       {id: "C9", name: "Brown"},
+       {id: "C10", name: "Gold"},
+       {id: "C11", name: "Silver"}
+     ];
+  
   //list of products 
   private products = []
 
