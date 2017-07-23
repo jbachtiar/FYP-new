@@ -36,13 +36,13 @@
       <div *ngFor="let product of pagedProducts">
         <div class="col-sm-4 col-lg-4 col-md-4">
           <div class="quickview">
-            <img src="/assets/images/P{{product.id}}.png" alt="..." class="img-thumbnail img-product" (click)="onSelect(product)"><br/>
+            <img src="{{product.image_url}}" alt="..." class="img-thumbnail img-product" (click)="onSelect(product)"><br/>
             <div class="overlay">
-                <div class="quickview-text"  (click)=showQuickView(product.id)>Quick View</div>
+                <div class="quickview-text"  (click)=showQuickView(product.SKU)>Quick View</div>
             </div>
           </div>
-        <h5 class="product-name"><a class="product-name" (click)="onSelect(product)">{{product.name}}</a></h5>
-        <span class="label label-warning">{{product.collection}}</span>
+        <h5 class="product-name"><a class="product-name" (click)="onSelect(product)">{{product.pattern_id}}</a></h5>
+        <span class="label label-warning">{{product.collection_name}}</span>
         <h6 class="product-price"><a class="product-price" style="font-size:13px"> Starting from</a> ${{product.pattern_price}} </h6><br/><br/>
         
         </div>

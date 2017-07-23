@@ -24,8 +24,8 @@ import javax.ws.rs.core.MediaType;
  *
  * @author Huiyan
  */
-@Path("/FabricCatelogue")
-public class FabricCatelogue {
+@Path("/FabricCatalogue")
+public class FabricCatalogue {
     
     @GET
     @Path("/fabrics")

@@ -22,8 +22,8 @@ import javax.ws.rs.core.MediaType;
  *
  * @author Huiyan
  */
-@Path("/ProductCatelogue")
-public class ProductCatelogue {
+@Path("/ProductCatalogue")
+public class ProductCatalogue {
 
   
     @GET
