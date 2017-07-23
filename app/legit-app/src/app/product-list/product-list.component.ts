@@ -71,6 +71,15 @@ export class ProductListComponent implements OnInit {
       });
   }
 
+  onChange(selection): void {
+		this.productService.getFilteredList().subscribe(
+      products => {
+        this.products = products;
+        //initialise paginator 
+        this.setPage(1);
+      });
+	}
+  
   onSelect(product): void {
 		let link = ['/productDetails', {productId: product.id, fabricId: product.fabric_id, colourId: product.colour_id}];
     this.router.navigate(link);

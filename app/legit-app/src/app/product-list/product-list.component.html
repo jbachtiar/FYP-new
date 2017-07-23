@@ -13,17 +13,17 @@
 
     <div class="row">
 
-            <select [(ngModel)]="selectedCollection" class="btn btn-default">
+            <select [(ngModel)]="selectedCollection" class="btn btn-default" (ngModelChange)="onChange($event)">
                 <option disabled value="0" class="hideoption">Select Collection</option>
                 <option *ngFor="let c of collections" [ngValue]="c">{{c.name}}</option>
             </select>
 
-            <select [(ngModel)]="selectedFabric" class="btn btn-default">
+            <select [(ngModel)]="selectedFabric" class="btn btn-default" (ngModelChange)="onChange($event)">
                 <option disabled value="0" class="hideoption">Select Fabric</option>
-                <option *ngFor="let f of fabrics" [ngValue]="c">{{f.name}}</option>
+                <option *ngFor="let f of fabrics" [ngValue]="f">{{f.name}}</option>
             </select>
 
-            <select [(ngModel)]="selectedColour" class="btn btn-default">
+            <select [(ngModel)]="selectedColour" class="btn btn-default" (ngModelChange)="onChange($event)">
                 <option disabled value="0" class="hideoption">Select Colour</option>
                 <option *ngFor="let c of colours" [ngValue]="c">{{c.name}}</option>
             </select>
