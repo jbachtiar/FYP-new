@@ -1,6 +1,6 @@
 INSERT INTO CUSTOMER VALUES ('customer@gmail.com','Huiyan','Chen','85882165','abc','Singapore','536748','1234','N');
 INSERT INTO STAFF_ROLE VALUES ('1','Admin');
-INSERT INTO STAFF VALUES ('stuff@gmail.com','Ming','Xia','12345678','1234','1');
+INSERT INTO STAFF VALUES ('staff@gmail.com','Ming','Xia','12345678','1234','1');
 
 INSERT INTO COLLECTION VALUES ('CO1','Bestsellers');
 INSERT INTO COLLECTION VALUES ('CO2','2018 Spring');
