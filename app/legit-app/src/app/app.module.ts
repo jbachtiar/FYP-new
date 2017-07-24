@@ -36,6 +36,7 @@ import { FooterComponent } from './footer/footer.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { MyaccountComponent } from './myaccount/myaccount.component';
 import { TrackOrderComponent } from './track-order/track-order.component';
+import { AboutUsComponent } from './about-us/about-us.component';
 
 
 
@@ -57,6 +58,7 @@ import { TrackOrderComponent } from './track-order/track-order.component';
     ProductDetailComponent,
     MyaccountComponent,
     TrackOrderComponent,
+    AboutUsComponent,
     
   ],
   imports: [
