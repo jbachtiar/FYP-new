@@ -24,7 +24,7 @@ const appRoutes: Routes = [
     //{ path: 'profile-sidebar/profile', component:  ProfileComponent, canActivate: [AuthGuard] },
     { path: 'custom', component:  InlineEditComponent },
     { path: 'products', component: ProductListComponent },
-    { path: 'productDetails/:patternId',component: ProductDetailComponent },
+    { path: 'productDetails/:patternId', component: ProductDetailComponent },
 ];
 
 export const routing = RouterModule.forRoot(appRoutes);

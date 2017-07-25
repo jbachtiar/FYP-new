@@ -80,10 +80,10 @@ export class ProductListComponent implements OnInit {
       });
 	}
   
-  onSelect(product): void {
-		let link = ['/productDetails', {patternId: product.id, fabricId: product.fabric_id, colourId: product.colour_id}];
-    this.router.navigate(link);
-	}
+  // onSelect(product): void {
+	// 	let link = ['/productDetails', {patternId: product.id, fabricId: product.fabric_id, colourId: product.colour_id}];
+  //   this.router.navigate(link);
+	// }
 
   setPage(page: number) {
         if (page < 1 || page > this.pager.totalPages) {
@@ -105,7 +105,7 @@ export class ProductListComponent implements OnInit {
           .subscribe((isConfirmed)=>{
               //We get dialog result
               if(isConfirmed) {
-                  window.location.reload();
+                  // window.location.reload();
               }
               else {
                   //do nothing

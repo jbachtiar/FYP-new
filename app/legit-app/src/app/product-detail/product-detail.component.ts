@@ -16,9 +16,11 @@ import { FabricService } from '../fabric.service';
 export class ProductDetailComponent implements OnInit {
   selectedFabric: any;
   selectedColor: any;
+  selectedQuantity=1;
   patternId: string;
   pattern: any = {};
   fabrics: any = {};
+  quantity = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
 
   constructor(private productService: ProductService, private fabricService: FabricService, private route: ActivatedRoute) { }
 

@@ -20,13 +20,30 @@ body {
 }
 
 .product-name{
-    font-size: 30px;
+    font-size: 50px;
     color: goldenrod;
     font-family: Georgia; 
+    border-bottom: 3px solid goldenrod;
 }
 
 .product-price{
     font-size: 18px;
     color: black; 
     font-family: Georgia;
+}
+
+.description{
+    font-family: Georgia;
+    border-bottom: 1px solid grey;
+}
+
+body {
+    font-family: Georgia, 'Times New Roman', Times, serif;   
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.btn-default:hover, .btn-default:focus, .btn-primary:active, .btn-default.active, .open>.dropdown-toggle.btn-default {
+    background-color: goldenrod; 
+    color: white;
 }
