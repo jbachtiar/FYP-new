@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import dao.CollectionDAO;
 import dao.ColorDAO;
 import dao.FabricDAO;
 import dao.PatternDAO;
@@ -164,6 +165,8 @@ public class ProductCatalogue {
                 patt.addProperty("pattern_name", pattern.getPatternName());
                 patt.addProperty("pattern_description", pattern.getPatternDescription());
                 patt.addProperty("pattern_price", pattern.getPatternPrice());
+                patt.addProperty("collection_name", CollectionDAO.getCollectionByPatternId(patternId).getCollectionName());
+                
                 JsonArray fabricsJson = new JsonArray();
                 
                  for(int i=0; i<fabrics.size(); i++){

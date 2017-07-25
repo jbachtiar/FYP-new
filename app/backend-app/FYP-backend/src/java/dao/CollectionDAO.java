@@ -38,7 +38,7 @@ public class CollectionDAO {
             while (rs.next()) {
                 
               
-                String collectionName = rs.getString("fabric_name");
+                String collectionName = rs.getString("collection_name");
                 c= new Collection (collectionId, collectionName);
                 
             }
@@ -51,4 +51,36 @@ public class CollectionDAO {
    
     }
     
+      public static Collection getCollectionByPatternId(String patternId) throws SQLException{
+        
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Collection c=null;
+  
+        
+        String sql = "SELECT * FROM  pattern  where pattern_id=?"; 
+        
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, patternId);
+            rs = stmt.executeQuery();
+        
+            
+            while (rs.next()) {
+                
+              
+                String collectionId = rs.getString("collection_id");
+                c=getCollectionById(collectionId);
+                
+            }
+
+        } finally {
+            ConnectionManager.close(conn, stmt, rs);
+        }
+        
+        return c;
+   
+    }
 }
