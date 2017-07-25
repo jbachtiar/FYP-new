@@ -37,6 +37,7 @@ import { ProductDetailComponent } from './product-detail/product-detail.componen
 import { MyaccountComponent } from './myaccount/myaccount.component';
 import { TrackOrderComponent } from './track-order/track-order.component';
 import { AboutUsComponent } from './about-us/about-us.component';
+import { StoreLocatorComponent } from './store-locator/store-locator.component';
 
 
 
@@ -59,6 +60,7 @@ import { AboutUsComponent } from './about-us/about-us.component';
     MyaccountComponent,
     TrackOrderComponent,
     AboutUsComponent,
+    StoreLocatorComponent,
     
   ],
   imports: [
