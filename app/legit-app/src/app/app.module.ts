@@ -4,6 +4,8 @@ import { FormsModule }   from '@angular/forms';
 import { Router } from "@angular/router";
 import { HttpModule } from '@angular/http';
 import { CommonModule } from '@angular/common';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MdButtonModule, MdCheckboxModule} from '@angular/material';
 
 
 import { routing }        from './app.routing';
@@ -70,6 +72,9 @@ import { StoreLocatorComponent } from './store-locator/store-locator.component';
     routing,
     BootstrapModalModule,
     CommonModule,
+    BrowserAnimationsModule,
+    MdButtonModule, 
+    MdCheckboxModule
   ],
   providers: [
     AuthenticationService, 
