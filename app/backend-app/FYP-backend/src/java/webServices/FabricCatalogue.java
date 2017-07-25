@@ -30,7 +30,7 @@ public class FabricCatalogue {
     @GET
     @Path("/fabrics")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getFabricsByPatternId(@QueryParam("patternId") String patternID){
+    public static String getFabricsByPatternId(@QueryParam("patternId") String patternID){
         
         
       
