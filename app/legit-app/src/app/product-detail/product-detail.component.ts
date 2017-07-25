@@ -14,41 +14,40 @@ import { FabricService } from '../fabric.service';
 
 })
 export class ProductDetailComponent implements OnInit {
-  productId: string;
-  product: any = {};
+  selectedFabric: any;
+  selectedColor: any;
+  patternId: string;
+  pattern: any = {};
   fabrics: any = {};
-  showFabric() {
-    this.fabricService.getFabricsByPatternId(this.product.pattern_id).subscribe(
-      fabrics => {
-        this.fabrics = fabrics;
-        console.log("fabric is loaded"+fabrics); 
-
-      });
-    }
-  
-
-
 
   constructor(private productService: ProductService, private fabricService: FabricService, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
-      this.productId = params['productId']; // grab the parameter from url
+      this.patternId = params['patternId']; // grab the parameter from url
 
     });
 
-
-    this.productService.getProductById(this.productId).subscribe(
-      product => {
-        console.log("service is invoked" + this.productId);
-        this.product = product;
-        console.log("service is invoked" + product.pattern_id);
-        this.showFabric();
-
-
+    this.productService.getPatternById(this.patternId).subscribe(
+      pattern => {
+        this.pattern = pattern;
+        this.selectedFabric = pattern.fabrics[0]
+        this.selectedColor = this.selectedFabric.colours[0]
+        console.log("selectedColour: " + this.selectedColor.color_name)
+        console.log("selectedFabric: " + this.selectedFabric)
+        console.log("service is invoked" + pattern);
       });
-   
     }
+
+      
+  // showFabric() {
+  //   this.fabricService.getFabricsByPatternId(this.product.pattern_id).subscribe(
+  //     fabrics => {
+  //       this.fabrics = fabrics;
+  //       console.log("fabric is loaded"+fabrics); 
+
+  //     });
+  //   }
   
 
 

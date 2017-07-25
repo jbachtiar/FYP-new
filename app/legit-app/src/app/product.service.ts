@@ -90,4 +90,16 @@ export class ProductService {
                 return mockJson.products;
             });
     }
+
+    getPatternById(patternId: string){
+        let url = CONFIG.productDetailsBackendUrl
+        let finalUrl = url + "?patternId=" + patternId
+         return this._http.get(finalUrl)
+            .map(res => {
+                console.log(finalUrl)
+                console.log("product is loaded"+res.json().pattern);
+                return res.json().pattern;
+                // return mockJson.pattern;
+            });
+    }
 }

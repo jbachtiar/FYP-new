@@ -3,15 +3,30 @@
     <div class="row">
       <div class="col-md-8 col-md-offset-1">
 
-        <div class="col-md-8"><img src="{{product.image_url}}" class="img-responsive" alt="Some picture"></div>
-         <h5 class="product-name">{{product.pattern_id}}</h5>
+        <div class="col-md-8"><img src="{{selectedColor.image_url}}" class="img-responsive" alt="Some picture"></div>
+         <h5 class="product-name">{{pattern.pattern_name}}</h5>
         
-        <span text-left class="col-md-4" style="font-size:15px" class="label label-warning">{{product.collection_name}}</span>        <br><br>
-        <div text-left class="product-price" style="font-size:15px"> Starting from ${{(product.pattern_price+product.fabric_price+product.colour_price)}} </div>
-        <h5>Choose the fabric</h5>
-        <!--<select>
-              <option  *ngFor="let f of fabrics" value={{f.fabric_id}}> {{f.fabric_name}}</option>
-        </select> -->
+        <!--<span text-left class="col-md-4" style="font-size:15px" class="label label-warning">{{product.collection_name}}</span>        <br><br>-->
+        <!--<div text-left class="product-price" style="font-size:15px"> Starting from ${{(pattern.pattern_price+patter.fabric_price+product.colour_price)}} </div>-->
+        <h4>Choose the material</h4>
+        <form>  <md-select placeholder="Favorite food" [(ngModel)]="selectedValue" name="food">   
+           <md-option *ngFor="let food of foods" [value]="food.value">
+             </md-option>  </md-select>
+             </form>
+
+        <select [(ngModel)]="selectedFabric">
+          <option *ngFor="let fabric of pattern.fabrics" [ngValue]="fabric">{{fabric.fabric_name}}</option>
+        </select>
+        <h4>Choose the colour</h4>
+        <select [(ngModel)]="selectedColor">
+          <option *ngFor="let color of selectedFabric.colours" [ngValue]="color">{{color.color_name}}</option>
+        </select>
+          <h2> Description</h2>
+          <h3>Pattern</h3>
+          <p>{{pattern.pattern_description}}</p>
+          <h3>Fabric</h3>
+          <h4>{{selectedFabric.fabric_name}}</h4>
+          <p>{{selectedFabric.fabric_description}}</p>
         <br>
         <button type="button" class="button" data-dismiss="modal">Add to Cart</button>
       </div>

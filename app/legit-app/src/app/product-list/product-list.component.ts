@@ -81,7 +81,7 @@ export class ProductListComponent implements OnInit {
 	}
   
   onSelect(product): void {
-		let link = ['/productDetails', {productId: product.id, fabricId: product.fabric_id, colourId: product.colour_id}];
+		let link = ['/productDetails', {patternId: product.id, fabricId: product.fabric_id, colourId: product.colour_id}];
     this.router.navigate(link);
 	}
 
