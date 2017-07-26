@@ -12,7 +12,9 @@ export class AppComponent {
 
   ngOnInit() {
         this.token = localStorage.getItem('token');
+        let user: string = localStorage.getItem('currentUset');
         console.log("TOKEN: " + this.token)
+        console.log("User: " + user)
         if(this.token!=null){
             this.authenticated = true;
         }

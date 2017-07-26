@@ -9,8 +9,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dao.CustomerDAO;
 import dao.StaffDAO;
+import dao.StaffRoleDAO;
 import entity.Customer;
 import entity.Staff;
+import entity.StaffRole;
 import java.util.HashMap;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -112,13 +114,16 @@ public class Admin {
             String phoneNumber=staff.getPhoneNumber();
             String password=staff.getPassword();
             String roleCode=staff.getRoleCode();
-
+            
+            StaffRole role = StaffRoleDAO.retrieveRoleByCode(roleCode);
+            String roleName = role.getRoleName();
+            
             responseMap.put("email", email);
             responseMap.put("firstName", firstName);
             responseMap.put("lastName", lastName );
             responseMap.put("phoneNumber", phoneNumber);
             responseMap.put("password", password);
-            responseMap.put("roleCode", roleCode);
+            responseMap.put("roleCode", roleName);
             status="200";
             responseMap.put("status", status);
         }
