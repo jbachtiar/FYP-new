@@ -97,11 +97,12 @@ export class ProductListComponent implements OnInit {
         this.pagedProducts = this.products.slice(this.pager.startIndex, this.pager.endIndex + 1);
   }
 
-  showQuickView(productId){
+  showQuickView(patternId){
+    console.log("Quick view pattern ID: " + patternId)
      let disposable = this.dialogService.addDialog( QuickViewComponent, {
             title:'QuickView', 
             message:'',
-            productId: productId})
+            patternId: patternId})
           .subscribe((isConfirmed)=>{
               //We get dialog result
               if(isConfirmed) {

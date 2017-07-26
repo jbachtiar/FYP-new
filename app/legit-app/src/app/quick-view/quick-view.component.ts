@@ -7,7 +7,7 @@ import { ProductService } from '../product.service';
 export interface QuickViewPopupModel {
   title:string;
   message:string;
-  productId: string
+  patternId: string
 }
 
 @Component({
@@ -19,13 +19,17 @@ export interface QuickViewPopupModel {
 export class QuickViewComponent extends DialogComponent<QuickViewPopupModel, boolean> implements QuickViewPopupModel { 
     title: string;
     message: string;
-    productId: string; 
-    product: any = {};
-  
+    patternId: string; 
+    pattern: any = {};
+    fabrics: any = {};
+    quantity = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
+    selectedFabric: any;
+    selectedColor: any;
+    selectedQuantity=1;
+
     constructor(
         dialogService: DialogService,
         private productService:ProductService,
-
         private alertService: AlertService) {
              super(dialogService);
         }
@@ -40,11 +44,14 @@ export class QuickViewComponent extends DialogComponent<QuickViewPopupModel, boo
     
 
   ngOnInit() {
-      this.productService.getProductById(this.productId).subscribe(
-      product => {
-        this.product = product;
-       
-    
+      this.productService.getPatternById(this.patternId).subscribe(
+      pattern => {
+        this.pattern = pattern;
+        this.selectedFabric = pattern.fabrics[0]
+        this.selectedColor = this.selectedFabric.colours[0]
+        console.log("selectedColour: " + this.selectedColor.color_name)
+        console.log("selectedFabric: " + this.selectedFabric)
+        console.log("service is invoked" + pattern);
       });
 
   }
