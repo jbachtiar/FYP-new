@@ -41,7 +41,9 @@ export class ProductDetailComponent implements OnInit {
       });
     }
 
-      
+    onFabricChange(){
+      this.selectedColor = this.selectedFabric.colours[0]
+    } 
   // showFabric() {
   //   this.fabricService.getFabricsByPatternId(this.product.pattern_id).subscribe(
   //     fabrics => {

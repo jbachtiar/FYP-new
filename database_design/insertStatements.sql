@@ -1,4 +1,4 @@
-﻿INSERT INTO CUSTOMER VALUES ('customer@gmail.com','Huiyan','Chen','85882165','abc','Singapore','536748','1234','N');
+INSERT INTO CUSTOMER VALUES ('customer@gmail.com','Huiyan','Chen','85882165','abc','Singapore','536748','1234','N');
 INSERT INTO STAFF_ROLE VALUES ('1','Admin');
 INSERT INTO STAFF VALUES ('staff@gmail.com','Ming','Xia','12345678','1234','1');
 
