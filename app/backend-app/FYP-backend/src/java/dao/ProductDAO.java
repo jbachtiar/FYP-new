@@ -258,5 +258,47 @@ public class ProductDAO {
         }
         return productArrayList.toArray(new Product[productArrayList.size()]);
     }
+    
+    public static Product[] getSearchProducts(String search) throws SQLException {
+
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Product product = null;
+        ArrayList<Product> productArrayList = new ArrayList();
+
+        String sql = "SELECT p1.* FROM PRODUCT p1 LEFT OUTER JOIN PATTERN p2 ON p1.PATTERN_ID = p2.PATTERN_ID WHERE PATTERN_NAME LIKE '%";
+        sql = sql + search + "%' GROUP BY (p1.pattern_id)";
+
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+
+                String patternID = rs.getString("PATTERN_ID");
+                String sku = rs.getString("SKU");
+                String colourID = rs.getString("COLOUR_ID");
+                String fabricID = rs.getString("FABRIC_ID");
+                double colorPrice = rs.getDouble("COLOUR_PRICE");
+                String imageUrl = rs.getString("IMAGE_URL");
+
+                Fabric f = FabricDAO.getFabricById(fabricID);
+                Colour c = ColorDAO.getColorById(colourID);
+                Pattern p = PatternDAO.retrievePatternById(patternID);
+                Collection col = p.getCollection();
+                ArrayList<String> tags = PatternDAO.getTagsByPatternId(patternID);
+
+                product = new Product(sku, patternID, p.getPatternName(), p.getPatternPrice(), f.getFabricID(), f.getFabricName(), f.getFabricPrice(), c.getColourID(), c.getColourName(), colorPrice, col.getCollectionID(), col.getCollectionName(), imageUrl, tags);
+
+                productArrayList.add(product);
+            }
+
+        } finally {
+            ConnectionManager.close(conn, stmt, rs);
+        }
+        return productArrayList.toArray(new Product[productArrayList.size()]);
+    }
 
 }
