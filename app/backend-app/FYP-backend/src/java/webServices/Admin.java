@@ -125,7 +125,7 @@ public class Admin {
             responseMap.put("lastName", lastName );
             responseMap.put("phoneNumber", phoneNumber);
             responseMap.put("password", password);
-            responseMap.put("roleCode", roleCode);
+            responseMap.put("roleCode", roleName);
             status="200";
             responseMap.put("status", status);
         }
