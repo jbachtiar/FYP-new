@@ -212,6 +212,62 @@ public class ProductCatalogue {
         return finalJsonOutput;
     }
     
+    
+    @GET
+    @Path("/filtersort")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getProductsCataloguebyFilter(@QueryParam("collectionId") String collectionId, @QueryParam("fabricId") String fabricId, @QueryParam("colourId") String colourId, @QueryParam("sortPrice") String sortPrice){
+
+     
+        Gson gson = new GsonBuilder().create();
+        JsonObject jsonOutput = new JsonObject();
+        JsonArray products = new JsonArray();
+        
+        try{
+            
+            Product[] pArray = ProductDAO.getfilteredProducts(collectionId, fabricId, colourId, sortPrice);
+            jsonOutput.addProperty("status","200");
+            
+            for(Product p: pArray){
+                
+                JsonObject temp = new JsonObject();
+              
+                temp.addProperty("SKU", p.getSKU());
+                temp.addProperty("pattern_id", p.getPatternID());
+                temp.addProperty("fabric_id", p.getFabricID());
+                temp.addProperty("collection_id", p.getCollectionID());
+                temp.addProperty("colour_id", p.getColorID());
+                
+                temp.addProperty("pattern_name", p.getPatternName());
+                temp.addProperty("fabric_name", p.getFabricName());
+                temp.addProperty("collection_name", p.getCollectionName());
+                temp.addProperty("colour_name", p.getColorName());
+                
+                temp.addProperty("pattern_price", p.getFabricPrice());
+                temp.addProperty("fabric_price", p.getFabricPrice());
+                temp.addProperty("colour_price", p.getFabricPrice());
+                temp.addProperty("image_url", p.getImageUrl());
+                
+                JsonArray tags = gson.toJsonTree(p.getTags()).getAsJsonArray(); // convert arraylist to jsonArray
+                temp.add("tags", tags);
+                       
+                products.add(temp);
+                
+                
+            }
+
+            jsonOutput.add("products", products);
+            
+        }catch(SQLException e){
+        
+            jsonOutput.addProperty("status","error");
+            
+        }
+        
+        String finalJsonOutput = gson.toJson(jsonOutput);
+        return finalJsonOutput;
+    }
+    
 
     
 }
