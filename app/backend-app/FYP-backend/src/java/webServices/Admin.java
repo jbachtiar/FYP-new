@@ -115,6 +115,8 @@ public class Admin {
             String password=staff.getPassword();
             String roleCode=staff.getRoleCode();
             
+            
+            //get role name from the role code and send over role name to the front end
             StaffRole role = StaffRoleDAO.retrieveRoleByCode(roleCode);
             String roleName = role.getRoleName();
             
