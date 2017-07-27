@@ -26,6 +26,9 @@ export class QuickViewComponent extends DialogComponent<QuickViewPopupModel, boo
     selectedFabric: any;
     selectedColor: any;
     selectedQuantity=1;
+    selectedFabricPrice:number;
+    selectedColourPrice:number;
+    totalPrice:number;
 
     constructor(
         dialogService: DialogService,
@@ -49,12 +52,25 @@ export class QuickViewComponent extends DialogComponent<QuickViewPopupModel, boo
         this.pattern = pattern;
         this.selectedFabric = pattern.fabrics[0]
         this.selectedColor = this.selectedFabric.colours[0]
-        console.log("selectedColour: " + this.selectedColor.color_name)
-        console.log("selectedFabric: " + this.selectedFabric)
-        console.log("service is invoked" + pattern);
+        this.selectedFabricPrice = +this.selectedFabric.fabric_price
+        this.selectedColourPrice = +this.selectedColor.color_price
+        this.totalPrice = this.selectedFabricPrice + this.selectedColourPrice
       });
 
   }
+
+   onFabricChange(){
+      this.selectedColor = this.selectedFabric.colours[0];
+      this.selectedFabricPrice = +this.selectedFabric.fabric_price;
+      this.totalPrice = this.selectedFabricPrice + this.selectedColourPrice;
+      console.log("RECALCULATED PRICE" + this.totalPrice);
+    } 
+
+    onColourChange(){
+      this.selectedColourPrice = +this.selectedColor.color_price;
+      this.totalPrice = this.selectedFabricPrice + this.selectedColourPrice;
+      console.log("RECALCULATED PRICE" + this.totalPrice) 
+    }
 
   closeModal(){
     this.confirm();

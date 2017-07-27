@@ -17,21 +17,21 @@
             <div class="col-md-8"><img src="{{selectedColor.image_url}}" class="img-responsive" alt="Some picture"></div>
 
             
-            <!--<span text-left class="col-md-4" style="font-size:15px" class="label label-warning">{{pattern.collection_name}}</span> <br><br>-->
-            <div> <br>
+            <span text-left class="col-md-4" style="font-size:12px" class="label label-warning">{{pattern.collection_name}}</span> <br><br>
+            <div> 
               <h5><a [routerLink]="['/productDetails', pattern.pattern_id]">
-                <u (click)=closeModal()>View Full Detail</u>  
+                <u (click)=closeModal()>View Full Details</u>  
               </a></h5>
               <h5>Material:</h5>
         <select [(ngModel)]="selectedFabric" (ngModelChange)="onFabricChange()">
-          <option *ngFor="let fabric of pattern.fabrics" [ngValue]="fabric">{{fabric.fabric_name}}</option>
+          <option *ngFor="let fabric of pattern.fabrics" [ngValue]="fabric">{{fabric.fabric_name}} +${{fabric.fabric_price}}</option>
         </select>
         <h5>Colour:</h5>
-        <select [(ngModel)]="selectedColor">
-          <option *ngFor="let color of selectedFabric.colours" [ngValue]="color">{{color.color_name}}</option>
+        <select [(ngModel)]="selectedColor" (ngModelChange)="onColourChange()">
+          <option *ngFor="let color of selectedFabric.colours" [ngValue]="color">{{color.color_name}} +${{color.color_price}}</option>
         </select>
         <br/><br/>  
-        <h5> Starting from $ {{pattern.pattern_price}} </h5>
+        <h4>${{totalPrice}}</h4>
         <h5>Quantity:</h5>
         <!--<input type=text>-->
         <select [(ngModel)]="selectedQuantity">

@@ -11,12 +11,14 @@
         <!--<div text-left class="product-price" style="font-size:15px"> Starting from ${{(pattern.pattern_price+patter.fabric_price+product.colour_price)}} </div>-->
         <h5>Material:</h5>
         <select [(ngModel)]="selectedFabric" (ngModelChange)="onFabricChange()">
-          <option *ngFor="let fabric of pattern.fabrics" [ngValue]="fabric">{{fabric.fabric_name}}</option>
+          <option *ngFor="let fabric of pattern.fabrics" [ngValue]="fabric">{{fabric.fabric_name}} +${{fabric.fabric_price}}</option>
         </select>
         <h5>Colour:</h5>
-        <select [(ngModel)]="selectedColor">
-          <option *ngFor="let color of selectedFabric.colours" [ngValue]="color">{{color.color_name}}</option>
+        <select [(ngModel)]="selectedColor" (ngModelChange)="onColourChange()">
+          <option *ngFor="let color of selectedFabric.colours" [ngValue]="color">{{color.color_name}} +${{color.color_price}}</option>
         </select>
+        <br/><br/>
+        <h4>${{totalPrice}}</h4>
         <h5>Quantity:</h5>
         <!--<input type=text>-->
         <select [(ngModel)]="selectedQuantity">
