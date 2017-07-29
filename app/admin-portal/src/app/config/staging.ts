@@ -1,7 +1,7 @@
 export const stagConfig = {
     authenticationBackendUrl:'',
     registrationBackendUrl:'',
-    productListBackendUrl:'',
+    productCatalogueBackendUrl:'',
     staffBackendUrl:'',
     quickViewBackendUrl:'',
 }

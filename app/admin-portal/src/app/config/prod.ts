@@ -1,7 +1,7 @@
 export const prodConfig = {
     authenticationBackendUrl:'',
     registrationBackendUrl:'',
-    productListBackendUrl:'',
+    productCatalogueBackendUrl:'',
     staffBackendUrl:'',
     quickViewBackendUrl:'',
 }
