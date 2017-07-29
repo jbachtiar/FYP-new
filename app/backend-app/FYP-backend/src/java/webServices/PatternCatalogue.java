@@ -9,16 +9,27 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import dao.CustomerDAO;
 import dao.FabricDAO;
 import dao.PatternDAO;
+import entity.Customer;
 import entity.Fabric;
 import entity.Pattern;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
+import tokenManagement.tokenManagement;
 
 
 /**
@@ -143,5 +154,63 @@ public class PatternCatalogue {
         
         String finalJsonOutput = gson.toJson(jsonOutput);
         return finalJsonOutput;
+    }
+    
+    @POST
+    @Path("/addPattern")
+    @Produces(MediaType.APPLICATION_JSON)
+//    public static void insertPattern(String patternID, String patternName, String patternDescription, double patternPrice, Collection collection) {
+
+    public String addPattern (@FormParam("patternID") String patternID,@FormParam("patternName") String patternName, @FormParam("patternDescription") String patternDescription, @FormParam("patternPrice") Double patternPrice, @FormParam("collectionID") String collectionID){
+        //String password = CustomerDAO.retrievePasswordByEmail(email);
+        HashMap<String, String> responseMap = new HashMap();
+        Gson gson = new GsonBuilder().create();
+        String status = "";
+    
+         
+        PatternDAO.insertPattern(patternID,patternName,patternDescription, patternPrice, collectionID);
+        status = "200";
+                 
+        responseMap.put("status", status);
+      
+       
+         //responseMap.put("status", STATUS_ERROR_NULL_PASSWORD);
+        return gson.toJson(responseMap);
+    }
+    
+    @PUT
+    @Path("/updatePattern")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String updatePattern (@Context HttpHeaders httpHeaders, @FormParam("patternID") String patternID,@FormParam("patternName") String patternName, @FormParam("patternDescription") String patternDescription, @FormParam("patternPrice") Double patternPrice, @FormParam("collectionID") String collectionID){
+        //String password = CustomerDAO.retrievePasswordByEmail(email);
+        HashMap<String, String> responseMap = new HashMap<>();
+        Gson gson = new GsonBuilder().create();
+        String status;
+        Pattern pattern = null;
+        try{
+            pattern = PatternDAO.retrievePatternById(patternID);
+        } catch (SQLException ex) {
+            handleSQLException(ex, patternID);
+        }
+                
+        if (pattern == null) {
+            status = "Pattern not found";
+            //responseMap.put("status", STATUS_NOT_FOUND);
+            responseMap.put("status", status);
+        }else{
+        
+            PatternDAO.updatePattern(patternID,patternName,patternDescription, patternPrice, collectionID);
+            status = "200";
+            responseMap.put("status", status);
+        }
+      
+        //responseMap.put("status", STATUS_ERROR_NULL_PASSWORD);
+        return gson.toJson(responseMap);
+    }
+    
+    private static void handleSQLException(SQLException ex, String patternID) {
+        String msg = "Unable to access data; patternID=" + patternID + "\n";
+
+        Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, msg, ex);
     }
 } 

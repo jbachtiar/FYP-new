@@ -13,6 +13,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -115,5 +117,61 @@ public class PatternDAO {
        
     
     }
+
+    public static void insertPattern(String patternID, String patternName, String patternDescription, double patternPrice, String collectionID) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        String sql = "INSERT into pattern values(?,?,?,?,?)";
+
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, patternID);
+            stmt.setString(2, patternName);
+            stmt.setString(3, patternDescription);
+            stmt.setDouble(4, patternPrice);
+            stmt.setString(5, collectionID);
+           
+            stmt.executeUpdate();
+            
+        } catch (SQLException ex) {
+            handleSQLException(ex, sql);
+        } finally {
+            ConnectionManager.close(conn, stmt, rs);
+        }
+    }
     
+    public static void updatePattern(String patternID, String patternName, String patternDescription, double patternPrice, String collectionID) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        String sql = "update customer set PATTERN_ID=?, PATTERN_NAME=?, PATTERN_DESCRIPTION=?, PATTERN_PRICE=?, COLLECTION_ID=?";
+
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, patternID);
+            stmt.setString(2, patternName);
+            stmt.setString(3, patternDescription);
+            stmt.setDouble(4, patternPrice);
+            stmt.setString(5, collectionID);
+           
+            stmt.executeUpdate();
+            
+        } catch (SQLException ex) {
+            handleSQLException(ex, sql);
+        } finally {
+            ConnectionManager.close(conn, stmt, rs);
+        }
+    }
+    
+    private static void handleSQLException(SQLException ex, String sql, String... parameters) {
+        String msg = "Unable to access data; SQL=" + sql + "\n";
+        for (String parameter : parameters) {
+            msg += "," + parameter;
+        }
+        Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, msg, ex);
+    }
+
 }
