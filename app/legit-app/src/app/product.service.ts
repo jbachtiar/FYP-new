@@ -13,7 +13,7 @@ export class ProductService {
 
     getProductList() {
         let params: URLSearchParams = new URLSearchParams();
-        let url = CONFIG.productListBackendUrl;
+        let url = CONFIG.productCatalogueBackendUrl+'/uniquePatterns';
     
         return this._http.get(url)
             .map(res => {
@@ -92,7 +92,7 @@ export class ProductService {
     }
 
     getPatternById(patternId: string){
-        let url = CONFIG.productDetailsBackendUrl
+        let url = CONFIG.productCatalogueBackendUrl+'/customization';
         let finalUrl = url + "?patternId=" + patternId
          return this._http.get(finalUrl)
             .map(res => {
