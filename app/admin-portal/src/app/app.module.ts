@@ -17,6 +17,7 @@ import { StaffmanagementComponent } from './staffmanagement/staffmanagement.comp
 import { AuthGuard } from './guard/guard';
 import { PatternListComponent } from './pattern-list/pattern-list.component'
 
+import { ProductService } from './services/product.service'
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,6 +38,7 @@ import { PatternListComponent } from './pattern-list/pattern-list.component'
   ],
   providers: [
     AuthGuard,
+    ProductService
   ],
   bootstrap: [AppComponent]
 })
