@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {ProductService} from '../services/product.service';
 
 @Component({
   selector: 'app-pattern-list',
@@ -6,10 +7,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./pattern-list.component.css']
 })
 export class PatternListComponent implements OnInit {
-
-  constructor() { }
+  private patterns = []
+  constructor( private productService:ProductService) { 
+    
+  }
 
   ngOnInit() {
+     this.productService.getPatternList().subscribe(
+     patterns => {
+        this.patterns = patterns;
+ 
+       
+      });
   }
 
 }
