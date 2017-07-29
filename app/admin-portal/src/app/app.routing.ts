@@ -5,13 +5,17 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { UserComponent } from './user/user.component';
 import { StaffmanagementComponent } from './staffmanagement/staffmanagement.component';
 //import { RegisterComponent } from './register/register.component'
+import {PatternListComponent} from './pattern-list/pattern-list.component'
+
 import { AuthGuard } from './guard/guard';
 
 const appRoutes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'homepage', component: HomepageComponent,  canActivate: [AuthGuard] },
     { path: 'user', component: UserComponent,  canActivate: [AuthGuard] },
-    { path: 'staffmanagement', component: StaffmanagementComponent,  canActivate: [AuthGuard]},
+    { path: 'staffmanagement', component: StaffmanagementComponent,  canActivate: [AuthGuard] },
+    { path: 'patternList', component: PatternListComponent},
+    
     //{ path: 'register', component: RegisterComponent },
 ];
 
