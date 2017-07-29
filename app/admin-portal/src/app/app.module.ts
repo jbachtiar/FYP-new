@@ -14,7 +14,8 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { UserComponent } from './user/user.component';
 import { StaffmanagementComponent } from './staffmanagement/staffmanagement.component';
-import { AuthGuard } from './guard/guard'
+import { AuthGuard } from './guard/guard';
+import { PatternListComponent } from './pattern-list/pattern-list.component'
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { AuthGuard } from './guard/guard'
     SidebarComponent,
     UserComponent,
     StaffmanagementComponent,
+    PatternListComponent,
     
   ],
   imports: [
