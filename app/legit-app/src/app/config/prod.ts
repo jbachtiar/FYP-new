@@ -6,4 +6,6 @@ export const prodConfig = {
     quickViewBackendUrl:'',
     fabricBackendUrl:'',
     productDetailsBackendUrl:'',
+    filteredProductListBackendUrl: '',
+    searchedProductListBackendUrl: ''
 }

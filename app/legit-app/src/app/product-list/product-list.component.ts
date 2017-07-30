@@ -13,7 +13,13 @@ import { QuickViewComponent } from '../quick-view/quick-view.component';
 })
 export class ProductListComponent implements OnInit {
   
-  selectedCollection:any = 0;
+  sortPrice:any = null;
+  sorts = [
+       {id: "asc", name: "Ascending"},
+       {id: "desc", name: "Descending"}
+     ];
+  
+  selectedCollection:any = null;
   collections = [
        {id: "CO1", name: "2019 Spring"},
        {id: "CO2", name: "2018 Spring"},
@@ -22,7 +28,7 @@ export class ProductListComponent implements OnInit {
        {id: "CO5", name: "2017 Winter"}
      ];
 
-  selectedFabric:any = 0;
+  selectedFabric:any = null;
   fabrics = [
        {id: "F1", name: "Silk"},
        {id: "F2", name: "Modal"},
@@ -32,7 +38,7 @@ export class ProductListComponent implements OnInit {
        {id: "F6", name: "Polyester-Cotton"}
      ];
 
-  selectedColour:any = 0;
+  selectedColour:any = null;
   colours = [
        {id: "C1", name: "White"},
        {id: "C2", name: "Black"},
@@ -49,6 +55,9 @@ export class ProductListComponent implements OnInit {
   
   //list of products 
   private products = []
+
+  //list of product 
+  private filteredProducts = []
 
   // pager object
   pager: any = {};
@@ -71,8 +80,17 @@ export class ProductListComponent implements OnInit {
       });
   }
 
-  onChange(selection): void {
-		this.productService.getFilteredList().subscribe(
+  onChange(collectionId, fabricId, colourId, sortPrice): void {
+		this.productService.getFilteredList(collectionId, fabricId, colourId, sortPrice).subscribe(
+      products => {
+        this.products = products;
+        //initialise paginator 
+        this.setPage(1);
+      });
+	}
+
+  onSearch(query: string): void {
+		this.productService.getSearchedList(query).subscribe(
       products => {
         this.products = products;
         //initialise paginator 

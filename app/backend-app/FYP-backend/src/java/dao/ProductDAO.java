@@ -162,6 +162,7 @@ public class ProductDAO {
         ResultSet rs = null;
         Product product = null;
         ArrayList<Product> productArrayList = new ArrayList();
+        System.out.println(collectionId + fabricId + colourId + sortPrice);
         String sql = "SELECT p1.*, p2.COLLECTION_ID FROM PRODUCT p1 LEFT OUTER JOIN PATTERN p2 ON p1.PATTERN_ID = p2.PATTERN_ID WHERE ";
 
         if (collectionId != null) {
@@ -172,13 +173,13 @@ public class ProductDAO {
 
         if (fabricId != null) {
 
-            sql += "FABRIC_ID = ? AND";
+            sql += " FABRIC_ID = ? AND";
 
         }
 
         if (colourId != null) {
 
-            sql += "COLOUR_ID = ? AND";
+            sql += " COLOUR_ID = ? AND";
 
         }
 
@@ -190,6 +191,8 @@ public class ProductDAO {
             sql += " DESC";
 
         }
+        
+        System.out.println(sql);
 
         try {
             conn = ConnectionManager.getConnection();
@@ -260,7 +263,7 @@ public class ProductDAO {
     }
     
     public static Product[] getSearchProducts(String search) throws SQLException {
-
+        System.out.print(search);
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -269,7 +272,7 @@ public class ProductDAO {
 
         String sql = "SELECT p1.* FROM PRODUCT p1 LEFT OUTER JOIN PATTERN p2 ON p1.PATTERN_ID = p2.PATTERN_ID WHERE PATTERN_NAME LIKE '%";
         sql = sql + search + "%' GROUP BY (p1.pattern_id)";
-
+        System.out.println(sql);
         try {
             conn = ConnectionManager.getConnection();
             stmt = conn.prepareStatement(sql);

@@ -34,7 +34,7 @@ export class ProductService {
         });
     }
 
-
+/*
     getFilteredList() {
         let params: URLSearchParams = new URLSearchParams();
         let url = CONFIG.productListBackendUrl;
@@ -89,7 +89,7 @@ export class ProductService {
                 // return res.json().patterns;
                 return mockJson.products;
             });
-    }
+    }*/
 
     getPatternById(patternId: string){
         let url = CONFIG.productDetailsBackendUrl
@@ -100,6 +100,28 @@ export class ProductService {
                 console.log("product is loaded"+res.json().pattern);
                 return res.json().pattern;
                 // return mockJson.pattern;
+            });
+    }
+
+    getFilteredList(collectionId: string, fabricId: string, colourId: string, sortPrice: String){
+        let url = CONFIG.filteredProductListBackendUrl
+        let finalUrl = url + "?collectionId=" + collectionId + "&fabricId=" + fabricId + "&colourId=" + colourId + "&sortPrice=" + sortPrice
+         return this._http.get(finalUrl)
+            .map(res => {
+                console.log(finalUrl)
+                console.log("product is loaded"+res.json().products);
+                return res.json().products;
+            });
+    }
+
+    getSearchedList(query: string){
+        let url = CONFIG.searchedProductListBackendUrl
+        let finalUrl = url + "?search=" + query;
+         return this._http.get(finalUrl)
+            .map(res => {
+                console.log(finalUrl)
+                console.log("product is loaded"+res.json().products);
+                return res.json().products;
             });
     }
 }
