@@ -267,7 +267,7 @@ public class ProductCatalogue {
         JsonObject jsonOutput = new JsonObject();
         JsonArray products = new JsonArray();
 
-        if (search.equals(" ")) {
+        if (search.isEmpty() || search.equals(" ")) {
 
             return getProductsCatalogue();
 
