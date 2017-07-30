@@ -13,7 +13,7 @@
 
         <div class="row">
 
-                <select [(ngModel)]="selectedCollection" class="btn btn-default" (ngModelChange)="onChange($event)">
+                <select [(ngModel)]="selectedCollection" class="btn btn-default" (ngModelChange)="onChange(selectedCollection,selectedFabric,selectedColour,sortPrice)">
                     <option disabled value="0" class="hideoption">Select Collection</option>
                     <option *ngFor="let c of collections" [ngValue]="c">{{c.name}}</option>
                 </select>
@@ -27,8 +27,14 @@
                     <option disabled value="0" class="hideoption">Select Colour</option>
                     <option *ngFor="let c of colours" [ngValue]="c">{{c.name}}</option>
                 </select>
+
+                <select [(ngModel)]="sortPrice" class="btn btn-default" (ngModelChange)="onChange($event)">
+                    <option disabled value="0" class="hideoption">Sort Price by</option>
+                    <option *ngFor="let s of sorts" [ngValue]="c">{{s.name}}</option>
+                </select>
+
     
-                <input type="text" [(ngModel)]="queryString" id="search" placeholder="Type to search..." class="btn btn-default">
+                <input type="text" [(ngModel)]="queryString" id="search" placeholder="Search by product name.." class="btn btn-default" (ngModelChange)="onSearch(queryString)">
         </div>  
         <hr>
 
