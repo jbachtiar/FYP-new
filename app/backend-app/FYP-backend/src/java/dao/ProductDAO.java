@@ -304,4 +304,120 @@ public class ProductDAO {
         return productArrayList.toArray(new Product[productArrayList.size()]);
     }
 
+    
+    public static Product[] getfilteredProductList(String collectionId, String fabricId, String colourId, String sortPrice, String search) throws SQLException {
+
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Product product = null;
+        ArrayList<Product> productArrayList = new ArrayList();
+
+        String sql = "SELECT p1.*, p2.COLLECTION_ID FROM PRODUCT p1 LEFT OUTER JOIN PATTERN p2 ON p1.PATTERN_ID = p2.PATTERN_ID WHERE ";
+
+        
+        if (!collectionId.equals("undefined")) {
+
+            sql += "COLLECTION_ID = ? AND";
+
+        }
+
+        if (!fabricId.equals("undefined")) {
+
+            sql += " FABRIC_ID = ? AND";
+
+        }
+
+        if (!colourId.equals("undefined")) {
+
+            sql += " COLOUR_ID = ? AND";
+
+        }
+        
+        if (!search.equals("undefined")){
+            
+            System.out.println(search);
+            sql += " PATTERN_NAME LIKE '%" + search + "%' AND";
+            
+        }
+
+        sql = sql.substring(0, sql.length() - 3);
+        sql += " GROUP BY (p1.pattern_id) ORDER BY p1.COLOUR_PRICE";
+
+        if (sortPrice.equals("desc")) {
+
+            sql += " DESC";
+
+        }
+        
+        System.out.println(sql);
+
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+
+            if (!collectionId.equals("undefined")) {
+
+                stmt.setString(1, collectionId);
+
+                if (!fabricId.equals("undefined")) {
+
+                    stmt.setString(2, fabricId);
+
+                    if (!colourId.equals("undefined")) {
+
+                        stmt.setString(3, colourId);
+
+                    }
+
+                }else if(!colourId.equals("undefined")){
+                    
+                    stmt.setString(2, colourId);
+                      
+                }
+
+            } else if (!fabricId.equals("undefined")) {
+
+                stmt.setString(1, fabricId);
+
+                if (!colourId.equals("undefined")) {
+
+                    stmt.setString(2, colourId);
+
+                }
+
+            } else if (!colourId.equals("undefined")) {
+
+                stmt.setString(1, colourId);
+
+            }
+
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+
+                String patternID = rs.getString("PATTERN_ID");
+                String sku = rs.getString("SKU");
+                String colourID = rs.getString("COLOUR_ID");
+                String fabricID = rs.getString("FABRIC_ID");
+                double colorPrice = rs.getDouble("COLOUR_PRICE");
+                String imageUrl = rs.getString("IMAGE_URL");
+
+                Fabric f = FabricDAO.getFabricById(fabricID);
+                Colour c = ColorDAO.getColorById(colourID);
+                Pattern p = PatternDAO.retrievePatternById(patternID);
+                Collection col = p.getCollection();
+                ArrayList<String> tags = PatternDAO.getTagsByPatternId(patternID);
+
+                product = new Product(sku, patternID, p.getPatternName(), p.getPatternPrice(), f.getFabricID(), f.getFabricName(), f.getFabricPrice(), c.getColourID(), c.getColourName(), colorPrice, col.getCollectionID(), col.getCollectionName(), imageUrl, tags);
+
+                productArrayList.add(product);
+            }
+
+        } finally {
+            ConnectionManager.close(conn, stmt, rs);
+        }
+        return productArrayList.toArray(new Product[productArrayList.size()]);
+    }
+    
 }
