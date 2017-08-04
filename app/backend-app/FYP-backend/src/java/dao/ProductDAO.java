@@ -50,7 +50,7 @@ public class ProductDAO {
                 String imageUrl = rs.getString("IMAGE_URL");
 
                 Fabric f = FabricDAO.getFabricById(fabricID);
-                Colour c = ColorDAO.getColorById(colourID);
+                Colour c = ColourDAO.getColorById(colourID);
                 Pattern p = PatternDAO.retrievePatternById(patternID);
                 Collection col = p.getCollection();
                 ArrayList<String> tags = PatternDAO.getTagsByPatternId(patternID);
@@ -88,7 +88,7 @@ public class ProductDAO {
                 String imageUrl = rs.getString("IMAGE_URL");
 
                 Fabric f = FabricDAO.getFabricById(fabricID);
-                Colour c = ColorDAO.getColorById(colourID);
+                Colour c = ColourDAO.getColorById(colourID);
                 Pattern p = PatternDAO.retrievePatternById(patternID);
                 Collection col = p.getCollection();
                 ArrayList<String> tags = PatternDAO.getTagsByPatternId(patternID);
@@ -119,7 +119,7 @@ public class ProductDAO {
             while (rs.next()) {
 
                 String ColorId = rs.getString("colour_id");
-                colors.add(ColorDAO.getColorById(ColorId));
+                colors.add(ColourDAO.getColorById(ColorId));
 
             }
 
@@ -248,7 +248,7 @@ public class ProductDAO {
                 String imageUrl = rs.getString("IMAGE_URL");
 
                 Fabric f = FabricDAO.getFabricById(fabricID);
-                Colour c = ColorDAO.getColorById(colourID);
+                Colour c = ColourDAO.getColorById(colourID);
                 Pattern p = PatternDAO.retrievePatternById(patternID);
                 Collection col = p.getCollection();
                 ArrayList<String> tags = PatternDAO.getTagsByPatternId(patternID);
@@ -290,7 +290,7 @@ public class ProductDAO {
                 String imageUrl = rs.getString("IMAGE_URL");
 
                 Fabric f = FabricDAO.getFabricById(fabricID);
-                Colour c = ColorDAO.getColorById(colourID);
+                Colour c = ColourDAO.getColorById(colourID);
                 Pattern p = PatternDAO.retrievePatternById(patternID);
                 Collection col = p.getCollection();
                 ArrayList<String> tags = PatternDAO.getTagsByPatternId(patternID);
@@ -434,7 +434,7 @@ public class ProductDAO {
                 String imageUrl = rs.getString("IMAGE_URL");
 
                 Fabric f = FabricDAO.getFabricById(fabricID);
-                Colour c = ColorDAO.getColorById(colourID);
+                Colour c = ColourDAO.getColorById(colourID);
                 Pattern p = PatternDAO.retrievePatternById(patternID);
                 Collection col = p.getCollection();
                 ArrayList<String> tags = PatternDAO.getTagsByPatternId(patternID);

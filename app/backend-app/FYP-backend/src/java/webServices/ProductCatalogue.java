@@ -10,7 +10,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import dao.CollectionDAO;
-import dao.ColorDAO;
+import dao.ColourDAO;
 import dao.FabricDAO;
 import dao.PatternDAO;
 import dao.ProductDAO;
@@ -184,11 +184,11 @@ public class ProductCatalogue {
                         Colour c = colors.get(j);
                         JsonObject co = new JsonObject();
                         String colorId = c.getColourID();
-                        co.addProperty("color_id", colorId);
-                        co.addProperty("color_name", c.getColourName());
+                        co.addProperty("colour_id", colorId);
+                        co.addProperty("colour_name", c.getColourName());
 
                         Product p = ProductDAO.getProductByPatternFabricColor(pattern.getPatternID(), fabricId, colorId);
-                        co.addProperty("color_price", p.getColorPrice());
+                        co.addProperty("colour_price", p.getColorPrice());
                         co.addProperty("image_url", p.getImageUrl());
                         colorsJson.add(co);
                     }
@@ -396,5 +396,41 @@ public class ProductCatalogue {
         
         //responseMap.put("status", STATUS_ERROR_NULL_PASSWORD);
         return gson.toJson(responseMap);
+    }
+    
+    @GET
+    @Path("/colours")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getColourCatalogue(){
+
+        ColourDAO colourDAO = new ColourDAO();
+        Gson gson = new GsonBuilder().create();
+        JsonObject jsonOutput = new JsonObject();
+        JsonArray colours = new JsonArray();
+        
+        try{
+            
+            Colour[] cArray = colourDAO.getAllColours();
+            jsonOutput.addProperty("status","200");
+            
+            for(Colour f: cArray){
+                
+                JsonObject temp = new JsonObject();
+                temp.addProperty("colour_id", f.getColourID());
+                temp.addProperty("colour_name", f.getColourName());
+                colours.add(temp);
+            
+            }
+
+            jsonOutput.add("colours", colours);
+            
+        }catch(SQLException e){
+        
+            jsonOutput.addProperty("status","error");
+            
+        }
+        
+        String finalJsonOutput = gson.toJson(jsonOutput);
+        return finalJsonOutput;
     }
 }

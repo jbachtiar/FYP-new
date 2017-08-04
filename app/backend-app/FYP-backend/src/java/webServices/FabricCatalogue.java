@@ -92,9 +92,9 @@ public class FabricCatalogue {
             for(Fabric f: fArray){
                 
                 JsonObject temp = new JsonObject();
-                temp.addProperty("id", f.getFabricID());
-                temp.addProperty("name", f.getFabricName());
-                temp.addProperty("price", f.getFabricPrice());
+                temp.addProperty("fabric_id", f.getFabricID());
+                temp.addProperty("fabric_name", f.getFabricName());
+                temp.addProperty("fabric_price", f.getFabricPrice());
                 fabrics.add(temp);
                 
             }
