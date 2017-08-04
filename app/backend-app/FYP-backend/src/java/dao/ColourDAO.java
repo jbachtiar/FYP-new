@@ -7,16 +7,49 @@ package dao;
 
 import database.ConnectionManager;
 import entity.Colour;
+import entity.Fabric;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
  * @author Huiyan
  */
-public class ColorDAO {
+public class ColourDAO {
+    
+        public Colour[] getAllColours() throws SQLException{
+        
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Colour colour = null;
+        ArrayList<Colour> colourArrayList = new ArrayList<>();
+        
+        String sql = "SELECT * FROM colour"; 
+        
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            rs = stmt.executeQuery();
+            
+            while (rs.next()) {
+                
+                String colourID = rs.getString("COLOUR_ID");
+                String colourName = rs.getString("COLOUR_NAME");
+                
+                colour = new Colour(colourID,colourName);
+                colourArrayList.add(colour);
+            }
+
+        } finally {
+            ConnectionManager.close(conn, stmt, rs);
+        }
+        return colourArrayList.toArray(new Colour[colourArrayList.size()]);
+    }
+        
       public static Colour getColorById(String colorId) throws SQLException{
         
         Connection conn = null;

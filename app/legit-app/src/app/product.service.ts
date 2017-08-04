@@ -46,7 +46,7 @@ export class ProductService {
             });
     }
 
-  /*  getFilteredList(collectionId: string, fabricId: string, colourId: string, sortPrice: String){
+      /*  getFilteredList(collectionId: string, fabricId: string, colourId: string, sortPrice: String){
         let url = CONFIG.filteredProductListBackendUrl
         let finalUrl = url + "?collectionId=" + collectionId + "&fabricId=" + fabricId + "&colourId=" + colourId + "&sortPrice=" + sortPrice
          return this._http.get(finalUrl)
@@ -56,7 +56,6 @@ export class ProductService {
                 return res.json().products;
             });
     }
-
     getSearchedList(query: string){
         let url = CONFIG.searchedProductListBackendUrl
         let finalUrl = url + "?search=" + query;
@@ -78,6 +77,4 @@ export class ProductService {
                 return res.json().products;
             });
     }
-
-
 }

@@ -14,7 +14,7 @@
 
         <div class="container-fluid">
           <div class="row">
-            <div class="col-md-8"><img src="{{selectedColor.image_url}}" class="img-responsive" alt="Some picture"></div>
+            <div class="col-md-8"><img src="{{selectedColour.image_url}}" class="img-responsive" alt="Some picture"></div>
 
             
             <span text-left class="col-md-4" style="font-size:12px" class="label label-warning">{{pattern.collection_name}}</span> <br><br>
@@ -27,8 +27,8 @@
           <option *ngFor="let fabric of pattern.fabrics" [ngValue]="fabric">{{fabric.fabric_name}} +${{fabric.fabric_price}}</option>
         </select>
         <h5>Colour:</h5>
-        <select [(ngModel)]="selectedColor" (ngModelChange)="onColourChange()">
-          <option *ngFor="let color of selectedFabric.colours" [ngValue]="color">{{color.color_name}} +${{color.color_price}}</option>
+        <select [(ngModel)]="selectedColour" (ngModelChange)="onColourChange()">
+          <option *ngFor="let colour of selectedFabric.colours" [ngValue]="colour">{{colour.colour_name}} +${{colour.colour_price}}</option>
         </select>
         <br/><br/>  
         <h4>${{totalPrice}}</h4>

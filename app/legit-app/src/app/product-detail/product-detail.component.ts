@@ -15,7 +15,7 @@ import { FabricService } from '../fabric.service';
 })
 export class ProductDetailComponent implements OnInit {
   selectedFabric: any;
-  selectedColor: any;
+  selectedColour: any;
   selectedQuantity=1;
   patternId: string;
   pattern: any = {};
@@ -37,38 +37,23 @@ export class ProductDetailComponent implements OnInit {
       pattern => {
         this.pattern = pattern;
         this.selectedFabric = pattern.fabrics[0]
-        this.selectedColor = this.selectedFabric.colours[0]
+        this.selectedColour = this.selectedFabric.colours[0]
         this.selectedFabricPrice = +this.selectedFabric.fabric_price
-        this.selectedColourPrice = +this.selectedColor.color_price
+        this.selectedColourPrice = +this.selectedColour.colour_price
         this.totalPrice = this.selectedFabricPrice + this.selectedColourPrice
       });
     }
 
     onFabricChange(){
-      this.selectedColor = this.selectedFabric.colours[0];
+      this.selectedColour = this.selectedFabric.colours[0];
       this.selectedFabricPrice = +this.selectedFabric.fabric_price;
       this.totalPrice = this.selectedFabricPrice + this.selectedColourPrice;
       console.log("RECALCULATED PRICE" + this.totalPrice);
     } 
 
     onColourChange(){
-      this.selectedColourPrice = +this.selectedColor.color_price;
+      this.selectedColourPrice = +this.selectedColour.colour_price;
       this.totalPrice = this.selectedFabricPrice + this.selectedColourPrice;
       console.log("RECALCULATED PRICE" + this.totalPrice) 
     }
-  // showFabric() {
-  //   this.fabricService.getFabricsByPatternId(this.product.pattern_id).subscribe(
-  //     fabrics => {
-  //       this.fabrics = fabrics;
-  //       console.log("fabric is loaded"+fabrics); 
-
-  //     });
-  //   }
-  
-
-
-
-
-
-
 }
