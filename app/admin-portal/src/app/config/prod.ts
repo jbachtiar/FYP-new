@@ -2,7 +2,8 @@ export const prodConfig = {
     authenticationBackendUrl:'',
     registrationBackendUrl:'',
     productCatalogueBackendUrl:'',
-    patternListBackendUrl:'',
+    patternCatalogueBackendUrl:'',
+    fabricCatalogueBackendUrl:'',
     staffBackendUrl:'',
     quickViewBackendUrl:'',
 }

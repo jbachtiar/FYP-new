@@ -1,0 +1,33 @@
+<body>
+  <h1>{{pattern.pattern_name}}</h1>
+  <div class="form-group">
+    <label>ID: {{pattern.pattern_id}}</label>
+  </div>
+  <div class="form-group">
+    <label>Name</label>
+    <input class="form-control" placeholder="Name" [(ngModel)]="pattern.pattern_name" #ctrl="ngModel" required>
+  </div>
+  <div class="form-group">
+    <label>Description</label>
+    <input class="form-control" placeholder="Description" [(ngModel)]="pattern.pattern_description" #ctrl="ngModel" required>
+  </div>
+  <div class="form-group">
+    <label>Price</label>
+    <input class="form-control" placeholder="Price" [(ngModel)]="pattern.pattern_price" #ctrl="ngModel" required>
+  </div>
+  <div class="form-group">
+    <label for="options">Available Options :</label><br/>
+    Fabrics
+    <div *ngFor="let f of fabrics; let i = index">
+      
+        <input type="checkbox"
+                name="fabrics"
+                value="f.fabric_id"
+                [checked]="fabrics.indexOf(f) >= 0"
+                (change)="updateCheckedOptions(f.fabric_id, $event)"/>
+        {{f.name}}
+      
+    </div>
+  </div>
+  <button class="btn btn-default" (click)="onSave()">Save</button>
+</body>

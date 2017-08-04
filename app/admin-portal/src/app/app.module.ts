@@ -17,7 +17,8 @@ import { StaffmanagementComponent } from './staffmanagement/staffmanagement.comp
 import { AuthGuard } from './guard/guard';
 import { PatternListComponent } from './pattern-list/pattern-list.component'
 
-import { ProductService } from './services/product.service'
+import { ProductService } from './services/product.service';
+import { PatternDetailsComponent } from './pattern-details/pattern-details.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,6 +28,7 @@ import { ProductService } from './services/product.service'
     UserComponent,
     StaffmanagementComponent,
     PatternListComponent,
+    PatternDetailsComponent,
     
   ],
   imports: [

@@ -41,43 +41,6 @@ import tokenManagement.tokenManagement;
 public class PatternCatalogue {
     
     @GET
-    @Path("/fabrics")
-    @Produces(MediaType.APPLICATION_JSON)
-    public String getFabricCatalogue(){
-
-        FabricDAO fabricDAO = new FabricDAO();
-        Gson gson = new GsonBuilder().create();
-        JsonObject jsonOutput = new JsonObject();
-        JsonArray fabrics = new JsonArray();
-        
-        try{
-            
-            Fabric[] fArray = fabricDAO.getAllFabrics();
-            jsonOutput.addProperty("status","200");
-            
-            for(Fabric f: fArray){
-                
-                JsonObject temp = new JsonObject();
-                temp.addProperty("id", f.getFabricID());
-                temp.addProperty("name", f.getFabricName());
-                temp.addProperty("price", f.getFabricPrice());
-                fabrics.add(temp);
-                
-            }
-
-            jsonOutput.add("fabrics", fabrics);
-            
-        }catch(SQLException e){
-        
-            jsonOutput.addProperty("status","error");
-            
-        }
-        
-        String finalJsonOutput = gson.toJson(jsonOutput);
-        return finalJsonOutput;
-    }
-    
-    @GET
     @Path("/patterns")
     @Produces(MediaType.APPLICATION_JSON)
     public String getPatternsCatalogue(){

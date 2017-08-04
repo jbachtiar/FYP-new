@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ProductService} from '../services/product.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-pattern-list',
@@ -8,8 +9,10 @@ import {ProductService} from '../services/product.service';
 })
 export class PatternListComponent implements OnInit {
   private patterns = []
-  constructor( private productService:ProductService) { 
-    
+  constructor(
+    private productService:ProductService, 
+    private router: Router
+    ) { 
   }
 
   ngOnInit() {
@@ -20,5 +23,12 @@ export class PatternListComponent implements OnInit {
        
       });
   }
+  
+  onSelect(pattern_id: number): void {
+		let link = ['/patternDetails', pattern_id];
+		this.router.navigate(link);
+	}
+
+
 
 }

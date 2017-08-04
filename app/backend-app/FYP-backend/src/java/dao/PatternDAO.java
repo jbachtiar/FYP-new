@@ -146,16 +146,16 @@ public class PatternDAO {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        String sql = "update customer set PATTERN_ID=?, PATTERN_NAME=?, PATTERN_DESCRIPTION=?, PATTERN_PRICE=?, COLLECTION_ID=?";
+        String sql = "update pattern set PATTERN_NAME=?, PATTERN_DESCRIPTION=?, PATTERN_PRICE=?, COLLECTION_ID=? where PATTERN_ID=?";
 
         try {
             conn = ConnectionManager.getConnection();
             stmt = conn.prepareStatement(sql);
-            stmt.setString(1, patternID);
-            stmt.setString(2, patternName);
-            stmt.setString(3, patternDescription);
-            stmt.setDouble(4, patternPrice);
-            stmt.setString(5, collectionID);
+            stmt.setString(1, patternName);
+            stmt.setString(2, patternDescription);
+            stmt.setDouble(3, patternPrice);
+            stmt.setString(4, collectionID);
+            stmt.setString(5, patternID);
            
             stmt.executeUpdate();
             

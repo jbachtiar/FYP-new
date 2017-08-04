@@ -20,9 +20,14 @@ import entity.Pattern;
 import entity.Product;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.HttpHeaders;
 ;
 import javax.ws.rs.core.MediaType;
 
@@ -165,6 +170,7 @@ public class ProductCatalogue {
                 patt.addProperty("pattern_name", pattern.getPatternName());
                 patt.addProperty("pattern_description", pattern.getPatternDescription());
                 patt.addProperty("pattern_price", pattern.getPatternPrice());
+                patt.addProperty("collection_id", CollectionDAO.getCollectionByPatternId(patternId).getCollectionID());
                 patt.addProperty("collection_name", CollectionDAO.getCollectionByPatternId(patternId).getCollectionName());
                 
                 JsonArray fabricsJson = new JsonArray();
@@ -172,7 +178,7 @@ public class ProductCatalogue {
                  for(int i=0; i<fabrics.size(); i++){
                     Fabric f= fabrics.get(i);
                     String fabricId= f.getFabricID();
-                    ArrayList<Colour> colors = ProductDAO.getAvaialbleColoursByPatternFabric(patternId, fabricId);
+                    ArrayList<Colour> colors = ProductDAO.getAvailableColoursByPatternFabric(patternId, fabricId);
                         
                     JsonObject fa = new JsonObject();
                     fa.addProperty("fabric_id", f.getFabricID());
@@ -323,4 +329,23 @@ public class ProductCatalogue {
         return finalJsonOutput;
     }
     
+    
+    @PUT
+    @Path("/updatePatternFabric")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String updatePatternFabric (@Context HttpHeaders httpHeaders, @FormParam("patternID") String patternID,@FormParam("fabricID") String fabricID){
+        //String password = CustomerDAO.retrievePasswordByEmail(email);
+        HashMap<String, String> responseMap = new HashMap<>();
+        Gson gson = new GsonBuilder().create();
+        String status;
+        Pattern pattern = null;
+                
+        
+        ProductDAO.updatePatternFabric(patternID, fabricID);
+        status = "200";
+        responseMap.put("status", status);
+        
+        //responseMap.put("status", STATUS_ERROR_NULL_PASSWORD);
+        return gson.toJson(responseMap);
+    }
 }

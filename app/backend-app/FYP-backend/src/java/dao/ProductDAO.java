@@ -16,6 +16,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -100,7 +102,7 @@ public class ProductDAO {
         return product;
     }
 
-    public static ArrayList<Colour> getAvaialbleColoursByPatternFabric(String patternId, String fabricId) throws SQLException {
+    public static ArrayList<Colour> getAvailableColoursByPatternFabric(String patternId, String fabricId) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -300,5 +302,33 @@ public class ProductDAO {
         }
         return productArrayList.toArray(new Product[productArrayList.size()]);
     }
+    
+    public static void updatePatternFabric(String patternID, String fabricID) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        String sql = "INSERT IGNORE INTO pattern_fabric (PATTERN_ID, FABRIC_ID) VALUES (?, ?)";
 
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, patternID);
+            stmt.setString(2, fabricID);
+           
+            stmt.executeUpdate();
+            
+        } catch (SQLException ex) {
+            handleSQLException(ex, sql);
+        } finally {
+            ConnectionManager.close(conn, stmt, rs);
+        }
+    }
+    
+    private static void handleSQLException(SQLException ex, String sql, String... parameters) {
+        String msg = "Unable to access data; SQL=" + sql + "\n";
+        for (String parameter : parameters) {
+            msg += "," + parameter;
+        }
+        Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, msg, ex);
+    }
 }

@@ -6,7 +6,7 @@ import { UserComponent } from './user/user.component';
 import { StaffmanagementComponent } from './staffmanagement/staffmanagement.component';
 //import { RegisterComponent } from './register/register.component'
 import { PatternListComponent} from './pattern-list/pattern-list.component'
-
+import { PatternDetailsComponent } from './pattern-details/pattern-details.component'
 import { AuthGuard } from './guard/guard';
 
 const appRoutes: Routes = [
@@ -15,7 +15,7 @@ const appRoutes: Routes = [
     { path: 'user', component: UserComponent,  canActivate: [AuthGuard] },
     { path: 'staffmanagement', component: StaffmanagementComponent,  canActivate: [AuthGuard] },
     { path: 'patternList', component: PatternListComponent, canActivate: [AuthGuard]},
-    
+    { path: 'patternDetails/:patternId', component: PatternDetailsComponent, canActivate: [AuthGuard]}
     //{ path: 'register', component: RegisterComponent },
 ];
 
