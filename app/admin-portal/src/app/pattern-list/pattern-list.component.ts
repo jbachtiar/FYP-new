@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ProductService} from '../services/product.service';
 import { Router } from '@angular/router';
+import {PagerService} from '../services/pager.service';
 
 @Component({
   selector: 'app-pattern-list',
@@ -9,9 +10,16 @@ import { Router } from '@angular/router';
 })
 export class PatternListComponent implements OnInit {
   private patterns = []
+     // pager object
+  pager: any = {};
+
+  // paged items
+  pagedPatterns: any[];
+  
   constructor(
     private productService:ProductService, 
-    private router: Router
+    private router: Router,
+    private pagerService: PagerService
     ) { 
   }
 
@@ -19,6 +27,7 @@ export class PatternListComponent implements OnInit {
      this.productService.getPatternList().subscribe(
      patterns => {
         this.patterns = patterns;
+        this.setPage(1);
  
        
       });
@@ -30,5 +39,16 @@ export class PatternListComponent implements OnInit {
 	}
 
 
+    setPage(page: number) {
+        if (page < 1 || page > this.pager.totalPages) {
+            return;
+        }
+ 
+        // get pager object from service
+        this.pager = this.pagerService.getPager(this.patterns.length, page);
+ 
+        // get current page of items
+        this.pagedPatterns = this.patterns.slice(this.pager.startIndex, this.pager.endIndex + 1);
+  }
 
 }

@@ -3,7 +3,10 @@
     <div class="col-lg-12 col-md-5">
       <div class="card">
         <div class="header">
-          <div class="col-md-4"></div>
+          <div class="col-md-4">
+            
+          </div>
+       
           
           <div class="col-md-4" style="font-weight: bold">
             Price
@@ -16,16 +19,20 @@
           <div class="col-md-4" style="font-weight: bold">
             Name
           </div>
+          
+          <button class="btn btn-info btn-wd">Add New Pattern</button>
 
         </div>
         <hr>
         <div class="content">
-          <div *ngFor="let p of patterns">
+          <div *ngFor="let p of pagedPatterns">
 
             <img src="{{p.image_url}}" height="120" width="120" alt="...">
 
             <div class="col-md-4">
-              <button class="btn btn-info btn-fill btn-wd" (click)="onSelect(p.pattern_id)">View Details</button>
+              <button class="btn btn-info btn-fill btn-wd">View Details</button>
+               &emsp;
+              <button class="btn btn-info btn-fill btn-wd">Edit</button>
             </div>
 
             <div class="col-md-4">
@@ -41,6 +48,28 @@
             </div>
             <hr>
           </div>
+        </div>
+
+          <!-- pager -->
+  
+        <div class="text-center">
+        <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+            <li [ngClass]="{disabled:pager.currentPage === 1}">
+                <a class="page-tab" (click)="setPage(1)">First</a>
+            </li>
+            <li [ngClass]="{disabled:pager.currentPage === 1}">
+                <a class="page-tab" (click)="setPage(pager.currentPage - 1)">Previous</a>
+            </li>
+            <li *ngFor="let page of pager.pages" class="page-tab" [ngClass]="{active:pager.currentPage === page}">
+                <a class="page-tab" (click)="setPage(page)">{{page}}</a>
+            </li>
+            <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                <a class="page-tab" (click)="setPage(pager.currentPage + 1)">Next</a>
+            </li>
+            <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                <a class="page-tab" (click)="setPage(pager.totalPages)">Last</a>
+            </li>
+        </ul>
         </div>
       </div>
 

@@ -19,6 +19,7 @@ import { PatternListComponent } from './pattern-list/pattern-list.component'
 
 import { ProductService } from './services/product.service';
 import { PatternDetailsComponent } from './pattern-details/pattern-details.component'
+import { PagerService} from './services/pager.service'
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,7 +41,8 @@ import { PatternDetailsComponent } from './pattern-details/pattern-details.compo
   ],
   providers: [
     AuthGuard,
-    ProductService
+    ProductService,
+    PagerService
   ],
   bootstrap: [AppComponent]
 })

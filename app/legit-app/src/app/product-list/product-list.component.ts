@@ -13,7 +13,119 @@ import { QuickViewComponent } from '../quick-view/quick-view.component';
 })
 export class ProductListComponent implements OnInit {
   
-  selectedCollection:any = 0;
+  selectedCollectionId;
+  selectedFabricId;
+  selectedColourId;
+  selectedSortPriceId;
+  queriedSearch;
+
+  onClear(){
+
+    this.selectedCollectionId = "undefined";
+    this.selectedFabricId = "undefined";
+    this.selectedColourId = "undefined";
+    this.selectedSortPriceId = "undefined";
+    this.queriedSearch = "";
+
+    this.productService.getFilteredProductList(this.selectedCollectionId, this.selectedFabricId, this.selectedColourId, this.selectedSortPriceId, this.queriedSearch).subscribe(
+      products => {
+        this.products = products;
+        //initialise paginator 
+        this.setPage(1);
+      });
+
+  }
+  
+  onSelectCollection(collectionId) {
+    this.selectedCollectionId = collectionId.id;
+    console.log(this.selectedCollectionId);
+    console.log(this.selectedFabricId);
+    console.log(this.selectedColourId);
+    console.log(this.selectedSortPriceId);
+    console.log(this.queriedSearch);
+
+    this.productService.getFilteredProductList(this.selectedCollectionId, this.selectedFabricId, this.selectedColourId, this.selectedSortPriceId, this.queriedSearch).subscribe(
+      products => {
+        this.products = products;
+        //initialise paginator 
+        this.setPage(1);
+      });
+  }
+
+  onSelectFabric(fabricid) {
+    this.selectedFabricId = fabricid.id;
+    console.log(this.selectedCollectionId);
+    console.log(this.selectedFabricId);
+    console.log(this.selectedColourId);
+    console.log(this.selectedSortPriceId);
+    console.log(this.queriedSearch);
+
+    this.productService.getFilteredProductList(this.selectedCollectionId, this.selectedFabricId, this.selectedColourId, this.selectedSortPriceId, this.queriedSearch).subscribe(
+      products => {
+        this.products = products;
+        //initialise paginator 
+        this.setPage(1);
+      });
+  
+  }
+
+  onSelectColour(colourid) {
+    this.selectedColourId = colourid.id;
+    console.log(this.selectedCollectionId);
+    console.log(this.selectedFabricId);
+    console.log(this.selectedColourId);
+    console.log(this.selectedSortPriceId);
+    console.log(this.queriedSearch);
+
+    this.productService.getFilteredProductList(this.selectedCollectionId, this.selectedFabricId, this.selectedColourId, this.selectedSortPriceId, this.queriedSearch).subscribe(
+      products => {
+        this.products = products;
+        //initialise paginator 
+        this.setPage(1);
+      });
+  }
+    
+
+  onSelectSort(sortid) {
+    this.selectedSortPriceId = sortid.id;
+    console.log(this.selectedCollectionId);
+    console.log(this.selectedFabricId);
+    console.log(this.selectedColourId);
+    console.log(this.selectedSortPriceId);
+    console.log(this.queriedSearch);
+
+    this.productService.getFilteredProductList(this.selectedCollectionId, this.selectedFabricId, this.selectedColourId, this.selectedSortPriceId, this.queriedSearch).subscribe(
+      products => {
+        this.products = products;
+        //initialise paginator 
+        this.setPage(1);
+      });
+  }
+
+  onSearch(query: string): void {
+    this.queriedSearch = query;
+    console.log(this.selectedCollectionId);
+    console.log(this.selectedFabricId);
+    console.log(this.selectedColourId);
+    console.log(this.selectedSortPriceId);
+    console.log(this.queriedSearch);
+
+		this.productService.getFilteredProductList(this.selectedCollectionId, this.selectedFabricId, this.selectedColourId, this.selectedSortPriceId, this.queriedSearch).subscribe(
+      products => {
+        this.products = products;
+        //initialise paginator 
+        this.setPage(1);
+      });
+	}
+    
+  
+  sortPrice:any = null;
+  sorts = [
+       {id: "asc", name: "Ascending"},
+       {id: "desc", name: "Descending"}
+     ];
+  
+  selectedCollection:any = null;
   collections = [
        {id: "CO1", name: "2019 Spring"},
        {id: "CO2", name: "2018 Spring"},
@@ -22,7 +134,7 @@ export class ProductListComponent implements OnInit {
        {id: "CO5", name: "2017 Winter"}
      ];
 
-  selectedFabric:any = 0;
+  selectedFabric:any = null;
   fabrics = [
        {id: "F1", name: "Silk"},
        {id: "F2", name: "Modal"},
@@ -32,7 +144,7 @@ export class ProductListComponent implements OnInit {
        {id: "F6", name: "Polyester-Cotton"}
      ];
 
-  selectedColour:any = 0;
+  selectedColour:any = null;
   colours = [
        {id: "C1", name: "White"},
        {id: "C2", name: "Black"},
@@ -49,6 +161,9 @@ export class ProductListComponent implements OnInit {
   
   //list of products 
   private products = []
+
+  //list of product 
+  private filteredProducts = []
 
   // pager object
   pager: any = {};
@@ -71,14 +186,7 @@ export class ProductListComponent implements OnInit {
       });
   }
 
-  onChange(selection): void {
-		this.productService.getFilteredList().subscribe(
-      products => {
-        this.products = products;
-        //initialise paginator 
-        this.setPage(1);
-      });
-	}
+  
   
   // onSelect(product): void {
 	// 	let link = ['/productDetails', {patternId: product.id, fabricId: product.fabric_id, colourId: product.colour_id}];
