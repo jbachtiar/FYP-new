@@ -17,6 +17,7 @@ export class ProductService {
     
         return this._http.get(url)
             .map(res => {
+                console.log(res);
                 //console.log("product is loaded"+res.json().patterns);
                 return res.json().products;
                // return mockJson.products;
@@ -98,8 +99,18 @@ export class ProductService {
             .map(res => {
                 console.log(finalUrl)
                 console.log("product is loaded"+res.json().pattern);
+                console.log(res);
+                console.log(res.json());
+                
                 return res.json().pattern;
                 // return mockJson.pattern;
             });
+    }
+    
+    addToCart(patternId : string, fabricId : string, colourId : string, qty : number){
+      console.log('pattern : '+ patternId);
+      console.log('fabric : '+ fabricId);
+      console.log('colour : '+ colourId);
+      console.log('qty : '+ qty);
     }
 }

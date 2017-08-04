@@ -38,6 +38,7 @@ import { MyaccountComponent } from './myaccount/myaccount.component';
 import { TrackOrderComponent } from './track-order/track-order.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { StoreLocatorComponent } from './store-locator/store-locator.component';
+import { CartComponent } from './cart/cart.component';
 
 
 
@@ -61,6 +62,7 @@ import { StoreLocatorComponent } from './store-locator/store-locator.component';
     TrackOrderComponent,
     AboutUsComponent,
     StoreLocatorComponent,
+    CartComponent,
     
   ],
   imports: [

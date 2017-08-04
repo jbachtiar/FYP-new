@@ -14,6 +14,7 @@ import { FabricService } from '../fabric.service';
 
 })
 export class ProductDetailComponent implements OnInit {
+  
   selectedFabric: any;
   selectedColor: any;
   selectedQuantity=1;
@@ -22,7 +23,7 @@ export class ProductDetailComponent implements OnInit {
   fabrics: any = {};
   quantity = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
 
-  constructor(private productService: ProductService, private fabricService: FabricService, private route: ActivatedRoute) { }
+  constructor(private router: Router, private productService: ProductService, private fabricService: FabricService, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
@@ -53,7 +54,14 @@ export class ProductDetailComponent implements OnInit {
   //     });
   //   }
   
+    addCart(){
+      
 
+      this.productService.addToCart(this.patternId, this.selectedFabric.fabric_id, this.selectedColor.color_id, this.selectedQuantity )
+
+  
+      //this.router.navigate(['/cart']);
+    }
 
 
 
