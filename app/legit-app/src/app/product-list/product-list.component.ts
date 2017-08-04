@@ -19,6 +19,23 @@ export class ProductListComponent implements OnInit {
   selectedSortPriceId;
   queriedSearch;
 
+  onClear(){
+
+    this.selectedCollectionId = "undefined";
+    this.selectedFabricId = "undefined";
+    this.selectedColourId = "undefined";
+    this.selectedSortPriceId = "undefined";
+    this.queriedSearch = "";
+
+    this.productService.getFilteredProductList(this.selectedCollectionId, this.selectedFabricId, this.selectedColourId, this.selectedSortPriceId, this.queriedSearch).subscribe(
+      products => {
+        this.products = products;
+        //initialise paginator 
+        this.setPage(1);
+      });
+
+  }
+  
   onSelectCollection(collectionId) {
     this.selectedCollectionId = collectionId.id;
     console.log(this.selectedCollectionId);

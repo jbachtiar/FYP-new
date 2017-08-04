@@ -13,6 +13,8 @@
 
         <div class="row">
 
+                <button type="button" id="clear" class="btn btn-default" (click)="onClear()" >Clear All Filters</button>  
+
                 <select [(ngModel)]="selectedCollection" class="btn btn-default" (ngModelChange)="onSelectCollection($event)">
                     <option disabled value="0" class="hideoption">Select Collection</option>
                     <option *ngFor="let c of collections" [ngValue]="c">{{c.name}}</option>
@@ -33,7 +35,6 @@
                     <option *ngFor="let s of sorts" [ngValue]="s">{{s.name}}</option>
                 </select>
 
-    
                 <input type="text" [(ngModel)]="queryString" id="search" placeholder="Search by product name.." class="btn btn-default" (ngModelChange)="onSearch(queryString)">
         </div>  
         <hr>
