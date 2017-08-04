@@ -101,4 +101,12 @@ export class ProductService {
                  return res.json().fabrics;
              });
     }
+
+    getAllColours(){
+        let url = CONFIG.productCatalogueBackendUrl+'/colours';
+        return this._http.get(url)
+            .map(res=>{
+                return res.json().colours;
+            });
+    }
 }

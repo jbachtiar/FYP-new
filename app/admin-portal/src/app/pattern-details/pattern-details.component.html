@@ -1,33 +1,49 @@
 <body>
-  <h1>{{pattern.pattern_name}}</h1>
-  <div class="form-group">
-    <label>ID: {{pattern.pattern_id}}</label>
-  </div>
-  <div class="form-group">
-    <label>Name</label>
-    <input class="form-control" placeholder="Name" [(ngModel)]="pattern.pattern_name" #ctrl="ngModel" required>
-  </div>
-  <div class="form-group">
-    <label>Description</label>
-    <input class="form-control" placeholder="Description" [(ngModel)]="pattern.pattern_description" #ctrl="ngModel" required>
-  </div>
-  <div class="form-group">
-    <label>Price</label>
-    <input class="form-control" placeholder="Price" [(ngModel)]="pattern.pattern_price" #ctrl="ngModel" required>
-  </div>
-  <div class="form-group">
-    <label for="options">Available Options :</label><br/>
-    Fabrics
-    <div *ngFor="let f of fabrics; let i = index">
-      
-        <input type="checkbox"
-                name="fabrics"
-                value="f.fabric_id"
-                [checked]="fabrics.indexOf(f) >= 0"
-                (change)="updateCheckedOptions(f.fabric_id, $event)"/>
-        {{f.name}}
-      
+  <div class="container-fluid">
+    <div class="row">
+      <div class="card">
+        <div class="col-lg-12 col-md-5">
+          <div class="header">
+            <h1>{{pattern.pattern_name}}</h1>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>ID: {{pattern.pattern_id}}</label>
+              </div>
+              <div class="form-group">
+                <label>Name</label>
+                <input class="form-control" placeholder="Name" [(ngModel)]="pattern.pattern_name" #ctrl="ngModel" required>
+              </div>
+              <div class="form-group">
+                <label>Description</label>
+                <input class="form-control" placeholder="Description" [(ngModel)]="pattern.pattern_description" #ctrl="ngModel" required>
+              </div>
+              <div class="form-group">
+                <label>Price</label>
+                <input class="form-control" placeholder="Price" [(ngModel)]="pattern.pattern_price" #ctrl="ngModel" required>
+              </div>
+              <div class="form-group">
+                <label for="options">Available Options :</label><br/> Fabrics:
+                <select [(ngModel)]="selectedFabric">
+                  <option *ngFor="let f of fabrics" [ngValue]="f">{{f.fabric_name}}</option>
+                </select>
+                <button class="btn btn-default" (click)="onAddFabric(selectedFabric)">Add</button>
+
+                <li *ngFor="let fabric of patternFabrics">
+                  {{ fabric.fabric_name }}
+                  <select [(ngModel)]="selectedColour[fabric.fabric_id]">
+                   <option *ngFor="let cd of fabric.colours_dropdown" [ngValue]="cd">{{cd.colour_name}}</option>
+                  </select>
+                  <button class="btn btn-default" (click)="onAddColour(fabric,selectedColour[fabric.fabric_id])">Add</button>
+                  <ul *ngFor="let fc of fabric.colours">
+                    {{fc.colour_name}}
+                  </ul>
+                </li>
+              </div>
+              <button class="btn btn-success" (click)="onSave()">Save</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-  <button class="btn btn-default" (click)="onSave()">Save</button>
 </body>
