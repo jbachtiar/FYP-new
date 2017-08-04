@@ -18,6 +18,7 @@ import { AuthGuard } from './guard/guard';
 import { PatternListComponent } from './pattern-list/pattern-list.component'
 
 import { ProductService } from './services/product.service'
+import { PagerService} from './services/pager.service'
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,7 +39,8 @@ import { ProductService } from './services/product.service'
   ],
   providers: [
     AuthGuard,
-    ProductService
+    ProductService,
+    PagerService
   ],
   bootstrap: [AppComponent]
 })
