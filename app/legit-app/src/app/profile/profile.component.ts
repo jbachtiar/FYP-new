@@ -13,7 +13,6 @@ import {Customer} from '../interface/customer'
 export class ProfileComponent implements OnInit {
   private user: any = {};
   title = 'app';
-  name: string;
   firstName: string;
   lastName: string;
   contact: string;

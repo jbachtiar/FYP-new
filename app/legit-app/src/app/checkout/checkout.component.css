@@ -1,0 +1,42 @@
+.container {
+    padding-top: 80px;
+    line-height: 200%
+ 
+
+}
+.title{
+    display: inline-block;
+    text-align: left 
+}
+
+
+.header{
+    padding-top:5px;
+    background-color: goldenrod;
+    
+}
+
+label{
+    width:30%
+}
+
+.item{
+    width: 30%
+}
+
+.content{
+    border: solid 1px goldenrod;
+}
+
+.button{
+    border: 1px solid goldenrod;
+    background-color: goldenrod; 
+    font-family: Georgia;
+    font-size: 16px;
+    color: white;
+    padding-top: 5px;
+    padding-right: 40px;
+    padding-bottom: 5px;
+    padding-left: 40px;
+    margin-top: 10px;
+}

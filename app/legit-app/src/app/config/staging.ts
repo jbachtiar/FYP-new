@@ -8,5 +8,6 @@ export const stagConfig = {
     fabricBackendUrl:"",
     productDetailsBackendUrl:'',
     filteredProductListBackendUrl: '',
-    searchedProductListBackendUrl: ''
+    searchedProductListBackendUrl: '',
+    getCartItemBackendUrl:'',
 }

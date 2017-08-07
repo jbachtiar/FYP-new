@@ -10,7 +10,8 @@ import { ProfileComponent } from './profile/profile.component'
 import { InlineEditComponent } from './custom/inline-edit.component'
 import { ProductListComponent } from './product-list/product-list.component'
 import { ProductDetailComponent } from './product-detail/product-detail.component'
-import { MyaccountComponent } from './myaccount/myaccount.component';
+import { MyaccountComponent } from './myaccount/myaccount.component'
+import { CheckoutComponent } from './checkout/checkout.component'
 import { AuthGuard } from './guard/auth.guard'
 
 const appRoutes: Routes = [
@@ -25,6 +26,7 @@ const appRoutes: Routes = [
     { path: 'custom', component:  InlineEditComponent },
     { path: 'products', component: ProductListComponent },
     { path: 'productDetails/:patternId', component: ProductDetailComponent },
+    { path: 'checkout', component: CheckoutComponent },
 ];
 
 export const routing = RouterModule.forRoot(appRoutes);
