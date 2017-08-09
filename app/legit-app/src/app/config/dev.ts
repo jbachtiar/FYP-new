@@ -9,5 +9,7 @@ export const devConfig = {
     productDetailsBackendUrl: 'http://localhost:8084/FYP-backend/API/ProductCatalogue/customization',
     filteredProductListBackendUrl: 'http://localhost:8084/FYP-backend/API/ProductCatalogue/filtersort',
     searchedProductListBackendUrl: 'http://localhost:8084/FYP-backend/API/ProductCatalogue/search',
-    getCartItemBackendUrl: 'http://localhost:8084/FYP-backend/API/Cart/items'
+    getCartItemBackendUrl: 'http://localhost:8084/FYP-backend/API/Cart/items',
+    updateCartBackendUrl: 'http://localhost:8084/FYP-backend/API/Cart/update',
+    clearCartBackendUrl: 'http://localhost:8084/FYP-backend/API/Cart/delete',
 }

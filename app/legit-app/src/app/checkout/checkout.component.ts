@@ -21,7 +21,7 @@ export class CheckoutComponent implements OnInit {
   customer: Customer;
   token: string;
   quantity = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
-  selectedQuantity: any={};
+
 
 
   constructor(private profileService: ProfileService, private cartService: CartService) {
@@ -35,13 +35,12 @@ export class CheckoutComponent implements OnInit {
 
         console.log("Cart items retrieved successfully");
         this.carts = carts;
+        console.log(this.carts);
 
       })
 
-      for(var i=0; i<this.carts.size; i++){
-        this.selectedQuantity[i]=this.carts[i].quantity;
-      }
-  
+
+
   }
 
 
@@ -77,5 +76,37 @@ export class CheckoutComponent implements OnInit {
     }
   }
 
+  delete(index) {
+    this.carts.splice(index, 1);
 
+  }
+
+  updateCarts() {
+    console.log(this.carts);
+    this.cartService.clearCarts().subscribe(
+       res => {
+          if (res.status === '200') {
+            console.log("Clear cart successfully");
+          } else {
+            console.log("Clear cart failed");
+          }
+       }
+    );
+       
+    for (let c of this.carts) {
+      console.log(c.SKU);
+      this.cartService.updateCarts("C1", c.SKU, c.quantity).subscribe(
+        res => {
+          if (res.status === '200') {
+            console.log("Update cart successfully");
+          } else {
+            console.log("Update cart failed");
+          }
+        }
+      );
+    }   
+
+
+
+  }
 }

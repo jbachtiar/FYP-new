@@ -5,9 +5,11 @@ export const stagConfig = {
     productListBackendUrl:'',
     profileBackendUrl:'',
     quickViewBackendUrl:'',
-    fabricBackendUrl:"",
+    fabricBackendUrl:'',
     productDetailsBackendUrl:'',
     filteredProductListBackendUrl: '',
     searchedProductListBackendUrl: '',
     getCartItemBackendUrl:'',
+    updateCartBackendUrl:'',
+    clearCartBackendUrl:'',
 }

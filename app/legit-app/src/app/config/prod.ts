@@ -9,5 +9,6 @@ export const prodConfig = {
     productDetailsBackendUrl:'',
     filteredProductListBackendUrl: '',
     searchedProductListBackendUrl: '',
-    getCartItemBackendUrl: ''
+    getCartItemBackendUrl: '',
+    updateCartBackendUrl:'',
 }

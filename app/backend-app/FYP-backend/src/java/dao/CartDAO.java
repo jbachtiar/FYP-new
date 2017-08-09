@@ -56,4 +56,42 @@ public class CartDAO {
         return carts.toArray(new Cart[carts.size()]);
    
     }
+     
+     public static void clearCarts() {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement("TRUNCATE cart_details");
+            stmt.execute();
+        } catch (SQLException e) {
+            System.out.println(e);
+        } finally {
+            ConnectionManager.close(conn, stmt, null);
+        }
+    }
+     
+     public static void addCarts(String cartId, String productId, int qty) throws SQLException{
+    
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        
+        String sql = "Insert into cart_details values(?,?,?)"; 
+        
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, cartId);
+            stmt.setString(2, productId);
+            stmt.setInt(3, qty);
+            
+            stmt.executeUpdate();    
+        } finally {
+            ConnectionManager.close(conn, stmt, rs);
+        }
+    }
+     
+    
+    
 }

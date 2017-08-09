@@ -20,7 +20,10 @@ import entity.Cart;
 import entity.Product;
 
 import java.sql.SQLException;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
@@ -95,5 +98,46 @@ public class CartItems {
         String finalJsonOutput = gson.toJson(jsonOutput);
         return finalJsonOutput;
     }
+    
+      @PUT
+      @Path("/update")
+      @Produces(MediaType.APPLICATION_JSON)  
+      public String updateCartItems(@FormParam("cartId") String cartId, @FormParam("productId") String productId, @FormParam("qty") String qty) {
+
+        Gson gson = new GsonBuilder().create();
+        JsonObject jsonOutput = new JsonObject();
+     
+        try {
+
+    
+            int quantity=Integer.parseInt(qty);
+            CartDAO.addCarts(cartId, productId, quantity);
+            jsonOutput.addProperty("status", "200");
+ 
+
+        } catch (SQLException e) {
+
+            jsonOutput.addProperty("status", "error");
+
+        }
+
+        String finalJsonOutput = gson.toJson(jsonOutput);
+        return finalJsonOutput;
+    }
+      
+      
+      @DELETE
+      @Path("/delete")
+      @Produces(MediaType.APPLICATION_JSON)  
+      public String deleteCartItems() {
+
+        Gson gson = new GsonBuilder().create();
+        JsonObject jsonOutput = new JsonObject();
+        CartDAO.clearCarts();
+        jsonOutput.addProperty("status", "200");
+        String finalJsonOutput = gson.toJson(jsonOutput);
+        return finalJsonOutput;
+      }
+    
     
 }
