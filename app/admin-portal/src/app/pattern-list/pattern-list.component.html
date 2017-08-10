@@ -7,7 +7,36 @@
             
           </div>
        
-          
+          <div class="col-md-12">
+
+                <select [(ngModel)]="selectedCollection" class="btn btn-default" (ngModelChange)="onSelectCollection($event)">
+                    <option disabled value="0" class="hideoption">Select Collection</option>
+                    <option *ngFor="let c of collections" [ngValue]="c">{{c.name}}</option>
+                </select>
+
+                <select [(ngModel)]="selectedFabric" class="btn btn-default" (ngModelChange)="onSelectFabric($event)">
+                    <option disabled value="0" class="hideoption">Select Fabric</option>
+                    <option *ngFor="let f of fabrics" [ngValue]="f">{{f.name}}</option>
+                </select>
+
+                <select [(ngModel)]="selectedColour" class="btn btn-default" (ngModelChange)="onSelectColour($event)">
+                    <option disabled value="0" class="hideoption">Select Colour</option>
+                    <option *ngFor="let c of colours" [ngValue]="c">{{c.name}}</option>
+                </select>
+
+                <select [(ngModel)]="sortPrice" class="btn btn-default" (ngModelChange)="onSelectSort($event)">
+                    <option disabled value="0" class="hideoption">Sort Price by</option>
+                    <option *ngFor="let s of sorts" [ngValue]="s">{{s.name}}</option>
+                </select>
+
+                <input type="text" [(ngModel)]="queryString" id="search" placeholder="Search by product name.." class="btn btn-default" (ngModelChange)="onSearch(queryString)">
+                <button class="btn btn-info btn-wd" id="clear" (click)="onClear()">Clear All Filters</button>
+        </div>
+
+        <br>
+        <br>
+        <br>
+
           <div class="col-md-4" style="font-weight: bold">
             Price
           </div>
@@ -23,6 +52,7 @@
           <button class="btn btn-info btn-wd">Add New Pattern</button>
 
         </div>
+        
         <hr>
         <div class="content">
           <div *ngFor="let p of pagedPatterns">

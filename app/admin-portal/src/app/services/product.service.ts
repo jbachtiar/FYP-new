@@ -23,6 +23,16 @@ export class ProductService {
             });
     }
 
+    getFilteredPatternList(collectionId: string, fabricId: string, colourId: string, sortPrice: String, query: string){
+        let url = CONFIG.productCatalogueBackendUrl+'/adminPatternFilter';
+        let finalUrl = url + "?collectionId=" + collectionId + "&fabricId=" + fabricId + "&colourId=" + colourId + "&sortPrice=" + sortPrice + "&search=" + query;
+         return this._http.get(finalUrl)
+            .map(res => {
+                console.log(finalUrl)
+                return res.json().products;
+            });
+    }
+
     addPattern(patternID: string, patternName:string, patternDescription:string, patternPrice: string, collectionID: string){
         let params: URLSearchParams = new URLSearchParams();
         params.set('patternID', patternID);

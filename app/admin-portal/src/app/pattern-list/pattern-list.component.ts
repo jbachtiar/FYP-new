@@ -43,12 +43,159 @@ export class PatternListComponent implements OnInit {
         if (page < 1 || page > this.pager.totalPages) {
             return;
         }
- 
+        console.log("meh");
         // get pager object from service
         this.pager = this.pagerService.getPager(this.patterns.length, page);
  
         // get current page of items
         this.pagedPatterns = this.patterns.slice(this.pager.startIndex, this.pager.endIndex + 1);
   }
+
+  selectedCollectionId;
+  selectedFabricId;
+  selectedColourId;
+  selectedSortPriceId;
+  queriedSearch;
+
+  onClear(){
+
+    this.selectedCollectionId = "undefined";
+    this.selectedFabricId = "undefined";
+    this.selectedColourId = "undefined";
+    this.selectedSortPriceId = "undefined";
+    this.queriedSearch = "";  
+
+    this.productService.getFilteredPatternList(this.selectedCollectionId, this.selectedFabricId, this.selectedColourId, this.selectedSortPriceId, this.queriedSearch).subscribe(
+      patterns => {
+        this.patterns = patterns;
+        this.setPage(1);
+ 
+      });
+
+  }
+  
+  onSelectCollection(collectionId) {
+    this.selectedCollectionId = collectionId.id;
+    console.log(this.selectedCollectionId);
+    console.log(this.selectedFabricId);
+    console.log(this.selectedColourId);
+    console.log(this.selectedSortPriceId);
+    console.log(this.queriedSearch);
+
+    this.productService.getFilteredPatternList(this.selectedCollectionId, this.selectedFabricId, this.selectedColourId, this.selectedSortPriceId, this.queriedSearch).subscribe(
+      patterns => {
+        this.patterns = patterns;
+        this.setPage(1);
+ 
+      });
+
+  }
+
+  onSelectFabric(fabricid) {
+    this.selectedFabricId = fabricid.id;
+    console.log(this.selectedCollectionId);
+    console.log(this.selectedFabricId);
+    console.log(this.selectedColourId);
+    console.log(this.selectedSortPriceId);
+    console.log(this.queriedSearch);
+    this.productService.getFilteredPatternList(this.selectedCollectionId, this.selectedFabricId, this.selectedColourId, this.selectedSortPriceId, this.queriedSearch).subscribe(
+      patterns => {
+        this.patterns = patterns;
+        this.setPage(1);
+ 
+      });
+    
+  
+  }
+
+  onSelectColour(colourid) {
+    this.selectedColourId = colourid.id;
+    console.log(this.selectedCollectionId);
+    console.log(this.selectedFabricId);
+    console.log(this.selectedColourId);
+    console.log(this.selectedSortPriceId);
+    console.log(this.queriedSearch);
+    this.productService.getFilteredPatternList(this.selectedCollectionId, this.selectedFabricId, this.selectedColourId, this.selectedSortPriceId, this.queriedSearch).subscribe(
+      patterns => {
+        this.patterns = patterns;
+        this.setPage(1);
+ 
+      });
+    
+  }
+    
+
+  onSelectSort(sortid) {
+    this.selectedSortPriceId = sortid.id;
+    console.log(this.selectedCollectionId);
+    console.log(this.selectedFabricId);
+    console.log(this.selectedColourId);
+    console.log(this.selectedSortPriceId);
+    console.log(this.queriedSearch);
+    this.productService.getFilteredPatternList(this.selectedCollectionId, this.selectedFabricId, this.selectedColourId, this.selectedSortPriceId, this.queriedSearch).subscribe(
+      patterns => {
+        this.patterns = patterns;
+        this.setPage(1);
+ 
+      });
+    
+  }
+
+  onSearch(query: string): void {
+    this.queriedSearch = query;
+    console.log(this.selectedCollectionId);
+    console.log(this.selectedFabricId);
+    console.log(this.selectedColourId);
+    console.log(this.selectedSortPriceId);
+    console.log(this.queriedSearch);
+    this.productService.getFilteredPatternList(this.selectedCollectionId, this.selectedFabricId, this.selectedColourId, this.selectedSortPriceId, this.queriedSearch).subscribe(
+      patterns => {
+        this.patterns = patterns;
+        this.setPage(1);
+ 
+      });
+	
+	}
+    
+  
+  sortPrice:any = null;
+  sorts = [
+       {id: "asc", name: "Ascending"},
+       {id: "desc", name: "Descending"}
+     ];
+  
+  selectedCollection:any = null;
+  collections = [
+       {id: "CO1", name: "2019 Spring"},
+       {id: "CO2", name: "2018 Spring"},
+       {id: "CO3", name: "2018 Summer"},
+       {id: "CO4", name: "2017 Spring"},
+       {id: "CO5", name: "2017 Winter"}
+     ];
+
+  selectedFabric:any = null;
+  fabrics = [
+       {id: "F1", name: "Silk"},
+       {id: "F2", name: "Modal"},
+       {id: "F3", name: "Long Staple Cotton"},
+       {id: "F4", name: "Cotton"},
+       {id: "F5", name: "Lyocell Tencel"},
+       {id: "F6", name: "Polyester-Cotton"}
+     ];
+
+  selectedColour:any = null;
+  colours = [
+       {id: "C1", name: "White"},
+       {id: "C2", name: "Black"},
+       {id: "C3", name: "Red"},
+       {id: "C4", name: "Yellow"},
+       {id: "C5", name: "Blue"},
+       {id: "C6", name: "Green"},
+       {id: "C7", name: "Pink"},
+       {id: "C8", name: "Purple"},
+       {id: "C9", name: "Brown"},
+       {id: "C10", name: "Gold"},
+       {id: "C11", name: "Silver"}
+     ];
 
 }
