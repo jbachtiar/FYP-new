@@ -56,7 +56,7 @@ export class PatternDetailsComponent implements OnInit {
                 //add selected_colour variable to each fabric json
                 for (let f of this.patternFabrics) {
                   f['colours_dropdown'] = this.arr_diff_colour(f.colours, this.colours)
-                  this.selectedColour['f.fabric_id'] = "TEST"
+                  this.selectedColour['f.fabric_id'] = ""
                 }
 
                 //add selected_colour variable to each fabric json
@@ -100,18 +100,25 @@ export class PatternDetailsComponent implements OnInit {
     // console.log(JSON.stringify(f))
   }
 
-  fileEvent(fileInput:any){
+  fileEvent(fileInput: any, fabricColour: any){
     let AWSService = (<any>window).AWS
+    let imageUrl = ""
     console.log(AWSService)
     let file = fileInput.target.files[0];
-    AWSService.config.accessKeyId = '';
-    AWSService.config.secretAccessKey = '';
-    let bucket = new AWSService.s3({params: {Bucket: ''}})
+    AWSService.config.accessKeyId = 'AKIAJVBHSMHG7RZGXNFA';
+    AWSService.config.update({region: 'us-west-2'});
+    AWSService.config.secretAccessKey = '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';
+    let bucket = new AWSService.S3({params: {Bucket: 'elasticbeanstalk-us-west-2-126347216585/Product Images'}})
     let params = {Key: file.name, Body: file};
     bucket.upload(params, function (error, res){
       console.log('error', error);
       console.log('response', res);
+      imageUrl=res.Location
+      console.log("location: " + imageUrl)
+      fabricColour['image_url']=imageUrl
+      console.log("FC: " + JSON.stringify(fabricColour))
     })
+    
   }
 
   arr_diff_colour(a1, a2) {

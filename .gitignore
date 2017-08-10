@@ -6,3 +6,4 @@ npm-debug.log*
 dist/*
 
 .DS_Store
+app/legit-app/.vscode/launch.json
