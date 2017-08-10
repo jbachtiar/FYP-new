@@ -1,10 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
-import { routing }        from './app.routing';
 import { FormsModule }   from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule }   from '@angular/router';
+
+import { routing }        from './app.routing';
 
 import { CONFIG } from './config/config.component';
 
@@ -16,10 +16,14 @@ import { UserComponent } from './user/user.component';
 import { StaffmanagementComponent } from './staffmanagement/staffmanagement.component';
 import { AuthGuard } from './guard/guard';
 import { PatternListComponent } from './pattern-list/pattern-list.component'
+import { PatternDetailsComponent } from './pattern-details/pattern-details.component'
 
 import { ProductService } from './services/product.service';
-import { PatternDetailsComponent } from './pattern-details/pattern-details.component'
 import { PagerService} from './services/pager.service'
+
+import { QRCodeModule } from 'angular2-qrcode';
+import { CardComponent } from 'ng2-bootstrap-card/ng2-bootstrap-card';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,7 +34,7 @@ import { PagerService} from './services/pager.service'
     StaffmanagementComponent,
     PatternListComponent,
     PatternDetailsComponent,
-    
+    CardComponent
   ],
   imports: [
     BrowserModule,
@@ -38,6 +42,7 @@ import { PagerService} from './services/pager.service'
     routing,
     HttpModule,
     RouterModule,
+    QRCodeModule,
   ],
   providers: [
     AuthGuard,

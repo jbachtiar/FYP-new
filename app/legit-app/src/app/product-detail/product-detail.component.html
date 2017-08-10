@@ -2,11 +2,11 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-sm-6">
-      <img src="{{selectedColour.image_url}}" class="img-responsive" alt="Some picture">
+        <img src="{{selectedColour.image_url}}" class="img-responsive" alt="Some picture">
       </div>
       <div class="col-sm-6">
-         <h3 class="product-name">{{pattern.pattern_name}}</h3>
-        
+        <h3 class="product-name">{{pattern.pattern_name}}</h3>
+
         <!--<span text-left class="col-md-4" style="font-size:15px" class="label label-warning">{{product.collection_name}}</span>        <br><br>-->
         <!--<div text-left class="product-price" style="font-size:15px"> Starting from ${{(pattern.pattern_price+patter.fabric_price+product.colour_price)}} </div>-->
         <h5>Material:</h5>
@@ -26,12 +26,12 @@
         </select>
         <br/><br/>
         <button type="button" class="btn btn-default" data-dismiss="modal">Add to Cart</button>
-          <h2 class = "description"> Description</h2>
-          <h4><b>Pattern</b></h4>
-          <p>{{pattern.pattern_description}}</p>
-          <h4><b>Fabric</b></h4>
-          <h4><i>{{selectedFabric.fabric_name}}</i></h4>
-          <p>{{selectedFabric.fabric_description}}</p>
+        <h2 class="description"> Description</h2>
+        <h4><b>Pattern</b></h4>
+        <p>{{pattern.pattern_description}}</p>
+        <h4><b>Fabric</b></h4>
+        <h4><i>{{selectedFabric.fabric_name}}</i></h4>
+        <p>{{selectedFabric.fabric_description}}</p>
         <br>
       </div>
     </div>

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ProductService } from '../services/product.service';
-
+//include aws webpack
+require('aws-sdk');
 
 @Component({
   selector: 'app-pattern-details',
@@ -50,8 +51,8 @@ export class PatternDetailsComponent implements OnInit {
                   // console.log("PATTERN fabrics: " + JSON.stringify(f))
                 }
 
-                //to get only the colour that are not added to the pattern yet (all colours - pattern_fabric colours) for dropdown list
-                //and add it as a key value pair in every colour object of pattern json
+                //get only the colour that are not added to the pattern yet (all colours - pattern_fabric colours) for dropdown list
+                //add it as a key value pair in every colour object of pattern json
                 //add selected_colour variable to each fabric json
                 for (let f of this.patternFabrics) {
                   f['colours_dropdown'] = this.arr_diff_colour(f.colours, this.colours)
@@ -74,12 +75,13 @@ export class PatternDetailsComponent implements OnInit {
   }
 
   onSave() {
-    this.productService.updatePattern(
-      this.pattern.pattern_id, this.pattern.pattern_name, this.pattern.pattern_description,
-      this.pattern.pattern_price, this.pattern.collection_id).subscribe(
-      res => {
-        console.log(res);
-      });
+    console.log(JSON.stringify(this.pattern))
+    // this.productService.updatePattern(
+    //   this.pattern.pattern_id, this.pattern.pattern_name, this.pattern.pattern_description,
+    //   this.pattern.pattern_price, this.pattern.collection_id).subscribe(
+    //   res => {
+    //     console.log(res);
+    //   });
   }
 
   onAddFabric(f) {
@@ -89,13 +91,27 @@ export class PatternDetailsComponent implements OnInit {
   }
 
   onAddColour(f, c) {
-    console.log(JSON.stringify(f))
+    // console.log(JSON.stringify(f))
     if(!f['colours']){
       f['colours'] = []
     }
     f.colours.push(c);
     f['colours_dropdown'] = this.arr_diff_colour(f.colours, this.colours)
-    console.log(JSON.stringify(f))
+    // console.log(JSON.stringify(f))
+  }
+
+  fileEvent(fileInput:any){
+    let AWSService = (<any>window).AWS
+    console.log(AWSService)
+    let file = fileInput.target.files[0];
+    AWSService.config.accessKeyId = '';
+    AWSService.config.secretAccessKey = '';
+    let bucket = new AWSService.s3({params: {Bucket: ''}})
+    let params = {Key: file.name, Body: file};
+    bucket.upload(params, function (error, res){
+      console.log('error', error);
+      console.log('response', res);
+    })
   }
 
   arr_diff_colour(a1, a2) {
@@ -115,7 +131,7 @@ export class PatternDetailsComponent implements OnInit {
       }
     }
     return diff;
-  };
+  }
 
   arr_diff_fabric(a1, a2) {
 
@@ -136,5 +152,5 @@ export class PatternDetailsComponent implements OnInit {
       }
     }
     return diff;
-  };
+  }
 }

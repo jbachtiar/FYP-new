@@ -1,3 +1,5 @@
+<script src="/node_modules/aws-sdk/dist/aws-sdk.js"></script>
+
 <body>
   <div class="container-fluid">
     <div class="row">
@@ -22,22 +24,69 @@
                 <input class="form-control" placeholder="Price" [(ngModel)]="pattern.pattern_price" #ctrl="ngModel" required>
               </div>
               <div class="form-group">
+                <label>Images</label><br/> Upload
+                <label class="btn btn-default">
+                     <input type="file" (change)=fileEvent($) hidden>
+                </label> QR Code
+                <div>
+                  <qr-code [value]="'localhost:4200'" [size]="150"></qr-code>
+                </div>
+              </div>
+              <div class="form-group">
                 <label for="options">Available Options :</label><br/> Fabrics:
-                <select [(ngModel)]="selectedFabric">
-                  <option *ngFor="let f of fabrics" [ngValue]="f">{{f.fabric_name}}</option>
-                </select>
-                <button class="btn btn-default" (click)="onAddFabric(selectedFabric)">Add</button>
+                <table class="table table-striped">
+                  <tr>
+                    <td>
+                      <select [(ngModel)]="selectedFabric">
+                          <option *ngFor="let f of fabrics" [ngValue]="f">{{f.fabric_name}}</option>
+                      </select>
+                    </td>
+                    <td>
+                      <button class="btn btn-default" (click)="onAddFabric(selectedFabric)">Add</button>
+                    </td>
+                  </tr>
+                </table>
+                <!--</table>
+                <table class="table">-->
 
-                <li *ngFor="let fabric of patternFabrics">
-                  {{ fabric.fabric_name }}
-                  <select [(ngModel)]="selectedColour[fabric.fabric_id]">
-                   <option *ngFor="let cd of fabric.colours_dropdown" [ngValue]="cd">{{cd.colour_name}}</option>
-                  </select>
-                  <button class="btn btn-default" (click)="onAddColour(fabric,selectedColour[fabric.fabric_id])">Add</button>
-                  <ul *ngFor="let fc of fabric.colours">
-                    {{fc.colour_name}}
-                  </ul>
-                </li>
+
+                <ul class="list-group" *ngFor="let fabric of patternFabrics; let i=index">
+                  <div class="fabric-card">
+                  <div class="card card-inverse card-info mb-3 text-center">
+                    <div class="card-block">
+                      <h4 class="card-title">
+                        <li class="list-group-item-info">
+                          {{ fabric.fabric_name }}
+                        </li>
+                      </h4>
+                      <p class="card-text">
+                        Colours:
+                      </p>
+                      <!--dropdown to select colours for the fabric-->
+                      <table class="table table-striped">
+                        <tr>
+                          <td>
+                            <select [(ngModel)]="selectedColour[fabric.fabric_id]">
+                                <option *ngFor="let cd of fabric.colours_dropdown" [ngValue]="cd">{{cd.colour_name}}</option>
+                            </select>
+                          </td>
+                          <td>
+                            <button class="btn btn-default" (click)="onAddColour(fabric,selectedColour[fabric.fabric_id])">Add</button>
+                          </td>
+                          <tr>
+                            <td>
+                              <ul class="list-group" *ngFor="let fc of fabric.colours">
+                                <li class="list-group-item">{{fc.colour_name}}</li>
+                              </ul>
+                            </td>
+                          </tr>
+                      </table>
+                    </div>
+                  </div>
+                  </div>
+                </ul>
+
+
               </div>
               <button class="btn btn-success" (click)="onSave()">Save</button>
             </div>

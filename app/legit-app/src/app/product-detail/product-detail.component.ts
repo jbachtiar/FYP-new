@@ -4,8 +4,6 @@ import { ProductService } from '../product.service';
 import { FabricService } from '../fabric.service';
 
 
-
-
 @Component({
   selector: 'app-product-detail',
   templateUrl: './product-detail.component.html',

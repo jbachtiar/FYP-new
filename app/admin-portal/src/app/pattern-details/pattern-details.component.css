@@ -1,0 +1,16 @@
+
+.fabric-card{
+    border-radius: 15px;
+    border: 2px solid lightblue;
+    /*padding: 20px; */
+}
+
+.list-group-item {
+    position: relative;
+    display: block;
+    text-align: center;
+    /*padding: 10px 15px;*/
+    margin-bottom: -1px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
