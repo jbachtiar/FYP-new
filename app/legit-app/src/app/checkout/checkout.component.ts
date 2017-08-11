@@ -12,6 +12,8 @@ export class CheckoutComponent implements OnInit {
   private user: any = {};
   private carts: any = {};
   private numOfItem: 0;
+  private itemPrice: number[] = new Array();
+
   firstName: string;
   lastName: string;
   contact: string;
@@ -35,12 +37,9 @@ export class CheckoutComponent implements OnInit {
 
         console.log("Cart items retrieved successfully");
         this.carts = carts;
-        console.log(this.carts);
+
 
       })
-
-
-
   }
 
 
@@ -57,8 +56,6 @@ export class CheckoutComponent implements OnInit {
             this.contact = this.customer.contact;
             this.address = this.customer.address;
             this.postalCode = this.customer.postalCode;
-
-
           } else {
             console.log("Retrieve failed");
 
@@ -78,23 +75,24 @@ export class CheckoutComponent implements OnInit {
 
   delete(index) {
     this.carts.splice(index, 1);
+    this.itemPrice.splice(index,1);
 
   }
 
   updateCarts() {
-    console.log(this.carts);
+
     this.cartService.clearCarts().subscribe(
-       res => {
-          if (res.status === '200') {
-            console.log("Clear cart successfully");
-          } else {
-            console.log("Clear cart failed");
-          }
-       }
+      res => {
+        if (res.status === '200') {
+          console.log("Clear cart successfully");
+        } else {
+          console.log("Clear cart failed");
+        }
+      }
     );
-       
+    console.log(this.carts);
     for (let c of this.carts) {
-      console.log(c.SKU);
+
       this.cartService.updateCarts("C1", c.SKU, c.quantity).subscribe(
         res => {
           if (res.status === '200') {
@@ -104,9 +102,22 @@ export class CheckoutComponent implements OnInit {
           }
         }
       );
-    }   
+    }
+  }
 
+  addPrice(index, price) {
+    this.itemPrice[index] = price;
+  
+  }
 
+  showTotalPrice() {
+    let totalPrice=0;  
+    for(var i=0; i<this.itemPrice.length; i++){
+      totalPrice+=this.itemPrice[i];
+
+    }
+    return totalPrice;
 
   }
 }
+

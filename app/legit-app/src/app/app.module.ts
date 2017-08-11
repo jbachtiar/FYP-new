@@ -40,6 +40,7 @@ import { TrackOrderComponent } from './track-order/track-order.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { StoreLocatorComponent } from './store-locator/store-locator.component';
 import { CheckoutComponent } from './checkout/checkout.component';
+import { PaymentComponent } from './payment/payment.component';
 
 
 
@@ -64,6 +65,7 @@ import { CheckoutComponent } from './checkout/checkout.component';
     AboutUsComponent,
     StoreLocatorComponent,
     CheckoutComponent,
+    PaymentComponent,
     
   ],
   imports: [

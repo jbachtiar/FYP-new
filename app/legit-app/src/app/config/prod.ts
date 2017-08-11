@@ -11,4 +11,5 @@ export const prodConfig = {
     searchedProductListBackendUrl: '',
     getCartItemBackendUrl: '',
     updateCartBackendUrl:'',
+    clearCartBackendUrl:'',
 }

@@ -1,46 +1,10 @@
 <div class="container">
 
-  <div class="col-md-7">
+  <div class="col-md-8">
     <div class="card">
       <div class="content">
         <div class="header">
-          <h4 class="title">Your shipping address</h4>
-        </div>
-
-        <form name="form" (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
-          <div class="form-group">
-            <label>First Name</label>
-            <input type="text" class="form-control border-input" [(ngModel)]="user.firstName" name="firstName" value={{firstName}} required>
-
-            <label>Last Name</label>
-            <input type="text" class="form-control border-input" [(ngModel)]="user.lastName" name="lastName" value={{lastName}} required>
-
-            <label>Postcode</label>
-            <input type="text" class="form-control border-input" [(ngModel)]="user.postCode" name="postCode" value={{postalCode}} required>
-
-            <label>Address</label>
-            <input type="text" class="form-control border-input" [(ngModel)]="user.address" name="address" value={{address}} required>
-
-            <label>Contact Number</label>
-            <input type="text" class="form-control border-input" [(ngModel)]="user.contact" name="contact" value={{contact}} required>
-
-            <input type="checkbox" [(ngModel)]="user.sameAddress" name="sameAddress" (ngModelChange)="sameAddress()">
-            <label>Bill to the existing address</label>
-            <br/>
-            <a routerLink="../checkout/payment">
-              <button class="button" (click)=updateCarts()>Continue</button>
-            </a>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-md-5">
-    <div class="card">
-      <div class="content">
-        <div class="header">
-          <h4 class="title">Order Summary</h4>
+          <h4 class="title">Shipping Address</h4>
         </div>
 
         <div class="row">
@@ -107,9 +71,16 @@
 
 
         </div>
+        <div class="header">
+          <h4 class="title">Order Summary</h4>
+        </div>
       </div>
     </div>
 
 
 
+
+
   </div>
+
+</div>
