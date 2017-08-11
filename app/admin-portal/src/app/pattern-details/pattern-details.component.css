@@ -2,15 +2,14 @@
 .fabric-card{
     border-radius: 15px;
     border: 2px solid lightblue;
+    font-size: 13px;
     /*padding: 20px; */
 }
 
 .list-group-item {
-    position: relative;
-    display: block;
-    text-align: center;
-    /*padding: 10px 15px;*/
-    margin-bottom: -1px;
-    background-color: #fff;
-    border: 1px solid #ddd;
+    font-size: 14px;
+    width: 60px;
+    border: 1px solid green;
+    padding: 6px;
+    margin: 8px;
 }

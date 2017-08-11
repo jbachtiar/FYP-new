@@ -18,13 +18,14 @@ export class PatternDetailsComponent implements OnInit {
   fabrics = [];
   colours = []
   selectedColour = [];
+  patternUrl = "";
 
   constructor(private productService: ProductService, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
       this.patternId = params['patternId']; // grab the parameter from url
-
+      this.patternUrl = 'http://localhost:4200/productDetails/' + this.patternId
     });
     //get pattern details
     this.productService.getPatternById(this.patternId).subscribe(
@@ -105,16 +106,16 @@ export class PatternDetailsComponent implements OnInit {
     let imageUrl = ""
     console.log(AWSService)
     let file = fileInput.target.files[0];
+    let fileName = this.patternId + '_' + fabricColour.colour_id + '.png'
     AWSService.config.accessKeyId = 'AKIAJVBHSMHG7RZGXNFA';
     AWSService.config.update({region: 'us-west-2'});
     AWSService.config.secretAccessKey = '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';
     let bucket = new AWSService.S3({params: {Bucket: 'elasticbeanstalk-us-west-2-126347216585/Product Images'}})
-    let params = {Key: file.name, Body: file};
+    let params = {Key: fileName, Body: file, ACL: "public-read"};
     bucket.upload(params, function (error, res){
       console.log('error', error);
       console.log('response', res);
-      imageUrl=res.Location
-      console.log("location: " + imageUrl)
+      imageUrl = 'https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Product+Images/' + fileName
       fabricColour['image_url']=imageUrl
       console.log("FC: " + JSON.stringify(fabricColour))
     })

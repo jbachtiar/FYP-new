@@ -2,107 +2,114 @@
 
 <body>
   <div class="container-fluid">
-    <div class="row">
-      <div class="card">
-        <div class="col-lg-12 col-md-5">
-          <div class="header">
-            <h1>{{pattern.pattern_name}}</h1>
-            <div class="col-md-4">
-              <div class="form-group">
-                <label>ID: {{pattern.pattern_id}}</label>
-              </div>
-              <div class="form-group">
-                <label>Name</label>
-                <input class="form-control" placeholder="Name" [(ngModel)]="pattern.pattern_name" #ctrl="ngModel" required>
-              </div>
-              <div class="form-group">
-                <label>Description</label>
-                <input class="form-control" placeholder="Description" [(ngModel)]="pattern.pattern_description" #ctrl="ngModel" required>
-              </div>
-              <div class="form-group">
-                <label>Price</label>
-                <input class="form-control" placeholder="Price" [(ngModel)]="pattern.pattern_price" #ctrl="ngModel" required>
-              </div>
-              <div class="form-group">
-                <label>Images</label><br/> Upload
-                <label class="btn btn-default">Upload
-                     <input type="file" (change)=fileEvent($event) hidden>
-                </label> QR Code
-                <div>
-                  <qr-code [value]="'localhost:4200'" [size]="150"></qr-code>
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="options">Available Options :</label><br/> Fabrics:
-                <table class="table table-striped">
-                  <tr>
-                    <td>
-                      <select [(ngModel)]="selectedFabric">
-                          <option *ngFor="let f of fabrics" [ngValue]="f">{{f.fabric_name}}</option>
-                      </select>
-                    </td>
-                    <td>
-                      <button class="btn btn-default" (click)="onAddFabric(selectedFabric)">Add</button>
-                    </td>
-                  </tr>
-                </table>
+    <div class="card">
+      <div class="row">
+        <div class="header">
+          <h1>{{pattern.pattern_name}}</h1>
 
-                <ul class="list-group" *ngFor="let fabric of patternFabrics; let i=index">
-                  <div class="fabric-card">
-                  <div class="card card-inverse card-info mb-3 text-center">
-                    <div class="card-block">
-                      <h4 class="card-title">
-                        <li class="list-group-item-info">
-                          {{ fabric.fabric_name }}
-                        </li>
-                      </h4>
-                      <p class="card-text">
-                        Colours:
-                      </p>
-                      <!--dropdown to select colours for the fabric-->
-                      <table class="table table-striped">
-                        <tr>
-                          <td width="30%">
-                            <select [(ngModel)]="selectedColour[fabric.fabric_id]">
-                                <option *ngFor="let cd of fabric.colours_dropdown" [ngValue]="cd">{{cd.colour_name}}</option>
-                            </select>
-                          </td>
-                          <td width="30%">
-                            <button class="btn btn-default" (click)="onAddColour(fabric,selectedColour[fabric.fabric_id])">Add</button>
-                          </td>
-                          </tr>
-                          
-                            <!--<td>-->
-                              <ul class="list-group" *ngFor="let fc of fabric.colours">
-                                <tr>
-                                <td width="30%">
-                                <li class="list-group-item">{{fc.colour_name}}</li>
-                                </td>
-                                <td width="30%">
-                                <label class="btn btn-default btn-file">  
-                                Upload Image <input type="file" (change)="fileEvent($event, fc)" style="display: none;">
-                              </label>
-                                </td>
-                                </tr>
-                              </ul>
-                            <!--</td>-->
-                            <!--<td>
-                              <label class="btn btn-default btn-file">
-                                Upload Image <input type="file" style="display: none;">
-                              </label>
-                            </td>-->
-                          
-                      </table>
-                    </div>
-                  </div>
-                  </div>
-                </ul>
+          <div class="form-group">
+            <label>ID: {{pattern.pattern_id}}</label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
 
+            <label>Name</label>
+            <input class="form-control" placeholder="Name" [(ngModel)]="pattern.pattern_name" #ctrl="ngModel" required>
+          </div>
+          <div class="form-group">
+            <label>Description</label>
+            <input class="form-control" placeholder="Description" [(ngModel)]="pattern.pattern_description" #ctrl="ngModel" required>
+          </div>
+          <div class="form-group">
+            <label>Price</label>
+            <input class="form-control" placeholder="Price" [(ngModel)]="pattern.pattern_price" #ctrl="ngModel" required>
+          </div>
+        </div>
 
-              </div>
-              <button class="btn btn-success" (click)="onSave()">Save</button>
+        <!--QR Code-->
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label>QR Code</label><br/>
+            <div>
+              <qr-code [value]=patternUrl [size]="150"></qr-code>
             </div>
           </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6">
+        <div class="form-group">
+          <label>Available Options :</label><br/> Fabrics:
+          <table class="table table-striped">
+            <tr>
+              <td>
+                <select [(ngModel)]="selectedFabric">
+                  <option *ngFor="let f of fabrics" [ngValue]="f">{{f.fabric_name}}</option>
+              </select>
+              </td>
+              <td>
+                <button class="btn btn-default" (click)="onAddFabric(selectedFabric)">Add</button>
+              </td>
+            </tr>
+          </table>
+
+          <ul class="list-group" *ngFor="let fabric of patternFabrics; let i=index">
+            <div class="fabric-card">
+              <div class="card card-inverse card-info mb-3 text-center">
+                <div class="card-block">
+                  <h4 class="card-title">
+                    <li class="list-group-item-info">
+                      {{ fabric.fabric_name }}
+                    </li>
+                  </h4>
+                  <p class="card-text">
+                    Colours:
+                  </p>
+                  <!--dropdown to select colours for the fabric-->
+                  <table class="table table-striped">
+                    <tr>
+                      <th>
+                        <p class="text-center">
+                          <select [(ngModel)]="selectedColour[fabric.fabric_id]">
+                                <option *ngFor="let cd of fabric.colours_dropdown" [ngValue]="cd">{{cd.colour_name}}</option>
+                            </select> &nbsp; &nbsp; &nbsp; &nbsp;
+                          <button class="btn btn-default" (click)="onAddColour(fabric,selectedColour[fabric.fabric_id])">Add</button>
+                        </p>
+                      </th>
+                    </tr>
+
+                    <!--<td>-->
+                    <ul class="list-group" *ngFor="let fc of fabric.colours">
+                      <tr>
+                        <td width="20%">
+                          <li class="list-group-item">{{fc.colour_name}}</li>
+                        </td>
+                        <td width="40%">
+                          <label class="btn btn-default btn-file">  
+                                Upload Image <input type="file" (change)="fileEvent($event, fc)" style="display: none;">
+                              </label>
+                        </td>
+                        <td>
+                          <div *ngIf="fc.image_url">
+                            <a href={{fc.image_url}}>View Image</a>
+                          </div>
+                        </td>
+                      </tr>
+                    </ul>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </ul>
+
+
+        </div>
+        <button class="btn btn-success" (click)="onSave()">Save</button>
+
         </div>
       </div>
     </div>
