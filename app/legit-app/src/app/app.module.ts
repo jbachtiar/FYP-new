@@ -26,6 +26,7 @@ import { RegistrationService } from './registration.service'
 import { ProfileService } from './profile.service'
 import { ProductService } from './product.service'
 import { FabricService} from './fabric.service'
+import { ShoppingCartService } from './shopping-cart.service'
 import { AuthGuard } from './guard/auth.guard'
 
 import { BootstrapModalModule } from 'ng2-bootstrap-modal';
@@ -79,6 +80,7 @@ import { CartComponent } from './cart/cart.component';
     ProfileService,
     ProductService,
     FabricService,
+    ShoppingCartService,
     AuthGuard
     ],
   bootstrap: [AppComponent],

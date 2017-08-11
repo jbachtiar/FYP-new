@@ -212,6 +212,37 @@ public class ProductCatalogue {
         return finalJsonOutput;
     }
     
+    @GET
+    @Path("/getProductId")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getProductIdBy(@QueryParam("patternId") String patternId, @QueryParam("fabricId") String fabricId, @QueryParam("colourId") String colourId){
+        
+        
+      
+        JsonObject jsonOutput = new JsonObject();
+        Gson gson = new GsonBuilder().create();
+     
+        try{
+            
+            Product p = ProductDAO.getProductByPatternFabricColor(patternId, fabricId, colourId);
+            if(p==null){
+                jsonOutput.addProperty("status", "Product not found");
+           
+            }else{
+                jsonOutput.addProperty("status","200");
+                jsonOutput.addProperty("productId", p.getSKU());
+                
+                 
+            }
+        }catch(SQLException e){
+        
+            jsonOutput.addProperty("status","error");
+            
+        }
+        
+        String finalJsonOutput = gson.toJson(jsonOutput);
+        return finalJsonOutput;
+    }
 
     
 }

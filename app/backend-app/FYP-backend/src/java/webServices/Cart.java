@@ -10,9 +10,13 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import dao.CartDAO;
 import dao.CustomerDAO;
+import dao.FabricDAO;
+import dao.PatternDAO;
 import dao.ProductDAO;
 import dao.StaffDAO;
 import entity.Customer;
+import entity.Fabric;
+import entity.Pattern;
 import entity.Product;
 import entity.Staff;
 import java.sql.SQLException;
@@ -32,6 +36,8 @@ import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import tokenManagement.tokenManagement;
 import java.util.*;
+import javax.ws.rs.GET;
+import javax.ws.rs.QueryParam;
 
 /**
  *
@@ -56,33 +62,66 @@ public class Cart {
         return "";
     }
     
-    @POST
-    @Path("/newCart")
+//    @POST
+//    @Path("/newCart")
+//    @Produces(MediaType.APPLICATION_JSON)
+//    public String addNewCart(@Context HttpHeaders httpHeaders, @FormParam("patternId") String patternId,  @FormParam("fabricId") String fabricId,  @FormParam("colourId") String colourId, @FormParam("qty") int qty ){
+//        JsonObject jsonOutput = new JsonObject();
+//        
+//        
+//        String cartId = "";
+//        double totalprice = 0;
+//        String customerEmail ="";
+//        
+//        try{
+//            //Get productSKU and generate new Cart ID
+//            Product product = ProductDAO.getProductByPatternFabricColor(patternId, fabricId, colourId);
+//            String productSKU = product.getSKU();
+//            cartId = CartDAO.newCartIdByDate();
+//            
+//            //Add New Cart to the database with 0 total price
+//            
+//            
+//        }
+//        catch(SQLException e){
+//            jsonOutput.addProperty("status","error");
+//        }
+//        
+//        return "";
+//    }
+    
+    @GET
+    @Path("/productPrice")
     @Produces(MediaType.APPLICATION_JSON)
-    public String addNewCart(@Context HttpHeaders httpHeaders, @FormParam("patternId") String patternId,  @FormParam("fabricId") String fabricId,  @FormParam("colourId") String colourId, @FormParam("qty") int qty ){
+    public String getProductPrice(@QueryParam("productId") String productId){
+        double totalPrice = 0.0;
         JsonObject jsonOutput = new JsonObject();
-        
-        
-        String cartId = "";
-        double totalprice = 0;
-        String customerEmail ="";
-        
+        Gson gson = new GsonBuilder().create();
+     
         try{
-            //Get productSKU and generate new Cart ID
-            Product product = ProductDAO.getProductByPatternFabricColor(patternId, fabricId, colourId);
-            String productSKU = product.getSKU();
-            cartId = CartDAO.newCartIdByDate();
+            Product product = ProductDAO.retrieveProductById(productId);
+            double colorPrice = product.getColorPrice();
             
-            //Add New Cart to the database with 0 total price
+            Pattern pattern = PatternDAO.retrievePatternById(product.getPatternID());
+            double patternPrice = pattern.getPatternPrice();
             
+            Fabric fabric = FabricDAO.getFabricById(product.getFabricID());
+            double fabricPrice = fabric.getFabricPrice();
+            
+            
+            totalPrice = colorPrice + patternPrice + fabricPrice;
+            
+            jsonOutput.addProperty("status", "200");
+            jsonOutput.addProperty("totalPrice" , totalPrice);
+             
+        }catch(SQLException e){
             
         }
-        catch(SQLException e){
-            jsonOutput.addProperty("status","error");
-        }
+        String finalJsonOutput = gson.toJson(jsonOutput);
         
-        return "";
+        return finalJsonOutput;
     }
+    
     
     private String getCurrentTime(){
         String currentTime;

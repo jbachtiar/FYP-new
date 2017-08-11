@@ -6,5 +6,6 @@ export const devConfig = {
     quickViewBackendUrl: 'http://localhost:8084/FYP-backend/API/ProductCatalogue/product',
     fabricBackendUrl: 'http://localhost:8084/FYP-backend/API/FabricCatalogue/fabrics',
     productDetailsBackendUrl: 'http://localhost:8084/FYP-backend/API/ProductCatalogue/customization',
-    addToCartBackendUrl: 'http://localhost:8084/FYP-backend/API/cart/newCart',
+    cartBackendUrl: 'http://localhost:8084/FYP-backend/API/cart',
+    productCatalogueBackendUrl: 'http://localhost:8084/FYP-backend/API/ProductCatalogue',
 }

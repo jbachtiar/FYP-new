@@ -6,5 +6,6 @@ export const stagConfig = {
     quickViewBackendUrl:'',
     fabricBackendUrl:"",
     productDetailsBackendUrl:'',
-    addToCartBackendUrl: '',
+    cartBackendUrl: '',
+    productCatalogueBackendUrl: '',
 }

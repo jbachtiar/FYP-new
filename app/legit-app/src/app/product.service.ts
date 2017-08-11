@@ -106,11 +106,40 @@ export class ProductService {
                 // return mockJson.pattern;
             });
     }
-    
-    addToCart(patternId : string, fabricId : string, colourId : string, qty : number){
-      console.log('pattern : '+ patternId);
-      console.log('fabric : '+ fabricId);
-      console.log('colour : '+ colourId);
-      console.log('qty : '+ qty);
+
+    getProductId(patternId: string, fabricId: string, colourId: string){
+        let productId = "";
+        
+        let url = CONFIG.productCatalogueBackendUrl + '/getProductId?patternId=' + patternId + '&fabricId=' + fabricId + '&colourId=' + colourId;
+        return this._http.get(url)
+            .map(res => res.json().productId)                 
+            //console.log('product ID: '+ res.json().productId);
+
+
+
     }
+    
+    // addToCart(token:string, patternId : string, fabricId : string, colourId : string, qty : number){
+    //     console.log('pattern : ' + patternId);
+    //     console.log('fabric : ' + fabricId);
+    //     console.log('colour : ' + colourId);
+    //     console.log('qty : ' + qty);
+
+    //     let params: URLSearchParams = new URLSearchParams();
+    //     params.set('patternId', patternId);
+    //     params.set('fabricId', fabricId);
+    //     params.set('colourId', colourId);
+    //     params.set('qty', String(qty));
+
+    //     let headers= new Headers();
+    //     headers.append ('Authorization', token);
+    //     headers.append (
+    //        'Content-type','application/x-www-form-urlencoded'
+    //     )
+
+    //     //let url = CONFIG.addToCartBackendUrl;
+    //     return this._http.post(url ,params.toString(), {headers} )
+    //          .map(res => res.json());
+                
+    // }
 }

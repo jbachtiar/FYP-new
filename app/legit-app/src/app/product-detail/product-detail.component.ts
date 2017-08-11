@@ -2,6 +2,7 @@ import { Component, OnInit, NgModule } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ProductService } from '../product.service';
 import { FabricService } from '../fabric.service';
+import { ShoppingCartService } from '../shopping-cart.service';
 
 
 
@@ -10,7 +11,7 @@ import { FabricService } from '../fabric.service';
   selector: 'app-product-detail',
   templateUrl: './product-detail.component.html',
   styleUrls: ['./product-detail.component.css'],
-  providers: [ProductService, FabricService],
+  providers: [ProductService, FabricService, ShoppingCartService],
 
 })
 export class ProductDetailComponent implements OnInit {
@@ -21,9 +22,18 @@ export class ProductDetailComponent implements OnInit {
   patternId: string;
   pattern: any = {};
   fabrics: any = {};
-  quantity = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
+  quantity = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
+  token: string = '';
 
-  constructor(private router: Router, private productService: ProductService, private fabricService: FabricService, private route: ActivatedRoute) { }
+  constructor(
+    private router: Router, 
+    private productService: ProductService, 
+    private fabricService: FabricService, 
+    private shoppingCartService: ShoppingCartService,
+    private route: ActivatedRoute
+  ) { 
+    this.token = localStorage.getItem('token');
+  }
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
@@ -55,12 +65,25 @@ export class ProductDetailComponent implements OnInit {
   //   }
   
     addCart(){
-      
+      //this.productService.addToCart(this.token, this.patternId, this.selectedFabric.fabric_id, this.selectedColor.color_id, this.selectedQuantity )
+      var productID: string = "abs";
 
-      this.productService.addToCart(this.patternId, this.selectedFabric.fabric_id, this.selectedColor.color_id, this.selectedQuantity )
-
-  
+      this.productService.getProductId(this.patternId, this.selectedFabric.fabric_id, this.selectedColor.color_id)
+        .subscribe(productId =>{
+          productID = productId;
+          console.log('before productID : ' + productId)
+          
+          console.log('after productID : ' + productID)
+          this.shoppingCartService.addItem(productId, this.selectedQuantity)
+        });
+        //console.log('after productID : ' + productID)
+          
       //this.router.navigate(['/cart']);
+    }
+
+    emptyCart(){
+      this.shoppingCartService.empty();
+      console.log("cart is emptied");
     }
 
 
