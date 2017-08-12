@@ -105,7 +105,9 @@
 
           </div>
           <button class="btn btn-success" (click)="onSave()">Save</button>
-
+          <div *ngIf="res">
+            {{res}}
+          </div>
         </div>
       </div>
     </div>
