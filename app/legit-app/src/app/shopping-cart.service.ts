@@ -11,10 +11,11 @@ const CART_KEY = "cart";
 
 @Injectable()
 export class ShoppingCartService {
-  private storage: Storage;
+  //private storage: Storage;
   private subscriptionObservable: Observable<ShoppingCart>;
   private subscribers: Array<Observer<ShoppingCart>> = new Array<Observer<ShoppingCart>>();
   private item: CartItem;
+  private cart: ShoppingCart;
 
   public constructor(private _http: Http) {
     this.subscriptionObservable = new Observable<ShoppingCart>((observer: Observer<ShoppingCart>) => {
@@ -30,41 +31,46 @@ export class ShoppingCartService {
     return this.subscriptionObservable;
   }
 
-  public addItem(productId: string, quantity: number): void {
-    const cart = this.retrieve();
+  public addItem(productId: string, quantity: number, eachPrice: number): void {
+    this.cart = this.retrieve();
+    console.log("Cart Item")
+    console.log('product Id : ' + productId)
+    console.log('quantity : ' + quantity)
+    console.log('each price : ' + eachPrice)
+
+
     
-    this.item = cart.items.find((p) => p.productId === productId);
+    this.item = this.cart.items.find((p) => p.productId === productId);
     //console.log('retrieved id: ' + this.item.productId);
     if (this.item === undefined) {
       
       this.item = new CartItem();
       this.item.productId = productId;
       this.item.quantity = quantity;
-     
+
       console.log('productId : ' + this.item.productId)
       console.log('quantity: ' + this.item.quantity)
-      
-      this.getPriceById(productId)
-      .subscribe(totalPrice => {
-        console.log('price before: ' + totalPrice)
-        this.item.eachPrice = totalPrice
-        
-        console.log('price: ' + this.item.eachPrice);
 
-      });
+      var totalPrice: number = 0;
+      console.log('price before: ' + totalPrice)
       
-      
-      cart.items.push(this.item);
+      this.item.eachPrice = eachPrice
+      console.log(JSON.stringify(this.item))
+      console.log('price: ' + this.item.eachPrice);
+
+      this.cart.items.push(this.item);
+
+
     }else{
         this.item.quantity += quantity;
     }
 
-    cart.items = cart.items.filter((cartItem) => cartItem.quantity > 0);
-    console.log('retrieved: '+ JSON.stringify(cart));
+    this.cart.items = this.cart.items.filter((cartItem) => cartItem.quantity > 0);
+    console.log('retrieved: '+ JSON.stringify(this.cart));
 
-    this.calculateCart(cart);
-    this.save(cart);
-    this.dispatch(cart);
+    this.calculateCart(this.cart);
+    this.save(this.cart);
+    this.dispatch(this.cart);
   }
 
   public empty(): void {
@@ -80,7 +86,7 @@ export class ShoppingCartService {
         let price = item.quantity * item.eachPrice;
         totalPrice += price;
     }
-    
+    cart.noOfItems = cart.items.length
     cart.totalPrice = totalPrice;
   }
 
@@ -109,20 +115,4 @@ export class ShoppingCartService {
         });
   }
 
-  private getPriceById(productId: string) {
-    //get price by product Id from DB.
-    var totalPrice: number = 0
-    let params: URLSearchParams = new URLSearchParams();
-    //let headers = new Headers();
-    let url = CONFIG.cartBackendUrl + '/productPrice?productId=' + productId;
-
-    //params.set('productId', productId);
-    return this._http.get(url)
-      .map(res => {
-        console.log('get price: ' + res.json().totalPrice)
-        return res.json().totalPrice
-      });
-    //return 0;
-
-  }
 }

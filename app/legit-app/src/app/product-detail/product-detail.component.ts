@@ -16,6 +16,8 @@ import { ShoppingCartService } from '../shopping-cart.service';
 })
 export class ProductDetailComponent implements OnInit {
   
+  productId: string;
+  eachPrice: number;
   selectedFabric: any;
   selectedColor: any;
   selectedQuantity=1;
@@ -36,9 +38,10 @@ export class ProductDetailComponent implements OnInit {
   }
 
   ngOnInit() {
+    
     this.route.params.subscribe((params: Params) => {
       this.patternId = params['patternId']; // grab the parameter from url
-
+      
     });
 
     this.productService.getPatternById(this.patternId).subscribe(
@@ -47,38 +50,64 @@ export class ProductDetailComponent implements OnInit {
         this.selectedFabric = pattern.fabrics[0]
         this.selectedColor = this.selectedFabric.colours[0]
         console.log("selectedColour: " + this.selectedColor.color_name)
-        console.log("selectedFabric: " + this.selectedFabric)
-        console.log("service is invoked" + pattern);
+        console.log("selectedFabric: " + this.selectedFabric.fabric_id)
+        console.log("quantity: "+this.selectedQuantity)
       });
+
+    console.log('im here')
+
+
+    
     }
 
     onFabricChange(){
       this.selectedColor = this.selectedFabric.colours[0]
     } 
-  // showFabric() {
-  //   this.fabricService.getFabricsByPatternId(this.product.pattern_id).subscribe(
-  //     fabrics => {
-  //       this.fabrics = fabrics;
-  //       console.log("fabric is loaded"+fabrics); 
-
-  //     });
-  //   }
   
     addCart(){
-      //this.productService.addToCart(this.token, this.patternId, this.selectedFabric.fabric_id, this.selectedColor.color_id, this.selectedQuantity )
-      var productID: string = "abs";
-
+      //this.getProductId();
       this.productService.getProductId(this.patternId, this.selectedFabric.fabric_id, this.selectedColor.color_id)
-        .subscribe(productId =>{
-          productID = productId;
-          console.log('before productID : ' + productId)
+        .subscribe(productId => {
+          console.log('inside get product id')
+          this.productId = productId;
+          console.log("selectedColour: " + this.selectedColor.color_name)
+          console.log("selectedFabric: " + this.selectedFabric.fabric_id)
+          console.log("quantity: " + this.selectedQuantity)
+          console.log('thispID: ' + this.productId)
+
           
-          console.log('after productID : ' + productID)
-          this.shoppingCartService.addItem(productId, this.selectedQuantity)
-        });
+    
+
+          this.productService.getPriceById(this.productId)
+            .subscribe(eachPrice => {
+              console.log('each price')
+              this.eachPrice = eachPrice
+              console.log('eachPrice: ' + this.eachPrice)
+
+              this.shoppingCartService.addItem(this.productId, this.selectedQuantity, this.eachPrice)
+
+            });
+
+    });
+      //this.productService.addToCart(this.token, this.patternId, this.selectedFabric.fabric_id, this.selectedColor.color_id, this.selectedQuantity )
+      // var productID: string = "";
+
+      // this.productService.getProductId(this.patternId, this.selectedFabric.fabric_id, this.selectedColor.color_id)
+      //   .subscribe(productId =>{
+      //     productID = productId;
+      //     console.log('before productID : ' + productId)
+          
+      //     console.log('after productID : ' + productID)
+
+      //     this.shoppingCartService.addItem(productId, this.selectedQuantity)
+      //   });
         //console.log('after productID : ' + productID)
           
       //this.router.navigate(['/cart']);
+    }
+
+    getProductId(){
+     
     }
 
     emptyCart(){

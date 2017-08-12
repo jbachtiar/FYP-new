@@ -108,17 +108,37 @@ export class ProductService {
     }
 
     getProductId(patternId: string, fabricId: string, colourId: string){
-        let productId = "";
-        
+        console.log('pattern: ' + patternId)
+        console.log('fabric: ' + fabricId)
+        console.log('colour: ' +colourId)
+
+
         let url = CONFIG.productCatalogueBackendUrl + '/getProductId?patternId=' + patternId + '&fabricId=' + fabricId + '&colourId=' + colourId;
         return this._http.get(url)
-            .map(res => res.json().productId)                 
+            .map(res => {
+                //console.log(res.json().productId)
+                return res.json().productId
+            })                 
             //console.log('product ID: '+ res.json().productId);
 
 
 
     }
+
     
+    public getPriceById(productId: string) {
+        //get price by product Id from DB.
+        var totalPrice: number = 0
+        let params: URLSearchParams = new URLSearchParams();
+        //let headers = new Headers();
+        let url = CONFIG.cartBackendUrl + '/productPrice?productId=' + productId;
+
+        //params.set('productId', productId);
+        return this._http.get(url)
+            .map(res => res.json().totalPrice);
+
+    }
+
     // addToCart(token:string, patternId : string, fabricId : string, colourId : string, qty : number){
     //     console.log('pattern : ' + patternId);
     //     console.log('fabric : ' + fabricId);
