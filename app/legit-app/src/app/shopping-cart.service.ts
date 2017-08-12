@@ -31,22 +31,28 @@ export class ShoppingCartService {
     return this.subscriptionObservable;
   }
 
-  public addItem(productId: string, quantity: number, eachPrice: number): void {
+  public addItem(cartItem: CartItem): void {
     this.cart = this.retrieve();
     console.log("Cart Item")
-    console.log('product Id : ' + productId)
-    console.log('quantity : ' + quantity)
-    console.log('each price : ' + eachPrice)
+    console.log('product Id : ' + cartItem.productId)
+    console.log('quantity : ' + cartItem.quantity)
+    console.log('each price : ' + cartItem.eachPrice)
 
 
     
-    this.item = this.cart.items.find((p) => p.productId === productId);
+    this.item = this.cart.items.find((p) => p.productId === cartItem.productId);
     //console.log('retrieved id: ' + this.item.productId);
     if (this.item === undefined) {
       
       this.item = new CartItem();
-      this.item.productId = productId;
-      this.item.quantity = quantity;
+      this.item.productId = cartItem.productId;
+      this.item.quantity = cartItem.quantity;
+      this.item.patternName = cartItem.patternName;
+      this.item.url = cartItem.url;
+
+
+      console.log(cartItem.url)
+
 
       console.log('productId : ' + this.item.productId)
       console.log('quantity: ' + this.item.quantity)
@@ -54,7 +60,7 @@ export class ShoppingCartService {
       var totalPrice: number = 0;
       console.log('price before: ' + totalPrice)
       
-      this.item.eachPrice = eachPrice
+      this.item.eachPrice = cartItem.eachPrice
       console.log(JSON.stringify(this.item))
       console.log('price: ' + this.item.eachPrice);
 
@@ -62,7 +68,7 @@ export class ShoppingCartService {
 
 
     }else{
-        this.item.quantity += quantity;
+        this.item.quantity += cartItem.quantity;
     }
 
     this.cart.items = this.cart.items.filter((cartItem) => cartItem.quantity > 0);
@@ -72,6 +78,15 @@ export class ShoppingCartService {
     this.save(this.cart);
     this.dispatch(this.cart);
   }
+
+  public updateCart(cart: ShoppingCart){
+    this.cart = cart
+    
+    this.calculateCart(this.cart);
+    this.save(this.cart);
+    this.dispatch(this.cart);
+  }
+
 
   public empty(): void {
     const newCart = new ShoppingCart();

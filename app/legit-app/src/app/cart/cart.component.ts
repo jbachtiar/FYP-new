@@ -18,6 +18,7 @@ export class CartComponent implements OnInit {
   private cartSubscription: Subscription;
   private shoppingCart: ShoppingCart;
   private cartItem : CartItem[]
+  private empty: boolean = true;
 
   public constructor(private shoppingCartService: ShoppingCartService) {
     this.shoppingCart = JSON.parse(localStorage.getItem('cart'))
@@ -26,6 +27,10 @@ export class CartComponent implements OnInit {
 
   ngOnInit() {
     this.itemCount = this.shoppingCart.noOfItems
+    if(this.itemCount > 0){
+      this.empty = false;
+    }
+
     this.cartItem = this.shoppingCart.items
     // this.cart = this.shoppingCartService.get();
     // this.cartSubscription = this.cart.subscribe((cart) => {
@@ -33,4 +38,22 @@ export class CartComponent implements OnInit {
     // });
   }
 
+  increment(productId: string){
+    this.shoppingCart.items.find((p) => p.productId === productId).quantity +=1
+    this.updateCart()
+  }
+
+  decrement(productId: string){
+    this.shoppingCart.items.find((p) => p.productId === productId).quantity -=1
+    this.updateCart()
+  }
+
+  emptyCart(){
+    this.shoppingCartService.empty()
+    window.location.reload()
+  }
+
+  updateCart(){
+    this.shoppingCartService.updateCart(this.shoppingCart)
+  }
 }

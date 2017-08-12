@@ -3,6 +3,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ProductService } from '../product.service';
 import { FabricService } from '../fabric.service';
 import { ShoppingCartService } from '../shopping-cart.service';
+import { CartItem } from "../cart/model/cart-item.model";
 
 
 
@@ -16,6 +17,7 @@ import { ShoppingCartService } from '../shopping-cart.service';
 })
 export class ProductDetailComponent implements OnInit {
   
+  cartItem: CartItem;
   productId: string;
   eachPrice: number;
   selectedFabric: any;
@@ -33,7 +35,8 @@ export class ProductDetailComponent implements OnInit {
     private fabricService: FabricService, 
     private shoppingCartService: ShoppingCartService,
     private route: ActivatedRoute
-  ) { 
+  ) {
+    this.cartItem = new CartItem(); 
     this.token = localStorage.getItem('token');
   }
 
@@ -75,16 +78,21 @@ export class ProductDetailComponent implements OnInit {
           console.log("quantity: " + this.selectedQuantity)
           console.log('thispID: ' + this.productId)
 
-          
-    
-
           this.productService.getPriceById(this.productId)
             .subscribe(eachPrice => {
               console.log('each price')
               this.eachPrice = eachPrice
+              console.log(this.productId)
+              this.cartItem.productId = this.productId
+              this.cartItem.eachPrice = this.eachPrice
+              this.cartItem.patternName = this.pattern.pattern_name
+              this.cartItem.quantity = this.selectedQuantity
+              this.cartItem.url = this.selectedColor.image_url
+              
+              console.log(this.cartItem.patternName)
               console.log('eachPrice: ' + this.eachPrice)
 
-              this.shoppingCartService.addItem(this.productId, this.selectedQuantity, this.eachPrice)
+              this.shoppingCartService.addItem(this.cartItem)
 
             });
 
