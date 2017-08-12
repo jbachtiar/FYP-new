@@ -8,8 +8,14 @@
 
 .list-group-item {
     font-size: 14px;
-    width: 60px;
-    border: 1px solid green;
+    border: 1px solid lightblue;
     padding: 6px;
-    margin: 8px;
+    margin: 10px;
+    text-align: center;
 }
+
+.header{
+    color: #31708f;  
+}
+
+

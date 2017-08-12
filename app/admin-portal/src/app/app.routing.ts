@@ -15,7 +15,7 @@ const appRoutes: Routes = [
     { path: 'user', component: UserComponent,  canActivate: [AuthGuard] },
     { path: 'staffmanagement', component: StaffmanagementComponent,  canActivate: [AuthGuard] },
     { path: 'patternList', component: PatternListComponent, canActivate: [AuthGuard]},
-    { path: 'patternDetails/:patternId', component: PatternDetailsComponent, canActivate: [AuthGuard]}
+    { path: 'patternList/patternDetails/:patternId', component: PatternDetailsComponent, canActivate: [AuthGuard]}
     //{ path: 'register', component: RegisterComponent },
 ];
 

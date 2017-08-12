@@ -42,25 +42,23 @@
 
       <div class="row">
         <div class="col-sm-6">
-        <div class="form-group">
-          <label>Available Options :</label><br/> Fabrics:
-          <table class="table table-striped">
-            <tr>
-              <td>
-                <select [(ngModel)]="selectedFabric">
+          <div class="form-group">
+            <label>Available Options :</label><br/> Fabrics:
+            <table class="table table-striped">
+              <tr>
+                <td>
+                  <select [(ngModel)]="selectedFabric">
                   <option *ngFor="let f of fabrics" [ngValue]="f">{{f.fabric_name}}</option>
               </select>
-              </td>
-              <td>
-                <button class="btn btn-default" (click)="onAddFabric(selectedFabric)">Add</button>
-              </td>
-            </tr>
-          </table>
+               &nbsp; &nbsp; &nbsp;
+                  <button class="btn btn-default" (click)="onAddFabric(selectedFabric)">Add</button>
+                </td>
+              </tr>
+            </table>
 
-          <ul class="list-group" *ngFor="let fabric of patternFabrics; let i=index">
-            <div class="fabric-card">
-              <div class="card card-inverse card-info mb-3 text-center">
-                <div class="card-block">
+            <ul class="list-group" *ngFor="let fabric of patternFabrics; let i=index">
+              <div class="fabric-card">
+                <div class="card card-inverse card-info mb-3 text-center">
                   <h4 class="card-title">
                     <li class="list-group-item-info">
                       {{ fabric.fabric_name }}
@@ -76,39 +74,35 @@
                         <p class="text-center">
                           <select [(ngModel)]="selectedColour[fabric.fabric_id]">
                                 <option *ngFor="let cd of fabric.colours_dropdown" [ngValue]="cd">{{cd.colour_name}}</option>
-                            </select> &nbsp; &nbsp; &nbsp; &nbsp;
+                            </select> &nbsp; &nbsp; &nbsp;
                           <button class="btn btn-default" (click)="onAddColour(fabric,selectedColour[fabric.fabric_id])">Add</button>
                         </p>
                       </th>
                     </tr>
-
-                    <!--<td>-->
-                    <ul class="list-group" *ngFor="let fc of fabric.colours">
-                      <tr>
-                        <td width="20%">
-                          <li class="list-group-item">{{fc.colour_name}}</li>
-                        </td>
-                        <td width="40%">
-                          <label class="btn btn-default btn-file">  
+                  </table>
+                  <!--<td>-->
+                  <ul class="list-group text-center" *ngFor="let fc of fabric.colours">
+                    <li class="list-group-item">{{fc.colour_name}}
+                      <div class="upload-and-view">
+                        <label class="btn btn-default btn-file">  
                                 Upload Image <input type="file" (change)="fileEvent($event, fc)" style="display: none;">
                               </label>
-                        </td>
-                        <td>
-                          <div *ngIf="fc.image_url">
-                            <a href={{fc.image_url}}>View Image</a>
-                          </div>
-                        </td>
-                      </tr>
-                    </ul>
-                  </table>
+                        <div *ngIf="fc.image_url">
+                          <a href={{fc.image_url}}>View Image</a>
+                        </div>
+                      </div>
+
+
+                    </li>
+
+                  </ul>
                 </div>
               </div>
-            </div>
-          </ul>
+            </ul>
 
 
-        </div>
-        <button class="btn btn-success" (click)="onSave()">Save</button>
+          </div>
+          <button class="btn btn-success" (click)="onSave()">Save</button>
 
         </div>
       </div>

@@ -34,7 +34,7 @@ export class PatternListComponent implements OnInit {
   }
   
   onSelect(pattern_id: number): void {
-		let link = ['/patternDetails', pattern_id];
+		let link = ['patternList/patternDetails', pattern_id];
 		this.router.navigate(link);
 	}
 
