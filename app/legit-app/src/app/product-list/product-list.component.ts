@@ -21,13 +21,17 @@ export class ProductListComponent implements OnInit {
 
   onClear(){
 
-    this.selectedCollectionId = "undefined";
-    this.selectedFabricId = "undefined";
-    this.selectedColourId = "undefined";
-    this.selectedSortPriceId = "undefined";
+    this.selectedCollection = null;
+    this.selectedFabric = null;
+    this.selectedColour = null;
+    this.sortPrice = null;
+    this.selectedCollectionId = null;
+    this.selectedFabricId = null;
+    this.selectedColourId = null;
+    this.selectedSortPriceId = null;
     this.queriedSearch = "";
 
-    this.productService.getFilteredProductList(this.selectedCollectionId, this.selectedFabricId, this.selectedColourId, this.selectedSortPriceId, this.queriedSearch).subscribe(
+    this.productService.getFilteredProductList("undefined", "undefined", "undefined", "undefined", this.queriedSearch).subscribe(
       products => {
         this.products = products;
         //initialise paginator 
