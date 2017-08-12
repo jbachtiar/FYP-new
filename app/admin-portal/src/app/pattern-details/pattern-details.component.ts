@@ -77,12 +77,10 @@ export class PatternDetailsComponent implements OnInit {
 
   onSave() {
     console.log(JSON.stringify(this.pattern))
-    // this.productService.updatePattern(
-    //   this.pattern.pattern_id, this.pattern.pattern_name, this.pattern.pattern_description,
-    //   this.pattern.pattern_price, this.pattern.collection_id).subscribe(
-    //   res => {
-    //     console.log(res);
-    //   });
+    this.productService.updatePattern(this.pattern).subscribe(
+      res => {
+        console.log(res);
+      });
   }
 
   onAddFabric(f) {
