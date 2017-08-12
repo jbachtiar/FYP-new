@@ -13,13 +13,22 @@ public class Fabric {
     
     private String fabricID;
     private String fabricName;
-    private String fabriDescription;
+    private String fabricDescription;
     private double fabricPrice;
+    private Colour[] colours;
 
-    public Fabric(String fabricID, String fabricName, String fabriDescription, double fabricPrice) {
+    public Fabric(String fabricID, String fabricName, String fabricDescription, double fabricPrice, Colour[] colours) {
         this.fabricID = fabricID;
         this.fabricName = fabricName;
-        this.fabriDescription = fabriDescription;
+        this.fabricDescription = fabricDescription;
+        this.fabricPrice = fabricPrice;
+        this.colours = colours;
+    }
+    
+    public Fabric(String fabricID, String fabricName, String fabricDescription, double fabricPrice) {
+        this.fabricID = fabricID;
+        this.fabricName = fabricName;
+        this.fabricDescription = fabricDescription;
         this.fabricPrice = fabricPrice;
     }
 
@@ -39,12 +48,12 @@ public class Fabric {
         this.fabricName = fabricName;
     }
 
-    public String getFabriDescription() {
-        return fabriDescription;
+    public String getFabricDescription() {
+        return fabricDescription;
     }
 
-    public void setFabriDescription(String fabriDescription) {
-        this.fabriDescription = fabriDescription;
+    public void setFabricDescription(String fabriDescription) {
+        this.fabricDescription = fabriDescription;
     }
 
     public double getFabricPrice() {
@@ -54,6 +63,15 @@ public class Fabric {
     public void setFabricPrice(double fabricPrice) {
         this.fabricPrice = fabricPrice;
     }
+
+    public Colour[] getColours() {
+        return colours;
+    }
+
+    public void setColours(Colour[] colours) {
+        this.colours = colours;
+    }
+    
     
     
 }

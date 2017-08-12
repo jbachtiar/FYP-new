@@ -10,22 +10,22 @@
           <div class="col-md-12">
 
                 <select [(ngModel)]="selectedCollection" class="btn btn-default" (ngModelChange)="onSelectCollection($event)">
-                    <option disabled value="0" class="hideoption">Select Collection</option>
+                    <option disabled value="null" class="hideoption" selected>Select Collection</option>
                     <option *ngFor="let c of collections" [ngValue]="c">{{c.name}}</option>
                 </select>
 
                 <select [(ngModel)]="selectedFabric" class="btn btn-default" (ngModelChange)="onSelectFabric($event)">
-                    <option disabled value="0" class="hideoption">Select Fabric</option>
+                    <option disabled value="null" class="hideoption" selected>Select Fabric</option>
                     <option *ngFor="let f of fabrics" [ngValue]="f">{{f.name}}</option>
                 </select>
 
                 <select [(ngModel)]="selectedColour" class="btn btn-default" (ngModelChange)="onSelectColour($event)">
-                    <option disabled value="0" class="hideoption">Select Colour</option>
+                    <option disabled value="null" class="hideoption" selected>Select Colour</option>
                     <option *ngFor="let c of colours" [ngValue]="c">{{c.name}}</option>
                 </select>
 
                 <select [(ngModel)]="sortPrice" class="btn btn-default" (ngModelChange)="onSelectSort($event)">
-                    <option disabled value="0" class="hideoption">Sort Price by</option>
+                    <option disabled value="null" class="hideoption" selected>Sort Price by</option>
                     <option *ngFor="let s of sorts" [ngValue]="s">{{s.name}}</option>
                 </select>
 

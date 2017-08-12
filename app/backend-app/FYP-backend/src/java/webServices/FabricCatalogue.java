@@ -55,7 +55,7 @@ public class FabricCatalogue {
                     JsonObject temp = new JsonObject();
                     temp.addProperty("fabric_id", f.getFabricID());
                     temp.addProperty("fabric_name", f.getFabricName());
-                    temp.addProperty("fabric_description", f.getFabriDescription());
+                    temp.addProperty("fabric_description", f.getFabricDescription());
                     temp.addProperty("fabric_price", f.getFabricPrice());
                     fabricsJsonArray.add(temp);
                  

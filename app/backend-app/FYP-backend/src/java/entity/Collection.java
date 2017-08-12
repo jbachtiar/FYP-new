@@ -5,14 +5,23 @@
  */
 package entity;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  *
  * @author Ong Yi Xuan
  */
+@XmlRootElement
+
 public class Collection {
     
     private String collectionID;
     private String collectionName;
+    
+    public Collection() {
+        this.collectionID = null;
+        this.collectionName = null;
+    }
 
     public Collection(String collectionID, String collectionName) {
         this.collectionID = collectionID;
