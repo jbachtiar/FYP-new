@@ -59,13 +59,13 @@ export class PatternListComponent implements OnInit {
 
   onClear(){
 
-    this.selectedCollectionId = "undefined";
-    this.selectedFabricId = "undefined";
-    this.selectedColourId = "undefined";
-    this.selectedSortPriceId = "undefined";
+    this.selectedCollectionId = null;
+    this.selectedFabricId = null;
+    this.selectedColourId = null;
+    this.selectedSortPriceId = null;
     this.queriedSearch = "";  
 
-    this.productService.getFilteredPatternList(this.selectedCollectionId, this.selectedFabricId, this.selectedColourId, this.selectedSortPriceId, this.queriedSearch).subscribe(
+    this.productService.getFilteredPatternList("undefined", "undefined", "undefined", "undefined", this.queriedSearch).subscribe(
       patterns => {
         this.patterns = patterns;
         this.setPage(1);
