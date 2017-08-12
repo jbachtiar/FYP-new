@@ -59,6 +59,10 @@ export class PatternListComponent implements OnInit {
 
   onClear(){
 
+    this.selectedCollection = null;
+    this.selectedFabric = null;
+    this.selectedColour = null;
+    this.sortPrice = null;
     this.selectedCollectionId = null;
     this.selectedFabricId = null;
     this.selectedColourId = null;
