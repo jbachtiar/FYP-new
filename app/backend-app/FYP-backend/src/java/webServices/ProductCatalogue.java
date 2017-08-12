@@ -21,8 +21,10 @@ import entity.Product;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -41,6 +43,37 @@ import javax.ws.rs.core.MediaType;
 @Path("/ProductCatalogue")
 public class ProductCatalogue {
 
+    @POST
+    @Path("/products")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String saveProducts(final String json){
+        Gson gs = new Gson();
+        Product[]  pArray = gs.fromJson(json, Product[].class);
+        
+        Gson gson = new GsonBuilder().create();
+        JsonObject jsonOutput = new JsonObject();
+        
+        try{
+            
+            jsonOutput.addProperty("status", "200");
+            for(Product p: pArray){
+            
+                ProductDAO.insertProductToDB(p);
+                
+            }
+            
+        }catch(SQLException e){
+            
+            jsonOutput.addProperty("status", "error");
+            
+        }
+        
+        String finalJsonOutput = gson.toJson(jsonOutput);
+        return finalJsonOutput;
+        
+    }
+    
+    
     @GET
     @Path("/uniquePatterns")
     @Produces(MediaType.APPLICATION_JSON)
