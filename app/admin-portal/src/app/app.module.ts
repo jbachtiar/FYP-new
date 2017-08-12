@@ -23,6 +23,8 @@ import { PagerService} from './services/pager.service'
 
 import { QRCodeModule } from 'angular2-qrcode';
 import { CardComponent } from 'ng2-bootstrap-card/ng2-bootstrap-card';
+import { PatternDetailsAddComponent } from './pattern-details-add/pattern-details-add.component';
+import { PatternDetailsViewComponent } from './pattern-details-view/pattern-details-view.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import { CardComponent } from 'ng2-bootstrap-card/ng2-bootstrap-card';
     StaffmanagementComponent,
     PatternListComponent,
     PatternDetailsComponent,
-    CardComponent
+    CardComponent,
+    PatternDetailsAddComponent,
+    PatternDetailsViewComponent
   ],
   imports: [
     BrowserModule,

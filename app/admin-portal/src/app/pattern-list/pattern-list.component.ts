@@ -33,10 +33,20 @@ export class PatternListComponent implements OnInit {
       });
   }
   
-  onSelect(pattern_id: number): void {
+  onEditPattern(pattern_id: number): void {
 		let link = ['patternList/patternDetails', pattern_id];
 		this.router.navigate(link);
 	}
+
+  onAddPattern(): void {
+    let link = ['patternList/addPatternDetails']
+    this.router.navigate(link);
+  }
+
+  onViewPattern(pattern_id: number): void {
+    let link = ['patternList/viewPatternDetails', pattern_id];
+    this.router.navigate(link);
+  }
 
 
     setPage(page: number) {

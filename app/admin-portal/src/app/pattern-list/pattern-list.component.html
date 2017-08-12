@@ -49,7 +49,7 @@
             Name
           </div>
           
-          <button class="btn btn-info btn-wd">Add New Pattern</button>
+          <button class="btn btn-info btn-wd" (click)="onAddPattern()">Add New Pattern</button>
 
         </div>
         
@@ -60,9 +60,9 @@
             <img src="{{p.image_url}}" height="120" width="120" alt="...">
             
             <div class="col-md-4">
-              <button class="btn btn-info btn-fill btn-wd" (click)="onSelect(p.pattern_id)">View Details</button>
+              <button class="btn btn-info btn-fill btn-wd" (click)="onViewPattern(p.pattern_id)">View</button>
                &emsp;
-              <button class="btn btn-info btn-fill btn-wd">Edit</button>
+              <button class="btn btn-info btn-fill btn-wd" (click)="onEditPattern(p.pattern_id)">Edit</button>
             </div>
 
             <div class="col-md-4">
