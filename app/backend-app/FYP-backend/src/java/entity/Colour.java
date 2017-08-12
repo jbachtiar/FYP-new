@@ -13,7 +13,16 @@ public class Colour {
     
     private String colourID;
     private String colourName;
+    private double colour_price;
+    private String imageUrl; 
 
+    public Colour(String colourID, String colourName, double colour_price, String imageUrl) {
+        this.colourID = colourID;
+        this.colourName = colourName;
+        this.colour_price = colour_price;
+        this.imageUrl = imageUrl;
+    }
+    
     public Colour(String colourID, String colourName) {
         this.colourID = colourID;
         this.colourName = colourName;
@@ -33,6 +42,22 @@ public class Colour {
 
     public void setColourName(String colourName) {
         this.colourName = colourName;
+    }
+
+    public double getColour_price() {
+        return colour_price;
+    }
+
+    public void setColour_price(double colour_price) {
+        this.colour_price = colour_price;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
     
 }

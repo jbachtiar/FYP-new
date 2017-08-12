@@ -14,7 +14,9 @@ import dao.ColourDAO;
 import dao.FabricDAO;
 import dao.PatternDAO;
 import dao.ProductDAO;
+import entity.Collection;
 import entity.Colour;
+import entity.CustomPattern;
 import entity.Fabric;
 import entity.Pattern;
 import entity.Product;
@@ -44,29 +46,47 @@ import javax.ws.rs.core.MediaType;
 public class ProductCatalogue {
 
     @POST
+    @Path("/update")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String test(final String json){
+        
+//        Gson gs = new Gson();
+//        Collection  pArray = new Collection();
+//        // 1. Java object to JSON, and save into a file
+//        gs.toJson(pArray, json);
+//        // 2. Java object to JSON, and assign to a String
+//        String jsonInString = gs.toJson(pArray);
+        return "Received by Backend" + json;
+        
+        
+    }
+    
+    
+    @POST
     @Path("/products")
     @Consumes(MediaType.APPLICATION_JSON)
     public String saveProducts(final String json){
         Gson gs = new Gson();
-        Product[]  pArray = gs.fromJson(json, Product[].class);
+        CustomPattern[]  pArray = gs.fromJson(json, CustomPattern[].class);
         
         Gson gson = new GsonBuilder().create();
         JsonObject jsonOutput = new JsonObject();
         
-        try{
+        //try{
             
             jsonOutput.addProperty("status", "200");
-            for(Product p: pArray){
-            
-                ProductDAO.insertProductToDB(p);
+            for(CustomPattern p: pArray){
+                System.out.println(p.getCollection_name());
+                System.out.println(p.getPattern_name());
+                //ProductDAO.insertProductToDB(p);
                 
             }
             
-        }catch(SQLException e){
+        //}catch(SQLException e){
             
-            jsonOutput.addProperty("status", "error");
+            //jsonOutput.addProperty("status", "error");
             
-        }
+        //}
         
         String finalJsonOutput = gson.toJson(jsonOutput);
         return finalJsonOutput;
@@ -210,7 +230,7 @@ public class ProductCatalogue {
                     JsonObject fa = new JsonObject();
                     fa.addProperty("fabric_id", f.getFabricID());
                     fa.addProperty("fabric_name", f.getFabricName());
-                    fa.addProperty("fabric_description", f.getFabriDescription());
+                    fa.addProperty("fabric_description", f.getFabricDescription());
                     fa.addProperty("fabric_price", f.getFabricPrice());
                     JsonArray colorsJson = new JsonArray();
                     for (int j = 0; j < colors.size(); j++) {
