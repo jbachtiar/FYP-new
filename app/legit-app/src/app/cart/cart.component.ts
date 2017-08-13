@@ -53,6 +53,14 @@ export class CartComponent implements OnInit {
     window.location.reload()
   }
 
+  remove(productId: string){
+    let indexCut =  this.shoppingCart.items.findIndex((p) => p.productId === productId)
+    this.shoppingCart.items.splice(indexCut,1)
+    this.updateCart()
+    window.location.reload()
+    console.log('index: ' + indexCut)
+  }
+
   updateCart(){
     this.shoppingCartService.updateCart(this.shoppingCart)
   }

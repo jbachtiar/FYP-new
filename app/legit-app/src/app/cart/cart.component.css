@@ -7,6 +7,10 @@ body {
     font-size: 30px;
 }
 
+table{
+    font-family: Georgia;
+}
+
 button{
     border: 1px solid goldenrod;
     background-color: goldenrod; 
@@ -36,6 +40,17 @@ button{
     width: 20px;
 
 }
+
+.empty-cart{
+    border-bottom: 0px solid goldenrod;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    background-color: white; 
+    font-family: Georgia;
+    font-size: 14px;
+    color: goldenrod;
+}   
 
 table {
     font-family: arial, sans-serif;

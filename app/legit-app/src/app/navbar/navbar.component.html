@@ -9,7 +9,7 @@
             <li class="nav-item" routerLinkActive = "active"><a class="nav-link" routerLink="/store-locator">Find Us</a></li>
         </ul>
         <ul class = "nav navbar-nav pull-right">
-            <button class="btn btn-default" routerLink="/cart" >Cart</button>
+            <button class="btn btn-default" routerLink="/cart" >Cart<div style="color:red">{{itemCount}}</div></button>
             <button *ngIf = "!authenticated" class="btn btn-default" (click)=showLogin()>Login</button>
             <a routerLink="../register"><button *ngIf = "!authenticated"class="btn btn-default">Register</button> </a>
             <a routerLink="../profile-sidebar"><button *ngIf = "authenticated"class="btn btn-default">My Account</button> </a>
