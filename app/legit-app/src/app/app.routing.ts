@@ -12,8 +12,6 @@ import { ProductListComponent } from './product-list/product-list.component'
 import { ProductDetailComponent } from './product-detail/product-detail.component'
 import { MyaccountComponent } from './myaccount/myaccount.component';
 import { AuthGuard } from './guard/auth.guard'
-import { CartComponent } from './cart/cart.component';
-
 
 const appRoutes: Routes = [
     { path: '', component: HomeComponent},
@@ -27,7 +25,6 @@ const appRoutes: Routes = [
     { path: 'custom', component:  InlineEditComponent },
     { path: 'products', component: ProductListComponent },
     { path: 'productDetails/:patternId', component: ProductDetailComponent },
-    { path: 'cart', component: CartComponent },
 ];
 
 export const routing = RouterModule.forRoot(appRoutes);

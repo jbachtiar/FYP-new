@@ -468,51 +468,19 @@ public class ProductCatalogue {
         return finalJsonOutput;
     }
     
-
-
-    @GET
-    @Path("/getProductId")
-    @Produces(MediaType.APPLICATION_JSON)
-    public String getProductIdBy(@QueryParam("patternId") String patternId, @QueryParam("fabricId") String fabricId, @QueryParam("colourId") String colourId){
-        
-        
-      
-        JsonObject jsonOutput = new JsonObject();
-        Gson gson = new GsonBuilder().create();
-     
-        try{
-            
-            Product p = ProductDAO.getProductByPatternFabricColor(patternId, fabricId, colourId);
-            if(p==null){
-                jsonOutput.addProperty("status", "Product not found");
-           
-            }else{
-                jsonOutput.addProperty("status","200");
-                jsonOutput.addProperty("productId", p.getSKU());
-                
-                 
-            }
-        }catch(SQLException e){
-        
-            jsonOutput.addProperty("status","error");
-            
-        }
-        
-        String finalJsonOutput = gson.toJson(jsonOutput);
-        return finalJsonOutput;
-    }
     
     @GET
     @Path("/adminPatternFilter")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getadminFilter(@QueryParam("collectionId") String collectionId, @QueryParam("fabricId") String fabricId, @QueryParam("colourId") String colourId, @QueryParam("sortPrice") String sortPrice, @QueryParam("search") String search){
-        
+    public String getadminFilter(@QueryParam("collectionId") String collectionId, @QueryParam("fabricId") String fabricId, @QueryParam("colourId") String colourId, @QueryParam("sortPrice") String sortPrice, @QueryParam("search") String search) {
+
         System.out.println("bad");
         Gson gson = new GsonBuilder().create();
         JsonObject jsonOutput = new JsonObject();
         JsonArray products = new JsonArray();
 
         try {
+
             Product[] pArray = ProductDAO.getfilteredProductList(collectionId, fabricId, colourId, sortPrice, search);
             System.out.println("Hello");
             jsonOutput.addProperty("status", "200");
