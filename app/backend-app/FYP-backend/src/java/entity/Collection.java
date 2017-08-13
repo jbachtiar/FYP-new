@@ -5,13 +5,11 @@
  */
 package entity;
 
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author Ong Yi Xuan
  */
-@XmlRootElement
 
 public class Collection {
     
