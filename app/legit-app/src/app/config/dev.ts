@@ -8,5 +8,6 @@ export const devConfig = {
     fabricBackendUrl: 'http://localhost:8084/FYP-backend/API/FabricCatalogue/fabrics',
     productDetailsBackendUrl: 'http://localhost:8084/FYP-backend/API/ProductCatalogue/customization',
     filteredProductListBackendUrl: 'http://localhost:8084/FYP-backend/API/ProductCatalogue/filtersort',
-    searchedProductListBackendUrl: 'http://localhost:8084/FYP-backend/API/ProductCatalogue/search'
+    searchedProductListBackendUrl: 'http://localhost:8084/FYP-backend/API/ProductCatalogue/search',
+    cartBackendUrl: 'http://localhost:8084/FYP-backend/API/cart',
 }
