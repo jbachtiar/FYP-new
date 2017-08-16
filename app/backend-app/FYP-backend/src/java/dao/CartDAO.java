@@ -71,13 +71,13 @@ public class CartDAO {
         }
     }
      
-     public static void addCarts(String cartId, String productId, int qty) throws SQLException{
+    public static void deleteCartItem(String cartId, int qty, String productId) throws SQLException{
     
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         
-        String sql = "Insert into cart_details values(?,?,?)"; 
+        String sql = "DELETE from cart_details where cart_id=? and product_sku=? and quantity=?"; 
         
         try {
             conn = ConnectionManager.getConnection();
@@ -89,6 +89,34 @@ public class CartDAO {
             stmt.executeUpdate();    
         } finally {
             ConnectionManager.close(conn, stmt, rs);
+        }
+    }
+     
+     
+     
+     public static void updateCartDetails(String cartId, String productId, int qty) throws SQLException{
+    
+        Connection conn = null;
+        PreparedStatement stmt= null;
+      
+        ResultSet rs = null;
+        
+        String sql = "update cart_details set quantity=? where cart_id=? and product_sku=?"; 
+       
+        
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, qty);
+            stmt.setString(2, cartId);
+            stmt.setString(3, productId);
+            
+         
+            stmt.executeUpdate();    
+       
+        } finally {
+            ConnectionManager.close(conn, stmt, rs);
+       
         }
     }
      

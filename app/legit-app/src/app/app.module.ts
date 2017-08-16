@@ -1,12 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule }   from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { Router } from "@angular/router";
 import { HttpModule } from '@angular/http';
 import { CommonModule } from '@angular/common';
 
 
-import { routing }        from './app.routing';
+import { routing } from './app.routing';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -18,15 +18,16 @@ import { AlertComponent } from './alert/alert.component';
 import { ProfileComponent } from './profile/profile.component'
 import { ProductListComponent } from './product-list/product-list.component';
 import { InlineEditComponent } from './custom/inline-edit.component';
-           
+
 import { CONFIG } from './config/config.component';
 
 import { AuthenticationService } from './authentication.service'
 import { RegistrationService } from './registration.service'
 import { ProfileService } from './profile.service'
 import { ProductService } from './product.service'
-import { FabricService} from './fabric.service'
-import { CartService} from './cart.service'
+import { FabricService } from './fabric.service'
+import { CartService } from './cart.service'
+import { StorageService } from './storage.service'
 import { AuthGuard } from './guard/auth.guard'
 
 import { BootstrapModalModule } from 'ng2-bootstrap-modal';
@@ -66,7 +67,7 @@ import { PaymentComponent } from './payment/payment.component';
     StoreLocatorComponent,
     CheckoutComponent,
     PaymentComponent,
-    
+
   ],
   imports: [
     BrowserModule,
@@ -77,15 +78,16 @@ import { PaymentComponent } from './payment/payment.component';
     CommonModule,
   ],
   providers: [
-    AuthenticationService, 
-    RegistrationService, 
+    AuthenticationService,
+    RegistrationService,
     ProfileService,
     ProductService,
     FabricService,
     CartService,
+    StorageService,
     AuthGuard
-    ],
+  ],
   bootstrap: [AppComponent],
-  entryComponents : [LoginPopupComponent, QuickViewComponent]
+  entryComponents: [LoginPopupComponent, QuickViewComponent]
 })
 export class AppModule { }

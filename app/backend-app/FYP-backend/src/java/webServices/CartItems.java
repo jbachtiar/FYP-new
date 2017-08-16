@@ -10,7 +10,6 @@ package webServices;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
@@ -28,15 +27,14 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 
-
 import javax.ws.rs.core.MediaType;
+
 /**
  *
  * @author Huiyan
  */
 @Path("/Cart")
 public class CartItems {
-   
 
     @GET
     @Path("/items")
@@ -50,10 +48,10 @@ public class CartItems {
         try {
 
             Cart[] cArray = CartDAO.getCartsByCartId(cartId);
-            if (cArray.length==0) {
+            if (cArray.length == 0) {
                 jsonOutput.addProperty("status", "Item not found");
 
-            }else{
+            } else {
                 jsonOutput.addProperty("status", "200");
 
                 for (Cart c : cArray) {
@@ -79,12 +77,10 @@ public class CartItems {
                     JsonArray tags = gson.toJsonTree(p.getTags()).getAsJsonArray(); // convert arraylist to jsonArray
                     temp.add("tags", tags);
                     temp.addProperty("quantity", c.getQuantity());
-                    
 
                     carts.add(temp);
 
                 }
-            
 
                 jsonOutput.add("carts", carts);
             }
@@ -98,22 +94,20 @@ public class CartItems {
         String finalJsonOutput = gson.toJson(jsonOutput);
         return finalJsonOutput;
     }
-    
-      @PUT
-      @Path("/update")
-      @Produces(MediaType.APPLICATION_JSON)  
-      public String updateCartItems(@FormParam("cartId") String cartId, @FormParam("productId") String productId, @FormParam("qty") String qty) {
+
+    @PUT
+    @Path("/update")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String updateCartItems(@FormParam("cartId") String cartId, @FormParam("productId") String productId, @FormParam("qty") String qty) {
 
         Gson gson = new GsonBuilder().create();
         JsonObject jsonOutput = new JsonObject();
-     
+
         try {
 
-    
-            int quantity=Integer.parseInt(qty);
-            CartDAO.addCarts(cartId, productId, quantity);
+            int quantity = Integer.parseInt(qty);
+            CartDAO.updateCartDetails(cartId, productId, quantity);
             jsonOutput.addProperty("status", "200");
- 
 
         } catch (SQLException e) {
 
@@ -124,20 +118,28 @@ public class CartItems {
         String finalJsonOutput = gson.toJson(jsonOutput);
         return finalJsonOutput;
     }
-      
-      
-      @DELETE
-      @Path("/delete")
-      @Produces(MediaType.APPLICATION_JSON)  
-      public String deleteCartItems() {
+
+    @DELETE
+    @Path("/delete")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String deleteCartItems(@QueryParam("cartId") String cartId,@QueryParam("productId") String productId, @QueryParam("qty") String qty) {
 
         Gson gson = new GsonBuilder().create();
         JsonObject jsonOutput = new JsonObject();
-        CartDAO.clearCarts();
-        jsonOutput.addProperty("status", "200");
+
+        try { 
+            int quantity = Integer.parseInt(qty);
+            CartDAO.deleteCartItem(cartId ,quantity, productId);
+            jsonOutput.addProperty("status", "200");
+
+        } catch (SQLException e) {
+
+            jsonOutput.addProperty("status", "error");
+
+        }
+
         String finalJsonOutput = gson.toJson(jsonOutput);
         return finalJsonOutput;
-      }
-    
-    
+    }
+
 }

@@ -28,6 +28,7 @@ export class CartService {
         params.set('productId', productId);
         params.set('qty', qty);
 
+
         let headers = new Headers();
 
         headers.append(
@@ -41,9 +42,11 @@ export class CartService {
 
     }
 
-    clearCarts() {
+    deleteCartItem(cartId: string, productId: string, qty: string) {
         let url = CONFIG.clearCartBackendUrl;
-        return this._http.delete(url).map(res =>res.json())
+        console.log(productId);
+        let finalUrl = url + "?cartId=" + cartId + "&productId=" + productId + "&qty=" + qty;
+        return this._http.delete(finalUrl).map(res => res.json());
     }
 
 }

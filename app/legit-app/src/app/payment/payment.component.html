@@ -7,6 +7,13 @@
           <h4 class="title">Shipping Address</h4>
         </div>
 
+        <h5> {{lastName }} {{firstName}} </h5>
+        {{address}} <br/> Singapore-{{postalCode}} <br/> Phone Number-{{contact}}
+
+        <div class="header">
+          <h4 class="title">Order Summary</h4>
+        </div>
+
         <div class="row">
           <div class="col-sm-3">
           </div>
@@ -25,8 +32,6 @@
 
           <div class="col-sm-2">
           </div>
-
-
         </div>
 
         <div *ngFor="let c of carts; let i=index">
@@ -40,19 +45,11 @@
             </div>
 
             <div class="col-sm-2">
-              <select [(ngModel)]="c.quantity">
-                <option *ngFor="let q of quantity" [ngValue]="q">{{q}}</option>
-              </select>
+              {{c.quantity}}
             </div>
 
             <div class="col-sm-2">
-
-              {{ (c.pattern_price+c.fabric_price+c.colour_price)*c.quantity}} {{ addPrice(i, ((c.pattern_price+c.fabric_price+c.colour_price)*c.quantity))}}
-
-            </div>
-
-            <div class="col-sm-2" (click)=delete(i)>
-              &#10006;
+              {{ (c.pattern_price+c.fabric_price+c.colour_price)*c.quantity}}
             </div>
             <br> ({{c.pattern_name}}+{{c.fabric_name}}+{{c.colour_name}})
           </div>
@@ -65,17 +62,16 @@
 
           <div class="col-sm-2">
             {{showTotalPrice()}}
-
-
           </div>
-
-
         </div>
-        <div class="header">
-          <h4 class="title">Order Summary</h4>
-        </div>
+         <a routerLink="/checkout"> <button class="left-button">Back</button> </a>
+        <button class="right-button">Place Your Order</button>
       </div>
+
     </div>
+
+
+
 
 
 

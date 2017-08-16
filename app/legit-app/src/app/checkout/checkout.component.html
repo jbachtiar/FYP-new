@@ -7,30 +7,32 @@
           <h4 class="title">Your shipping address</h4>
         </div>
 
-        <form name="form" (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
-          <div class="form-group">
-            <label>First Name</label>
-            <input type="text" class="form-control border-input" [(ngModel)]="user.firstName" name="firstName" value={{firstName}} required>
 
-            <label>Last Name</label>
-            <input type="text" class="form-control border-input" [(ngModel)]="user.lastName" name="lastName" value={{lastName}} required>
+        <form name="form" (ngSubmit)="submit()" #f="ngForm" novalidate>
 
-            <label>Postcode</label>
-            <input type="text" class="form-control border-input" [(ngModel)]="user.postCode" name="postCode" value={{postalCode}} required>
 
-            <label>Address</label>
-            <input type="text" class="form-control border-input" [(ngModel)]="user.address" name="address" value={{address}} required>
+          <label>First Name</label>
+           <input type="text" class="form-control border-input" [(ngModel)]="user.firstName" name="firstName" required>
 
-            <label>Contact Number</label>
-            <input type="text" class="form-control border-input" [(ngModel)]="user.contact" name="contact" value={{contact}} required>
+          <label>Last Name</label>
+          <input type="text" class="form-control border-input" [(ngModel)]="user.lastName" name="lastName" required>
 
-            <input type="checkbox" [(ngModel)]="user.sameAddress" name="sameAddress" (ngModelChange)="sameAddress()">
-            <label>Bill to the existing address</label>
-            <br/>
-            <a routerLink="../checkout/payment">
-              <button class="button" (click)=updateCarts()>Continue</button>
-            </a>
-          </div>
+          <label>Postcode</label>
+          <input type="text" class="form-control border-input" [(ngModel)]="user.postCode" name="postCode" required>
+
+          <label>Address</label>
+          <input type="text" class="form-control border-input" [(ngModel)]="user.address" name="address" required>
+
+          <label>Contact Number</label>
+          <input type="text" class="form-control border-input" [(ngModel)]="user.contact" name="contact" required>
+
+          <input type="checkbox" [(ngModel)]="user.sameAddress" name="sameAddress" (ngModelChange)="sameAddress()">
+          <label>Bill to the existing address</label>
+          <br/>
+
+          <button class="button">Continue</button>
+
+
         </form>
       </div>
     </div>
@@ -76,7 +78,7 @@
             </div>
 
             <div class="col-sm-2">
-              <select [(ngModel)]="c.quantity">
+              <select [(ngModel)]="c.quantity" (ngModelChange)="onQtyChange(c)">
                 <option *ngFor="let q of quantity" [ngValue]="q">{{q}}</option>
               </select>
             </div>
@@ -87,7 +89,7 @@
 
             </div>
 
-            <div class="col-sm-2" (click)=delete(i)>
+            <div class="col-sm-2" (click)=delete(i,c)>
               &#10006;
             </div>
             <br> ({{c.pattern_name}}+{{c.fabric_name}}+{{c.colour_name}})
