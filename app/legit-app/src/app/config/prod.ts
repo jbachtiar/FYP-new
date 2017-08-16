@@ -8,5 +8,9 @@ export const prodConfig = {
     fabricBackendUrl:'',
     productDetailsBackendUrl:'',
     filteredProductListBackendUrl: '',
-    searchedProductListBackendUrl: ''
+    searchedProductListBackendUrl: '',
+    getCartItemBackendUrl: '',
+    updateCartBackendUrl:'',
+    clearCartBackendUrl:'',
+    updateCartItemBackendUrl:'',
 }

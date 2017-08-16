@@ -1,12 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule }   from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { Router } from "@angular/router";
 import { HttpModule } from '@angular/http';
 import { CommonModule } from '@angular/common';
 
 
-import { routing }        from './app.routing';
+import { routing } from './app.routing';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -18,14 +18,16 @@ import { AlertComponent } from './alert/alert.component';
 import { ProfileComponent } from './profile/profile.component'
 import { ProductListComponent } from './product-list/product-list.component';
 import { InlineEditComponent } from './custom/inline-edit.component';
-           
+
 import { CONFIG } from './config/config.component';
 
 import { AuthenticationService } from './authentication.service'
 import { RegistrationService } from './registration.service'
 import { ProfileService } from './profile.service'
 import { ProductService } from './product.service'
-import { FabricService} from './fabric.service'
+import { FabricService } from './fabric.service'
+import { CartService } from './cart.service'
+import { StorageService } from './storage.service'
 import { AuthGuard } from './guard/auth.guard'
 
 import { BootstrapModalModule } from 'ng2-bootstrap-modal';
@@ -38,6 +40,8 @@ import { MyaccountComponent } from './myaccount/myaccount.component';
 import { TrackOrderComponent } from './track-order/track-order.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { StoreLocatorComponent } from './store-locator/store-locator.component';
+import { CheckoutComponent } from './checkout/checkout.component';
+import { PaymentComponent } from './payment/payment.component';
 
 
 
@@ -61,7 +65,9 @@ import { StoreLocatorComponent } from './store-locator/store-locator.component';
     TrackOrderComponent,
     AboutUsComponent,
     StoreLocatorComponent,
-    
+    CheckoutComponent,
+    PaymentComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -72,14 +78,16 @@ import { StoreLocatorComponent } from './store-locator/store-locator.component';
     CommonModule,
   ],
   providers: [
-    AuthenticationService, 
-    RegistrationService, 
+    AuthenticationService,
+    RegistrationService,
     ProfileService,
     ProductService,
     FabricService,
+    CartService,
+    StorageService,
     AuthGuard
-    ],
+  ],
   bootstrap: [AppComponent],
-  entryComponents : [LoginPopupComponent, QuickViewComponent]
+  entryComponents: [LoginPopupComponent, QuickViewComponent]
 })
 export class AppModule { }

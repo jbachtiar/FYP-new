@@ -131,7 +131,7 @@ public class ProductCatalogue {
     @GET
     @Path("/product")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getPatternById(@QueryParam("sku") String sku) {
+    public String getProductById(@QueryParam("sku") String sku) {
 
         JsonObject jsonOutput = new JsonObject();
         Gson gson = new GsonBuilder().create();

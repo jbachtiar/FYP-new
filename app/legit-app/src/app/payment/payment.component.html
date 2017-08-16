@@ -1,0 +1,82 @@
+<div class="container">
+
+  <div class="col-md-8">
+    <div class="card">
+      <div class="content">
+        <div class="header">
+          <h4 class="title">Shipping Address</h4>
+        </div>
+
+        <h5> {{lastName }} {{firstName}} </h5>
+        {{address}} <br/> Singapore-{{postalCode}} <br/> Phone Number-{{contact}}
+
+        <div class="header">
+          <h4 class="title">Order Summary</h4>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-3">
+          </div>
+
+          <div class="col-sm-3">
+            Product
+          </div>
+
+          <div class="col-sm-2">
+            Quantity
+          </div>
+
+          <div class="col-sm-2">
+            Price
+          </div>
+
+          <div class="col-sm-2">
+          </div>
+        </div>
+
+        <div *ngFor="let c of carts; let i=index">
+          <div class="row">
+            <div class="col-sm-3">
+              <img src="{{c.image_url}}" style="height:50px; width:50px" class="img-responsive" alt="Some picture">
+            </div>
+
+            <div class="col-sm-3">
+              {{c.SKU}}
+            </div>
+
+            <div class="col-sm-2">
+              {{c.quantity}}
+            </div>
+
+            <div class="col-sm-2">
+              {{ (c.pattern_price+c.fabric_price+c.colour_price)*c.quantity}}
+            </div>
+            <br> ({{c.pattern_name}}+{{c.fabric_name}}+{{c.colour_name}})
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-8">
+            <h4> Total </h4>
+          </div>
+
+          <div class="col-sm-2">
+            {{showTotalPrice()}}
+          </div>
+        </div>
+         <a routerLink="/checkout"> <button class="left-button">Back</button> </a>
+        <button class="right-button">Place Your Order</button>
+      </div>
+
+    </div>
+
+
+
+
+
+
+
+
+  </div>
+
+</div>
