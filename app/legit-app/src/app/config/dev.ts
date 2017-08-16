@@ -10,6 +10,7 @@ export const devConfig = {
     filteredProductListBackendUrl: 'http://localhost:8084/FYP-backend/API/ProductCatalogue/filtersort',
     searchedProductListBackendUrl: 'http://localhost:8084/FYP-backend/API/ProductCatalogue/search',
     getCartItemBackendUrl: 'http://localhost:8084/FYP-backend/API/Cart/items',
-    updateCartBackendUrl: 'http://localhost:8084/FYP-backend/API/Cart/update',
+    updateCartItemBackendUrl: 'http://localhost:8084/FYP-backend/API/Cart/updateCartItems',
+    updateCartBackendUrl: 'http://localhost:8084/FYP-backend/API/Cart/updateCart',
     clearCartBackendUrl: 'http://localhost:8084/FYP-backend/API/Cart/delete',
 }

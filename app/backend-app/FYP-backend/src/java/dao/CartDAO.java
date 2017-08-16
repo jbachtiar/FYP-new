@@ -119,7 +119,31 @@ public class CartDAO {
        
         }
     }
-     
+      public static void updateCart(String price, String date, String cart_id) throws SQLException{
+    
+        Connection conn = null;
+        PreparedStatement stmt= null;
+      
+        ResultSet rs = null;
+        
+        String sql = "update cart set price=? , date=? where cart_id=?"; 
+       
+        
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, price);
+            stmt.setString(2, date);
+            stmt.setString(3, cart_id);
+            
+         
+            stmt.executeUpdate();    
+       
+        } finally {
+            ConnectionManager.close(conn, stmt, rs);
+       
+        }
+    }
     
     
 }

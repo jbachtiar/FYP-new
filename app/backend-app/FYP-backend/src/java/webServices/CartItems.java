@@ -96,7 +96,7 @@ public class CartItems {
     }
 
     @PUT
-    @Path("/update")
+    @Path("/updateCartItems")
     @Produces(MediaType.APPLICATION_JSON)
     public String updateCartItems(@FormParam("cartId") String cartId, @FormParam("productId") String productId, @FormParam("qty") String qty) {
 
@@ -107,6 +107,29 @@ public class CartItems {
 
             int quantity = Integer.parseInt(qty);
             CartDAO.updateCartDetails(cartId, productId, quantity);
+
+            jsonOutput.addProperty("status", "200");
+
+        } catch (SQLException e) {
+
+            jsonOutput.addProperty("status", "error");
+
+        }
+
+        String finalJsonOutput = gson.toJson(jsonOutput);
+        return finalJsonOutput;
+    }
+    
+    @PUT
+    @Path("/updateCart")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String updateCart(@FormParam("cartId") String cartId, @FormParam("date") String date, @FormParam("totalPrice") String totalPrice) {
+
+        Gson gson = new GsonBuilder().create();
+        JsonObject jsonOutput = new JsonObject();
+
+        try {
+            CartDAO.updateCart(totalPrice, date, cartId);
             jsonOutput.addProperty("status", "200");
 
         } catch (SQLException e) {

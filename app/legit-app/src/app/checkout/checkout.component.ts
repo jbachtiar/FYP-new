@@ -32,6 +32,7 @@ export class CheckoutComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(new Date().toLocaleDateString());
     this.cartService.getCartItemByCartId("C1").subscribe(
       carts => {
 
@@ -92,7 +93,7 @@ export class CheckoutComponent implements OnInit {
   }
   onQtyChange(c) {
 
-    this.cartService.updateCarts("C1", c.SKU, c.quantity).subscribe(
+    this.cartService.updateCartItem("C1", c.SKU, c.quantity).subscribe(
       res => {
         if (res.status === '200') {
           console.log("Updated");
@@ -109,6 +110,15 @@ export class CheckoutComponent implements OnInit {
 
     this.storageService.setShippingAddress(this.user.firstName, this.user.lastName, this.user.contact, this.user.address, this.user.postCode);
     this.router.navigateByUrl('/checkout/payment');
+    this.cartService.updateCart("C1", new Date().toLocaleDateString(), this.showTotalPrice()).subscribe(
+      res => {
+        if (res.status === '200') {
+          console.log("Updated");
+        } else {
+          console.log("Unable to update");
+        }
+      }
+    );
 
 
 
@@ -125,7 +135,7 @@ export class CheckoutComponent implements OnInit {
       totalPrice += this.itemPrice[i];
 
     }
-    return totalPrice+"";
+    return totalPrice + "";
 
   }
 }

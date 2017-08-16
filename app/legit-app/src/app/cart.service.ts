@@ -22,11 +22,31 @@ export class CartService {
         });
     }
 
-    updateCarts(cartId: string, productId: string, qty: string) {
+    updateCartItem(cartId: string, productId: string, qty: string) {
         let params: URLSearchParams = new URLSearchParams();
         params.set('cartId', cartId);
         params.set('productId', productId);
         params.set('qty', qty);
+
+
+        let headers = new Headers();
+
+        headers.append(
+            'Content-type', 'application/x-www-form-urlencoded'
+        )
+
+        let url = CONFIG.updateCartItemBackendUrl;
+        return this._http.put(url, params.toString(), { headers })
+            .map(res => res.json());
+
+
+    }
+
+    updateCart(cartId: string, date: string, totalPrice: string) {
+        let params: URLSearchParams = new URLSearchParams();
+        params.set('cartId', cartId);
+        params.set('date', date);
+        params.set('totalPrice',totalPrice);
 
 
         let headers = new Headers();
