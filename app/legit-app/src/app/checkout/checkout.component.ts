@@ -15,10 +15,10 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class CheckoutComponent implements OnInit {
   private user: any = {};
   private carts: any = {};
-
   private numOfItem: 0;
   private itemPrice: number[] = new Array();
   private sameAddre: boolean = false;
+  private canLeave: boolean= false;
   customer: Customer;
   token: string;
   quantity = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
@@ -106,13 +106,15 @@ export class CheckoutComponent implements OnInit {
 
   }
 
-  submit() {
+  submit(){
 
-    this.storageService.setShippingAddress(this.user.firstName, this.user.lastName, this.user.contact, this.user.address, this.user.postCode);
     this.router.navigateByUrl('/checkout/payment');
+    this.storageService.setShippingAddress(this.user.firstName, this.user.lastName, this.user.contact, this.user.address, this.user.postCode);
+
     this.cartService.updateCart("C1", new Date().toLocaleDateString(), this.showTotalPrice()).subscribe(
       res => {
         if (res.status === '200') {
+          this.canLeave=true;
           console.log("Updated");
         } else {
           console.log("Unable to update");
@@ -120,7 +122,7 @@ export class CheckoutComponent implements OnInit {
       }
     );
 
-
+   
 
   }
 
@@ -138,5 +140,16 @@ export class CheckoutComponent implements OnInit {
     return totalPrice + "";
 
   }
+
+  canLeavethePage(): boolean {
+    if(this.canLeave){
+      return true
+
+    }else{
+      return false
+    }
+  }
+
+
 }
 
