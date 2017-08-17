@@ -106,22 +106,22 @@ export class CheckoutComponent implements OnInit {
   }
 
   submit() {
+    if (this.canRedirectToPayment()) {
 
-    this.router.navigateByUrl('/checkout/payment');
-    this.storageService.setShippingAddress(this.user.firstName, this.user.lastName, this.user.contact, this.user.address, this.user.postCode);
+      this.router.navigateByUrl('/checkout/payment');
+      this.storageService.setShippingAddress(this.user.firstName, this.user.lastName, this.user.contact, this.user.address, this.user.postCode);
 
-    this.cartService.updateCart("C1", new Date().toLocaleDateString(), this.showTotalPrice()).subscribe(
-      res => {
-        if (res.status === '200') {
+      this.cartService.updateCart("C1", new Date().toLocaleDateString(), this.showTotalPrice()).subscribe(
+        res => {
+          if (res.status === '200') {
 
-          console.log("Updated");
-        } else {
-          console.log("Unable to update");
+            console.log("Updated");
+          } else {
+            console.log("Unable to update");
+          }
         }
-      }
-    );
-
-
+      );
+    }
 
   }
 
@@ -140,7 +140,7 @@ export class CheckoutComponent implements OnInit {
 
   }
 
-  canLeavethePage(): boolean {
+  canRedirectToPayment(): boolean {
 
     if (this.user.firstName.length > 0 && this.user.lastName.length > 0 && this.user.address.length > 0 && this.user.contact.length > 0 && this.user.postCode.length > 0) {
       return true;

@@ -29,7 +29,6 @@ import { FabricService } from './fabric.service'
 import { CartService } from './cart.service'
 import { StorageService } from './storage.service'
 import { AuthGuard } from './guard/auth.guard'
-import { CanDeactivateGuard} from './guard/submitForm.guard'
 
 import { BootstrapModalModule } from 'ng2-bootstrap-modal';
 
@@ -87,7 +86,6 @@ import { PaymentComponent } from './payment/payment.component';
     CartService,
     StorageService,
     AuthGuard,
-    CanDeactivateGuard
   ],
   bootstrap: [AppComponent],
   entryComponents: [LoginPopupComponent, QuickViewComponent]
