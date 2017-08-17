@@ -164,5 +164,32 @@ public class CartItems {
         String finalJsonOutput = gson.toJson(jsonOutput);
         return finalJsonOutput;
     }
+    
+    @GET
+    @Path("/price")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getCartTotalPrice(@QueryParam("cartId") String cartId) {
+
+        Gson gson = new GsonBuilder().create();
+        JsonObject jsonOutput = new JsonObject();
+        String price;
+
+        try {
+
+            price= CartDAO.getTotalPriceByCardId(cartId);
+            jsonOutput.addProperty("status", "200");
+            jsonOutput.addProperty("total_price", price);
+            
+
+        } catch (SQLException e) {
+
+            jsonOutput.addProperty("status", "error");
+
+        }
+
+        String finalJsonOutput = gson.toJson(jsonOutput);
+        return finalJsonOutput;
+    }
+
 
 }

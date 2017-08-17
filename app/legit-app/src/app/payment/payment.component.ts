@@ -15,6 +15,7 @@ export class PaymentComponent implements OnInit {
   contact: string;
   address: string;
   postalCode: string;
+  totalPrice: string;
 
 
 
@@ -30,11 +31,21 @@ export class PaymentComponent implements OnInit {
     this.cartService.getCartItemByCartId("C1").subscribe(
       carts => {
 
-        console.log("Cart items retrieved successfully");
+        console.log("Cart items retrieved");
         this.carts = carts;
 
 
     })
+
+     this.cartService.getCartTotalPrice("C1").subscribe(
+      total_price => {
+        this.totalPrice = total_price;
+        console.log(this.totalPrice);
+
+
+    })
+
+
 
   }
 

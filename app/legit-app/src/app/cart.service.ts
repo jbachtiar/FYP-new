@@ -46,7 +46,7 @@ export class CartService {
         let params: URLSearchParams = new URLSearchParams();
         params.set('cartId', cartId);
         params.set('date', date);
-        params.set('totalPrice',totalPrice);
+        params.set('totalPrice', totalPrice);
 
 
         let headers = new Headers();
@@ -67,6 +67,17 @@ export class CartService {
         console.log(productId);
         let finalUrl = url + "?cartId=" + cartId + "&productId=" + productId + "&qty=" + qty;
         return this._http.delete(finalUrl).map(res => res.json());
+    }
+
+    getCartTotalPrice(cartId: string) {
+        let url = CONFIG.getCartTotalPriceBackendUrl;
+        let finalUrl = url + "?cartId=" + cartId;
+        return this._http.get(finalUrl).map(res => {
+            return res.json().total_price
+
+        });
+
+
     }
 
 }
