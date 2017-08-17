@@ -50,43 +50,24 @@ public class ProductCatalogue {
     @Consumes(MediaType.APPLICATION_JSON)
     public String test(final String json){
         
-//        Gson gs = new Gson();
-//        Collection  pArray = new Collection();
-//        // 1. Java object to JSON, and save into a file
-//        gs.toJson(pArray, json);
-//        // 2. Java object to JSON, and assign to a String
-//        String jsonInString = gs.toJson(pArray);
-        return "Received by Backend" + json;
         
+        Gson gson = new Gson(); 
+        CustomPattern cp = gson.fromJson(json, CustomPattern.class);
         
-    }
-    
-    
-    @POST
-    @Path("/products")
-    @Consumes(MediaType.APPLICATION_JSON)
-    public String saveProducts(final String json){
-        Gson gs = new Gson();
-        CustomPattern[]  pArray = gs.fromJson(json, CustomPattern[].class);
-        
-        Gson gson = new GsonBuilder().create();
         JsonObject jsonOutput = new JsonObject();
         
-        //try{
+        try{
             
             jsonOutput.addProperty("status", "200");
-            for(CustomPattern p: pArray){
-                System.out.println(p.getCollection_name());
-                System.out.println(p.getPattern_name());
-                //ProductDAO.insertProductToDB(p);
-                
-            }
+            PatternDAO.updatePatternToDB(cp);
             
-        //}catch(SQLException e){
             
-            //jsonOutput.addProperty("status", "error");
+        }catch(SQLException e){
             
-        //}
+            
+            jsonOutput.addProperty("status", "error");
+            
+        }
         
         String finalJsonOutput = gson.toJson(jsonOutput);
         return finalJsonOutput;
@@ -150,7 +131,7 @@ public class ProductCatalogue {
     @GET
     @Path("/product")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getPatternById(@QueryParam("sku") String sku) {
+    public String getProductById(@QueryParam("sku") String sku) {
 
         JsonObject jsonOutput = new JsonObject();
         Gson gson = new GsonBuilder().create();

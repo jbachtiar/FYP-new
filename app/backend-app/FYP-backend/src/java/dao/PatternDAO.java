@@ -7,6 +7,9 @@ package dao;
 
 import database.ConnectionManager;
 import entity.Collection;
+import entity.CustomColour;
+import entity.CustomFabric;
+import entity.CustomPattern;
 import entity.Pattern;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -22,6 +25,197 @@ import java.util.logging.Logger;
  * @author Ong Yi Xuan
  */
 public class PatternDAO {
+    
+    public static void updatePatternToDB(CustomPattern cp) throws SQLException{
+        
+        //get the pattern id
+        String patternID = cp.getPattern_id();
+        
+        if(patternID.isEmpty()){
+            
+            //add new pattern to DB
+            patternID = getNextPatternID();
+            addPattern(patternID, cp.getPattern_name(), cp.getPattern_description(), cp.getPattern_price() , cp.getCollection_id());
+            
+            //add to pattern_fabric table
+            CustomFabric[] fabricArr = cp.getFabrics();
+            
+            for(CustomFabric cf : fabricArr){
+                
+                addPatternFabric(patternID, cf.getFabric_id());
+                CustomColour[] fabricColourArr = cf.getColours();
+                
+                for(CustomColour cc : fabricColourArr){
+                    
+                    //add to product table (colour ..)
+                    addProduct(patternID, cf.getFabric_id(), cc.getColour_id(), cc.getColour_price(), cc.getImage_url());
+                }     
+              
+            }             
+            
+        }else{
+            
+            //pattern exists in database
+            updatePattern(patternID, cp.getPattern_name(), cp.getPattern_description(), cp.getPattern_price() , cp.getCollection_id());
+            
+            //delete from product table in db
+            deleteProductByPatternID(patternID);
+            
+            //delete from pattern fabric table in db
+            deletePatternFabricByPatternID(patternID);
+            
+            //add to pattern_fabric table
+            CustomFabric[] fabricArr = cp.getFabrics();
+            
+            for(CustomFabric cf : fabricArr){
+                
+                addPatternFabric(patternID, cf.getFabric_id());
+                
+                CustomColour[] fabricColourArr = cf.getColours();
+                
+                for(CustomColour cc : fabricColourArr){
+                    
+                    //add to product table (colour ..)
+                    addProduct(patternID, cf.getFabric_id(), cc.getColour_id(), cc.getColour_price(), cc.getImage_url());
+                }
+                
+            }
+            
+            
+        }
+        
+        
+    }
+    
+    public static void deleteProductByPatternID(String patternID) throws SQLException{
+        
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        
+        String sql = "DELETE FROM PRODUCT WHERE PATTERN_ID=?"; 
+        
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1,patternID);
+            stmt.executeUpdate();
+            
+
+        } finally {
+            
+            ConnectionManager.close(conn, stmt, rs);
+            
+        }
+        
+        
+    }
+    
+    public static void deletePatternFabricByPatternID(String patternID) throws SQLException{
+        
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        
+        String sql = "DELETE FROM PATTERN_FABRIC WHERE PATTERN_ID=?"; 
+        
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1,patternID);
+            stmt.executeUpdate();
+            
+
+        } finally {
+            
+            ConnectionManager.close(conn, stmt, rs);
+            
+        }
+        
+        
+    }
+    
+    public static String getNextPatternID() throws SQLException{
+        
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        String patternID = "";
+        int maxID = -1;
+        
+        String sql = "SELECT PATTERN_ID FROM PATTERN"; 
+        
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            rs = stmt.executeQuery();
+            
+            while (rs.next()) {
+                
+               patternID = rs.getString("PATTERN_ID");
+               int patternNumber = Integer.parseInt(patternID.substring(1));
+               
+               
+               if(patternNumber > maxID){
+                   
+                   maxID = patternNumber;
+                   
+               }
+               
+            }
+            
+        } finally {
+            
+            ConnectionManager.close(conn, stmt, rs);
+            
+        }
+        
+        maxID ++;
+        return "P" + maxID;
+        
+    }
+    
+    public static String getNextSKU() throws SQLException{
+        
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        String sku = "";
+        int intSku = -1;
+        
+        String sql = "SELECT MAX(SKU) AS SKU FROM PRODUCT"; 
+        
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            rs = stmt.executeQuery();
+            
+            while (rs.next()) {
+                
+                sku = rs.getString("SKU");
+                intSku = Integer.parseInt(sku) + 1;
+                
+               
+            }
+            
+
+        } finally {
+            
+            ConnectionManager.close(conn, stmt, rs);
+            
+        }
+        
+        if(intSku < 10){
+            
+            return "00" + intSku;
+            
+        }else{
+            
+            return "0" + intSku;
+            
+        }
+        
+    }
     
     public Pattern[] getAllPatterns() throws SQLException{
         
@@ -165,6 +359,83 @@ public class PatternDAO {
             ConnectionManager.close(conn, stmt, rs);
         }
     }
+    
+    public static void addPattern(String patternID, String patternName, String patternDescription, double patternPrice, String collectionID) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        String sql = "INSERT INTO PATTERN VALUES (?,?,?,?,?);";
+
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, patternID);
+            stmt.setString(2, patternName);
+            stmt.setString(3, patternDescription);
+            stmt.setDouble(4, patternPrice);
+            stmt.setString(5, collectionID);
+           
+            stmt.executeUpdate();
+            
+        } catch (SQLException ex) {
+            handleSQLException(ex, sql);
+        } finally {
+            ConnectionManager.close(conn, stmt, rs);
+        }
+    }
+    
+    public static void addPatternFabric(String patternID, String fabricID) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        String sql = "INSERT INTO PATTERN_FABRIC VALUES (?,?);";
+
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, patternID);
+            stmt.setString(2, fabricID);
+
+           
+            stmt.executeUpdate();
+            
+        } catch (SQLException ex) {
+            handleSQLException(ex, sql);
+        } finally {
+            ConnectionManager.close(conn, stmt, rs);
+        }
+    }
+    
+    
+    public static void addProduct(String patternID, String fabricID, String colourID, Double colourPrice, String imageURL) throws SQLException {
+        
+        //generate next SKU
+        String sku = getNextSKU();
+        
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        String sql = "INSERT INTO PRODUCT VALUES (?, ?, ?, ?, ?, ?)";
+
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, sku);
+            stmt.setString(2, patternID);
+            stmt.setString(3, fabricID);
+            stmt.setString(4, colourID);
+            stmt.setDouble(5, colourPrice);
+            stmt.setString(6, imageURL);
+           
+            stmt.executeUpdate();
+            
+        } catch (SQLException ex) {
+            handleSQLException(ex, sql);
+        } finally {
+            ConnectionManager.close(conn, stmt, rs);
+        }
+    }
+    
     
     private static void handleSQLException(SQLException ex, String sql, String... parameters) {
         String msg = "Unable to access data; SQL=" + sql + "\n";

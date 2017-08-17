@@ -15,15 +15,6 @@ public class Fabric {
     private String fabricName;
     private String fabricDescription;
     private double fabricPrice;
-    private Colour[] colours;
-
-    public Fabric(String fabricID, String fabricName, String fabricDescription, double fabricPrice, Colour[] colours) {
-        this.fabricID = fabricID;
-        this.fabricName = fabricName;
-        this.fabricDescription = fabricDescription;
-        this.fabricPrice = fabricPrice;
-        this.colours = colours;
-    }
     
     public Fabric(String fabricID, String fabricName, String fabricDescription, double fabricPrice) {
         this.fabricID = fabricID;
@@ -63,15 +54,5 @@ public class Fabric {
     public void setFabricPrice(double fabricPrice) {
         this.fabricPrice = fabricPrice;
     }
-
-    public Colour[] getColours() {
-        return colours;
-    }
-
-    public void setColours(Colour[] colours) {
-        this.colours = colours;
-    }
-    
-    
     
 }
