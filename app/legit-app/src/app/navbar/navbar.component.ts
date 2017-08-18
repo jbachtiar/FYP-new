@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { LoginPopupComponent } from '../login/login-popup.component';
 
 import { AuthenticationService } from '../authentication.service';
+import { ShoppingCart } from "../cart/model/shopping-cart.model";
 
 import { DialogService } from "ng2-bootstrap-modal";
 
@@ -16,6 +17,8 @@ import { DialogService } from "ng2-bootstrap-modal";
 export class NavbarComponent implements OnInit {
     private token;
     private authenticated = false;
+    private shoppingCart: ShoppingCart;
+    private itemCount: number;
 
   constructor(
       private dialogService:DialogService, 
@@ -29,7 +32,13 @@ export class NavbarComponent implements OnInit {
         if(this.token!=null){
             this.authenticated = true;
         }
+        this.shoppingCart = JSON.parse(localStorage.getItem('cart'));
+        this.itemCount = this.shoppingCart.noOfItems;
         console.log("AUTHENTICATED: " + this.authenticated);
+    }
+
+    recalculateQty(){
+        this.itemCount = this.shoppingCart.noOfItems;
     }
 
     showLogin() {

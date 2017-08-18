@@ -4,6 +4,7 @@ import { ProductService } from '../product.service';
 import { FabricService } from '../fabric.service';
 import { ShoppingCartService } from '../shopping-cart.service';
 import { CartItem } from "../cart/model/cart-item.model";
+import { NavbarComponent } from '../navbar/navbar.component';
 
 
 @Component({
@@ -87,11 +88,12 @@ export class ProductDetailComponent implements OnInit {
               console.log('eachPrice: ' + this.eachPrice)
 
               this.shoppingCartService.addItem(this.cartItem)
+              //window.location.reload();
 
             });
 
         });
-
+        
     }
 
     getProductId() {

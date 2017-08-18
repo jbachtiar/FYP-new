@@ -16,8 +16,10 @@ export class ShoppingCartService {
   private subscribers: Array<Observer<ShoppingCart>> = new Array<Observer<ShoppingCart>>();
   private item: CartItem;
   private cart: ShoppingCart;
+  private token: string;
 
   public constructor(private _http: Http) {
+    this.token = localStorage.getItem('token');
     this.subscriptionObservable = new Observable<ShoppingCart>((observer: Observer<ShoppingCart>) => {
       this.subscribers.push(observer);
       observer.next(this.retrieve());
@@ -75,9 +77,58 @@ export class ShoppingCartService {
     this.cart.items = this.cart.items.filter((cartItem) => cartItem.quantity > 0);
     console.log('retrieved: '+ JSON.stringify(this.cart));
 
+
+    
     this.calculateCart(this.cart);
     this.save(this.cart);
+    console.log("im here")
+    if(this.token){
+      console.log("token present")
+      this.updateCartDB(this.cart);
+      this.retrieveCartDB(); 
+    }
     this.dispatch(this.cart);
+  }
+
+  updateCartDB(cart: ShoppingCart) {
+       
+    
+        var params = JSON.stringify(cart);
+        let headers = new Headers();
+
+        
+        headers.append ('Authorization', this.token);
+        headers.append(
+           'Content-type', 'application/json'
+        )
+
+        console.log("update cart1")
+        let url = CONFIG.updateCartBackendUrl;
+        return this._http.post(url, params, { headers: headers })
+            .subscribe(res => {
+              console.log("update cart")
+              res.json()
+              
+
+
+            });   
+
+  }
+
+  public retrieveCartDB(){
+        let headers = new Headers();
+
+        headers.append ('Authorization', this.token);
+        
+        let url = CONFIG.cartBackendUrl + "/retrieveCart";
+
+        console.log("HEY IM HERE");
+        return this._http.post(url,{ headers: headers })
+            .subscribe(res => {
+              console.log("retrieved cart : " + res.json())
+            
+            });
+
   }
 
   public updateCart(cart: ShoppingCart){
