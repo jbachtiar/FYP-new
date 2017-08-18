@@ -12,102 +12,110 @@
           </div>
         </div>
       </div>
-      <div class="row">
-        <div class="col-sm-6">
-          <div class="form-group">
+      <form name="form" #f="ngForm" novalidate>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !name.valid }">
 
-            <label>Name</label>
-            <input class="form-control" placeholder="Name" [(ngModel)]="pattern.pattern_name" #ctrl="ngModel" required>
+              <label>Name</label>
+              <input class="form-control" placeholder="Name" [(ngModel)]="pattern.pattern_name"name="name" #name="ngModel" required>
+              <div *ngIf="f.submitted && !name.valid" class="help-block">Name is required</div>
+            </div>
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !desc.valid }">
+              <label>Description</label>
+              <input class="form-control" placeholder="Description" [(ngModel)]="pattern.pattern_description" name="desc" #desc="ngModel" required>
+              <div *ngIf="f.submitted && !desc.valid" class="help-block">Description is required</div>
+            </div>
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !price.valid }">
+              <label>Price</label>
+              <input type="number" class="form-control" placeholder="Price" [(ngModel)]="pattern.pattern_price" name="price" #price="ngModel" required>
+              <div *ngIf="f.submitted && !price.valid" class="help-block">Price is required</div>
+            </div>
           </div>
-          <div class="form-group">
-            <label>Description</label>
-            <input class="form-control" placeholder="Description" [(ngModel)]="pattern.pattern_description" #ctrl="ngModel" required>
-          </div>
-          <div class="form-group">
-            <label>Price</label>
-            <input class="form-control" placeholder="Price" [(ngModel)]="pattern.pattern_price" #ctrl="ngModel" required>
-          </div>
-        </div>
 
-        <!--QR Code-->
-        <div class="col-sm-6">
-          <div class="form-group">
-            <label>QR Code</label><br/>
-            <div>
-              <qr-code [value]=patternUrl [size]="150"></qr-code>
+          <!--QR Code-->
+          <div class="col-sm-6">
+            <div class="form-group" >
+              <label>QR Code</label><br/>
+              <div>
+                <qr-code name="qr-code" [value]=patternUrl [size]="150"></qr-code>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="row">
-        <div class="col-sm-6">
-          <div class="form-group">
-            <label>Available Options :</label><br/> Fabrics:
-            <table class="table table-striped">
-              <tr>
-                <td>
-                  <select [(ngModel)]="selectedFabric">
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label>Available Options :</label><br/> Fabrics:
+              <table class="table table-striped">
+                <tr>
+                  <td>
+                    <select [(ngModel)]="selectedFabric" [ngModelOptions]="{standalone: true}">
                   <option *ngFor="let f of fabrics" [ngValue]="f">{{f.fabric_name}}</option>
-              </select>
-               &nbsp; &nbsp; &nbsp;
-                  <button class="btn btn-default" (click)="onAddFabric(selectedFabric)">Add</button>
-                </td>
-              </tr>
-            </table>
+              </select> &nbsp; &nbsp; &nbsp;
+                    <button class="btn btn-default" (click)="onAddFabric(selectedFabric)">Add</button>
+                  </td>
+                </tr>
+              </table>
 
-            <ul class="list-group" *ngFor="let fabric of patternFabrics; let i=index">
-              <div class="fabric-card">
-                <div class="card card-inverse card-info mb-3 text-center">
-                  <h4 class="card-title">
-                    <li class="list-group-item-info">
-                      {{ fabric.fabric_name }}
-                    </li>
-                  </h4>
-                  <p class="card-text">
-                    Colours:
-                  </p>
-                  <!--dropdown to select colours for the fabric-->
-                  <table class="table table-striped">
-                    <tr>
-                      <th>
-                        <p class="text-center">
-                          <select [(ngModel)]="selectedColour[fabric.fabric_id]">
+              <ul class="list-group" *ngFor="let fabric of patternFabrics; let i=index">
+                <div class="fabric-card">
+                  <div class="card card-inverse card-info mb-3 text-center">
+                    <h4 class="card-title">
+                      <li class="list-group-item-info">
+                        <b>{{ fabric.fabric_name }}</b><br/>
+                      </li>
+                    </h4>
+                    <p class="card-text">
+                      Colours:
+                    </p>
+                    <!--dropdown to select colours for the fabric-->
+                    <table class="table table-striped">
+                      <tr>
+                        <th>
+                          <p class="text-center">
+                            <select [(ngModel)]="selectedColour[fabric.fabric_id]" [ngModelOptions]="{standalone: true}">
                                 <option *ngFor="let cd of fabric.colours_dropdown" [ngValue]="cd">{{cd.colour_name}}</option>
                             </select> &nbsp; &nbsp; &nbsp;
-                          <button class="btn btn-default" (click)="onAddColour(fabric,selectedColour[fabric.fabric_id])">Add</button>
-                        </p>
-                      </th>
-                    </tr>
-                  </table>
-                  <!--<td>-->
-                  <ul class="list-group text-center" *ngFor="let fc of fabric.colours">
-                    <li class="list-group-item">{{fc.colour_name}}
-                      <div class="upload-and-view">
-                        <label class="btn btn-default btn-file">  
+                            <button class="btn btn-default" (click)="onAddColour(fabric,selectedColour[fabric.fabric_id])">Add</button>
+                          </p>
+                        </th>
+                      </tr>
+                    </table>
+                    <!--<td>-->
+                    <ul class="list-group text-center" *ngFor="let fc of fabric.colours">
+                      <li class="list-group-item"><b>{{fc.colour_name}}</b><br/>
+                        Price: 
+                        <input type="number" placeholder="Price" size="10" [(ngModel)]="fc.colour_price" [ngModelOptions]="{standalone: true}" required>
+                        &nbsp; &nbsp; &nbsp;
+                        &nbsp; &nbsp;
+                        <div class="upload-and-view">
+                          <label class="btn btn-default btn-file">  
                                 Upload Image <input type="file" (change)="fileEvent($event, fc)" style="display: none;">
                               </label>
-                        <div *ngIf="fc.image_url">
-                          <a href={{fc.image_url}}>View Image</a>
+                          <div *ngIf="fc.image_url">
+                            <a href={{fc.image_url}}>View Image</a>
+                          </div>
                         </div>
-                      </div>
 
 
-                    </li>
+                      </li>
 
-                  </ul>
+                    </ul>
+                  </div>
                 </div>
-              </div>
-            </ul>
+              </ul>
 
 
-          </div>
-          <button class="btn btn-success" (click)="onSave()">Save</button>
-          <div *ngIf="res">
-            {{res}}
+            </div>
+            <button class="btn btn-success" (click)="onSave()">Save</button>
+            <div *ngIf="res">
+              {{res}}
+            </div>
           </div>
         </div>
-      </div>
+      </form>
     </div>
   </div>
 </body>
