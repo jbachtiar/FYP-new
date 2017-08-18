@@ -88,7 +88,7 @@ export class ProductDetailComponent implements OnInit {
               console.log('eachPrice: ' + this.eachPrice)
 
               this.shoppingCartService.addItem(this.cartItem)
-              //window.location.reload();
+              window.location.reload();
 
             });
 

@@ -81,12 +81,6 @@ export class ShoppingCartService {
     
     this.calculateCart(this.cart);
     this.save(this.cart);
-    console.log("im here")
-    if(this.token){
-      console.log("token present")
-      this.updateCartDB(this.cart);
-      this.retrieveCartDB(); 
-    }
     this.dispatch(this.cart);
   }
 
