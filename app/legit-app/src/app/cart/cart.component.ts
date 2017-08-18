@@ -44,8 +44,12 @@ export class CartComponent implements OnInit {
   }
 
   decrement(productId: string){
-    this.shoppingCart.items.find((p) => p.productId === productId).quantity -=1
-    this.updateCart()
+    if(this.shoppingCart.items.find((p) => p.productId === productId).quantity > 1){
+       this.shoppingCart.items.find((p) => p.productId === productId).quantity -=1
+       this.updateCart()
+    }else{
+      this.remove(productId);
+    }
   }
 
   emptyCart(){
