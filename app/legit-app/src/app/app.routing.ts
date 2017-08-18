@@ -14,6 +14,7 @@ import { MyaccountComponent } from './myaccount/myaccount.component'
 import { CheckoutComponent } from './checkout/checkout.component'
 import { PaymentComponent } from './payment/payment.component'
 import { AuthGuard } from './guard/auth.guard'
+import { CartComponent } from './cart/cart.component'
 //import { CanDeactivateGuard} from './guard/submitForm.guard'
 
 const appRoutes: Routes = [
@@ -29,7 +30,9 @@ const appRoutes: Routes = [
     { path: 'products', component: ProductListComponent },
     { path: 'productDetails/:patternId', component: ProductDetailComponent },
     { path: 'checkout', component: CheckoutComponent, canActivate: [AuthGuard] /*, canDeactivate:[CanDeactivateGuard] */ },
-    { path: 'checkout/payment', component: PaymentComponent },
+    { path: 'checkout/payment', component: PaymentComponent, canActivate: [AuthGuard] },
+    { path: 'cart', component: CartComponent },
+    
 
 ];
 

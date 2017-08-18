@@ -13,5 +13,6 @@ export const prodConfig = {
     updateCartBackendUrl:'',
     clearCartBackendUrl:'',
     updateCartItemBackendUrl:'',
-    getCartTotalPriceBackendUrl:''
+    getCartTotalPriceBackendUrl:'',
+    cartBackendUrl:''
 }

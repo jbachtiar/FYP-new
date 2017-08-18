@@ -14,4 +14,5 @@ export const stagConfig = {
     clearCartBackendUrl:'',
     updateCartItemBackendUrl:'',
     getCartTotalPriceBackendUrl:'',
+    cartBackendUrl:''
 }

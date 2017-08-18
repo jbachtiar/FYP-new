@@ -15,7 +15,12 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import dao.CartDAO;
+import dao.FabricDAO;
+import dao.PatternDAO;
+import dao.ProductDAO;
 import entity.Cart;
+import entity.Fabric;
+import entity.Pattern;
 import entity.Product;
 
 import java.sql.SQLException;
@@ -35,6 +40,38 @@ import javax.ws.rs.core.MediaType;
  */
 @Path("/Cart")
 public class CartItems {
+    
+    @GET
+    @Path("/productPrice")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getProductPrice(@QueryParam("productId") String productId){
+        double totalPrice = 0.0;
+        JsonObject jsonOutput = new JsonObject();
+        Gson gson = new GsonBuilder().create();
+     
+        try{
+            Product product = ProductDAO.retrieveProductById(productId);
+            double colorPrice = product.getColorPrice();
+            
+            Pattern pattern = PatternDAO.retrievePatternById(product.getPatternID());
+            double patternPrice = pattern.getPatternPrice();
+            
+            Fabric fabric = FabricDAO.getFabricById(product.getFabricID());
+            double fabricPrice = fabric.getFabricPrice();
+            
+            
+            totalPrice = colorPrice + patternPrice + fabricPrice;
+            
+            jsonOutput.addProperty("status", "200");
+            jsonOutput.addProperty("totalPrice" , totalPrice);
+             
+        }catch(SQLException e){
+            
+        }
+        String finalJsonOutput = gson.toJson(jsonOutput);
+        
+        return finalJsonOutput;
+    }
 
     @GET
     @Path("/items")

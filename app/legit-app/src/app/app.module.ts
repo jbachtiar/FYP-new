@@ -29,6 +29,7 @@ import { FabricService } from './fabric.service'
 import { CartService } from './cart.service'
 import { StorageService } from './storage.service'
 import { AuthGuard } from './guard/auth.guard'
+import { ShoppingCartService } from './shopping-cart.service';
 
 import { BootstrapModalModule } from 'ng2-bootstrap-modal';
 
@@ -42,6 +43,7 @@ import { AboutUsComponent } from './about-us/about-us.component';
 import { StoreLocatorComponent } from './store-locator/store-locator.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { PaymentComponent } from './payment/payment.component';
+import { CartComponent } from './cart/cart.component';
 
 
 
@@ -67,6 +69,7 @@ import { PaymentComponent } from './payment/payment.component';
     StoreLocatorComponent,
     CheckoutComponent,
     PaymentComponent,
+    CartComponent
 
   ],
   imports: [
@@ -86,6 +89,7 @@ import { PaymentComponent } from './payment/payment.component';
     CartService,
     StorageService,
     AuthGuard,
+    ShoppingCartService,
   ],
   bootstrap: [AppComponent],
   entryComponents: [LoginPopupComponent, QuickViewComponent]
