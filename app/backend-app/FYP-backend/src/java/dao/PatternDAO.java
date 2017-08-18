@@ -30,13 +30,15 @@ public class PatternDAO {
         
         //get the pattern id
         String patternID = cp.getPattern_id();
-        
+        System.out.println("Pattern ID: " +patternID);
         if(patternID.isEmpty()){
-            
+        System.out.println("Add Pattern");    
             //add new pattern to DB
             patternID = getNextPatternID();
+            System.out.println(patternID);
+            System.out.println(cp.getCollection_id());
             addPattern(patternID, cp.getPattern_name(), cp.getPattern_description(), cp.getPattern_price() , cp.getCollection_id());
-            
+            System.out.println("Success");
             //add to pattern_fabric table
             CustomFabric[] fabricArr = cp.getFabrics();
             
@@ -360,7 +362,7 @@ public class PatternDAO {
         }
     }
     
-    public static void addPattern(String patternID, String patternName, String patternDescription, double patternPrice, String collectionID) {
+    public static void addPattern(String patternID, String patternName, String patternDescription, double patternPrice, String collectionID) throws SQLException{
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -377,8 +379,6 @@ public class PatternDAO {
            
             stmt.executeUpdate();
             
-        } catch (SQLException ex) {
-            handleSQLException(ex, sql);
         } finally {
             ConnectionManager.close(conn, stmt, rs);
         }

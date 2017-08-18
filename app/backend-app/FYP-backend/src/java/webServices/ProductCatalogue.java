@@ -66,7 +66,7 @@ public class ProductCatalogue {
             
             
             jsonOutput.addProperty("status", "error");
-            
+            jsonOutput.addProperty("msg", e.getMessage());
         }
         
         String finalJsonOutput = gson.toJson(jsonOutput);
