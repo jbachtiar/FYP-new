@@ -139,27 +139,5 @@ export class ProductService {
 
     }
 
-    // addToCart(token:string, patternId : string, fabricId : string, colourId : string, qty : number){
-    //     console.log('pattern : ' + patternId);
-    //     console.log('fabric : ' + fabricId);
-    //     console.log('colour : ' + colourId);
-    //     console.log('qty : ' + qty);
-
-    //     let params: URLSearchParams = new URLSearchParams();
-    //     params.set('patternId', patternId);
-    //     params.set('fabricId', fabricId);
-    //     params.set('colourId', colourId);
-    //     params.set('qty', String(qty));
-
-    //     let headers= new Headers();
-    //     headers.append ('Authorization', token);
-    //     headers.append (
-    //        'Content-type','application/x-www-form-urlencoded'
-    //     )
-
-    //     //let url = CONFIG.addToCartBackendUrl;
-    //     return this._http.post(url ,params.toString(), {headers} )
-    //          .map(res => res.json());
-                
-    // }
+  
 }

@@ -1,5 +1,6 @@
 import { CartItem } from "./cart-item.model";
 
+//Shopping Cart Model
 export class ShoppingCart {
   public items: CartItem[] = new Array<CartItem>();
   public cartId: string;

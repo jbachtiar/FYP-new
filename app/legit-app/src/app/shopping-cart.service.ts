@@ -31,6 +31,7 @@ export class ShoppingCartService {
     return this.subscriptionObservable;
   }
 
+  //Add Item to Cart
   public addItem(cartItem: CartItem): void {
     this.cart = this.retrieve();
     console.log("Cart Item")

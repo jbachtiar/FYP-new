@@ -212,6 +212,7 @@ public class ProductCatalogue {
         return finalJsonOutput;
     }
     
+    //Get product ID for Cart
     @GET
     @Path("/getProductId")
     @Produces(MediaType.APPLICATION_JSON)

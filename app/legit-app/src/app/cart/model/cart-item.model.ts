@@ -1,3 +1,4 @@
+//Cart Item Model
 export class CartItem {
   public productId: string;
   public patternName: string;

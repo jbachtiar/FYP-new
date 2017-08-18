@@ -67,7 +67,7 @@ export class ProductDetailComponent implements OnInit {
       this.selectedColor = this.selectedFabric.colours[0]
     } 
   
-    addCart(){
+    addCart() {
       //this.getProductId();
       this.productService.getProductId(this.patternId, this.selectedFabric.fabric_id, this.selectedColor.color_id)
         .subscribe(productId => {
@@ -88,7 +88,7 @@ export class ProductDetailComponent implements OnInit {
               this.cartItem.patternName = this.pattern.pattern_name
               this.cartItem.quantity = this.selectedQuantity
               this.cartItem.url = this.selectedColor.image_url
-              
+
               console.log(this.cartItem.patternName)
               console.log('eachPrice: ' + this.eachPrice)
 
@@ -96,29 +96,15 @@ export class ProductDetailComponent implements OnInit {
 
             });
 
-    });
-      //this.productService.addToCart(this.token, this.patternId, this.selectedFabric.fabric_id, this.selectedColor.color_id, this.selectedQuantity )
-      // var productID: string = "";
+        });
 
-      // this.productService.getProductId(this.patternId, this.selectedFabric.fabric_id, this.selectedColor.color_id)
-      //   .subscribe(productId =>{
-      //     productID = productId;
-      //     console.log('before productID : ' + productId)
-          
-      //     console.log('after productID : ' + productID)
-
-      //     this.shoppingCartService.addItem(productId, this.selectedQuantity)
-      //   });
-        //console.log('after productID : ' + productID)
-          
-      //this.router.navigate(['/cart']);
     }
 
-    getProductId(){
-     
+    getProductId() {
+
     }
 
-    emptyCart(){
+    emptyCart() {
       this.shoppingCartService.empty();
       console.log("cart is emptied");
     }

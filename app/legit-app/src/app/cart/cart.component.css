@@ -1,3 +1,4 @@
+
 body { 
     padding-top: 65px; 
 }
@@ -67,6 +68,5 @@ td, th {
 
 .img-product {
     width: 200px;
-    length: 200px;
     text-align: center;
 }

@@ -6,6 +6,7 @@ import { CartItem } from "./model/cart-item.model";
 import { Subscription } from "rxjs/Subscription";
 
 
+
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
@@ -38,11 +39,13 @@ export class CartComponent implements OnInit {
     // });
   }
 
+  //increase product qty
   increment(productId: string){
     this.shoppingCart.items.find((p) => p.productId === productId).quantity +=1
     this.updateCart()
   }
 
+  //decrease product qty
   decrement(productId: string){
     if(this.shoppingCart.items.find((p) => p.productId === productId).quantity > 1){
        this.shoppingCart.items.find((p) => p.productId === productId).quantity -=1
