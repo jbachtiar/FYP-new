@@ -469,6 +469,41 @@ public class ProductCatalogue {
         return finalJsonOutput;
     }
     
+    @GET
+    @Path("/collections")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getCollectionCatalogue(){
+
+        CollectionDAO collectionDAO = new CollectionDAO();
+        Gson gson = new GsonBuilder().create();
+        JsonObject jsonOutput = new JsonObject();
+        JsonArray collections = new JsonArray();
+        
+        try{
+            
+            Collection[] cArray = collectionDAO.getAllCollections();
+            jsonOutput.addProperty("status","200");
+            
+            for(Collection c: cArray){
+                
+                JsonObject temp = new JsonObject();
+                temp.addProperty("collection_id", c.getCollectionID());
+                temp.addProperty("collection_name", c.getCollectionName());
+                collections.add(temp);
+            
+            }
+
+            jsonOutput.add("collections", collections);
+            
+        }catch(SQLException e){
+        
+            jsonOutput.addProperty("status","error");
+            
+        }
+        
+        String finalJsonOutput = gson.toJson(jsonOutput);
+        return finalJsonOutput;
+    }
     
     @GET
     @Path("/adminPatternFilter")

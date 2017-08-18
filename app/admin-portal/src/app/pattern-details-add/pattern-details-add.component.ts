@@ -33,7 +33,7 @@ export class PatternDetailsAddComponent implements OnInit {
     //   pattern => {
     //     this.pattern = pattern;
     //get all available fabrics
-    this.pattern = {"pattern_id":"","pattern_name":"","pattern_description":"","pattern_price":"","collection_id":"","collection_name":"","fabrics":[]}
+    this.pattern = {"pattern_id":"","pattern_name":"","pattern_description":"","pattern_price":"","collection_id":"CO1","collection_name":"New Arrivals","fabrics":[]}
     this.productService.getAllFabrics().subscribe(
       fabrics => {
         this.fabrics = fabrics;

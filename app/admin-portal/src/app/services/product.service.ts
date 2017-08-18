@@ -91,6 +91,14 @@ export class ProductService {
             });
     }
 
+    getAllCollections() {
+        let url = CONFIG.productCatalogueBackendUrl + '/collections'
+        return this._http.get(url)
+            .map(res => {
+                return res.json().collections;
+            });
+    }
+
     updatePatternFabric(patternID, fabricID) {
         let url = CONFIG.productCatalogueBackendUrl + '/updatePatternFabric';
         let params: URLSearchParams = new URLSearchParams();

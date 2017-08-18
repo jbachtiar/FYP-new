@@ -17,9 +17,11 @@ export class PatternDetailsComponent implements OnInit {
   patternColours: any = {}
   fabrics = [];
   colours = []
+  collections = []
   selectedColour = [];
+  selectedCollection;
   patternUrl = "";
-  res:any;
+  res: any;
 
   constructor(private productService: ProductService, private route: ActivatedRoute) { }
 
@@ -32,6 +34,11 @@ export class PatternDetailsComponent implements OnInit {
     this.productService.getPatternById(this.patternId).subscribe(
       pattern => {
         this.pattern = pattern;
+        //get all available collections
+        this.productService.getAllCollections().subscribe(
+          collections => {
+            this.collections = collections;
+          });
         //get all available fabrics
         this.productService.getAllFabrics().subscribe(
           fabrics => {
@@ -93,7 +100,7 @@ export class PatternDetailsComponent implements OnInit {
 
   onAddColour(f, c) {
     // console.log(JSON.stringify(f))
-    if(!f['colours']){
+    if (!f['colours']) {
       f['colours'] = []
     }
     f.colours.push(c);
@@ -101,25 +108,25 @@ export class PatternDetailsComponent implements OnInit {
     // console.log(JSON.stringify(f))
   }
 
-  fileEvent(fileInput: any, fabricColour: any){
+  fileEvent(fileInput: any, fabricColour: any) {
     let AWSService = (<any>window).AWS
     let imageUrl = ""
     console.log(AWSService)
     let file = fileInput.target.files[0];
     let fileName = this.patternId + '_' + fabricColour.colour_id + '.png'
     AWSService.config.accessKeyId = 'AKIAJVBHSMHG7RZGXNFA';
-    AWSService.config.update({region: 'us-west-2'});
+    AWSService.config.update({ region: 'us-west-2' });
     AWSService.config.secretAccessKey = 'gipn/o7/5bgRFAE/8SzBQGV/I8/97JZKFNfoRmgz';
-    let bucket = new AWSService.S3({params: {Bucket: 'elasticbeanstalk-us-west-2-126347216585/Product Images'}})
-    let params = {Key: fileName, Body: file, ACL: "public-read"};
-    bucket.upload(params, function (error, res){
+    let bucket = new AWSService.S3({ params: { Bucket: 'elasticbeanstalk-us-west-2-126347216585/Product Images' } })
+    let params = { Key: fileName, Body: file, ACL: "public-read" };
+    bucket.upload(params, function (error, res) {
       console.log('error', error);
       console.log('response', res);
       imageUrl = 'https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Product+Images/' + fileName
-      fabricColour['image_url']=imageUrl
+      fabricColour['image_url'] = imageUrl
       console.log("FC: " + JSON.stringify(fabricColour))
     })
-    
+
   }
 
   arr_diff_colour(a1, a2) {
