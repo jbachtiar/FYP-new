@@ -64,7 +64,7 @@
                   <div class="card card-inverse card-info mb-3 text-center">
                     <h4 class="card-title">
                       <li class="list-group-item-info">
-                        {{ fabric.fabric_name }}
+                        <b>{{ fabric.fabric_name }}</b><br/>
                       </li>
                     </h4>
                     <p class="card-text">
@@ -87,7 +87,7 @@
                     <ul class="list-group text-center" *ngFor="let fc of fabric.colours">
                       <li class="list-group-item"><b>{{fc.colour_name}}</b><br/>
                         Price: 
-                        <input type="number" placeholder="Price" size="10" [(ngModel)]="fc.colour_price" name="price" #price="ngModel" required>
+                        <input type="number" placeholder="Price" size="10" [(ngModel)]="fc.colour_price" [ngModelOptions]="{standalone: true}" required>
                         &nbsp; &nbsp; &nbsp;
                         &nbsp; &nbsp;
                         <div class="upload-and-view">
