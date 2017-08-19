@@ -32,6 +32,11 @@ export class ShoppingCartService {
   public get(): Observable<ShoppingCart> {
     return this.subscriptionObservable;
   }
+  
+  public newCart(): void{
+    this.cart = new ShoppingCart();
+    localStorage.setItem(CART_KEY, JSON.stringify(this.cart));
+  }
 
   //Add Item to Cart
   public addItem(cartItem: CartItem): void {

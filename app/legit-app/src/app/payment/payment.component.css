@@ -86,9 +86,13 @@ table {
 
 td, th {
     border-bottom: 1px solid goldenrod;
-    text-align: left;
+    text-align: center;
     padding: 8px;
     width: 20%;
+}
+
+th{
+    font-size: 18px;
 }
 
 .img-product {
