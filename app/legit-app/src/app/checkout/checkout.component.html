@@ -1,6 +1,6 @@
 <div class="container">
 
-  <div class="col-md-7">
+  <div class="col-md-6">
     <div class="card">
       <div class="content">
         <div class="header">
@@ -8,7 +8,7 @@
         </div>
 
 
-        <form name="form" (ngSubmit)="submit()" #f="ngForm" novalidate>
+        <form name="form" (ngSubmit)="submit()" #f="ngForm" class="form" novalidate>
 
           <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !firstName.valid }">
             <label for="firstName">First Name</label>
@@ -40,8 +40,8 @@
           <input type="checkbox" [(ngModel)]="user.sameAddress" name="sameAddress" (ngModelChange)="sameAddress()">
           <label>Bill to the existing address</label>
           <br/>
-          <div class="form-group">
-            <button class="button">Continue</button>
+          <div class="form-group" >
+            <button class="button" >Continue</button>
           </div>
 
         </form>
@@ -49,77 +49,47 @@
     </div>
   </div>
 
-  <div class="col-md-5">
+  <div class="col-md-6">
     <div class="card">
       <div class="content">
         <div class="header">
           <h4 class="title">Order Summary</h4>
         </div>
-
-        <div class="row">
-          <div class="col-sm-3">
-          </div>
-
-          <div class="col-sm-3">
-            Product
-          </div>
-
-          <div class="col-sm-2">
-            Quantity
-          </div>
-
-          <div class="col-sm-2">
-            Price
-          </div>
-
-          <div class="col-sm-2">
-          </div>
-
-
-        </div>
-
-        <div *ngFor="let c of carts; let i=index">
-          <div class="row">
-            <div class="col-sm-3">
-              <img src="{{c.image_url}}" style="height:50px; width:50px" class="img-responsive" alt="Some picture">
-            </div>
-
-            <div class="col-sm-3">
-              {{c.SKU}}
-            </div>
-
-            <div class="col-sm-2">
-              <select [(ngModel)]="c.quantity" (ngModelChange)="onQtyChange(c)">
-                <option *ngFor="let q of quantity" [ngValue]="q">{{q}}</option>
-              </select>
-            </div>
-
-            <div class="col-sm-2">
-
-              {{ (c.pattern_price+c.fabric_price+c.colour_price)*c.quantity}} {{ addPrice(i, ((c.pattern_price+c.fabric_price+c.colour_price)*c.quantity))}}
-
-            </div>
-
-            <div class="col-sm-2" (click)=delete(i,c)>
-              &#10006;
-            </div>
-            <br> ({{c.pattern_name}}+{{c.fabric_name}}+{{c.colour_name}})
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-sm-8">
-            <h4> Total </h4>
-          </div>
-
-          <div class="col-sm-2">
-            {{showTotalPrice()}}
-
-
-          </div>
-
-
-        </div>
+          <table>
+            <tr>
+              <th>Product</th>
+              <th>Description</th>
+              <th>Quantity</th>
+              <th>Total</th>
+              <th></th>
+            </tr>
+            <tr *ngFor="let item of cartItem">
+              <td><img src="{{item.url}}" alt="..." class="img-product"><br/></td>
+              <td class="product-title">
+                {{item.productId}}
+                <br> {{item.patternName}}
+                <br> $ {{item.eachPrice}}.00
+              </td>
+              <td>
+                <button class="change-qty" (click)="decrement(item.productId)">-</button> {{item.quantity}}
+                <button class="change-qty" (click)="increment(item.productId)">+</button>
+              </td>
+              <td>
+                $ {{item.quantity*item.eachPrice}}.00
+              </td>
+              <td>
+                  <button class="change-qty" (click)="remove(item.productId)">x</button>
+              </td>
+            </tr>
+            <tr style="border: 0px">
+              <td></td>
+              <td></td>
+              <td style="text-align: right; font-size: 16px; font-weight: bold">Total Price</td>
+              <td>$ {{shoppingCart.totalPrice}}.00</td>
+              <td></td>
+            </tr>
+          </table>
+                  
       </div>
     </div>
 

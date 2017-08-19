@@ -4,11 +4,15 @@ import { ProfileService } from '../profile.service';
 import { CartService } from '../cart.service';
 import { StorageService } from '../storage.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { ShoppingCart } from "../cart/model/shopping-cart.model";
+import { CartItem } from "../cart/model/cart-item.model";
+import { ShoppingCartService } from "app/shopping-cart.service";
 
 @Component({
   selector: 'app-checkout',
   templateUrl: './checkout.component.html',
   styleUrls: ['./checkout.component.css'],
+  providers: [ShoppingCartService]
 
 
 })
@@ -18,30 +22,63 @@ export class CheckoutComponent implements OnInit {
   private numOfItem: 0;
   private itemPrice: number[] = new Array();
   private sameAddre: boolean = false;
+  private shoppingCart: ShoppingCart;
+  private cartItem : CartItem[]
+  
   customer: Customer;
   token: string;
   quantity = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
 
 
 
-  constructor(private profileService: ProfileService, private cartService: CartService, private storageService: StorageService, private route: ActivatedRoute,
+  constructor(private shoppingCartService: ShoppingCartService, private profileService: ProfileService, private cartService: CartService, private storageService: StorageService, private route: ActivatedRoute,
     private router: Router) {
     this.token = localStorage.getItem('token');
+    this.shoppingCart = JSON.parse(localStorage.getItem('cart'))
 
   }
 
   ngOnInit() {
+
+    this.cartItem = this.shoppingCart.items
     console.log(new Date().toLocaleDateString());
-    this.cartService.getCartItemByCartId("C1").subscribe(
-      carts => {
+    // this.cartService.getCartItemByCartId("C1").subscribe(
+    //   carts => {
 
-        console.log("Cart items retrieved successfully");
-        this.carts = carts;
+    //     console.log("Cart items retrieved successfully");
+    //     this.carts = carts;
 
 
-      })
+    //   })
   }
 
+  //increase product qty
+  increment(productId: string){
+    this.shoppingCart.items.find((p) => p.productId === productId).quantity +=1
+    this.updateCart()
+  }
+
+  //decrease product qty
+  decrement(productId: string){
+    if(this.shoppingCart.items.find((p) => p.productId === productId).quantity > 1){
+       this.shoppingCart.items.find((p) => p.productId === productId).quantity -=1
+       this.updateCart()
+    }else{
+      this.remove(productId);
+    }
+  }
+
+  remove(productId: string){
+    let indexCut =  this.shoppingCart.items.findIndex((p) => p.productId === productId)
+    this.shoppingCart.items.splice(indexCut,1)
+    this.updateCart()
+    window.location.reload()
+    console.log('index: ' + indexCut)
+  }
+
+  updateCart(){
+    this.shoppingCartService.updateCart(this.shoppingCart)
+  }
 
   sameAddress() {
     if (this.user.sameAddress) {

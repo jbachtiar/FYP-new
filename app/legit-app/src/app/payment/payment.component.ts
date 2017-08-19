@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { StorageService } from '../storage.service';
 import { CartService } from '../cart.service';
+import { ShoppingCart } from "../cart/model/shopping-cart.model";
+import { CartItem } from "../cart/model/cart-item.model";
 
 
 @Component({
@@ -16,10 +18,14 @@ export class PaymentComponent implements OnInit {
   address: string;
   postalCode: string;
   totalPrice: string;
+  private shoppingCart: ShoppingCart;
+  private cartItem : CartItem[];
 
 
 
-  constructor(private storageService: StorageService, private cartService: CartService) { }
+  constructor(private storageService: StorageService, private cartService: CartService) { 
+    this.shoppingCart = JSON.parse(localStorage.getItem('cart'));
+  }
 
   ngOnInit() {
     this.firstName = this.storageService.getFirstName();
@@ -27,6 +33,9 @@ export class PaymentComponent implements OnInit {
     this.contact = this.storageService.getContact();
     this.postalCode = this.storageService.getPostCode();
     this.address = this.storageService.getAddress();
+   
+    this.cartItem = this.shoppingCart.items;
+    
 
     this.cartService.getCartItemByCartId("C1").subscribe(
       carts => {

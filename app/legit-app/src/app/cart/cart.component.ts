@@ -32,7 +32,7 @@ export class CartComponent implements OnInit {
       this.empty = false;
     }
 
-    this.shoppingCartService.retrieveCartDB();
+    //this.shoppingCartService.retrieveCartDB();
 
     this.cartItem = this.shoppingCart.items
     // this.cart = this.shoppingCartService.get();
