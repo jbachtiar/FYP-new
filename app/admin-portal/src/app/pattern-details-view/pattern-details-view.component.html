@@ -1,8 +1,7 @@
 <script src="/node_modules/aws-sdk/dist/aws-sdk.js"></script>
 
 <body>
-  <div class="container-fluid">
-    <div class="card">
+    <div class="card" style="padding-left:30px">
       <div class="row">
         <div class="header">
           <h1>{{pattern.pattern_name}}</h1>
@@ -16,15 +15,15 @@
         <div class="col-sm-6">
           <div class="form-group">
 
-            <label>Name</label>
+            <label><b>Name</b></label><br/>
             {{pattern.pattern_name}}
           </div>
           <div class="form-group">
-            <label>Description</label>
+            <label><b>Description</b></label><br/>
             {{pattern.pattern_description}}
           </div>
           <div class="form-group">
-            <label>Price</label>
+            <label><b>Price</b></label><br/>
             {{pattern.pattern_price}}
           </div>
         </div>
@@ -43,7 +42,7 @@
       <div class="row">
         <div class="col-sm-6">
           <div class="form-group">
-            <label>Available Options :</label><br/> Fabrics:
+            <label><b>Available Options :</b></label><br/> Fabrics:
             <!--<table class="table table-striped">
               <tr>
                 <td>
@@ -81,7 +80,7 @@
                   </table>-->
                   <!--<td>-->
                   <ul class="list-group text-center" *ngFor="let fc of fabric.colours">
-                    <li class="list-group-item">{{fc.colour_name}}
+                    <li class="list-group-item">{{fc.colour_name}} ${{fc.colour_price}}
                       <div class="upload-and-view">
                         
                         <div *ngIf="fc.image_url">
@@ -104,5 +103,4 @@
         </div>
       </div>
     </div>
-  </div>
 </body>

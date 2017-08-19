@@ -19,7 +19,7 @@ export class PatternDetailsAddComponent implements OnInit {
   colours = []
   selectedColour = [];
   patternUrl = "";
-  res:any;
+  res:string;
 
   constructor(private productService: ProductService, private route: ActivatedRoute) { }
 
@@ -85,7 +85,7 @@ export class PatternDetailsAddComponent implements OnInit {
     console.log(JSON.stringify(this.pattern))
     this.productService.updatePattern(this.pattern).subscribe(
       res => {
-        this.res = res;
+        this.res = "Changes saved!";
         console.log(res);
       });
   }
