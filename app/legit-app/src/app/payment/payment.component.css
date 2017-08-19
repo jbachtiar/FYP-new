@@ -109,3 +109,11 @@ td, th {
     margin-top: 10px;
 }
 
+.pattern-name{
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.product-title{
+    line-height: 150%;
+}

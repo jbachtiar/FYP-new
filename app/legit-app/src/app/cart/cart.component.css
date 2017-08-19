@@ -70,3 +70,8 @@ td, th {
     width: 200px;
     text-align: center;
 }
+
+.pattern-name{
+    font-weight: bold;
+    font-size: 16px;
+}

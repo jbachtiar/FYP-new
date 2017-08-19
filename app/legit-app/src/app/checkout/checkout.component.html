@@ -66,9 +66,10 @@
             <tr *ngFor="let item of cartItem">
               <td><img src="{{item.url}}" alt="..." class="img-product"><br/></td>
               <td class="product-title">
+                <div class="pattern-name"> {{item.patternName}}</div>
                 {{item.productId}}
-                <br> {{item.patternName}}
-                <br> $ {{item.eachPrice}}.00
+                <br> 
+                $ {{item.eachPrice}}.00
               </td>
               <td>
                 <button class="change-qty" (click)="decrement(item.productId)">-</button> {{item.quantity}}
@@ -82,9 +83,7 @@
               </td>
             </tr>
             <tr style="border: 0px">
-              <td></td>
-              <td></td>
-              <td style="text-align: right; font-size: 16px; font-weight: bold">Total Price</td>
+              <td colspan="3" style="text-align: right; font-size: 16px; font-weight: bold">Total Price</td>
               <td>$ {{shoppingCart.totalPrice}}.00</td>
               <td></td>
             </tr>

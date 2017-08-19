@@ -52,6 +52,8 @@ export class ShoppingCartService {
       this.item.quantity = cartItem.quantity;
       this.item.patternName = cartItem.patternName;
       this.item.url = cartItem.url;
+      this.item.fabricName = cartItem.fabricName;
+      this.item.colourName = cartItem.colourName;
 
 
       console.log(cartItem.url)

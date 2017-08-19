@@ -28,8 +28,10 @@
             <tr *ngFor="let item of cartItem">
               <td><img src="{{item.url}}" alt="..." class="img-product"><br/></td>
               <td class="product-title">
+                <div class="pattern-name">{{item.patternName}}</div>
                 {{item.productId}}
-                <br> {{item.patternName}}
+                <br> {{item.fabricName}}
+                <br> {{item.colourName}}
                 <br> $ {{item.eachPrice}}.00
               </td>
               <td>
