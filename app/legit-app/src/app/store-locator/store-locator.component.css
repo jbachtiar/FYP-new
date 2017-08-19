@@ -18,7 +18,7 @@ body {
 
 .parallax {
     /* The image used */
-    background-image: url("/assets/images/store3.jpg");
+    background-image: url("https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Website+Images/store3.jpg");
     filter: brightness(95%);
 
     /* Set a specific height */

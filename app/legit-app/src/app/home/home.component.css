@@ -62,7 +62,7 @@ p.solid:hover{
 
 .parallax {
     /* The image used */
-    background-image: url("/assets/images/home2.jpg");
+    background-image: url("https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Website+Images/home2.jpg");
 
     min-height: 550px; 
 
