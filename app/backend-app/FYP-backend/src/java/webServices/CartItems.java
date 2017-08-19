@@ -85,64 +85,64 @@ public class CartItems {
         return finalJsonOutput;
     }
 
-    @GET
-    @Path("/items")
-    @Produces(MediaType.APPLICATION_JSON)
-    public String getCartItems(@QueryParam("cartId") String cartId) {
-
-        Gson gson = new GsonBuilder().create();
-        JsonObject jsonOutput = new JsonObject();
-        JsonArray carts = new JsonArray();
-
-        try {
-
-            Cart[] cArray = CartDAO.getCartsByCartId(cartId);
-            if (cArray.length == 0) {
-                jsonOutput.addProperty("status", "Item not found");
-
-            } else {
-                jsonOutput.addProperty("status", "200");
-
-                for (Cart c : cArray) {
-
-                    JsonObject temp = new JsonObject();
-                    Product p = c.getProduct();
-                    temp.addProperty("SKU", p.getSKU());
-                    temp.addProperty("pattern_id", p.getPatternID());
-                    temp.addProperty("fabric_id", p.getFabricID());
-                    temp.addProperty("collection_id", p.getCollectionID());
-                    temp.addProperty("colour_id", p.getColorID());
-
-                    temp.addProperty("pattern_name", p.getPatternName());
-                    temp.addProperty("fabric_name", p.getFabricName());
-                    temp.addProperty("collection_name", p.getCollectionName());
-                    temp.addProperty("colour_name", p.getColorName());
-
-                    temp.addProperty("pattern_price", p.getFabricPrice());
-                    temp.addProperty("fabric_price", p.getFabricPrice());
-                    temp.addProperty("colour_price", p.getFabricPrice());
-                    temp.addProperty("image_url", p.getImageUrl());
-
-                    JsonArray tags = gson.toJsonTree(p.getTags()).getAsJsonArray(); // convert arraylist to jsonArray
-                    temp.add("tags", tags);
-                    temp.addProperty("quantity", c.getQuantity());
-
-                    carts.add(temp);
-
-                }
-
-                jsonOutput.add("carts", carts);
-            }
-
-        } catch (SQLException e) {
-
-            jsonOutput.addProperty("status", "error");
-
-        }
-
-        String finalJsonOutput = gson.toJson(jsonOutput);
-        return finalJsonOutput;
-    }
+//    @GET
+//    @Path("/items")
+//    @Produces(MediaType.APPLICATION_JSON)
+//    public String getCartItems(@QueryParam("cartId") String cartId) {
+//
+//        Gson gson = new GsonBuilder().create();
+//        JsonObject jsonOutput = new JsonObject();
+//        JsonArray carts = new JsonArray();
+//
+//        try {
+//
+//            Cart[] cArray = CartDAO.getCartsByCartId(cartId);
+//            if (cArray.length == 0) {
+//                jsonOutput.addProperty("status", "Item not found");
+//
+//            } else {
+//                jsonOutput.addProperty("status", "200");
+//
+//                for (Cart c : cArray) {
+//
+//                    JsonObject temp = new JsonObject();
+//                    Product p = c.getProduct();
+//                    temp.addProperty("SKU", p.getSKU());
+//                    temp.addProperty("pattern_id", p.getPatternID());
+//                    temp.addProperty("fabric_id", p.getFabricID());
+//                    temp.addProperty("collection_id", p.getCollectionID());
+//                    temp.addProperty("colour_id", p.getColorID());
+//
+//                    temp.addProperty("pattern_name", p.getPatternName());
+//                    temp.addProperty("fabric_name", p.getFabricName());
+//                    temp.addProperty("collection_name", p.getCollectionName());
+//                    temp.addProperty("colour_name", p.getColorName());
+//
+//                    temp.addProperty("pattern_price", p.getFabricPrice());
+//                    temp.addProperty("fabric_price", p.getFabricPrice());
+//                    temp.addProperty("colour_price", p.getFabricPrice());
+//                    temp.addProperty("image_url", p.getImageUrl());
+//
+//                    JsonArray tags = gson.toJsonTree(p.getTags()).getAsJsonArray(); // convert arraylist to jsonArray
+//                    temp.add("tags", tags);
+//                    temp.addProperty("quantity", c.getQuantity());
+//
+//                    carts.add(temp);
+//
+//                }
+//
+//                jsonOutput.add("carts", carts);
+//            }
+//
+//        } catch (SQLException e) {
+//
+//            jsonOutput.addProperty("status", "error");
+//
+//        }
+//
+//        String finalJsonOutput = gson.toJson(jsonOutput);
+//        return finalJsonOutput;
+//    }
 
     @PUT
     @Path("/updateCartItems")
