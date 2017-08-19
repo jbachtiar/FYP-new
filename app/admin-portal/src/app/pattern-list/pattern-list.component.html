@@ -36,6 +36,12 @@
         <br>
         <br>
         <br>
+        <button class="btn btn-info btn-wd" (click)="onAddPattern()">Add New Pattern</button>
+        <div class="row">
+          
+          <div class="col-md-4" style="font-weight: bold">
+            
+          </div>
 
           <div class="col-md-4" style="font-weight: bold">
             Price
@@ -48,9 +54,8 @@
           <div class="col-md-4" style="font-weight: bold">
             Name
           </div>
+        </div>
           
-          <button class="btn btn-info btn-wd" (click)="onAddPattern()">Add New Pattern</button>
-
         </div>
         
         <hr>
@@ -60,7 +65,7 @@
             <img src="{{p.image_url}}" height="120" width="120" alt="...">
             
             <div class="col-md-4">
-              <button class="btn btn-info btn-fill btn-wd" (click)="onViewPattern(p.pattern_id)">View</button>
+              <button class="btn btn-info btn-fill btn-wd" (click)="onViewPattern(p.pattern_id)" style="margin-bottom:5px">View</button>
                &emsp;
               <button class="btn btn-info btn-fill btn-wd" (click)="onEditPattern(p.pattern_id)">Edit</button>
             </div>

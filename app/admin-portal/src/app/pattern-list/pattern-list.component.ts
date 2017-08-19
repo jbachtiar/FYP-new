@@ -50,7 +50,7 @@ export class PatternListComponent implements OnInit {
 
 
     setPage(page: number) {
-        if (page < 1 || page > this.pager.totalPages) {
+        if (page < 1) {
             return;
         }
         console.log("meh");
@@ -59,6 +59,7 @@ export class PatternListComponent implements OnInit {
  
         // get current page of items
         this.pagedPatterns = this.patterns.slice(this.pager.startIndex, this.pager.endIndex + 1);
+        console.log("PAGED PATTERNS: " + JSON.stringify(this.pagedPatterns))
   }
 
   selectedCollectionId;
@@ -78,12 +79,19 @@ export class PatternListComponent implements OnInit {
     this.selectedColourId = null;
     this.selectedSortPriceId = null;
     this.queriedSearch = "";  
-
-    this.productService.getFilteredPatternList("undefined", "undefined", "undefined", "undefined", this.queriedSearch).subscribe(
-      patterns => {
-        this.patterns = patterns;
-        this.setPage(1);
+    console.log("ONCLEAR")
+     this.productService.getPatternList().subscribe(
+     patterns => {
+        if(patterns){
+          this.patterns=patterns
+          this.setPage(1);
+        }else{
+          patterns=[]
+          this.patterns=patterns
+          this.setPage(1);
+        }
  
+       
       });
 
   }
@@ -98,8 +106,17 @@ export class PatternListComponent implements OnInit {
 
     this.productService.getFilteredPatternList(this.selectedCollectionId, this.selectedFabricId, this.selectedColourId, this.selectedSortPriceId, this.queriedSearch).subscribe(
       patterns => {
-        this.patterns = patterns;
-        this.setPage(1);
+        
+        if(patterns){
+          this.patterns=patterns
+          console.log("PATTERNS: " + JSON.stringify(this.patterns))
+          this.setPage(1);
+        }else{
+          patterns=[]
+          this.patterns=patterns
+          console.log("PATTERNS: " + JSON.stringify(this.patterns))
+          this.setPage(1);
+        }
  
       });
 
@@ -114,8 +131,14 @@ export class PatternListComponent implements OnInit {
     console.log(this.queriedSearch);
     this.productService.getFilteredPatternList(this.selectedCollectionId, this.selectedFabricId, this.selectedColourId, this.selectedSortPriceId, this.queriedSearch).subscribe(
       patterns => {
-        this.patterns = patterns;
-        this.setPage(1);
+        if(patterns){
+          this.patterns=patterns
+          this.setPage(1);
+        }else{
+          patterns=[]
+          this.patterns=patterns
+          this.setPage(1);
+        }
  
       });
     
@@ -132,7 +155,12 @@ export class PatternListComponent implements OnInit {
     this.productService.getFilteredPatternList(this.selectedCollectionId, this.selectedFabricId, this.selectedColourId, this.selectedSortPriceId, this.queriedSearch).subscribe(
       patterns => {
         this.patterns = patterns;
-        this.setPage(1);
+        if(patterns){
+          this.setPage(1);
+        }else{
+          patterns=[]
+          this.setPage(1);
+        }
  
       });
     
@@ -148,8 +176,12 @@ export class PatternListComponent implements OnInit {
     console.log(this.queriedSearch);
     this.productService.getFilteredPatternList(this.selectedCollectionId, this.selectedFabricId, this.selectedColourId, this.selectedSortPriceId, this.queriedSearch).subscribe(
       patterns => {
-        this.patterns = patterns;
-        this.setPage(1);
+        if(patterns){
+          this.setPage(1);
+        }else{
+          patterns=[]
+          this.setPage(1);
+        }
  
       });
     
@@ -164,8 +196,12 @@ export class PatternListComponent implements OnInit {
     console.log(this.queriedSearch);
     this.productService.getFilteredPatternList(this.selectedCollectionId, this.selectedFabricId, this.selectedColourId, this.selectedSortPriceId, this.queriedSearch).subscribe(
       patterns => {
-        this.patterns = patterns;
-        this.setPage(1);
+        if(patterns){
+          this.setPage(1);
+        }else{
+          patterns=[]
+          this.setPage(1);
+        }
  
       });
 	
