@@ -31,7 +31,14 @@ export class ProductListComponent implements OnInit {
     this.selectedSortPriceId = null;
     this.queriedSearch = "";
 
-    this.productService.getFilteredProductList("undefined", "undefined", "undefined", "undefined", this.queriedSearch).subscribe(
+    // this.productService.getFilteredProductList("undefined", "undefined", "undefined", "undefined", this.queriedSearch).subscribe(
+    //   products => {
+    //     this.products = products;
+    //     //initialise paginator 
+    //     this.setPage(1);
+    //   });
+
+    this.productService.getProductList().subscribe(
       products => {
         this.products = products;
         //initialise paginator 
@@ -198,7 +205,7 @@ export class ProductListComponent implements OnInit {
 	// }
 
   setPage(page: number) {
-        if (page < 1 || page > this.pager.totalPages) {
+        if (page < 1) {
             return;
         }
  

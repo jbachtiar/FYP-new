@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { DialogComponent, DialogService } from "ng2-bootstrap-modal";
 import { AlertService } from '../alert.service';
 import { ProductService } from '../product.service';
+import { ShoppingCartService } from '../shopping-cart.service';
+import { CartItem } from "../cart/model/cart-item.model";
 
 
 export interface QuickViewPopupModel {
@@ -14,7 +16,7 @@ export interface QuickViewPopupModel {
   selector: 'app-quick-view',
   templateUrl: './quick-view.component.html',
   styleUrls: ['./quick-view.component.css'],
-  providers: [ AlertService, ProductService]
+  providers: [ AlertService, ProductService, ShoppingCartService]
 })
 export class QuickViewComponent extends DialogComponent<QuickViewPopupModel, boolean> implements QuickViewPopupModel { 
     title: string;
@@ -29,8 +31,11 @@ export class QuickViewComponent extends DialogComponent<QuickViewPopupModel, boo
     selectedFabricPrice:number;
     selectedColourPrice:number;
     totalPrice:number;
+    cartItem: CartItem = new CartItem();
+    productId: string;
+    eachPrice: number;
 
-    constructor(
+    constructor(private shoppingCartService: ShoppingCartService,
         dialogService: DialogService,
         private productService:ProductService,
         private alertService: AlertService) {
@@ -75,5 +80,44 @@ export class QuickViewComponent extends DialogComponent<QuickViewPopupModel, boo
   closeModal(){
     this.confirm();
   }
+
+  addCart() {
+      //this.getProductId();
+      this.productService.getProductId(this.patternId, this.selectedFabric.fabric_id, this.selectedColour.colour_id)
+        .subscribe(productId => {
+          console.log('inside get product id')
+          this.productId = productId;
+          console.log("selectedColour: " + this.selectedColour.colour_name)
+          console.log("selectedFabric: " + this.selectedFabric.fabric_id)
+          console.log("quantity: " + this.selectedQuantity)
+          console.log('thispID: ' + this.productId)
+
+          this.productService.getPriceById(this.productId)
+            .subscribe(eachPrice => {
+              console.log('each price')
+              this.eachPrice = eachPrice
+              console.log(this.productId)
+
+              this.cartItem.productId = this.productId
+              this.cartItem.eachPrice = this.eachPrice
+              this.cartItem.patternName = this.pattern.pattern_name
+              this.cartItem.quantity = this.selectedQuantity
+              this.cartItem.url = this.selectedColour.image_url
+              this.cartItem.fabricName = this.selectedFabric.fabric_name
+              console.log("fabric name : " + this.cartItem.fabricName)
+              this.cartItem.colourName = this.selectedColour.colour_name
+              console.log("colour name : " + this.cartItem.colourName)
+              
+              console.log(this.cartItem.patternName)
+              console.log('eachPrice: ' + this.eachPrice)
+
+              this.shoppingCartService.addItem(this.cartItem)
+              window.location.reload();
+
+            });
+
+        });
+        
+    }
 
 }
