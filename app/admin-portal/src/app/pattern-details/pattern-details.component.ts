@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ProductService } from '../services/product.service';
+import { CONFIG } from '../config/config.component'
 //include aws webpack
 require('aws-sdk');
 
@@ -28,7 +29,7 @@ export class PatternDetailsComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
       this.patternId = params['patternId']; // grab the parameter from url
-      this.patternUrl = 'http://localhost:4200/productDetails/' + this.patternId
+      this.patternUrl = CONFIG.eCommerceWebsiteUrl + '/productDetails/' + this.patternId
     });
     //get pattern details
     this.productService.getPatternById(this.patternId).subscribe(
@@ -114,9 +115,9 @@ export class PatternDetailsComponent implements OnInit {
     console.log(AWSService)
     let file = fileInput.target.files[0];
     let fileName = this.patternId + '_' + fabricColour.colour_id + '.png'
-    AWSService.config.accessKeyId = 'AKIAJVBHSMHG7RZGXNFA';
+    AWSService.config.accessKeyId = '';
     AWSService.config.update({ region: 'us-west-2' });
-    AWSService.config.secretAccessKey = 'gipn/o7/5bgRFAE/8SzBQGV/I8/97JZKFNfoRmgz';
+    AWSService.config.secretAccessKey = '';
     let bucket = new AWSService.S3({ params: { Bucket: 'elasticbeanstalk-us-west-2-126347216585/Product Images' } })
     let params = { Key: fileName, Body: file, ACL: "public-read" };
     bucket.upload(params, function (error, res) {

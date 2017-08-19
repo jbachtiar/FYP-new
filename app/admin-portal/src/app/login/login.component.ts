@@ -21,6 +21,7 @@ export class LoginComponent implements OnInit {
   }
   login(){
     this.loading = true;
+    console.log("logging in")
 
     
         //calling service
@@ -30,6 +31,8 @@ export class LoginComponent implements OnInit {
                 if(res.status === '200'){
                   console.log(res.status);
                   console.log(res.user);
+                  
+                  this.loading = false; 
                   //this.router.navigate(['./homepage']);
                   window.location.reload();
                 }else{
@@ -37,6 +40,5 @@ export class LoginComponent implements OnInit {
                 }
               }
         )
-    this.loading = false; 
   } 
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ProductService } from '../services/product.service';
+import { CONFIG } from '../config/config.component'
 //include aws webpack
 require('aws-sdk');
 
@@ -25,7 +26,7 @@ export class PatternDetailsViewComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
       this.patternId = params['patternId']; // grab the parameter from url
-      this.patternUrl = 'http://localhost:4200/productDetails/' + this.patternId
+      this.patternUrl = CONFIG.eCommerceWebsiteUrl + '/productDetails/' + this.patternId
     });
     //get pattern details
     this.productService.getPatternById(this.patternId).subscribe(
