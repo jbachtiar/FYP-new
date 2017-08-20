@@ -44,20 +44,21 @@ export class ProductDetailComponent implements OnInit {
         this.selectedColour = this.selectedFabric.colours[0]
         this.selectedFabricPrice = +this.selectedFabric.fabric_price
         this.selectedColourPrice = +this.selectedColour.colour_price
-        this.totalPrice = this.selectedFabricPrice + this.selectedColourPrice
+        this.totalPrice = this.pattern.pattern_price + this.selectedFabricPrice + this.selectedColourPrice
       });
     }
 
     onFabricChange(){
       this.selectedColour = this.selectedFabric.colours[0];
+      this.selectedColourPrice = +this.selectedColour.colour_price;
       this.selectedFabricPrice = +this.selectedFabric.fabric_price;
-      this.totalPrice = this.selectedFabricPrice + this.selectedColourPrice;
+      this.totalPrice = this.pattern.pattern_price + this.selectedFabricPrice + this.selectedColourPrice;
       console.log("RECALCULATED PRICE" + this.totalPrice);
     } 
 
     onColourChange(){
       this.selectedColourPrice = +this.selectedColour.colour_price;
-      this.totalPrice = this.selectedFabricPrice + this.selectedColourPrice;
+      this.totalPrice = this.pattern.pattern_price + this.selectedFabricPrice + this.selectedColourPrice;
       console.log("RECALCULATED PRICE" + this.totalPrice) 
     }
   
