@@ -21,29 +21,29 @@ export class ProductListComponent implements OnInit {
 
   onClear(){
 
-    this.selectedCollection = null;
-    this.selectedFabric = null;
-    this.selectedColour = null;
-    this.sortPrice = null;
-    this.selectedCollectionId = null;
-    this.selectedFabricId = null;
-    this.selectedColourId = null;
-    this.selectedSortPriceId = null;
+    this.selectedCollection = undefined;
+    this.selectedFabric = undefined;
+    this.selectedColour = undefined;
+    this.sortPrice = undefined;
+    this.selectedCollectionId = undefined;
+    this.selectedFabricId = undefined;
+    this.selectedColourId = undefined;
+    this.selectedSortPriceId = undefined;
     this.queriedSearch = "";
 
-    // this.productService.getFilteredProductList("undefined", "undefined", "undefined", "undefined", this.queriedSearch).subscribe(
+    this.productService.getFilteredProductList("undefined", "undefined", "undefined", "undefined", this.queriedSearch).subscribe(
+       products => {
+         this.products = products;
+         //initialise paginator 
+         this.setPage(1);
+       });
+
+    // this.productService.getProductList().subscribe(
     //   products => {
     //     this.products = products;
     //     //initialise paginator 
     //     this.setPage(1);
     //   });
-
-    this.productService.getProductList().subscribe(
-      products => {
-        this.products = products;
-        //initialise paginator 
-        this.setPage(1);
-      });
 
   }
   
@@ -189,6 +189,10 @@ export class ProductListComponent implements OnInit {
     private router: Router) { }
     
   ngOnInit() {
+    this.selectedCollection = undefined;
+    this.selectedFabric = undefined;
+    this.selectedColour = undefined;
+    this.sortPrice = undefined;
     this.productService.getProductList().subscribe(
       products => {
         this.products = products;
