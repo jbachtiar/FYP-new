@@ -10,12 +10,14 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dao.CustomerDAO;
 import java.util.HashMap;
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.FormParam;
 //import javax.ws.rs.MatrixParam;
 import javax.ws.rs.POST;
 //import javax.ws.rs.MatrixParam;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 //import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
@@ -26,11 +28,13 @@ import javax.ws.rs.core.MediaType;
  */
 @Path("/registration")
 public class Registration {
-    
+    @Context private HttpServletResponse response;
     @POST
     @Path("/insert")
     @Produces(MediaType.APPLICATION_JSON)
     public String register (@FormParam("email") String email,@FormParam("firstName") String firstName, @FormParam("lastName") String lastName, @FormParam("phoneNumber") String phoneNumber, @FormParam("address") String address, @FormParam("postalCode") String postalCode, @FormParam("password") String password){
+        
+        response.setHeader("Access-Control-Allow-Origin", "*");
         //String password = CustomerDAO.retrievePasswordByEmail(email);
         HashMap<String, String> responseMap = new HashMap();
         Gson gson = new GsonBuilder().create();

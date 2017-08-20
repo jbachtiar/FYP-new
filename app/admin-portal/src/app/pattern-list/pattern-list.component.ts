@@ -24,6 +24,10 @@ export class PatternListComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.selectedCollection = undefined;
+    this.selectedFabric = undefined;
+    this.selectedColour = undefined;
+    this.sortPrice = undefined;
      this.productService.getPatternList().subscribe(
      patterns => {
         this.patterns = patterns;
@@ -53,7 +57,7 @@ export class PatternListComponent implements OnInit {
         if (page < 1) {
             return;
         }
-        console.log("meh");
+
         // get pager object from service
         this.pager = this.pagerService.getPager(this.patterns.length, page);
  
@@ -70,29 +74,47 @@ export class PatternListComponent implements OnInit {
 
   onClear(){
 
-    this.selectedCollection = null;
-    this.selectedFabric = null;
-    this.selectedColour = null;
-    this.sortPrice = null;
-    this.selectedCollectionId = null;
-    this.selectedFabricId = null;
-    this.selectedColourId = null;
-    this.selectedSortPriceId = null;
+    this.selectedCollection = undefined;
+    this.selectedFabric = undefined;
+    this.selectedColour = undefined;
+    this.sortPrice = undefined;
+    this.selectedCollectionId = undefined;
+    this.selectedFabricId = undefined;
+    this.selectedColourId = undefined;
+    this.selectedSortPriceId = undefined;
     this.queriedSearch = "";  
     console.log("ONCLEAR")
-     this.productService.getPatternList().subscribe(
-     patterns => {
+     
+     this.productService.getFilteredPatternList(this.selectedCollectionId, this.selectedFabricId, this.selectedColourId, this.selectedSortPriceId, this.queriedSearch).subscribe(
+      patterns => {
+        
         if(patterns){
           this.patterns=patterns
+          console.log("PATTERNS: " + JSON.stringify(this.patterns))
           this.setPage(1);
         }else{
           patterns=[]
           this.patterns=patterns
+          console.log("PATTERNS: " + JSON.stringify(this.patterns))
           this.setPage(1);
         }
  
-       
       });
+
+     
+    //  this.productService.getPatternList().subscribe(
+    //  patterns => {
+    //     if(patterns){
+    //       this.patterns=patterns
+    //       this.setPage(1);
+    //     }else{
+    //       patterns=[]
+    //       this.patterns=patterns
+    //       this.setPage(1);
+    //     }
+ 
+       
+    //   });
 
   }
   
@@ -188,6 +210,7 @@ export class PatternListComponent implements OnInit {
   }
 
   onSearch(query: string): void {
+
     this.queriedSearch = query;
     console.log(this.selectedCollectionId);
     console.log(this.selectedFabricId);
@@ -196,10 +219,15 @@ export class PatternListComponent implements OnInit {
     console.log(this.queriedSearch);
     this.productService.getFilteredPatternList(this.selectedCollectionId, this.selectedFabricId, this.selectedColourId, this.selectedSortPriceId, this.queriedSearch).subscribe(
       patterns => {
+        
         if(patterns){
+          this.patterns=patterns
+          console.log("PATTERNS: " + JSON.stringify(this.patterns))
           this.setPage(1);
         }else{
           patterns=[]
+          this.patterns=patterns
+          console.log("PATTERNS: " + JSON.stringify(this.patterns))
           this.setPage(1);
         }
  

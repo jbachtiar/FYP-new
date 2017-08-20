@@ -42,10 +42,15 @@ export class StaffcontrolService {
       //  params.set('token', token);
         let headers= new Headers();
         let url = CONFIG.staffBackendUrl;
+        let params: URLSearchParams = new URLSearchParams();
+        params.set('token', token);
+        //headers.append ('Authorization', token);
 
-        headers.append ('Authorization', token);
+        headers.append(
+            'Content-type', 'application/x-www-form-urlencoded'
+        );
 
-        return this._http.get(url+'/retrieve', {headers} )
+        return this._http.post(url+'/retrieve', params.toString(), {headers} )
 
        // let options = new RequestOptions({ headers: headers, params: params });
        // return this._http.get('http://localhost:8084/FYP-backend/API/profile/retrieve', options )
@@ -83,8 +88,9 @@ export class StaffcontrolService {
         params.set('password', password);
         params.set('roleCode', roleCode);
         
+        params.set('token', token);
         let headers= new Headers();
-        headers.append ('Authorization', token);
+        //headers.append ('Authorization', token);
         headers.append (
            'Content-type','application/x-www-form-urlencoded'
         )
