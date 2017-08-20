@@ -189,6 +189,10 @@ export class ProductListComponent implements OnInit {
     private router: Router) { }
     
   ngOnInit() {
+    this.selectedCollection = undefined;
+    this.selectedFabric = undefined;
+    this.selectedColour = undefined;
+    this.sortPrice = undefined;
     this.productService.getProductList().subscribe(
       products => {
         this.products = products;
