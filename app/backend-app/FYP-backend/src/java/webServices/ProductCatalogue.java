@@ -57,7 +57,7 @@ public class ProductCatalogue {
     public void optionsUpdateProduct() {
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
-        response.setHeader("Access-Control-Allow-Headers", "auhtorization");
+        response.setHeader("Access-Control-Allow-Headers", "content-type");
         
     }
     
@@ -636,5 +636,40 @@ public class ProductCatalogue {
         return finalJsonOutput;
     }
     
-    
+    @GET
+    @Path("/fabrics")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getFabricCatalogue(){
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        FabricDAO fabricDAO = new FabricDAO();
+        Gson gson = new GsonBuilder().create();
+        JsonObject jsonOutput = new JsonObject();
+        JsonArray fabrics = new JsonArray();
+        
+        try{
+            
+            Fabric[] fArray = fabricDAO.getAllFabrics();
+            jsonOutput.addProperty("status","200");
+            
+            for(Fabric f: fArray){
+                
+                JsonObject temp = new JsonObject();
+                temp.addProperty("fabric_id", f.getFabricID());
+                temp.addProperty("fabric_name", f.getFabricName());
+                temp.addProperty("fabric_price", f.getFabricPrice());
+                fabrics.add(temp);
+                
+            }
+
+            jsonOutput.add("fabrics", fabrics);
+            
+        }catch(SQLException e){
+        
+            jsonOutput.addProperty("status","error");
+            
+        }
+        
+        String finalJsonOutput = gson.toJson(jsonOutput);
+        return finalJsonOutput;
+    }
 }

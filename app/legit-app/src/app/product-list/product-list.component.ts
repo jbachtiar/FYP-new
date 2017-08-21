@@ -138,11 +138,10 @@ export class ProductListComponent implements OnInit {
   
   selectedCollection:any = null;
   collections = [
-       {id: "CO1", name: "2019 Spring"},
+       {id: "CO1", name: "Bestsellers"},
        {id: "CO2", name: "2018 Spring"},
        {id: "CO3", name: "2018 Summer"},
-       {id: "CO4", name: "2017 Spring"},
-       {id: "CO5", name: "2017 Winter"}
+       {id: "CO4", name: "2017 Spring"}
      ];
 
   selectedFabric:any = null;
