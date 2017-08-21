@@ -44,6 +44,7 @@ import { StoreLocatorComponent } from './store-locator/store-locator.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { PaymentComponent } from './payment/payment.component';
 import { CartComponent } from './cart/cart.component';
+import { LoadingComponent } from './loading/loading.component';
 
 
 
@@ -69,7 +70,8 @@ import { CartComponent } from './cart/cart.component';
     StoreLocatorComponent,
     CheckoutComponent,
     PaymentComponent,
-    CartComponent
+    CartComponent,
+    LoadingComponent
 
   ],
   imports: [

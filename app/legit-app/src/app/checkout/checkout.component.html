@@ -7,8 +7,8 @@
           <h4 class="title">Your shipping address</h4>
         </div>
 
-
-        <form name="form" (ngSubmit)="submit()" #f="ngForm" class="form" novalidate>
+        <app-loading *ngIf="loading"></app-loading>
+        <form *ngIf="!loading" name="form" (ngSubmit)="submit()" #f="ngForm" class="form" novalidate>
 
           <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !firstName.valid }">
             <label for="firstName">First Name</label>

@@ -28,6 +28,8 @@ export class ProductDetailComponent implements OnInit {
   selectedFabricPrice:number;
   selectedColourPrice:number;
   totalPrice:number;
+  loading: boolean = true;
+  loadingImage:boolean = true;
 
   constructor(private shoppingCartService: ShoppingCartService ,private productService: ProductService, private fabricService: FabricService, private route: ActivatedRoute) { }
 
@@ -39,13 +41,24 @@ export class ProductDetailComponent implements OnInit {
 
     this.productService.getPatternById(this.patternId).subscribe(
       pattern => {
+        this.startLoading()
         this.pattern = pattern;
         this.selectedFabric = pattern.fabrics[0]
         this.selectedColour = this.selectedFabric.colours[0]
         this.selectedFabricPrice = +this.selectedFabric.fabric_price
         this.selectedColourPrice = +this.selectedColour.colour_price
         this.totalPrice = this.pattern.pattern_price + this.selectedFabricPrice + this.selectedColourPrice
+        this.stopLoading()
       });
+    }
+
+    startLoading(){
+      this.loading = true;
+    }
+  
+    
+    stopLoading(){
+      this.loading = false;
     }
 
     onFabricChange(){
@@ -63,6 +76,7 @@ export class ProductDetailComponent implements OnInit {
     }
   
     addCart() {
+      this.startLoading()
       //this.getProductId();
       this.productService.getProductId(this.patternId, this.selectedFabric.fabric_id, this.selectedColour.colour_id)
         .subscribe(productId => {
@@ -94,7 +108,7 @@ export class ProductDetailComponent implements OnInit {
 
               this.shoppingCartService.addItem(this.cartItem)
               window.location.reload();
-
+              this.stopLoading()
             });
 
         });

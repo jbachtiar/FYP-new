@@ -1,49 +1,52 @@
 <body>
   <div id="container">
     <div class="modal-dialog">
-
       <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" (click)="closeModal()">&times; </button>
-          <h5 class="modal-title text-center"><a [routerLink]="['/productDetails', pattern.pattern_id]" class="product-name">{{pattern.pattern_name}}</a></h5>
-        </div>
 
-        <div class="modal-body">
+        <app-loading *ngIf="loading"></app-loading>
+        <div *ngIf="!loading">
+          <div class="modal-header">
+            <button type="button" class="close" (click)="closeModal()">&times; </button>
+            <h5 class="modal-title text-center"><a [routerLink]="['/productDetails', pattern.pattern_id]" class="product-name">{{pattern.pattern_name}}</a></h5>
+          </div>
 
-          <alert></alert>
+          <div class="modal-body">
 
-          <div class="container-fluid">
-            <div class="row">
-              <div class="col-md-8"><img src="{{selectedColour.image_url}}" class="img-responsive" alt="Some picture"></div>
+            <alert></alert>
+
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-md-8"><img src="{{selectedColour.image_url}}" class="img-responsive" alt="Some picture"></div>
 
 
-              <span text-left class="col-md-4" style="font-size:12px" class="label label-warning">{{pattern.collection_name}}</span>              <br><br>
-              <div>
-                <h5>
-                  <a [routerLink]="['/productDetails', pattern.pattern_id]">
-                    <u (click)=closeModal()>View Full Details</u>
-                  </a>
-                </h5>
-                <h5>Material:</h5>
-                <select [(ngModel)]="selectedFabric" (ngModelChange)="onFabricChange()">
+                <span text-left class="col-md-4" style="font-size:12px" class="label label-warning">{{pattern.collection_name}}</span>                <br><br>
+                <div>
+                  <h5>
+                    <a [routerLink]="['/productDetails', pattern.pattern_id]">
+                      <u (click)=closeModal()>View Full Details</u>
+                    </a>
+                  </h5>
+                  <h5>Material:</h5>
+                  <select [(ngModel)]="selectedFabric" (ngModelChange)="onFabricChange()">
           <option *ngFor="let fabric of pattern.fabrics" [ngValue]="fabric">{{fabric.fabric_name}} +${{fabric.fabric_price}}</option>
         </select>
-                <h5>Colour:</h5>
-                <select [(ngModel)]="selectedColour" (ngModelChange)="onColourChange()">
+                  <h5>Colour:</h5>
+                  <select [(ngModel)]="selectedColour" (ngModelChange)="onColourChange()">
           <option *ngFor="let colour of selectedFabric.colours" [ngValue]="colour">{{colour.colour_name}} +${{colour.colour_price}}</option>
         </select>
-                <br/><br/>
-                <h4>${{totalPrice}}</h4>
-                <h5>Quantity:</h5>
-                <!--<input type=text>-->
-                <select [(ngModel)]="selectedQuantity">
+                  <br/><br/>
+                  <h4>${{totalPrice}}</h4>
+                  <h5>Quantity:</h5>
+                  <!--<input type=text>-->
+                  <select [(ngModel)]="selectedQuantity">
           <option *ngFor="let q of quantity" [ngValue]="q">{{q}}</option>
         </select>
 
-                <br/><br/>
-                <button type="button" class="btn btn-default" (click)="addCart()" data-dismiss="modal">Add to Cart</button>
-                <!--</div> <br>
+                  <br/><br/>
+                  <button type="button" class="btn btn-default" (click)="addCart()" data-dismiss="modal">Add to Cart</button>
+                  <!--</div> <br>
             <button type="button" class="button" data-dismiss="modal">Add to Cart</button>-->
+                </div>
               </div>
             </div>
           </div>
