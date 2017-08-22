@@ -44,6 +44,7 @@ import { StoreLocatorComponent } from './store-locator/store-locator.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { PaymentComponent } from './payment/payment.component';
 import { CartComponent } from './cart/cart.component';
+import { CartPopupComponent } from './cart-popup/cart-popup.component';
 
 
 
@@ -69,7 +70,8 @@ import { CartComponent } from './cart/cart.component';
     StoreLocatorComponent,
     CheckoutComponent,
     PaymentComponent,
-    CartComponent
+    CartComponent,
+    CartPopupComponent
 
   ],
   imports: [
@@ -78,7 +80,7 @@ import { CartComponent } from './cart/cart.component';
     HttpModule,
     routing,
     BootstrapModalModule,
-    CommonModule,
+    CommonModule
   ],
   providers: [
     AuthenticationService,
@@ -89,9 +91,9 @@ import { CartComponent } from './cart/cart.component';
     CartService,
     StorageService,
     AuthGuard,
-    ShoppingCartService,
+    ShoppingCartService
   ],
   bootstrap: [AppComponent],
-  entryComponents: [LoginPopupComponent, QuickViewComponent]
+  entryComponents: [LoginPopupComponent, QuickViewComponent, CartPopupComponent]
 })
 export class AppModule { }
