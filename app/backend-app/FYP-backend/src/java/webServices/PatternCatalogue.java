@@ -19,6 +19,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -39,12 +40,13 @@ import tokenManagement.tokenManagement;
 
 @Path("/PatternCatalogue")
 public class PatternCatalogue {
-    
+    @Context private HttpServletResponse response;
     @GET
     @Path("/patterns")
     @Produces(MediaType.APPLICATION_JSON)
     public String getPatternsCatalogue(){
-
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        
         PatternDAO patternDAO = new PatternDAO();
         Gson gson = new GsonBuilder().create();
         JsonObject jsonOutput = new JsonObject();
@@ -85,7 +87,7 @@ public class PatternCatalogue {
     @Produces(MediaType.APPLICATION_JSON)
     public String getPatternById(@QueryParam("productId") String productId){
         
-        
+        response.setHeader("Access-Control-Allow-Origin", "*");
       
         JsonObject jsonOutput = new JsonObject();
         Gson gson = new GsonBuilder().create();
@@ -126,6 +128,8 @@ public class PatternCatalogue {
 
     public String addPattern (@FormParam("patternID") String patternID,@FormParam("patternName") String patternName, @FormParam("patternDescription") String patternDescription, @FormParam("patternPrice") Double patternPrice, @FormParam("collectionID") String collectionID){
         //String password = CustomerDAO.retrievePasswordByEmail(email);
+        
+        response.setHeader("Access-Control-Allow-Origin", "*");
         HashMap<String, String> responseMap = new HashMap();
         Gson gson = new GsonBuilder().create();
         String status = "";
@@ -146,6 +150,8 @@ public class PatternCatalogue {
     @Produces(MediaType.APPLICATION_JSON)
     public String updatePattern (@Context HttpHeaders httpHeaders, @FormParam("patternID") String patternID,@FormParam("patternName") String patternName, @FormParam("patternDescription") String patternDescription, @FormParam("patternPrice") Double patternPrice, @FormParam("collectionID") String collectionID){
         //String password = CustomerDAO.retrievePasswordByEmail(email);
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        
         HashMap<String, String> responseMap = new HashMap<>();
         Gson gson = new GsonBuilder().create();
         String status;

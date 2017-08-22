@@ -45,6 +45,7 @@ import { CheckoutComponent } from './checkout/checkout.component';
 import { PaymentComponent } from './payment/payment.component';
 import { CartComponent } from './cart/cart.component';
 import { CartPopupComponent } from './cart-popup/cart-popup.component';
+import { LoadingComponent } from './loading/loading.component';
 
 
 
@@ -71,7 +72,8 @@ import { CartPopupComponent } from './cart-popup/cart-popup.component';
     CheckoutComponent,
     PaymentComponent,
     CartComponent,
-    CartPopupComponent
+    CartPopupComponent,
+    LoadingComponent
 
   ],
   imports: [
