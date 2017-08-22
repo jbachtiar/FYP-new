@@ -29,9 +29,14 @@ export class ProductDetailComponent implements OnInit {
   selectedColourPrice:number;
   totalPrice:number;
   loading: boolean = true;
-  loadingImage:boolean = true;
+  loadingImage:boolean = false;
 
   constructor(private shoppingCartService: ShoppingCartService ,private productService: ProductService, private fabricService: FabricService, private route: ActivatedRoute) { }
+
+  onLoad() {
+    console.log("LOADING")
+    this.loading = false;
+  }
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
@@ -66,12 +71,14 @@ export class ProductDetailComponent implements OnInit {
       this.selectedColourPrice = +this.selectedColour.colour_price;
       this.selectedFabricPrice = +this.selectedFabric.fabric_price;
       this.totalPrice = this.pattern.pattern_price + this.selectedFabricPrice + this.selectedColourPrice;
+      
       console.log("RECALCULATED PRICE" + this.totalPrice);
     } 
 
     onColourChange(){
       this.selectedColourPrice = +this.selectedColour.colour_price;
       this.totalPrice = this.pattern.pattern_price + this.selectedFabricPrice + this.selectedColourPrice;
+      
       console.log("RECALCULATED PRICE" + this.totalPrice) 
     }
   

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-
+import * as $ from 'jquery';
 import { LoginPopupComponent } from '../login/login-popup.component';
 
 import { AuthenticationService } from '../authentication.service';
@@ -8,6 +8,11 @@ import { ShoppingCart } from "../cart/model/shopping-cart.model";
 import { ShoppingCartService } from '../shopping-cart.service';
 
 import { DialogService } from "ng2-bootstrap-modal";
+
+
+import { ResponsiveModule } from 'ng2-responsive'
+
+//declare var $:any;
 
 @Component({
   selector: 'navbar',
@@ -20,6 +25,8 @@ export class NavbarComponent implements OnInit {
     private authenticated = false;
     private shoppingCart: ShoppingCart;
     private itemCount: number;
+    private isIn:boolean = false;
+
 
   constructor(
       private dialogService:DialogService, 
@@ -28,6 +35,11 @@ export class NavbarComponent implements OnInit {
       private shoppingCartService: ShoppingCartService) {
     }
 
+    
+    toggleState() { // click handler
+        let bool = this.isIn;
+        this.isIn = bool === false ? true : false; 
+    }
     ngOnInit() {
         this.token = localStorage.getItem('token');
         console.log("TOKEN: " + this.token)
@@ -69,7 +81,7 @@ export class NavbarComponent implements OnInit {
         this.authenticationService.logout();
         window.location.reload();
     }
-
+   
 
 
 }

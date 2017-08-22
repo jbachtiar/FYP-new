@@ -2,7 +2,7 @@
     padding-top: 8px;
     padding-right:20px;
     padding-left:20px;
-    background-color: rgba(255, 255, 255, 0.6);
+    background-color: rgba(255, 255, 255, 1);
     border: 0px;
 }
 
@@ -14,7 +14,7 @@
 
 .navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover {
     color: black;
-    background-color: rgba(255, 255, 255, 0.6);
+    background-color: rgba(255, 255, 255, 1);
     border-top: 5px solid goldenrod;
 
 }
@@ -68,3 +68,11 @@
     color: white;
 }
 
+.burger{
+    border: 0px;
+}
+
+.navbar-toggle:active , .navbar-toggle:focus{
+    border: 1px solid goldenrod;
+    background: rgba(225,225,225,0)
+}
