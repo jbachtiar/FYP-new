@@ -4,8 +4,8 @@ import { Observable } from "rxjs/Observable";
 import { ShoppingCart } from "./model/shopping-cart.model";
 import { CartItem } from "./model/cart-item.model";
 import { Subscription } from "rxjs/Subscription";
-
-
+import { DialogService } from "ng2-bootstrap-modal";
+import { DeleteConfirmationPopupComponent } from '../delete-confirmation-popup/delete-confirmation-popup.component'
 
 @Component({
   selector: 'app-cart',
@@ -21,7 +21,9 @@ export class CartComponent implements OnInit {
   private cartItem : CartItem[]
   private empty: boolean = true;
 
-  public constructor(private shoppingCartService: ShoppingCartService) {
+  public constructor(
+    private shoppingCartService: ShoppingCartService,
+    private dialogService: DialogService) {
     this.shoppingCart = JSON.parse(localStorage.getItem('cart'))
 
   }
@@ -63,11 +65,25 @@ export class CartComponent implements OnInit {
   }
 
   remove(productId: string){
-    let indexCut =  this.shoppingCart.items.findIndex((p) => p.productId === productId)
-    this.shoppingCart.items.splice(indexCut,1)
-    this.updateCart()
-    window.location.reload()
-    console.log('index: ' + indexCut)
+    let disposable = this.dialogService.addDialog(DeleteConfirmationPopupComponent, {
+      title: 'Remove item?',
+      message: 'Are you sure to remove this item from the cart?'
+    })
+      .subscribe((isConfirmed) => {
+        console.log("DIALOG")
+        //We get dialog result
+        if (isConfirmed) {
+          let indexCut =  this.shoppingCart.items.findIndex((p) => p.productId === productId)
+          this.shoppingCart.items.splice(indexCut,1)
+          this.updateCart()
+          window.location.reload()
+          console.log('index: ' + indexCut)
+        }
+        else {
+          //do nothing
+        }
+      });
+    
   }
 
   updateCart(){

@@ -9,13 +9,15 @@ package entity;
  *
  * @author Ong Yi Xuan
  */
-public class Size {
+public class BeddingSize {
     
     private String sizeName;
+    private String dimensions;
     private double sizePrice;
 
-    public Size(String sizeName, double sizePrice) {
+    public BeddingSize(String sizeName, String dimensions, double sizePrice) {
         this.sizeName = sizeName;
+        this.dimensions = dimensions;
         this.sizePrice = sizePrice;
     }
 
@@ -25,6 +27,14 @@ public class Size {
 
     public void setSizeName(String sizeName) {
         this.sizeName = sizeName;
+    }
+
+    public String getDimensions() {
+        return dimensions;
+    }
+
+    public void setDimensions(String dimensions) {
+        this.dimensions = dimensions;
     }
 
     public double getSizePrice() {

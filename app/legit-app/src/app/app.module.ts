@@ -47,6 +47,7 @@ import { CartComponent } from './cart/cart.component';
 import { CartPopupComponent } from './cart-popup/cart-popup.component';
 import { ConfirmationPopupComponent } from './confirmation-popup/confirmation-popup.component';
 import { LoadingComponent } from './loading/loading.component';
+import { DeleteConfirmationPopupComponent } from './delete-confirmation-popup/delete-confirmation-popup.component';
 
 
 
@@ -75,7 +76,8 @@ import { LoadingComponent } from './loading/loading.component';
     CartComponent,
     CartPopupComponent,
     ConfirmationPopupComponent,
-    LoadingComponent
+    LoadingComponent,
+    DeleteConfirmationPopupComponent
   ],
   imports: [
     BrowserModule,
@@ -102,7 +104,8 @@ import { LoadingComponent } from './loading/loading.component';
     LoginPopupComponent, 
     QuickViewComponent, 
     CartPopupComponent,
-    ConfirmationPopupComponent
+    ConfirmationPopupComponent,
+    DeleteConfirmationPopupComponent
   ]
 })
 export class AppModule { }

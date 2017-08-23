@@ -27,6 +27,7 @@ export class PatternDetailsComponent implements OnInit {
   patternUrl = "";
   returnUrl;
   res: string;
+  loading:boolean= true;
 
   constructor(
     private route: ActivatedRoute,
@@ -43,6 +44,7 @@ export class PatternDetailsComponent implements OnInit {
     //get pattern details
     this.productService.getPatternById(this.patternId).subscribe(
       pattern => {
+        this.startLoading()
         this.pattern = pattern;
         //get all available collections
         this.productService.getAllCollections().subscribe(
@@ -90,7 +92,16 @@ export class PatternDetailsComponent implements OnInit {
                 }
               });
           });
+          this.stopLoading()
       });
+  }
+  startLoading(){
+    this.loading = true;
+  }
+
+  
+  stopLoading(){
+    this.loading = false;
   }
 
   onSave() {

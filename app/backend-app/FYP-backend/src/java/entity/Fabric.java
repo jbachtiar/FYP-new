@@ -11,24 +11,24 @@ package entity;
  */
 public class Fabric {
     
-    private String fabricID;
+    private String fabricId;
     private String fabricName;
-    private String fabricDescription;
+    private String fabricDesc;
     private double fabricPrice;
-    
-    public Fabric(String fabricID, String fabricName, String fabricDescription, double fabricPrice) {
-        this.fabricID = fabricID;
+
+    public Fabric(String fabricId, String fabricName, String fabricDesc, double fabricPrice) {
+        this.fabricId = fabricId;
         this.fabricName = fabricName;
-        this.fabricDescription = fabricDescription;
+        this.fabricDesc = fabricDesc;
         this.fabricPrice = fabricPrice;
     }
 
-    public String getFabricID() {
-        return fabricID;
+    public String getFabricId() {
+        return fabricId;
     }
 
-    public void setFabricID(String fabricID) {
-        this.fabricID = fabricID;
+    public void setFabricId(String fabricId) {
+        this.fabricId = fabricId;
     }
 
     public String getFabricName() {
@@ -39,12 +39,12 @@ public class Fabric {
         this.fabricName = fabricName;
     }
 
-    public String getFabricDescription() {
-        return fabricDescription;
+    public String getFabricDesc() {
+        return fabricDesc;
     }
 
-    public void setFabricDescription(String fabriDescription) {
-        this.fabricDescription = fabriDescription;
+    public void setFabricDesc(String fabricDesc) {
+        this.fabricDesc = fabricDesc;
     }
 
     public double getFabricPrice() {

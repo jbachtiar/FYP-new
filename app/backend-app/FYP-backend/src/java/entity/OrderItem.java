@@ -5,25 +5,30 @@
  */
 package entity;
 
-
-public class CartItem {
+/**
+ *
+ * @author Ong Yi Xuan
+ */
+public class OrderItem {
     
-    private Cart cart;
+    private Order order;
     private Product product;
     private int quantity;
+    private double unitPrice;
 
-    public CartItem(Cart cart, Product product, int quantity) {
-        this.cart = cart;
+    public OrderItem(Order order, Product product, int quantity, double unitPrice) {
+        this.order = order;
         this.product = product;
         this.quantity = quantity;
+        this.unitPrice = unitPrice;
     }
 
-    public Cart getCart() {
-        return cart;
+    public Order getOrder() {
+        return order;
     }
 
-    public void setCart(Cart cart) {
-        this.cart = cart;
+    public void setOrder(Order order) {
+        this.order = order;
     }
 
     public Product getProduct() {
@@ -40,6 +45,14 @@ public class CartItem {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public double getUnitPrice() {
+        return unitPrice;
+    }
+
+    public void setUnitPrice(double unitPrice) {
+        this.unitPrice = unitPrice;
     }
     
 }
