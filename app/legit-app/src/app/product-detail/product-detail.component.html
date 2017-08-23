@@ -4,8 +4,11 @@
   <div class="container" *ngIf="!loading">
     <div class="row">
       <div class="col-sm-6">
-        <img *ngIf="loadingImage" src="../assets/images/loading.gif" alt="loading" />
-        <img [hidden]="!loadingImage" (load)="onLoad()" src="{{selectedColour.image_url}}" class="img-responsive" alt="Some picture" />      </div>
+
+        <div *ngIf="loadingImage" class="loading">
+            <img src="../assets/images/loading.gif" alt="loading" />    
+        </div>
+        <img *ngIf="!loadingImage" (load)="onLoad()" src="{{selectedColour.image_url}}" class="img-responsive" alt="Some picture" />      </div>
       <div class="col-sm-6">
         <h3 class="product-name">{{pattern.pattern_name}}</h3>
 

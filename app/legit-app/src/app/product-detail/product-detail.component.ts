@@ -34,8 +34,10 @@ export class ProductDetailComponent implements OnInit {
   constructor(private shoppingCartService: ShoppingCartService ,private productService: ProductService, private fabricService: FabricService, private route: ActivatedRoute) { }
 
   onLoad() {
-    console.log("LOADING")
-    this.loading = false;
+    this.loadingImage = true;
+    console.log("LOADING : " + this.loadingImage)
+    this.loadingImage = false;
+    console.log("LOADING : " + this.loadingImage)
   }
 
   ngOnInit() {

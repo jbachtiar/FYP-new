@@ -59,7 +59,11 @@ body {
     
 }
 
+.loading{
+    padding: 40%;
+    text-align: middle;
+}
 
-img .loading{
-    padding: 40px;
+img{
+    transition:all 0.3s ease;   
 }
