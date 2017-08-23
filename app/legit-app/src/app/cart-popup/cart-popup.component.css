@@ -1,0 +1,47 @@
+.button{
+    border: 1px solid goldenrod;
+    background-color: goldenrod; 
+    font-family: Georgia;
+    font-size: 16px;
+    color: white;
+    
+    bottom: 0;
+}
+
+.top-buffer { margin-top:20px; }
+
+.modal-dialog {
+    position: relative;
+    margin: 0 auto;
+    top: 50%;
+}
+
+body { 
+    margin-top: 220px; 
+    font-family: Georgia, 'Times New Roman', Times, serif;   
+}
+
+.button{
+    border: 1px solid goldenrod;
+    background-color: goldenrod; 
+    font-family: Georgia;
+    font-size: 16px;
+    color: white;
+    padding-top: 5px;
+    padding-right: 40px;
+    padding-bottom: 5px;
+    padding-left: 40px;
+    margin-top: 10px;
+}
+
+
+.product-price{
+    font-size: 18px;
+    color: black; 
+    font-family: Georgia;
+}
+
+.btn-default:hover, .btn-default:focus, .btn-primary:active, .btn-default.active, .open>.dropdown-toggle.btn-default {
+    background-color: goldenrod; 
+    color: white;
+}

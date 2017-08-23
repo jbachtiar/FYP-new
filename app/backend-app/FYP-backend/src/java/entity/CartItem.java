@@ -5,64 +5,41 @@
  */
 package entity;
 
-/**
- *
- * @author JeremyBachtiar
- */
+
 public class CartItem {
+    
+    private Cart cart;
+    private Product product;
     private int quantity;
-    private String eachPrice;
-    private String productId;
-    private String patternName;
-    private String url;
 
-    public CartItem(int quantity, String eachPrice, String productId, String patternName, String url) {
-        this.quantity = quantity;
-        this.eachPrice = eachPrice;
-        this.productId = productId;
-        this.patternName = patternName;
-        this.url = url;
-    }
-
-    public void setQuantity(int quantity) {
+    public CartItem(Cart cart, Product product, int quantity) {
+        this.cart = cart;
+        this.product = product;
         this.quantity = quantity;
     }
 
-    public void setEachPrice(String eachPrice) {
-        this.eachPrice = eachPrice;
+    public Cart getCart() {
+        return cart;
     }
 
-    public void setProductId(String productId) {
-        this.productId = productId;
+    public void setCart(Cart cart) {
+        this.cart = cart;
     }
 
-    public void setPatternName(String patternName) {
-        this.patternName = patternName;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     public int getQuantity() {
         return quantity;
     }
 
-    public String getEachPrice() {
-        return eachPrice;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
-
-    public String getProductId() {
-        return productId;
-    }
-
-    public String getPatternName() {
-        return patternName;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-    
     
 }

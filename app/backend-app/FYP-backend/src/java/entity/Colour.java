@@ -11,21 +11,20 @@ package entity;
  */
 public class Colour {
     
-    private String colourID;
+    private String colourId;
     private String colourName;
-    private double colour_price;
 
-    public Colour(String colourID, String colourName) {
-        this.colourID = colourID;
+    public Colour(String colourId, String colourName) {
+        this.colourId = colourId;
         this.colourName = colourName;
     }
 
-    public String getColourID() {
-        return colourID;
+    public String getColourId() {
+        return colourId;
     }
 
-    public void setColourID(String colourID) {
-        this.colourID = colourID;
+    public void setColourId(String colourId) {
+        this.colourId = colourId;
     }
 
     public String getColourName() {
@@ -36,12 +35,4 @@ public class Colour {
         this.colourName = colourName;
     }
 
-    public double getColour_price() {
-        return colour_price;
-    }
-
-    public void setColour_price(double colour_price) {
-        this.colour_price = colour_price;
-    }
-    
 }

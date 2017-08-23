@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ProductService } from '../services/product.service';
 import { CONFIG } from '../config/config.component'
+import { DialogService } from "ng2-bootstrap-modal";
+import { ConfirmationPopupComponent } from '../confirmation-popup/confirmation-popup.component'
+
 //include aws webpack
 require('aws-sdk');
 
@@ -20,10 +23,16 @@ export class PatternDetailsAddComponent implements OnInit {
   colours = []
   selectedColour = [];
   patternUrl = "";
-  res:string;
+  res: string;
+  patternAdded: boolean = false;
   loading:boolean = true;
 
-  constructor(private productService: ProductService, private route: ActivatedRoute) { }
+  constructor(
+    private productService: ProductService, 
+    private router: Router,
+    private route: ActivatedRoute,
+    private dialogService: DialogService
+  ) { }
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
@@ -35,7 +44,7 @@ export class PatternDetailsAddComponent implements OnInit {
     //   pattern => {
     //     this.pattern = pattern;
     //get all available fabrics
-    this.pattern = {"pattern_id":"","pattern_name":"","pattern_description":"","pattern_price":"","collection_id":"CO1","collection_name":"New Arrivals","fabrics":[]}
+    this.pattern = { "pattern_id": "", "pattern_name": "", "pattern_description": "", "pattern_price": "", "collection_id": "CO1", "collection_name": "New Arrivals", "fabrics": [] }
     this.productService.getAllFabrics().subscribe(
       fabrics => {
         this.startLoading()
@@ -84,6 +93,24 @@ export class PatternDetailsAddComponent implements OnInit {
       });
     // });
   }
+  onAddAvailOptions() {
+    this.patternAdded = true;
+    console.log(JSON.stringify(this.pattern))
+    this.productService.updatePattern(this.pattern).subscribe(
+      res => {
+        var today = new Date();
+        var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+        var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        var dateTime = date + ' ' + time;
+        this.res = "Last saved on " + dateTime;
+        // this.patternId = res.pattern_id
+        // this.productService.getPatternById(this.patternId).subscribe(
+        //   pattern => {
+        //     this.pattern = pattern;
+        //   });
+        console.log(res);
+      });
+  }
   
   startLoading(){
     this.loading = true;
@@ -98,10 +125,34 @@ export class PatternDetailsAddComponent implements OnInit {
     console.log(JSON.stringify(this.pattern))
     this.productService.updatePattern(this.pattern).subscribe(
       res => {
-        this.res = "Changes saved!";
+        var today = new Date();
+        var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+        var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        var dateTime = date + ' ' + time;
+        this.res = "Last saved on " + dateTime; 
         console.log(res);
+        let disposable = this.dialogService.addDialog(ConfirmationPopupComponent, {
+          title: 'Changes saved!',
+          message: 'Saved on ' + dateTime
+        })
+          .subscribe((isConfirmed) => {
+            console.log("DIALOG")
+            //We get dialog result
+            if (isConfirmed) {
+              // this.router.navigate([this.returnUrl]);
+            }
+            else {
+              // this.router.navigate([this.returnUrl]);
+            }
+          });
+        //We can close dialog calling disposable.unsubscribe();
+        //If dialog was not closed manually close it by timeout
+        setTimeout(() => {
+          disposable.unsubscribe();
+        }, 10000);
       });
   }
+
 
   onAddFabric(f) {
     this.patternFabrics.push(f);

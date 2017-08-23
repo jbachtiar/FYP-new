@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ProductService } from '../services/product.service';
 import { CONFIG } from '../config/config.component'
+import { DialogService } from "ng2-bootstrap-modal";
+import { ConfirmationPopupComponent } from '../confirmation-popup/confirmation-popup.component'
+
 //include aws webpack
 require('aws-sdk');
 
@@ -22,12 +25,18 @@ export class PatternDetailsComponent implements OnInit {
   selectedColour = [];
   selectedCollection;
   patternUrl = "";
+  returnUrl;
   res: string;
   loading:boolean= true;
 
-  constructor(private productService: ProductService, private route: ActivatedRoute) { }
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private productService: ProductService,
+    private dialogService: DialogService) { }
 
   ngOnInit() {
+    this.returnUrl = '/'
     this.route.params.subscribe((params: Params) => {
       this.patternId = params['patternId']; // grab the parameter from url
       this.patternUrl = CONFIG.eCommerceWebsiteUrl + '/productDetails/' + this.patternId
@@ -99,8 +108,31 @@ export class PatternDetailsComponent implements OnInit {
     console.log(JSON.stringify(this.pattern))
     this.productService.updatePattern(this.pattern).subscribe(
       res => {
-        this.res = "Changes saved!";
+        var today = new Date();
+        var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+        var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        var dateTime = date + ' ' + time;
+        this.res = "Last saved on " + dateTime; 
         console.log(res);
+        let disposable = this.dialogService.addDialog(ConfirmationPopupComponent, {
+          title: 'Changes saved!',
+          message: 'Saved on ' + dateTime
+        })
+          .subscribe((isConfirmed) => {
+            console.log("DIALOG")
+            //We get dialog result
+            if (isConfirmed) {
+              // this.router.navigate([this.returnUrl]);
+            }
+            else {
+              // this.router.navigate([this.returnUrl]);
+            }
+          });
+        //We can close dialog calling disposable.unsubscribe();
+        //If dialog was not closed manually close it by timeout
+        setTimeout(() => {
+          disposable.unsubscribe();
+        }, 10000);
       });
   }
 
