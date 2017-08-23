@@ -10,50 +10,39 @@ package entity;
  * @author Huiyan
  */
 public class Cart {
+    
     private String cartId;
     private double price;
-    private String custId;
-    private String date;
+    private CartItem cartItem;
 
-    public Cart(String cartId, double price, String custId, String date) {
+    public Cart(String cartId, double price, CartItem cartItem) {
         this.cartId = cartId;
         this.price = price;
-        this.custId = custId;
-        this.date = date;
-    }
-
-    public void setCartId(String cartId) {
-        this.cartId = cartId;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    public void setCustId(String custId) {
-        this.custId = custId;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
+        this.cartItem = cartItem;
     }
 
     public String getCartId() {
         return cartId;
     }
 
+    public void setCartId(String cartId) {
+        this.cartId = cartId;
+    }
+
     public double getPrice() {
         return price;
     }
 
-    public String getCustId() {
-        return custId;
+    public void setPrice(double price) {
+        this.price = price;
     }
 
-    public String getDate() {
-        return date;
+    public CartItem getCartItem() {
+        return cartItem;
     }
-    
-    
+
+    public void setCartItem(CartItem cartItem) {
+        this.cartItem = cartItem;
+    }
    
 }

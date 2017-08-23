@@ -14,96 +14,95 @@ public class Customer {
     private String email;
     private String firstName;
     private String lastName;
-    private String phoneNumber;
-    private String address;
-    private String country;
-    private String postalCode;
+    private String phoneNo;
     private String password;
     private String verified;
+    private Cart cart;
+    private Address[] address;
+    private Order[] orders;
 
-    public Customer(String email, String firstName, String lastName, String phoneNumber, String address, String country, String postalCode, String password, String verified) {
+    public Customer(String email, String firstName, String lastName, String phoneNo, String password, String verified, Cart cart, Address[] address, Order[] orders) {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.phoneNumber = phoneNumber;
-        this.address = address;
-        this.country = country;
-        this.postalCode = postalCode;
+        this.phoneNo = phoneNo;
         this.password = password;
         this.verified = verified;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public void setAddress(String address) {
+        this.cart = cart;
         this.address = address;
-    }
-
-     public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public void setPostalCode(String postalCode) {
-        this.postalCode = postalCode;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setVerified(String verified) {
-        this.verified = verified;
+        this.orders = orders;
     }
 
     public String getEmail() {
         return email;
     }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getFirstName() {
         return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getLastName() {
         return lastName;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    public String getAddress() {
-        return address;
+    public String getPhoneNo() {
+        return phoneNo;
     }
 
-    public String getCountry() {
-        return country;
-    }
-
-    public String getPostalCode() {
-        return postalCode;
+    public void setPhoneNo(String phoneNo) {
+        this.phoneNo = phoneNo;
     }
 
     public String getPassword() {
         return password;
     }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public String getVerified() {
         return verified;
     }
 
-    
+    public void setVerified(String verified) {
+        this.verified = verified;
+    }
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
+    }
+
+    public Address[] getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address[] address) {
+        this.address = address;
+    }
+
+    public Order[] getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Order[] orders) {
+        this.orders = orders;
+    }
+
 }

@@ -14,66 +14,65 @@ public class Staff {
     private String email;
     private String firstName;
     private String lastName;
-    private String phoneNumber;
+    private String phoneNo;
     private String password;
-    private String roleCode;
+    private String roleId;
 
-    public Staff(String email, String firstName, String lastName, String phone_num, String password, String roleCode) {
+    public Staff(String email, String firstName, String lastName, String phoneNo, String password, String roleId) {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.phoneNumber = phone_num;
+        this.phoneNo = phoneNo;
         this.password = password;
-        this.roleCode = roleCode;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public void setPhoneNumber(String phone_num) {
-        this.phoneNumber = phone_num;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setRoleCode(String roleCode) {
-        this.roleCode = roleCode;
+        this.roleId = roleId;
     }
 
     public String getEmail() {
         return email;
     }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getFirstName() {
         return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getLastName() {
         return lastName;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getPhoneNo() {
+        return phoneNo;
+    }
+
+    public void setPhoneNo(String phoneNo) {
+        this.phoneNo = phoneNo;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public String getRoleCode() {
-        return roleCode;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-  
+    public String getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(String roleId) {
+        this.roleId = roleId;
+    }
+    
 }

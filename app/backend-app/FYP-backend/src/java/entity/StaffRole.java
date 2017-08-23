@@ -11,20 +11,20 @@ package entity;
  */
 public class StaffRole {
     
-    private String roleCode;
+    private String roleId;
     private String roleName;
 
-    public StaffRole(String roleCode, String roleName) {
-        this.roleCode = roleCode;
+    public StaffRole(String roleId, String roleName) {
+        this.roleId = roleId;
         this.roleName = roleName;
     }
 
-    public String getRoleCode() {
-        return roleCode;
+    public String getRoleId() {
+        return roleId;
     }
 
-    public void setRoleCode(String roleCode) {
-        this.roleCode = roleCode;
+    public void setRoleId(String roleId) {
+        this.roleId = roleId;
     }
 
     public String getRoleName() {
@@ -34,7 +34,5 @@ public class StaffRole {
     public void setRoleName(String roleName) {
         this.roleName = roleName;
     }
-    
-    
-    
+
 }

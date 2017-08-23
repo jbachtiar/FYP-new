@@ -13,25 +13,20 @@ package entity;
 
 public class Collection {
     
-    private String collectionID;
+    private String collectionId;
     private String collectionName;
-    
-    public Collection() {
-        this.collectionID = null;
-        this.collectionName = null;
-    }
 
-    public Collection(String collectionID, String collectionName) {
-        this.collectionID = collectionID;
+    public Collection(String collectionId, String collectionName) {
+        this.collectionId = collectionId;
         this.collectionName = collectionName;
     }
 
-    public String getCollectionID() {
-        return collectionID;
+    public String getCollectionId() {
+        return collectionId;
     }
 
-    public void setCollectionID(String collectionID) {
-        this.collectionID = collectionID;
+    public void setCollectionId(String collectionId) {
+        this.collectionId = collectionId;
     }
 
     public String getCollectionName() {
