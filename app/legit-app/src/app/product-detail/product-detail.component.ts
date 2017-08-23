@@ -30,6 +30,8 @@ export class ProductDetailComponent implements OnInit {
   selectedFabricPrice: number;
   selectedColourPrice: number;
   totalPrice: number;
+  loading: boolean = true;
+  loadingImage: boolean = false;
 
   constructor(
     private shoppingCartService: ShoppingCartService,
@@ -39,6 +41,11 @@ export class ProductDetailComponent implements OnInit {
     private dialogService: DialogService
   ) { }
 
+  onLoad() {
+    console.log("LOADING")
+    this.loading = false;
+  }
+
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
       this.patternId = params['patternId']; // grab the parameter from url
@@ -47,13 +54,24 @@ export class ProductDetailComponent implements OnInit {
 
     this.productService.getPatternById(this.patternId).subscribe(
       pattern => {
+        this.startLoading()
         this.pattern = pattern;
         this.selectedFabric = pattern.fabrics[0]
         this.selectedColour = this.selectedFabric.colours[0]
         this.selectedFabricPrice = +this.selectedFabric.fabric_price
         this.selectedColourPrice = +this.selectedColour.colour_price
         this.totalPrice = this.pattern.pattern_price + this.selectedFabricPrice + this.selectedColourPrice
+        this.stopLoading()
       });
+  }
+
+  startLoading() {
+    this.loading = true;
+  }
+
+
+  stopLoading() {
+    this.loading = false;
   }
 
   onFabricChange() {
@@ -61,16 +79,19 @@ export class ProductDetailComponent implements OnInit {
     this.selectedColourPrice = +this.selectedColour.colour_price;
     this.selectedFabricPrice = +this.selectedFabric.fabric_price;
     this.totalPrice = this.pattern.pattern_price + this.selectedFabricPrice + this.selectedColourPrice;
+
     console.log("RECALCULATED PRICE" + this.totalPrice);
   }
 
   onColourChange() {
     this.selectedColourPrice = +this.selectedColour.colour_price;
     this.totalPrice = this.pattern.pattern_price + this.selectedFabricPrice + this.selectedColourPrice;
+
     console.log("RECALCULATED PRICE" + this.totalPrice)
   }
 
   addCart() {
+    this.startLoading()
     //this.getProductId();
     this.productService.getProductId(this.patternId, this.selectedFabric.fabric_id, this.selectedColour.colour_id)
       .subscribe(productId => {
@@ -101,6 +122,7 @@ export class ProductDetailComponent implements OnInit {
             console.log('eachPrice: ' + this.eachPrice)
 
             this.shoppingCartService.addItem(this.cartItem)
+            this.stopLoading()
             // window.location.reload();
             let disposable = this.dialogService.addDialog(CartPopupComponent, {
               title: 'Item is added to cart!',
@@ -123,7 +145,6 @@ export class ProductDetailComponent implements OnInit {
             }, 10000);
           });
       });
-
   }
 
   getProductId() {

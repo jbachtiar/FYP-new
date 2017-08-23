@@ -23,6 +23,8 @@ body {
     font-size: 50px;
     color: goldenrod;
     font-family: Georgia; 
+    padding-top: 0px;
+    margin-top: 0px;
     border-bottom: 3px solid goldenrod;
 }
 
@@ -55,4 +57,9 @@ body {
     padding-left: 20px;
     margin-top: 10px;
     
+}
+
+
+img .loading{
+    padding: 40px;
 }

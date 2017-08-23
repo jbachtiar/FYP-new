@@ -17,14 +17,18 @@ import { StaffmanagementComponent } from './staffmanagement/staffmanagement.comp
 import { AuthGuard } from './guard/guard';
 import { PatternListComponent } from './pattern-list/pattern-list.component'
 import { PatternDetailsComponent } from './pattern-details/pattern-details.component'
-
+import { CardComponent } from 'ng2-bootstrap-card/ng2-bootstrap-card';
+import { PatternDetailsAddComponent } from './pattern-details-add/pattern-details-add.component';
+import { PatternDetailsViewComponent } from './pattern-details-view/pattern-details-view.component';
+import { LoadingComponent } from './loading/loading.component';
+import { ConfirmationPopupComponent } from './confirmation-popup/confirmation-popup.component';
 import { ProductService } from './services/product.service';
 import { PagerService} from './services/pager.service'
 
 import { QRCodeModule } from 'angular2-qrcode';
-import { CardComponent } from 'ng2-bootstrap-card/ng2-bootstrap-card';
-import { PatternDetailsAddComponent } from './pattern-details-add/pattern-details-add.component';
-import { PatternDetailsViewComponent } from './pattern-details-view/pattern-details-view.component';
+import { BootstrapModalModule } from 'ng2-bootstrap-modal';
+
+
 
 @NgModule({
   declarations: [
@@ -38,7 +42,9 @@ import { PatternDetailsViewComponent } from './pattern-details-view/pattern-deta
     PatternDetailsComponent,
     CardComponent,
     PatternDetailsAddComponent,
-    PatternDetailsViewComponent
+    PatternDetailsViewComponent,
+    LoadingComponent,
+    ConfirmationPopupComponent
   ],
   imports: [
     BrowserModule,
@@ -47,12 +53,16 @@ import { PatternDetailsViewComponent } from './pattern-details-view/pattern-deta
     HttpModule,
     RouterModule,
     QRCodeModule,
+    BootstrapModalModule
   ],
   providers: [
     AuthGuard,
     ProductService,
     PagerService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    ConfirmationPopupComponent
+  ]
 })
 export class AppModule { }

@@ -22,10 +22,11 @@ export class ProfileService {
       //  params.set('token', token);
         let headers= new Headers();
         let url = CONFIG.profileBackendUrl;
-
-        headers.append ('Authorization', token);
-
-        return this._http.get(url+'/retrieve', {headers} )
+        let params: URLSearchParams = new URLSearchParams();
+        params.set('token', token)
+        //headers.append ('Authorization', token);
+        console.log(token);
+        return this._http.get(url+'/retrieve?token='+ token)
 
        // let options = new RequestOptions({ headers: headers, params: params });
        // return this._http.get('http://localhost:8084/FYP-backend/API/profile/retrieve', options )
@@ -54,8 +55,9 @@ export class ProfileService {
         params.set('address', address);
         params.set('postalCode', postalCode);
         params.set('password', password);
+        params.set('token', token);
         let headers= new Headers();
-        headers.append ('Authorization', token);
+        //headers.append ('Authorization', token);
         headers.append (
            'Content-type','application/x-www-form-urlencoded'
         )

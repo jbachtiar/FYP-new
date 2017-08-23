@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from "@angular/router";
 import { HttpModule } from '@angular/http';
 import { CommonModule } from '@angular/common';
-
+import { ResponsiveModule } from 'ng2-responsive'
 
 import { routing } from './app.routing';
 
@@ -46,6 +46,7 @@ import { PaymentComponent } from './payment/payment.component';
 import { CartComponent } from './cart/cart.component';
 import { CartPopupComponent } from './cart-popup/cart-popup.component';
 import { ConfirmationPopupComponent } from './confirmation-popup/confirmation-popup.component';
+import { LoadingComponent } from './loading/loading.component';
 
 
 
@@ -73,8 +74,8 @@ import { ConfirmationPopupComponent } from './confirmation-popup/confirmation-po
     PaymentComponent,
     CartComponent,
     CartPopupComponent,
-    ConfirmationPopupComponent
-
+    ConfirmationPopupComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,
@@ -82,7 +83,8 @@ import { ConfirmationPopupComponent } from './confirmation-popup/confirmation-po
     HttpModule,
     routing,
     BootstrapModalModule,
-    CommonModule
+    CommonModule,
+    ResponsiveModule,
   ],
   providers: [
     AuthenticationService,

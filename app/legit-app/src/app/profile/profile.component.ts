@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { InlineEditComponent } from '../custom/inline-edit.component'
 import { ProfileService } from '../profile.service'
-import {Customer} from '../interface/customer'
-
+import { Customer } from '../interface/customer'
+import { DialogService } from "ng2-bootstrap-modal";
+import { ConfirmationPopupComponent } from '../confirmation-popup/confirmation-popup.component'
 
 @Component({
   selector: 'app-profile',
@@ -20,55 +21,98 @@ export class ProfileComponent implements OnInit {
   postalCode: string;
   password: string;
   customer: Customer;
-  token: string
-  
-  
-constructor(private profileService: ProfileService  ) { 
-     this.token = localStorage.getItem('token');
-   
-}
-  
+  token: string;
+  loading: boolean = true;
 
-  ngOnInit() {
-    console.log(this.token);
-    
-     this.profileService.displayProfile(this.token).subscribe(
-          res => {
-            if(res.status === '200'){
-              console.log("Retrieve successful");
-              this.customer=this.profileService.getCustomer();
-              this.firstName= this.customer.firstName;
-              this.lastName= this.customer.lastName;
-              this.contact= this.customer.contact;
-              this.address= this.customer.address;
-              this.postalCode= this.customer.postalCode;
-              this.password= this.customer.password;
-            
-            }else{
-                console.log("Retrieve failed");
-              
-            }
-          }
-    )
 
-     
+  constructor(
+    private profileService: ProfileService,
+    private dialogService: DialogService) {
+    this.token = localStorage.getItem('token');
 
   }
 
 
-  update(){
+  ngOnInit() {
+    console.log(this.token);
 
-   
-    this.profileService.updateProfile(this.token, this.firstName, this.lastName, this.contact, this.address, this.postalCode, this.password)
-    .subscribe(
-          res => {
-          if(res.status === '200'){
-              console.log("Update successful");
-            }else{
-              console.log("Update failed");
-            }
-          }
+    this.profileService.displayProfile(this.token).subscribe(
+      res => {
+        this.loading = true;
+        if (res.status === '200') {
+          console.log("Retrieve successful");
+          this.customer = this.profileService.getCustomer();
+          this.firstName = this.customer.firstName;
+          this.lastName = this.customer.lastName;
+          this.contact = this.customer.contact;
+          this.address = this.customer.address;
+          this.postalCode = this.customer.postalCode;
+          this.password = this.customer.password;
+          this.loading = false;
+        } else {
+          console.log("Retrieve failed");
+
+        }
+      }
     )
+
+
+
+  }
+
+
+  update() {
+
+
+    this.profileService.updateProfile(this.token, this.firstName, this.lastName, this.contact, this.address, this.postalCode, this.password)
+      .subscribe(
+      res => {
+        if (res.status === '200') {
+          console.log("Update successful");
+          let disposable = this.dialogService.addDialog(ConfirmationPopupComponent, {
+            title: 'Profile',
+            message: 'Changes saved successfully!'
+          })
+            .subscribe((isConfirmed) => {
+              console.log("DIALOG")
+              //We get dialog result
+              if (isConfirmed) {
+                // this.router.navigate([this.returnUrl]);
+              }
+              else {
+                // this.router.navigate([this.returnUrl]);
+              }
+            });
+          //We can close dialog calling disposable.unsubscribe();
+          //If dialog was not closed manually close it by timeout
+          setTimeout(() => {
+            disposable.unsubscribe();
+          }, 5000);
+
+        } else {
+          console.log("Update failed");
+          let disposable = this.dialogService.addDialog(ConfirmationPopupComponent, {
+            title: 'Profile',
+            message: 'Changes are not saved.'
+          })
+            .subscribe((isConfirmed) => {
+              console.log("DIALOG")
+              //We get dialog result
+              if (isConfirmed) {
+                // this.router.navigate([this.returnUrl]);
+              }
+              else {
+                // this.router.navigate([this.returnUrl]);
+              }
+            });
+          //We can close dialog calling disposable.unsubscribe();
+          //If dialog was not closed manually close it by timeout
+          setTimeout(() => {
+            disposable.unsubscribe();
+          }, 5000);
+        }
+      }
+      )
 
   }
 

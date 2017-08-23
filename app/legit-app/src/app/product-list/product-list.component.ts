@@ -18,9 +18,19 @@ export class ProductListComponent implements OnInit {
   selectedColourId;
   selectedSortPriceId;
   queriedSearch;
+  loading:boolean = true;
 
+  startLoading(){
+    this.loading = true;
+  }
+
+  
+  stopLoading(){
+    this.loading = false;
+  }
   onClear(){
-
+    
+    this.startLoading();
     this.selectedCollection = undefined;
     this.selectedFabric = undefined;
     this.selectedColour = undefined;
@@ -33,9 +43,11 @@ export class ProductListComponent implements OnInit {
 
     this.productService.getFilteredProductList("undefined", "undefined", "undefined", "undefined", this.queriedSearch).subscribe(
        products => {
+        
          this.products = products;
          //initialise paginator 
          this.setPage(1);
+         this.stopLoading()
        });
 
     // this.productService.getProductList().subscribe(
@@ -48,6 +60,7 @@ export class ProductListComponent implements OnInit {
   }
   
   onSelectCollection(collectionId) {
+    this.startLoading()
     this.selectedCollectionId = collectionId.id;
     console.log(this.selectedCollectionId);
     console.log(this.selectedFabricId);
@@ -60,10 +73,12 @@ export class ProductListComponent implements OnInit {
         this.products = products;
         //initialise paginator 
         this.setPage(1);
+        this.stopLoading();
       });
   }
 
   onSelectFabric(fabricid) {
+    this.startLoading()
     this.selectedFabricId = fabricid.id;
     console.log(this.selectedCollectionId);
     console.log(this.selectedFabricId);
@@ -76,11 +91,14 @@ export class ProductListComponent implements OnInit {
         this.products = products;
         //initialise paginator 
         this.setPage(1);
+        this.stopLoading()
       });
   
   }
 
   onSelectColour(colourid) {
+    
+    this.startLoading()
     this.selectedColourId = colourid.id;
     console.log(this.selectedCollectionId);
     console.log(this.selectedFabricId);
@@ -93,11 +111,13 @@ export class ProductListComponent implements OnInit {
         this.products = products;
         //initialise paginator 
         this.setPage(1);
+        this.stopLoading()
       });
   }
     
 
   onSelectSort(sortid) {
+    this.startLoading()
     this.selectedSortPriceId = sortid.id;
     console.log(this.selectedCollectionId);
     console.log(this.selectedFabricId);
@@ -110,10 +130,12 @@ export class ProductListComponent implements OnInit {
         this.products = products;
         //initialise paginator 
         this.setPage(1);
+        this.stopLoading()
       });
   }
 
   onSearch(query: string): void {
+    this.startLoading()
     this.queriedSearch = query;
     console.log(this.selectedCollectionId);
     console.log(this.selectedFabricId);
@@ -126,6 +148,7 @@ export class ProductListComponent implements OnInit {
         this.products = products;
         //initialise paginator 
         this.setPage(1);
+        this.stopLoading()
       });
 	}
     
@@ -138,11 +161,10 @@ export class ProductListComponent implements OnInit {
   
   selectedCollection:any = null;
   collections = [
-       {id: "CO1", name: "2019 Spring"},
+       {id: "CO1", name: "Bestsellers"},
        {id: "CO2", name: "2018 Spring"},
        {id: "CO3", name: "2018 Summer"},
-       {id: "CO4", name: "2017 Spring"},
-       {id: "CO5", name: "2017 Winter"}
+       {id: "CO4", name: "2017 Spring"}
      ];
 
   selectedFabric:any = null;
@@ -189,6 +211,7 @@ export class ProductListComponent implements OnInit {
     private router: Router) { }
     
   ngOnInit() {
+    this.startLoading()
     this.selectedCollection = undefined;
     this.selectedFabric = undefined;
     this.selectedColour = undefined;
@@ -198,6 +221,7 @@ export class ProductListComponent implements OnInit {
         this.products = products;
         //initialise paginator 
         this.setPage(1);
+        this.stopLoading()
       });
   }
 

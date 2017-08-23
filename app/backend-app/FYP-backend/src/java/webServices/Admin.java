@@ -14,8 +14,11 @@ import entity.Customer;
 import entity.Staff;
 import entity.StaffRole;
 import java.util.HashMap;
+import javax.annotation.security.PermitAll;
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
+import javax.ws.rs.OPTIONS;
 //import javax.ws.rs.MatrixParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -36,10 +39,16 @@ import tokenManagement.tokenManagement;
 @Path("/staff")
 public class Admin {
     
+    @Context private HttpServletResponse response;
+    
     @POST
     @Path("/addNewStaff")
     @Produces(MediaType.APPLICATION_JSON)
     public String addNewStaff(@FormParam("email") String email, @FormParam("firstName") String firstName, @FormParam("lastName") String lastName, @FormParam("phoneNumber") String phoneNumber, @FormParam("password") String password, @FormParam("roleCode") String roleCode){
+        
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        
+        
         HashMap<String, String> responseMap = new HashMap<String, String>();
         Gson gson = new GsonBuilder().create();
         String status = "";     
@@ -64,15 +73,25 @@ public class Admin {
         return gson.toJson(responseMap);
     }
     
-    @PUT
+    @OPTIONS
+    @PermitAll
+    @Path("/update")
+    public void optionsUpdate() {
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
+        response.setHeader("Access-Control-Allow-Headers", "auhtorization");
+        
+    }
+      @PUT
       @Path("/update")
       @Produces(MediaType.APPLICATION_JSON)
-      public String updateStaff (@Context HttpHeaders httpHeaders, @FormParam("firstName") String firstName, @FormParam("lastName") String lastName, @FormParam("phoneNumber") String phoneNumber, @FormParam("password") String password, @FormParam("roleCode") String roleCode){
+      public String updateStaff (@FormParam("token") String token, @FormParam("firstName") String firstName, @FormParam("lastName") String lastName, @FormParam("phoneNumber") String phoneNumber, @FormParam("password") String password, @FormParam("roleCode") String roleCode){
+        response.setHeader("Access-Control-Allow-Origin", "*");
         //String password = CustomerDAO.retrievePasswordByEmail(email);
         HashMap<String, String> responseMap = new HashMap<>();
         Gson gson = new GsonBuilder().create();
         String status;
-        String token = httpHeaders.getRequestHeader("Authorization").get(0);
+        //String token = httpHeaders.getRequestHeader("Authorization").get(0);
         String email=tokenManagement.parseJWT(token);
         Staff staff = StaffDAO.retrieveStaffByEmail(email);
                 
@@ -91,15 +110,17 @@ public class Admin {
         return gson.toJson(responseMap);
     }
     
-    @GET
+   
+    @POST
     @Path("/retrieve")
     @Produces(MediaType.APPLICATION_JSON)
-    public String retrieve (@Context HttpHeaders httpHeaders){
+    public String retrieve (@FormParam("token") String token){
+        response.setHeader("Access-Control-Allow-Origin", "*");
         //String password = CustomerDAO.retrievePasswordByEmail(email);
         HashMap<String, String> responseMap = new HashMap<>();
         Gson gson = new GsonBuilder().create();
         String status;
-        String token = httpHeaders.getRequestHeader("Authorization").get(0);
+        //String token = httpHeaders.getRequestHeader("Authorization").get(0);
         String email=tokenManagement.parseJWT(token);
         Staff staff = StaffDAO.retrieveStaffByEmail(email);
         

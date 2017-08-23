@@ -35,6 +35,7 @@ export class QuickViewComponent extends DialogComponent<QuickViewPopupModel, boo
   cartItem: CartItem = new CartItem();
   productId: string;
   eachPrice: number;
+  private loading: boolean = true;
 
   constructor(private shoppingCartService: ShoppingCartService,
     dialogService: DialogService,
@@ -50,17 +51,26 @@ export class QuickViewComponent extends DialogComponent<QuickViewPopupModel, boo
     this.result = true;
     this.close();
   }
+  startLoading() {
+    this.loading = true;
+  }
 
+
+  stopLoading() {
+    this.loading = false;
+  }
 
   ngOnInit() {
     this.productService.getPatternById(this.patternId).subscribe(
       pattern => {
+        this.startLoading()
         this.pattern = pattern;
         this.selectedFabric = pattern.fabrics[0]
         this.selectedColour = this.selectedFabric.colours[0]
         this.selectedFabricPrice = +this.selectedFabric.fabric_price
         this.selectedColourPrice = +this.selectedColour.colour_price
         this.totalPrice = this.pattern.pattern_price + this.selectedFabricPrice + this.selectedColourPrice
+        this.stopLoading()
       });
 
   }
@@ -94,6 +104,7 @@ export class QuickViewComponent extends DialogComponent<QuickViewPopupModel, boo
 
   addCart() {
     //this.getProductId();
+    this.startLoading()
     this.productService.getProductId(this.patternId, this.selectedFabric.fabric_id, this.selectedColour.colour_id)
       .subscribe(productId => {
         console.log('inside get product id')
@@ -121,10 +132,9 @@ export class QuickViewComponent extends DialogComponent<QuickViewPopupModel, boo
 
             console.log(this.cartItem.patternName)
             console.log('eachPrice: ' + this.eachPrice)
-
             this.shoppingCartService.addItem(this.cartItem)
-            // window.location.reload();
-
+            this.stopLoading()
+            //window.location.reload();
             let disposable = this.dialogService.addDialog(CartPopupComponent, {
               title: 'Item is added to cart!',
               message: ''
@@ -146,7 +156,5 @@ export class QuickViewComponent extends DialogComponent<QuickViewPopupModel, boo
             }, 10000);
           });
       });
-
   }
-
 }

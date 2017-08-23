@@ -1,9 +1,11 @@
 <body>
-  <div class="container-fluid">
+  <app-loading *ngIf="loading"></app-loading>
+  
+  <div class="container" *ngIf="!loading">
     <div class="row">
       <div class="col-sm-6">
-        <img src="{{selectedColour.image_url}}" class="img-responsive" alt="Some picture">
-      </div>
+        <img *ngIf="loadingImage" src="../assets/images/loading.gif" alt="loading" />
+        <img [hidden]="!loadingImage" (load)="onLoad()" src="{{selectedColour.image_url}}" class="img-responsive" alt="Some picture" />      </div>
       <div class="col-sm-6">
         <h3 class="product-name">{{pattern.pattern_name}}</h3>
 
