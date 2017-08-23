@@ -45,6 +45,7 @@ import { CheckoutComponent } from './checkout/checkout.component';
 import { PaymentComponent } from './payment/payment.component';
 import { CartComponent } from './cart/cart.component';
 import { CartPopupComponent } from './cart-popup/cart-popup.component';
+import { ConfirmationPopupComponent } from './confirmation-popup/confirmation-popup.component';
 
 
 
@@ -71,7 +72,8 @@ import { CartPopupComponent } from './cart-popup/cart-popup.component';
     CheckoutComponent,
     PaymentComponent,
     CartComponent,
-    CartPopupComponent
+    CartPopupComponent,
+    ConfirmationPopupComponent
 
   ],
   imports: [
@@ -94,6 +96,11 @@ import { CartPopupComponent } from './cart-popup/cart-popup.component';
     ShoppingCartService
   ],
   bootstrap: [AppComponent],
-  entryComponents: [LoginPopupComponent, QuickViewComponent, CartPopupComponent]
+  entryComponents: [
+    LoginPopupComponent, 
+    QuickViewComponent, 
+    CartPopupComponent,
+    ConfirmationPopupComponent
+  ]
 })
 export class AppModule { }
