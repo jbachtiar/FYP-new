@@ -13,12 +13,10 @@ import dao.FabricDAO;
 import entity.Fabric;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
 
@@ -28,14 +26,12 @@ import javax.ws.rs.core.MediaType;
  */
 @Path("/FabricCatalogue")
 public class FabricCatalogue {
-    @Context private static HttpServletResponse response;
     
     @GET
     @Path("/patternFabric")
     @Produces(MediaType.APPLICATION_JSON)
     public static String getFabricsByPatternID(@QueryParam("patternID") String patternID){
         
-        response.setHeader("Access-Control-Allow-Origin", "*");
         
       
         JsonObject jsonOutput = new JsonObject();
@@ -82,7 +78,7 @@ public class FabricCatalogue {
     @Path("/fabrics")
     @Produces(MediaType.APPLICATION_JSON)
     public String getFabricCatalogue(){
-        response.setHeader("Access-Control-Allow-Origin", "*");
+
         FabricDAO fabricDAO = new FabricDAO();
         Gson gson = new GsonBuilder().create();
         JsonObject jsonOutput = new JsonObject();

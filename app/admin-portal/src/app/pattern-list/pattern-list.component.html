@@ -59,10 +59,7 @@
         </div>
         
         <hr>
-        <div *ngIf="loading" style="margin-top:100px">
-            <app-loading ></app-loading>
-            </div>
-        <div *ngIf="!loading" class="content">
+        <div class="content">
           <div *ngFor="let p of pagedPatterns">
 
             <img src="{{p.image_url}}" height="120" width="120" alt="...">

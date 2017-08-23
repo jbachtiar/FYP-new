@@ -84,7 +84,7 @@ export class ProductService {
     }
 
     getAllFabrics() {
-        let url = CONFIG.productCatalogueBackendUrl + '/fabrics';
+        let url = CONFIG.fabricCatalogueBackendUrl + '/fabrics';
         return this._http.get(url)
             .map(res => {
                 return res.json().fabrics;

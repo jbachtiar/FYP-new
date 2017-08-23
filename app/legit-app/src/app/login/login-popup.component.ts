@@ -30,7 +30,7 @@ export class LoginPopupComponent extends DialogComponent<LoginPopupModel, boolea
         private router: Router,
         private authenticationService: AuthenticationService,
         private alertService: AlertService) {
-            super(dialogService);
+        super(dialogService);
     }
     confirm() {
         // we set dialog result as true on click on confirm button, 

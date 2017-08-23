@@ -25,7 +25,6 @@ import { QRCodeModule } from 'angular2-qrcode';
 import { CardComponent } from 'ng2-bootstrap-card/ng2-bootstrap-card';
 import { PatternDetailsAddComponent } from './pattern-details-add/pattern-details-add.component';
 import { PatternDetailsViewComponent } from './pattern-details-view/pattern-details-view.component';
-import { LoadingComponent } from './loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -39,8 +38,7 @@ import { LoadingComponent } from './loading/loading.component';
     PatternDetailsComponent,
     CardComponent,
     PatternDetailsAddComponent,
-    PatternDetailsViewComponent,
-    LoadingComponent
+    PatternDetailsViewComponent
   ],
   imports: [
     BrowserModule,

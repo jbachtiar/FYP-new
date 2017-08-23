@@ -13,14 +13,12 @@ import dao.StaffDAO;
 import entity.Customer;
 import entity.Staff;
 import java.util.HashMap;
-import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.FormParam;
 //import javax.ws.rs.MatrixParam;
 import javax.ws.rs.POST;
 //import javax.ws.rs.MatrixParam;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.Context;
 //import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import tokenManagement.tokenManagement;
@@ -32,15 +30,11 @@ import tokenManagement.tokenManagement;
  */
 @Path("/authentication")
 public class Authentication {
-    @Context private HttpServletResponse response;
     
     @POST
     @Path("/login")
     @Produces(MediaType.APPLICATION_JSON)
     public String login (@FormParam("email") String email, @FormParam("password") String password ){
-       
-        response.setHeader("Access-Control-Allow-Origin", "*");
-        
         //String password = CustomerDAO.retrievePasswordByEmail(email);
         HashMap<String, String> responseMap = new HashMap<String, String>();
         Gson gson = new GsonBuilder().create();
@@ -99,8 +93,7 @@ public class Authentication {
     @Path("/admin/login")
     @Produces(MediaType.APPLICATION_JSON)
     public String adminLogin (@FormParam("email") String email, @FormParam("password") String password ){
-        response.setHeader("Access-Control-Allow-Origin", "*");
-//String password = CustomerDAO.retrievePasswordByEmail(email);
+        //String password = CustomerDAO.retrievePasswordByEmail(email);
         HashMap<String, String> responseMap = new HashMap<String, String>();
         Gson gson = new GsonBuilder().create();
         

@@ -30,7 +30,7 @@ export class ProductDetailComponent implements OnInit {
   selectedFabricPrice: number;
   selectedColourPrice: number;
   totalPrice: number;
-  loading: boolean=true;
+
   constructor(
     private shoppingCartService: ShoppingCartService,
     private productService: ProductService,
@@ -47,86 +47,86 @@ export class ProductDetailComponent implements OnInit {
 
     this.productService.getPatternById(this.patternId).subscribe(
       pattern => {
-        this.startLoading()
         this.pattern = pattern;
         this.selectedFabric = pattern.fabrics[0]
         this.selectedColour = this.selectedFabric.colours[0]
         this.selectedFabricPrice = +this.selectedFabric.fabric_price
         this.selectedColourPrice = +this.selectedColour.colour_price
         this.totalPrice = this.pattern.pattern_price + this.selectedFabricPrice + this.selectedColourPrice
-        this.stopLoading()
       });
-    }
+  }
 
-    startLoading(){
-      this.loading = true;
-    }
-  
-    
-    stopLoading(){
-      this.loading = false;
-    }
+  onFabricChange() {
+    this.selectedColour = this.selectedFabric.colours[0];
+    this.selectedColourPrice = +this.selectedColour.colour_price;
+    this.selectedFabricPrice = +this.selectedFabric.fabric_price;
+    this.totalPrice = this.pattern.pattern_price + this.selectedFabricPrice + this.selectedColourPrice;
+    console.log("RECALCULATED PRICE" + this.totalPrice);
+  }
 
-    onFabricChange(){
-      this.selectedColour = this.selectedFabric.colours[0];
-      this.selectedColourPrice = +this.selectedColour.colour_price;
-      this.selectedFabricPrice = +this.selectedFabric.fabric_price;
-      this.totalPrice = this.pattern.pattern_price + this.selectedFabricPrice + this.selectedColourPrice;
-      console.log("RECALCULATED PRICE" + this.totalPrice);
-    } 
+  onColourChange() {
+    this.selectedColourPrice = +this.selectedColour.colour_price;
+    this.totalPrice = this.pattern.pattern_price + this.selectedFabricPrice + this.selectedColourPrice;
+    console.log("RECALCULATED PRICE" + this.totalPrice)
+  }
 
-    onColourChange(){
-      this.selectedColourPrice = +this.selectedColour.colour_price;
-      this.totalPrice = this.pattern.pattern_price + this.selectedFabricPrice + this.selectedColourPrice;
-      console.log("RECALCULATED PRICE" + this.totalPrice) 
-    }
-  
-    addCart() {
-      this.startLoading()
-      //this.getProductId();
-      this.productService.getProductId(this.patternId, this.selectedFabric.fabric_id, this.selectedColour.colour_id)
-        .subscribe(productId => {
-          console.log('inside get product id')
-          this.productId = productId;
-          console.log("selectedColour: " + this.selectedColour.colour_name)
-          console.log("selectedFabric: " + this.selectedFabric.fabric_id)
-          console.log("quantity: " + this.selectedQuantity)
-          console.log('thispID: ' + this.productId)
+  addCart() {
+    //this.getProductId();
+    this.productService.getProductId(this.patternId, this.selectedFabric.fabric_id, this.selectedColour.colour_id)
+      .subscribe(productId => {
+        console.log('inside get product id')
+        this.productId = productId;
+        console.log("selectedColour: " + this.selectedColour.colour_name)
+        console.log("selectedFabric: " + this.selectedFabric.fabric_id)
+        console.log("quantity: " + this.selectedQuantity)
+        console.log('thispID: ' + this.productId)
 
-          this.productService.getPriceById(this.productId)
-            .subscribe(eachPrice => {
-              console.log('each price')
-              this.eachPrice = eachPrice
-              console.log(this.productId)
+        this.productService.getPriceById(this.productId)
+          .subscribe(eachPrice => {
+            console.log('each price')
+            this.eachPrice = eachPrice
+            console.log(this.productId)
 
-              this.cartItem.productId = this.productId
-              this.cartItem.eachPrice = this.eachPrice
-              this.cartItem.patternName = this.pattern.pattern_name
-              this.cartItem.quantity = this.selectedQuantity
-              this.cartItem.url = this.selectedColour.image_url
-              this.cartItem.fabricName = this.selectedFabric.fabric_name
-              console.log("fabric name : " + this.cartItem.fabricName)
-              this.cartItem.colourName = this.selectedColour.colour_name
-              console.log("colour name : " + this.cartItem.colourName)
-              
-              console.log(this.cartItem.patternName)
-              console.log('eachPrice: ' + this.eachPrice)
+            this.cartItem.productId = this.productId
+            this.cartItem.eachPrice = this.eachPrice
+            this.cartItem.patternName = this.pattern.pattern_name
+            this.cartItem.quantity = this.selectedQuantity
+            this.cartItem.url = this.selectedColour.image_url
+            this.cartItem.fabricName = this.selectedFabric.fabric_name
+            console.log("fabric name : " + this.cartItem.fabricName)
+            this.cartItem.colourName = this.selectedColour.colour_name
+            console.log("colour name : " + this.cartItem.colourName)
 
-              this.shoppingCartService.addItem(this.cartItem)
-              window.location.reload();
-              this.stopLoading()
-            });
+            console.log(this.cartItem.patternName)
+            console.log('eachPrice: ' + this.eachPrice)
 
-        });
-        
-    }
+            this.shoppingCartService.addItem(this.cartItem)
+            // window.location.reload();
+            let disposable = this.dialogService.addDialog(CartPopupComponent, {
+              title: 'Item is added to cart!',
+              message: ''
+            })
+              .subscribe((isConfirmed) => {
+                console.log("DIALOG")
+                //We get dialog result
+                if (isConfirmed) {
+                  //do nothing
+                }
+                else {
+                  //do nothing
+                }
+              });
+          });
+      });
 
-    getProductId() {
+  }
 
-    }
+  getProductId() {
 
-    emptyCart() {
-      this.shoppingCartService.empty();
-      console.log("cart is emptied");
-    }
+  }
+
+  emptyCart() {
+    this.shoppingCartService.empty();
+    console.log("cart is emptied");
+  }
 }

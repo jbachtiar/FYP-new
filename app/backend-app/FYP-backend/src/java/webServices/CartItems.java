@@ -31,7 +31,6 @@ import entity.ShoppingCart;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
@@ -54,14 +53,10 @@ import tokenManagement.tokenManagement;
 @Path("/Cart")
 public class CartItems {
     
-    @Context private HttpServletResponse response;
-    
     @GET
     @Path("/productPrice")
     @Produces(MediaType.APPLICATION_JSON)
     public String getProductPrice(@QueryParam("productId") String productId){
-        response.setHeader("Access-Control-Allow-Origin", "*");
-        
         double totalPrice = 0.0;
         JsonObject jsonOutput = new JsonObject();
         Gson gson = new GsonBuilder().create();
@@ -153,7 +148,7 @@ public class CartItems {
     @Path("/updateCartItems")
     @Produces(MediaType.APPLICATION_JSON)
     public String updateCartItems(@FormParam("cartId") String cartId, @FormParam("productId") String productId, @FormParam("qty") String qty) {
-        response.setHeader("Access-Control-Allow-Origin", "*");
+
         Gson gson = new GsonBuilder().create();
         JsonObject jsonOutput = new JsonObject();
 
@@ -178,7 +173,6 @@ public class CartItems {
     @Path("/retrieveCart")
     @Produces(MediaType.APPLICATION_JSON)
     public String retrieveCart(@Context HttpHeaders httpHeaders) {
-        response.setHeader("Access-Control-Allow-Origin", "*");
         String token = httpHeaders.getRequestHeader("Authorization").get(0);
         String email = tokenManagement.parseJWT(token);
         
@@ -239,7 +233,7 @@ public class CartItems {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public String updateCart(@Context HttpHeaders httpHeaders, final String json) {
-        response.setHeader("Access-Control-Allow-Origin", "*");
+        
         String token = httpHeaders.getRequestHeader("Authorization").get(0);
         String email = tokenManagement.parseJWT(token);
         
@@ -316,7 +310,7 @@ public class CartItems {
     @Path("/delete")
     @Produces(MediaType.APPLICATION_JSON)
     public String deleteCartItems(@QueryParam("cartId") String cartId,@QueryParam("productId") String productId, @QueryParam("qty") String qty) {
-        response.setHeader("Access-Control-Allow-Origin", "*");
+
         Gson gson = new GsonBuilder().create();
         JsonObject jsonOutput = new JsonObject();
 
@@ -339,7 +333,7 @@ public class CartItems {
     @Path("/price")
     @Produces(MediaType.APPLICATION_JSON)
     public String getCartTotalPrice(@QueryParam("cartId") String cartId) {
-        response.setHeader("Access-Control-Allow-Origin", "*");
+
         Gson gson = new GsonBuilder().create();
         JsonObject jsonOutput = new JsonObject();
         String price;

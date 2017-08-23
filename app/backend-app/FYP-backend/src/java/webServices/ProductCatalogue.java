@@ -23,12 +23,9 @@ import entity.Product;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import javax.annotation.security.PermitAll;
-import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
-import javax.ws.rs.OPTIONS;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -47,26 +44,11 @@ import javax.ws.rs.core.MediaType;
 
 @Path("/ProductCatalogue")
 public class ProductCatalogue {
-    
-    
-    @Context private HttpServletResponse response;
 
-    @OPTIONS
-    @PermitAll
-    @Path("/update")
-    public void optionsUpdateProduct() {
-        response.setHeader("Access-Control-Allow-Origin", "*");
-        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
-        response.setHeader("Access-Control-Allow-Headers", "content-type");
-        
-    }
-    
-    
     @POST
     @Path("/update")
     @Consumes(MediaType.APPLICATION_JSON)
-    public String updateProduct(final String json){
-        response.setHeader("Access-Control-Allow-Origin", "*");
+    public String test(final String json){
         
         
         Gson gson = new Gson(); 
@@ -97,9 +79,7 @@ public class ProductCatalogue {
     @Path("/uniquePatterns")
     @Produces(MediaType.APPLICATION_JSON)
     public String getProductsCatalogue() {
-        response.setHeader("Access-Control-Allow-Origin", "*");
-        
-        
+
         Gson gson = new GsonBuilder().create();
         JsonObject jsonOutput = new JsonObject();
         JsonArray products = new JsonArray();
@@ -152,8 +132,6 @@ public class ProductCatalogue {
     @Path("/product")
     @Produces(MediaType.APPLICATION_JSON)
     public String getProductById(@QueryParam("sku") String sku) {
-        
-        response.setHeader("Access-Control-Allow-Origin", "*");
 
         JsonObject jsonOutput = new JsonObject();
         Gson gson = new GsonBuilder().create();
@@ -201,8 +179,6 @@ public class ProductCatalogue {
     @Path("/customization")
     @Produces(MediaType.APPLICATION_JSON)
     public String getCombinationsByPatternId(@QueryParam("patternId") String patternId) {
-        
-        response.setHeader("Access-Control-Allow-Origin", "*");
 
         JsonObject jsonOutput = new JsonObject();
         Gson gson = new GsonBuilder().create();
@@ -274,9 +250,7 @@ public class ProductCatalogue {
     @Path("/filtersort")
     @Produces(MediaType.APPLICATION_JSON)
     public String getProductsCataloguebyFilter(@QueryParam("collectionId") String collectionId, @QueryParam("fabricId") String fabricId, @QueryParam("colourId") String colourId, @QueryParam("sortPrice") String sortPrice, @QueryParam("search") String search) {
-        
-        response.setHeader("Access-Control-Allow-Origin", "*");
-        
+
         Gson gson = new GsonBuilder().create();
         JsonObject jsonOutput = new JsonObject();
         JsonArray products = new JsonArray();
@@ -329,10 +303,7 @@ public class ProductCatalogue {
     @Path("/search")
     @Produces(MediaType.APPLICATION_JSON)
     public String getSearchProducts(@QueryParam("search") String search) {
-        
-        
-        response.setHeader("Access-Control-Allow-Origin", "*");
-        
+
         Gson gson = new GsonBuilder().create();
         JsonObject jsonOutput = new JsonObject();
         JsonArray products = new JsonArray();
@@ -393,10 +364,7 @@ public class ProductCatalogue {
     @Path("/filters")
     @Produces(MediaType.APPLICATION_JSON)
     public String getProductsCataloguebyFilters(@QueryParam("collectionId") String collectionId, @QueryParam("fabricId") String fabricId, @QueryParam("colourId") String colourId, @QueryParam("sortPrice") String sortPrice, @QueryParam("search") String search) {
-        
-        
-        response.setHeader("Access-Control-Allow-Origin", "*");
-        
+
         Gson gson = new GsonBuilder().create();
         JsonObject jsonOutput = new JsonObject();
         JsonArray products = new JsonArray();
@@ -451,9 +419,6 @@ public class ProductCatalogue {
     @Produces(MediaType.APPLICATION_JSON)
     public String updatePatternFabric (@Context HttpHeaders httpHeaders, @FormParam("patternID") String patternID,@FormParam("fabricID") String fabricID){
         //String password = CustomerDAO.retrievePasswordByEmail(email);
-        
-        response.setHeader("Access-Control-Allow-Origin", "*");
-        
         HashMap<String, String> responseMap = new HashMap<>();
         Gson gson = new GsonBuilder().create();
         String status;
@@ -472,9 +437,6 @@ public class ProductCatalogue {
     @Path("/colours")
     @Produces(MediaType.APPLICATION_JSON)
     public String getColourCatalogue(){
-        
-        
-        response.setHeader("Access-Control-Allow-Origin", "*");
 
         ColourDAO colourDAO = new ColourDAO();
         Gson gson = new GsonBuilder().create();
@@ -511,9 +473,7 @@ public class ProductCatalogue {
     @Path("/collections")
     @Produces(MediaType.APPLICATION_JSON)
     public String getCollectionCatalogue(){
-        
-        response.setHeader("Access-Control-Allow-Origin", "*");
-        
+
         CollectionDAO collectionDAO = new CollectionDAO();
         Gson gson = new GsonBuilder().create();
         JsonObject jsonOutput = new JsonObject();
@@ -549,10 +509,7 @@ public class ProductCatalogue {
     @Path("/adminPatternFilter")
     @Produces(MediaType.APPLICATION_JSON)
     public String getadminFilter(@QueryParam("collectionId") String collectionId, @QueryParam("fabricId") String fabricId, @QueryParam("colourId") String colourId, @QueryParam("sortPrice") String sortPrice, @QueryParam("search") String search) {
-        
-        
-        response.setHeader("Access-Control-Allow-Origin", "*");
-        
+
         System.out.println("bad");
         Gson gson = new GsonBuilder().create();
         JsonObject jsonOutput = new JsonObject();
@@ -609,7 +566,6 @@ public class ProductCatalogue {
     public String getProductIdBy(@QueryParam("patternId") String patternId, @QueryParam("fabricId") String fabricId, @QueryParam("colourId") String colourId){
         
         
-        response.setHeader("Access-Control-Allow-Origin", "*");
       
         JsonObject jsonOutput = new JsonObject();
         Gson gson = new GsonBuilder().create();
@@ -636,40 +592,5 @@ public class ProductCatalogue {
         return finalJsonOutput;
     }
     
-    @GET
-    @Path("/fabrics")
-    @Produces(MediaType.APPLICATION_JSON)
-    public String getFabricCatalogue(){
-        response.setHeader("Access-Control-Allow-Origin", "*");
-        FabricDAO fabricDAO = new FabricDAO();
-        Gson gson = new GsonBuilder().create();
-        JsonObject jsonOutput = new JsonObject();
-        JsonArray fabrics = new JsonArray();
-        
-        try{
-            
-            Fabric[] fArray = fabricDAO.getAllFabrics();
-            jsonOutput.addProperty("status","200");
-            
-            for(Fabric f: fArray){
-                
-                JsonObject temp = new JsonObject();
-                temp.addProperty("fabric_id", f.getFabricID());
-                temp.addProperty("fabric_name", f.getFabricName());
-                temp.addProperty("fabric_price", f.getFabricPrice());
-                fabrics.add(temp);
-                
-            }
-
-            jsonOutput.add("fabrics", fabrics);
-            
-        }catch(SQLException e){
-        
-            jsonOutput.addProperty("status","error");
-            
-        }
-        
-        String finalJsonOutput = gson.toJson(jsonOutput);
-        return finalJsonOutput;
-    }
+    
 }

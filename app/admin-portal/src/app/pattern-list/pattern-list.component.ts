@@ -12,7 +12,6 @@ export class PatternListComponent implements OnInit {
   private patterns = []
      // pager object
   pager: any = {};
-  private loading:boolean = true;
 
   // paged items
   pagedPatterns: any[];
@@ -25,7 +24,6 @@ export class PatternListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.startLoading()
     this.selectedCollection = undefined;
     this.selectedFabric = undefined;
     this.selectedColour = undefined;
@@ -35,17 +33,8 @@ export class PatternListComponent implements OnInit {
         this.patterns = patterns;
         this.setPage(1);
  
-       this.stopLoading()
+       
       });
-  }
-
-  startLoading(){
-    this.loading = true;
-  }
-
-  
-  stopLoading(){
-    this.loading = false;
   }
   
   onEditPattern(pattern_id: number): void {
@@ -84,7 +73,7 @@ export class PatternListComponent implements OnInit {
   queriedSearch;
 
   onClear(){
-    this.startLoading()
+
     this.selectedCollection = undefined;
     this.selectedFabric = undefined;
     this.selectedColour = undefined;
@@ -103,13 +92,11 @@ export class PatternListComponent implements OnInit {
           this.patterns=patterns
           console.log("PATTERNS: " + JSON.stringify(this.patterns))
           this.setPage(1);
-          this.stopLoading()
         }else{
           patterns=[]
           this.patterns=patterns
           console.log("PATTERNS: " + JSON.stringify(this.patterns))
           this.setPage(1);
-          this.stopLoading()
         }
  
       });
@@ -132,7 +119,6 @@ export class PatternListComponent implements OnInit {
   }
   
   onSelectCollection(collectionId) {
-    this.startLoading()
     this.selectedCollectionId = collectionId.id;
     console.log(this.selectedCollectionId);
     console.log(this.selectedFabricId);
@@ -147,13 +133,11 @@ export class PatternListComponent implements OnInit {
           this.patterns=patterns
           console.log("PATTERNS: " + JSON.stringify(this.patterns))
           this.setPage(1);
-          this.stopLoading()
         }else{
           patterns=[]
           this.patterns=patterns
           console.log("PATTERNS: " + JSON.stringify(this.patterns))
           this.setPage(1);
-          this.stopLoading()
         }
  
       });
@@ -161,7 +145,6 @@ export class PatternListComponent implements OnInit {
   }
 
   onSelectFabric(fabricid) {
-    this.startLoading()
     this.selectedFabricId = fabricid.id;
     console.log(this.selectedCollectionId);
     console.log(this.selectedFabricId);
@@ -173,12 +156,10 @@ export class PatternListComponent implements OnInit {
         if(patterns){
           this.patterns=patterns
           this.setPage(1);
-          this.stopLoading()
         }else{
           patterns=[]
           this.patterns=patterns
           this.setPage(1);
-          this.stopLoading()
         }
  
       });
@@ -187,7 +168,6 @@ export class PatternListComponent implements OnInit {
   }
 
   onSelectColour(colourid) {
-    this.startLoading()
     this.selectedColourId = colourid.id;
     console.log(this.selectedCollectionId);
     console.log(this.selectedFabricId);
@@ -199,11 +179,9 @@ export class PatternListComponent implements OnInit {
         this.patterns = patterns;
         if(patterns){
           this.setPage(1);
-          this.stopLoading()
         }else{
           patterns=[]
           this.setPage(1);
-          this.stopLoading()
         }
  
       });

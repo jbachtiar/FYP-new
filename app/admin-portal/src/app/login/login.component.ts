@@ -19,17 +19,8 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
 
   }
-
-  startLoading(){
-    this.loading = true;
-  }
-
-  
-  stopLoading(){
-    this.loading = false;
-  }
   login(){
-    this.startLoading()
+    this.loading = true;
     console.log("logging in")
 
     
@@ -44,9 +35,7 @@ export class LoginComponent implements OnInit {
                   this.loading = false; 
                   //this.router.navigate(['./homepage']);
                   window.location.reload();
-                  //this.stopLoading()
                 }else{
-                  this.stopLoading()
                   console.log(res.status);
                 }
               }

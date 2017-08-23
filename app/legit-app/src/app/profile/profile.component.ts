@@ -20,8 +20,7 @@ export class ProfileComponent implements OnInit {
   postalCode: string;
   password: string;
   customer: Customer;
-  token: string;
-  loading: boolean = true;
+  token: string
   
   
 constructor(private profileService: ProfileService  ) { 
@@ -35,7 +34,6 @@ constructor(private profileService: ProfileService  ) {
     
      this.profileService.displayProfile(this.token).subscribe(
           res => {
-            this.loading = true;
             if(res.status === '200'){
               console.log("Retrieve successful");
               this.customer=this.profileService.getCustomer();
@@ -45,7 +43,7 @@ constructor(private profileService: ProfileService  ) {
               this.address= this.customer.address;
               this.postalCode= this.customer.postalCode;
               this.password= this.customer.password;
-              this.loading = false;
+            
             }else{
                 console.log("Retrieve failed");
               

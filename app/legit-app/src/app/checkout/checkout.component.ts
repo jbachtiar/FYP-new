@@ -24,7 +24,6 @@ export class CheckoutComponent implements OnInit {
   private sameAddre: boolean = false;
   private shoppingCart: ShoppingCart;
   private cartItem : CartItem[]
-  private loading : boolean = true;
   
   customer: Customer;
   token: string;
@@ -40,10 +39,9 @@ export class CheckoutComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.startLoading()
+
     this.cartItem = this.shoppingCart.items
     console.log(new Date().toLocaleDateString());
-    this.stopLoading()
     // this.cartService.getCartItemByCartId("C1").subscribe(
     //   carts => {
 
@@ -52,15 +50,6 @@ export class CheckoutComponent implements OnInit {
 
 
     //   })
-  }
-
-  startLoading(){
-    this.loading = true;
-  }
-
-  
-  stopLoading(){
-    this.loading = false;
   }
 
   //increase product qty
@@ -92,7 +81,6 @@ export class CheckoutComponent implements OnInit {
   }
 
   sameAddress() {
-    this.startLoading()
     if (this.user.sameAddress) {
       console.log(this.token);
       this.sameAddre = true;
@@ -110,7 +98,6 @@ export class CheckoutComponent implements OnInit {
             console.log("Retrieve failed");
 
           }
-          this.stopLoading()
         }
       )
 
@@ -121,7 +108,7 @@ export class CheckoutComponent implements OnInit {
       this.user.contact = "";
       this.user.address = "";
       this.user.postCode = "";
-      this.stopLoading()
+
     }
   }
 

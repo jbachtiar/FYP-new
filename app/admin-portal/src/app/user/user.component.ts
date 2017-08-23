@@ -17,15 +17,13 @@ export class UserComponent implements OnInit {
   password: string;
   roleCode: string;
   user: User;
-  token: string;
-  private loading:boolean = true;  
+  token: string  
   
   constructor(private staffcontrolservice : StaffcontrolService){
     this.token = localStorage.getItem('token');
   }
 
   ngOnInit() {
-    this.startLoading()
     console.log(this.token);
     
      this.staffcontrolservice.displayProfile(this.token).subscribe(
@@ -39,22 +37,12 @@ export class UserComponent implements OnInit {
               this.phoneNumber= this.user.phoneNumber;
               this.password= this.user.password;
               this.roleCode= this.user.roleCode;
-              this.stopLoading()
+            
             }else{
-                this.stopLoading()
                 console.log("Retrieve failed");
               
             }
           });
-  }
-
-  startLoading(){
-    this.loading = true;
-  }
-
-  
-  stopLoading(){
-    this.loading = false;
   }
 
   updateProfile(){
