@@ -27,7 +27,7 @@ export class CartPopupComponent extends DialogComponent<CartPopupModel, boolean>
     dialogService: DialogService,
     private route: ActivatedRoute,
     private router: Router) {
-    super(dialogService);
+      super(dialogService);
   }
 
   confirm() {
