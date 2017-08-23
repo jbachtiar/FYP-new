@@ -21,6 +21,7 @@ export class PatternDetailsAddComponent implements OnInit {
   selectedColour = [];
   patternUrl = "";
   res:string;
+  loading:boolean = true;
 
   constructor(private productService: ProductService, private route: ActivatedRoute) { }
 
@@ -37,6 +38,7 @@ export class PatternDetailsAddComponent implements OnInit {
     this.pattern = {"pattern_id":"","pattern_name":"","pattern_description":"","pattern_price":"","collection_id":"CO1","collection_name":"New Arrivals","fabrics":[]}
     this.productService.getAllFabrics().subscribe(
       fabrics => {
+        this.startLoading()
         this.fabrics = fabrics;
         for (let f of this.fabrics) {
           // console.log("ALL avail fabrics: " + JSON.stringify(f))
@@ -77,9 +79,19 @@ export class PatternDetailsAddComponent implements OnInit {
                 // console.log("AVAIL FABRICS: " + JSON.stringify(f))
               }
             }
+            this.stopLoading()
           });
       });
     // });
+  }
+  
+  startLoading(){
+    this.loading = true;
+  }
+
+  
+  stopLoading(){
+    this.loading = false;
   }
 
   onSave() {

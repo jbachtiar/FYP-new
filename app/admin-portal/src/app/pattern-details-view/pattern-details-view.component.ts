@@ -20,6 +20,7 @@ export class PatternDetailsViewComponent implements OnInit {
   colours = []
   selectedColour = [];
   patternUrl = "";
+  loading:boolean  = true;
 
   constructor(private productService: ProductService, private route: ActivatedRoute) { }
 
@@ -31,8 +32,18 @@ export class PatternDetailsViewComponent implements OnInit {
     //get pattern details
     this.productService.getPatternById(this.patternId).subscribe(
       pattern => {
+        this.startLoading()
         this.pattern = pattern;
+        this.stopLoading()
     });
+  }
+  startLoading(){
+    this.loading = true;
+  }
+
+  
+  stopLoading(){
+    this.loading = false;
   }
   
 }
