@@ -6,7 +6,7 @@
 package dao;
 
 import database.ConnectionManager;
-import entity.Colour;
+import entity.BeddingSize;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,24 +19,25 @@ import java.util.logging.Logger;
  *
  * @author JeremyBachtiar
  */
-public class ColourDAO {
+public class BeddingSizeDAO {
     
-    public String addColour(Colour colour) throws SQLException{
+    public String addBeddingSize(BeddingSize bs) throws SQLException{
         
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
        
-        String sql = "INSERT INTO COLOUR VALUES (?,?,?)";
-        if(getColourById(colour.getColourId())!=null){
+        String sql = "INSERT INTO BEDDING_SIZE VALUES (?,?,?)";
+        
+        if(getBeddingSizeByName(bs.getSizeName())!=null){
             
             try {
 
                 conn = ConnectionManager.getConnection();
                 stmt = conn.prepareStatement(sql);
-                stmt.setInt(1, colour.getColourId());
-                stmt.setString(2, colour.getColourName());
-                stmt.setString(3, "N");
+                stmt.setString(1, bs.getSizeName());
+                stmt.setString(2, bs.getDimensions());
+                stmt.setDouble(3, bs.getSizePrice());
                 
                 rs = stmt.executeQuery();
                 
@@ -44,33 +45,33 @@ public class ColourDAO {
                 ConnectionManager.close(conn, stmt, rs);
             }
         }else{
-            return "Colour already exist";
+            return "Beddig size already exist";
         }
         
         return "Success";
     }
     
-    public Colour getColourById(int colourId) throws SQLException{
+    public BeddingSize getBeddingSizeByName(String sizeName) throws SQLException{
         
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        Colour result = null;
+        BeddingSize result = null;
         
-        String sql = "SELECT * FROM COLOUR WHERE COLOUR_ID = ?";
+        String sql = "SELECT * FROM BEDDING_SIZE WHERE SIZE_NAME = ?";
         
         try {
             
             conn = ConnectionManager.getConnection();
             stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, colourId);
+            stmt.setString(1, sizeName);
             rs = stmt.executeQuery();
             
             while(rs.next()){
-                String colourName = rs.getString("COLOUR_NAME");
-                String deleted = rs.getString("DELETED");
+                String dimensions = rs.getString("DIMENSIONS");
+                double price = rs.getDouble("SIZE_PRICE");
                 
-                result = new Colour(colourId, colourName);
+                result = new BeddingSize(sizeName,dimensions, price);
             }
 
         } finally {
@@ -81,51 +82,50 @@ public class ColourDAO {
         
     }
     
-    public ArrayList<Colour> getAllAvailableColours() throws SQLException{
+    public ArrayList<BeddingSize> getAllBeddingSizes() throws SQLException{
         
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        ArrayList<Colour> colourList = new ArrayList<Colour>();
+        ArrayList<BeddingSize> beddingSizeList = new ArrayList<BeddingSize>();
         
-        String sql = "SELECT * FROM COLOUR WHERE DELETED = ? ";
+        String sql = "SELECT * FROM BEDDING_SIZE";
         try {
             
             conn = ConnectionManager.getConnection();
             stmt = conn.prepareStatement(sql);
-            stmt.setString(1, "N");
             rs = stmt.executeQuery();
             
             while(rs.next()){
-                int colourId = rs.getInt("COLOUR_ID");
-                String colourName = rs.getString("COLOUR_NAME");
+                String sizeName = rs.getString("SIZE_NAME");
+                String dimensions = rs.getString("DIMENSIONS");
+                double price = rs.getDouble("SIZE_PRICE");
                 
-                Colour colour = new Colour(colourId, colourName);
-                colourList.add(colour);
+                BeddingSize bs = new BeddingSize(sizeName,dimensions, price);
+                beddingSizeList.add(bs);
             }
 
         } finally {
             ConnectionManager.close(conn, stmt, rs);
         }
         
-        return colourList;
+        return beddingSizeList;
         
     }
     
-    public String deleteColourById(int id) throws SQLException{
+    public String deleteBeddingSizeByName(String sizeName) throws SQLException{
         
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
        
-        String sql = "UPDATE COLOUR SET DELETED = ? WHERE COLOUR_ID = ?";
+        String sql = "DELETE FROM BEDDING_SIZE WHERE SIZE_NAME = ?";
         
         try {
 
             conn = ConnectionManager.getConnection();
             stmt = conn.prepareStatement(sql);
-            stmt.setString(1, "Y");
-            stmt.setInt(2, id);
+            stmt.setString(1, sizeName);
 
             rs = stmt.executeQuery();
 
@@ -135,22 +135,23 @@ public class ColourDAO {
 
         return "Success";
     }
-    public String updateColour(Colour colour)throws SQLException{
+    public String updateTag(BeddingSize bs)throws SQLException{
         
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
        
-        String sql = "UPDATE COLOUR SET COLOUR_NAME = ? WHERE COLOUR_ID = ?";
+        String sql = "UPDATE TAG SET DIMENSIONS = ?, SIZE_PRICE = ? WHERE SIZE_NAME = ?";
         
-        if(getColourById(colour.getColourId())!=null){
+        if(getBeddingSizeByName(bs.getSizeName())!=null){
             
             try {
 
                 conn = ConnectionManager.getConnection();
                 stmt = conn.prepareStatement(sql);
-                stmt.setString(1, colour.getColourName());
-                stmt.setInt(2, colour.getColourId());
+                stmt.setString(1, bs.getDimensions());
+                stmt.setDouble(2, bs.getSizePrice());
+                stmt.setString(3, bs.getSizeName());
                 
                 rs = stmt.executeQuery();
                 
@@ -158,7 +159,7 @@ public class ColourDAO {
                 ConnectionManager.close(conn, stmt, rs);
             }
         }else{
-            return "Colour does not exist";
+            return "Bedding Size does not exist";
         }
         
         return "Success";

@@ -11,23 +11,23 @@ package entity;
  */
 public class Fabric {
     
-    private String fabricId;
+    private int fabricId;
     private String fabricName;
     private String fabricDesc;
     private double fabricPrice;
 
-    public Fabric(String fabricId, String fabricName, String fabricDesc, double fabricPrice) {
+    public Fabric(int fabricId, String fabricName, String fabricDesc, double fabricPrice) {
         this.fabricId = fabricId;
         this.fabricName = fabricName;
         this.fabricDesc = fabricDesc;
         this.fabricPrice = fabricPrice;
     }
 
-    public String getFabricId() {
+    public int getFabricId() {
         return fabricId;
     }
 
-    public void setFabricId(String fabricId) {
+    public void setFabricId(int fabricId) {
         this.fabricId = fabricId;
     }
 

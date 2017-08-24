@@ -107,7 +107,7 @@ public class StaffRoleDAO {
         
     }
     
-    public String deleteStaffRoleIdById(String id) throws SQLException{
+    public String deleteStaffRoleById(String id) throws SQLException{
         
         Connection conn = null;
         PreparedStatement stmt = null;

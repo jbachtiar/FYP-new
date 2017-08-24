@@ -13,19 +13,19 @@ package entity;
 
 public class Collection {
     
-    private String collectionId;
+    private int collectionId;
     private String collectionName;
 
-    public Collection(String collectionId, String collectionName) {
+    public Collection(int collectionId, String collectionName) {
         this.collectionId = collectionId;
         this.collectionName = collectionName;
     }
 
-    public String getCollectionId() {
+    public int getCollectionId() {
         return collectionId;
     }
 
-    public void setCollectionId(String collectionId) {
+    public void setCollectionId(int collectionId) {
         this.collectionId = collectionId;
     }
 
