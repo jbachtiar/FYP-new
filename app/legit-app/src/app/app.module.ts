@@ -48,6 +48,7 @@ import { CartPopupComponent } from './cart-popup/cart-popup.component';
 import { ConfirmationPopupComponent } from './confirmation-popup/confirmation-popup.component';
 import { LoadingComponent } from './loading/loading.component';
 import { DeleteConfirmationPopupComponent } from './delete-confirmation-popup/delete-confirmation-popup.component';
+import { StripeComponent } from './stripe/stripe.component';
 
 
 
@@ -77,7 +78,8 @@ import { DeleteConfirmationPopupComponent } from './delete-confirmation-popup/de
     CartPopupComponent,
     ConfirmationPopupComponent,
     LoadingComponent,
-    DeleteConfirmationPopupComponent
+    DeleteConfirmationPopupComponent,
+    StripeComponent
   ],
   imports: [
     BrowserModule,
