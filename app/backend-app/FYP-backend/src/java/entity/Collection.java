@@ -5,19 +5,12 @@
  */
 package entity;
 
-
 /**
  *
  * @author Ong Yi Xuan
  */
-
 public class Collection {
-    
-<<<<<<< HEAD
-    
-    
-=======
->>>>>>> 689643d0267fb2e97f291bf78780bb0a6bba2924
+
     private int collectionId;
     private String collectionName;
 
@@ -41,5 +34,5 @@ public class Collection {
     public void setCollectionName(String collectionName) {
         this.collectionName = collectionName;
     }
-    
+
 }

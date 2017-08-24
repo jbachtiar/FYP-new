@@ -120,7 +120,7 @@ public class ProductDAO {
 
                 int colourId = rs.getInt("COLOUR_ID");
                 String productType = rs.getString("PRODUCT_TYPE");
-                product = new Product(productId, productType, dd.retrieveDesignById(designId), cd.getColorById(colourId), id.getImagesById(productId));
+                product = new Product(productId, productType, dd.retrieveDesignById(designId), cd.getColourById(colourId), id.getImagesById(productId));
 
             }
 
