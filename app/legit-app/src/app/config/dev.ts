@@ -15,4 +15,5 @@ export const devConfig = {
     clearCartBackendUrl: 'http://localhost:8084/FYP-backend/API/Cart/delete',
     getCartTotalPriceBackendUrl: 'http://localhost:8084/FYP-backend/API/Cart/price',
     cartBackendUrl: 'http://localhost:8084/FYP-backend/API/Cart',
+    paymentBackendUrl: 'http://localhost:8084/FYP-backend/API/Payment'
 }
