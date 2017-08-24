@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { StorageService } from '../storage.service';
 import { CartService } from '../cart.service';
 import { ShoppingCart } from "../cart/model/shopping-cart.model";
 import { CartItem } from "../cart/model/cart-item.model";
 import { ShoppingCartService } from '../shopping-cart.service'
-
+import { DialogService } from "ng2-bootstrap-modal";
+import { ConfirmationPopupComponent } from '../confirmation-popup/confirmation-popup.component'
 
 @Component({
   selector: 'app-payment',
@@ -22,14 +24,17 @@ export class PaymentComponent implements OnInit {
   totalPrice: string;
   private shoppingCart: ShoppingCart;
   private cartItem: CartItem[];
-
+  private stripeToken;
 
 
   constructor(
     private storageService: StorageService,
     private cartService: CartService,
-    private shoppingCartService: ShoppingCartService) {
-    this.shoppingCart = JSON.parse(localStorage.getItem('cart'));
+    private shoppingCartService: ShoppingCartService,
+    private _ngZone: NgZone,
+    private dialogService: DialogService,
+    private router: Router) {
+    this.shoppingCart = JSON.parse(localStorage.getItem('cart'),);
   }
 
   ngOnInit() {
@@ -65,13 +70,25 @@ export class PaymentComponent implements OnInit {
     var handler = (<any>window).StripeCheckout.configure({
       key: 'pk_test_PcfRcpvH8lJ8P7GtXdwbTl9D',
       locale: 'auto',
-      token: function (token: any) {
+      token:  (token: any)=> {
         // You can access the token ID with `token.id`.
-        // Get the token ID to your server-side code for use.
-        this.shoppingCartService.chargeStripe(token.id).subscribe(
-          res=>{
-            console.log(res)
-        })
+        // Get the token ID to our server-side code for use.
+          this.chargeStripe(token.id);
+        // console.log("TOKEN: " + token.id)
+        // var http = new XMLHttpRequest();
+        // var url = "http://localhost:8084/FYP-backend/API/Payment/chargeStripe";
+        // var params = "stripeToken="+token.id;
+        // http.open("POST", url, true);
+
+        // //Send the proper header information along with the request
+        // http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+        // http.onreadystatechange = function() {//Call a function when the state changes.
+        //     if(http.readyState == 4 && http.status == 200) {
+        //         //alert(http.responseText); 
+        //     }
+        // }
+        // http.send(params);    
       }
     });
     console.log("TOTAL PRICE :" + this.shoppingCart.totalPrice)
@@ -80,8 +97,64 @@ export class PaymentComponent implements OnInit {
       description: 'Secured Payment',
       amount: this.shoppingCart.totalPrice * 100
     });
-
   }
 
+  chargeStripe(token){
+    this.shoppingCartService.chargeStripe(token).subscribe(res=>{
+      console.log(res)
+      if(res.status==200){
+        //remove items in cart
 
+        //create modal 
+        this.showSuccessfulDialog()
+        //go home
+      }else{
+        this.showErrorDialog()
+      }
+    });
+  }
+
+  showSuccessfulDialog(){
+    let disposable = this.dialogService.addDialog(ConfirmationPopupComponent, {
+      title: 'Congratulations!',
+      message: 'Your payment is successful. A confirmation email has been sent to your inbox.'
+    })
+      .subscribe((isConfirmed) => {
+        console.log("DIALOG")
+        //We get dialog result
+        if (isConfirmed) {
+          this.router.navigate(['/']);
+        }
+        else {
+          this.router.navigate(['/']);
+        }
+      });
+    //We can close dialog calling disposable.unsubscribe();
+    //If dialog was not closed manually close it by timeout
+    setTimeout(() => {
+      disposable.unsubscribe();
+    }, 10000);
+  }
+
+  showErrorDialog(){
+    let disposable = this.dialogService.addDialog(ConfirmationPopupComponent, {
+      title: 'We are sorry!',
+      message: 'Your payment is unsuccessful.'
+    })
+      .subscribe((isConfirmed) => {
+        console.log("DIALOG")
+        //We get dialog result
+        if (isConfirmed) {
+          // this.router.navigate(['/']);
+        }
+        else {
+          // this.router.navigate(['/']);
+        }
+      });
+    //We can close dialog calling disposable.unsubscribe();
+    //If dialog was not closed manually close it by timeout
+    setTimeout(() => {
+      disposable.unsubscribe();
+    }, 10000);
+  }
 }

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import * as $ from 'jquery';
 import { LoginPopupComponent } from '../login/login-popup.component';
 
 import { AuthenticationService } from '../authentication.service';
