@@ -5,47 +5,11 @@
  */
 package dao;
 
-<<<<<<< HEAD
-/**
- *
- * @author Huiyan
- */
-=======
->>>>>>> 689643d0267fb2e97f291bf78780bb0a6bba2924
 import database.ConnectionManager;
-import entity.Tag;
+import entity.BeddingSize;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-<<<<<<< HEAD
-import java.util.ArrayList;
-import java.sql.SQLException;
-
-public class TagDAO {
-
-    public Tag[] getTagsByDesignId(int designId) throws SQLException {
-
-        Connection conn = null;
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
-        Tag t = null;
-        ArrayList<Tag> tags = new ArrayList<Tag>();
-
-        String sql = "SELECT * FROM design_tag dt, tag t where t.tag_id=dt.tag_id and dt.design_id=?";
-
-        try {
-            conn = ConnectionManager.getConnection();
-            stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, designId);
-            rs = stmt.executeQuery();
-
-            while (rs.next()) {
-
-                int tagId = rs.getInt("TAG_ID");
-                String tagName = rs.getString("TAG_NAME");
-                t = new Tag(tagId, tagName);
-                tags.add(t);
-=======
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -55,23 +19,25 @@ import java.util.logging.Logger;
  *
  * @author JeremyBachtiar
  */
-public class TagDAO {
+public class BeddingSizeDAO {
     
-    public String addTag(Tag tag) throws SQLException{
+    public String addBeddingSize(BeddingSize bs) throws SQLException{
         
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
        
-        String sql = "INSERT INTO TAG VALUES (?,?)";
-        if(getTagById(tag.getTagId())!=null){
+        String sql = "INSERT INTO BEDDING_SIZE VALUES (?,?,?)";
+        
+        if(getBeddingSizeByName(bs.getSizeName())!=null){
             
             try {
 
                 conn = ConnectionManager.getConnection();
                 stmt = conn.prepareStatement(sql);
-                stmt.setInt(1, tag.getTagId());
-                stmt.setString(2, tag.getTagName());
+                stmt.setString(1, bs.getSizeName());
+                stmt.setString(2, bs.getDimensions());
+                stmt.setDouble(3, bs.getSizePrice());
                 
                 rs = stmt.executeQuery();
                 
@@ -79,32 +45,33 @@ public class TagDAO {
                 ConnectionManager.close(conn, stmt, rs);
             }
         }else{
-            return "Tag already exist";
+            return "Beddig size already exist";
         }
         
         return "Success";
     }
     
-    public Tag getTagById(int tagId) throws SQLException{
+    public BeddingSize getBeddingSizeByName(String sizeName) throws SQLException{
         
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        Tag result = null;
+        BeddingSize result = null;
         
-        String sql = "SELECT * FROM TAG WHERE TAG_ID = ?";
+        String sql = "SELECT * FROM BEDDING_SIZE WHERE SIZE_NAME = ?";
         
         try {
             
             conn = ConnectionManager.getConnection();
             stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, tagId);
+            stmt.setString(1, sizeName);
             rs = stmt.executeQuery();
             
             while(rs.next()){
-                String tagName = rs.getString("TAG_NAME");
+                String dimensions = rs.getString("DIMENSIONS");
+                double price = rs.getDouble("SIZE_PRICE");
                 
-                result = new Tag(tagId, tagName);
+                result = new BeddingSize(sizeName,dimensions, price);
             }
 
         } finally {
@@ -115,14 +82,14 @@ public class TagDAO {
         
     }
     
-    public ArrayList<Tag> getAllTags() throws SQLException{
+    public ArrayList<BeddingSize> getAllBeddingSizes() throws SQLException{
         
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        ArrayList<Tag> tagList = new ArrayList<Tag>();
+        ArrayList<BeddingSize> beddingSizeList = new ArrayList<BeddingSize>();
         
-        String sql = "SELECT * FROM TAG";
+        String sql = "SELECT * FROM BEDDING_SIZE";
         try {
             
             conn = ConnectionManager.getConnection();
@@ -130,42 +97,35 @@ public class TagDAO {
             rs = stmt.executeQuery();
             
             while(rs.next()){
-                int tagId = rs.getInt("TAG_ID");
-                String tagName = rs.getString("TAG_NAME");
+                String sizeName = rs.getString("SIZE_NAME");
+                String dimensions = rs.getString("DIMENSIONS");
+                double price = rs.getDouble("SIZE_PRICE");
                 
-                Tag tag = new Tag(tagId, tagName);
-                tagList.add(tag);
->>>>>>> 689643d0267fb2e97f291bf78780bb0a6bba2924
+                BeddingSize bs = new BeddingSize(sizeName,dimensions, price);
+                beddingSizeList.add(bs);
             }
 
         } finally {
             ConnectionManager.close(conn, stmt, rs);
         }
-<<<<<<< HEAD
-
-        return tags.toArray(new Tag[tags.size()]);
-
-    }
-
-=======
         
-        return tagList;
+        return beddingSizeList;
         
     }
     
-    public String deleteTagById(int id) throws SQLException{
+    public String deleteBeddingSizeByName(String sizeName) throws SQLException{
         
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
        
-        String sql = "DELETE FROM TAG WHERE TAG_ID = ?";
+        String sql = "DELETE FROM BEDDING_SIZE WHERE SIZE_NAME = ?";
         
         try {
 
             conn = ConnectionManager.getConnection();
             stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, id);
+            stmt.setString(1, sizeName);
 
             rs = stmt.executeQuery();
 
@@ -175,22 +135,23 @@ public class TagDAO {
 
         return "Success";
     }
-    public String updateTag(Tag tag)throws SQLException{
+    public String updateTag(BeddingSize bs)throws SQLException{
         
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
        
-        String sql = "UPDATE TAG SET TAG_NAME = ? WHERE TAG_ID = ?";
+        String sql = "UPDATE TAG SET DIMENSIONS = ?, SIZE_PRICE = ? WHERE SIZE_NAME = ?";
         
-        if(getTagById(tag.getTagId())!=null){
+        if(getBeddingSizeByName(bs.getSizeName())!=null){
             
             try {
 
                 conn = ConnectionManager.getConnection();
                 stmt = conn.prepareStatement(sql);
-                stmt.setString(1, tag.getTagName());
-                stmt.setInt(2, tag.getTagId());
+                stmt.setString(1, bs.getDimensions());
+                stmt.setDouble(2, bs.getSizePrice());
+                stmt.setString(3, bs.getSizeName());
                 
                 rs = stmt.executeQuery();
                 
@@ -198,7 +159,7 @@ public class TagDAO {
                 ConnectionManager.close(conn, stmt, rs);
             }
         }else{
-            return "Tag does not exist";
+            return "Bedding Size does not exist";
         }
         
         return "Success";
@@ -211,5 +172,4 @@ public class TagDAO {
         }
         Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, msg, ex);
     }
->>>>>>> 689643d0267fb2e97f291bf78780bb0a6bba2924
 }

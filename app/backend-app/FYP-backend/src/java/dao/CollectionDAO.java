@@ -12,48 +12,43 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
- * @author Huiyan
+ * @author JeremyBachtiar
  */
 public class CollectionDAO {
-//    
-//    public static Collection[] getAllCollections() throws SQLException{
-//        
-//        Connection conn = null;
-//        PreparedStatement stmt = null;
-//        ResultSet rs = null;
-//        Collection c=null;
-//        ArrayList<Collection> collectionArrayList = new ArrayList();
-//        
-//        String sql = "SELECT * FROM collection"; 
-//        
-//        try {
-//            conn = ConnectionManager.getConnection();
-//            stmt = conn.prepareStatement(sql);
-//
-//            rs = stmt.executeQuery();
-//        
-//            
-//            while (rs.next()) {
-//                
-//                String collectionId = rs.getString("collection_id");
-//                String collectionName = rs.getString("collection_name");
-//                c = new Collection (collectionId, collectionName);
-//                collectionArrayList.add(c);
-//                
-//            }
-//
-//        } finally {
-//            ConnectionManager.close(conn, stmt, rs);
-//        }
-//        
-//        return collectionArrayList.toArray(new Collection[collectionArrayList.size()]);
-//        
-//    }
-//    
-//    
+    
+    public String addTag(Collection c) throws SQLException{
+        
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+       
+        String sql = "INSERT INTO TAG VALUES (?,?)";
+        if(getCollectionById(c.getCollectionId())!=null){
+            
+            try {
+
+                conn = ConnectionManager.getConnection();
+                stmt = conn.prepareStatement(sql);
+                stmt.setInt(1, c.getCollectionId());
+                stmt.setString(2, c.getCollectionName());
+                
+                rs = stmt.executeQuery();
+                
+            } finally {
+                ConnectionManager.close(conn, stmt, rs);
+            }
+        }else{
+            return "Collection already exist";
+        }
+        
+        return "Success";
+    }
+    
     public Collection getCollectionById(int collectionId) throws SQLException{
         
         Connection conn = null;

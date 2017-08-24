@@ -13,8 +13,11 @@ package entity;
 
 public class Collection {
     
+<<<<<<< HEAD
     
     
+=======
+>>>>>>> 689643d0267fb2e97f291bf78780bb0a6bba2924
     private int collectionId;
     private String collectionName;
 
