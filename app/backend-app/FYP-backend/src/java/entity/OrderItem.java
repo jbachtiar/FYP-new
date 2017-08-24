@@ -11,24 +11,14 @@ package entity;
  */
 public class OrderItem {
     
-    private Order order;
     private Product product;
     private int quantity;
     private double unitPrice;
 
-    public OrderItem(Order order, Product product, int quantity, double unitPrice) {
-        this.order = order;
+    public OrderItem(Product product, int quantity, double unitPrice) {
         this.product = product;
         this.quantity = quantity;
         this.unitPrice = unitPrice;
-    }
-
-    public Order getOrder() {
-        return order;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
     }
 
     public Product getProduct() {

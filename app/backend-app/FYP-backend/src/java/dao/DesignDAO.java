@@ -1,30 +1,26 @@
-///*
-// * To change this license header, choose License Headers in Project Properties.
-// * To change this template file, choose Tools | Templates
-// * and open the template in the editor.
-// */
-//package dao;
-//
-//import database.ConnectionManager;
-//import entity.Collection;
-//import entity.CustomColour;
-//import entity.CustomFabric;
-//import entity.CustomPattern;
-//import entity.Pattern;
-//import java.sql.Connection;
-//import java.sql.PreparedStatement;
-//import java.sql.ResultSet;
-//import java.util.ArrayList;
-//import java.sql.SQLException;
-//import java.util.logging.Level;
-//import java.util.logging.Logger;
-//
-//
-///**
-// *
-// * @author Ong Yi Xuan
-// */
-//public class PatternDAO {
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package dao;
+
+import database.ConnectionManager;
+import entity.Collection;
+import entity.Design;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+/**
+ *
+ * @author Ong Yi Xuan
+ */
+public class DesignDAO {
 //    
 //    public static void updatePatternToDB(CustomPattern cp) throws SQLException{
 //        
@@ -253,36 +249,37 @@
 //        return patternArrayList.toArray(new Pattern[patternArrayList.size()]);
 //    }
 //    
-//       public static Pattern retrievePatternById(String pattern_id) throws SQLException{
-//        Connection conn = null;
-//        PreparedStatement stmt = null;
-//        ResultSet rs = null;
-//        Pattern pattern = null;
-//        
-//        String sql = "SELECT p.*, c.COLLECTION_NAME FROM pattern p LEFT OUTER JOIN COLLECTION c ON p.COLLECTION_ID = c.COLLECTION_ID where p.pattern_id=? "; 
-//        try {
-//            conn = ConnectionManager.getConnection();
-//            stmt = conn.prepareStatement(sql);
-//            stmt.setString(1, pattern_id);
-//            rs = stmt.executeQuery();
-//            
-//            while (rs.next()) {
-//                
-//                String patternName = rs.getString("PATTERN_NAME");
-//                String patternDescription = rs.getString("PATTERN_DESCRIPTION");
-//                Double patternPrice = rs.getDouble("PATTERN_PRICE");
-//                String collectionID = rs.getString("COLLECTION_ID");
-//                String collectionName = rs.getString("COLLECTION_NAME");
-//             
-//                
-//                pattern = new Pattern(pattern_id, patternName, patternDescription, patternPrice, new Collection(collectionID,collectionName));
-//            }
-//
-//        } finally {
-//            ConnectionManager.close(conn, stmt, rs);
-//        }
-//        return pattern;
-//    }
+
+    public Design retrieveDesignById(int designId) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Design design = null;
+
+        String sql = "SELECT p.*, c.COLLECTION_NAME FROM pattern p LEFT OUTER JOIN COLLECTION c ON p.COLLECTION_ID = c.COLLECTION_ID where p.pattern_id=? ";
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, designId);
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+
+                String designName = rs.getString("DESIGN_NAME");
+                String designDescription = rs.getString("DESIGN_DESC");
+                Double designPrice = rs.getDouble("DESIGN_PRICE");
+                int collectionId = rs.getInt("COLLECTION_ID");
+                String collectionName = rs.getString("COLLECTION_NAME");
+                TagDAO td = new TagDAO();
+                design = new Design(designId, designName, designDescription, designPrice, new Collection(collectionId, collectionName), td.getTagsByDesignId(designId));
+
+            }
+
+        } finally {
+            ConnectionManager.close(conn, stmt, rs);
+        }
+        return design;
+    }
 //       
 //       
 //    public static ArrayList<String> getTagsByPatternId(String patternId)  throws SQLException{
@@ -445,4 +442,4 @@
 //        Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, msg, ex);
 //    }
 //
-//}
+}

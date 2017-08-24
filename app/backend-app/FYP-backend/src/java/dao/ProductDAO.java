@@ -1,29 +1,21 @@
-///*
-// * To change this license header, choose License Headers in Project Properties.
-// * To change this template file, choose Tools | Templates
-// * and open the template in the editor.
-// */
-//package dao;
-//
-//import database.ConnectionManager;
-//import entity.Collection;
-//import entity.Colour;
-//import entity.Fabric;
-//import entity.Pattern;
-//import entity.Product;
-//import java.sql.Connection;
-//import java.sql.PreparedStatement;
-//import java.sql.ResultSet;
-//import java.util.ArrayList;
-//import java.sql.SQLException;
-//import java.util.logging.Level;
-//import java.util.logging.Logger;
-//
-///**
-// *
-// * @author Huiyan
-// */
-//public class ProductDAO {
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package dao;
+
+import database.ConnectionManager;
+import entity.Product;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+/**
+ *
+ * @author Huiyan
+ */
+public class ProductDAO {
 //
 //    public static void insertProductToDB (Product p) throws SQLException{
 //        
@@ -105,41 +97,38 @@
 //        return productArrayList.toArray(new Product[productArrayList.size()]);
 //    }
 //
-//    public static Product retrieveProductById(String sku) throws SQLException {
-//        Connection conn = null;
-//        PreparedStatement stmt = null;
-//        ResultSet rs = null;
-//        Product product = null;
-//
-//        String sql = "SELECT * from product where sku=? ";
-//        try {
-//            conn = ConnectionManager.getConnection();
-//            stmt = conn.prepareStatement(sql);
-//            stmt.setString(1, sku);
-//            rs = stmt.executeQuery();
-//
-//            while (rs.next()) {
-//
-//                String patternID = rs.getString("PATTERN_ID");
-//                String colourID = rs.getString("COLOUR_ID");
-//                String fabricID = rs.getString("FABRIC_ID");
-//                double colorPrice = rs.getDouble("COLOUR_PRICE");
-//                String imageUrl = rs.getString("IMAGE_URL");
-//
-//                Fabric f = FabricDAO.getFabricById(fabricID);
-//                Colour c = ColourDAO.getColorById(colourID);
-//                Pattern p = PatternDAO.retrievePatternById(patternID);
-//                Collection col = p.getCollection();
-//                ArrayList<String> tags = PatternDAO.getTagsByPatternId(patternID);
-//
-//                product = new Product(sku, patternID, p.getPatternName(), p.getPatternPrice(), f.getFabricID(), f.getFabricName(), f.getFabricPrice(), c.getColourID(), c.getColourName(), colorPrice, col.getCollectionID(), col.getCollectionName(), imageUrl, tags);
-//            }
-//
-//        } finally {
-//            ConnectionManager.close(conn, stmt, rs);
-//        }
-//        return product;
-//    }
+
+    public Product retrieveProductById(int productId) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Product product = null;
+
+        String sql = "SELECT * from product where product_id=? ";
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, productId);
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+
+                int designId = rs.getInt("DESIGN_ID");
+                DesignDAO dd = new DesignDAO();
+                ColourDAO cd = new ColourDAO();
+                ImageDAO id = new ImageDAO();
+
+                int colourId = rs.getInt("COLOUR_ID");
+                String productType = rs.getString("PRODUCT_TYPE");
+                product = new Product(productId, productType, dd.retrieveDesignById(designId), cd.getColorById(colourId), id.getImagesById(productId));
+
+            }
+
+        } finally {
+            ConnectionManager.close(conn, stmt, rs);
+        }
+        return product;
+    }
 //
 //    public static ArrayList<Colour> getAvailableColoursByPatternFabric(String patternId, String fabricId) throws SQLException {
 //        Connection conn = null;
@@ -489,4 +478,4 @@
 //        return productArrayList.toArray(new Product[productArrayList.size()]);
 //    }
 //    
-//}
+}

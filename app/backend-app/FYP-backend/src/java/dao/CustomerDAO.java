@@ -22,7 +22,7 @@
 // */
 //public class CustomerDAO {
 //    
-//    public static Customer retrieveCustomerByEmail(String email) {
+//    public Customer retrieveCustomerByEmail(String email) {
 //        Connection conn = null;
 //        PreparedStatement stmt = null;
 //        ResultSet rs = null;
@@ -40,14 +40,23 @@
 //                String firstName = rs.getString(2);
 //                String lastName = rs.getString(3);
 //                String phoneNumber = rs.getString(4);
+//                String password = rs.getString(5);
+//                String verified = rs.getString(6);
+//                
 //                String address = rs.getString(5);
 //                String country = rs.getString(6);
 //                String postalCode = rs.getString(7);
-//                String password = rs.getString(8);
+//            
 //                String verified = rs.getString(9);
 //              
 //                customer = new Customer(email,firstName,lastName, phoneNumber, address, country, postalCode, password, verified);
 //             
+//            
+//            
+//            
+//            
+//            
+//            
 //            }
 //
 //        } catch (SQLException ex) {
@@ -181,4 +190,3 @@
 //    }
 //}
 //    
-//

@@ -11,19 +11,19 @@ package entity;
  */
 public class Colour {
     
-    private String colourId;
+    private int colourId;
     private String colourName;
 
-    public Colour(String colourId, String colourName) {
+    public Colour(int colourId, String colourName) {
         this.colourId = colourId;
         this.colourName = colourName;
     }
 
-    public String getColourId() {
+    public int getColourId() {
         return colourId;
     }
 
-    public void setColourId(String colourId) {
+    public void setColourId(int colourId) {
         this.colourId = colourId;
     }
 
