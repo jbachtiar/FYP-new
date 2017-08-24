@@ -41,6 +41,7 @@ img{
   transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
   font-family: Georgia;
+  cursor: pointer;
 }
 
 .product-name{
@@ -114,3 +115,4 @@ p{
     background-color: goldenrod;
     border-color: goldenrod;
 }
+
