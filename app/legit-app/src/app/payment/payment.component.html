@@ -1,5 +1,5 @@
+<script src="https://checkout.stripe.com/checkout.js"></script>
 <div class="container">
-
   <div class="col-md-12">
     <div class="card">
       <div class="content">
@@ -17,51 +17,39 @@
         <div class="header">
           <h4 class="title">Order Summary</h4>
         </div>
-        
         <table>
-            <tr>
-              <th>Product</th>
-              <th>Description</th>
-              <th>Quantity</th>
-              <th>Total</th>
-            </tr>
-            <tr *ngFor="let item of cartItem">
-              <td><img src="{{item.url}}" alt="..." class="img-product"><br/></td>
-              <td class="product-title">
-                <div class="pattern-name">{{item.patternName}}</div>
-                {{item.productId}}
-                <br> {{item.fabricName}}
-                <br> {{item.colourName}}
-                <br> $ {{item.eachPrice}}.00
-              </td>
-              <td>
-                {{item.quantity}}
-              </td>
-              <td>
-                $ {{item.quantity*item.eachPrice}}.00
-              </td>
-            </tr>
-            <tr style="border: 0px">
-              <td></td>
-              <td></td>
-              <td style="text-align: right; font-size: 16px; font-weight: bold">Total Price</td>
-              <td>$ {{shoppingCart.totalPrice}}.00</td>
-              
-            </tr>
-          </table>
-        
-        </div>
-         <a routerLink="/checkout"> <button class="left-button back">Back</button> </a>
-        <button class="right-button pull-right">Place Your Order</button>
+          <tr>
+            <th>Product</th>
+            <th>Description</th>
+            <th>Quantity</th>
+            <th>Total</th>
+          </tr>
+          <tr *ngFor="let item of cartItem">
+            <td><img src="{{item.url}}" alt="..." class="img-product"><br/></td>
+            <td class="product-title">
+              <div class="pattern-name">{{item.patternName}}</div>
+              {{item.productId}}
+              <br> {{item.fabricName}}
+              <br> {{item.colourName}}
+              <br> $ {{item.eachPrice}}.00
+            </td>
+            <td>
+              {{item.quantity}}
+            </td>
+            <td>
+              $ {{item.quantity*item.eachPrice}}.00
+            </td>
+          </tr>
+          <tr style="border: 0px">
+            <td></td>
+            <td></td>
+            <td style="text-align: right; font-size: 16px; font-weight: bold">Total Price</td>
+            <td>$ {{shoppingCart.totalPrice}}.00</td>
+          </tr>
+        </table>
       </div>
-
+      <a routerLink="/checkout"> <button class="left-button back">Back</button> </a>
+      <button class="right-button pull-right" (click)="openCheckout()">Place Your Order</button>
     </div>
-
-
-
-
-
-
-
-
   </div>
+</div>

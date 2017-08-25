@@ -25,6 +25,12 @@ export class CartComponent implements OnInit {
     private shoppingCartService: ShoppingCartService,
     private dialogService: DialogService) {
     this.shoppingCart = JSON.parse(localStorage.getItem('cart'))
+    this.shoppingCartService.cartMethodCalled$.subscribe(
+      () => {
+        console.log("Cart component method called!!")
+        alert('(Component2) Method called!');
+      }
+    );
 
   }
 

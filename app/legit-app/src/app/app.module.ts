@@ -49,8 +49,6 @@ import { ConfirmationPopupComponent } from './confirmation-popup/confirmation-po
 import { LoadingComponent } from './loading/loading.component';
 import { DeleteConfirmationPopupComponent } from './delete-confirmation-popup/delete-confirmation-popup.component';
 
-
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -77,7 +75,7 @@ import { DeleteConfirmationPopupComponent } from './delete-confirmation-popup/de
     CartPopupComponent,
     ConfirmationPopupComponent,
     LoadingComponent,
-    DeleteConfirmationPopupComponent
+    DeleteConfirmationPopupComponent,
   ],
   imports: [
     BrowserModule,
