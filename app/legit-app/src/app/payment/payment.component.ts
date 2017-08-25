@@ -120,8 +120,8 @@ export class PaymentComponent implements OnInit {
   }
 
 
-  updateCart = function () {
-    this.communicationService.callComponentMethod();
+  updateCart(){
+    this.shoppingCartService.callCartMethod();
   }
 
 
@@ -140,11 +140,6 @@ export class PaymentComponent implements OnInit {
           this.router.navigate(['/']);
         }
       });
-    //We can close dialog calling disposable.unsubscribe();
-    //If dialog was not closed manually close it by timeout
-    setTimeout(() => {
-      disposable.unsubscribe();
-    }, 10000);
   }
 
   showErrorDialog() {
@@ -162,10 +157,6 @@ export class PaymentComponent implements OnInit {
           // this.router.navigate(['/']);
         }
       });
-    //We can close dialog calling disposable.unsubscribe();
-    //If dialog was not closed manually close it by timeout
-    setTimeout(() => {
-      disposable.unsubscribe();
-    }, 10000);
+
   }
 }
