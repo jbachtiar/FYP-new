@@ -32,6 +32,11 @@ export class NavbarComponent implements OnInit {
       private authenticationService: AuthenticationService,
       private router: Router,
       private shoppingCartService: ShoppingCartService) {
+          this.shoppingCartService.cartMethodCalled$.subscribe(
+        () => {
+          alert('(Component2) Method called!');
+        }
+      );
     }
 
     

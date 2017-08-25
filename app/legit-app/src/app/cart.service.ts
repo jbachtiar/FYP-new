@@ -3,10 +3,19 @@ import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { CONFIG } from './config/config.component'
+import { Subject } from 'rxjs/Subject';
 
 @Injectable()
 export class CartService {
+    private cartMethodCallSource = new Subject<any>();
 
+    // Observable string streams
+    cartMethodCalled$ = this.cartMethodCallSource.asObservable();
+
+    // Service message commands
+    callCartMethod() {
+        this.cartMethodCallSource.next();
+    }
 
     constructor(private _http: Http) { }
 
@@ -15,10 +24,7 @@ export class CartService {
         let finalUrl = url + "?cartId=" + cartId;
 
         return this._http.get(finalUrl).map(res => {
-
-
             return res.json().carts;
-
         });
     }
 
@@ -74,10 +80,7 @@ export class CartService {
         let finalUrl = url + "?cartId=" + cartId;
         return this._http.get(finalUrl).map(res => {
             return res.json().total_price
-
         });
-
-
     }
 
 }

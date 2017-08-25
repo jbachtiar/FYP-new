@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone } from '@angular/core';
+import { Component, OnInit, NgZone, Output, EventEmitter } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { StorageService } from '../storage.service';
 import { CartService } from '../cart.service';
@@ -15,6 +15,7 @@ import { ConfirmationPopupComponent } from '../confirmation-popup/confirmation-p
   providers: [ShoppingCartService]
 })
 export class PaymentComponent implements OnInit {
+  @Output() myEvent = new EventEmitter();
   private carts: any = {};
   firstName: string;
   lastName: string;
@@ -34,7 +35,7 @@ export class PaymentComponent implements OnInit {
     private _ngZone: NgZone,
     private dialogService: DialogService,
     private router: Router) {
-    this.shoppingCart = JSON.parse(localStorage.getItem('cart'),);
+    this.shoppingCart = JSON.parse(localStorage.getItem('cart'), );
   }
 
   ngOnInit() {
@@ -65,15 +66,19 @@ export class PaymentComponent implements OnInit {
       })
   }
 
+  function2() {
+    this.myEvent.emit(null)
+  }
+
   openCheckout() {
     console.log("CHECKOUT")
     var handler = (<any>window).StripeCheckout.configure({
       key: 'pk_test_PcfRcpvH8lJ8P7GtXdwbTl9D',
       locale: 'auto',
-      token:  (token: any)=> {
+      token: (token: any) => {
         // You can access the token ID with `token.id`.
         // Get the token ID to our server-side code for use.
-          this.chargeStripe(token.id);
+        this.chargeStripe(token.id);
         // console.log("TOKEN: " + token.id)
         // var http = new XMLHttpRequest();
         // var url = "http://localhost:8084/FYP-backend/API/Payment/chargeStripe";
@@ -99,22 +104,28 @@ export class PaymentComponent implements OnInit {
     });
   }
 
-  chargeStripe(token){
-    this.shoppingCartService.chargeStripe(token).subscribe(res=>{
+  chargeStripe(token) {
+    this.shoppingCartService.chargeStripe(token).subscribe(res => {
       console.log(res)
-      if(res.status==200){
+      if (res.status == 200) {
         //remove items in cart
-
+        this.updateCart()
         //create modal 
         this.showSuccessfulDialog()
         //go home
-      }else{
+      } else {
         this.showErrorDialog()
       }
     });
   }
 
-  showSuccessfulDialog(){
+
+  updateCart = function () {
+    this.communicationService.callComponentMethod();
+  }
+
+
+  showSuccessfulDialog() {
     let disposable = this.dialogService.addDialog(ConfirmationPopupComponent, {
       title: 'Congratulations!',
       message: 'Your payment is successful. A confirmation email has been sent to your inbox.'
@@ -136,7 +147,7 @@ export class PaymentComponent implements OnInit {
     }, 10000);
   }
 
-  showErrorDialog(){
+  showErrorDialog() {
     let disposable = this.dialogService.addDialog(ConfirmationPopupComponent, {
       title: 'We are sorry!',
       message: 'Your payment is unsuccessful.'
