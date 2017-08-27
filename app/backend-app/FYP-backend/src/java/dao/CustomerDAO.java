@@ -21,7 +21,7 @@
 // * @author JeremyBachtiar
 // */
 //public class CustomerDAO {
-//    
+////    
 //    public Customer retrieveCustomerByEmail(String email) {
 //        Connection conn = null;
 //        PreparedStatement stmt = null;
@@ -66,127 +66,127 @@
 //        }
 //        return customer;
 //    }
-//    
-//    public static String retrievePasswordByEmail(String email) {
-//        Connection conn = null;
-//        PreparedStatement stmt = null;
-//        ResultSet rs = null;
-//        String password = null;
-//        
-//        String sql = "SELECT password FROM customer WHERE email =  ? "; 
-//        try {
-//            conn = ConnectionManager.getConnection();
-//            stmt = conn.prepareStatement(sql);
-//            stmt.setString(1, email);
-//            rs = stmt.executeQuery();
-//            
-//            while (rs.next()) {
-//                password = rs.getString(1);
-//             
-//            }
-//
-//        } catch (SQLException ex) {
-//            handleSQLException(ex, sql);
-//        } finally {
-//            ConnectionManager.close(conn, stmt, rs);
-//        }
-//        return password;
-//    }
-//    
-//    
-//    public static int retrieveNumOfCustomers() {
-//        Connection conn = null;
-//        PreparedStatement stmt = null;
-//        ResultSet rs = null;
-//        int numOfCustomer=0;
-//        
-//        String sql = "SELECT count(*) FROM customer"; 
-//        try {
-//            conn = ConnectionManager.getConnection();
-//            stmt = conn.prepareStatement(sql);
-//             rs = stmt.executeQuery();
-//            
-//            while (rs.next()) {
-//                numOfCustomer = rs.getInt(1);
-//             
-//            }
-//
-//        } catch (SQLException ex) {
-//            handleSQLException(ex, sql);
-//        } finally {
-//            ConnectionManager.close(conn, stmt, rs);
-//        }
-//        return numOfCustomer;
-//    }
-//        
-//     public static void insertCustomer(String email, String firstName, String lastName, String phoneNumber, String address, String postalCode, String password ) {
-//        Connection conn = null;
-//        PreparedStatement stmt = null;
-//        ResultSet rs = null;
-//        String sql = "INSERT into customer values(?,?,?,?,?,?,?,?,?)";
-// 
-//        try {
-//            conn = ConnectionManager.getConnection();
-//            stmt = conn.prepareStatement(sql);
-//            stmt.setString(1, email);
-//            stmt.setString(2,firstName);
-//            stmt.setString(3, lastName);
-//            stmt.setString(4, phoneNumber);
-//            stmt.setString(5, address);
-//            stmt.setString(6, "Singapore");
-//            stmt.setString(7, postalCode);
-//            stmt.setString(8, password);
-//            stmt.setString(9, "N");
-//           
-//            stmt.executeUpdate();
-//            
-//        } catch (SQLException ex) {
-//            handleSQLException(ex, sql);
-//        } finally {
-//            ConnectionManager.close(conn, stmt, rs);
-//        }
-//     }
-//        
-//        public static void updateCustomer(String email, String firstName, String lastName, String phoneNumber, String address, String postalCode, String password ) {
-//            Connection conn = null;
-//            PreparedStatement stmt = null;
-//            ResultSet rs = null;
-//            String sql = "update customer set first_name=?, last_name=?, phone_number=?, address=?, country=?, postal_code=?, password=? where email=?";
-// 
-//            try {
-//                conn = ConnectionManager.getConnection();
-//                stmt = conn.prepareStatement(sql);
-//              
-//                stmt.setString(1,firstName);
-//                stmt.setString(2, lastName);
-//                stmt.setString(3, phoneNumber);
-//                stmt.setString(4, address);
-//                stmt.setString(5, "Singapore");
-//                stmt.setString(6, postalCode);
-//                stmt.setString(7, password);
-//                stmt.setString(8, email);
-//       
-//
-//                stmt.executeUpdate();
-//
-//            } catch (SQLException ex) {
-//                handleSQLException(ex, sql);
-//            } finally {
-//                ConnectionManager.close(conn, stmt, rs);
-//            }
-//    
-//    
-//    }
-//    
-//    
-//    
-//    
-//    private static void handleSQLException(SQLException ex, String sql, String... parameters) {
-//        String msg = "Unable to access data; SQL=" + sql + "\n";
-//        for (String parameter : parameters) {
-//            msg += "," + parameter;
-//        }
-//        Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, msg, ex);
-//    }
+////    
+////    public static String retrievePasswordByEmail(String email) {
+////        Connection conn = null;
+////        PreparedStatement stmt = null;
+////        ResultSet rs = null;
+////        String password = null;
+////        
+////        String sql = "SELECT password FROM customer WHERE email =  ? "; 
+////        try {
+////            conn = ConnectionManager.getConnection();
+////            stmt = conn.prepareStatement(sql);
+////            stmt.setString(1, email);
+////            rs = stmt.executeQuery();
+////            
+////            while (rs.next()) {
+////                password = rs.getString(1);
+////             
+////            }
+////
+////        } catch (SQLException ex) {
+////            handleSQLException(ex, sql);
+////        } finally {
+////            ConnectionManager.close(conn, stmt, rs);
+////        }
+////        return password;
+////    }
+////    
+////    
+////    public static int retrieveNumOfCustomers() {
+////        Connection conn = null;
+////        PreparedStatement stmt = null;
+////        ResultSet rs = null;
+////        int numOfCustomer=0;
+////        
+////        String sql = "SELECT count(*) FROM customer"; 
+////        try {
+////            conn = ConnectionManager.getConnection();
+////            stmt = conn.prepareStatement(sql);
+////             rs = stmt.executeQuery();
+////            
+////            while (rs.next()) {
+////                numOfCustomer = rs.getInt(1);
+////             
+////            }
+////
+////        } catch (SQLException ex) {
+////            handleSQLException(ex, sql);
+////        } finally {
+////            ConnectionManager.close(conn, stmt, rs);
+////        }
+////        return numOfCustomer;
+////    }
+////        
+////     public static void insertCustomer(String email, String firstName, String lastName, String phoneNumber, String address, String postalCode, String password ) {
+////        Connection conn = null;
+////        PreparedStatement stmt = null;
+////        ResultSet rs = null;
+////        String sql = "INSERT into customer values(?,?,?,?,?,?,?,?,?)";
+//// 
+////        try {
+////            conn = ConnectionManager.getConnection();
+////            stmt = conn.prepareStatement(sql);
+////            stmt.setString(1, email);
+////            stmt.setString(2,firstName);
+////            stmt.setString(3, lastName);
+////            stmt.setString(4, phoneNumber);
+////            stmt.setString(5, address);
+////            stmt.setString(6, "Singapore");
+////            stmt.setString(7, postalCode);
+////            stmt.setString(8, password);
+////            stmt.setString(9, "N");
+////           
+////            stmt.executeUpdate();
+////            
+////        } catch (SQLException ex) {
+////            handleSQLException(ex, sql);
+////        } finally {
+////            ConnectionManager.close(conn, stmt, rs);
+////        }
+////     }
+////        
+////        public static void updateCustomer(String email, String firstName, String lastName, String phoneNumber, String address, String postalCode, String password ) {
+////            Connection conn = null;
+////            PreparedStatement stmt = null;
+////            ResultSet rs = null;
+////            String sql = "update customer set first_name=?, last_name=?, phone_number=?, address=?, country=?, postal_code=?, password=? where email=?";
+//// 
+////            try {
+////                conn = ConnectionManager.getConnection();
+////                stmt = conn.prepareStatement(sql);
+////              
+////                stmt.setString(1,firstName);
+////                stmt.setString(2, lastName);
+////                stmt.setString(3, phoneNumber);
+////                stmt.setString(4, address);
+////                stmt.setString(5, "Singapore");
+////                stmt.setString(6, postalCode);
+////                stmt.setString(7, password);
+////                stmt.setString(8, email);
+////       
+////
+////                stmt.executeUpdate();
+////
+////            } catch (SQLException ex) {
+////                handleSQLException(ex, sql);
+////            } finally {
+////                ConnectionManager.close(conn, stmt, rs);
+////            }
+////    
+////    
+////    }
+////    
+////    
+////    
+////    
+////    private static void handleSQLException(SQLException ex, String sql, String... parameters) {
+////        String msg = "Unable to access data; SQL=" + sql + "\n";
+////        for (String parameter : parameters) {
+////            msg += "," + parameter;
+////        }
+////        Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, msg, ex);
+////    }
 //}
 //    

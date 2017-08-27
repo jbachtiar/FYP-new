@@ -120,13 +120,7 @@ public class StaffDAO {
 //        return staff;
 //    }
 //  
-    private String email;
-    private String firstName;
-    private String lastName;
-    private String phoneNo;
-    private String password;
-    private String roleId;
-    
+ 
     
     
     public Staff getStaffByEmail(String email) throws SQLException{
@@ -276,12 +270,12 @@ public class StaffDAO {
         return "Success";
     }
     
-    private static void handleSQLException(SQLException ex, String sql, String... parameters) {
-        String msg = "Unable to access data; SQL=" + sql + "\n";
-        for (String parameter : parameters) {
-            msg += "," + parameter;
-        }
-        Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, msg, ex);
-    }
+//    private static void handleSQLException(SQLException ex, String sql, String... parameters) {
+//        String msg = "Unable to access data; SQL=" + sql + "\n";
+//        for (String parameter : parameters) {
+//            msg += "," + parameter;
+//        }
+//        Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, msg, ex);
+//    }
     
 }
