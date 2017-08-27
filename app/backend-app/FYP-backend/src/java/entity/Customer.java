@@ -20,6 +20,7 @@ public class Customer {
     private Cart cart;
     private Address[] address;
     private Order[] orders;
+ 
 
     public Customer(String email, String firstName, String lastName, String phoneNo, String password, String verified, Cart cart, Address[] address, Order[] orders) {
         this.email = email;
