@@ -12,13 +12,11 @@ package dao;
 import database.ConnectionManager;
 import entity.Address;
 import entity.Order;
-import entity.OrderItem;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 
 public class OrderDAO {
 //    
@@ -86,7 +84,8 @@ public class OrderDAO {
                 OrderStatusLogDAO orderLog = new OrderStatusLogDAO();
                 PromoCodeDAO pcDao = new PromoCodeDAO();
                 Address a = new Address(0, addressLine, city, country, postalCode, "N");
-                order = new Order(orderId, orderDate, netAmt, promoDiscAmt, a, paymentRefNo, pcDao.getPromoCodeById(promoCode), retrieveOrderItemsByOrderId(orderId), orderLog.getOrderStatusByOrderId(orderId));
+                OrderItemDAO orderItemDao = new OrderItemDAO();
+                order = new Order(orderId, orderDate, netAmt, promoDiscAmt, a, paymentRefNo, pcDao.getPromoCodeById(promoCode), orderItemDao.retrieveOrderItemsByOrderId(orderId), orderLog.getOrderStatusByOrderId(orderId));
                 
             }
         } finally {
@@ -96,35 +95,7 @@ public class OrderDAO {
         return order;
     }
     
-    public OrderItem[] retrieveOrderItemsByOrderId(int orderId) throws SQLException {
-        Connection conn = null;
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
-        ArrayList<OrderItem> orderItems = new ArrayList<>();
-        
-        String sql = "SELECT * FROM order_item WHERE order_id= ?";
-        try {
-            conn = ConnectionManager.getConnection();
-            stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, orderId);
-            rs = stmt.executeQuery();
-            
-            while (rs.next()) {
-                
-                int productId = rs.getInt(2);
-                int quantity = rs.getInt(3);
-                double unitPrice = rs.getDouble(4);
-                ProductDAO pd = new ProductDAO();
-                orderItems.add(new OrderItem(pd.retrieveProductById(productId), quantity, unitPrice));
-                
-            }
-        } finally {
-            ConnectionManager.close(conn, stmt, rs);
-        }
-        
-        return orderItems.toArray(new OrderItem[orderItems.size()]);
-    }
-
+    
 //    private static void handleSQLException(SQLException ex, String sql, String... parameters) {
 //        String msg = "Unable to access data; SQL=" + sql + "\n";
 //        for (String parameter : parameters) {

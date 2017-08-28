@@ -7,15 +7,130 @@ package dao;
 
 import database.ConnectionManager;
 import entity.Product;
+import entity.PromoCode;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 /**
  *
  * @author Huiyan
  */
 public class ProductDAO {
+    
+    //Create 1 PromoCode
+    public void addProduct(Product p) throws SQLException {
+        
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        String sql = "INSERT INTO PRODUCT (PRODUCT_ID, PRODUCT_TYPE, DESIGN_ID, COLOUR_ID, DELETED) VALUES (?,?,?,?,?)";
+
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, p.getProductId());
+            stmt.setString(2, p.getProductType());
+            stmt.setInt(3, p.getDesign().getDesignId());
+            stmt.setInt(4, p.getColour().getColourId());
+            stmt.setString(5, "N");
+            stmt.executeUpdate();
+
+            
+        } finally {
+            ConnectionManager.close(conn, stmt, rs);
+        }
+        
+    }
+
+    public int getNextProductId() throws SQLException {
+        
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        
+        int nextProductId = 0;
+
+        String sql = "SELECT MAX(PRODUCT_ID) AS MAX FROM PRODUCT";
+
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+
+                nextProductId = rs.getInt("MAX") +1;
+                
+            }
+
+        } finally {
+            
+            ConnectionManager.close(conn, stmt, rs);
+            
+        }
+
+        return nextProductId;
+        
+    }
+    
+    //Update
+    public void updateProduct(Product p) throws SQLException{
+        
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        String sql = "UPDATE PRODUCT SET PRODUCT_TYPE = ?, DESIGN_ID = ?, COLOUR_ID = ? WHERE PRODUCT_ID = ?";
+
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, p.getProductType());
+            stmt.setInt(2, p.getDesign().getDesignId());
+            stmt.setInt(3, p.getColour().getColourId());
+            stmt.setInt(4, p.getProductId());
+            stmt.executeUpdate();
+
+        } finally {
+            
+            ConnectionManager.close(conn, stmt, rs);
+            
+        }
+        
+    }
+    
+    //Soft Delete
+    public void deleteProductById(int productId) throws SQLException {
+        
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        String sql = "UPDATE PRODUCT SET DELETED = 'Y' WHERE PRODUCT_ID = ?";
+
+        try {
+            
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, productId);
+            stmt.executeUpdate();
+
+        } finally {
+            
+            ConnectionManager.close(conn, stmt, rs);
+            
+        }
+        
+    }
+    
+    
+    
+    
+    
 //
 //    public static void insertProductToDB (Product p) throws SQLException{
 //        
@@ -120,7 +235,7 @@ public class ProductDAO {
 
                 int colourId = rs.getInt("COLOUR_ID");
                 String productType = rs.getString("PRODUCT_TYPE");
-                product = new Product(productId, productType, dd.retrieveDesignById(designId), cd.getColourById(colourId), id.getImagesById(productId));
+                product = new Product(productId, productType, dd.retrieveDesignById(designId), cd.getColourById(colourId), id.getAllImagesByProductId(productId));
 
             }
 

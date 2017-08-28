@@ -9,7 +9,6 @@ import { ShoppingCartService } from '../shopping-cart.service';
 import { DialogService } from "ng2-bootstrap-modal";
 
 
-import { ResponsiveModule } from 'ng2-responsive'
 
 //declare var $:any;
 
