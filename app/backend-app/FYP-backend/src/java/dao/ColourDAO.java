@@ -13,23 +13,21 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-
-
 /**
  *
  * @author JeremyBachtiar
  */
 public class ColourDAO {
-    
-    public String addColour(Colour colour) throws SQLException{
-        
+
+    public String addColour(Colour colour) throws SQLException {
+
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-       
+
         String sql = "INSERT INTO COLOUR VALUES (?,?,?)";
-        if(getColourById(colour.getColourId())!=null){
-            
+        if (getColourById(colour.getColourId()) != null) {
+
             try {
 
                 conn = ConnectionManager.getConnection();
@@ -37,69 +35,69 @@ public class ColourDAO {
                 stmt.setInt(1, colour.getColourId());
                 stmt.setString(2, colour.getColourName());
                 stmt.setString(3, "N");
-                
+
                 rs = stmt.executeQuery();
-                
+
             } finally {
                 ConnectionManager.close(conn, stmt, rs);
             }
-        }else{
+        } else {
             return "Colour already exist";
         }
-        
+
         return "Success";
     }
-    
-    public Colour getColourById(int colourId) throws SQLException{
-        
+
+    public Colour getColourById(int colourId) throws SQLException {
+
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         Colour result = null;
-        
+
         String sql = "SELECT * FROM COLOUR WHERE COLOUR_ID = ?";
-        
+
         try {
-            
+
             conn = ConnectionManager.getConnection();
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, colourId);
             rs = stmt.executeQuery();
-            
-            while(rs.next()){
+
+            while (rs.next()) {
                 String colourName = rs.getString("COLOUR_NAME");
                 String deleted = rs.getString("DELETED");
-                
+
                 result = new Colour(colourId, colourName);
             }
 
         } finally {
             ConnectionManager.close(conn, stmt, rs);
         }
-        
+
         return result;
-        
+
     }
-    
-    public ArrayList<Colour> getAllAvailableColours() throws SQLException{
-        
+
+    public ArrayList<Colour> getAllAvailableColours() throws SQLException {
+
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         ArrayList<Colour> colourList = new ArrayList<Colour>();
-        
+
         String sql = "SELECT * FROM COLOUR WHERE DELETED = ? ";
         try {
-            
+
             conn = ConnectionManager.getConnection();
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, "N");
             rs = stmt.executeQuery();
-            
-            while(rs.next()){
+
+            while (rs.next()) {
                 int colourId = rs.getInt("COLOUR_ID");
                 String colourName = rs.getString("COLOUR_NAME");
-                
+
                 Colour colour = new Colour(colourId, colourName);
                 colourList.add(colour);
             }
@@ -107,19 +105,19 @@ public class ColourDAO {
         } finally {
             ConnectionManager.close(conn, stmt, rs);
         }
-        
+
         return colourList;
-        
+
     }
-    
-    public String deleteColourById(int id) throws SQLException{
-        
+
+    public String deleteColourById(int id) throws SQLException {
+
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-       
+
         String sql = "UPDATE COLOUR SET DELETED = ? WHERE COLOUR_ID = ?";
-        
+
         try {
 
             conn = ConnectionManager.getConnection();
@@ -132,39 +130,61 @@ public class ColourDAO {
         } finally {
             ConnectionManager.close(conn, stmt, rs);
         }
-        
+
         return "Success";
-   
+
     }
 
-    public String updateColour(Colour colour)throws SQLException{
-        
+    public String updateColour(Colour colour) throws SQLException {
+
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-       
+
         String sql = "UPDATE COLOUR SET COLOUR_NAME = ? WHERE COLOUR_ID = ?";
-        
-        if(getColourById(colour.getColourId())!=null){
-            
+
+        if (getColourById(colour.getColourId()) != null) {
+
             try {
 
                 conn = ConnectionManager.getConnection();
                 stmt = conn.prepareStatement(sql);
                 stmt.setString(1, colour.getColourName());
                 stmt.setInt(2, colour.getColourId());
-                
+
                 rs = stmt.executeQuery();
-                
+
             } finally {
                 ConnectionManager.close(conn, stmt, rs);
             }
-        }else{
+        } else {
             return "Colour does not exist";
         }
-        
+
         return "Success";
     }
-    
- 
+
+    public Colour getColourByProductId(int productId) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Colour colour = null;
+
+        String sql = "SELECT * FROM PRODUCT WHERE PRODUCT_ID=?";
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, productId);
+            rs = stmt.executeQuery();
+
+            int colourId = rs.getInt("COLOUR_ID");
+            colour = getColourById(colourId);
+
+        } finally {
+            ConnectionManager.close(conn, stmt, rs);
+        }
+        return colour;
+
+    }
+
 }

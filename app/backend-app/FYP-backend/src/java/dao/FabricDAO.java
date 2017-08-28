@@ -174,11 +174,35 @@ public class FabricDAO {
         return "Success";
     }
     
-    private static void handleSQLException(SQLException ex, String sql, String... parameters) {
-        String msg = "Unable to access data; SQL=" + sql + "\n";
-        for (String parameter : parameters) {
-            msg += "," + parameter;
+    
+    public Fabric getFarbicByProductId(int productId) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Fabric fabric = null;
+
+        String sql = "SELECT * FROM BEDDING WHERE PRODUCT_ID=?";
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, productId);
+            rs = stmt.executeQuery();
+
+            int fabricId = rs.getInt("FABRIC_ID");
+            fabric =getFabricById(fabricId);
+
+        } finally {
+            ConnectionManager.close(conn, stmt, rs);
         }
-        Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, msg, ex);
+        return fabric;
+
     }
+    
+//    private static void handleSQLException(SQLException ex, String sql, String... parameters) {
+//        String msg = "Unable to access data; SQL=" + sql + "\n";
+//        for (String parameter : parameters) {
+//            msg += "," + parameter;
+//        }
+//        Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, msg, ex);
+//    }
 }
