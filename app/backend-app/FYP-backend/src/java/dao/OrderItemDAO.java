@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 public class OrderItemDAO {
     
-    public OrderItem[] retrieveOrderItemsByOrderId(int orderId) throws SQLException {
+    public OrderItem[] getOrderItemsByOrderId(int orderId) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;

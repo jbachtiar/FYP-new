@@ -19,7 +19,7 @@ import java.util.ArrayList;
 
 public class CustomerAddressDAO {
 
-    public Address[] retrieveAddressesByEmail(String email) throws SQLException {
+    public Address[] getAddressesByEmail(String email) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -53,7 +53,7 @@ public class CustomerAddressDAO {
         return address.toArray(new Address[address.size()]);
     }
 
-    public Address retrieveAddressById(int addressId) throws SQLException {
+    public Address getAddressById(int addressId) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;

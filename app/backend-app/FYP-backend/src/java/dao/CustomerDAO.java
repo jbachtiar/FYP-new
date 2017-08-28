@@ -43,7 +43,7 @@ public class CustomerDAO {
                 String password = rs.getString(5);
                 String verified = rs.getString(6);
                 CustomerAddressDAO customerAddressDao = new CustomerAddressDAO();
-                Address[] address = customerAddressDao.retrieveAddressesByEmail(email);
+                Address[] address = customerAddressDao.getAddressesByEmail(email);
                 Order[] orders = new Order[0];
                 customer = new Customer(email, firstName, lastName, phoneNumber, password, verified, null, address, orders);
 
@@ -75,7 +75,7 @@ public class CustomerDAO {
                 String password = rs.getString(5);
                 String verified = rs.getString(6);
                 CustomerAddressDAO customerAddressDao = new CustomerAddressDAO();
-                Address[] address = customerAddressDao.retrieveAddressesByEmail(email);
+                Address[] address = customerAddressDao.getAddressesByEmail(email);
                 Order[] orders = new Order[0];
                 customers.add(new Customer(email, firstName, lastName, phoneNumber, password, verified, null, address, orders));
 

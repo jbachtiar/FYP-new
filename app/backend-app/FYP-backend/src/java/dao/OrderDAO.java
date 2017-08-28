@@ -57,7 +57,7 @@ public class OrderDAO {
 //        return address.toArray(new Address[address.size()]);
 //    }
     
-    public Order retrieveOrderById(int orderId) throws SQLException {
+    public Order getOrderById(int orderId) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -85,7 +85,7 @@ public class OrderDAO {
                 PromoCodeDAO pcDao = new PromoCodeDAO();
                 Address a = new Address(0, addressLine, city, country, postalCode, "N");
                 OrderItemDAO orderItemDao = new OrderItemDAO();
-                order = new Order(orderId, orderDate, netAmt, promoDiscAmt, a, paymentRefNo, pcDao.getPromoCodeById(promoCode), orderItemDao.retrieveOrderItemsByOrderId(orderId), orderLog.getOrderStatusByOrderId(orderId));
+                order = new Order(orderId, orderDate, netAmt, promoDiscAmt, a, paymentRefNo, pcDao.getPromoCodeById(promoCode), orderItemDao.getOrderItemsByOrderId(orderId), orderLog.getOrderStatusByOrderId(orderId));
                 
             }
         } finally {
