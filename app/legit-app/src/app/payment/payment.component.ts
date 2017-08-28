@@ -78,7 +78,7 @@ export class PaymentComponent implements OnInit {
       token: (token: any) => {
         // You can access the token ID with `token.id`.
         // Get the token ID to our server-side code for use.
-        this.chargeStripe(token.id);
+        this.chargeStripe(token.id, this.shoppingCart.totalPrice * 100);
         // console.log("TOKEN: " + token.id)
         // var http = new XMLHttpRequest();
         // var url = "http://localhost:8084/FYP-backend/API/Payment/chargeStripe";
@@ -104,8 +104,8 @@ export class PaymentComponent implements OnInit {
     });
   }
 
-  chargeStripe(token) {
-    this.shoppingCartService.chargeStripe(token).subscribe(res => {
+  chargeStripe(token, amount) {
+    this.shoppingCartService.chargeStripe(token, amount).subscribe(res => {
       console.log(res)
       if (res.status == 200) {
         //remove items in cart

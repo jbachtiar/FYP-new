@@ -39,13 +39,14 @@ export class ShoppingCartService {
     });
   }
 
-  public chargeStripe(stripeToken){
+  public chargeStripe(stripeToken, amount){
     let params: URLSearchParams = new URLSearchParams();
     let headers= new Headers();
     headers.append (
       'Content-type','application/x-www-form-urlencoded'
    );
     params.set('stripeToken', stripeToken);
+    params.set('amount', amount);
     return this._http.post(CONFIG.paymentBackendUrl+"/chargeStripe" ,params.toString(), {headers: headers} )
     .map(res => res.json());
   }

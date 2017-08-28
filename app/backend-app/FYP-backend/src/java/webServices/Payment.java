@@ -34,7 +34,7 @@ public class Payment {
     @POST
     @Path("/chargeStripe")
     @Produces(MediaType.APPLICATION_JSON)
-    public String chargeStripe(@FormParam("stripeToken") String token) {
+    public String chargeStripe(@FormParam("stripeToken") String token, @FormParam("amount") String amount) {
         System.out.print("TOKENNNNN: " + token);
         response.setHeader("Access-Control-Allow-Origin", "*");
         HashMap<String, String> responseMap = new HashMap();
@@ -48,8 +48,9 @@ public class Payment {
         // Get the payment token ID submitted by the form:
         //String token = request.getParameter("stripeToken");
         // Charge the user's card:
+        int amountInt = Integer.parseInt(amount);
         Map<String, Object> params = new HashMap<String, Object>();
-        params.put("amount", 1000);
+        params.put("amount", amountInt);
         params.put("currency", "sgd");
         params.put("description", "Example charge");
         params.put("source", token);
