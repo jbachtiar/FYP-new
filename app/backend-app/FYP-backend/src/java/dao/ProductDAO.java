@@ -235,7 +235,7 @@ public class ProductDAO {
 
                 int colourId = rs.getInt("COLOUR_ID");
                 String productType = rs.getString("PRODUCT_TYPE");
-                product = new Product(productId, productType, dd.retrieveDesignById(designId), cd.getColourById(colourId), id.getAllImagesByProductId(productId));
+                product = new Product(productId, productType, dd.getDesignById(designId), cd.getColourById(colourId), id.getAllImagesByProductId(productId));
 
             }
 

@@ -250,7 +250,7 @@ public class DesignDAO {
 //    }
 //    
 
-    public Design retrieveDesignById(int designId) throws SQLException {
+    public Design getDesignById(int designId) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;

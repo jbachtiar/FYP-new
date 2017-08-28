@@ -11,43 +11,69 @@ package dao;
  */
 import database.ConnectionManager;
 import entity.OrderItem;
+import entity.Product;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-
 public class OrderItemDAO {
-    
+
     public OrderItem[] getOrderItemsByOrderId(int orderId) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         ArrayList<OrderItem> orderItems = new ArrayList<>();
-        
+
         String sql = "SELECT * FROM order_item WHERE order_id= ?";
         try {
             conn = ConnectionManager.getConnection();
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, orderId);
             rs = stmt.executeQuery();
-            
+
             while (rs.next()) {
-                
+
                 int productId = rs.getInt(2);
                 int quantity = rs.getInt(3);
                 double unitPrice = rs.getDouble(4);
                 ProductDAO pd = new ProductDAO();
                 orderItems.add(new OrderItem(pd.retrieveProductById(productId), quantity, unitPrice));
-                
+
             }
         } finally {
             ConnectionManager.close(conn, stmt, rs);
         }
-        
+
         return orderItems.toArray(new OrderItem[orderItems.size()]);
     }
 
-    
+    public String addOrderItems(int orderId, Product product, int quantity, double unitPrice) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        String sql = "INSERT INTO ORDER_ITEM VALUES (?,?,?,?)";
+
+        try {
+
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, orderId);
+            stmt.setInt(2, product.getProductId());
+            stmt.setInt(3, quantity);
+            stmt.setDouble(4, unitPrice);
+
+            rs = stmt.executeQuery();
+
+        } finally {
+            ConnectionManager.close(conn, stmt, rs);
+        }
+
+
+        return "Success";
+
+    }
+
 }
