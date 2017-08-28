@@ -75,7 +75,7 @@ public class OrderStatusDAO {
         
     }
 
-    public OrderStatus getOrderStatusId(int id) throws SQLException {
+    public OrderStatus getOrderStatusById(int id) throws SQLException {
 
         Connection conn = null;
         PreparedStatement stmt = null;
