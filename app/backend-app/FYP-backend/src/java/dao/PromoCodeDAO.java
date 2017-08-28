@@ -26,7 +26,6 @@ public class PromoCodeDAO {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        PromoCode p = null;
 
         String sql = "INSERT INTO PROMO_CODE (PROMO_CODE_ID, PROMO_CODE, PROMO_NAME, PROMO_TYPE, PROMO_VALUE, MIN_PURCHASE, MAX_DISCOUNT, QUOTA, COUNTER, START_DATE, END_DATE, DELETED) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
 
@@ -130,7 +129,7 @@ public class PromoCodeDAO {
     }
 
     //Retrieve 1 PromoCode by ID
-    public PromoCode[] getAllPromoCode() throws SQLException {
+    public PromoCode[] getAllPromoCodes() throws SQLException {
 
         Connection conn = null;
         PreparedStatement stmt = null;
