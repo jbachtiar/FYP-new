@@ -6,10 +6,10 @@
 package dao;
 
 import database.ConnectionManager;
-import entity.Colour;
-import entity.Image;
 import entity.OrderStatus;
+import entity.PromoCode;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,24 +17,24 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Huiyan
+ * @author Ong Yi Xuan
  */
-public class ImageDAO {
+public class OrderStatusDAO {
     
-        public void addImage(int productId, Image i) throws SQLException {
+
+    public void addOrderStatus(OrderStatus os) throws SQLException {
         
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
-        String sql = "INSERT INTO PRODUCT_IMAGE (PRODUCT_ID, IMAGE_ID, IMAGE_URL) VALUES (?,?,?)";
+        String sql = "INSERT INTO ORDER_STATUS (STATUS_ID, STATUS_NAME) VALUES (?,?)";
 
         try {
             conn = ConnectionManager.getConnection();
             stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, productId);
-            stmt.setInt(2, i.getImageId());
-            stmt.setString(3, i.getImageUrl());
+            stmt.setInt(1, os.getStatusId());
+            stmt.setString(2, os.getStatusName());
             stmt.executeUpdate();
 
             
@@ -44,15 +44,15 @@ public class ImageDAO {
         
     }
 
-    public int getImageId() throws SQLException {
+    public int getNextOrderStatusId() throws SQLException {
         
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         
-        int nextImageId = 0;
+        int nextOrderStatusId = 0;
 
-        String sql = "SELECT MAX(IMAGE_ID) AS MAX FROM PRODUCT_IMAGE";
+        String sql = "SELECT MAX(STATUS_ID) AS MAX FROM ORDER_STATUS";
 
         try {
             conn = ConnectionManager.getConnection();
@@ -61,7 +61,7 @@ public class ImageDAO {
 
             while (rs.next()) {
 
-                nextImageId = rs.getInt("MAX") +1;
+                nextOrderStatusId = rs.getInt("MAX") +1;
                 
             }
 
@@ -71,30 +71,31 @@ public class ImageDAO {
             
         }
 
-        return nextImageId;
+        return nextOrderStatusId;
         
     }
-    
-    public Image getImageById(int imageId) throws SQLException {
+
+    public OrderStatus getOrderStatusById(int id) throws SQLException {
 
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        Image i = null;
+        OrderStatus os = null;
 
-        String sql = "SELECT * FROM PRODUCT_IMAGE WHERE IMAGE_ID = ?";
+        String sql = "SELECT * FROM ORDER_STATUS WHERE STATUS_ID = ?";
 
         try {
             conn = ConnectionManager.getConnection();
             stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, imageId);
+            stmt.setInt(1, id);
             rs = stmt.executeQuery();
 
             while (rs.next()) {
 
-                String imageUrl = rs.getString("IMAGE_URL");
-                i = new Image(imageId, imageUrl);
-                
+                int orderStatusId = rs.getInt("STATUS_ID");
+                String orderStatusName = rs.getString("STATUS_NAME");
+                os = new OrderStatus(orderStatusId, orderStatusName);
+
             }
 
         } finally {
@@ -103,33 +104,32 @@ public class ImageDAO {
             
         }
 
-        return i;
+        return os;
 
     }
 
-    public Image[] getAllImagesByProductId(int productId) throws SQLException {
+    public OrderStatus[] getAllOrderStatuses() throws SQLException {
 
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        Image i = null;
+        OrderStatus os = null;
         
-        ArrayList<Image> imageList = new ArrayList<>();
+        ArrayList<OrderStatus> orderStatusList = new ArrayList<>();
 
-        String sql = "SELECT * FROM PRODUCT_IMAGE WHERE PRODUCT_ID = ?";
+        String sql = "SELECT * FROM ORDER_STATUS";
 
         try {
             conn = ConnectionManager.getConnection();
             stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, productId);
             rs = stmt.executeQuery();
 
             while (rs.next()) {
 
-                int imageId = rs.getInt("IMAGE_ID");
-                String imageUrl = rs.getString("IMAGE_URL");
-                i = new Image(imageId, imageUrl);
-                imageList.add(i);
+                int orderStatusId = rs.getInt("STATUS_ID");
+                String orderStatusName = rs.getString("STATUS_NAME");
+                os = new OrderStatus(orderStatusId, orderStatusName);
+                orderStatusList.add(os);
                 
             }
 
@@ -139,25 +139,25 @@ public class ImageDAO {
             
         }
 
-        Image[] imageArr = imageList.toArray(new Image[imageList.size()]);
-        return imageArr;
+        OrderStatus[] orderStatusArr = orderStatusList.toArray(new OrderStatus[orderStatusList.size()]);
+        return orderStatusArr;
 
     }
     
     //Update
-    public void updateImage(Image i) throws SQLException{
+    public void updateOrderStatus(OrderStatus os) throws SQLException{
         
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
-        String sql = "UPDATE PRODUCT_IMAGE SET IMAGE_URL = ? WHERE IMAGE_ID = ?";
+        String sql = "UPDATE ORDER_STATUS SET STATUS_NAME = ? WHERE STATUS_ID = ?";
 
         try {
             conn = ConnectionManager.getConnection();
             stmt = conn.prepareStatement(sql);
-            stmt.setString(1, i.getImageUrl());
-            stmt.setInt(2, i.getImageId());
+            stmt.setString(1, os.getStatusName());
+            stmt.setInt(2, os.getStatusId());
             stmt.executeUpdate();
 
         } finally {
@@ -169,19 +169,19 @@ public class ImageDAO {
     }
     
     //Hard Delete
-    public void deleteImage(int imageId) throws SQLException {
+    public void deleteOrderStatus(int orderStatusId) throws SQLException {
         
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
-        String sql = "DELETE FROM PRODUCT_IMAGE WHERE IMAGE_ID = ?";
+        String sql = "DELETE FROM ORDER_STATUS WHERE STATUS_ID = ?";
 
         try {
             
             conn = ConnectionManager.getConnection();
             stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, imageId);
+            stmt.setInt(1, orderStatusId);
             stmt.executeUpdate();
 
         } finally {
@@ -192,35 +192,5 @@ public class ImageDAO {
         
     }
 
-//    public Image[] getImagesById(int productId) throws SQLException {
-//
-//        Connection conn = null;
-//        PreparedStatement stmt = null;
-//        ResultSet rs = null;
-//        ArrayList<Image> images = new ArrayList<Image>();
-//
-//        String sql = "SELECT * FROM product_image where product_id=?";
-//
-//        try {
-//            conn = ConnectionManager.getConnection();
-//            stmt = conn.prepareStatement(sql);
-//            stmt.setInt(1, productId);
-//            rs = stmt.executeQuery();
-//
-//            while (rs.next()) {
-//
-//                int imageId = rs.getInt("image_id");
-//                String imageUrl = rs.getString("image_url");
-//                images.add(new Image(imageId, imageUrl));
-//
-//            }
-//
-//        } finally {
-//            ConnectionManager.close(conn, stmt, rs);
-//        }
-//
-//        return images.toArray(new Image[images.size()]);
-//
-//    }
-
+    
 }

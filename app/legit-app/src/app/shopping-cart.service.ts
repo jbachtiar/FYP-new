@@ -6,6 +6,7 @@ import { CartItem } from "./cart/model/cart-item.model";
 import { ShoppingCart } from "./cart/model/shopping-cart.model";
 import { CONFIG } from './config/config.component'
 import { Http, Headers, Response } from '@angular/http';
+import { Subject } from 'rxjs/Subject';
 
 const CART_KEY = "cart";
 
@@ -17,6 +18,15 @@ export class ShoppingCartService {
   private item: CartItem;
   private cart: ShoppingCart;
   private token: string;
+  private cartMethodCallSource = new Subject<any>();
+
+    // Observable string streams
+    cartMethodCalled$ = this.cartMethodCallSource.asObservable();
+
+    // Service message commands
+    callCartMethod() {
+        this.cartMethodCallSource.next();
+    }
 
   public constructor(private _http: Http) {
     this.token = localStorage.getItem('token');
@@ -28,6 +38,20 @@ export class ShoppingCartService {
       };
     });
   }
+
+  public chargeStripe(stripeToken, amount){
+    let params: URLSearchParams = new URLSearchParams();
+    let headers= new Headers();
+    headers.append (
+      'Content-type','application/x-www-form-urlencoded'
+   );
+    params.set('stripeToken', stripeToken);
+    params.set('amount', amount);
+    return this._http.post(CONFIG.paymentBackendUrl+"/chargeStripe" ,params.toString(), {headers: headers} )
+    .map(res => res.json());
+  }
+
+  // public updateCart()
 
   public get(): Observable<ShoppingCart> {
     return this.subscriptionObservable;

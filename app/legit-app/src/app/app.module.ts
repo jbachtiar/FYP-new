@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { Router } from "@angular/router";
 import { HttpModule } from '@angular/http';
 import { CommonModule } from '@angular/common';
-import { ResponsiveModule } from 'ng2-responsive'
 
 import { routing } from './app.routing';
 
@@ -49,8 +48,6 @@ import { ConfirmationPopupComponent } from './confirmation-popup/confirmation-po
 import { LoadingComponent } from './loading/loading.component';
 import { DeleteConfirmationPopupComponent } from './delete-confirmation-popup/delete-confirmation-popup.component';
 
-
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -77,7 +74,7 @@ import { DeleteConfirmationPopupComponent } from './delete-confirmation-popup/de
     CartPopupComponent,
     ConfirmationPopupComponent,
     LoadingComponent,
-    DeleteConfirmationPopupComponent
+    DeleteConfirmationPopupComponent,
   ],
   imports: [
     BrowserModule,
@@ -86,7 +83,6 @@ import { DeleteConfirmationPopupComponent } from './delete-confirmation-popup/de
     routing,
     BootstrapModalModule,
     CommonModule,
-    ResponsiveModule,
   ],
   providers: [
     AuthenticationService,

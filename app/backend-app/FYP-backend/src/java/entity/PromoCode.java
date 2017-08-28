@@ -14,6 +14,7 @@ import java.sql.Date;
 public class PromoCode {
     
     private int promoCodeId;
+    private String promoCode;
     private String promoName;
     private String promoType;
     private double promoValue;
@@ -21,11 +22,12 @@ public class PromoCode {
     private double maxDiscount;
     private int quota;
     private int counter;
-    private Date start_date;
-    private Date end_date;
+    private Date startDate;
+    private Date endDate;
 
-    public PromoCode(int promoCodeId, String promoName, String promoType, double promoValue, double minPurchase, double maxDiscount, int quota, int counter, Date start_date, Date end_date) {
+    public PromoCode(int promoCodeId, String promoCode, String promoName, String promoType, double promoValue, double minPurchase, double maxDiscount, int quota, int counter, Date startDate, Date endDate) {
         this.promoCodeId = promoCodeId;
+        this.promoCode = promoCode;
         this.promoName = promoName;
         this.promoType = promoType;
         this.promoValue = promoValue;
@@ -33,8 +35,8 @@ public class PromoCode {
         this.maxDiscount = maxDiscount;
         this.quota = quota;
         this.counter = counter;
-        this.start_date = start_date;
-        this.end_date = end_date;
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     public int getPromoCodeId() {
@@ -43,6 +45,14 @@ public class PromoCode {
 
     public void setPromoCodeId(int promoCodeId) {
         this.promoCodeId = promoCodeId;
+    }
+
+    public String getPromoCode() {
+        return promoCode;
+    }
+
+    public void setPromoCode(String promoCode) {
+        this.promoCode = promoCode;
     }
 
     public String getPromoName() {
@@ -101,22 +111,20 @@ public class PromoCode {
         this.counter = counter;
     }
 
-    public Date getStart_date() {
-        return start_date;
+    public Date getStartDate() {
+        return startDate;
     }
 
-    public void setStart_date(Date start_date) {
-        this.start_date = start_date;
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 
-    public Date getEnd_date() {
-        return end_date;
+    public Date getEndDate() {
+        return endDate;
     }
 
-    public void setEnd_date(Date end_date) {
-        this.end_date = end_date;
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
-    
-    
     
 }

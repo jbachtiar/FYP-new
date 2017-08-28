@@ -109,4 +109,9 @@ export class ProductService {
             .map(res => res.json().totalPrice);
 
     }
+
+    public chargeStripe(token){
+        //get token from stripe response
+        //send token to backend
+    }
 }
