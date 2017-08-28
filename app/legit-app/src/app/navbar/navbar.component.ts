@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import * as $ from 'jquery';
 import { LoginPopupComponent } from '../login/login-popup.component';
 
 import { AuthenticationService } from '../authentication.service';
@@ -10,7 +9,6 @@ import { ShoppingCartService } from '../shopping-cart.service';
 import { DialogService } from "ng2-bootstrap-modal";
 
 
-import { ResponsiveModule } from 'ng2-responsive'
 
 //declare var $:any;
 

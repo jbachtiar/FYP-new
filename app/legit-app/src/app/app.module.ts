@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { Router } from "@angular/router";
 import { HttpModule } from '@angular/http';
 import { CommonModule } from '@angular/common';
-import { ResponsiveModule } from 'ng2-responsive'
 
 import { routing } from './app.routing';
 
@@ -86,7 +85,6 @@ import { DeleteConfirmationPopupComponent } from './delete-confirmation-popup/de
     routing,
     BootstrapModalModule,
     CommonModule,
-    ResponsiveModule,
   ],
   providers: [
     AuthenticationService,
