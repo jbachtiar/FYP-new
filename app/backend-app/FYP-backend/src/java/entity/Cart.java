@@ -11,21 +11,21 @@ package entity;
  */
 public class Cart {
     
-    private String cartId;
+    private int cartId;
     private double price;
-    private CartItem[] cartItem;
+    private CartItem[] cartItems;
 
-    public Cart(String cartId, double price, CartItem[] cartItem) {
+    public Cart(int cartId, double price, CartItem[] cartItems) {
         this.cartId = cartId;
         this.price = price;
-        this.cartItem = cartItem;
+        this.cartItems = cartItems;
     }
 
-    public String getCartId() {
+    public int getCartId() {
         return cartId;
     }
 
-    public void setCartId(String cartId) {
+    public void setCartId(int cartId) {
         this.cartId = cartId;
     }
 
@@ -37,12 +37,12 @@ public class Cart {
         this.price = price;
     }
 
-    public CartItem[] getCartItem() {
-        return cartItem;
+    public CartItem[] getCartItems() {
+        return cartItems;
     }
 
     public void setCartItem(CartItem[] cartItem) {
-        this.cartItem = cartItem;
+        this.cartItems = cartItem;
     }
    
 }

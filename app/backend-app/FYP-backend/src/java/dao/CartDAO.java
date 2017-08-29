@@ -1,329 +1,179 @@
-///*
-// * To change this license header, choose License Headers in Project Properties.
-// * To change this template file, choose Tools | Templates
-// * and open the template in the editor.
-// */
-//package dao;
-//
-//import database.ConnectionManager;
-//import entity.Cart;
-//import entity.Product;
-//import java.sql.Connection;
-//import java.sql.PreparedStatement;
-//import java.sql.ResultSet;
-//import java.sql.SQLException;
-//import java.text.SimpleDateFormat;
-//import java.util.ArrayList;
-//import java.util.Date;
-//import java.util.logging.Level;
-//import java.util.logging.Logger;
-//
-///**
-// *
-// * @author Huiyan
-// */
-//public class CartDAO {
-//
-//    public static String addCart(String cartId, double totalPrice, String email, String date){
-//        
-//        Connection conn = null;
-//        PreparedStatement stmt = null;
-//
-//        ResultSet rs = null;
-//
-//        String sql = "INSERT INTO CART VALUES (?,?,?,?)";
-//
-//        try {
-//            conn = ConnectionManager.getConnection();
-//            stmt = conn.prepareStatement(sql);
-//            stmt.setString(1, cartId);
-//            stmt.setString(2, ""+totalPrice);
-//            stmt.setString(3, email);
-//            stmt.setString(4, date);
-//
-//            stmt.executeUpdate();
-//
-//        } catch (SQLException ex) {
-//            
-//           handleSQLException(ex, sql);
-//            
-//        } finally {
-//            ConnectionManager.close(conn, stmt, rs);
-//        }
-//        
-//        
-//        return "";
-//    }
-//
-//    public static Cart[] getCartsByCartId(String cartId) throws SQLException {
-//
-//        Connection conn = null;
-//        PreparedStatement stmt = null;
-//        ResultSet rs = null;
-//
-//        ArrayList<Cart> carts = new ArrayList();
-//
-//        String sql = "SELECT * FROM  cart_details  where cart_id=?";
-//
-//        try {
-//            conn = ConnectionManager.getConnection();
-//            stmt = conn.prepareStatement(sql);
-//            stmt.setString(1, cartId);
-//            rs = stmt.executeQuery();
-//
-//            while (rs.next()) {
-//
-//                String product_sku = rs.getString("product_sku");
-//                double qty = rs.getDouble("quantity");
-//                Product p = ProductDAO.retrieveProductById(product_sku);
-//                //Cart c = new Cart(qty, p);
-//                //.add(c);
-//
-//            }
-//
-//        } finally {
-//            ConnectionManager.close(conn, stmt, rs);
-//        }
-//
-//        return carts.toArray(new Cart[carts.size()]);
-//
-//    }
-//
-//    public static String getTotalPriceByCardId(String cartId) throws SQLException {
-//
-//        Connection conn = null;
-//        PreparedStatement stmt = null;
-//        ResultSet rs = null;
-//        String price="";
-//
-//        String sql = "SELECT * FROM cart where cart_id=?";
-//
-//        try {
-//            conn = ConnectionManager.getConnection();
-//            stmt = conn.prepareStatement(sql);
-//            stmt.setString(1, cartId);
-//            rs = stmt.executeQuery();
-//            while (rs.next()) {
-//                price = rs.getString("price");
-//
-//            }
-//
-//
-//        } finally {
-//            ConnectionManager.close(conn, stmt, rs);
-//        }
-//
-//        return price;
-//
-//    }
-//
-//    public static void clearCarts() {
-//        Connection conn = null;
-//        PreparedStatement stmt = null;
-//        try {
-//            conn = ConnectionManager.getConnection();
-//            stmt = conn.prepareStatement("TRUNCATE cart_details");
-//            stmt.execute();
-//        } catch (SQLException e) {
-//            System.out.println(e);
-//        } finally {
-//            ConnectionManager.close(conn, stmt, null);
-//        }
-//    }
-//
-//    public static void deleteCartItem(String cartId, int qty, String productId) throws SQLException {
-//
-//        Connection conn = null;
-//        PreparedStatement stmt = null;
-//        ResultSet rs = null;
-//
-//        String sql = "DELETE from cart_details where cart_id=? and product_sku=? and quantity=?";
-//
-//        try {
-//            conn = ConnectionManager.getConnection();
-//            stmt = conn.prepareStatement(sql);
-//            stmt.setString(1, cartId);
-//            stmt.setString(2, productId);
-//            stmt.setInt(3, qty);
-//
-//            stmt.executeUpdate();
-//        } finally {
-//            ConnectionManager.close(conn, stmt, rs);
-//        }
-//    }
-//
-//    public static void updateCartDetails(String cartId, String productId, int qty) throws SQLException {
-//
-//        Connection conn = null;
-//        PreparedStatement stmt = null;
-//
-//        ResultSet rs = null;
-//
-//        String sql = "update cart_details set quantity=? where cart_id=? and product_sku=?";
-//
-//        try {
-//            conn = ConnectionManager.getConnection();
-//            stmt = conn.prepareStatement(sql);
-//            stmt.setInt(1, qty);
-//            stmt.setString(2, cartId);
-//            stmt.setString(3, productId);
-//
-//            stmt.executeUpdate();
-//
-//        } finally {
-//            ConnectionManager.close(conn, stmt, rs);
-//
-//        }
-//    }
-//
-//
-//
-//    public static void updateCart(double price, String date, String cart_id) throws SQLException {
-//
-//        Connection conn = null;
-//        PreparedStatement stmt = null;
-//
-//        ResultSet rs = null;
-//
-//        String sql = "update cart set price=? , date=? where cart_id=?";
-//
-//        try {
-//            conn = ConnectionManager.getConnection();
-//            stmt = conn.prepareStatement(sql);
-//            stmt.setString(1, ""+price);
-//            stmt.setString(2, date);
-//            stmt.setString(3, cart_id);
-//
-//            stmt.executeUpdate();
-//
-//        } finally {
-//            ConnectionManager.close(conn, stmt, rs);
-//
-//        }
-//    }
-//
-//    public static Cart getCartByCartId(String cartId) throws SQLException {
-//        Cart cart = null;
-//        Connection conn = null;
-//        PreparedStatement stmt = null;
-//        ResultSet rs = null;
-//
-//        ArrayList<Cart> carts = new ArrayList();
-//
-//        String sql = "SELECT * FROM  where cart_id=?";
-//
-//        try {
-//            conn = ConnectionManager.getConnection();
-//            stmt = conn.prepareStatement(sql);
-//            stmt.setString(1, cartId);
-//            rs = stmt.executeQuery();
-//
-//            while (rs.next()) {
-//
-//                String product_sku = rs.getString("product_sku");
-//                double qty = rs.getDouble("quantity");
-//                Product p = ProductDAO.retrieveProductById(product_sku);
-//                //Cart c = new Cart(qty, p);
-//                //carts.add(c);
-//
-//            }
-//
-//        } finally {
-//            ConnectionManager.close(conn, stmt, rs);
-//        }
-//
-//        return cart;
-//
-//    }
-//    
-//    public static Cart retrieveCartByCust(String email) throws SQLException {
-//        Cart cart = null;
-//        Connection conn = null;
-//        PreparedStatement stmt = null;
-//        ResultSet rs = null;
-//
-//
-//        String sql = "SELECT * FROM  where customer_id=?";
-//
-//        try {
-//            conn = ConnectionManager.getConnection();
-//            stmt = conn.prepareStatement(sql);
-//            stmt.setString(1, email);
-//            rs = stmt.executeQuery();
-//
-//            while (rs.next()) {
-//
-//                String cartId = rs.getString("cart_id");
-//                double totalPrice = Double.parseDouble(rs.getString("price"));
-//                String date = rs.getString("date");
-//                cart = new Cart(cartId, totalPrice, email, date);
-//         
-//
-//            }
-//
-//        } finally {
-//            ConnectionManager.close(conn, stmt, rs);
-//        }
-//
-//        return cart;
-//
-//    }
-//
-//    public static String getCartId() throws SQLException {
-//        String result = "";
-//        Connection conn = null;
-//        PreparedStatement stmt = null;
-//        ResultSet rs = null;
-//
-//        ArrayList<Cart> carts = new ArrayList();
-//
-//        String sql = "SELECT cart_id FROM cart WHERE date = ? ORDER BY cart_id DESC LIMIT 1";
-//
-//        try {
-//            conn = ConnectionManager.getConnection();
-//            stmt = conn.prepareStatement(sql);
-//            stmt.setString(1, getCurrentDate());
-//            rs = stmt.executeQuery();
-//
-//            while (rs.next()) {
-//                String cartId = rs.getString("cart_id");
-//                int cartIdInt = Integer.parseInt(cartId);
-//                cartIdInt++;
-//
-//                return result + cartIdInt;
-//            }
-//
-//        } finally {
-//            ConnectionManager.close(conn, stmt, rs);
-//        }
-//
-//        if(result.equals("")){
-//            String curDate = getCurrentDate();
-//            int number = 1;
-//            String numString = String.format("%08d", number);
-//
-//            result = curDate + numString;
-//        }
-//
-//        return result;
-//
-//    }
-//
-//    public static String getCurrentDate(){
-//        String currentDate;
-//
-//        Date current = new Date();
-//        SimpleDateFormat dateFmt = new SimpleDateFormat("yyyyMMdd");
-//        currentDate = dateFmt.format(current);
-//
-//        return currentDate;
-//    }
-//    
-//    private static void handleSQLException(SQLException ex, String sql, String... parameters) {
-//        String msg = "Unable to access data; SQL=" + sql + "\n";
-//        for (String parameter : parameters) {
-//            msg += "," + parameter;
-//        }
-//        Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, msg, ex);
-//    }
-//}
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package dao;
+
+/**
+ *
+ * @author Huiyan
+ */
+import database.ConnectionManager;
+import entity.Address;
+import entity.Cart;
+import entity.CartItem;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+
+public class CartDAO {
+    
+    public String addCart(Cart c, String email) throws SQLException{
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        
+        Cart cart = getCartByEmail(email);
+        
+        if(cart==null){
+            CartItem[] cartItems = c.getCartItems();
+            
+            int cartId = getNextCartId();
+            String sql = "INSERT INTO CART VALUES (?,?,?)";
+
+            try {
+                conn = ConnectionManager.getConnection();
+                stmt = conn.prepareStatement(sql);
+                stmt.setInt(1, cartId);
+                stmt.setDouble(2, c.getPrice());
+                stmt.setString(3, email);
+
+                rs = stmt.executeQuery();
+
+                for (CartItem cI : cartItems) {
+                    CartItemDAO cartItemDAO = new CartItemDAO();
+                    String result = cartItemDAO.addCartItem(cartId, cI);
+                }
+            } finally {
+                ConnectionManager.close(conn);
+            }
+
+        }else{
+            CartItem[] cartItems = c.getCartItems();
+            
+            int cartId = cart.getCartId();
+            for (CartItem cI : cartItems) {
+                    CartItemDAO cartItemDAO = new CartItemDAO();
+                    String result = cartItemDAO.addCartItem(cartId, cI);
+            }
+            
+            String sql = "UPDATE CART SET CART_PRICE = ? WHERE CART_ID = ?";
+
+            try {
+                conn = ConnectionManager.getConnection();
+                stmt = conn.prepareStatement(sql);
+                stmt.setDouble(1, c.getPrice());
+                stmt.setInt(2, cartId);
+
+                rs = stmt.executeQuery();
+            } finally {
+                ConnectionManager.close(conn);
+            }
+
+            
+        }
+        
+        return "Success";
+        
+    }
+    
+
+    
+    public Cart getCartByEmail(String email) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        
+        Cart cart = null;
+        
+        String sql = "SELECT * FROM order WHERE EMAIL = ?";
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, email);
+            rs = stmt.executeQuery();
+            
+            while (rs.next()) {
+                int cartId = rs.getInt(1);
+                double cartPrice = rs.getDouble(2);
+                CartItemDAO cartItemDao = new CartItemDAO();
+                CartItem[] cartItems = cartItemDao.getCartItemsByCartId(cartId);
+                cart = new Cart(cartId, cartPrice, cartItems);
+            }
+        } finally {
+            ConnectionManager.close(conn, stmt, rs);
+        }
+        
+        return cart;
+    }
+    
+    public int getNextCartId() throws SQLException {
+        
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        
+        int nextCartId = 0;
+
+        String sql = "SELECT MAX(CART_ID) AS MAX FROM CART";
+
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+
+                nextCartId = rs.getInt("MAX") +1;
+                
+            }
+
+        } finally {
+            
+            ConnectionManager.close(conn, stmt, rs);
+            
+        }
+
+        return nextCartId;
+        
+    }
+    
+    private java.sql.Timestamp getCurrentTimeStamp() {
+
+        java.util.Date today = new java.util.Date();
+        return new java.sql.Timestamp(today.getTime());
+
+    }
+    
+    public String deleteCart(Cart cart, String email) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        CartItem cartItem = null;
+        
+        CartItemDAO cartItemDao = new CartItemDAO();
+        CartItem[] cartItems = cart.getCartItems();
+        for(CartItem cI : cartItems){
+            cartItemDao.deleteCartItem(cart.getCartId(), cI.getProduct().getProductId());
+        }
+        
+        String sql = "DELETE FROM CART_ITEM WHERE CART_ID= ? AND EMAIL= ?";
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, cart.getCartId());
+            stmt.setString(2, email);
+            rs = stmt.executeQuery();
+
+        } finally {
+            ConnectionManager.close(conn, stmt, rs);
+        }
+
+        return "Success";
+    }
+
+}

@@ -66,10 +66,7 @@ public class OrderDAO {
         int orderId = getNextOrderId();
         OrderItem[] orderItems =  o.getOrderItems();
         
-        for(OrderItem oI: orderItems){
-            OrderItemDAO orderItemDAO = new OrderItemDAO();
-            String result = orderItemDAO.addOrderItems(orderId, oI);
-        }
+        
         String sql = "INSERT INTO ORDER VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 
         try {
@@ -86,11 +83,12 @@ public class OrderDAO {
             stmt.setString(9, o.getPaymentRefNo());
             stmt.setString(10, email);
             stmt.setInt(11, o.getPromoCode().getPromoCodeId());
-            
+
             rs = stmt.executeQuery();
 
-            while (rs.next()) {
-
+            for (OrderItem oI : orderItems) {
+                OrderItemDAO orderItemDAO = new OrderItemDAO();
+                String result = orderItemDAO.addOrderItems(orderId, oI);
             }
         } finally {
             ConnectionManager.close(conn);
