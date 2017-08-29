@@ -13,9 +13,9 @@ public class Cart {
     
     private String cartId;
     private double price;
-    private CartItem cartItem;
+    private CartItem[] cartItem;
 
-    public Cart(String cartId, double price, CartItem cartItem) {
+    public Cart(String cartId, double price, CartItem[] cartItem) {
         this.cartId = cartId;
         this.price = price;
         this.cartItem = cartItem;
@@ -37,11 +37,11 @@ public class Cart {
         this.price = price;
     }
 
-    public CartItem getCartItem() {
+    public CartItem[] getCartItem() {
         return cartItem;
     }
 
-    public void setCartItem(CartItem cartItem) {
+    public void setCartItem(CartItem[] cartItem) {
         this.cartItem = cartItem;
     }
    

@@ -67,7 +67,7 @@ public class OrderItemDAO {
             stmt.setInt(1, orderId);
             stmt.setInt(2, oI.getProduct().getProductId());
             stmt.setInt(3, oI.getQuantity());
-            stmt.setDouble(3, oI.getUnitPrice());
+            stmt.setDouble(4, oI.getUnitPrice());
 
             rs = stmt.executeQuery();
 

@@ -8,22 +8,22 @@ package entity;
 
 public class CartItem {
     
-    private Cart cart;
-    private Product product;
+   private Product product;
     private int quantity;
+    private double unitPrice;
 
-    public CartItem(Cart cart, Product product, int quantity) {
-        this.cart = cart;
+    public CartItem(Product product, int quantity, double unitPrice) {
         this.product = product;
         this.quantity = quantity;
+        this.unitPrice = unitPrice;
     }
 
-    public Cart getCart() {
-        return cart;
+    public double getUnitPrice() {
+        return unitPrice;
     }
 
-    public void setCart(Cart cart) {
-        this.cart = cart;
+    public void setUnitPrice(double unitPrice) {
+        this.unitPrice = unitPrice;
     }
 
     public Product getProduct() {
