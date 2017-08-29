@@ -20,6 +20,10 @@ import java.util.ArrayList;
 
 public class OrderItemDAO {
 
+    static void addOrderItem() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public OrderItem[] getOrderItemsByOrderId(int orderId) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -49,7 +53,7 @@ public class OrderItemDAO {
         return orderItems.toArray(new OrderItem[orderItems.size()]);
     }
 
-    public String addOrderItems(int orderId, Product product, int quantity, double unitPrice) throws SQLException {
+    public String addOrderItems(int orderId, OrderItem oI) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -61,9 +65,9 @@ public class OrderItemDAO {
             conn = ConnectionManager.getConnection();
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, orderId);
-            stmt.setInt(2, product.getProductId());
-            stmt.setInt(3, quantity);
-            stmt.setDouble(4, unitPrice);
+            stmt.setInt(2, oI.getProduct().getProductId());
+            stmt.setInt(3, oI.getQuantity());
+            stmt.setDouble(3, oI.getUnitPrice());
 
             rs = stmt.executeQuery();
 

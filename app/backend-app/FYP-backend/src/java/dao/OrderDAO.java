@@ -150,7 +150,7 @@ public class OrderDAO {
         try {
             conn = ConnectionManager.getConnection();
             stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, email);
+            stmt.setString(1, email);
             rs = stmt.executeQuery();
             
             while (rs.next()) {
