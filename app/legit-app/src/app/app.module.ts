@@ -29,6 +29,7 @@ import { CartService } from './cart.service'
 import { StorageService } from './storage.service'
 import { AuthGuard } from './guard/auth.guard'
 import { ShoppingCartService } from './shopping-cart.service';
+import { SharedService } from './shared.service'
 
 import { BootstrapModalModule } from 'ng2-bootstrap-modal';
 
@@ -74,7 +75,7 @@ import { DeleteConfirmationPopupComponent } from './delete-confirmation-popup/de
     CartPopupComponent,
     ConfirmationPopupComponent,
     LoadingComponent,
-    DeleteConfirmationPopupComponent,
+    DeleteConfirmationPopupComponent
   ],
   imports: [
     BrowserModule,
@@ -93,7 +94,8 @@ import { DeleteConfirmationPopupComponent } from './delete-confirmation-popup/de
     CartService,
     StorageService,
     AuthGuard,
-    ShoppingCartService
+    ShoppingCartService,
+    SharedService
   ],
   bootstrap: [AppComponent],
   entryComponents: [

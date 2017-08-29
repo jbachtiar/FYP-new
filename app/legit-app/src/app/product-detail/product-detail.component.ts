@@ -7,6 +7,7 @@ import { CartItem } from "../cart/model/cart-item.model";
 import { NavbarComponent } from '../navbar/navbar.component';
 import { CartPopupComponent } from '../cart-popup/cart-popup.component'
 import { DialogService } from "ng2-bootstrap-modal";
+import { SharedService } from "../shared.service"
 
 
 @Component({
@@ -38,7 +39,8 @@ export class ProductDetailComponent implements OnInit {
     private productService: ProductService,
     private fabricService: FabricService,
     private route: ActivatedRoute,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private sharedService: SharedService
   ) { }
 
   onLoad() {
@@ -124,6 +126,7 @@ export class ProductDetailComponent implements OnInit {
             console.log('eachPrice: ' + this.eachPrice)
 
             this.shoppingCartService.addItem(this.cartItem)
+            this.sharedService.updateCart();
             this.stopLoading()
             // window.location.reload();
             let disposable = this.dialogService.addDialog(CartPopupComponent, {

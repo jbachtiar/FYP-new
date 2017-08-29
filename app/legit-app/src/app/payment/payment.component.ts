@@ -7,6 +7,9 @@ import { CartItem } from "../cart/model/cart-item.model";
 import { ShoppingCartService } from '../shopping-cart.service'
 import { DialogService } from "ng2-bootstrap-modal";
 import { ConfirmationPopupComponent } from '../confirmation-popup/confirmation-popup.component'
+import { CartComponent } from '../cart/cart.component'
+import { NavbarComponent } from '../navbar/navbar.component'
+import { SharedService } from '../shared.service'
 
 @Component({
   selector: 'app-payment',
@@ -15,7 +18,6 @@ import { ConfirmationPopupComponent } from '../confirmation-popup/confirmation-p
   providers: [ShoppingCartService]
 })
 export class PaymentComponent implements OnInit {
-  @Output() myEvent = new EventEmitter();
   private carts: any = {};
   firstName: string;
   lastName: string;
@@ -32,6 +34,7 @@ export class PaymentComponent implements OnInit {
     private storageService: StorageService,
     private cartService: CartService,
     private shoppingCartService: ShoppingCartService,
+    private sharedService: SharedService,
     private _ngZone: NgZone,
     private dialogService: DialogService,
     private router: Router) {
@@ -64,10 +67,6 @@ export class PaymentComponent implements OnInit {
 
 
       })
-  }
-
-  function2() {
-    this.myEvent.emit(null)
   }
 
   openCheckout() {
@@ -119,20 +118,17 @@ export class PaymentComponent implements OnInit {
     });
   }
 
-
   updateCart(){
-    this.shoppingCartService.callCartMethod();
+    console.log("UPDATE CART FUNCTION")
+    this.sharedService.emptyCart();
   }
-
-
+s
   showSuccessfulDialog() {
     let disposable = this.dialogService.addDialog(ConfirmationPopupComponent, {
       title: 'Congratulations!',
       message: 'Your payment is successful. A confirmation email has been sent to your inbox.'
     })
       .subscribe((isConfirmed) => {
-        console.log("DIALOG")
-        //We get dialog result
         if (isConfirmed) {
           this.router.navigate(['/']);
         }
@@ -148,7 +144,6 @@ export class PaymentComponent implements OnInit {
       message: 'Your payment is unsuccessful.'
     })
       .subscribe((isConfirmed) => {
-        console.log("DIALOG")
         //We get dialog result
         if (isConfirmed) {
           // this.router.navigate(['/']);

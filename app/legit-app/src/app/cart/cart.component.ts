@@ -6,6 +6,7 @@ import { CartItem } from "./model/cart-item.model";
 import { Subscription } from "rxjs/Subscription";
 import { DialogService } from "ng2-bootstrap-modal";
 import { DeleteConfirmationPopupComponent } from '../delete-confirmation-popup/delete-confirmation-popup.component'
+import { SharedService } from '../shared.service'
 
 @Component({
   selector: 'app-cart',
@@ -20,18 +21,19 @@ export class CartComponent implements OnInit {
   private shoppingCart: ShoppingCart;
   private cartItem : CartItem[]
   private empty: boolean = true;
+  subscription: Subscription;
 
   public constructor(
     private shoppingCartService: ShoppingCartService,
-    private dialogService: DialogService) {
+    private dialogService: DialogService,
+    private sharedService: SharedService) {
     this.shoppingCart = JSON.parse(localStorage.getItem('cart'))
-    this.shoppingCartService.cartMethodCalled$.subscribe(
-      () => {
-        console.log("Cart component method called!!")
-        alert('(Component2) Method called!');
-      }
-    );
-
+    this.subscription = this.sharedService.emptyCart$.subscribe(
+        () => {
+          // alert('(Component2) Method called!');
+          this.emptyCart();
+          this.sharedService.updateCart();
+    });
   }
 
   ngOnInit() {
@@ -66,8 +68,9 @@ export class CartComponent implements OnInit {
   }
 
   emptyCart(){
+    console.log("CART IS EMPTIED")
     this.shoppingCartService.empty()
-    window.location.reload()
+    //window.location.reload()
   }
 
   remove(productId: string){
