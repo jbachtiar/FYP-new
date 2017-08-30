@@ -1,6 +1,15 @@
 INSERT INTO CUSTOMER VALUES ('customer@gmail.com','Huiyan','Chen','85882165','1234','N');
+
 INSERT INTO STAFF_ROLE VALUES ('1','Admin');
+INSERT INTO STAFF_ROLE VALUES ('2','Factory Manager');
+INSERT INTO STAFF_ROLE VALUES ('3','Factory Worker');
+
 INSERT INTO STAFF VALUES ('staff@gmail.com','Ming','Xia','12345678','1234','1');
+INSERT INTO STAFF VALUES ('staff1@gmail.com','Tom','John','12345678','1234','2');
+INSERT INTO STAFF VALUES ('staff2@gmail.com','Matthew','Xia','12345678','1234','3');
+INSERT INTO STAFF VALUES ('staff3@gmail.com','James','Xia','12345678','1234','3');
+
+
 INSERT INTO CUSTOMER_ADDRESS VALUES ('1', 'customer@gmail.com','134 Highlander Ave 3','Singapore','Singapore','536748', 'Y');
 INSERT INTO CUSTOMER_ADDRESS VALUES ('2', 'customer@gmail.com','324 Orchard Ave 4','Singapore','Singapore','876324', 'N');
 

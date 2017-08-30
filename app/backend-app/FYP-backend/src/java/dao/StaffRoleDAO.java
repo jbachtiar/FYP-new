@@ -34,7 +34,7 @@ public class StaffRoleDAO {
 
                 conn = ConnectionManager.getConnection();
                 stmt = conn.prepareStatement(sql);
-                stmt.setString(1, sr.getRoleId());
+                stmt.setInt(1, sr.getRoleId());
                 stmt.setString(2, sr.getRoleName());
                 
                 rs = stmt.executeQuery();
@@ -49,7 +49,7 @@ public class StaffRoleDAO {
         return "Success";
     }
     
-    public StaffRole getStaffRoleById(String roleId) throws SQLException{
+    public StaffRole getStaffRoleById(int roleId) throws SQLException{
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -61,7 +61,7 @@ public class StaffRoleDAO {
             
             conn = ConnectionManager.getConnection();
             stmt = conn.prepareStatement(sql);
-            stmt.setString(1, roleId);
+            stmt.setInt(1, roleId);
             rs = stmt.executeQuery();
             
             while(rs.next()){
@@ -92,7 +92,7 @@ public class StaffRoleDAO {
             stmt = conn.prepareStatement(sql);
             rs = stmt.executeQuery();
             while(rs.next()){
-                String roleId = rs.getString("ROLE_ID");
+                int roleId = rs.getInt("ROLE_ID");
                 String roleName = rs.getString("ROLE_NAME");
                 
                 StaffRole sr = new StaffRole(roleId, roleName);
@@ -145,7 +145,7 @@ public class StaffRoleDAO {
                 stmt = conn.prepareStatement(sql);
                 
                 stmt.setString(1, sr.getRoleName());
-                stmt.setString(2, sr.getRoleId());
+                stmt.setInt(2, sr.getRoleId());
                 
                 rs = stmt.executeQuery();
                 

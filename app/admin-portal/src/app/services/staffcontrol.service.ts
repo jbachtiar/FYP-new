@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import { Staff } from "../models/staff";
 import 'rxjs/add/operator/map'
 
 import { CONFIG } from '../config/config.component';
@@ -16,7 +17,22 @@ export class StaffcontrolService {
     }
          
     
-    addNewStaff(email: string, firstName : string, lastName : string, phoneNumber :string, password: string, roleCode : string ){
+    addNewStaff(token : string, newStaff : Staff){
+        let params: URLSearchParams = new URLSearchParams();
+        let headers= new Headers();
+        
+       
+        headers.append (
+           'Content-type','application/x-www-form-urlencoded'
+        );
+        params.set('token', token);
+        params.set('staff', JSON.stringify(newStaff));
+
+        return this._http.post(CONFIG.staffBackendUrl + '/addNewStaff',params.toString(), {headers: headers} )
+            .map(res => res.json());
+    }
+
+    getAllStaff(token: string){
         let params: URLSearchParams = new URLSearchParams();
         let headers= new Headers();
         
@@ -25,15 +41,9 @@ export class StaffcontrolService {
            'Content-type','application/x-www-form-urlencoded'
         );
      
-        params.set('email', email);
-        params.set('firstName', firstName);
-        params.set('lastName', lastName);
-        params.set('phoneNumber', phoneNumber);
-        params.set('password', password);
-        params.set('roleCode', roleCode);
-        
+        params.set('token', token);
 
-        return this._http.post('http://localhost:8084/FYP-backend/API/staff/addNewStaff',params.toString(), {headers: headers} )
+        return this._http.post(CONFIG.staffBackendUrl+"/getAllStaff",params.toString(), {headers: headers} )
             .map(res => res.json());
     }
 

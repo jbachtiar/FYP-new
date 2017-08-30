@@ -1,78 +1,143 @@
-///*
-// * To change this license header, choose License Headers in Project Properties.
-// * To change this template file, choose Tools | Templates
-// * and open the template in the editor.
-// */
-//package webServices;
-//
-//import com.google.gson.Gson;
-//import com.google.gson.GsonBuilder;
-//import dao.CustomerDAO;
-//import dao.StaffDAO;
-//import dao.StaffRoleDAO;
-//import entity.Customer;
-//import entity.Staff;
-//import entity.StaffRole;
-//import java.util.HashMap;
-//import javax.annotation.security.PermitAll;
-//import javax.servlet.http.HttpServletResponse;
-//import javax.ws.rs.FormParam;
-//import javax.ws.rs.GET;
-//import javax.ws.rs.OPTIONS;
-////import javax.ws.rs.MatrixParam;
-//import javax.ws.rs.POST;
-//import javax.ws.rs.PUT;
-////import javax.ws.rs.MatrixParam;
-//import javax.ws.rs.Path;
-//import javax.ws.rs.Produces;
-//import javax.ws.rs.core.Context;
-//import javax.ws.rs.core.HttpHeaders;
-////import javax.ws.rs.QueryParam;
-//import javax.ws.rs.core.MediaType;
-//import tokenManagement.tokenManagement;
-//
-//
-///**
-// *
-// * @author JeremyBachtiar
-// */
-//@Path("/staff")
-//public class Admin {
-//    
-//    @Context private HttpServletResponse response;
-//    
-//    @POST
-//    @Path("/addNewStaff")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public String addNewStaff(@FormParam("email") String email, @FormParam("firstName") String firstName, @FormParam("lastName") String lastName, @FormParam("phoneNumber") String phoneNumber, @FormParam("password") String password, @FormParam("roleCode") String roleCode){
-//        
-//        response.setHeader("Access-Control-Allow-Origin", "*");
-//        
-//        
-//        HashMap<String, String> responseMap = new HashMap<String, String>();
-//        Gson gson = new GsonBuilder().create();
-//        String status = "";     
-//        
-//        
-//        
-//        if(StaffDAO.retrieveStaffByEmail(email)==null){
-//            Staff staff = new Staff(email, firstName, lastName, phoneNumber, password, roleCode);
-//            String result = StaffDAO.addStaff(staff);
-//
-//            if( result!=null || !result.equals("")){
-//                status = "Staff Added Successfully";
-//                responseMap.put("status", status);
-//            }else{
-//                status = "Failed adding new staff";
-//                responseMap.put("status", status);
-//            }
-//        }else {
-//            status = "Staff already existed";
-//            responseMap.put("status", status);
-//        }
-//        return gson.toJson(responseMap);
-//    }
-//    
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package webServices;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import dao.CustomerDAO;
+import dao.StaffDAO;
+import dao.StaffRoleDAO;
+import entity.Customer;
+import entity.Staff;
+import entity.StaffRole;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import javax.annotation.security.PermitAll;
+import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.FormParam;
+import javax.ws.rs.GET;
+import javax.ws.rs.OPTIONS;
+//import javax.ws.rs.MatrixParam;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
+//import javax.ws.rs.MatrixParam;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.HttpHeaders;
+//import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
+import tokenManagement.tokenManagement;
+
+/**
+ *
+ * @author JeremyBachtiar
+ */
+@Path("/staff")
+public class Admin {
+
+    @Context
+    private HttpServletResponse response;
+
+    @OPTIONS
+    @PermitAll
+    @Path("/addStaff")
+    public void optionsNewStaff() {
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
+        response.setHeader("Access-Control-Allow-Headers", "auhtorization");
+
+    }
+
+    @POST
+    @Path("/addStaff")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public String addNewStaff(@FormParam("staff") String staffJson, @FormParam("token") String token) {
+        response.setHeader("Access-Control-Allow-Origin", "*");
+
+        String email = tokenManagement.parseJWT(token);
+
+        JsonObject jsonOutput = new JsonObject();
+        Gson gson = new GsonBuilder().create();
+        StaffDAO staffDao = new StaffDAO();
+
+        String status = "";
+
+        Staff staff = gson.fromJson(staffJson, Staff.class);
+
+        try {
+            String result = staffDao.addStaff(staff);
+            jsonOutput.addProperty("status","200");
+        } catch (SQLException e) {
+
+        }
+        
+        return gson.toJson(jsonOutput);
+    }
+
+    @POST
+    @Path("/getAllStaff")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getAllStaff(@FormParam("token") String token) {
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        
+        JsonObject jsonOutput = new JsonObject();
+        Gson gson = new GsonBuilder().create();
+        JsonParser parser = new JsonParser();
+
+        StaffDAO staffDao = new StaffDAO();
+        Staff staff = null;
+        String status = "";
+        String email = tokenManagement.parseJWT(token);
+        
+        
+        
+        try {
+            staff = staffDao.getStaffByEmail(email);
+        } catch (SQLException e) {
+            //HANDLE SQL ERROR
+        }
+        
+        if (staff != null) {
+            int staffRole = staff.getRoleId();
+            if (staffRole == 1) {
+               try{
+                   JsonArray staffs = new JsonArray();
+                   ArrayList<Staff> staffList = staffDao.getAllStaff();
+                   
+                   for(Staff s : staffList){
+                       String staffString = gson.toJson(s);
+                       JsonElement staffElement = parser.parse(staffString);
+                       staffs.add(staffElement);
+                   }
+                   jsonOutput.addProperty("status","200");
+                   jsonOutput.add("staffs",staffs);
+                   
+                   
+               }catch(SQLException e){
+                   //HANDLE SQL EXCEPTION
+               }
+               
+            } else {
+                status = "Not Authorized";
+            }
+        } else {
+            status = "Not Authenticated";
+        }
+
+        return gson.toJson(jsonOutput);
+    }
+
 //    @OPTIONS
 //    @PermitAll
 //    @Path("/update")
@@ -154,4 +219,4 @@
 //         //responseMap.put("status", STATUS_ERROR_NULL_PASSWORD);
 //        return gson.toJson(responseMap);
 //    }
-//}
+}

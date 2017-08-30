@@ -16,9 +16,9 @@ public class Staff {
     private String lastName;
     private String phoneNo;
     private String password;
-    private String roleId;
+    private int roleId;
 
-    public Staff(String email, String firstName, String lastName, String phoneNo, String password, String roleId) {
+    public Staff(String email, String firstName, String lastName, String phoneNo, String password, int roleId) {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -67,11 +67,11 @@ public class Staff {
         this.password = password;
     }
 
-    public String getRoleId() {
+    public int getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(String roleId) {
+    public void setRoleId(int roleId) {
         this.roleId = roleId;
     }
     

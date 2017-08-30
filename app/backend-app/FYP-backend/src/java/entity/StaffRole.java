@@ -11,19 +11,19 @@ package entity;
  */
 public class StaffRole {
     
-    private String roleId;
+    private int roleId;
     private String roleName;
 
-    public StaffRole(String roleId, String roleName) {
+    public StaffRole(int roleId, String roleName) {
         this.roleId = roleId;
         this.roleName = roleName;
     }
 
-    public String getRoleId() {
+    public int getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(String roleId) {
+    public void setRoleId(int roleId) {
         this.roleId = roleId;
     }
 

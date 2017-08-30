@@ -141,7 +141,7 @@ public class StaffDAO {
                 String lastName = rs.getString("LAST_NAME");
                 String phoneNumber = rs.getString("PHONE_NO");
                 String password = rs.getString("PASSWORD");
-                String roleId = rs.getString("ROLE_ID");
+                int roleId = rs.getInt("ROLE_ID");
                 
                 result = new Staff(email, firstName, lastName, phoneNumber, password, roleId);
             }
@@ -172,7 +172,7 @@ public class StaffDAO {
                 String lastName = rs.getString("LAST_NAME");
                 String phoneNumber = rs.getString("PHONE_NO");
                 String password = rs.getString("PASSWORD");
-                String roleId = rs.getString("ROLE_ID");
+                int roleId = rs.getInt("ROLE_ID");
                 
                 Staff s = new Staff(email, firstName, lastName, phoneNumber, password, roleId);
                 staffList.add(s);
@@ -204,7 +204,7 @@ public class StaffDAO {
                 stmt.setString(3, s.getLastName());
                 stmt.setString(4, s.getPhoneNo());
                 stmt.setString(5, s.getPassword());
-                stmt.setString(6, s.getRoleId());
+                stmt.setInt(6, s.getRoleId());
                 
                 rs = stmt.executeQuery();
                 
@@ -255,7 +255,7 @@ public class StaffDAO {
                 stmt.setString(2, s.getLastName());
                 stmt.setString(3, s.getPhoneNo());
                 stmt.setString(4, s.getPassword());
-                stmt.setString(5, s.getRoleId());
+                stmt.setInt(5, s.getRoleId());
                 stmt.setString(6, s.getEmail());
                 
                 rs = stmt.executeQuery();

@@ -1,0 +1,9 @@
+td, th {
+    border: 1px solid lightgray;
+    text-align: left;
+    padding: 8px;
+    width: 20%;
+}
+table{
+    border-radius: 10px;
+}
