@@ -43,7 +43,7 @@ public class OrderItemDAO {
                 int quantity = rs.getInt(3);
                 double unitPrice = rs.getDouble(4);
                 ProductDAO pd = new ProductDAO();
-                orderItems.add(new OrderItem(pd.retrieveProductById(productId), quantity, unitPrice));
+                orderItems.add(new OrderItem(pd.getProductById(productId), quantity, unitPrice));
 
             }
         } finally {

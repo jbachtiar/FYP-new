@@ -280,6 +280,29 @@ public class DesignDAO {
         }
         return design;
     }
+
+    public Design getDesignByProductId(int productId) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Design design = null;
+
+        String sql = "SELECT * FROM PRODUCT WHERE PRODUCT_ID=?";
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, productId);
+            rs = stmt.executeQuery();
+
+            int designId = rs.getInt("DESIGN_ID");
+            design = getDesignById(designId);
+
+        } finally {
+            ConnectionManager.close(conn, stmt, rs);
+        }
+        return design;
+    }
+//     
 //       
 //       
 //    public static ArrayList<String> getTagsByPatternId(String patternId)  throws SQLException{
