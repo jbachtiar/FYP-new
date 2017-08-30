@@ -38,7 +38,7 @@ public class CartItemDAO {
                 int quantity = rs.getInt(3);
                 double unitPrice = rs.getDouble(4);
                 ProductDAO pd = new ProductDAO();
-                cartItems.add(new CartItem(pd.retrieveProductById(productId), quantity, unitPrice));
+                cartItems.add(new CartItem(pd.getProductById(productId), quantity, unitPrice));
 
             }
         } finally {
@@ -67,7 +67,7 @@ public class CartItemDAO {
                 int quantity = rs.getInt(3);
                 double unitPrice = rs.getDouble(4);
                 ProductDAO pd = new ProductDAO();
-                cartItem = new CartItem(pd.retrieveProductById(productId), quantity, unitPrice);
+                cartItem = new CartItem(pd.getProductById(productId), quantity, unitPrice);
 
             }
         } finally {

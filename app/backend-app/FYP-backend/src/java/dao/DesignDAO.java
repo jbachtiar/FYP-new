@@ -256,13 +256,12 @@ public class DesignDAO {
         ResultSet rs = null;
         Design design = null;
 
-        String sql = "SELECT p.*, c.COLLECTION_NAME FROM pattern p LEFT OUTER JOIN COLLECTION c ON p.COLLECTION_ID = c.COLLECTION_ID where p.pattern_id=? ";
+        String sql = "SELECT d.*, c.COLLECTION_NAME FROM design d LEFT OUTER JOIN COLLECTION c ON d.COLLECTION_ID = c.COLLECTION_ID where d.design_id=? ";
         try {
             conn = ConnectionManager.getConnection();
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, designId);
             rs = stmt.executeQuery();
-
             while (rs.next()) {
 
                 String designName = rs.getString("DESIGN_NAME");
@@ -272,9 +271,7 @@ public class DesignDAO {
                 String collectionName = rs.getString("COLLECTION_NAME");
                 TagDAO td = new TagDAO();
                 design = new Design(designId, designName, designDescription, designPrice, new Collection(collectionId, collectionName), td.getTagsByDesignId(designId));
-
             }
-
         } finally {
             ConnectionManager.close(conn, stmt, rs);
         }

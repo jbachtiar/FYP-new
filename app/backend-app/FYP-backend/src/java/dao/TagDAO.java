@@ -119,11 +119,12 @@ public class TagDAO {
         ResultSet rs = null;
         ArrayList<Tag> tagList = new ArrayList<Tag>();
 
-        String sql = "SELECT * FROM TAG T and DESIGN_TAG DT.DESIGN_ID=? AND DT.TAG_ID=T.TAG_ID";
+        String sql = "SELECT * FROM TAG T, DESIGN_TAG DT WHERE DT.DESIGN_ID=? AND DT.TAG_ID=T.TAG_ID";
         try {
 
             conn = ConnectionManager.getConnection();
             stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, designId);
             rs = stmt.executeQuery();
 
             while (rs.next()) {
