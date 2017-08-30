@@ -5,7 +5,7 @@ import { ProductService } from '../product.service';
 import { ShoppingCartService } from '../shopping-cart.service';
 import { CartItem } from "../cart/model/cart-item.model";
 import { CartPopupComponent } from '../cart-popup/cart-popup.component'
-
+import { SharedService } from "../shared.service"
 
 export interface QuickViewPopupModel {
   title: string;
@@ -37,10 +37,12 @@ export class QuickViewComponent extends DialogComponent<QuickViewPopupModel, boo
   eachPrice: number;
   private loading: boolean = true;
 
-  constructor(private shoppingCartService: ShoppingCartService,
+  constructor(
+    private shoppingCartService: ShoppingCartService,
     dialogService: DialogService,
     private productService: ProductService,
-    private alertService: AlertService) {
+    private alertService: AlertService,
+    private sharedService: SharedService) {
     super(dialogService);
   }
 
@@ -103,6 +105,7 @@ export class QuickViewComponent extends DialogComponent<QuickViewPopupModel, boo
   }
 
   addCart() {
+    
     //this.getProductId();
     this.startLoading()
     this.productService.getProductId(this.patternId, this.selectedFabric.fabric_id, this.selectedColour.colour_id)
@@ -133,8 +136,10 @@ export class QuickViewComponent extends DialogComponent<QuickViewPopupModel, boo
             console.log(this.cartItem.patternName)
             console.log('eachPrice: ' + this.eachPrice)
             this.shoppingCartService.addItem(this.cartItem)
+            this.sharedService.updateCart();
             this.stopLoading()
             //window.location.reload();
+            this.closeModal()
             let disposable = this.dialogService.addDialog(CartPopupComponent, {
               title: 'Item is added to cart!',
               message: ''

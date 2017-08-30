@@ -9,7 +9,6 @@ import { CartPopupComponent } from '../cart-popup/cart-popup.component'
 import { DialogService } from "ng2-bootstrap-modal";
 import { SharedService } from "../shared.service"
 
-
 @Component({
   selector: 'app-product-detail',
   templateUrl: './product-detail.component.html',
