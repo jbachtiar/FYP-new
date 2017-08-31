@@ -7,7 +7,7 @@ package dao;
 
 import database.ConnectionManager;
 import entity.Collection;
-import entity.Design;
+import entity.Pattern;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,7 +20,7 @@ import java.util.logging.Logger;
  *
  * @author Ong Yi Xuan
  */
-public class DesignDAO {
+public class PatternDAO {
 //    
 //    public static void updatePatternToDB(CustomPattern cp) throws SQLException{
 //        
@@ -250,39 +250,39 @@ public class DesignDAO {
 //    }
 //    
 
-    public Design getDesignById(int designId) throws SQLException {
+    public Pattern getPatternById(int patternId) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        Design design = null;
+        Pattern pattern = null;
 
-        String sql = "SELECT d.*, c.COLLECTION_NAME FROM design d LEFT OUTER JOIN COLLECTION c ON d.COLLECTION_ID = c.COLLECTION_ID where d.design_id=? ";
+        String sql = "SELECT d.*, c.COLLECTION_NAME FROM PATTERN d LEFT OUTER JOIN COLLECTION c ON d.COLLECTION_ID = c.COLLECTION_ID where d.pattern_id=? ";
         try {
             conn = ConnectionManager.getConnection();
             stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, designId);
+            stmt.setInt(1, patternId);
             rs = stmt.executeQuery();
             while (rs.next()) {
 
-                String designName = rs.getString("DESIGN_NAME");
-                String designDescription = rs.getString("DESIGN_DESC");
-                Double designPrice = rs.getDouble("DESIGN_PRICE");
+                String patternName = rs.getString("PATTERN_NAME");
+                String patternDescription = rs.getString("PATTERN_DESC");
+                Double patternPrice = rs.getDouble("PATTERN_PRICE");
                 int collectionId = rs.getInt("COLLECTION_ID");
                 String collectionName = rs.getString("COLLECTION_NAME");
                 TagDAO td = new TagDAO();
-                design = new Design(designId, designName, designDescription, designPrice, new Collection(collectionId, collectionName), td.getTagsByDesignId(designId));
+                pattern = new Pattern(patternId, patternName, patternDescription, patternPrice, new Collection(collectionId, collectionName), td.getTagsByPatternId(patternId));
             }
         } finally {
             ConnectionManager.close(conn, stmt, rs);
         }
-        return design;
+        return pattern;
     }
 
-    public Design getDesignByProductId(int productId) throws SQLException {
+    public Pattern getPatternByProductId(int productId) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        Design design = null;
+        Pattern pattern = null;
 
         String sql = "SELECT * FROM PRODUCT WHERE PRODUCT_ID=?";
         try {
@@ -291,13 +291,13 @@ public class DesignDAO {
             stmt.setInt(1, productId);
             rs = stmt.executeQuery();
 
-            int designId = rs.getInt("DESIGN_ID");
-            design = getDesignById(designId);
+            int patternId = rs.getInt("PATTERN_ID");
+            pattern = getPatternById(patternId);
 
         } finally {
             ConnectionManager.close(conn, stmt, rs);
         }
-        return design;
+        return pattern;
     }
 //     
 //       

@@ -9,7 +9,7 @@ import database.ConnectionManager;
 import entity.Bedding;
 import entity.BeddingSize;
 import entity.Colour;
-import entity.Design;
+import entity.Pattern;
 import entity.Fabric;
 import entity.Image;
 import entity.Product;
@@ -34,16 +34,17 @@ public class ProductDAO {
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
-        String sql = "INSERT INTO PRODUCT (PRODUCT_ID, PRODUCT_TYPE, DESIGN_ID, COLOUR_ID, DELETED) VALUES (?,?,?,?,?)";
+        String sql = "INSERT INTO PRODUCT (PRODUCT_ID, PRODUCT_TYPE, PATTERN_ID, COLOUR_ID, FABRIC_ID, DELETED) VALUES (?,?,?,?,?,?)";
 
         try {
             conn = ConnectionManager.getConnection();
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, p.getProductId());
             stmt.setString(2, p.getProductType());
-            stmt.setInt(3, p.getDesign().getDesignId());
+            stmt.setInt(3, p.getPattern().getPatternId());
             stmt.setInt(4, p.getColour().getColourId());
-            stmt.setString(5, "N");
+            stmt.setInt(5, p.getFabric().getFabricId());
+            stmt.setString(6, "N");
             stmt.executeUpdate();
 
         } finally {
@@ -96,7 +97,7 @@ public class ProductDAO {
             conn = ConnectionManager.getConnection();
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, p.getProductType());
-            stmt.setInt(2, p.getDesign().getDesignId());
+            stmt.setInt(2, p.getPattern().getPatternId());
             stmt.setInt(3, p.getColour().getColourId());
             stmt.setInt(4, p.getProductId());
             stmt.executeUpdate();
@@ -190,19 +191,19 @@ public class ProductDAO {
             while (rs.next()) {
 
                 int productId = rs.getInt("product_id");
-                int designId = rs.getInt("design_id");
+                int patternId = rs.getInt("pattern_id");
                 int colourId = rs.getInt("colour_id");
                 double colourPrice = rs.getDouble("colour_price");
                 String sizeName = rs.getString("size_name");
                 int fabricId = rs.getInt("fabric_id");
 
-                DesignDAO dd = new DesignDAO();
+                PatternDAO dd = new PatternDAO();
                 ColourDAO cd = new ColourDAO();
                 ImageDAO id = new ImageDAO();
                 BeddingSizeDAO bzd = new BeddingSizeDAO();
                 FabricDAO fd = new FabricDAO();
 
-                Design d = dd.getDesignById(designId);
+                Pattern d = dd.getPatternById(patternId);
                 Colour c = cd.getColourById(colourId);
                 BeddingSize bs = bzd.getBeddingSizeByName(sizeName);
                 Fabric f = fd.getFabricById(fabricId);
@@ -233,8 +234,8 @@ public class ProductDAO {
 
             while (rs.next()) {
 
-                int designId = rs.getInt("DESIGN_ID");
-                DesignDAO dd = new DesignDAO();
+                int patternId = rs.getInt("PATTERN_ID");
+                PatternDAO dd = new PatternDAO();
                 ColourDAO cd = new ColourDAO();
                 FabricDAO fd = new FabricDAO();
                 ImageDAO id = new ImageDAO();
@@ -242,7 +243,7 @@ public class ProductDAO {
                 int colourId = rs.getInt("COLOUR_ID");
                 int fabricId = rs.getInt("FABRIC_ID");
                 String productType = rs.getString("PRODUCT_TYPE");
-                product = new Product(productId, productType, dd.getDesignById(designId), cd.getColourById(colourId), fd.getFabricById(fabricId), id.getAllImagesByProductId(productId));
+                product = new Product(productId, productType, dd.getPatternById(patternId), cd.getColourById(colourId), fd.getFabricById(fabricId), id.getAllImagesByProductId(productId));
 
             }
 
@@ -266,19 +267,19 @@ public class ProductDAO {
             while (rs.next()) {
 
                 int productId = rs.getInt("product_id");
-                int designId = rs.getInt("design_id");
+                int patternId = rs.getInt("pattern_id");
                 int colourId = rs.getInt("colour_id");
                 double colourPrice = rs.getDouble("colour_price");
                 String sizeName = rs.getString("size_name");
                 int fabricId = rs.getInt("fabric_id");
 
-                DesignDAO dd = new DesignDAO();
+                PatternDAO dd = new PatternDAO();
                 ColourDAO cd = new ColourDAO();
                 ImageDAO id = new ImageDAO();
                 BeddingSizeDAO bzd = new BeddingSizeDAO();
                 FabricDAO fd = new FabricDAO();
 
-                Design d = dd.getDesignById(designId);
+                Pattern d = dd.getPatternById(patternId);
                 Colour c = cd.getColourById(colourId);
                 BeddingSize bs = bzd.getBeddingSizeByName(sizeName);
                 Fabric f = fd.getFabricById(fabricId);

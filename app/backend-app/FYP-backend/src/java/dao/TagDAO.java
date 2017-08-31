@@ -112,19 +112,19 @@ public class TagDAO {
 
     }
 
-    public Tag[] getTagsByDesignId(int designId) throws SQLException {
+    public Tag[] getTagsByPatternId(int patternId) throws SQLException {
 
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         ArrayList<Tag> tagList = new ArrayList<Tag>();
 
-        String sql = "SELECT * FROM TAG T, DESIGN_TAG DT WHERE DT.DESIGN_ID=? AND DT.TAG_ID=T.TAG_ID";
+        String sql = "SELECT * FROM TAG T, PATTERN_TAG DT WHERE DT.PATTERN_ID=? AND DT.TAG_ID=T.TAG_ID";
         try {
 
             conn = ConnectionManager.getConnection();
             stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, designId);
+            stmt.setInt(1, patternId);
             rs = stmt.executeQuery();
 
             while (rs.next()) {

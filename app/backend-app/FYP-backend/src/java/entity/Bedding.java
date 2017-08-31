@@ -15,7 +15,7 @@ public class Bedding extends Product{
     
     private BeddingSize size;
 
-    public Bedding(BeddingSize size, int productId, String productType, Design design, Colour colour, Fabric fabric, Image[] images) {
+    public Bedding(BeddingSize size, int productId, String productType, Pattern design, Colour colour, Fabric fabric, Image[] images) {
         super(productId, productType, design, colour, fabric, images);
         this.size = size;
     }

@@ -10,15 +10,15 @@ public class Product {
     
     private int productId;
     private String productType;
-    private Design design;
+    private Pattern pattern;
     private Colour colour;
     private Fabric fabric;
     private Image[] images;
 
-    public Product(int productId, String productType, Design design, Colour colour, Fabric fabric, Image[] images) {
+    public Product(int productId, String productType, Pattern pattern, Colour colour, Fabric fabric, Image[] images) {
         this.productId = productId;
         this.productType = productType;
-        this.design = design;
+        this.pattern = pattern;
         this.colour = colour;
         this.fabric = fabric;
         this.images = images;
@@ -40,12 +40,12 @@ public class Product {
         this.productType = productType;
     }
 
-    public Design getDesign() {
-        return design;
+    public Pattern getPattern() {
+        return pattern;
     }
 
-    public void setDesign(Design design) {
-        this.design = design;
+    public void setPattern(Pattern pattern) {
+        this.pattern = pattern;
     }
 
     public Colour getColour() {

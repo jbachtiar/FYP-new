@@ -12,13 +12,13 @@ import com.google.gson.JsonObject;
 import dao.CollectionDAO;
 import dao.ColourDAO;
 import dao.FabricDAO;
-import dao.DesignDAO;
+import dao.PatternDAO;
 import dao.ProductDAO;
 import entity.Bedding;
 import entity.Collection;
 import entity.Colour;
 import entity.Fabric;
-import entity.Design;
+import entity.Pattern;
 import entity.Product;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -114,20 +114,20 @@ public class ProductCatalogue {
 
                 temp.addProperty("product_id", b.getProductId());
                 temp.addProperty("fabric_id", b.getFabric().getFabricId());
-                temp.addProperty("design_id", b.getDesign().getDesignId());
+                temp.addProperty("pattern_id", b.getPattern().getPatternId());
                 temp.addProperty("colour_id", b.getColour().getColourId());
 
-                temp.addProperty("design_name", b.getDesign().getDesignName());
+                temp.addProperty("design_name", b.getPattern().getPatternName());
                 temp.addProperty("fabric_name", b.getFabric().getFabricName());
-                temp.addProperty("collection_name", b.getDesign().getCollection().getCollectionName());
+                temp.addProperty("collection_name", b.getPattern().getCollection().getCollectionName());
                 temp.addProperty("colour_name", b.getColour().getColourName());
 
-                temp.addProperty("design_price", b.getDesign().getDesignPrice());
+                temp.addProperty("design_price", b.getPattern().getPatternPrice());
                 temp.addProperty("fabric_price", b.getFabric().getFabricPrice());
                 temp.addProperty("colour_price", b.getColour().getColourPrice());
                 JsonArray images = gson.toJsonTree(b.getImages()).getAsJsonArray(); // convert arraylist to jsonArray
                 temp.add("images", images);
-                JsonArray tags = gson.toJsonTree(b.getDesign().getTags()).getAsJsonArray(); // convert arraylist to jsonArray
+                JsonArray tags = gson.toJsonTree(b.getPattern().getTags()).getAsJsonArray(); // convert arraylist to jsonArray
                 temp.add("tags", tags);
 
                 designs.add(temp);
