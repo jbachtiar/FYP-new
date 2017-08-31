@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { StaffcontrolService } from "../services/staffcontrol.service";
-import { User } from "app/user/user";
+//import { User } from "app/user/user";
 
 @Component({
   selector: 'app-user',
@@ -16,7 +16,7 @@ export class UserComponent implements OnInit {
   phoneNumber: string;
   password: string;
   roleCode: string;
-  user: User;
+  //user: User;
   token: string;
   private loading:boolean = true;  
   
@@ -31,15 +31,15 @@ export class UserComponent implements OnInit {
      this.staffcontrolservice.displayProfile(this.token).subscribe(
           res => {
             if(res.status === '200'){
-              console.log("Retrieve successful");
-              this.user=this.staffcontrolservice.getUser();
-              this.email= this.user.email;
-              this.firstName= this.user.firstName;
-              this.lastName= this.user.lastName;
-              this.phoneNumber= this.user.phoneNumber;
-              this.password= this.user.password;
-              this.roleCode= this.user.roleCode;
-              this.stopLoading()
+              // console.log("Retrieve successful");
+              // this.user=this.staffcontrolservice.getUser();
+              // this.email= this.user.email;
+              // this.firstName= this.user.firstName;
+              // this.lastName= this.user.lastName;
+              // this.phoneNumber= this.user.phoneNumber;
+              // this.password= this.user.password;
+              // this.roleCode= this.user.roleCode;
+              // this.stopLoading()
             }else{
                 this.stopLoading()
                 console.log("Retrieve failed");
