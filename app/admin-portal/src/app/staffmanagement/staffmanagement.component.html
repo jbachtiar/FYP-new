@@ -39,7 +39,7 @@
 
 
     </div>
-    <!-- <div class="row">
+    <div class="row">
         <div class="col-lg-6 col-md-5">
             <div class="card">
                 <div class="header">
@@ -52,13 +52,14 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Email address</label>
-                                    <input type="text" class="form-control border-input" [(ngModel)]="newStaff.email" name="email" placeholder="Email" required>
+                                    <input type="text" class="form-control border-input" [(ngModel)]="newStaff.email" #email="ngModel" name="email" placeholder="Email"
+                                        required>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Phone Number</label>
-                                    <input type="text" class="form-control border-input" [(ngModel)]="newStaff.phoneNo" name="phoneNo" placeholder="Phone Number"
+                                    <input type="text" class="form-control border-input" [(ngModel)]="newStaff.phoneNo" #phoneNo="ngModel" name="phoneNo" placeholder="Phone Number"
                                         required>
                                 </div>
                             </div>
@@ -68,15 +69,15 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>First Name</label>
-                                    <input type="text" class="form-control border-input" [(ngModel)]="newStaff.firstName" name="firstName" placeholder="First Name"
-                                        required>
+                                    <input type="text" class="form-control border-input" [(ngModel)]="newStaff.firstName" #firstName="ngModel" name="firstName"
+                                        placeholder="First Name" required>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Last Name</label>
-                                    <input type="text" class="form-control border-input" [(ngModel)]="newStaff.lastName" name="lastName" placeholder="Last Name"
-                                        required>
+                                    <input type="text" class="form-control border-input" [(ngModel)]="newStaff.lastName" #lastName="ngModel" name="lastName"
+                                        placeholder="Last Name" required>
                                 </div>
                             </div>
                         </div>
@@ -84,16 +85,18 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Password</label>
-                                    <input type="password" class="form-control border-input" [(ngModel)]="newStaff.password" name="newPassword" placeholder="Password"
-                                        required>
+                                    <input type="password" class="form-control border-input" [(ngModel)]="newStaff.password" #password="ngModel" name="password"
+                                        placeholder="Password" required>
                                 </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>Role Code</label>
-                                    <input type="text" class="form-control border-input" [(ngModel)]="newStaff.roleId" name="roleId" placeholder="Role Code"
-                                        required>
                                 </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Role Code</label>
+                                        <br>
+                                        <select class="form-control border-input" [(ngModel)]="newStaff.roleId" #roleId="ngModel">
+                                            <option *ngFor="let role of staffRoles" [ngValue]="role.roleId">{{role.roleName}}</option>
+                                        </select>
+                                    </div>
                             </div>
                         </div>
 
@@ -106,5 +109,5 @@
         </div>
 
 
-    </div> -->
+    </div>
 </div>

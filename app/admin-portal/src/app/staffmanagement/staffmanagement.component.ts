@@ -14,11 +14,22 @@ export class StaffmanagementComponent implements OnInit {
   constructor(private staffcontrolservice : StaffcontrolService) { }
   private token : string = localStorage.getItem('token');
   private staffs : Staff[];
-  private staffRole: StaffRole[];
-  private newStaff : Staff;
+  private staffRoles: StaffRole[];
+  private newStaff : Staff = new Staff();
   
   ngOnInit() {
-    
+    this.staffcontrolservice.getAllRoles()
+    .subscribe(
+              res => {
+                if(res.status === '200'){
+                  this.staffRoles = res.staffRoles; 
+                  console.log(JSON.stringify(this.staffRoles));
+                  
+                }else{
+                  console.log(res.status);
+                }
+              }
+    )
 
     this.staffcontrolservice.getAllStaff(this.token)
     .subscribe(
@@ -33,18 +44,20 @@ export class StaffmanagementComponent implements OnInit {
               }
     )
   }
-
+ 
   addNewStaff() {
-    this.staffcontrolservice.addNewStaff(this.token,this.newStaff)
-    .subscribe(
-              res => {
-                if(res.status === 'Staff Added Successfully'){
-                  console.log(res.status);
-                }else{
-                  console.log(res.status);
-                }
-              }
-    )
+    console.log("ROLE ID:" + this.newStaff.roleId)
+    console.log(this.newStaff)
+    // this.staffcontrolservice.addNewStaff(this.token,this.newStaff)
+    // .subscribe(
+    //           res => {
+    //             if(res.status === 'Staff Added Successfully'){
+    //               console.log(res.status);
+    //             }else{
+    //               console.log(res.status);
+    //             }
+    //           }
+    // )
 
   }
 

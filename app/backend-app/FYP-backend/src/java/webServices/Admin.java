@@ -137,6 +137,44 @@ public class Admin {
 
         return gson.toJson(jsonOutput);
     }
+    
+    @GET
+    @Path("/getRoles")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getRoles() {
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        
+        JsonObject jsonOutput = new JsonObject();
+        Gson gson = new GsonBuilder().create();
+        JsonParser parser = new JsonParser();
+
+        StaffRoleDAO staffRoleDao = new StaffRoleDAO();
+        ArrayList<StaffRole> staffRoles = null;
+        String status = "";
+        //String email = tokenManagement.parseJWT(token);
+        
+        
+        
+        try {
+            staffRoles = staffRoleDao.getAllStaffRole();
+            JsonArray staffRolesJson = new JsonArray();
+            for(StaffRole sR : staffRoles){
+                String staffRoleString = gson.toJson(sR);
+                JsonElement staffRoleElement = parser.parse(staffRoleString);
+                staffRolesJson.add(staffRoleElement);
+            }
+            
+            jsonOutput.addProperty("status","200");
+            jsonOutput.add("staffRoles",staffRolesJson);
+                   
+        } catch (SQLException e) {
+            //HANDLE SQL ERROR
+        }
+        
+        
+
+        return gson.toJson(jsonOutput);
+    }
 
 //    @OPTIONS
 //    @PermitAll

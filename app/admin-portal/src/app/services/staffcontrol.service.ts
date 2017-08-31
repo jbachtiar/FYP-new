@@ -47,6 +47,11 @@ export class StaffcontrolService {
             .map(res => res.json());
     }
 
+    getAllRoles(){
+         return this._http.get(CONFIG.staffBackendUrl+"/getRoles")
+            .map(res => res.json());
+    }
+
     displayProfile(token: string){
       //  let params: URLSearchParams = new URLSearchParams();
       //  params.set('token', token);
