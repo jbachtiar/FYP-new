@@ -12,13 +12,15 @@ public class Product {
     private String productType;
     private Design design;
     private Colour colour;
+    private Fabric fabric;
     private Image[] images;
 
-    public Product(int productId, String productType, Design design, Colour colour, Image[] images) {
+    public Product(int productId, String productType, Design design, Colour colour, Fabric fabric, Image[] images) {
         this.productId = productId;
         this.productType = productType;
         this.design = design;
         this.colour = colour;
+        this.fabric = fabric;
         this.images = images;
     }
 
@@ -54,6 +56,14 @@ public class Product {
         this.colour = colour;
     }
 
+    public Fabric getFabric() {
+        return fabric;
+    }
+
+    public void setFabric(Fabric fabric) {
+        this.fabric = fabric;
+    }
+
     public Image[] getImages() {
         return images;
     }
@@ -61,5 +71,6 @@ public class Product {
     public void setImages(Image[] images) {
         this.images = images;
     }
+
    
 }

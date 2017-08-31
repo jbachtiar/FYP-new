@@ -124,7 +124,7 @@ public class ProductCatalogue {
 
                 temp.addProperty("design_price", b.getDesign().getDesignPrice());
                 temp.addProperty("fabric_price", b.getFabric().getFabricPrice());
-                temp.addProperty("colour_price", b.getColourPrice());
+                temp.addProperty("colour_price", b.getColour().getColourPrice());
                 JsonArray images = gson.toJsonTree(b.getImages()).getAsJsonArray(); // convert arraylist to jsonArray
                 temp.add("images", images);
                 JsonArray tags = gson.toJsonTree(b.getDesign().getTags()).getAsJsonArray(); // convert arraylist to jsonArray

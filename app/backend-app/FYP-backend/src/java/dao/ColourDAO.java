@@ -67,8 +67,9 @@ public class ColourDAO {
             while (rs.next()) {
                 String colourName = rs.getString("COLOUR_NAME");
                 String deleted = rs.getString("DELETED");
+                Double colourPrice = rs.getDouble("COLOUR_PRICE");
 
-                result = new Colour(colourId, colourName);
+                result = new Colour(colourId, colourName, colourPrice);
             }
 
         } finally {
@@ -97,8 +98,9 @@ public class ColourDAO {
             while (rs.next()) {
                 int colourId = rs.getInt("COLOUR_ID");
                 String colourName = rs.getString("COLOUR_NAME");
+                Double colourPrice = rs.getDouble("COLOUR_PRICE");
 
-                Colour colour = new Colour(colourId, colourName);
+                Colour colour = new Colour(colourId, colourName, colourPrice);
                 colourList.add(colour);
             }
 

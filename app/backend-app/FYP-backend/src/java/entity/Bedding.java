@@ -13,23 +13,11 @@ import java.util.ArrayList;
  */
 public class Bedding extends Product{
     
-    private double colourPrice;
     private BeddingSize size;
-    private Fabric fabric;
 
-    public Bedding(double colourPrice, BeddingSize size, Fabric fabric, int productId, String productType, Design design, Colour colour, Image[] images) {
-        super(productId, productType, design, colour, images);
-        this.colourPrice = colourPrice;
+    public Bedding(BeddingSize size, int productId, String productType, Design design, Colour colour, Fabric fabric, Image[] images) {
+        super(productId, productType, design, colour, fabric, images);
         this.size = size;
-        this.fabric = fabric;
-    }
-
-    public double getColourPrice() {
-        return colourPrice;
-    }
-
-    public void setColourPrice(double colourPrice) {
-        this.colourPrice = colourPrice;
     }
 
     public BeddingSize getSize() {
@@ -39,16 +27,5 @@ public class Bedding extends Product{
     public void setSize(BeddingSize size) {
         this.size = size;
     }
-
-    public Fabric getFabric() {
-        return fabric;
-    }
-
-    public void setFabric(Fabric fabric) {
-        this.fabric = fabric;
-    }
-
-    
-    
     
 }

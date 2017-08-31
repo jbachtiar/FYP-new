@@ -208,7 +208,7 @@ public class ProductDAO {
                 Fabric f = fd.getFabricById(fabricId);
                 Image[] images = id.getAllImagesByProductId(productId);
 
-                Bedding bedding = new Bedding(colourPrice, bs, f, productId, "Bedding", d, c, images);
+                Bedding bedding = new Bedding(bs, productId, "Bedding", d, c, f, images);
                 beddings.add(bedding);
             }
 
@@ -236,11 +236,13 @@ public class ProductDAO {
                 int designId = rs.getInt("DESIGN_ID");
                 DesignDAO dd = new DesignDAO();
                 ColourDAO cd = new ColourDAO();
+                FabricDAO fd = new FabricDAO();
                 ImageDAO id = new ImageDAO();
 
                 int colourId = rs.getInt("COLOUR_ID");
+                int fabricId = rs.getInt("FABRIC_ID");
                 String productType = rs.getString("PRODUCT_TYPE");
-                product = new Product(productId, productType, dd.getDesignById(designId), cd.getColourById(colourId), id.getAllImagesByProductId(productId));
+                product = new Product(productId, productType, dd.getDesignById(designId), cd.getColourById(colourId), fd.getFabricById(fabricId), id.getAllImagesByProductId(productId));
 
             }
 
@@ -282,8 +284,9 @@ public class ProductDAO {
                 Fabric f = fd.getFabricById(fabricId);
                 Image[] images = id.getAllImagesByProductId(productId);
 
-                Bedding bedding = new Bedding(colourPrice, bs, f, productId, "Bedding", d, c, images);
+                Bedding bedding = new Bedding(bs, productId, "Bedding", d, c, f, images);
                 beddings.add(bedding);
+
             }
 
         } finally {

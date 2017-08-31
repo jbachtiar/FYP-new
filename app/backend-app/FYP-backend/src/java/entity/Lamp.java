@@ -14,8 +14,8 @@ public class Lamp extends Product{
     private String lampType;
     private Double lampPrice;
 
-    public Lamp(String lampType, Double lampPrice, int productId, String productType, Design design, Colour colour, Image[] images) {
-        super(productId, productType, design, colour, images);
+    public Lamp(String lampType, Double lampPrice, int productId, String productType, Design design, Colour colour, Fabric fabric, Image[] images) {
+        super(productId, productType, design, colour, fabric, images);
         this.lampType = lampType;
         this.lampPrice = lampPrice;
     }
