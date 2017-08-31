@@ -137,11 +137,12 @@ public class OrderDAO {
         return orderList;
     }
     
-    public Order getOrderByEmail(String email) throws SQLException {
+    public ArrayList<Order> getOrderByEmail(String email) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         
+        ArrayList<Order> orderList = new ArrayList<Order>();
         Order order = null;
         
         String sql = "SELECT * FROM order WHERE EMAIL = ?";
@@ -167,13 +168,13 @@ public class OrderDAO {
                 Address a = new Address(0, addressLine, city, country, postalCode, "N");
                 OrderItemDAO orderItemDao = new OrderItemDAO();
                 order = new Order(orderId, orderDate, netAmt, promoDiscAmt, a, paymentRefNo, pcDao.getPromoCodeById(promoCode), orderItemDao.getOrderItemsByOrderId(orderId), orderLog.getOrderStatusByOrderId(orderId));
-                
+                orderList.add(order);
             }
         } finally {
             ConnectionManager.close(conn, stmt, rs);
         }
         
-        return order;
+        return orderList;
     }
     
     public int getNextOrderId() throws SQLException {
