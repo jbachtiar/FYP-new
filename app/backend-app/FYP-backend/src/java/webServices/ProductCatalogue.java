@@ -159,30 +159,35 @@ public class ProductCatalogue {
         try {
 
             Product p = productDao.getProductById(productId);
-            jsonOutput.addProperty("status", "200");
+            if (p == null) {
+                jsonOutput.addProperty("error", "Bedding not found");
+   
+            }else{
+                jsonOutput.addProperty("status", "200");
 
-            JsonObject temp = new JsonObject();
+                JsonObject temp = new JsonObject();
 
-            temp.addProperty("product_id", p.getProductId());
-            temp.addProperty("fabric_id", p.getFabric().getFabricId());
-            temp.addProperty("pattern_id", p.getPattern().getPatternId());
-            temp.addProperty("colour_id", p.getColour().getColourId());
+                temp.addProperty("product_id", p.getProductId());
+                temp.addProperty("fabric_id", p.getFabric().getFabricId());
+                temp.addProperty("pattern_id", p.getPattern().getPatternId());
+                temp.addProperty("colour_id", p.getColour().getColourId());
 
-            temp.addProperty("design_name", p.getPattern().getPatternName());
-            temp.addProperty("fabric_name", p.getFabric().getFabricName());
-            temp.addProperty("collection_name", p.getPattern().getCollection().getCollectionName());
-            temp.addProperty("colour_name", p.getColour().getColourName());
+                temp.addProperty("design_name", p.getPattern().getPatternName());
+                temp.addProperty("fabric_name", p.getFabric().getFabricName());
+                temp.addProperty("collection_name", p.getPattern().getCollection().getCollectionName());
+                temp.addProperty("colour_name", p.getColour().getColourName());
 
-            temp.addProperty("design_price", p.getPattern().getPatternPrice());
-            temp.addProperty("fabric_price", p.getFabric().getFabricPrice());
-            JsonArray images = gson.toJsonTree(p.getImages()).getAsJsonArray(); // convert arraylist to jsonArray
-            temp.add("images", images);
-            JsonArray tags = gson.toJsonTree(p.getPattern().getTags()).getAsJsonArray(); // convert arraylist to jsonArray
-            temp.add("tags", tags);
+                temp.addProperty("design_price", p.getPattern().getPatternPrice());
+                temp.addProperty("fabric_price", p.getFabric().getFabricPrice());
+                JsonArray images = gson.toJsonTree(p.getImages()).getAsJsonArray(); // convert arraylist to jsonArray
+                temp.add("images", images);
+                JsonArray tags = gson.toJsonTree(p.getPattern().getTags()).getAsJsonArray(); // convert arraylist to jsonArray
+                temp.add("tags", tags);
 
-            product.add(temp);
+                product.add(temp);
 
-            jsonOutput.add("product", product);
+                jsonOutput.add("product", product);
+            }
 
         } catch (SQLException e) {
 
