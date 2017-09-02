@@ -13,12 +13,12 @@ public class Colour {
     
     private int colourId;
     private String colourName;
-    private double colourPrice;
+  
 
-    public Colour(int colourId, String colourName, double colourPrice) {
+    public Colour(int colourId, String colourName) {
         this.colourId = colourId;
         this.colourName = colourName;
-        this.colourPrice = colourPrice;
+
     }
 
     public int getColourId() {
@@ -37,12 +37,6 @@ public class Colour {
         this.colourName = colourName;
     }
 
-    public double getColourPrice() {
-        return colourPrice;
-    }
 
-    public void setColourPrice(double colourPrice) {
-        this.colourPrice = colourPrice;
-    }
 
 }
