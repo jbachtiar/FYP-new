@@ -137,7 +137,7 @@ public class OrderDAO {
         return orderList;
     }
     
-    public ArrayList<Order> getOrderByEmail(String email) throws SQLException {
+    public Order[] getOrderByEmail(String email) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -174,7 +174,7 @@ public class OrderDAO {
             ConnectionManager.close(conn, stmt, rs);
         }
         
-        return orderList;
+        return orderList.toArray(new Order[orderList.size()]);
     }
     
     public int getNextOrderId() throws SQLException {

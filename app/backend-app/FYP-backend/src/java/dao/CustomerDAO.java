@@ -44,8 +44,9 @@ public class CustomerDAO {
                 String verified = rs.getString(6);
                 CustomerAddressDAO customerAddressDao = new CustomerAddressDAO();
                 CartDAO cartDAO= new CartDAO();
+                OrderDAO orderDAO = new OrderDAO();
                 Address[] address = customerAddressDao.getAddressesByEmail(email);
-                Order[] orders = new Order[0];
+                Order[] orders = orderDAO.getOrderByEmail(email);
                 customer = new Customer(email, firstName, lastName, phoneNumber, password, verified, cartDAO.getCartByEmail(email), address, orders);
 
             }
