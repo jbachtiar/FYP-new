@@ -8,40 +8,81 @@
         </div>
 
         <app-loading *ngIf="loading"></app-loading>
-        <form *ngIf="!loading" name="form" (ngSubmit)="submit()" #f="ngForm" class="form" novalidate>
-
-          <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !firstName.valid }">
-            <label for="firstName">First Name</label>
-            <input type="text" class="form-control" name="firstName" [(ngModel)]="user.firstName" #firstName="ngModel" required />
-            <div *ngIf="f.submitted && !firstName.valid" class="help-block">First name is required</div>
-          </div>
-
-          <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !lastName.valid }">
-            <label for="lastName">Last Name</label>
-            <input type="text" class="form-control" name="lastName" [(ngModel)]="user.lastName" #lastName="ngModel" required />
-            <div *ngIf="f.submitted && !lastName.valid" class="help-block">Last name is required</div>
-          </div>
-          <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !postCode.valid }">
-            <label for="postCode">Postal Code</label>
-            <input type="text" class="form-control" name="postCode" [(ngModel)]="user.postCode" #postCode="ngModel" required />
-            <div *ngIf="f.submitted && !postCode.valid" class="help-block">Postal code is required</div>
-          </div>
+        <form *ngIf="!loading" name="form" (ngSubmit)="f.form.valid && submit()" #f="ngForm" class="form" novalidate>
           <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !address.valid }">
-            <label for="address">Address</label>
-            <input type="text" class="form-control" name="address" [(ngModel)]="user.address" #address="ngModel" required />
-            <div *ngIf="f.submitted && !address.valid" class="help-block">Address is required</div>
-          </div>
-          <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !contact.valid }">
-            <label for="contact">Phone Number</label>
-            <input type="text" class="form-control" name="contact" [(ngModel)]="user.contact" #contact="ngModel" required />
-            <div *ngIf="f.submitted && !contact.valid" class="help-block">Phone number is required</div>
+            <label for="address">Select a shipping address from your address book or enter a new address.</label><br/>
+            <select class="form-control" [(ngModel)]="selectedAddress" #address="ngModel" [ngModelOptions]="{standalone: true}" name="address"
+              (change)="checkAddress()">
+              <option *ngFor="let a of addressBook" [ngValue]="a">{{user.firstName}} {{user.lastName}}, {{a.address_line}}, {{a.city}}, {{a.country}} {{a.postal_code}}</option>
+              <option [ngValue]="new">New Address</option>
+            </select> &nbsp; &nbsp; &nbsp;
           </div>
 
-          <input type="checkbox" [(ngModel)]="user.sameAddress" name="sameAddress" (ngModelChange)="sameAddress()">
-          <label>Bill to the existing address</label>
-          <br/>
-          <div class="form-group" >
-            <button class="button" >Continue</button>
+          <!-- display if user wants to input new address -->
+          <div *ngIf="isNewAddress">
+
+            <div class="form-group" placeholder="First Name" [ngClass]="{ 'has-error': f.submitted && !firstName.valid }">
+              <label for="firstName">First Name</label>
+              <input class="form-control" type="text" class="form-control" name="firstName" [(ngModel)]="user.firstName" #firstName="ngModel"
+                required />
+              <div *ngIf="f.submitted && !firstName.valid" class="help-block">First name is required</div>
+            </div>
+
+            <div class="form-group" placeholder="Last Name" [ngClass]="{ 'has-error': f.submitted && !lastName.valid }">
+              <label for="lastName">Last Name</label>
+              <input class="form-control" type="text" class="form-control" name="lastName" [(ngModel)]="user.lastName" #lastName="ngModel"
+                required />
+              <div *ngIf="f.submitted && !lastName.valid" class="help-block">Last name is required</div>
+            </div>
+
+            <div class="form-group" placeholder="Phone Number" [ngClass]="{ 'has-error': f.submitted && !contact.valid }">
+              <label for="contact">Phone Number</label>
+              <input class="form-control" type="text" class="form-control" name="contact" [(ngModel)]="user.contact" #contact="ngModel"
+                required />
+              <div *ngIf="f.submitted && !contact.valid" class="help-block">Phone number is required</div>
+            </div>
+
+            <div class="form-group" placeholder="Address Line" [ngClass]="{ 'has-error': f.submitted && !address_line.valid }">
+              <label for="address_line">Address Line</label>
+              <input class="form-control" type="text" class="form-control" name="address_line" [(ngModel)]="newAddress.address_line" #address_line="ngModel"
+                required />
+              <div *ngIf="f.submitted && !address_line.valid" class="help-block">Address line is required</div>
+            </div>
+
+            <div class="form-group" placeholder="City" [ngClass]="{ 'has-error': f.submitted && !city.valid }">
+              <label for="city">City</label>
+              <input class="form-control" type="text" class="form-control" name="city" [(ngModel)]="newAddress.city" #city="ngModel" required
+              />
+              <div *ngIf="f.submitted && !city.valid" class="help-block">City is required</div>
+            </div>
+
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !country.valid }">
+              <div>
+                <label for="country">Country</label>
+              </div>
+              <div ng-class="{'valid':country.$valid}">
+                <select class="form-control" name='country' [(ngModel)]='newAddress.country' #country="ngModel" required>
+                        <option *ngFor="let c of countries" [ngValue]="c">{{c.name}}</option>
+                    </select>
+              </div>
+              <div *ngIf="(f.submitted && !country.valid && !newAddress.country) || (!country.valid && country.dirty)" class="help-block">Country is required</div>
+            </div>
+
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !postalcode.valid }">
+              <label for="postalcode">Postalcode</label>
+              <input class="form-control" type="text" class="form-control" name="postalcode" [(ngModel)]="newAddress.postal_code" #postalcode="ngModel"
+                required/>
+              <div *ngIf="f.submitted && !postalcode.valid" class="help-block">Postalcode is required</div>
+            </div>
+
+            <input type="checkbox" [(ngModel)]="saveAddress" name="saveAddress" (ngModelChange)="saveAddress()">
+            <label>Save in address book</label>
+            <br/>
+
+          </div>
+
+          <div class="form-group">
+            <button class="button">Continue</button>
           </div>
 
         </form>
@@ -55,40 +96,39 @@
         <div class="header">
           <h4 class="title">Order Summary</h4>
         </div>
-          <table>
-            <tr>
-              <th>Product</th>
-              <th>Description</th>
-              <th>Quantity</th>
-              <th>Total</th>
-              <th></th>
-            </tr>
-            <tr *ngFor="let item of cartItem">
-              <td><img src="{{item.url}}" alt="..." class="img-product"><br/></td>
-              <td class="product-title">
-                <div class="pattern-name"> {{item.patternName}}</div>
-                {{item.productId}}
-                <br> 
-                $ {{item.eachPrice}}.00
-              </td>
-              <td>
-                <button class="change-qty" (click)="decrement(item.productId)">-</button> {{item.quantity}}
-                <button class="change-qty" (click)="increment(item.productId)">+</button>
-              </td>
-              <td>
-                $ {{item.quantity*item.eachPrice}}.00
-              </td>
-              <td>
-                  <button class="change-qty" (click)="remove(item.productId)">x</button>
-              </td>
-            </tr>
-            <tr style="border: 0px">
-              <td colspan="3" style="text-align: right; font-size: 16px; font-weight: bold">Total Price</td>
-              <td>$ {{shoppingCart.totalPrice}}.00</td>
-              <td></td>
-            </tr>
-          </table>
-                  
+        <table>
+          <tr>
+            <th>Product</th>
+            <th>Description</th>
+            <th>Quantity</th>
+            <th>Total</th>
+            <th></th>
+          </tr>
+          <tr *ngFor="let item of cartItem">
+            <td><img src="{{item.url}}" alt="..." class="img-product"><br/></td>
+            <td class="product-title">
+              <div class="pattern-name"> {{item.patternName}}</div>
+              {{item.productId}}
+              <br> $ {{item.eachPrice}}.00
+            </td>
+            <td>
+              <button class="change-qty" (click)="decrement(item.productId)">-</button> {{item.quantity}}
+              <button class="change-qty" (click)="increment(item.productId)">+</button>
+            </td>
+            <td>
+              $ {{item.quantity*item.eachPrice}}.00
+            </td>
+            <td>
+              <button class="change-qty" (click)="remove(item.productId)">x</button>
+            </td>
+          </tr>
+          <tr style="border: 0px">
+            <td colspan="3" style="text-align: right; font-size: 16px; font-weight: bold">Total Price</td>
+            <td>$ {{shoppingCart.totalPrice}}.00</td>
+            <td></td>
+          </tr>
+        </table>
+
       </div>
     </div>
 

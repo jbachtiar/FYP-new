@@ -23,7 +23,7 @@ export class PaymentComponent implements OnInit {
   lastName: string;
   contact: string;
   address: string;
-  postalCode: string;
+  // postalCode: string;
   totalPrice: string;
   private shoppingCart: ShoppingCart;
   private cartItem: CartItem[];
@@ -45,7 +45,7 @@ export class PaymentComponent implements OnInit {
     this.firstName = this.storageService.getFirstName();
     this.lastName = this.storageService.getLastName();
     this.contact = this.storageService.getContact();
-    this.postalCode = this.storageService.getPostCode();
+    // this.postalCode = this.storageService.getPostCode();
     this.address = this.storageService.getAddress();
 
     this.cartItem = this.shoppingCart.items;

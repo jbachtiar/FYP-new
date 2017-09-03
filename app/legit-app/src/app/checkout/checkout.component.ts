@@ -18,14 +18,20 @@ import { ShoppingCartService } from "app/shopping-cart.service";
 })
 export class CheckoutComponent implements OnInit {
   private user: any = {};
+  private addressBook: any = {};
+  private selectedAddress: any = {};
+  private isNewAddress: boolean = false;
+  private newAddress: any = {};
+  private saveAddress:boolean = false;
   private carts: any = {};
   private numOfItem: 0;
   private itemPrice: number[] = new Array();
   private sameAddre: boolean = false;
   private shoppingCart: ShoppingCart;
-  private cartItem : CartItem[]
-  private loading : boolean = true;
-  
+  private cartItem: CartItem[]
+  private loading: boolean = true;
+  private countries: any= {};
+
   customer: Customer;
   token: string;
   quantity = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
@@ -43,6 +49,33 @@ export class CheckoutComponent implements OnInit {
     this.startLoading()
     this.cartItem = this.shoppingCart.items
     console.log(new Date().toLocaleDateString());
+    console.log(this.token);
+    this.sameAddre = true;
+    this.profileService.displayProfile(this.token).subscribe(
+      res => {
+        if (res.status === '200') {
+          console.log("Retrieve successful");
+          this.customer = this.profileService.getCustomer();
+          this.user.firstName = this.customer.firstName;
+          this.user.lastName = this.customer.lastName;
+          this.user.contact = this.customer.contact
+          this.user.address = this.customer.address;
+          this.addressBook = this.customer.address;
+          this.addressBook.forEach(a => {
+            if (a.default == "yes") {
+              console.log("default address: " + JSON.stringify(a))
+              this.selectedAddress = a;
+            }
+          });
+          // this.user.postCode = this.customer.postalCode;
+        } else {
+          console.log("Retrieve failed");
+        }
+      }
+    )
+    this.countries=this.profileService.getCountries();
+
+
     this.stopLoading()
     // this.cartService.getCartItemByCartId("C1").subscribe(
     //   carts => {
@@ -54,40 +87,40 @@ export class CheckoutComponent implements OnInit {
     //   })
   }
 
-  startLoading(){
+  startLoading() {
     this.loading = true;
   }
 
-  
-  stopLoading(){
+
+  stopLoading() {
     this.loading = false;
   }
 
   //increase product qty
-  increment(productId: string){
-    this.shoppingCart.items.find((p) => p.productId === productId).quantity +=1
+  increment(productId: string) {
+    this.shoppingCart.items.find((p) => p.productId === productId).quantity += 1
     this.updateCart()
   }
 
   //decrease product qty
-  decrement(productId: string){
-    if(this.shoppingCart.items.find((p) => p.productId === productId).quantity > 1){
-       this.shoppingCart.items.find((p) => p.productId === productId).quantity -=1
-       this.updateCart()
-    }else{
+  decrement(productId: string) {
+    if (this.shoppingCart.items.find((p) => p.productId === productId).quantity > 1) {
+      this.shoppingCart.items.find((p) => p.productId === productId).quantity -= 1
+      this.updateCart()
+    } else {
       this.remove(productId);
     }
   }
 
-  remove(productId: string){
-    let indexCut =  this.shoppingCart.items.findIndex((p) => p.productId === productId)
-    this.shoppingCart.items.splice(indexCut,1)
+  remove(productId: string) {
+    let indexCut = this.shoppingCart.items.findIndex((p) => p.productId === productId)
+    this.shoppingCart.items.splice(indexCut, 1)
     this.updateCart()
     window.location.reload()
     console.log('index: ' + indexCut)
   }
 
-  updateCart(){
+  updateCart() {
     this.shoppingCartService.updateCart(this.shoppingCart)
   }
 
@@ -105,7 +138,14 @@ export class CheckoutComponent implements OnInit {
             this.user.lastName = this.customer.lastName;
             this.user.contact = this.customer.contact;
             this.user.address = this.customer.address;
-            this.user.postCode = this.customer.postalCode;
+            this.addressBook = this.customer.address;
+            this.addressBook.forEach(a => {
+              if (a.default == "yes") {
+                console.log("default address: " + JSON.stringify(a))
+                this.selectedAddress = a;
+              }
+            });
+            // this.user.postCode = this.customer.postalCode;
           } else {
             console.log("Retrieve failed");
 
@@ -156,10 +196,12 @@ export class CheckoutComponent implements OnInit {
   }
 
   submit() {
-    if (this.canRedirectToPayment()) {
-
+    // if (this.canRedirectToPayment()) {
+      if(this.isNewAddress && this.saveAddress){
+        this.user.address.push(this.newAddress)
+      }
       this.router.navigateByUrl('/checkout/payment');
-      this.storageService.setShippingAddress(this.user.firstName, this.user.lastName, this.user.contact, this.user.address, this.user.postCode);
+      this.storageService.setShippingAddress(this.user.firstName, this.user.lastName, this.user.contact, this.selectedAddress.address_line, this.selectedAddress.city, this.selectedAddress.country, this.selectedAddress.postal_code);
 
       this.cartService.updateCart("C1", new Date().toLocaleDateString(), this.showTotalPrice()).subscribe(
         res => {
@@ -171,7 +213,7 @@ export class CheckoutComponent implements OnInit {
           }
         }
       );
-    }
+    // }
 
   }
 
@@ -190,15 +232,23 @@ export class CheckoutComponent implements OnInit {
 
   }
 
-  canRedirectToPayment(): boolean {
+  // canRedirectToPayment(): boolean {
 
-    if (this.user.firstName.length > 0 && this.user.lastName.length > 0 && this.user.address.length > 0 && this.user.contact.length > 0 && this.user.postCode.length > 0) {
-      return true;
-    } else {
-      return false;
+  //   if (this.user.firstName.length > 0 && this.user.lastName.length > 0 && this.user.address.length > 0 && this.user.contact.length > 0 && this.user.postCode.length > 0) {
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // }
+
+  checkAddress(){
+    console.log("address is changed to: " + this.selectedAddress)
+    if (this.selectedAddress=="New Address"){
+      this.isNewAddress=true
+    } else{
+      this.isNewAddress=false
     }
   }
-
 
 }
 
