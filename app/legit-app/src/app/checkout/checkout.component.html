@@ -20,7 +20,7 @@
 
           <!-- display if user wants to input new address -->
           <div *ngIf="isNewAddress">
-
+<!-- 
             <div class="form-group" placeholder="First Name" [ngClass]="{ 'has-error': f.submitted && !firstName.valid }">
               <label for="firstName">First Name</label>
               <input class="form-control" type="text" class="form-control" name="firstName" [(ngModel)]="user.firstName" #firstName="ngModel"
@@ -40,7 +40,7 @@
               <input class="form-control" type="text" class="form-control" name="contact" [(ngModel)]="user.contact" #contact="ngModel"
                 required />
               <div *ngIf="f.submitted && !contact.valid" class="help-block">Phone number is required</div>
-            </div>
+            </div> -->
 
             <div class="form-group" placeholder="Address Line" [ngClass]="{ 'has-error': f.submitted && !address_line.valid }">
               <label for="address_line">Address Line</label>
