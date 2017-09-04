@@ -19,11 +19,11 @@ import { SharedService } from '../shared.service'
 })
 export class PaymentComponent implements OnInit {
   private carts: any = {};
-  firstName: string;
-  lastName: string;
+  // firstName: string;
+  name: string;
   contact: string;
   address: string;
-  postalCode: string;
+  // postalCode: string;
   totalPrice: string;
   private shoppingCart: ShoppingCart;
   private cartItem: CartItem[];
@@ -42,14 +42,13 @@ export class PaymentComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.firstName = this.storageService.getFirstName();
-    this.lastName = this.storageService.getLastName();
+    // this.firstName = this.storageService.getFirstName();
+    this.name = this.storageService.getName();
     this.contact = this.storageService.getContact();
-    this.postalCode = this.storageService.getPostCode();
+    // this.postalCode = this.storageService.getPostCode();
     this.address = this.storageService.getAddress();
 
     this.cartItem = this.shoppingCart.items;
-
 
     this.cartService.getCartItemByCartId("C1").subscribe(
       carts => {
@@ -109,6 +108,8 @@ export class PaymentComponent implements OnInit {
       if (res.status == 200) {
         //remove items in cart
         this.updateCart()
+        //add order to database
+        //TO BE DONE
         //create modal 
         this.showSuccessfulDialog()
         //go home
@@ -122,7 +123,7 @@ export class PaymentComponent implements OnInit {
     console.log("UPDATE CART FUNCTION")
     this.sharedService.emptyCart();
   }
-s
+
   showSuccessfulDialog() {
     let disposable = this.dialogService.addDialog(ConfirmationPopupComponent, {
       title: 'Congratulations!',

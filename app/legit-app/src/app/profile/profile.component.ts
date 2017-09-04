@@ -45,8 +45,8 @@ export class ProfileComponent implements OnInit {
           this.firstName = this.customer.firstName;
           this.lastName = this.customer.lastName;
           this.contact = this.customer.contact;
-          this.address = this.customer.address;
-          this.postalCode = this.customer.postalCode;
+          // this.address = this.customer.address;
+          // this.postalCode = this.customer.postalCode;
           this.password = this.customer.password;
           this.loading = false;
         } else {
