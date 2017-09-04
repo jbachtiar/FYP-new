@@ -13,8 +13,6 @@ import { ShoppingCartService } from "app/shopping-cart.service";
   templateUrl: './checkout.component.html',
   styleUrls: ['./checkout.component.css'],
   providers: [ShoppingCartService]
-
-
 })
 export class CheckoutComponent implements OnInit {
   private user: any = {};
@@ -22,7 +20,7 @@ export class CheckoutComponent implements OnInit {
   private selectedAddress: any = {};
   private isNewAddress: boolean = false;
   private newAddress: any = {};
-  private saveAddress:boolean = false;
+  private isSaveAddress: boolean = false;
   private carts: any = {};
   private numOfItem: 0;
   private itemPrice: number[] = new Array();
@@ -30,7 +28,8 @@ export class CheckoutComponent implements OnInit {
   private shoppingCart: ShoppingCart;
   private cartItem: CartItem[]
   private loading: boolean = true;
-  private countries: any= {};
+  private countries: any = {};
+  private countryCodes: any = []
 
   customer: Customer;
   token: string;
@@ -73,8 +72,13 @@ export class CheckoutComponent implements OnInit {
         }
       }
     )
-    this.countries=this.profileService.getCountries();
-
+    this.countries = this.profileService.getCountries();
+    for (let c of this.countries){
+         this.countryCodes.push(c.dial_code);
+         console.log("COUNTRY CODE: " + c.dial_code)
+    }
+    this.countryCodes.sort();
+    console.log("COUNTRY CODES: " + this.countryCodes)
 
     this.stopLoading()
     // this.cartService.getCartItemByCartId("C1").subscribe(
@@ -122,6 +126,10 @@ export class CheckoutComponent implements OnInit {
 
   updateCart() {
     this.shoppingCartService.updateCart(this.shoppingCart)
+  }
+
+  saveAddress() {
+    console.log("SAVE ADDRESS: " + this.isSaveAddress)
   }
 
   sameAddress() {
@@ -196,25 +204,45 @@ export class CheckoutComponent implements OnInit {
   }
 
   submit() {
+    let orderAddress: any = {}
     // if (this.canRedirectToPayment()) {
-      if(this.isNewAddress && this.saveAddress){
-        this.user.address.push(this.newAddress)
+    console.log("ADDRESS: " + JSON.stringify(this.newAddress));
+    if (this.isNewAddress) {
+      this.newAddress.contact = "" + this.newAddress.country_code + this.newAddress.contact
+      orderAddress.addresssId = ""
+      orderAddress = this.newAddress
+      if (this.isSaveAddress) {
+        //call service to save address here
+        this.shoppingCartService.addAddress(this.newAddress).subscribe(
+          res => {
+            if (res.status === '200') {
+              console.log("new address entry added");
+            } else {
+              console.log("unable to add new address")
+            }
+          });
+
       }
-      this.router.navigateByUrl('/checkout/payment');
-      this.storageService.setShippingAddress(this.user.firstName, this.user.lastName, this.user.contact, this.selectedAddress.address_line, this.selectedAddress.city, this.selectedAddress.country, this.selectedAddress.postal_code);
+    } else {
+      //
+      orderAddress.addressId = ""
+      orderAddress = this.selectedAddress;
+    }
+  
+    this.router.navigateByUrl('/checkout/payment');
+    this.storageService.setShippingAddress(orderAddress.name, orderAddress.contact, orderAddress.address_line, orderAddress.city, orderAddress.country, orderAddress.postal_code);
 
-      this.cartService.updateCart("C1", new Date().toLocaleDateString(), this.showTotalPrice()).subscribe(
-        res => {
-          if (res.status === '200') {
+    // this.cartService.updateCart("C1", new Date().toLocaleDateString(), this.showTotalPrice()).subscribe(
+    //   res => {
+    //     if (res.status === '200') {
 
-            console.log("Updated");
-          } else {
-            console.log("Unable to update");
-          }
-        }
-      );
+    //       console.log("Updated");
+    //     } else {
+    //       console.log("Unable to update");
+    //     }
+    //   }
+    // );
     // }
-
   }
 
   addPrice(index, price) {
@@ -241,12 +269,12 @@ export class CheckoutComponent implements OnInit {
   //   }
   // }
 
-  checkAddress(){
+  checkAddress() {
     console.log("address is changed to: " + this.selectedAddress)
-    if (this.selectedAddress=="New Address"){
-      this.isNewAddress=true
-    } else{
-      this.isNewAddress=false
+    if (this.selectedAddress == "New Address") {
+      this.isNewAddress = true
+    } else {
+      this.isNewAddress = false
     }
   }
 

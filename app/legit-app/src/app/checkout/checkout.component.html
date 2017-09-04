@@ -13,38 +13,53 @@
             <label for="address">Select a shipping address from your address book or enter a new address.</label><br/>
             <select class="form-control" [(ngModel)]="selectedAddress" #address="ngModel" [ngModelOptions]="{standalone: true}" name="address"
               (change)="checkAddress()">
-              <option *ngFor="let a of addressBook" [ngValue]="a">{{user.firstName}} {{user.lastName}}, {{a.address_line}}, {{a.city}}, {{a.country}} {{a.postal_code}}</option>
+              <option *ngFor="let a of addressBook" [ngValue]="a">{{a.name}}, tel: {{a.contact}}, {{a.address_line}}, {{a.city}}, {{a.country}} {{a.postal_code}}</option>
               <option [ngValue]="new">New Address</option>
             </select> &nbsp; &nbsp; &nbsp;
           </div>
 
           <!-- display if user wants to input new address -->
           <div *ngIf="isNewAddress">
-<!-- 
-            <div class="form-group" placeholder="First Name" [ngClass]="{ 'has-error': f.submitted && !firstName.valid }">
+
+            <!-- <div class="form-group" placeholder="First Name" [ngClass]="{ 'has-error': f.submitted && !firstName.valid }">
               <label for="firstName">First Name</label>
-              <input class="form-control" type="text" class="form-control" name="firstName" [(ngModel)]="user.firstName" #firstName="ngModel"
+              <input class="form-control" type="text" class="form-control" name="firstName" [(ngModel)]="newAddress.firstName" #firstName="ngModel"
                 required />
               <div *ngIf="f.submitted && !firstName.valid" class="help-block">First name is required</div>
-            </div>
+            </div> -->
 
-            <div class="form-group" placeholder="Last Name" [ngClass]="{ 'has-error': f.submitted && !lastName.valid }">
-              <label for="lastName">Last Name</label>
-              <input class="form-control" type="text" class="form-control" name="lastName" [(ngModel)]="user.lastName" #lastName="ngModel"
-                required />
-              <div *ngIf="f.submitted && !lastName.valid" class="help-block">Last name is required</div>
+            <div class="form-group" placeholder="Name" [ngClass]="{ 'has-error': f.submitted && !name.valid }">
+              <label for="name">Name</label>
+              <input class="form-control" type="text" class="form-control" name="name" [(ngModel)]="newAddress.recipientName" #name="ngModel" required
+              />
+              <div *ngIf="f.submitted && !name.valid" class="help-block">Name is required</div>
             </div>
 
             <div class="form-group" placeholder="Phone Number" [ngClass]="{ 'has-error': f.submitted && !contact.valid }">
-              <label for="contact">Phone Number</label>
-              <input class="form-control" type="text" class="form-control" name="contact" [(ngModel)]="user.contact" #contact="ngModel"
-                required />
-              <div *ngIf="f.submitted && !contact.valid" class="help-block">Phone number is required</div>
-            </div> -->
+              <label for="contact">Contact Number</label>
+              <div class="row">
+                <div class="col-sm-3">
+                  <select class="form-control" name='country_code' [(ngModel)]='newAddress.country_code' #country_code="ngModel">
+                <option *ngFor="let cc of countryCodes" [ngValue]="cc">{{cc}}</option>
+            </select>
+                </div>
+
+                <div class="col-sm-9">
+                  <input class="form-control" type="text" class="form-control" name="contact" [(ngModel)]="newAddress.contact" #contact="ngModel"
+                    required pattern="[0-9]*" />
+                  <!-- <div *ngIf="f.submitted && !contact.valid" class="help-block">Phone number is required</div> -->
+                  <div *ngIf="f.submitted" class="help-block">
+                    <div [hidden]="!contact.hasError('required')">Contact is required</div>
+                    <div [hidden]="!contact.hasError('pattern')">Only digit is allowed </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
 
             <div class="form-group" placeholder="Address Line" [ngClass]="{ 'has-error': f.submitted && !address_line.valid }">
               <label for="address_line">Address Line</label>
-              <input class="form-control" type="text" class="form-control" name="address_line" [(ngModel)]="newAddress.address_line" #address_line="ngModel"
+              <input class="form-control" type="text" class="form-control" name="address_line" [(ngModel)]="newAddress.addressLine" #address_line="ngModel"
                 required />
               <div *ngIf="f.submitted && !address_line.valid" class="help-block">Address line is required</div>
             </div>
@@ -62,7 +77,7 @@
               </div>
               <div ng-class="{'valid':country.$valid}">
                 <select class="form-control" name='country' [(ngModel)]='newAddress.country' #country="ngModel" required>
-                        <option *ngFor="let c of countries" [ngValue]="c">{{c.name}}</option>
+                        <option *ngFor="let c of countries" [ngValue]="c.name">{{c.name}}</option>
                     </select>
               </div>
               <div *ngIf="(f.submitted && !country.valid && !newAddress.country) || (!country.valid && country.dirty)" class="help-block">Country is required</div>
@@ -70,7 +85,7 @@
 
             <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !postalcode.valid }">
               <label for="postalcode">Postalcode</label>
-              <input class="form-control" type="text" class="form-control" name="postalcode" [(ngModel)]="newAddress.postal_code" #postalcode="ngModel"
+              <input class="form-control" type="text" class="form-control" name="postalcode" [(ngModel)]="newAddress.postalCode" #postalcode="ngModel"
                 required/>
               <div *ngIf="f.submitted && !postalcode.valid" class="help-block">Postalcode is required</div>
             </div>
