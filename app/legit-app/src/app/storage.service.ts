@@ -5,8 +5,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class StorageService {
 
-    firstName: string;
-    lastName: string;
+    name: string;
     contact: string;
     // address: string;
     address_line: string;
@@ -17,11 +16,11 @@ export class StorageService {
 
     constructor() { }
 
-    getFirstName(): string {
-        return this.firstName;
-    }
-    getLastName(): string {
-        return this.lastName;
+    // getFirstName(): string {
+    //     return this.firstName;
+    // }
+    getName(): string {
+        return this.name;
     }
 
     getContact(): string {
@@ -32,7 +31,7 @@ export class StorageService {
     //     return this.address;
     // }
 
-    getAddress():string{
+    getAddress(): string{
         return this.address_line+", "+this.city+", "+this.country+" "+this.postalCode
     }
     getPostCode(): string {
@@ -49,9 +48,9 @@ export class StorageService {
     //     this.postalCode = postalCode
     // }
 
-    setShippingAddress(firstName: string, lastName: string, contact: string, address_line: string, city: string, country: string, postalCode: string) {
-        this.firstName = firstName
-        this.lastName = lastName
+    setShippingAddress(name: string, contact: string, address_line: string, city: string, country: string, postalCode: string) {
+        // this.firstName = firstName
+        this.name = name
         this.contact = contact
         this.address_line = address_line
         this.city = city
