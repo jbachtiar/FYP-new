@@ -33,7 +33,7 @@ export class AddressBookComponent implements OnInit {
           let i = 0
           this.addressBook.forEach(a => {
             console.log("ai: " + i)
-            if (a.default == "yes") {
+            if (a.isDefault == "Y") {
               console.log("default address: " + JSON.stringify(a))
               this.defaultAddress = a;
               this.addressBook.splice(i,1);

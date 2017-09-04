@@ -1,24 +1,28 @@
-  <body>
+<body>
   <h2>
     Address Book
   </h2>
 
-  <h3>Default Billing Address</h3>
+  <h3>Default Shipping Address</h3>
   <div class="card">
-    {{defaultAddress.address_line}}
+    {{defaultAddress.recipientName}}
+    <br/> {{defaultAddress.contact}}
+    <br/> {{defaultAddress.addressLine}}
     <br/> {{defaultAddress.city}}
     <br/> {{defaultAddress.country}}
-    <br/> {{defaultAddress.postal_code}}
+    <br/> {{defaultAddress.postalCode}}
     <br/>
   </div>
   <h3>Additional Addresses</h3>
   <div *ngFor="let a of addressBook">
     <div class="col-sm-6">
       <div class="card">
-        {{a.address_line}}
+        {{a.recipientName}}
+        <br/> {{a.contact}}
+        <br/> {{a.addressLine}}
         <br/> {{a.city}}
         <br/> {{a.country}}
-        <br/> {{a.postal_code}}
+        <br/> {{a.postalCode}}
         <br/>
       </div>
     </div>
