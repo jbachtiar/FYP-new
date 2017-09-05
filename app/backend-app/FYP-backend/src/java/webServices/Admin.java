@@ -63,7 +63,6 @@ public class Admin {
     @Produces(MediaType.APPLICATION_JSON)
     public String addNewStaff(@FormParam("token") String token, @FormParam("staff") String staffJson ) {
         response.setHeader("Access-Control-Allow-Origin", "*");
-
         String email = tokenManagement.parseJWT(token);
 
         JsonObject jsonOutput = new JsonObject();
@@ -73,11 +72,17 @@ public class Admin {
         String status = "";
 
         Staff staff = gson.fromJson(staffJson, Staff.class);
-
+        
+        
         try {
             String result = staffDao.addStaff(staff);
-            jsonOutput.addProperty("status","200");
+            if(result.equals("Success")){
+                jsonOutput.addProperty("status", "200");
+            }else{
+                jsonOutput.addProperty("status", "500");
+            }
         } catch (SQLException e) {
+            jsonOutput.addProperty("status", "SQL Exception");
 
         }
         

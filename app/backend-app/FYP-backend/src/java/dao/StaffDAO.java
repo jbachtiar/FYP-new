@@ -191,12 +191,12 @@ public class StaffDAO {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-       
-        String sql = "INSERT INTO STAFF VALUES (?,?,?,?,?,?)";
-        if(getStaffByEmail(s.getEmail())!=null){
+        
+        if(getStaffByEmail(s.getEmail())==null){
             
             try {
-
+                
+                String sql = "INSERT INTO STAFF VALUES (?,?,?,?,?,?)";
                 conn = ConnectionManager.getConnection();
                 stmt = conn.prepareStatement(sql);
                 stmt.setString(1, s.getEmail());
@@ -205,10 +205,18 @@ public class StaffDAO {
                 stmt.setString(4, s.getPhoneNo());
                 stmt.setString(5, s.getPassword());
                 stmt.setInt(6, s.getRoleId());
+                System.out.println(s.getFirstName());
+                System.out.println(s.getLastName());
+                System.out.println(s.getEmail());
+                System.out.println(s.getPhoneNo());
+                System.out.println(s.getPassword());
+                System.out.println(s.getRoleId());
+
+                stmt.executeUpdate();
                 
-                rs = stmt.executeQuery();
                 
-            } finally {
+            }
+            finally {
                 ConnectionManager.close(conn, stmt, rs);
             }
         }else{
@@ -270,12 +278,12 @@ public class StaffDAO {
         return "Success";
     }
     
-//    private static void handleSQLException(SQLException ex, String sql, String... parameters) {
-//        String msg = "Unable to access data; SQL=" + sql + "\n";
-//        for (String parameter : parameters) {
-//            msg += "," + parameter;
-//        }
-//        Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, msg, ex);
-//    }
+    private static void handleSQLException(SQLException ex, String sql, String... parameters) {
+        String msg = "Unable to access data; SQL=" + sql + "\n";
+        for (String parameter : parameters) {
+            msg += "," + parameter;
+        }
+        Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, msg, ex);
+    }
     
 }
