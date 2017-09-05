@@ -2,7 +2,7 @@ export const devConfig = {
     authenticationBackendUrl:'http://localhost:8084/FYP-backend/API/authentication/login',
     registrationBackendUrl:'http://localhost:8084/FYP-backend/API/registration/insert',
     productCatalogueBackendUrl:'http://localhost:8084/FYP-backend/API/ProductCatalogue',
-    patternListBackendUrl:'http://localhost:8084/FYP-backend/API/ProductCatalogue/BeddingPatterns',
+    productListBackendUrl:'http://localhost:8084/FYP-backend/API/ProductCatalogue/BeddingPatterns',
     profileBackendUrl:'http://localhost:8084/FYP-backend/API/profile',
     quickViewBackendUrl: 'http://localhost:8084/FYP-backend/API/ProductCatalogue/GetBedding',
     fabricBackendUrl: 'http://localhost:8084/FYP-backend/API/FabricCatalogue/fabrics',
