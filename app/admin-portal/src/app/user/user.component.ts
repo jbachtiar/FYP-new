@@ -30,7 +30,7 @@ export class UserComponent implements OnInit {
     
      this.staffcontrolservice.displayProfile(this.token).subscribe(
           res => {
-            if(res.status === '200'){
+            if(res){
               // console.log("Retrieve successful");
               // this.user=this.staffcontrolservice.getUser();
               // this.email= this.user.email;

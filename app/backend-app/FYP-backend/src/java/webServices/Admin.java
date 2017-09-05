@@ -62,7 +62,7 @@ public class Admin {
     @Path("/addStaff")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public String addNewStaff(@FormParam("staff") String staffJson, @FormParam("token") String token) {
+    public String addNewStaff(@FormParam("token") String token,@FormParam("staff") String staffJson ) {
         response.setHeader("Access-Control-Allow-Origin", "*");
 
         String email = tokenManagement.parseJWT(token);

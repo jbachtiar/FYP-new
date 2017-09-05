@@ -8,7 +8,7 @@ import { CONFIG } from '../config/config.component';
 
 @Injectable()
 export class StaffcontrolService {
-    private user;
+    private user : Staff;
 
     constructor(private _http: Http) { }
 
@@ -22,13 +22,11 @@ export class StaffcontrolService {
         let headers= new Headers();
         
        
-        headers.append (
-           'Content-type','application/x-www-form-urlencoded'
-        );
+        
         params.set('token', token);
         params.set('staff', JSON.stringify(newStaff));
 
-        return this._http.post(CONFIG.staffBackendUrl + '/addNewStaff',params.toString(), {headers: headers} )
+        return this._http.post(CONFIG.staffBackendUrl + '/addStaff',params.toString(), {headers: headers} )
             .map(res => res.json());
     }
 
@@ -71,24 +69,9 @@ export class StaffcontrolService {
        // return this._http.get('http://localhost:8084/FYP-backend/API/profile/retrieve', options )
             .map(res => {
                 // login successful if there's a jwt token in the response
-                let user = res.json();
             
-                if (user) {
-
-                    this.user={
-                        email: user.email, 
-                        firstName:user.firstName, 
-                        lastName:user.lastName, 
-                        phoneNumber:user.phoneNumber, 
-                        password:user.password, 
-                        roleCode:user.roleCode
-                    }
-                 
-                    console.log(this.user);
-            
-                 return user;
-                 
-                }
+                return res;
+             
             
             });
         }
