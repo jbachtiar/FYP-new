@@ -198,4 +198,24 @@ export class ShoppingCartService {
       });
   }
 
+  public addAddress(address: any){
+    //call webservice to add address to database
+    let params: URLSearchParams = new URLSearchParams();
+    params.set('token',this.token)
+    params.set('address', address)
+    let headers = new Headers();
+    //headers.append ('Authorization', token);
+    headers.append(
+        'Content-type', 'application/x-www-form-urlencoded'
+    )
+    //TO BE EDITED
+    let url = 'www.google.com';
+    return this._http.put(url + '/addAddress', params.toString(), { headers })
+        .map(res => {
+          return {'status':'200'}
+        }
+      );
+
+  }
+
 }

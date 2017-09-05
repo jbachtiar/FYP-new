@@ -187,7 +187,7 @@ public class ProductDAO {
             conn = ConnectionManager.getConnection();
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, "N");
-            
+
             rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -224,6 +224,8 @@ public class ProductDAO {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
+        PreparedStatement stmt2 = null;
+        ResultSet rs2 = null;
         Product product = null;
 
         String sql = "SELECT * FROM PRODUCT WHERE PRODUCT_ID=? ";
@@ -243,24 +245,28 @@ public class ProductDAO {
 
                 int colourId = rs.getInt("COLOUR_ID");
                 int fabricId = rs.getInt("FABRIC_ID");
+                Colour c = cd.getColourById(colourId);
+                Fabric f = fd.getFabricById(fabricId);
+                Pattern d = dd.getPatternById(patternId);
+                Image[] images = id.getAllImagesByProductId(productId);
                 String productType = rs.getString("PRODUCT_TYPE");
+
                 if (productType.equals("Bedding")) {
-                    String sql2 = "SELECT * FROM PRODUCT P AND BEDDING B WHERE B.PRODUCT_ID=P.PRODUCT_ID";
-                    PreparedStatement stmt2 = conn.prepareStatement(sql2);
-                    ResultSet rs2 = stmt2.executeQuery();
+                    String sql2 = "SELECT * FROM BEDDING WHERE PRODUCT_ID=?";
+                    stmt2 = conn.prepareStatement(sql2);
+                    stmt2.setInt(1, productId);
+                    rs2 = stmt2.executeQuery();
+                    while (rs2.next()) {
 
-                    String sizeName = rs2.getString("size_name");
-                    BeddingSizeDAO bzd = new BeddingSizeDAO();
-                    Pattern d = dd.getPatternById(patternId);
-                    Colour c = cd.getColourById(colourId);
-                    BeddingSize bs = bzd.getBeddingSizeByName(sizeName);
-                    Fabric f = fd.getFabricById(fabricId);
-                    Image[] images = id.getAllImagesByProductId(productId);
+                        String sizeName = rs2.getString("SIZE_NAME");
+                        BeddingSizeDAO bzd = new BeddingSizeDAO();
 
-                    product = new Bedding (bs, productId, "Bedding", d, c, f, images);
+                        BeddingSize bs = bzd.getBeddingSizeByName(sizeName);
+                        product = new Bedding(bs, productId, "Bedding", d, c, f, images);
+                    }
 
-                }else{
-                    product = new Product(productId, productType, dd.getPatternById(patternId), cd.getColourById(colourId), fd.getFabricById(fabricId), id.getAllImagesByProductId(productId));
+                } else {
+                    product = new Product(productId, productType, d, c, f, images);
                 }
             }
 
@@ -314,60 +320,35 @@ public class ProductDAO {
 
     }
 //
-//    public static ArrayList<Colour> getAvailableColoursByPatternFabric(String patternId, String fabricId) throws SQLException {
-//        Connection conn = null;
-//        PreparedStatement stmt = null;
-//        ResultSet rs = null;
-//        ArrayList<Colour> colors = new ArrayList();
+
 //
-//        String sql = "SELECT colour_id from product where fabric_id=? and pattern_id=?";
-//        try {
-//            conn = ConnectionManager.getConnection();
-//            stmt = conn.prepareStatement(sql);
-//            stmt.setString(1, fabricId);
-//            stmt.setString(2, patternId);
-//            rs = stmt.executeQuery();
-//
-//            while (rs.next()) {
-//
-//                String ColorId = rs.getString("colour_id");
-//                colors.add(ColourDAO.getColorById(ColorId));
-//
-//            }
-//
-//        } finally {
-//            ConnectionManager.close(conn, stmt, rs);
-//        }
-//        return colors;
-//    }
-//
-//    public static Product getProductByPatternFabricColor(String patternId, String fabricId, String colorId) throws SQLException {
-//        Connection conn = null;
-//        PreparedStatement stmt = null;
-//        ResultSet rs = null;
-//        Product p = null;
-//
-//        String sql = "SELECT sku from product where fabric_id=? and pattern_id=? and colour_id = ? ";
-//        try {
-//            conn = ConnectionManager.getConnection();
-//            stmt = conn.prepareStatement(sql);
-//            stmt.setString(1, fabricId);
-//            stmt.setString(2, patternId);
-//            stmt.setString(3, colorId);
-//            rs = stmt.executeQuery();
-//
-//            while (rs.next()) {
-//
-//                String productId = rs.getString("sku");
-//                p = retrieveProductById(productId);
-//
-//            }
-//
-//        } finally {
-//            ConnectionManager.close(conn, stmt, rs);
-//        }
-//        return p;
-//    }
+    public Product getProductByPatternFabricColor(int patternId, int fabricId, int colourId) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Product p = null;
+
+        String sql = "select product_id from product where fabric_id=? and pattern_id=? and colour_id = ? ";
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, fabricId);
+            stmt.setInt(2, patternId);
+            stmt.setInt(3, colourId);
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+
+                int productId = rs.getInt("product_id");
+                p =  getProductById(productId);
+
+            }
+
+        } finally {
+            ConnectionManager.close(conn, stmt, rs);
+        }
+        return p;
+    }
 //
 //    public static Product[] getfilteredProducts(String collectionId, String fabricId, String colourId, String sortPrice) throws SQLException {
 //

@@ -120,6 +120,43 @@ public class FabricDAO {
         
     }
     
+    public ArrayList<Fabric> getFabricsByPatternId(int patternId) throws SQLException{
+        
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        ArrayList<Fabric> fabricList = new ArrayList();
+        
+        String sql = "SELECT * FROM FABRIC F, PATTERN P, PRODUCT PRO WHERE P.PATTERN_ID=PRO.PATTERN_ID AND PRO.FABRIC_ID=F.FABRIC_ID AND P.PATTERN_ID=? AND F.DELETED=? AND PRO.DELETED=? AND P.DELETED=?";
+        try {
+            
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, patternId);
+            stmt.setString(2, "N");
+            stmt.setString(3, "N");
+            stmt.setString(4, "N");
+            rs = stmt.executeQuery();
+            
+            while(rs.next()){
+                int fabricId = rs.getInt("FABRIC_ID");
+                String fabricName = rs.getString("FABRIC_NAME");
+                String fabricDesc = rs.getString("FABRIC_DESC");
+                double fabricPrice = rs.getDouble("FABRIC_PRICE");
+              
+                
+                Fabric fabric = new Fabric(fabricId, fabricName,fabricDesc,fabricPrice);
+                fabricList.add(fabric);
+            }
+
+        } finally {
+            ConnectionManager.close(conn, stmt, rs);
+        }
+        
+        return fabricList;
+        
+    }
+    
     public String deleteFabricById(int id) throws SQLException{
         
         Connection conn = null;

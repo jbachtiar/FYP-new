@@ -1,0 +1,30 @@
+<body>
+  <h2>
+    Address Book
+  </h2>
+
+  <h3>Default Shipping Address</h3>
+  <div class="card">
+    {{defaultAddress.recipientName}}
+    <br/> {{defaultAddress.contact}}
+    <br/> {{defaultAddress.addressLine}}
+    <br/> {{defaultAddress.city}}
+    <br/> {{defaultAddress.country}}
+    <br/> {{defaultAddress.postalCode}}
+    <br/>
+  </div>
+  <h3>Additional Addresses</h3>
+  <div *ngFor="let a of addressBook">
+    <div class="col-sm-6">
+      <div class="card">
+        {{a.recipientName}}
+        <br/> {{a.contact}}
+        <br/> {{a.addressLine}}
+        <br/> {{a.city}}
+        <br/> {{a.country}}
+        <br/> {{a.postalCode}}
+        <br/>
+      </div>
+    </div>
+  </div>
+</body>

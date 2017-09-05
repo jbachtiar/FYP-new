@@ -95,7 +95,6 @@ public class ColourDAO {
             while (rs.next()) {
                 int colourId = rs.getInt("COLOUR_ID");
                 String colourName = rs.getString("COLOUR_NAME");
-             
 
                 Colour colour = new Colour(colourId, colourName);
                 colourList.add(colour);
@@ -163,27 +162,33 @@ public class ColourDAO {
         return "Success";
     }
 
-    public Colour getColourByProductId(int productId) throws SQLException {
+    public ArrayList<Colour> getAvailableColoursByPatternIdFabricId(int patternId, int fabricId) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        Colour colour = null;
+        ArrayList<Colour> colours = new ArrayList();
 
-        String sql = "SELECT * FROM PRODUCT WHERE PRODUCT_ID=?";
+        String sql = "SELECT colour_id from product where fabric_id=? and pattern_id=?";
         try {
             conn = ConnectionManager.getConnection();
             stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, productId);
+            stmt.setInt(1, fabricId);
+            stmt.setInt(2, patternId);
             rs = stmt.executeQuery();
 
-            int colourId = rs.getInt("COLOUR_ID");
-            colour = getColourById(colourId);
+            while (rs.next()) {
+
+                int colourId = rs.getInt("colour_id");
+                colours.add(getColourById(colourId));
+
+            }
 
         } finally {
             ConnectionManager.close(conn, stmt, rs);
         }
-        return colour;
-
+        return colours;
     }
+
+  
 
 }
