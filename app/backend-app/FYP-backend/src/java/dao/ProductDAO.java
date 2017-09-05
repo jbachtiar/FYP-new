@@ -328,13 +328,15 @@ public class ProductDAO {
         ResultSet rs = null;
         Product p = null;
 
-        String sql = "select product_id from product where fabric_id=? and pattern_id=? and colour_id = ? ";
+        String sql = "select product_id from product where fabric_id=? and pattern_id=? and colour_id = ? and deleted=? ";
         try {
             conn = ConnectionManager.getConnection();
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, fabricId);
             stmt.setInt(2, patternId);
             stmt.setInt(3, colourId);
+            stmt.setString(4, "N");
+            
             rs = stmt.executeQuery();
 
             while (rs.next()) {
