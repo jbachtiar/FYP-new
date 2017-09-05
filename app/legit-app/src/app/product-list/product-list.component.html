@@ -46,7 +46,7 @@
                 <div *ngFor="let product of pagedProducts">
                         <div class="col-sm-4 col-lg-4 col-md-4">
                         <div class="quickview">
-                            <img src="{{product.image_url}}" alt="..." class="img-thumbnail img-product"  [routerLink]="['/productDetails', product.pattern_id]"><br/>
+                            <img src="{{product.images[0].imageUrl}}" alt="..." class="img-thumbnail img-product"  [routerLink]="['/productDetails', product.pattern_id]"><br/>
                             <div class="overlay">
                                 <div class="quickview-text" (click)=showQuickView(product.pattern_id)>Quick View</div>
                             </div>

@@ -161,8 +161,8 @@ public class ProductCatalogue {
             Product p = productDao.getProductById(productId);
             if (p == null) {
                 jsonOutput.addProperty("error", "Bedding not found");
-   
-            }else{
+
+            } else {
                 jsonOutput.addProperty("status", "200");
 
                 JsonObject temp = new JsonObject();
@@ -248,26 +248,27 @@ public class ProductCatalogue {
 //        return finalJsonOutput;
 //    }
 //
+
     @GET
     @Path("/customize")
     @Produces(MediaType.APPLICATION_JSON)
     public String getBeddingCombinationsByPatternId(@QueryParam("patternId") int patternId) {
-        
+
         response.setHeader("Access-Control-Allow-Origin", "*");
 
         JsonObject jsonOutput = new JsonObject();
         Gson gson = new GsonBuilder().create();
 
         try {
-            PatternDAO patternDao= new PatternDAO();
+            PatternDAO patternDao = new PatternDAO();
             FabricDAO fabricDao = new FabricDAO();
-            CollectionDAO collectionDao= new CollectionDAO();
+            CollectionDAO collectionDao = new CollectionDAO();
             Pattern pattern = patternDao.getPatternById(patternId);
-            ColourDAO colourDao= new ColourDAO();
+            ColourDAO colourDao = new ColourDAO();
             ProductDAO productDao = new ProductDAO();
             ArrayList<Fabric> fabrics = fabricDao.getFabricsByPatternId(patternId);
-            
-            Collection c= collectionDao.getCollectionByPatternId(patternId);
+
+            Collection c = collectionDao.getCollectionByPatternId(patternId);
             if (fabrics.isEmpty()) {
                 jsonOutput.addProperty("status", "Fabric not found");
 
@@ -278,12 +279,11 @@ public class ProductCatalogue {
                 patt.addProperty("pattern_name", pattern.getPatternName());
                 patt.addProperty("pattern_description", pattern.getPatternDesc());
                 patt.addProperty("pattern_price", pattern.getPatternPrice());
-                
+
                 patt.addProperty("collection_id", c.getCollectionId());
                 patt.addProperty("collection_name", c.getCollectionName());
 
                 JsonArray fabricsJson = new JsonArray();
-
 
                 for (int i = 0; i < fabrics.size(); i++) {
                     Fabric f = fabrics.get(i);
@@ -301,13 +301,15 @@ public class ProductCatalogue {
                         JsonObject co = new JsonObject();
                         int colorId = col.getColourId();
                         
-                        Product p = productDao.getProductByPatternFabricColor(pattern.getPatternId(), fabricId, colorId);
-                        JsonArray images = gson.toJsonTree(p.getImages()).getAsJsonArray();
-                        
                         co.addProperty("colour_id", colorId);
                         co.addProperty("colour_name", col.getColourName());
-                        co.add("images", images);
-                       
+
+                        Product p = productDao.getProductByPatternFabricColor(pattern.getPatternId(), fabricId, colorId);
+                        if (p != null) {
+                            JsonArray images = gson.toJsonTree(p.getImages()).getAsJsonArray();
+
+                            co.add("images", images);
+                        }
                         colorsJson.add(co);
                     }
 

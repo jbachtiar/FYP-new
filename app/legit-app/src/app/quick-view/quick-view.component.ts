@@ -70,8 +70,7 @@ export class QuickViewComponent extends DialogComponent<QuickViewPopupModel, boo
         this.selectedFabric = pattern.fabrics[0]
         this.selectedColour = this.selectedFabric.colours[0]
         this.selectedFabricPrice = +this.selectedFabric.fabric_price
-        this.selectedColourPrice = +this.selectedColour.colour_price
-        this.totalPrice = this.pattern.pattern_price + this.selectedFabricPrice + this.selectedColourPrice
+        this.totalPrice = this.pattern.pattern_price + this.selectedFabricPrice
         this.stopLoading()
       });
 
@@ -80,24 +79,13 @@ export class QuickViewComponent extends DialogComponent<QuickViewPopupModel, boo
   onFabricChange() {
     this.selectedColour = this.selectedFabric.colours[0];
     this.selectedFabricPrice = +this.selectedFabric.fabric_price;
-    this.selectedColourPrice = +this.selectedColour.colour_price;
 
-    this.totalPrice = this.pattern.pattern_price + this.selectedFabricPrice + this.selectedColourPrice
+    this.totalPrice = this.pattern.pattern_price + this.selectedFabricPrice
     console.log("Pattern Price: " + this.pattern.pattern_price)
     console.log("Fabric Price: " + this.selectedFabricPrice)
-    console.log("Colour Price: " + this.selectedColourPrice)
+  
 
     console.log("RECALCULATED PRICE - fabric: " + this.totalPrice);
-  }
-
-  onColourChange() {
-    this.selectedColourPrice = +this.selectedColour.colour_price;
-    this.totalPrice = this.pattern.pattern_price + this.selectedFabricPrice + this.selectedColourPrice
-    console.log("Pattern Price: " + this.pattern.pattern_price)
-    console.log("Fabric Price: " + this.selectedFabricPrice)
-    console.log("Colour Price: " + this.selectedColourPrice)
-
-    console.log("RECALCULATED PRICE - colour: " + this.totalPrice)
   }
 
   closeModal() {

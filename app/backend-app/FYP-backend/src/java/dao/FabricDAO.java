@@ -146,7 +146,9 @@ public class FabricDAO {
               
                 
                 Fabric fabric = new Fabric(fabricId, fabricName,fabricDesc,fabricPrice);
-                fabricList.add(fabric);
+                if(!checkForDuplicatedFabric(fabricList, fabric)){
+                    fabricList.add(fabric);
+                }
             }
 
         } finally {
@@ -156,6 +158,19 @@ public class FabricDAO {
         return fabricList;
         
     }
+    
+    public boolean checkForDuplicatedFabric(ArrayList<Fabric> fabrics, Fabric fabric){
+        for(int i=0; i<fabrics.size(); i++){
+            if(fabrics.get(i).getFabricId()==fabric.getFabricId()){
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    
+    
     
     public String deleteFabricById(int id) throws SQLException{
         

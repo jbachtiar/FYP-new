@@ -168,12 +168,14 @@ public class ColourDAO {
         ResultSet rs = null;
         ArrayList<Colour> colours = new ArrayList();
 
-        String sql = "SELECT colour_id from product where fabric_id=? and pattern_id=?";
+        String sql = "SELECT colour_id from product where fabric_id=? and pattern_id=? and deleted=?";
         try {
             conn = ConnectionManager.getConnection();
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, fabricId);
             stmt.setInt(2, patternId);
+            stmt.setString(3, "N");
+            
             rs = stmt.executeQuery();
 
             while (rs.next()) {
