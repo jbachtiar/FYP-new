@@ -7,81 +7,81 @@ import { CONFIG } from './config/config.component';
 
 @Injectable()
 export class ProductService {
-  
+
 
     constructor(private _http: Http) { }
 
     getProductList() {
         let params: URLSearchParams = new URLSearchParams();
-        let url = CONFIG.productCatalogueBackendUrl+'/uniquePatterns';
-    
+        let url = CONFIG.patternListBackendUrl;
+
         return this._http.get(url)
             .map(res => {
                 //console.log("product is loaded"+res.json().patterns);
-                return res.json().products;
-               // return mockJson.products;
+                return res.json().patterns;
+                // return mockJson.products;
             });
     }
 
-    getProductById(productId: string) {
-        let url = CONFIG.quickViewBackendUrl;
-        let finalUrl= url+"?sku="+productId;
-        return this._http.get(finalUrl).map(res => {
-                 console.log("product is loaded"+res.json().status);
-                
-                 return res.json().product;
-              
-        });
-    }
+    //getProductById(productId: string) {
+       // let url = CONFIG.quickViewBackendUrl;
+       // let finalUrl = url + "?productId=" + productId;
+       // return this._http.get(finalUrl).map(res => {
+         //   console.log("product is loaded" + res.json().status);
 
-    getPatternById(patternId: string){
-        let url = CONFIG.productCatalogueBackendUrl+'/customization';
+          //  return res.json().product;
+
+      //  });
+   // }
+
+    getPatternById(patternId: string) {
+        let url = CONFIG.productCatalogueBackendUrl + '/customize';
         let finalUrl = url + "?patternId=" + patternId
-         return this._http.get(finalUrl)
+        return this._http.get(finalUrl)
             .map(res => {
                 console.log(finalUrl)
-                console.log("product is loaded"+res.json().pattern);
+                console.log("product is loaded" + res.json().pattern);
                 return res.json().pattern;
                 // return mockJson.pattern;
             });
     }
 
-      /*  getFilteredList(collectionId: string, fabricId: string, colourId: string, sortPrice: String){
-        let url = CONFIG.filteredProductListBackendUrl
-        let finalUrl = url + "?collectionId=" + collectionId + "&fabricId=" + fabricId + "&colourId=" + colourId + "&sortPrice=" + sortPrice
-         return this._http.get(finalUrl)
-            .map(res => {
-                console.log(finalUrl)
-                console.log("product is loaded"+res.json().products);
-                return res.json().products;
-            });
-    }
-    getSearchedList(query: string){
-        let url = CONFIG.searchedProductListBackendUrl
-        let finalUrl = url + "?search=" + query;
-         return this._http.get(finalUrl)
-            .map(res => {
-                console.log(finalUrl)
-                console.log("product is loaded"+res.json().products);
-                return res.json().products;
-            });
-    }*/
+    /*  getFilteredList(collectionId: string, fabricId: string, colourId: string, sortPrice: String){
+      let url = CONFIG.filteredProductListBackendUrl
+      let finalUrl = url + "?collectionId=" + collectionId + "&fabricId=" + fabricId + "&colourId=" + colourId + "&sortPrice=" + sortPrice
+       return this._http.get(finalUrl)
+          .map(res => {
+              console.log(finalUrl)
+              console.log("product is loaded"+res.json().products);
+              return res.json().products;
+          });
+  }
+  getSearchedList(query: string){
+      let url = CONFIG.searchedProductListBackendUrl
+      let finalUrl = url + "?search=" + query;
+       return this._http.get(finalUrl)
+          .map(res => {
+              console.log(finalUrl)
+              console.log("product is loaded"+res.json().products);
+              return res.json().products;
+          });
+  }*/
 
-    getFilteredProductList(collectionId: string, fabricId: string, colourId: string, sortPrice: String, query: string){
+    getFilteredProductList(collectionId: string, fabricId: string, colourId: string, sortPrice: String, query: string) {
         let url = CONFIG.filteredProductListBackendUrl
         let finalUrl = url + "?collectionId=" + collectionId + "&fabricId=" + fabricId + "&colourId=" + colourId + "&sortPrice=" + sortPrice + "&search=" + query;
-         return this._http.get(finalUrl)
+        return this._http.get(finalUrl)
             .map(res => {
                 console.log(finalUrl)
-                console.log("product is loaded"+res.json().products);
+                console.log("product is loaded" + res.json().products);
                 return res.json().products;
             });
     }
-    
-    public getProductId(patternId: string, fabricId: string, colourId: string){
+
+    public getProductId(patternId: string, fabricId: string, colourId: string) {
         console.log('pattern: ' + patternId)
         console.log('fabric: ' + fabricId)
-        console.log('colour: ' +colourId)
+        console.log('colour: ' + colourId)
 
 
         let url = CONFIG.productCatalogueBackendUrl + '/getProductId?patternId=' + patternId + '&fabricId=' + fabricId + '&colourId=' + colourId;
@@ -89,14 +89,14 @@ export class ProductService {
             .map(res => {
                 //console.log(res.json().productId)
                 return res.json().productId
-            })                 
-            //console.log('product ID: '+ res.json().productId);
+            })
+        //console.log('product ID: '+ res.json().productId);
 
 
 
     }
 
-    
+
     public getPriceById(productId: string) {
         //get price by product Id from DB.
         var totalPrice: number = 0
@@ -110,7 +110,7 @@ export class ProductService {
 
     }
 
-    public chargeStripe(token){
+    public chargeStripe(token) {
         //get token from stripe response
         //send token to backend
     }
