@@ -90,7 +90,7 @@ public class CartDAO {
         
         Cart cart = null;
         
-        String sql = "SELECT * FROM order WHERE EMAIL = ?";
+        String sql = "SELECT * FROM CART WHERE EMAIL = ?";
         try {
             conn = ConnectionManager.getConnection();
             stmt = conn.prepareStatement(sql);

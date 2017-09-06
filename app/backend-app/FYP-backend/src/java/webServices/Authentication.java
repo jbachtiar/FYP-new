@@ -35,67 +35,80 @@ import tokenManagement.tokenManagement;
 public class Authentication {
     @Context private HttpServletResponse response;
     
-//    @POST
-//    @Path("/login")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public String login (@FormParam("email") String email, @FormParam("password") String password ){
-//       
-//        response.setHeader("Access-Control-Allow-Origin", "*");
-//        
-//        //String password = CustomerDAO.retrievePasswordByEmail(email);
-//        HashMap<String, String> responseMap = new HashMap<String, String>();
-//        Gson gson = new GsonBuilder().create();
-//        
-//        String response = "";
-//        String status = "";
-//        String token = "";
-//        if (email != null && !email.equals("")) {
-//                //String twoDigitsPostalCode = postalCode.substring(0,2);
-//                Customer customer = CustomerDAO.retrieveCustomerByEmail(email);
-//                
-//                if (customer == null) {
-//                    status = "User not found";
-//                    //responseMap.put("status", STATUS_NOT_FOUND);
-//                    responseMap.put("status", status);
-//                } else {
-//                    if(password != null && !password.equals("")){
-//                        if(password.equals(customer.getPassword())){
-//                            //out.println("exist");
-//                            //String name = customer.getName();
-//                            status = "200";
-//                            token = tokenManagement.createJWT(email, "highlander", "login");
-//                            //String address = fireStation.getAddress();
-//                            //responseMap.put("Customer ", name);
-//                            //responseMap.put("address", address);
-//                            //responseMap.put("status", STATUS_OK);
-//                            responseMap.put("status", status);
-//                            responseMap.put("token", token);
-//                            
-//                        } else {
-//                            status = "Invalid password";
-//                            responseMap.put("status", status);
-//                            //responseMap.put("status", STATUS_INVALID_PASSWORD);
-//                        }
-//                    } else {
-//                        status = "Invalid passsword";
-//                        responseMap.put("status", status);
-//                        //responseMap.put("status", STATUS_ERROR_NULL_PASSWORD);
-//                    }
-//                    
-//                    
-//                }
-//
-//            } else {
-//                status = "User not found";
-//                responseMap.put("status", status);
-//                // country code is null
-//                //responseMap.put("status", STATUS_ERROR_NULL_EMAIL);
-//            }
-//        
-//        
-//        return gson.toJson(responseMap);
-//    }
-//    
+    @POST
+    @Path("/login")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String login (@FormParam("email") String email, @FormParam("password") String password ){
+       
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        
+        //String password = CustomerDAO.retrievePasswordByEmail(email);
+        HashMap<String, String> responseMap = new HashMap<String, String>();
+        Gson gson = new GsonBuilder().create();
+        
+        String response = "";
+        String status = "";
+        String token = "";
+        String description = "";
+        Customer customer = null;
+        CustomerDAO customerDAO = new CustomerDAO();
+        
+        if (email != null && !email.equals("")) {
+                //String twoDigitsPostalCode = postalCode.substring(0,2);
+                try{
+                    customer = customerDAO.retrieveCustomerByEmail(email);
+                }catch(SQLException e){
+                    description = "SQL Exception";
+                    responseMap.put("status", "500");
+                    responseMap.put("description", description);
+                }
+                
+                if (customer == null) {
+                    description = "User not found";
+                    //responseMap.put("status", STATUS_NOT_FOUND);
+                    responseMap.put("status", "500");
+                    responseMap.put("description", description);
+                } else {
+                    if(password != null && !password.equals("")){
+                        if(password.equals(customer.getPassword())){
+                            //out.println("exist");
+                            //String name = customer.getName();
+                            status = "200";
+                            token = tokenManagement.createJWT(email, "highlander", "login");
+                            //String address = fireStation.getAddress();
+                            //responseMap.put("Customer ", name);
+                            //responseMap.put("address", address);
+                            //responseMap.put("status", STATUS_OK);
+                            responseMap.put("status", status);
+                            responseMap.put("token", token);
+                            
+                        } else {
+                            description = "Invalid password";
+                            responseMap.put("status", "200");
+                            responseMap.put("description", description);
+                            //responseMap.put("status", STATUS_INVALID_PASSWORD);
+                        }
+                    } else {
+                        status = "Invalid passsword";
+                        responseMap.put("status", "200");
+                        responseMap.put("description", description);
+                        //responseMap.put("status", STATUS_ERROR_NULL_PASSWORD);
+                    }
+                    
+                    
+                }
+
+            } else {
+                status = "User not found";
+                responseMap.put("status", status);
+                // country code is null
+                //responseMap.put("status", STATUS_ERROR_NULL_EMAIL);
+            }
+        
+        
+        return gson.toJson(responseMap);
+    }
+    
     @POST
     @Path("/admin/login")
     @Produces(MediaType.APPLICATION_JSON)
@@ -130,10 +143,7 @@ public class Authentication {
                             //String name = customer.getName();
                             status = "200";
                             token = tokenManagement.createJWT(email, "highlander", "login");
-                            //String address = fireStation.getAddress();
-                            //responseMap.put("Customer ", name);
-                            //responseMap.put("address", address);
-                            //responseMap.put("status", STATUS_OK);
+                            
                             responseMap.put("status", status);
                             responseMap.put("token", token);
                             

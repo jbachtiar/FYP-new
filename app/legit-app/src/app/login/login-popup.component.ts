@@ -51,7 +51,7 @@ export class LoginPopupComponent extends DialogComponent<LoginPopupModel, boolea
                     // this.router.navigate([this.returnUrl]);
                 }else{
                     console.log("RES STATUS :" + res.status);
-                    this.alertService.error(res.status);
+                    this.alertService.error(res.description);
                 }
             }
         )

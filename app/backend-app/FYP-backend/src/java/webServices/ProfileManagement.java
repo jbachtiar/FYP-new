@@ -1,86 +1,101 @@
-///*
-// * To change this license header, choose License Headers in Project Properties.
-// * To change this template file, choose Tools | Templates
-// * and open the template in the editor.
-// */
-//package webServices;
-//
-//import com.google.gson.Gson;
-//import com.google.gson.GsonBuilder;
-//import dao.CustomerDAO;
-//import entity.Customer;
-//import java.util.HashMap;
-//import javax.annotation.security.PermitAll;
-//import javax.servlet.http.HttpServletResponse;
-//import javax.ws.rs.FormParam;
-//import javax.ws.rs.GET;
-//import javax.ws.rs.OPTIONS;
-//import javax.ws.rs.PUT;
-//import javax.ws.rs.Path;
-//import javax.ws.rs.Produces;
-//import javax.ws.rs.QueryParam;
-//import javax.ws.rs.core.Context;
-//import javax.ws.rs.core.HttpHeaders;
-//import javax.ws.rs.core.MediaType;
-//import tokenManagement.tokenManagement;
-//
-//
-///**
-// *
-// * @author Huiyan
-// */
-//@Path("/profile")
-//public class ProfileManagement{
-//    
-//    @Context 
-//    private HttpServletResponse response;
-//    
-//    
-//    
-//    @GET
-//    @Path("/retrieve")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public String retrieve (@QueryParam("token") String token){
-//        response.setHeader("Access-Control-Allow-Origin", "*");
-//        response.setHeader("Access-Control-Allow-Origin", "*");
-//        
-//        System.out.println("IM HEEERRREEEEEEE");
-//        
-//        //String password = CustomerDAO.retrievePasswordByEmail(email);
-//        HashMap<String, String> responseMap = new HashMap<>();
-//        Gson gson = new GsonBuilder().create();
-//        String status;
-//        //String token = httpHeaders.getRequestHeader("Authorization").get(0);
-//        String email=tokenManagement.parseJWT(token);
-//        Customer customer=CustomerDAO.retrieveCustomerByEmail(email);
-//        
-//        if (customer == null) {
-//            status = "User not found";
-//            //responseMap.put("status", STATUS_NOT_FOUND);
-//            responseMap.put("status", status);
-//        }else{
-//            
-//            String firstName= customer.getFirstName();
-//            String lastName =customer.getLastName();
-//            String phoneNumber=customer.getPhoneNumber();
-//            String address=customer.getAddress();
-//            String postalCode=customer.getPostalCode();
-//            String password=customer.getPassword();
-//
-//            responseMap.put("firstName", firstName);
-//            responseMap.put("lastName", lastName );
-//            responseMap.put("phoneNumber", phoneNumber);
-//            responseMap.put("address", address);
-//            responseMap.put("postalCode", postalCode);
-//            responseMap.put("password", password);
-//            status="200";
-//            responseMap.put("status", status);
-//        }
-//       
-//         //responseMap.put("status", STATUS_ERROR_NULL_PASSWORD);
-//        return gson.toJson(responseMap);
-//    }
-//      
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package webServices;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import dao.CustomerDAO;
+import entity.Address;
+import entity.Cart;
+import entity.Customer;
+import entity.Order;
+import java.sql.SQLException;
+import java.util.HashMap;
+import javax.annotation.security.PermitAll;
+import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.FormParam;
+import javax.ws.rs.GET;
+import javax.ws.rs.OPTIONS;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.HttpHeaders;
+import javax.ws.rs.core.MediaType;
+import tokenManagement.tokenManagement;
+
+/**
+ *
+ * @author Huiyan
+ */
+@Path("/profile")
+public class ProfileManagement {
+
+    @Context
+    private HttpServletResponse response;
+    
+    @OPTIONS
+    @PermitAll
+    @Path("/retrieve")
+    public void optionsRetrieve() {
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
+        response.setHeader("Access-Control-Allow-Headers", "auhtorization");
+
+    }
+    
+    @POST
+    @Path("/retrieve")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String retrieve(@FormParam("token") String token) {
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        JsonParser parser = new JsonParser();
+
+        JsonObject jsonOutput = new JsonObject();
+        Gson gson = new GsonBuilder().create();
+        String description;
+        CustomerDAO customerDAO = new CustomerDAO();
+
+        String email = tokenManagement.parseJWT(token);
+        try {
+            Customer customer = customerDAO.retrieveCustomerByEmail(email);
+
+            if (customer == null) {
+                description = "User not found";
+                //responseMap.put("status", STATUS_NOT_FOUND);
+                jsonOutput.addProperty("status", "500");
+                jsonOutput.addProperty("description", description);
+            } else {
+
+                String firstName = customer.getFirstName();
+                String lastName = customer.getLastName();
+                String phoneNo = customer.getPhoneNo();
+                Address[] address = customer.getAddress();
+                String password = customer.getPassword();
+                String verified = customer.getVerified();
+                Cart cart = customer.getCart();
+                Order[] orders = customer.getOrders();
+                Customer newCust = new Customer(email, firstName, lastName, phoneNo, password, verified, cart, address, orders);
+                String custString = gson.toJson(newCust);
+                JsonObject custObject = (JsonObject) parser.parse(custString);
+
+                jsonOutput.addProperty("status", "200");
+                jsonOutput.add("user", custObject);
+            }
+        } catch (SQLException e) {
+
+        }
+        //responseMap.put("status", STATUS_ERROR_NULL_PASSWORD);
+        return gson.toJson(jsonOutput);
+    }
+
 //    @OPTIONS
 //    @PermitAll
 //    @Path("/update")
@@ -121,4 +136,4 @@
 //        //responseMap.put("status", STATUS_ERROR_NULL_PASSWORD);
 //        return gson.toJson(responseMap);
 //    }
-//} 
+}

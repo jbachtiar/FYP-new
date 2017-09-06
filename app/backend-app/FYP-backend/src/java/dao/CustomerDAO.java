@@ -34,7 +34,6 @@ public class CustomerDAO {
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, email);
             rs = stmt.executeQuery();
-
             while (rs.next()) {
 
                 String firstName = rs.getString(2);
@@ -43,17 +42,31 @@ public class CustomerDAO {
                 String password = rs.getString(5);
                 String verified = rs.getString(6);
                 CustomerAddressDAO customerAddressDao = new CustomerAddressDAO();
-                CartDAO cartDAO= new CartDAO();
+                CartDAO cartDAO = new CartDAO();
                 OrderDAO orderDAO = new OrderDAO();
-                Address[] address = customerAddressDao.getAddressesByEmail(email);
+                
+                //Error might be in these 2 DAOs
                 Order[] orders = orderDAO.getOrderByEmail(email);
+                
+                Address[] address = customerAddressDao.getAddressesByEmail(email);
+                               
                 customer = new Customer(email, firstName, lastName, phoneNumber, password, verified, cartDAO.getCartByEmail(email), address, orders);
-
+                
+                if (customer != null) {
+                    System.out.println("Im not Null");
+                } else {
+                    System.out.println("Im null");
+                }
             }
 
-        } finally {
+        }
+        catch(SQLException e){
+            System.out.println("FROM CUST DAO" + e);
+        }
+        finally {
             ConnectionManager.close(conn, stmt, rs);
         }
+        System.out.println("HEY");
         return customer;
     }
 
@@ -146,16 +159,15 @@ public class CustomerDAO {
 
         return "Success";
 
-       
     }
-    
-     public String deleteCustomerByEmail(String email) throws SQLException{
+
+    public String deleteCustomerByEmail(String email) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-    
+
         String sql = "DELETE FROM CUSTOMER WHERE EMAIL = ?";
-        
+
         try {
 
             conn = ConnectionManager.getConnection();

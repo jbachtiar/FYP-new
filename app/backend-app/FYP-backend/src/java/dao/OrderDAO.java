@@ -145,13 +145,14 @@ public class OrderDAO {
         ArrayList<Order> orderList = new ArrayList<Order>();
         Order order = null;
         
-        String sql = "SELECT * FROM order WHERE EMAIL = ?";
+        String sql = "SELECT * FROM customer_order WHERE EMAIL = ?";
+        
+        System.out.println("GEt order by email");   
         try {
             conn = ConnectionManager.getConnection();
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, email);
             rs = stmt.executeQuery();
-            
             while (rs.next()) {
                 int orderId = rs.getInt(1);
                 Timestamp orderDate = rs.getTimestamp(2);
@@ -170,7 +171,11 @@ public class OrderDAO {
                 order = new Order(orderId, orderDate, netAmt, promoDiscAmt, a, paymentRefNo, pcDao.getPromoCodeById(promoCode), orderItemDao.getOrderItemsByOrderId(orderId), orderLog.getOrderStatusByOrderId(orderId));
                 orderList.add(order);
             }
-        } finally {
+        }catch(SQLException e){
+            System.out.println("FROM ORDER DAO " + e);
+        }
+        
+        finally {
             ConnectionManager.close(conn, stmt, rs);
         }
         
