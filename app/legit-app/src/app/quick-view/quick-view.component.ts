@@ -3,7 +3,7 @@ import { DialogComponent, DialogService } from "ng2-bootstrap-modal";
 import { AlertService } from '../alert.service';
 import { ProductService } from '../product.service';
 import { ShoppingCartService } from '../shopping-cart.service';
-import { CartItem } from "../cart/model/cart-item.model";
+import { CartItem } from "../model/cart-item.model";
 import { CartPopupComponent } from '../cart-popup/cart-popup.component'
 import { SharedService } from "../shared.service"
 
@@ -111,17 +111,17 @@ export class QuickViewComponent extends DialogComponent<QuickViewPopupModel, boo
             this.eachPrice = eachPrice
             console.log(this.productId)
 
-            this.cartItem.productId = this.productId
-            this.cartItem.eachPrice = this.eachPrice
-            this.cartItem.patternName = this.pattern.pattern_name
-            this.cartItem.quantity = this.selectedQuantity
-            this.cartItem.url = this.selectedColour.image_url
-            this.cartItem.fabricName = this.selectedFabric.fabric_name
-            console.log("fabric name : " + this.cartItem.fabricName)
-            this.cartItem.colourName = this.selectedColour.colour_name
-            console.log("colour name : " + this.cartItem.colourName)
+            // this.cartItem.productId = this.productId
+            // this.cartItem.eachPrice = this.eachPrice
+            // this.cartItem.patternName = this.pattern.pattern_name
+            // this.cartItem.quantity = this.selectedQuantity
+            // this.cartItem.url = this.selectedColour.image_url
+            // this.cartItem.fabricName = this.selectedFabric.fabric_name
+            // console.log("fabric name : " + this.cartItem.fabricName)
+            // this.cartItem.colourName = this.selectedColour.colour_name
+            // console.log("colour name : " + this.cartItem.colourName)
 
-            console.log(this.cartItem.patternName)
+            // console.log(this.cartItem.patternName)
             console.log('eachPrice: ' + this.eachPrice)
             this.shoppingCartService.addItem(this.cartItem)
             this.sharedService.updateCart();

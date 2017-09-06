@@ -136,8 +136,8 @@ public class ProductCatalogue {
             jsonOutput.add("patterns", patterns);
 
         } catch (SQLException e) {
-
-            jsonOutput.addProperty("status", "error");
+            System.out.println(e);
+            jsonOutput.addProperty("status", "SQL exception");
 
         }
 

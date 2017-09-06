@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ShoppingCartService } from "app/shopping-cart.service";
 import { Observable } from "rxjs/Observable";
-import { ShoppingCart } from "./model/shopping-cart.model";
-import { CartItem } from "./model/cart-item.model";
+import { ShoppingCart } from "../model/shopping-cart.model";
+import { CartItem } from "../model/cart-item.model";
 import { Subscription } from "rxjs/Subscription";
 import { DialogService } from "ng2-bootstrap-modal";
 import { DeleteConfirmationPopupComponent } from '../delete-confirmation-popup/delete-confirmation-popup.component'
@@ -52,20 +52,20 @@ export class CartComponent implements OnInit {
   }
 
   //increase product qty
-  increment(productId: string){
-    this.shoppingCart.items.find((p) => p.productId === productId).quantity +=1
-    this.updateCart()
-  }
+  // increment(productId: string){
+  //   this.shoppingCart.items.find((p) => p.productId === productId).quantity +=1
+  //   this.updateCart()
+  // }
 
   //decrease product qty
-  decrement(productId: string){
-    if(this.shoppingCart.items.find((p) => p.productId === productId).quantity > 1){
-       this.shoppingCart.items.find((p) => p.productId === productId).quantity -=1
-       this.updateCart()
-    }else{
-      this.remove(productId);
-    }
-  }
+  // decrement(productId: string){
+  //   if(this.shoppingCart.items.find((p) => p.productId === productId).quantity > 1){
+  //      this.shoppingCart.items.find((p) => p.productId === productId).quantity -=1
+  //      this.updateCart()
+  //   }else{
+  //     this.remove(productId);
+  //   }
+  // }
 
   emptyCart(){
     console.log("CART IS EMPTIED")
@@ -73,27 +73,27 @@ export class CartComponent implements OnInit {
     //window.location.reload()
   }
 
-  remove(productId: string){
-    let disposable = this.dialogService.addDialog(DeleteConfirmationPopupComponent, {
-      title: 'Remove item?',
-      message: 'Are you sure to remove this item from the cart?'
-    })
-      .subscribe((isConfirmed) => {
-        console.log("DIALOG")
-        //We get dialog result
-        if (isConfirmed) {
-          let indexCut =  this.shoppingCart.items.findIndex((p) => p.productId === productId)
-          this.shoppingCart.items.splice(indexCut,1)
-          this.updateCart()
-          window.location.reload()
-          console.log('index: ' + indexCut)
-        }
-        else {
-          //do nothing
-        }
-      });
+  // remove(productId: string){
+  //   let disposable = this.dialogService.addDialog(DeleteConfirmationPopupComponent, {
+  //     title: 'Remove item?',
+  //     message: 'Are you sure to remove this item from the cart?'
+  //   })
+  //     .subscribe((isConfirmed) => {
+  //       console.log("DIALOG")
+  //       //We get dialog result
+  //       if (isConfirmed) {
+  //         let indexCut =  this.shoppingCart.items.findIndex((p) => p.productId === productId)
+  //         this.shoppingCart.items.splice(indexCut,1)
+  //         this.updateCart()
+  //         window.location.reload()
+  //         console.log('index: ' + indexCut)
+  //       }
+  //       else {
+  //         //do nothing
+  //       }
+  //     });
     
-  }
+  // }
 
   updateCart(){
     this.shoppingCartService.updateCart(this.shoppingCart)
