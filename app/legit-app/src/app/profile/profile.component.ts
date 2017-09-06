@@ -61,7 +61,7 @@ export class ProfileComponent implements OnInit {
   update() {
 
 
-    this.profileService.updateProfile(this.token, this.firstName, this.lastName, this.contact, this.address, this.postalCode, this.password)
+    this.profileService.updateProfile(this.token, this.firstName, this.lastName, this.contact, this.password)
       .subscribe(
       res => {
         if (res.status === '200') {

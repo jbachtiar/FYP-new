@@ -85,13 +85,11 @@ export class ProfileService {
             });
     }
 
-    updateProfile(token: string, firstName: string, lastName: string, contact: string, address: string, postalCode: string, password: string) {
+    updateProfile(token: string, firstName: string, lastName: string, phoneNo: string,  password: string) {
         let params: URLSearchParams = new URLSearchParams();
         params.set('firstName', firstName);
         params.set('lastName', lastName);
-        params.set('phoneNumber', contact);
-        params.set('address', address);
-        params.set('postalCode', postalCode);
+        params.set('phoneNo', phoneNo);
         params.set('password', password);
         params.set('token', token);
         let headers = new Headers();

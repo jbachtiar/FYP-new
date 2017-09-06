@@ -120,7 +120,7 @@ public class CustomerDAO {
                 stmt.setString(3, phoneNo);
                 stmt.setString(4, password);
                 stmt.setString(5, email);
-                rs = stmt.executeQuery();
+                stmt.executeUpdate();
 
             } finally {
                 ConnectionManager.close(conn, stmt, rs);

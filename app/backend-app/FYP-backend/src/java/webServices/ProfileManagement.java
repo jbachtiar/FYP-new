@@ -40,7 +40,7 @@ public class ProfileManagement {
 
     @Context
     private HttpServletResponse response;
-    
+
     @OPTIONS
     @PermitAll
     @Path("/retrieve")
@@ -50,7 +50,7 @@ public class ProfileManagement {
         response.setHeader("Access-Control-Allow-Headers", "auhtorization");
 
     }
-    
+
     @POST
     @Path("/retrieve")
     @Produces(MediaType.APPLICATION_JSON)
@@ -96,44 +96,55 @@ public class ProfileManagement {
         return gson.toJson(jsonOutput);
     }
 
-//    @OPTIONS
-//    @PermitAll
-//    @Path("/update")
-//    public void options() {
-//        response.setHeader("Access-Control-Allow-Origin", "*");
-//        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
-//        response.setHeader("Access-Control-Allow-Headers", "auhtorization");
-//        
-//    }
-//    
-//      
-//      @PUT
-//      @Path("/update")
-//      @Produces(MediaType.APPLICATION_JSON)
-//      public String updateCustomer (@FormParam("token") String token, @FormParam("firstName") String firstName, @FormParam("lastName") String lastName, @FormParam("phoneNumber") String phoneNumber, @FormParam("address") String address, @FormParam("postalCode") String postalCode, @FormParam("password") String password){
-//        response.setHeader("Access-Control-Allow-Headers", "Content-Type");
-//        response.setHeader("Access-Control-Allow-Origin", "*");
-//        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
-//        //String password = CustomerDAO.retrievePasswordByEmail(email);
-//        HashMap<String, String> responseMap = new HashMap<>();
-//        Gson gson = new GsonBuilder().create();
-//        String status;
-//        //String token = httpHeaders.getRequestHeader("Authorization").get(0);
-//        String email=tokenManagement.parseJWT(token);
-//        Customer customer = CustomerDAO.retrieveCustomerByEmail(email);
-//                
-//        if (customer == null) {
-//            status = "User not found";
-//            //responseMap.put("status", STATUS_NOT_FOUND);
-//            responseMap.put("status", status);
-//        }else{
-//        
-//            CustomerDAO.updateCustomer(email,firstName,lastName, phoneNumber, address, postalCode, password);
-//            status = "200";
-//            responseMap.put("status", status);
-//        }
-//      
-//        //responseMap.put("status", STATUS_ERROR_NULL_PASSWORD);
-//        return gson.toJson(responseMap);
-//    }
+    @OPTIONS
+    @PermitAll
+    @Path("/update")
+    public void options() {
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
+        response.setHeader("Access-Control-Allow-Headers", "auhtorization");
+
+    }
+
+    @PUT
+    @Path("/update")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String updateCustomer(@FormParam("token") String token, @FormParam("firstName") String firstName, @FormParam("lastName") String lastName, @FormParam("phoneNo") String phoneNo, @FormParam("password") String password) {
+        response.setHeader("Access-Control-Allow-Headers", "Content-Type");
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
+        //String password = CustomerDAO.retrievePasswordByEmail(email);
+        JsonObject jsonOutput = new JsonObject();
+        Gson gson = new GsonBuilder().create();
+        String description;
+        //String token = httpHeaders.getRequestHeader("Authorization").get(0);
+        String email = tokenManagement.parseJWT(token);
+        //Customer customer = gson.fromJson(userJson, Customer.class);
+        CustomerDAO customerDAO = new CustomerDAO();
+
+        if (email == null) {
+            description = "User not found";
+            //responseMap.put("status", STATUS_NOT_FOUND);
+            jsonOutput.addProperty("status", "500");
+            jsonOutput.addProperty("description", description);
+        } else {
+
+            try {
+
+                customerDAO.updateCustomerByEmail(email, firstName, lastName, phoneNo, password);
+                description = "200";
+                jsonOutput.addProperty("status", description);
+            } catch (SQLException e) {
+                System.out.println(e);
+                description = "SQL Exception";
+                //responseMap.put("status", STATUS_NOT_FOUND);
+                jsonOutput.addProperty("status", "500");
+                jsonOutput.addProperty("description", description);
+            }
+
+        }
+
+        //responseMap.put("status", STATUS_ERROR_NULL_PASSWORD);
+        return gson.toJson(jsonOutput);
+    }
 }
