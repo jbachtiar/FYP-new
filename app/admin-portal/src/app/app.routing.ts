@@ -9,6 +9,7 @@ import { PatternListComponent} from './pattern-list/pattern-list.component'
 import { PatternDetailsComponent } from './pattern-details/pattern-details.component'
 import { PatternDetailsAddComponent } from './pattern-details-add/pattern-details-add.component'
 import { PatternDetailsViewComponent } from './pattern-details-view/pattern-details-view.component'
+import { DashboardFactoryManagerComponent } from './dashboard-factory-manager/dashboard-factory-manager.component'
 import { AuthGuard } from './guard/guard';
 
 const appRoutes: Routes = [
@@ -19,8 +20,8 @@ const appRoutes: Routes = [
     { path: 'patternList', component: PatternListComponent, canActivate: [AuthGuard]},
     { path: 'patternList/patternDetails/:patternId', component: PatternDetailsComponent, canActivate: [AuthGuard]},
     { path: 'patternList/addPatternDetails', component: PatternDetailsAddComponent, canActivate: [AuthGuard]},
-    { path: 'patternList/viewPatternDetails/:patternId', component: PatternDetailsViewComponent, canActivate: [AuthGuard]}
-
+    { path: 'patternList/viewPatternDetails/:patternId', component: PatternDetailsViewComponent, canActivate: [AuthGuard]},
+    { path: 'dashboard', component: DashboardFactoryManagerComponent, canActivate: [AuthGuard]}
     //{ path: 'register', component: RegisterComponent },
 ];
 

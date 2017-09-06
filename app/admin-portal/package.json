@@ -21,6 +21,7 @@
     "@angular/platform-browser": "^4.3.6",
     "@angular/platform-browser-dynamic": "^4.3.6",
     "@angular/router": "^4.3.6",
+    "angular-4-data-table": "^0.2.3",
     "angular2-qrcode": "^2.0.1",
     "aws-sdk": "^2.109.0",
     "bootstrap": "^3.3.7",

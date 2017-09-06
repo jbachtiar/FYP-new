@@ -1,0 +1,49 @@
+<!-- <div class="container-fluid">
+  <div class="row">
+      <div class="col-md-12">
+          <div class="card">
+              <div class="header">
+                  <h4 class="title">Orders</h4>
+                  <p class="category">All orders are shown below</p>
+              </div>
+              <div class="content table-responsive table-full-width">
+                  <table class="table table-striped">
+                      <thead>
+                          <tr>
+                              <th *ngFor="let h of headers">{{h}}</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr *ngFor="let order of orders">
+                              <td>{{order.order_id}}</td>
+                              <td>{{order.order_date}}</td>
+                              <td>{{order.currentStatus}}</td>
+                              <td>{{order.country}}</td>
+                          </tr>
+                      </tbody>
+                  </table>
+
+              </div>
+          </div>
+      </div>
+  </div>
+</div> -->
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div style="margin: auto; max-width: 1000px; margin-bottom: 50px;">
+                    <data-table id="order-grid" headerTitle="Orders" [items]="orders" [itemCount]="itemCount" (reload)="reloadItems($event)"
+                        (rowClick)="rowClick($event)" (rowDoubleClick)="rowDoubleClick($event)" [rowTooltip]="rowTooltip">
+                        <data-table-column [property]="'order_id'" [header]="'Order ID'" [sortable]="true" [resizable]="true">
+                        </data-table-column>
+                        <data-table-column [property]="'order_date'" [header]="'Date'">
+                        </data-table-column>
+                        <data-table-column property="currentStatus" header="Status" [resizable]="true">
+                        </data-table-column>
+                    </data-table>
+                </div>
+            </div>
+        </div>
+    </div>
