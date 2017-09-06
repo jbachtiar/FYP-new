@@ -266,7 +266,7 @@ public class StaffDAO {
                 stmt.setInt(5, s.getRoleId());
                 stmt.setString(6, s.getEmail());
                 
-                rs = stmt.executeQuery();
+                stmt.executeUpdate();
                 
             } finally {
                 ConnectionManager.close(conn, stmt, rs);

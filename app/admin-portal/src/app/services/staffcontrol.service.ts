@@ -80,16 +80,11 @@ export class StaffcontrolService {
     }
 
 
-    updateProfile(token: string, email: string, firstName: string, lastName: string, phoneNumber: string, password: string, roleCode: string) {
+    updateProfile(token: string, user : Staff) {
         let params: URLSearchParams = new URLSearchParams();
-        params.set('email', email);
-        params.set('firstName', firstName);
-        params.set('lastName', lastName);
-        params.set('phoneNumber', phoneNumber);
-        params.set('password', password);
-        params.set('roleCode', roleCode);
-
         params.set('token', token);
+        params.set('staff', JSON.stringify(user));
+
         let headers = new Headers();
         //headers.append ('Authorization', token);
         headers.append(
@@ -97,7 +92,7 @@ export class StaffcontrolService {
         )
 
         let url = CONFIG.staffBackendUrl;
-        return this._http.put(url + '/update', params.toString(), { headers })
+        return this._http.post(url + '/update', params.toString(), { headers })
             .map(res => res.json());
 
 

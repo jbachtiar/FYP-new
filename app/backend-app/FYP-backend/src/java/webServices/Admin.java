@@ -216,6 +216,56 @@ public class Admin {
 
         return gson.toJson(jsonOutput);
     }
+    
+    @OPTIONS
+    @PermitAll
+    @Path("/update")
+    public void optionsUpdateProfile() {
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
+        response.setHeader("Access-Control-Allow-Headers", "auhtorization");
+
+    }
+    
+    @POST
+    @Path("/update")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String updateProfile(@FormParam("token") String token, @FormParam("staff") String staffJson) {
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        String email = tokenManagement.parseJWT(token);
+
+        JsonObject jsonOutput = new JsonObject();
+        Gson gson = new GsonBuilder().create();
+        StaffDAO staffDao = new StaffDAO();
+
+        String status = "";
+
+        Staff staff = gson.fromJson(staffJson, Staff.class);
+
+        try {
+            Staff staffCheck = staffDao.getStaffByEmail(email);
+            
+            if(staffCheck.getEmail().equals(staff.getEmail())){
+                String result = staffDao.updateStaff(staff);
+                if (result.equals("Success")) {
+                    jsonOutput.addProperty("status", "200");
+                } else {
+                    jsonOutput.addProperty("status", "500");
+                    jsonOutput.addProperty("status", "Failed to add");
+                }
+            }else{
+                jsonOutput.addProperty("status", "500");
+                jsonOutput.addProperty("description", "Not Authorised");
+            }
+            
+        } catch (SQLException e) {
+            jsonOutput.addProperty("status", "SQL Exception");
+
+        }
+
+        return gson.toJson(jsonOutput);
+    }
+
 
 //    @OPTIONS
 //    @PermitAll
