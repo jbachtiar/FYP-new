@@ -61,7 +61,7 @@ public class Admin {
     @POST
     @Path("/addStaff")
     @Produces(MediaType.APPLICATION_JSON)
-    public String addNewStaff(@FormParam("token") String token, @FormParam("staff") String staffJson ) {
+    public String addNewStaff(@FormParam("token") String token, @FormParam("staff") String staffJson) {
         response.setHeader("Access-Control-Allow-Origin", "*");
         String email = tokenManagement.parseJWT(token);
 
@@ -72,20 +72,19 @@ public class Admin {
         String status = "";
 
         Staff staff = gson.fromJson(staffJson, Staff.class);
-        
-        
+
         try {
             String result = staffDao.addStaff(staff);
-            if(result.equals("Success")){
+            if (result.equals("Success")) {
                 jsonOutput.addProperty("status", "200");
-            }else{
+            } else {
                 jsonOutput.addProperty("status", "500");
             }
         } catch (SQLException e) {
             jsonOutput.addProperty("status", "SQL Exception");
 
         }
-        
+
         return gson.toJson(jsonOutput);
     }
 
@@ -94,7 +93,7 @@ public class Admin {
     @Produces(MediaType.APPLICATION_JSON)
     public String getAllStaff(@FormParam("token") String token) {
         response.setHeader("Access-Control-Allow-Origin", "*");
-        
+
         JsonObject jsonOutput = new JsonObject();
         Gson gson = new GsonBuilder().create();
         JsonParser parser = new JsonParser();
@@ -103,35 +102,32 @@ public class Admin {
         Staff staff = null;
         String status = "";
         String email = tokenManagement.parseJWT(token);
-        
-        
-        
+
         try {
             staff = staffDao.getStaffByEmail(email);
         } catch (SQLException e) {
             //HANDLE SQL ERROR
         }
-        
+
         if (staff != null) {
             int staffRole = staff.getRoleId();
             if (staffRole == 1) {
-               try{
-                   JsonArray staffs = new JsonArray();
-                   ArrayList<Staff> staffList = staffDao.getAllStaff();
-                   
-                   for(Staff s : staffList){
-                       String staffString = gson.toJson(s);
-                       JsonElement staffElement = parser.parse(staffString);
-                       staffs.add(staffElement);
-                   }
-                   jsonOutput.addProperty("status","200");
-                   jsonOutput.add("staffs",staffs);
-                   
-                   
-               }catch(SQLException e){
-                   //HANDLE SQL EXCEPTION
-               }
-               
+                try {
+                    JsonArray staffs = new JsonArray();
+                    ArrayList<Staff> staffList = staffDao.getAllStaff();
+
+                    for (Staff s : staffList) {
+                        String staffString = gson.toJson(s);
+                        JsonElement staffElement = parser.parse(staffString);
+                        staffs.add(staffElement);
+                    }
+                    jsonOutput.addProperty("status", "200");
+                    jsonOutput.add("staffs", staffs);
+
+                } catch (SQLException e) {
+                    //HANDLE SQL EXCEPTION
+                }
+
             } else {
                 status = "Not Authorized";
             }
@@ -142,12 +138,57 @@ public class Admin {
         return gson.toJson(jsonOutput);
     }
     
+    @OPTIONS
+    @PermitAll
+    @Path("/retrieve")
+    public void optionsGetProfile() {
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
+        response.setHeader("Access-Control-Allow-Headers", "auhtorization");
+
+    }
+    
+    @POST
+    @Path("/retrieve")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getProfile(@FormParam("token") String token) {
+        response.setHeader("Access-Control-Allow-Origin", "*");
+
+        JsonObject jsonOutput = new JsonObject();
+        Gson gson = new GsonBuilder().create();
+        JsonParser parser = new JsonParser();
+
+        StaffDAO staffDao = new StaffDAO();
+        Staff staff = null;
+        String status = "";
+        String email = tokenManagement.parseJWT(token);
+
+        try {
+            staff = staffDao.getStaffByEmail(email);
+            if (staff != null) {
+
+                String staffString = gson.toJson(staff);
+                JsonObject staffObject = (JsonObject) parser.parse(staffString);
+
+                jsonOutput.addProperty("status", "200");
+                jsonOutput.add("staff", staffObject);
+
+            } else {
+                status = "Not Authenticated";
+            }
+        } catch (SQLException e) {
+            //HANDLE SQL ERROR
+        }
+
+        return gson.toJson(jsonOutput);
+    }
+
     @GET
     @Path("/getRoles")
     @Produces(MediaType.APPLICATION_JSON)
     public String getRoles() {
         response.setHeader("Access-Control-Allow-Origin", "*");
-        
+
         JsonObject jsonOutput = new JsonObject();
         Gson gson = new GsonBuilder().create();
         JsonParser parser = new JsonParser();
@@ -156,26 +197,22 @@ public class Admin {
         ArrayList<StaffRole> staffRoles = null;
         String status = "";
         //String email = tokenManagement.parseJWT(token);
-        
-        
-        
+
         try {
             staffRoles = staffRoleDao.getAllStaffRole();
             JsonArray staffRolesJson = new JsonArray();
-            for(StaffRole sR : staffRoles){
+            for (StaffRole sR : staffRoles) {
                 String staffRoleString = gson.toJson(sR);
                 JsonElement staffRoleElement = parser.parse(staffRoleString);
                 staffRolesJson.add(staffRoleElement);
             }
-            
-            jsonOutput.addProperty("status","200");
-            jsonOutput.add("staffRoles",staffRolesJson);
-                   
+
+            jsonOutput.addProperty("status", "200");
+            jsonOutput.add("staffRoles", staffRolesJson);
+
         } catch (SQLException e) {
             //HANDLE SQL ERROR
         }
-        
-        
 
         return gson.toJson(jsonOutput);
     }

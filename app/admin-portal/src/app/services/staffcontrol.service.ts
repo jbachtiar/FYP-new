@@ -67,13 +67,13 @@ export class StaffcontrolService {
         );
 
         return this._http.post(url + '/retrieve', params.toString(), { headers })
-
+            
             // let options = new RequestOptions({ headers: headers, params: params });
             // return this._http.get('http://localhost:8084/FYP-backend/API/profile/retrieve', options )
             .map(res => {
-                // login successful if there's a jwt token in the response
-
-                return res;
+                console.log(url)
+                console.log(res.toString())
+                return res.json();
 
 
             });
