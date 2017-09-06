@@ -13,7 +13,7 @@ export class ProductService {
 
     getProductList() {
         let params: URLSearchParams = new URLSearchParams();
-        let url = CONFIG.patternListBackendUrl;
+        let url = CONFIG.productListBackendUrl;
 
         return this._http.get(url)
             .map(res => {
