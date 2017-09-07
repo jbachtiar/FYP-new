@@ -137,7 +137,7 @@ public class Admin {
 
         return gson.toJson(jsonOutput);
     }
-    
+
     @OPTIONS
     @PermitAll
     @Path("/retrieve")
@@ -147,7 +147,7 @@ public class Admin {
         response.setHeader("Access-Control-Allow-Headers", "auhtorization");
 
     }
-    
+
     @POST
     @Path("/retrieve")
     @Produces(MediaType.APPLICATION_JSON)
@@ -178,6 +178,59 @@ public class Admin {
             }
         } catch (SQLException e) {
             //HANDLE SQL ERROR
+        }
+
+        return gson.toJson(jsonOutput);
+    }
+
+    @OPTIONS
+    @PermitAll
+    @Path("/delete")
+    public void optionsDeleteStaff() {
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
+        response.setHeader("Access-Control-Allow-Headers", "auhtorization");
+
+    }
+
+    @POST
+    @Path("/delete")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String deleteStaff(@FormParam("token") String token, @FormParam("email") String emailDelete) {
+        response.setHeader("Access-Control-Allow-Origin", "*");
+
+        JsonObject jsonOutput = new JsonObject();
+        Gson gson = new GsonBuilder().create();
+        JsonParser parser = new JsonParser();
+
+        StaffDAO staffDao = new StaffDAO();
+        Staff staff = null;
+        String status = "";
+        String email = tokenManagement.parseJWT(token);
+        if (email != null) {
+            try {
+                String result = staffDao.deleteStaffByEmail(emailDelete);
+                if (result.equals("Success")) {
+
+                    jsonOutput.addProperty("status", "200");
+                    jsonOutput.addProperty("description", "Deleted Successfully");
+
+                } else {
+
+                    jsonOutput.addProperty("status", "500");
+                    jsonOutput.addProperty("description", "Failed to Delete");
+
+                }
+            } catch (SQLException e) {
+
+                jsonOutput.addProperty("status", "500");
+                jsonOutput.addProperty("description", "SQL Exception");
+
+            }
+        } else {
+            jsonOutput.addProperty("status", "500");
+            jsonOutput.addProperty("description", "Not Authorised");
+
         }
 
         return gson.toJson(jsonOutput);
@@ -216,7 +269,7 @@ public class Admin {
 
         return gson.toJson(jsonOutput);
     }
-    
+
     @OPTIONS
     @PermitAll
     @Path("/update")
@@ -226,7 +279,7 @@ public class Admin {
         response.setHeader("Access-Control-Allow-Headers", "auhtorization");
 
     }
-    
+
     @POST
     @Path("/update")
     @Produces(MediaType.APPLICATION_JSON)
@@ -244,8 +297,8 @@ public class Admin {
 
         try {
             Staff staffCheck = staffDao.getStaffByEmail(email);
-            
-            if(staffCheck.getEmail().equals(staff.getEmail())){
+
+            if (staffCheck.getEmail().equals(staff.getEmail())) {
                 String result = staffDao.updateStaff(staff);
                 if (result.equals("Success")) {
                     jsonOutput.addProperty("status", "200");
@@ -253,11 +306,11 @@ public class Admin {
                     jsonOutput.addProperty("status", "500");
                     jsonOutput.addProperty("status", "Failed to add");
                 }
-            }else{
+            } else {
                 jsonOutput.addProperty("status", "500");
                 jsonOutput.addProperty("description", "Not Authorised");
             }
-            
+
         } catch (SQLException e) {
             jsonOutput.addProperty("status", "SQL Exception");
 
@@ -265,7 +318,6 @@ public class Admin {
 
         return gson.toJson(jsonOutput);
     }
-
 
 //    @OPTIONS
 //    @PermitAll

@@ -20,7 +20,7 @@ export class StaffmanagementComponent implements OnInit {
   private newStaff: Staff = new Staff();
   private selectedRole: StaffRole = new StaffRole();
   private loading : boolean = false;
-
+  private add : boolean = false;
   ngOnInit() {
     this.staffcontrolservice.getAllRoles()
       .subscribe(
@@ -54,6 +54,25 @@ export class StaffmanagementComponent implements OnInit {
   }
 
   
+  addStaff(){
+    this.add = true;
+  }
+  
+  cancelAdd(){
+    this.add = false;
+  }
+
+
+  deleteStaff(s : Staff){
+    this.staffcontrolservice.deleteStaff(this.token, s.email)
+    .subscribe(
+      res=>{
+        console.log(res)
+        this.ngOnInit()
+      }
+    )
+  }
+
   stopLoading(){
     this.loading = false;
   }
@@ -76,6 +95,7 @@ export class StaffmanagementComponent implements OnInit {
             message : this.newStaff.firstName + " " + this.newStaff.lastName + ' has been added!' 
           })
           this.emptyField()
+          this.ngOnInit()
         } else {
           console.log(res.status);
           this.stopLoading()

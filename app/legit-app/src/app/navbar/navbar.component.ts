@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { LoginPopupComponent } from '../login/login-popup.component';
 
 import { AuthenticationService } from '../authentication.service';
-import { ShoppingCart } from "../cart/model/shopping-cart.model";
+import { ShoppingCart } from "../model/shopping-cart.model";
 import { ShoppingCartService } from '../shopping-cart.service';
 
 import { DialogService } from "ng2-bootstrap-modal";

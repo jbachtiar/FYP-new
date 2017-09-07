@@ -2,8 +2,8 @@ import { Injectable, ViewChild } from "@angular/core";
 import { Observable } from "rxjs/Observable";
 import { Observer } from "rxjs/Observer";
 import 'rxjs/add/operator/map'
-import { CartItem } from "./cart/model/cart-item.model";
-import { ShoppingCart } from "./cart/model/shopping-cart.model";
+import { CartItem } from "./model/cart-item.model";
+import { ShoppingCart } from "./model/shopping-cart.model";
 import { CONFIG } from './config/config.component'
 import { Http, Headers, Response } from '@angular/http';
 import { Subject } from 'rxjs/Subject';

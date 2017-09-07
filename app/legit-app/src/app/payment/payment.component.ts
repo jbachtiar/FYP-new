@@ -2,8 +2,8 @@ import { Component, OnInit, NgZone, Output, EventEmitter } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { StorageService } from '../storage.service';
 import { CartService } from '../cart.service';
-import { ShoppingCart } from "../cart/model/shopping-cart.model";
-import { CartItem } from "../cart/model/cart-item.model";
+import { ShoppingCart } from "../model/shopping-cart.model";
+import { CartItem } from "../model/cart-item.model";
 import { ShoppingCartService } from '../shopping-cart.service'
 import { DialogService } from "ng2-bootstrap-modal";
 import { ConfirmationPopupComponent } from '../confirmation-popup/confirmation-popup.component'

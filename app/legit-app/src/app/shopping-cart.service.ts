@@ -56,48 +56,48 @@ export class ShoppingCartService {
   //Add Item to Cart
   public addItem(cartItem: CartItem): void {
     this.cart = this.retrieve();
-    console.log("Cart Item")
-    console.log('product Id : ' + cartItem.productId)
-    console.log('quantity : ' + cartItem.quantity)
-    console.log('each price : ' + cartItem.eachPrice)
+    // console.log("Cart Item")
+    // console.log('product Id : ' + cartItem.productId)
+    // console.log('quantity : ' + cartItem.quantity)
+    // console.log('each price : ' + cartItem.eachPrice)
 
 
 
-    this.item = this.cart.items.find((p) => p.productId === cartItem.productId);
-    //console.log('retrieved id: ' + this.item.productId);
-    if (this.item === undefined) {
+    // this.item = this.cart.items.find((p) => p.productId === cartItem.productId);
+    // //console.log('retrieved id: ' + this.item.productId);
+    // if (this.item === undefined) {
 
-      this.item = new CartItem();
-      this.item.productId = cartItem.productId;
-      this.item.quantity = cartItem.quantity;
-      this.item.patternName = cartItem.patternName;
-      this.item.url = cartItem.url;
-      this.item.fabricName = cartItem.fabricName;
-      this.item.colourName = cartItem.colourName;
-
-
-      console.log(cartItem.url)
+    //   this.item = new CartItem();
+    //   this.item.productId = cartItem.productId;
+    //   this.item.quantity = cartItem.quantity;
+    //   this.item.patternName = cartItem.patternName;
+    //   this.item.url = cartItem.url;
+    //   this.item.fabricName = cartItem.fabricName;
+    //   this.item.colourName = cartItem.colourName;
 
 
-      console.log('productId : ' + this.item.productId)
-      console.log('quantity: ' + this.item.quantity)
-
-      var totalPrice: number = 0;
-      console.log('price before: ' + totalPrice)
-
-      this.item.eachPrice = cartItem.eachPrice
-      console.log(JSON.stringify(this.item))
-      console.log('price: ' + this.item.eachPrice);
-
-      this.cart.items.push(this.item);
+    //   console.log(cartItem.url)
 
 
-    } else {
-      this.item.quantity += cartItem.quantity;
-    }
+    //   console.log('productId : ' + this.item.productId)
+    //   console.log('quantity: ' + this.item.quantity)
 
-    this.cart.items = this.cart.items.filter((cartItem) => cartItem.quantity > 0);
-    console.log('retrieved: ' + JSON.stringify(this.cart));
+    //   var totalPrice: number = 0;
+    //   console.log('price before: ' + totalPrice)
+
+    //   this.item.eachPrice = cartItem.eachPrice
+    //   console.log(JSON.stringify(this.item))
+    //   console.log('price: ' + this.item.eachPrice);
+
+    //   this.cart.items.push(this.item);
+
+
+    // } else {
+    //   this.item.quantity += cartItem.quantity;
+    // }
+
+    // this.cart.items = this.cart.items.filter((cartItem) => cartItem.quantity > 0);
+    // console.log('retrieved: ' + JSON.stringify(this.cart));
 
 
 
@@ -166,8 +166,8 @@ export class ShoppingCartService {
     let totalPrice: number = 0;
 
     for (let item of cart.items) {
-      let price = item.quantity * item.eachPrice;
-      totalPrice += price;
+      //let price = item.quantity * item.eachPrice;
+      //totalPrice += price;
     }
     cart.noOfItems = cart.items.length
     cart.totalPrice = totalPrice;

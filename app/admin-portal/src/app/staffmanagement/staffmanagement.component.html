@@ -4,6 +4,7 @@
             <div class="card">
                 <div class="header">
                     <h4 class="title">Staff List</h4>
+                    <button class="btn btn-info btn-fill btn-wd pull-right" [disabled]="add" (click)="addStaff()">Add New Staff</button>
                 </div>
                 <hr>
                 <div class="content">
@@ -31,6 +32,13 @@
                             <td>
                                 {{s.roleId}}
                             </td>
+                            <td>
+                                    <button class="btn btn-info btn-fill btn-wd pull-right" (click)="editStaff(s)">Edit</button>
+                                    <br>
+                                    <button class="btn btn-info btn-fill btn-wd pull-right" (click)="deleteStaff(s)">Delete</button>
+                                    
+                            </td>
+
                         </tbody>
                     </table>
                 </div>
@@ -39,11 +47,12 @@
 
 
     </div>
-    <div class="row">
+    <div *ngIf="add" class="row">
         <div class="col-lg-6 col-md-5">
             <div class="card">
                 <div class="header">
                     <h4 class="title">Add New Staff</h4>
+                    <button class="btn btn-info btn-fill btn-wd" (click)="cancelAdd()">Cancel</button>
                 </div>
                 <hr>
                 <div class="content">

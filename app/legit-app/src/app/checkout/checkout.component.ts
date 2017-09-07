@@ -4,8 +4,8 @@ import { ProfileService } from '../profile.service';
 import { CartService } from '../cart.service';
 import { StorageService } from '../storage.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ShoppingCart } from "../cart/model/shopping-cart.model";
-import { CartItem } from "../cart/model/cart-item.model";
+import { ShoppingCart } from "../model/shopping-cart.model";
+import { CartItem } from "../model/cart-item.model";
 import { ShoppingCartService } from "app/shopping-cart.service";
 
 @Component({
@@ -102,26 +102,26 @@ export class CheckoutComponent implements OnInit {
 
   //increase product qty
   increment(productId: string) {
-    this.shoppingCart.items.find((p) => p.productId === productId).quantity += 1
+    //this.shoppingCart.items.find((p) => p.productId === productId).quantity += 1
     this.updateCart()
   }
 
   //decrease product qty
   decrement(productId: string) {
-    if (this.shoppingCart.items.find((p) => p.productId === productId).quantity > 1) {
-      this.shoppingCart.items.find((p) => p.productId === productId).quantity -= 1
-      this.updateCart()
-    } else {
-      this.remove(productId);
-    }
+    // if (this.shoppingCart.items.find((p) => p.productId === productId).quantity > 1) {
+    //   this.shoppingCart.items.find((p) => p.productId === productId).quantity -= 1
+    //   this.updateCart()
+    // } else {
+    //   this.remove(productId);
+    // }
   }
 
   remove(productId: string) {
-    let indexCut = this.shoppingCart.items.findIndex((p) => p.productId === productId)
-    this.shoppingCart.items.splice(indexCut, 1)
-    this.updateCart()
-    window.location.reload()
-    console.log('index: ' + indexCut)
+    // let indexCut = this.shoppingCart.items.findIndex((p) => p.productId === productId)
+    // this.shoppingCart.items.splice(indexCut, 1)
+    // this.updateCart()
+    // window.location.reload()
+    // console.log('index: ' + indexCut)
   }
 
   updateCart() {
