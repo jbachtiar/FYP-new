@@ -19,7 +19,7 @@ export class OrderService {
             "orders": [
               {
                 "order_id": 1,
-                "order_date": "20/02/2017",
+                "order_date": "2015-03-01T02:28:26.030Z",
                 "address_line": "21 Blbalbal Road",
                 "city": "singapore",
                 "country": "singapore",
@@ -51,7 +51,7 @@ export class OrderService {
               },
               {
                 "order_id": 2,
-                "order_date": "20/02/2017",
+                "order_date": "2015-01-31T03:41:54.611Z",
                 "address_line": "21 Blbalbal Road",
                 "city": "singapore",
                 "country": "singapore",
@@ -88,7 +88,7 @@ export class OrderService {
               },
               {
                 "order_id": 3,
-                "order_date": "20/02/2017",
+                "order_date": "2015-06-10T17:42:38.644Z",
                 "address_line": "21 Blbalbal Road",
                 "city": "singapore",
                 "country": "singapore",

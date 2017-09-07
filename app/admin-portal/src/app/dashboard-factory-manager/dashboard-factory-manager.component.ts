@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { OrderService } from '../services/order.service'
-import { DataTableResource } from 'angular-4-data-table';
+import { DataTableResource, DataTable, DataTableTranslations } from 'angular-4-data-table';
 
 
 @Component({
@@ -15,6 +15,8 @@ export class DashboardFactoryManagerComponent implements OnInit {
   itemResource = new DataTableResource(this.orders);
   private headers: any = ['Order ID', 'Order Date', 'Current Status', 'Country']
   
+  @ViewChild(DataTable) orderTable;
+
   constructor(
     private orderService: OrderService) {
       this.itemResource.count().then(count => this.itemCount = count);
@@ -61,5 +63,15 @@ export class DashboardFactoryManagerComponent implements OnInit {
   }
 
   rowTooltip(item) { return item.order_id; }
+
+  // special params:
+
+  translations = <DataTableTranslations>{
+    indexColumn: 'Index column',
+    expandColumn: 'Expand column',
+    selectColumn: 'Select column',
+    paginationLimit: 'Max results',
+    paginationRange: 'Result range'
+};
 
 }

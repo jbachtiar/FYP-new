@@ -1,48 +1,214 @@
-<!-- <div class="container-fluid">
-  <div class="row">
-      <div class="col-md-12">
-          <div class="card">
-              <div class="header">
-                  <h4 class="title">Orders</h4>
-                  <p class="category">All orders are shown below</p>
-              </div>
-              <div class="content table-responsive table-full-width">
-                  <table class="table table-striped">
-                      <thead>
-                          <tr>
-                              <th *ngFor="let h of headers">{{h}}</th>
-                          </tr>
-                      </thead>
-                      <tbody>
-                          <tr *ngFor="let order of orders">
-                              <td>{{order.order_id}}</td>
-                              <td>{{order.order_date}}</td>
-                              <td>{{order.currentStatus}}</td>
-                              <td>{{order.country}}</td>
-                          </tr>
-                      </tbody>
-                  </table>
-
-              </div>
-          </div>
-      </div>
-  </div>
-</div> -->
-
 <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-2 col-sm-6">
+                    <div class="card">
+                        <div class="content">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <div class="icon-big icon-success text-center">
+                                        <i class="ti-wallet"></i>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6">
+                                    <p class="text-sm-right">{{itemCount}}</p>
+                                    <div class="numbers">
+                                        Payment Received
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="footer">
+                                <hr />
+                                <div class="stats">
+                                    <i class="ti-calendar"></i> Last day
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <div class="col-lg-2 col-sm-6">
+                <div class="card">
+                    <div class="content">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <div class="icon-big icon-success text-center">
+                                    <i class="ti-wallet"></i>
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                <p class="text-sm-right">{{itemCount}}</p>
+                                <div class="numbers">
+                                    Production
+                                </div>
+                            </div>
+                        </div>
+                        <div class="footer">
+                            <hr />
+                            <div class="stats">
+                                <i class="ti-calendar"></i> Last day
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-sm-6">
+                <div class="card">
+                    <div class="content">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <div class="icon-big icon-success text-center">
+                                    <i class="ti-wallet"></i>
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                <p class="text-sm-right">{{itemCount}}</p>
+                                <div class="numbers">
+                                    Packaging
+                                </div>
+                            </div>
+                        </div>
+                        <div class="footer">
+                            <hr />
+                            <div class="stats">
+                                <i class="ti-calendar"></i> Last day
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-sm-6">
+                <div class="card">
+                    <div class="content">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <div class="icon-big icon-success text-center">
+                                    <i class="ti-wallet"></i>
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                <p class="text-sm-right">{{itemCount}}</p>
+                                <div class="numbers">
+                                    Preparing for Shipment
+                                </div>
+                            </div>
+                        </div>
+                        <div class="footer">
+                            <hr />
+                            <div class="stats">
+                                <i class="ti-calendar"></i> Last day
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-sm-6">
+                    <div class="card">
+                        <div class="content">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <div class="icon-big icon-success text-center">
+                                        <i class="ti-wallet"></i>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6">
+                                    <p class="text-sm-right">{{itemCount}}</p>
+                                    <div class="numbers">
+                                        Preparing for Shipment
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="footer">
+                                <hr />
+                                <div class="stats">
+                                    <i class="ti-calendar"></i> Last day
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-sm-6">
+                    <div class="card">
+                        <div class="content">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <div class="icon-big icon-success text-center">
+                                        <i class="ti-wallet"></i>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6">
+                                    <p class="text-sm-right">{{itemCount}}</p>
+                                    <div class="numbers">
+                                        Preparing for Shipment
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="footer">
+                                <hr />
+                                <div class="stats">
+                                    <i class="ti-calendar"></i> Last day
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+   
+
     <div class="row">
         <div class="col-md-12">
             <div class="card">
                 <div style="margin: auto; max-width: 1000px; margin-bottom: 50px;">
-                    <data-table id="order-grid" headerTitle="Orders" [items]="orders" [itemCount]="itemCount" (reload)="reloadItems($event)"
-                        (rowClick)="rowClick($event)" (rowDoubleClick)="rowDoubleClick($event)" [rowTooltip]="rowTooltip">
-                        <data-table-column [property]="'order_id'" [header]="'Order ID'" [sortable]="true" [resizable]="true">
+                    <data-table id="order-grid" headerTitle="Orders" 
+                    [items]="orders" 
+                    [itemCount]="itemCount" 
+                    (reload)="reloadItems($event)"
+                    (rowClick)="rowClick($event)" 
+                    (rowDoubleClick)="rowDoubleClick($event)" 
+                    [rowTooltip]="rowTooltip"
+                    [selectColumn]="true"
+                    [multiSelect]="false"
+                    [substituteRows]="false"
+                    [expandableRows]="true"
+                    [translations]="translations"
+                    [indexColumnHeader]="'#'"
+                    [selectOnRowClick]="true"
+                    >
+                        <template #dataTableExpand let-item="item">
+                            <div *ngFor="let oi of item.order_items">
+                                Product ID: {{oi.product_id}} Qty: {{oi.quantity}}
+                            </div>
+                            <!-- <div [textContent]="item.order_items[0].product_id" style="padding: 5px; color: gray"></div> -->
+                        </template>
+                        <data-table-column 
+                        [property]="'order_id'" 
+                        [header]="'Order ID'" 
+                        [sortable]="true" 
+                        [resizable]="true">
                         </data-table-column>
-                        <data-table-column [property]="'order_date'" [header]="'Date'">
+
+                        <data-table-column 
+                        [property]="'order_date'" 
+                        [header]="'Date'"
+                        [sortable]="true" 
+                        [resizable]="true">
+                            <template #dataTableCell let-item="item">
+                                <span>{{item.order_date | date:'yyyy-MM-dd'}}</span>
+                            </template>
                         </data-table-column>
-                        <data-table-column property="currentStatus" header="Status" [resizable]="true">
+                        
+                        <data-table-column
+                        property="currentStatus" 
+                        header="Status" 
+                        [sortable]="true" 
+                        [resizable]="true">
                         </data-table-column>
+
                     </data-table>
+                    <div style="margin-top: 10px">
+                        <b>Selected:</b>
+                        <span *ngIf="orderTable.selectedRow == null"><i>No item selected</i></span>
+                        <span [textContent]="orderTable.selectedRow && orderTable.selectedRow.item.order_id"></span>
+                    </div>
                 </div>
             </div>
         </div>
