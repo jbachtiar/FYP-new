@@ -35,14 +35,16 @@ public class CustomerAddressDAO {
 
             while (rs.next()) {
 
-                int addressId = rs.getInt(1);
-                String addressLine = rs.getString(3);
-                String city = rs.getString(4);
-                String country = rs.getString(5);
-                String postalCode = rs.getString(6);
-                String isDefault = rs.getString(7);
+                String recipientName = rs.getString("RECIPIENT_NAME");
+                String phoneNo = rs.getString("PHONE_NO");
+                int addressId = rs.getInt("ADDRESS_ID");
+                String addressLine = rs.getString("ADDRESS_LINE");
+                String city = rs.getString("CITY");
+                String country = rs.getString("COUNTRY");
+                String postalCode = rs.getString("POSTAL_CODE");
+                String isDefault = rs.getString("ISDEFAULT");
 
-                a = new Address(addressId, addressLine, city, country, postalCode, isDefault);
+                a = new Address(email, recipientName, phoneNo, addressId, addressLine, city, country, postalCode, isDefault);
                 address.add(a);
 
             }
@@ -68,13 +70,16 @@ public class CustomerAddressDAO {
 
             while (rs.next()) {
 
-                String addressLine = rs.getString(3);
-                String city = rs.getString(4);
-                String country = rs.getString(5);
-                String postalCode = rs.getString(6);
-                String isDefault = rs.getString(7);
+                String email = rs.getString("EMAIL");
+                String recipientName = rs.getString("RECIPIENT_NAME");
+                String phoneNo = rs.getString("PHONE_NO");
+                String addressLine = rs.getString("ADDRESS_LINE");
+                String city = rs.getString("CITY");
+                String country = rs.getString("COUNTRY");
+                String postalCode = rs.getString("POSTAL_CODE");
+                String isDefault = rs.getString("ISDEFAULT");
 
-                a = new Address(addressId, addressLine, city, country, postalCode, isDefault);
+                a = new Address(email, recipientName, phoneNo, addressId, addressLine, city, country, postalCode, isDefault);
 
             }
         } finally {
@@ -106,13 +111,15 @@ public class CustomerAddressDAO {
 
     }
 
-    public String addAddressToCustomer(String email, Address address) throws SQLException {
+    public String addAddressToCustomer(Address address) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         Address a = null;
 
-        String sql = "INSERT INTO CUSTOMER_ADDRESS VALUES (?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO CUSTOMER_ADDRESS (ADDRESS_ID, EMAIL, RECIPIENT_NAME, PHONE_NO, ADDRESS_LINE, CITY, COUNTRY, POSTAL_CODE, ISDEFAULT) VALUES (?,?,?,?,?,?,?,?,?)";
+        String email = address.getEmail();
+        
         if (getTheNumOfAddressesByEmail(email) > 3) {
             return "exceed address limit";
         } else {
@@ -124,14 +131,18 @@ public class CustomerAddressDAO {
                 String country = address.getCountry();
                 String postalCode = address.getPostalCode();
                 String isDefault = address.getIsDefault();
+                String recipientName = address.getRecipientName();
+                String phoneNo = address.getPhoneNo();
 
                 stmt.setInt(1, getTheNumOfAddressesByEmail(email) + 1);
                 stmt.setString(2, email);
-                stmt.setString(3, addressLine);
-                stmt.setString(4, city);
-                stmt.setString(5, country);
-                stmt.setString(6, postalCode);
-                stmt.setString(7, isDefault);
+                stmt.setString(3, recipientName);
+                stmt.setString(4, phoneNo);
+                stmt.setString(5, addressLine);
+                stmt.setString(6, city);
+                stmt.setString(7, country);
+                stmt.setString(8, postalCode);
+                stmt.setString(9, isDefault);
 
                 rs = stmt.executeQuery();
             } finally {
@@ -164,28 +175,28 @@ public class CustomerAddressDAO {
 
     }
 
-    public String updateAddressByCustomerEmail(String email, String addressId, String addressLine, String city, String country, String postalCode, String isDefault) throws SQLException {
-        Connection conn = null;
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
-        String sql = "UPDATE CUSTOMER_ADDRESS SET ADDRESS_LINE = ?, CITY = ?, COUNTRY = ?, POSTAL_CODE = ?, ISDEFAULT = ? WHERE EMAIL=? AND ADDDRESS_ID=?";
-        try {
-
-            conn = ConnectionManager.getConnection();
-            stmt = conn.prepareStatement(sql);
-            stmt.setString(1, addressLine);
-            stmt.setString(2, city);
-            stmt.setString(3, country);
-            stmt.setString(4, postalCode);
-            stmt.setString(5, isDefault);
-            stmt.setString(6, email);
-            stmt.setString(7, addressId);
-
-        } finally {
-            ConnectionManager.close(conn, stmt, rs);
-        }
-
-        return "Success";
-
-    }
+//    public String updateAddressByCustomerEmail(String email, String addressId, String addressLine, String city, String country, String postalCode, String isDefault) throws SQLException {
+//        Connection conn = null;
+//        PreparedStatement stmt = null;
+//        ResultSet rs = null;
+//        String sql = "UPDATE CUSTOMER_ADDRESS SET ADDRESS_LINE = ?, CITY = ?, COUNTRY = ?, POSTAL_CODE = ?, ISDEFAULT = ? WHERE EMAIL=? AND ADDDRESS_ID=?";
+//        try {
+//
+//            conn = ConnectionManager.getConnection();
+//            stmt = conn.prepareStatement(sql);
+//            stmt.setString(1, addressLine);
+//            stmt.setString(2, city);
+//            stmt.setString(3, country);
+//            stmt.setString(4, postalCode);
+//            stmt.setString(5, isDefault);
+//            stmt.setString(6, email);
+//            stmt.setString(7, addressId);
+//
+//        } finally {
+//            ConnectionManager.close(conn, stmt, rs);
+//        }
+//
+//        return "Success";
+//
+//    }
 }

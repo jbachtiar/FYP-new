@@ -105,7 +105,7 @@ public class OrderDAO {
         ArrayList<Order> orderList = new ArrayList<Order>();
         Order order = null;
         
-        String sql = "SELECT * FROM order WHERE order_id= ?";
+        String sql = "SELECT * FROM customer_order WHERE order_id= ?";
         try {
             conn = ConnectionManager.getConnection();
             stmt = conn.prepareStatement(sql);
@@ -114,18 +114,21 @@ public class OrderDAO {
             
             while (rs.next()) {
                 
-                Timestamp orderDate = rs.getTimestamp(2);
-                double netAmt = rs.getDouble(3);
-                double promoDiscAmt = rs.getDouble(4);
-                String addressLine = rs.getString(5);
-                String city = rs.getString(6);
-                String country = rs.getString(7);
-                String postalCode = rs.getString(8);
-                String paymentRefNo = rs.getString(9);
-                int promoCode = rs.getInt(10);
+                Timestamp orderDate = rs.getTimestamp("ORDER_DATE");
+                double netAmt = rs.getDouble("NET_AMT");
+                double promoDiscAmt = rs.getDouble("PROMO_DISC_AMT");
+                String recipientName = rs.getString("RECIPIENT_NAME");
+                String phoneNo = rs.getString("PHONE_NO");
+                String email = rs.getString("EMAIL");
+                String addressLine = rs.getString("ADDRESS_LINE");
+                String city = rs.getString("CITY");
+                String country = rs.getString("COUNTRY");
+                String postalCode = rs.getString("POSTAL_CODE");
+                String paymentRefNo = rs.getString("STRIPE_CHARGE_ID");
+                int promoCode = rs.getInt("PROMO_CODE_ID");
                 OrderStatusLogDAO orderLog = new OrderStatusLogDAO();
                 PromoCodeDAO pcDao = new PromoCodeDAO();
-                Address a = new Address(0, addressLine, city, country, postalCode, "N");
+                Address a = new Address(email, recipientName, phoneNo, 0, addressLine, city, country, postalCode, "N");
                 OrderItemDAO orderItemDao = new OrderItemDAO();
                 order = new Order(orderId, orderDate, netAmt, promoDiscAmt, a, paymentRefNo, pcDao.getPromoCodeById(promoCode), orderItemDao.getOrderItemsByOrderId(orderId), orderLog.getOrderStatusByOrderId(orderId));
                 orderList.add(order);
@@ -155,18 +158,20 @@ public class OrderDAO {
             rs = stmt.executeQuery();
             while (rs.next()) {
                 int orderId = rs.getInt(1);
-                Timestamp orderDate = rs.getTimestamp(2);
-                double netAmt = rs.getDouble(3);
-                double promoDiscAmt = rs.getDouble(4);
-                String addressLine = rs.getString(5);
-                String city = rs.getString(6);
-                String country = rs.getString(7);
-                String postalCode = rs.getString(8);
-                String paymentRefNo = rs.getString(9);
-                int promoCode = rs.getInt(10);
+                Timestamp orderDate = rs.getTimestamp("ORDER_DATE");
+                double netAmt = rs.getDouble("NET_AMT");
+                double promoDiscAmt = rs.getDouble("PROMO_DISC_AMT");
+                String recipientName = rs.getString("RECIPIENT_NAME");
+                String phoneNo = rs.getString("PHONE_NO");
+                String addressLine = rs.getString("ADDRESS_LINE");
+                String city = rs.getString("CITY");
+                String country = rs.getString("COUNTRY");
+                String postalCode = rs.getString("POSTAL_CODE");
+                String paymentRefNo = rs.getString("STRIPE_CHARGE_ID");
+                int promoCode = rs.getInt("PROMO_CODE_ID");
                 OrderStatusLogDAO orderLog = new OrderStatusLogDAO();
                 PromoCodeDAO pcDao = new PromoCodeDAO();
-                Address a = new Address(0, addressLine, city, country, postalCode, "N");
+                Address a = new Address(email, recipientName, phoneNo, 0, addressLine, city, country, postalCode, "N");
                 OrderItemDAO orderItemDao = new OrderItemDAO();
                 order = new Order(orderId, orderDate, netAmt, promoDiscAmt, a, paymentRefNo, pcDao.getPromoCodeById(promoCode), orderItemDao.getOrderItemsByOrderId(orderId), orderLog.getOrderStatusByOrderId(orderId));
                 orderList.add(order);

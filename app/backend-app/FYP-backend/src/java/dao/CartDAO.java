@@ -10,7 +10,6 @@ package dao;
  * @author Huiyan
  */
 import database.ConnectionManager;
-import entity.Address;
 import entity.Cart;
 import entity.CartItem;
 import java.sql.Connection;

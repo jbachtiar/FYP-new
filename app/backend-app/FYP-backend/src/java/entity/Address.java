@@ -11,6 +11,9 @@ package entity;
  */
 public class Address {
     
+    private String email;
+    private String recipientName;
+    private String phoneNo;
     private int addressId;
     private String addressLine;
     private String city;
@@ -18,7 +21,10 @@ public class Address {
     private String postalCode;
     private String isDefault;
 
-    public Address(int addressId, String addressLine, String city, String country, String postalCode, String isDefault) {
+    public Address(String email, String recipientName, String phoneNo, int addressId, String addressLine, String city, String country, String postalCode, String isDefault) {
+        this.email = email;
+        this.recipientName = recipientName;
+        this.phoneNo = phoneNo;
         this.addressId = addressId;
         this.addressLine = addressLine;
         this.city = city;
@@ -27,6 +33,30 @@ public class Address {
         this.isDefault = isDefault;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getRecipientName() {
+        return recipientName;
+    }
+
+    public void setRecipientName(String recipientName) {
+        this.recipientName = recipientName;
+    }
+
+    public String getPhoneNo() {
+        return phoneNo;
+    }
+
+    public void setPhoneNo(String phoneNo) {
+        this.phoneNo = phoneNo;
+    }
+    
     public int getAddressId() {
         return addressId;
     }
