@@ -58,16 +58,18 @@ public class OrderItemDAO {
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
-        String sql = "INSERT INTO ORDER_ITEM VALUES (?,?,?,?)";
+        String sql = "INSERT INTO ORDER_ITEM (ORDER_ID, PRODUCT_ID, QUANTITY, UNIT_PRICE, ITEM_STATUS) VALUES (?, ?, ?, ?, ?)";
 
         try {
 
             conn = ConnectionManager.getConnection();
             stmt = conn.prepareStatement(sql);
+            
             stmt.setInt(1, orderId);
             stmt.setInt(2, oI.getProduct().getProductId());
             stmt.setInt(3, oI.getQuantity());
             stmt.setDouble(4, oI.getUnitPrice());
+            stmt.setString(5, "INCOMPLETE");
 
             rs = stmt.executeQuery();
 
