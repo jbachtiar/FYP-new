@@ -39,8 +39,8 @@ export class QuickViewComponent extends DialogComponent<QuickViewPopupModel, boo
   productId: string;
   eachPrice: number;
   private loading: boolean = true;
-  selectedProduct : Product;
-  
+  selectedProduct: Product;
+
 
   constructor(
     private shoppingCartService: ShoppingCartService,
@@ -78,36 +78,42 @@ export class QuickViewComponent extends DialogComponent<QuickViewPopupModel, boo
         this.selectedSize = this.selectedColour.sizes[0];
         this.selectedSizePrice = + this.selectedSize.sizePrice
         this.selectedFabricPrice = +this.selectedFabric.fabric_price
-        this.totalPrice = this.pattern.pattern_price + this.selectedFabricPrice +this.selectedSizePrice;
-     
+        this.totalPrice = this.pattern.pattern_price + this.selectedFabricPrice + this.selectedSizePrice;
+
         this.stopLoading()
       });
 
   }
 
   onFabricChange() {
- 
+    this.selectedColour = this.selectedFabric.colours[0];
+    this.selectedSize = this.selectedColour.sizes[0];
+    this.selectedSizePrice = + this.selectedSize.sizePrice;
     this.selectedFabricPrice = +this.selectedFabric.fabric_price;
+    this.totalPrice = this.pattern.pattern_price + this.selectedFabricPrice + this.selectedSizePrice;
 
-    this.totalPrice = this.pattern.pattern_price + this.selectedFabricPrice
-    console.log("Pattern Price: " + this.pattern.pattern_price)
-    console.log("Fabric Price: " + this.selectedFabricPrice)
-  
-
-    console.log("RECALCULATED PRICE - fabric: " + this.totalPrice);
+    console.log("RECALCULATED PRICE" + this.totalPrice);
   }
 
   onSizeChange() {
 
-    this.selectedSizePrice=+ this.selectedSize.sizePrice;
+    this.selectedSizePrice = + this.selectedSize.sizePrice;
     this.totalPrice = this.pattern.pattern_price + this.selectedFabricPrice + this.selectedSizePrice
     console.log("Pattern Price: " + this.pattern.pattern_price)
     console.log("Fabric Price: " + this.selectedFabricPrice)
     console.log("Size Price: " + this.selectedSizePrice)
-  
-  
+
+
 
     console.log("RECALCULATED PRICE - fabric: " + this.totalPrice);
+  }
+
+  onColourChange() {
+    // this.selectedColourPrice = +this.selectedColour.colour_price;
+    //this.totalPrice = this.pattern.pattern_price + this.selectedFabricPrice + this.selectedColourPrice;
+    //   this.selectedSize = this.selectedColour.sizes[0];
+    this.selectedSize = this.selectedColour.sizes[0];
+    // console.log("RECALCULATED PRICE" + this.totalPrice)
   }
 
   closeModal() {
@@ -128,7 +134,7 @@ export class QuickViewComponent extends DialogComponent<QuickViewPopupModel, boo
         console.log("selectedFabric: " + this.selectedFabric.fabric_id)
         console.log("quantity: " + this.selectedQuantity)
         console.log('thispID: ' + this.selectedProduct.productId)
-        
+
 
         this.cartItem.product = this.selectedProduct
         this.cartItem.quantity = this.selectedQuantity

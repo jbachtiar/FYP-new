@@ -84,15 +84,17 @@ export class ProductDetailComponent implements OnInit {
   }
 
   onFabricChange() {
-    this.selectedColour = this.selectedFabric.colours[0];
+    this.selectedColour = this.selectedFabric.colours[0]; 
+    this.selectedSize = this.selectedColour.sizes[0];
+    this.selectedSizePrice=+ this.selectedSize.sizePrice;
     this.selectedFabricPrice = +this.selectedFabric.fabric_price;
-    this.totalPrice = this.pattern.pattern_price + this.selectedFabricPrice;
+    this.totalPrice = this.pattern.pattern_price + this.selectedFabricPrice+this.selectedSizePrice;
 
     console.log("RECALCULATED PRICE" + this.totalPrice);
   }
 
   onSizeChange() {
-
+ 
     this.selectedSizePrice=+ this.selectedSize.sizePrice;
     this.totalPrice = this.pattern.pattern_price + this.selectedFabricPrice + this.selectedSizePrice
     console.log("Pattern Price: " + this.pattern.pattern_price)
@@ -104,12 +106,13 @@ export class ProductDetailComponent implements OnInit {
     console.log("RECALCULATED PRICE - fabric: " + this.totalPrice);
   }
 
-  //onColourChange() {
+  onColourChange() {
    // this.selectedColourPrice = +this.selectedColour.colour_price;
     //this.totalPrice = this.pattern.pattern_price + this.selectedFabricPrice + this.selectedColourPrice;
-
+   //   this.selectedSize = this.selectedColour.sizes[0];
+       this.selectedSize = this.selectedColour.sizes[0];
    // console.log("RECALCULATED PRICE" + this.totalPrice)
-  //}
+  }
 
   addCart() {
     //this.startLoading()
