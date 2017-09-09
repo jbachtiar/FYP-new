@@ -130,6 +130,7 @@ public class ProductCatalogue {
 
                 temp.addProperty("design_price", b.getPattern().getPatternPrice());
                 temp.addProperty("fabric_price", b.getFabric().getFabricPrice());
+                temp.addProperty("lowest_price", productDao.getLowestCombinationPriceByPatternId(b.getPattern().getPatternId()));
                 JsonArray images = gson.toJsonTree(b.getImages()).getAsJsonArray(); // convert arraylist to jsonArray
                 temp.add("images", images);
                 JsonArray tags = gson.toJsonTree(b.getPattern().getTags()).getAsJsonArray(); // convert arraylist to jsonArray
@@ -185,6 +186,7 @@ public class ProductCatalogue {
 
                 temp.addProperty("design_price", p.getPattern().getPatternPrice());
                 temp.addProperty("fabric_price", p.getFabric().getFabricPrice());
+              
                 JsonArray images = gson.toJsonTree(p.getImages()).getAsJsonArray(); // convert arraylist to jsonArray
                 temp.add("images", images);
                 JsonArray tags = gson.toJsonTree(p.getPattern().getTags()).getAsJsonArray(); // convert arraylist to jsonArray
