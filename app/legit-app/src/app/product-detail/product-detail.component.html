@@ -1,14 +1,15 @@
 <body>
   <app-loading *ngIf="loading"></app-loading>
-  
+
   <div class="container" *ngIf="!loading">
     <div class="row">
       <div class="col-sm-6">
 
         <div *ngIf="loadingImage" class="loading">
-            <img src="../assets/images/loading.gif" alt="loading" />    
+          <img src="../assets/images/loading.gif" alt="loading" />
         </div>
-        <img *ngIf="!loadingImage" (load)="onLoad()" src="{{selectedColour.images[0].imageUrl}}" class="img-responsive" alt="Some picture" />      </div>
+        <img *ngIf="!loadingImage" (load)="onLoad()" src="{{selectedColour.images[0].imageUrl}}" class="img-responsive" alt="Some picture"
+        /> </div>
       <div class="col-sm-6">
         <h3 class="product-name">{{pattern.pattern_name}}</h3>
 
@@ -22,6 +23,10 @@
         <select [(ngModel)]="selectedColour" (ngModelChange)="onColourChange()">
           <option *ngFor="let colour of selectedFabric.colours" [ngValue]="colour">{{colour.colour_name}}</option>
         </select>
+        <h5>Size:</h5>
+        <select [(ngModel)]="selectedSize" (ngModelChange)="onSizeChange()">
+          <option *ngFor="let size of selectedColour.sizes" [ngValue]="size">{{size.sizeName}}+${{size.sizePrice}}</option>
+        </select>
         <br/><br/>
         <h4>${{totalPrice}}</h4>
         <h5>Quantity:</h5>
@@ -31,6 +36,7 @@
         </select>
         <br/><br/>
         <button type="button" (click)="addCart()" class="btn btn-default" data-dismiss="modal">Add to Cart</button>
+<<<<<<< HEAD
         <button type="button" (click)="emptyCart()" class="btn btn-default" data-dismiss="modal">Empty Cart</button>
         <h2 class = "description"> Description</h2>
           <h4><b>Pattern</b></h4>
@@ -38,6 +44,14 @@
           <h4><b>Fabric</b></h4>
           <h4><i>{{selectedFabric.fabric_name}}</i></h4>
           <p>{{selectedFabric.fabric_description}}</p>
+=======
+        <h2 class="description"> Description</h2>
+        <h4><b>Pattern</b></h4>
+        <p>{{pattern.pattern_description}}</p>
+        <h4><b>Fabric</b></h4>
+        <h4><i>{{selectedFabric.fabric_name}}</i></h4>
+        <p>{{selectedFabric.fabric_description}}</p>
+>>>>>>> PatternAndProductDetailPrice
         <br>
       </div>
     </div>
