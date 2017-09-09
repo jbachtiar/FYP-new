@@ -160,6 +160,7 @@ public class ProductCatalogue {
         JsonObject jsonOutput = new JsonObject();
         JsonArray product = new JsonArray();
         ProductDAO productDao = new ProductDAO();
+        JsonParser parser = new JsonParser();
 
         try {
 
@@ -182,11 +183,24 @@ public class ProductCatalogue {
                 temp.addProperty("collection_name", p.getPattern().getCollection().getCollectionName());
                 temp.addProperty("colour_name", p.getColour().getColourName());
 
-                temp.addProperty("design_price", p.getPattern().getPatternPrice());
+                temp.addProperty("pattern_price", p.getPattern().getPatternPrice());
                 temp.addProperty("fabric_price", p.getFabric().getFabricPrice());
-              
+
                 JsonArray images = gson.toJsonTree(p.getImages()).getAsJsonArray(); // convert arraylist to jsonArray
                 temp.add("images", images);
+                if (p.getProductType().equals("Bedding")) {
+
+                    BeddingSizeDAO beddingSizeDao = new BeddingSizeDAO();
+                    ArrayList<BeddingSize> beddingSizes = beddingSizeDao.getAllBeddingSizes();
+                    JsonArray sizes = new JsonArray();
+                    for (BeddingSize bs : beddingSizes) {
+                        String beddingSizeString = gson.toJson(bs);
+                        JsonElement beddingSizeElement = parser.parse(beddingSizeString);
+                        sizes.add(beddingSizeElement);
+                    }
+
+                    temp.add("sizes", sizes);
+                }
                 JsonArray tags = gson.toJsonTree(p.getPattern().getTags()).getAsJsonArray(); // convert arraylist to jsonArray
                 temp.add("tags", tags);
 
@@ -327,8 +341,8 @@ public class ProductCatalogue {
                                     JsonElement beddingSizeElement = parser.parse(beddingSizeString);
                                     sizes.add(beddingSizeElement);
                                 }
-                                
-                                co.add("size", sizes);
+
+                                co.add("sizes", sizes);
                             }
                         }
                         colorsJson.add(co);

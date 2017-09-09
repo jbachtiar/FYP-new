@@ -28,12 +28,18 @@
                   </h5>
                   <h5>Material:</h5>
                   <select [(ngModel)]="selectedFabric" (ngModelChange)="onFabricChange()">
-          <option *ngFor="let fabric of pattern.fabrics" [ngValue]="fabric">{{fabric.fabric_name}} +${{fabric.fabric_price}}</option>
-        </select>
+                     <option *ngFor="let fabric of pattern.fabrics" [ngValue]="fabric">{{fabric.fabric_name}} +${{fabric.fabric_price}}</option>
+                  </select>
                   <h5>Colour:</h5>
                   <select [(ngModel)]="selectedColour" (ngModelChange)="onColourChange()">
-          <option *ngFor="let colour of selectedFabric.colours" [ngValue]="colour">{{colour.colour_name}}</option>
-        </select>
+                    <option *ngFor="let colour of selectedFabric.colours" [ngValue]="colour">{{colour.colour_name}}</option>
+                  </select>
+                  <h5>Size:</h5>
+                  <select [(ngModel)]="selectedSize" (ngModelChange)="onSizeChange()">
+                    <option *ngFor="let size of selectedColour.sizes" [ngValue]="size">{{size.sizeName}}+${{size.sizePrice}}</option>
+                  </select>
+
+
                   <br/><br/>
                   <h4>${{totalPrice}}</h4>
                   <h5>Quantity:</h5>
