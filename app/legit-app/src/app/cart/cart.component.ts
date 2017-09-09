@@ -14,7 +14,10 @@ import { SharedService } from '../shared.service'
   styleUrls: ['./cart.component.css'],
   providers: [ShoppingCartService]
 })
+
+
 export class CartComponent implements OnInit {
+  private CART_KEY = "cart";
   public itemCount: number = 0;
   public cart: Observable<ShoppingCart>;
   private cartSubscription: Subscription;
@@ -37,14 +40,14 @@ export class CartComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.itemCount = this.shoppingCart.noOfItems
+    this.itemCount = this.shoppingCart.cartItems.length;
     if(this.itemCount > 0){
       this.empty = false;
     }
 
     //this.shoppingCartService.retrieveCartDB();
 
-    this.cartItem = this.shoppingCart.items
+    this.cartItem = this.shoppingCart.cartItems
     // this.cart = this.shoppingCartService.get();
     // this.cartSubscription = this.cart.subscribe((cart) => {
     // this.itemCount = cart.items.map((x) => x.quantity).reduce((p, n) => p + n, 0);
@@ -52,20 +55,23 @@ export class CartComponent implements OnInit {
   }
 
   //increase product qty
-  // increment(productId: string){
-  //   this.shoppingCart.items.find((p) => p.productId === productId).quantity +=1
-  //   this.updateCart()
-  // }
+  increment(productId: number){
+    console.log("productID = " + productId)
+    console.log(this.shoppingCart.cartItems.find((p) => p.product.productId === productId))
+    
+    this.shoppingCart.cartItems.find((p) => p.product.productId === productId).quantity +=1
+    this.shoppingCartService.updateCart(this.shoppingCart);
+  }
 
   //decrease product qty
-  // decrement(productId: string){
-  //   if(this.shoppingCart.items.find((p) => p.productId === productId).quantity > 1){
-  //      this.shoppingCart.items.find((p) => p.productId === productId).quantity -=1
-  //      this.updateCart()
-  //   }else{
-  //     this.remove(productId);
-  //   }
-  // }
+  decrement(productId: number){
+    if(this.shoppingCart.cartItems.find((p) => p.product.productId === productId).quantity > 1){
+       this.shoppingCart.cartItems.find((p) => p.product.productId === productId).quantity -=1
+       this.shoppingCartService.updateCart(this.shoppingCart);
+    }else{
+      this.remove(productId);
+    }
+  }
 
   emptyCart(){
     console.log("CART IS EMPTIED")
@@ -73,29 +79,38 @@ export class CartComponent implements OnInit {
     //window.location.reload()
   }
 
-  // remove(productId: string){
-  //   let disposable = this.dialogService.addDialog(DeleteConfirmationPopupComponent, {
-  //     title: 'Remove item?',
-  //     message: 'Are you sure to remove this item from the cart?'
-  //   })
-  //     .subscribe((isConfirmed) => {
-  //       console.log("DIALOG")
-  //       //We get dialog result
-  //       if (isConfirmed) {
-  //         let indexCut =  this.shoppingCart.items.findIndex((p) => p.productId === productId)
-  //         this.shoppingCart.items.splice(indexCut,1)
-  //         this.updateCart()
-  //         window.location.reload()
-  //         console.log('index: ' + indexCut)
-  //       }
-  //       else {
-  //         //do nothing
-  //       }
-  //     });
+  remove(productId: number){
+    let disposable = this.dialogService.addDialog(DeleteConfirmationPopupComponent, {
+      title: 'Remove item?',
+      message: 'Are you sure to remove this item from the cart?'
+    })
+      .subscribe((isConfirmed) => {
+        console.log("DIALOG")
+        //We get dialog result
+        if (isConfirmed) {
+          let indexCut =  this.shoppingCart.cartItems.findIndex((p) => p.product.productId === productId)
+          //this.shoppingCart.cartItems.splice(indexCut,1)
+          console.log("PRODUCT ID : " + productId)
+          
+          this.shoppingCartService.deleteItemDB(productId)
+          //this.updateCart()
+          //this.sharedService.updateCart();
+          window.location.reload()
+          console.log('index: ' + indexCut)
+        }
+        else {
+          //do nothing
+        }
+      });
     
-  // }
+  }
 
   updateCart(){
-    this.shoppingCartService.updateCart(this.shoppingCart)
+    console.log(this.shoppingCart);
+    localStorage.setItem(this.CART_KEY, JSON.stringify(this.shoppingCart));
+  }
+
+  getCartDB(){
+    this.shoppingCartService.retrieveCartDB();
   }
 }
