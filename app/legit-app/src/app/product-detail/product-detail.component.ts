@@ -8,6 +8,7 @@ import { NavbarComponent } from '../navbar/navbar.component';
 import { CartPopupComponent } from '../cart-popup/cart-popup.component'
 import { DialogService } from "ng2-bootstrap-modal";
 import { SharedService } from "../shared.service"
+import { Product } from "../model/product";
 
 @Component({
   selector: 'app-product-detail',
@@ -31,6 +32,7 @@ export class ProductDetailComponent implements OnInit {
   totalPrice: number;
   loading: boolean = true;
   loadingImage: boolean = false;
+  selectedProduct : Product;
 
   constructor(
     private shoppingCartService: ShoppingCartService,
@@ -58,6 +60,8 @@ export class ProductDetailComponent implements OnInit {
       pattern => {
         this.startLoading()
         this.pattern = pattern;
+        console.log(JSON.stringify(this.pattern))
+        //this.selectedProduct = pattern.product.fabrics[0];
         this.selectedFabric = pattern.fabrics[0]
         this.selectedColour = this.selectedFabric.colours[0]
         this.selectedFabricPrice = +this.selectedFabric.fabric_price
@@ -91,60 +95,52 @@ export class ProductDetailComponent implements OnInit {
   //}
 
   addCart() {
-    this.startLoading()
+    //this.startLoading()
+    // console.log("Pattern ID : " + this.patternId);
+    // console.log("Fabric ID : " + this.selectedFabric.fabric_id);
+    // console.log("Colour ID : " + this.selectedColour.colour_id);
     //this.getProductId();
-    this.productService.getProductId(this.patternId, this.selectedFabric.fabric_id, this.selectedColour.colour_id)
-      .subscribe(productId => {
-        console.log('inside get product id')
-        this.productId = productId;
+    this.productService.getProductById(this.patternId, this.selectedFabric.fabric_id, this.selectedColour.colour_id)
+      .subscribe(res => {
+        console.log(res.product)
+        this.selectedProduct = res.product;
         console.log("selectedColour: " + this.selectedColour.colour_name)
         console.log("selectedFabric: " + this.selectedFabric.fabric_id)
         console.log("quantity: " + this.selectedQuantity)
-        console.log('thispID: ' + this.productId)
+        console.log('thispID: ' + this.selectedProduct.productId)
+        
 
-        this.productService.getPriceById(this.productId)
-          .subscribe(eachPrice => {
-            console.log('each price')
-            this.eachPrice = eachPrice
-            console.log(this.productId)
+        this.cartItem.product = this.selectedProduct
+        this.cartItem.quantity = this.selectedQuantity
+        this.cartItem.unitPrice = this.totalPrice
 
-            // this.cartItem.productId = this.productId
-            // this.cartItem.eachPrice = this.eachPrice
-            // this.cartItem.patternName = this.pattern.pattern_name
-            // this.cartItem.quantity = this.selectedQuantity
-            // this.cartItem.url = this.selectedColour.image_url
-            // this.cartItem.fabricName = this.selectedFabric.fabric_name
-            // console.log("fabric name : " + this.cartItem.fabricName)
-            // this.cartItem.colourName = this.selectedColour.colour_name
-            // console.log("colour name : " + this.cartItem.colourName)
+        console.log(this.cartItem)
 
-            // console.log(this.cartItem.patternName)
-            console.log('eachPrice: ' + this.eachPrice)
+        this.shoppingCartService.addItem(this.cartItem)
 
-            this.shoppingCartService.addItem(this.cartItem)
-            this.sharedService.updateCart();
-            this.stopLoading()
-            // window.location.reload();
-            let disposable = this.dialogService.addDialog(CartPopupComponent, {
-              title: 'Item is added to cart!',
-              message: ''
-            })
-              .subscribe((isConfirmed) => {
-                console.log("DIALOG")
-                //We get dialog result
-                if (isConfirmed) {
-                  //do nothing
-                }
-                else {
-                  //do nothing
-                }
-              });
-            //We can close dialog calling disposable.unsubscribe();
-            //If dialog was not closed manually close it by timeout
-            setTimeout(() => {
-              disposable.unsubscribe();
-            }, 10000);
+        this.sharedService.updateCart();
+        this.stopLoading()
+        // window.location.reload();
+        let disposable = this.dialogService.addDialog(CartPopupComponent, {
+          title: 'Item is added to cart!',
+          message: ''
+        })
+          .subscribe((isConfirmed) => {
+            console.log("DIALOG")
+            //We get dialog result
+            if (isConfirmed) {
+              //do nothing
+            }
+            else {
+              //do nothing
+            }
           });
+        //We can close dialog calling disposable.unsubscribe();
+        //If dialog was not closed manually close it by timeout
+        setTimeout(() => {
+          disposable.unsubscribe();
+        }, 10000);
+
       });
   }
 

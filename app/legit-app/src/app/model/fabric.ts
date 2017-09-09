@@ -1,6 +1,6 @@
 export class Fabric{
-    private fabricId : number;
-    private fabricName : string;
-    private fabricDesc : string;
-    private fabricPrice : number;
+    public fabricId : number;
+    public fabricName : string;
+    public fabricDesc : string;
+    public fabricPrice : number;
 }

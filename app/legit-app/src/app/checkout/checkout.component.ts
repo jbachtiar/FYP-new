@@ -46,7 +46,7 @@ export class CheckoutComponent implements OnInit {
 
   ngOnInit() {
     this.startLoading()
-    this.cartItem = this.shoppingCart.items
+    this.cartItem = this.shoppingCart.cartItems
     console.log(new Date().toLocaleDateString());
     console.log(this.token);
     this.sameAddre = true;
@@ -101,27 +101,27 @@ export class CheckoutComponent implements OnInit {
   }
 
   //increase product qty
-  increment(productId: string) {
-    //this.shoppingCart.items.find((p) => p.productId === productId).quantity += 1
+  increment(productId: number) {
+    this.shoppingCart.cartItems.find((p) => p.product.productId === productId).quantity += 1
     this.updateCart()
   }
 
   //decrease product qty
-  decrement(productId: string) {
-    // if (this.shoppingCart.items.find((p) => p.productId === productId).quantity > 1) {
-    //   this.shoppingCart.items.find((p) => p.productId === productId).quantity -= 1
-    //   this.updateCart()
-    // } else {
-    //   this.remove(productId);
-    // }
+  decrement(productId: number) {
+    if (this.shoppingCart.cartItems.find((p) => p.product.productId === productId).quantity > 1) {
+      this.shoppingCart.cartItems.find((p) => p.product.productId === productId).quantity -= 1
+      this.updateCart()
+    } else {
+      this.remove(productId);
+    }
   }
 
-  remove(productId: string) {
-    // let indexCut = this.shoppingCart.items.findIndex((p) => p.productId === productId)
-    // this.shoppingCart.items.splice(indexCut, 1)
-    // this.updateCart()
-    // window.location.reload()
-    // console.log('index: ' + indexCut)
+  remove(productId: number) {
+    let indexCut = this.shoppingCart.cartItems.findIndex((p) => p.product.productId === productId)
+    this.shoppingCart.cartItems.splice(indexCut, 1)
+    this.updateCart()
+    window.location.reload()
+    console.log('index: ' + indexCut)
   }
 
   updateCart() {

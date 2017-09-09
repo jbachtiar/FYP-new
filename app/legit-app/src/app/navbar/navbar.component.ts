@@ -51,6 +51,7 @@ export class NavbarComponent implements OnInit {
         console.log("TOKEN: " + this.token)
         if (this.token != null) {
             this.authenticated = true;
+            this.shoppingCartService.retrieveCartDB()
         }
         this.shoppingCart = JSON.parse(localStorage.getItem('cart'));
 
@@ -59,7 +60,7 @@ export class NavbarComponent implements OnInit {
         }
 
 
-        this.itemCount = this.shoppingCart.noOfItems;
+        this.itemCount = this.shoppingCart.cartItems.length;
         console.log("AUTHENTICATED: " + this.authenticated);
     }
 
@@ -72,9 +73,9 @@ export class NavbarComponent implements OnInit {
         }
 
 
-        this.itemCount = this.shoppingCart.noOfItems;
+        //this.itemCount = this.shoppingCart.noOfItems;
 
-        this.itemCount = this.shoppingCart.noOfItems;
+        this.itemCount = this.shoppingCart.cartItems.length;
     }
 
     showLogin() {

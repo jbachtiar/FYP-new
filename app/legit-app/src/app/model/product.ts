@@ -4,11 +4,10 @@ import { Pattern } from "../model/pattern"
 import { Image } from "../model/image"
 
 export class Product {
-    private productId : number;
-    private productType : string;
-    private pattern : Pattern;
-    private colour : Colour;
-    private fabric : Fabric;
-    private images :  Image[];
-  }
-  
+  public productId: number;
+  public productType: string;
+  public pattern: Pattern;
+  public colour: Colour;
+  public fabric: Fabric;
+  public images: Image[];
+}

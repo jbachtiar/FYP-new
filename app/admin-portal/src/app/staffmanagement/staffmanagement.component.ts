@@ -21,6 +21,7 @@ export class StaffmanagementComponent implements OnInit {
   private selectedRole: StaffRole = new StaffRole();
   private loading : boolean = false;
   private add : boolean = false;
+  
   ngOnInit() {
     this.staffcontrolservice.getAllRoles()
       .subscribe(

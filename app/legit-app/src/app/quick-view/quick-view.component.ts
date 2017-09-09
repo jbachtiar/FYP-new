@@ -115,58 +115,58 @@ export class QuickViewComponent extends DialogComponent<QuickViewPopupModel, boo
     
     //this.getProductId();
     this.startLoading()
-    this.productService.getProductId(this.patternId, this.selectedFabric.fabric_id, this.selectedColour.colour_id)
-      .subscribe(productId => {
-        console.log('inside get product id')
-        this.productId = productId;
-        console.log("selectedColour: " + this.selectedColour.colour_name)
-        console.log("selectedFabric: " + this.selectedFabric.fabric_id)
-        console.log("quantity: " + this.selectedQuantity)
-        console.log('thispID: ' + this.productId)
+    // this.productService.getProductId(this.patternId, this.selectedFabric.fabric_id, this.selectedColour.colour_id)
+    //   .subscribe(productId => {
+    //     console.log('inside get product id')
+    //     this.productId = productId;
+    //     console.log("selectedColour: " + this.selectedColour.colour_name)
+    //     console.log("selectedFabric: " + this.selectedFabric.fabric_id)
+    //     console.log("quantity: " + this.selectedQuantity)
+    //     console.log('thispID: ' + this.productId)
 
-        this.productService.getPriceById(this.productId)
-          .subscribe(eachPrice => {
-            console.log('each price')
-            this.eachPrice = eachPrice
-            console.log(this.productId)
+    //     this.productService.getPriceById(this.productId)
+    //       .subscribe(eachPrice => {
+    //         console.log('each price')
+    //         this.eachPrice = eachPrice
+    //         console.log(this.productId)
 
-            // this.cartItem.productId = this.productId
-            // this.cartItem.eachPrice = this.eachPrice
-            // this.cartItem.patternName = this.pattern.pattern_name
-            // this.cartItem.quantity = this.selectedQuantity
-            // this.cartItem.url = this.selectedColour.image_url
-            // this.cartItem.fabricName = this.selectedFabric.fabric_name
-            // console.log("fabric name : " + this.cartItem.fabricName)
-            // this.cartItem.colourName = this.selectedColour.colour_name
-            // console.log("colour name : " + this.cartItem.colourName)
+    //         // this.cartItem.productId = this.productId
+    //         // this.cartItem.eachPrice = this.eachPrice
+    //         // this.cartItem.patternName = this.pattern.pattern_name
+    //         // this.cartItem.quantity = this.selectedQuantity
+    //         // this.cartItem.url = this.selectedColour.image_url
+    //         // this.cartItem.fabricName = this.selectedFabric.fabric_name
+    //         // console.log("fabric name : " + this.cartItem.fabricName)
+    //         // this.cartItem.colourName = this.selectedColour.colour_name
+    //         // console.log("colour name : " + this.cartItem.colourName)
 
-            // console.log(this.cartItem.patternName)
-            console.log('eachPrice: ' + this.eachPrice)
-            this.shoppingCartService.addItem(this.cartItem)
-            this.sharedService.updateCart();
-            this.stopLoading()
-            //window.location.reload();
-            this.closeModal()
-            let disposable = this.dialogService.addDialog(CartPopupComponent, {
-              title: 'Item is added to cart!',
-              message: ''
-            })
-              .subscribe((isConfirmed) => {
-                console.log("DIALOG")
-                //We get dialog result
-                if (isConfirmed) {
-                  //do nothing
-                }
-                else {
-                  //do nothing
-                }
-              });
-            //We can close dialog calling disposable.unsubscribe();
-            //If dialog was not closed manually close it by timeout
-            setTimeout(() => {
-              disposable.unsubscribe();
-            }, 10000);
-          });
-      });
+    //         // console.log(this.cartItem.patternName)
+    //         console.log('eachPrice: ' + this.eachPrice)
+    //         this.shoppingCartService.addItem(this.cartItem)
+    //         this.sharedService.updateCart();
+    //         this.stopLoading()
+    //         //window.location.reload();
+    //         this.closeModal()
+    //         let disposable = this.dialogService.addDialog(CartPopupComponent, {
+    //           title: 'Item is added to cart!',
+    //           message: ''
+    //         })
+    //           .subscribe((isConfirmed) => {
+    //             console.log("DIALOG")
+    //             //We get dialog result
+    //             if (isConfirmed) {
+    //               //do nothing
+    //             }
+    //             else {
+    //               //do nothing
+    //             }
+    //           });
+    //         //We can close dialog calling disposable.unsubscribe();
+    //         //If dialog was not closed manually close it by timeout
+    //         setTimeout(() => {
+    //           disposable.unsubscribe();
+    //         }, 10000);
+    //       });
+    //   });
   }
 }
