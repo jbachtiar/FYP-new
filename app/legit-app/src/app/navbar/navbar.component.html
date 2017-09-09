@@ -24,7 +24,7 @@
                     <div class="box">
                         <img src="/assets/images/shopping-bag.png" style="width:30px">
                         <div class="text">
-                            <h2 style="font-size: 15px;">{{itemCount}}</h2>
+                            <h2 style="font-size: 15px;" *ngIf="itemCount!=0">{{itemCount}}</h2>
                         </div>
                     </div>
                 </a>

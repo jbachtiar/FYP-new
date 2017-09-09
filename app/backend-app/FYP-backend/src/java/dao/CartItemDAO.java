@@ -78,14 +78,16 @@ public class CartItemDAO {
     }
 
     public String addCartItem(int cartId, CartItem cI) throws SQLException {
+        
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        
+        System.out.println("cart ID : " + cartId);
         CartItem cartItem = getCartItemByCartProductId(cartId, cI.getProduct().getProductId());
         
         if(cartItem == null){
-            
+            System.out.println("HEY IM HEREEEE");
+        
             String sql = "INSERT INTO CART_ITEM VALUES (?,?,?,?)";
 
             try {
@@ -97,14 +99,15 @@ public class CartItemDAO {
                 stmt.setInt(3, cI.getQuantity());
                 stmt.setDouble(4, cI.getUnitPrice());
 
-                rs = stmt.executeQuery();
+                stmt.executeUpdate();
 
             } finally {
                 ConnectionManager.close(conn, stmt, rs);
             }
 
         }else{
-            
+            System.out.println("product ID : " + cI.getProduct().getProductId());
+            System.out.println("quantity : " + cI.getQuantity());
             String sql = "UPDATE CART_ITEM SET QUANTITY = ? WHERE CART_ID = ? AND PRODUCT_ID = ?";
 
             try {
@@ -115,7 +118,7 @@ public class CartItemDAO {
                 stmt.setInt(2, cartId);
                 stmt.setInt(3, cI.getProduct().getProductId());
 
-                rs = stmt.executeQuery();
+                stmt.executeUpdate();
 
             } finally {
                 ConnectionManager.close(conn, stmt, rs);
@@ -139,7 +142,8 @@ public class CartItemDAO {
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, cartId);
             stmt.setInt(2, productId);
-            rs = stmt.executeQuery();
+            
+            stmt.executeUpdate();
 
         } finally {
             ConnectionManager.close(conn, stmt, rs);

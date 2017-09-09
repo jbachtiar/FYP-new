@@ -1,4 +1,4 @@
 export class Collection{
-    private collectionId : number;
-    private collectionName : string;
+    public collectionId : number;
+    public collectionName : string;
 }

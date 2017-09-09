@@ -1,4 +1,4 @@
 export class Colour{
-    private colourId : number;
-    private colourName : string;
+    public colourId : number;
+    public colourName : string;
 }
