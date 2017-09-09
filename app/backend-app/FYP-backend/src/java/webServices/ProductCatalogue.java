@@ -23,6 +23,8 @@ import entity.Product;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 import javax.annotation.security.PermitAll;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
@@ -734,4 +736,71 @@ public class ProductCatalogue {
 //        String finalJsonOutput = gson.toJson(jsonOutput);
 //        return finalJsonOutput;
 //    }
+    
+//    @GET
+//    @Path("/GetFilters")
+//    @Produces(MediaType.APPLICATION_JSON)
+//    public String getAllFilters() {
+//        
+//        response.setHeader("Access-Control-Allow-Headers", "Content-Type");
+//        response.setHeader("Access-Control-Allow-Origin", "*");
+//        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
+//
+//        Gson gson = new GsonBuilder().create();
+//        JsonObject jsonOutput = new JsonObject();
+//        
+//        JsonArray collectionArray = new JsonArray();
+//        JsonArray fabricArray = new JsonArray();
+//        JsonArray colourArray = new JsonArray();
+//        
+//        ProductDAO productDao = new ProductDAO();
+//
+//        try {
+//
+//            ArrayList<Bedding> bList = productDao.getAllBeddings();
+//            if (bList == null) {
+//                
+//                jsonOutput.addProperty("status", "500");
+//                jsonOutput.addProperty("msg", "No Beddings Available");
+//                
+//
+//            } else {
+//                
+//                Set<Integer> collectionSet = new HashSet();
+//                Set<Integer> fabricSet = new HashSet();
+//                Set<Integer> colourSet = new HashSet();
+//                
+//                
+//                
+//                
+//                
+//setOfIntegers.add(Integer.valueOf(10));
+//setOfIntegers.add(Integer.valueOf(20));
+//setOfIntegers.add(Integer.valueOf(30));
+//setOfIntegers.add(Integer.valueOf(40));
+//setOfIntegers.add(Integer.valueOf(50));
+//Logger l = Logger.getLogger("Test");
+//for (Integer i : setOfIntegers) {
+//  l.info("Integer value is : " + i);
+//}
+//
+//                
+//                jsonOutput.addProperty("status", "200");
+//                JsonArray colours = gson.toJsonTree(cList).getAsJsonArray(); // convert arraylist to jsonArray
+//                jsonOutput.add("colours", colours);
+//
+//            }
+//
+//        } catch (SQLException e) {
+//
+//            jsonOutput.addProperty("status", "500");
+//            jsonOutput.addProperty("msg", "ColourService: SQL Exception");
+//
+//        }
+//
+//        String finalJsonOutput = gson.toJson(jsonOutput);
+//        return finalJsonOutput;
+//        
+//    }
+    
 }

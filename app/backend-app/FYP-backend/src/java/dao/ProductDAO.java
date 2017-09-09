@@ -281,7 +281,7 @@ public class ProductDAO {
         PreparedStatement stmt = null;
         ResultSet rs = null;
         ArrayList<Bedding> beddings = new ArrayList<>();
-        String sql = "SELECT * FROM PRODUCT P AND BEDDING B WHERE B.PRODUCT_ID=P.PRODUCT_ID AND P.PRODUCT_TYPE=?";
+        String sql = "SELECT P.*, B.SIZE_NAME FROM PRODUCT P LEFT OUTER JOIN BEDDING B ON B.PRODUCT_ID=P.PRODUCT_ID WHERE P.PRODUCT_TYPE=? AND DELETED = 'N'";
         try {
             conn = ConnectionManager.getConnection();
             stmt = conn.prepareStatement(sql);
@@ -645,4 +645,48 @@ public class ProductDAO {
 //        return productArrayList.toArray(new Product[productArrayList.size()]);
 //    }
 //    
+    
+    public ArrayList<Bedding> getAllBeddingsFilter() throws SQLException {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        ArrayList<Bedding> beddings = new ArrayList<>();
+        String sql = "SELECT P.*, B.SIZE_NAME FROM PRODUCT P LEFT OUTER JOIN BEDDING B ON B.PRODUCT_ID=P.PRODUCT_ID WHERE P.PRODUCT_TYPE=? AND DELETED = 'N'";
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, "Bedding");
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+
+                int productId = rs.getInt("product_id");
+                int patternId = rs.getInt("pattern_id");
+                int colourId = rs.getInt("colour_id");
+                String sizeName = rs.getString("size_name");
+                int fabricId = rs.getInt("fabric_id");
+
+                PatternDAO dd = new PatternDAO();
+                ColourDAO cd = new ColourDAO();
+                ImageDAO id = new ImageDAO();
+                BeddingSizeDAO bzd = new BeddingSizeDAO();
+                FabricDAO fd = new FabricDAO();
+
+                Pattern d = dd.getPatternById(patternId);
+                Colour c = cd.getColourById(colourId);
+                BeddingSize bs = bzd.getBeddingSizeByName(sizeName);
+                Fabric f = fd.getFabricById(fabricId);
+                Image[] images = id.getAllImagesByProductId(productId);
+
+                Bedding bedding = new Bedding(bs, productId, "Bedding", d, c, f, images);
+                beddings.add(bedding);
+
+            }
+
+        } finally {
+            ConnectionManager.close(conn, stmt, rs);
+        }
+
+        return beddings;
+
+    }
 }
