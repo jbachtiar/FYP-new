@@ -351,6 +351,37 @@ public class ProductDAO {
         }
         return p;
     }
+    
+    public double getLowestCombinationPriceByPatternId(int patternId) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        double lowestPrice=9999999999999999999999.9;
+        BeddingSizeDAO beddingSizeDao= new BeddingSizeDAO();
+
+        String sql = "select * from product p, pattern pa, fabric f, bedding b where p.pattern_id=pa.pattern_id and p.product_id=b.product_id and p.fabric_id=f.fabric_id and p.pattern_id=?";
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, patternId);   
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                double patternPrice = rs.getDouble("pattern_price");
+                double fabricPrice= rs.getDouble("fabric_price");
+                double sizePrice= beddingSizeDao.getLowestSizePrice();
+                double totalPrice= patternPrice+fabricPrice+sizePrice;
+                if(totalPrice<=lowestPrice){
+                    lowestPrice=totalPrice;
+                }
+                
+            }
+
+        } finally {
+            ConnectionManager.close(conn, stmt, rs);
+        }
+        return lowestPrice;
+    }
 //
 //    public static Product[] getfilteredProducts(String collectionId, String fabricId, String colourId, String sortPrice) throws SQLException {
 //
