@@ -8,13 +8,17 @@ package webServices;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import dao.BeddingSizeDAO;
 import dao.CollectionDAO;
 import dao.ColourDAO;
 import dao.FabricDAO;
 import dao.PatternDAO;
 import dao.ProductDAO;
 import entity.Bedding;
+import entity.BeddingSize;
 import entity.Collection;
 import entity.Colour;
 import entity.Fabric;
@@ -258,6 +262,7 @@ public class ProductCatalogue {
 
         JsonObject jsonOutput = new JsonObject();
         Gson gson = new GsonBuilder().create();
+        JsonParser parser = new JsonParser();
 
         try {
             PatternDAO patternDao = new PatternDAO();
@@ -300,7 +305,7 @@ public class ProductCatalogue {
                         Colour col = colours.get(j);
                         JsonObject co = new JsonObject();
                         int colorId = col.getColourId();
-                        
+
                         co.addProperty("colour_id", colorId);
                         co.addProperty("colour_name", col.getColourName());
 
@@ -309,6 +314,20 @@ public class ProductCatalogue {
                             JsonArray images = gson.toJsonTree(p.getImages()).getAsJsonArray();
 
                             co.add("images", images);
+
+                            if (p.getProductType().equals("Bedding")) {
+
+                                BeddingSizeDAO beddingSizeDao = new BeddingSizeDAO();
+                                ArrayList<BeddingSize> beddingSizes = beddingSizeDao.getAllBeddingSizes();
+                                JsonArray sizes = new JsonArray();
+                                for (BeddingSize bs : beddingSizes) {
+                                    String beddingSizeString = gson.toJson(bs);
+                                    JsonElement beddingSizeElement = parser.parse(beddingSizeString);
+                                    sizes.add(beddingSizeElement);
+                                }
+                                
+                                co.add("size", sizes);
+                            }
                         }
                         colorsJson.add(co);
                     }
