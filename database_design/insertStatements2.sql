@@ -10,8 +10,8 @@ INSERT INTO STAFF VALUES ('staff2@gmail.com','Matthew','Xia','12345678','1234','
 INSERT INTO STAFF VALUES ('staff3@gmail.com','James','Xia','12345678','1234','3');
 
 
-INSERT INTO CUSTOMER_ADDRESS VALUES ('1', 'customer@gmail.com','134 Highlander Ave 3','Singapore','Singapore','536748', 'Y');
-INSERT INTO CUSTOMER_ADDRESS VALUES ('2', 'customer@gmail.com','324 Orchard Ave 4','Singapore','Singapore','876324', 'N');
+INSERT INTO CUSTOMER_ADDRESS VALUES ('1', 'customer@gmail.com', 'hui yan', '91234230', '134 Highlander Ave 3','Singapore','Singapore','536748', 'Y');
+INSERT INTO CUSTOMER_ADDRESS VALUES ('2', 'customer@gmail.com', 'hy chen', '99122332', '324 Orchard Ave 4','Singapore','Singapore','876324', 'N');
 
 INSERT INTO COLLECTION VALUES ('1','Bestsellers');
 INSERT INTO COLLECTION VALUES ('2','2018 Spring');
@@ -52,10 +52,8 @@ INSERT INTO PATTERN_TAG VALUES('6','6');
 INSERT INTO PATTERN_TAG VALUES('7','1');
 
 INSERT INTO BEDDING_SIZE VALUES('Single','92 cm x 187 cm',100);
-INSERT INTO BEDDING_SIZE VALUES('Double','137 cm x 187 cm',200);
 INSERT INTO BEDDING_SIZE VALUES('Queen','153 cm x 203 cm',300);
 INSERT INTO BEDDING_SIZE VALUES('King','183 cm x 203 cm',400);
-INSERT INTO BEDDING_SIZE VALUES('Super King','	203ccm x 203 cm',500);
 
 INSERT INTO COLOUR VALUES('1','White','N');
 INSERT INTO COLOUR VALUES('2','Black','N');

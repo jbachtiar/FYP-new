@@ -120,35 +120,33 @@ public class CustomerAddressDAO {
         String sql = "INSERT INTO CUSTOMER_ADDRESS (ADDRESS_ID, EMAIL, RECIPIENT_NAME, PHONE_NO, ADDRESS_LINE, CITY, COUNTRY, POSTAL_CODE, ISDEFAULT) VALUES (?,?,?,?,?,?,?,?,?)";
         String email = address.getEmail();
         
-        if (getTheNumOfAddressesByEmail(email) > 3) {
-            return "exceed address limit";
-        } else {
-            try {
-                conn = ConnectionManager.getConnection();
-                stmt = conn.prepareStatement(sql);
-                String addressLine = address.getAddressLine();
-                String city = address.getCity();
-                String country = address.getCountry();
-                String postalCode = address.getPostalCode();
-                String isDefault = address.getIsDefault();
-                String recipientName = address.getRecipientName();
-                String phoneNo = address.getPhoneNo();
+    
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            String addressLine = address.getAddressLine();
+            String city = address.getCity();
+            String country = address.getCountry();
+            String postalCode = address.getPostalCode();
+            String isDefault = address.getIsDefault();
+            String recipientName = address.getRecipientName();
+            String phoneNo = address.getPhoneNo();
 
-                stmt.setInt(1, getTheNumOfAddressesByEmail(email) + 1);
-                stmt.setString(2, email);
-                stmt.setString(3, recipientName);
-                stmt.setString(4, phoneNo);
-                stmt.setString(5, addressLine);
-                stmt.setString(6, city);
-                stmt.setString(7, country);
-                stmt.setString(8, postalCode);
-                stmt.setString(9, isDefault);
+            stmt.setInt(1, getTheNumOfAddressesByEmail(email) + 1);
+            stmt.setString(2, email);
+            stmt.setString(3, recipientName);
+            stmt.setString(4, phoneNo);
+            stmt.setString(5, addressLine);
+            stmt.setString(6, city);
+            stmt.setString(7, country);
+            stmt.setString(8, postalCode);
+            stmt.setString(9, isDefault);
 
-                rs = stmt.executeQuery();
-            } finally {
-                ConnectionManager.close(conn, stmt, rs);
-            }
+            rs = stmt.executeQuery();
+        } finally {
+            ConnectionManager.close(conn, stmt, rs);
         }
+        
 
         return "Success";
 
