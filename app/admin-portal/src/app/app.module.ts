@@ -23,6 +23,7 @@ import { PatternDetailsViewComponent } from './pattern-details-view/pattern-deta
 import { LoadingComponent } from './loading/loading.component';
 import { ConfirmationPopupComponent } from './confirmation-popup/confirmation-popup.component';
 import { DashboardFactoryManagerComponent } from './dashboard-factory-manager/dashboard-factory-manager.component';
+import { OrderManagementComponent } from './order-management/order-management.component';
 
 import { ProductService } from './services/product.service';
 import { PagerService} from './services/pager.service'
@@ -31,6 +32,8 @@ import { OrderService } from './services/order.service'
 import { QRCodeModule } from 'angular2-qrcode';
 import { BootstrapModalModule } from 'ng2-bootstrap-modal';
 import { DataTableModule } from 'angular-4-data-table';
+import { MdTabsModule, MdButtonModule } from '@angular/material';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 
 @NgModule({
@@ -48,7 +51,8 @@ import { DataTableModule } from 'angular-4-data-table';
     PatternDetailsViewComponent,
     LoadingComponent,
     ConfirmationPopupComponent,
-    DashboardFactoryManagerComponent
+    DashboardFactoryManagerComponent,
+    OrderManagementComponent
   ],
   imports: [
     BrowserModule,
@@ -58,7 +62,13 @@ import { DataTableModule } from 'angular-4-data-table';
     RouterModule,
     QRCodeModule,
     BootstrapModalModule,
-    DataTableModule
+    DataTableModule,
+    MdTabsModule,
+    MdButtonModule,
+    Ng2SearchPipeModule
+    ],
+  exports: [
+    MdTabsModule
   ],
   providers: [
     AuthGuard,
