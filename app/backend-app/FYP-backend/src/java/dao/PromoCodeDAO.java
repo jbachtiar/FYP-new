@@ -93,7 +93,7 @@ public class PromoCodeDAO {
         ResultSet rs = null;
         PromoCode p = null;
 
-        String sql = "SELECT * FROM PROMO_CODE WHERE PROMO_CODE_ID = ? AND DELETED = 'N'";
+        String sql = "SELECT * FROM PROMO_CODE WHERE PROMO_CODE_ID = ?";
 
         try {
             conn = ConnectionManager.getConnection();
@@ -108,7 +108,7 @@ public class PromoCodeDAO {
                 String promoName = rs.getString("PROMO_NAME");
                 String promoType = rs.getString("PROMO_TYPE");
                 double promoValue = rs.getDouble("PROMO_VALUE");
-                double minPurchase = rs.getDouble("MIN_PURCAHSE");
+                double minPurchase = rs.getDouble("MIN_PURCHASE");
                 double discount = rs.getDouble("MAX_DISCOUNT");
                 int quota = rs.getInt("QUOTA");
                 int counter = rs.getInt("COUNTER");
@@ -152,7 +152,7 @@ public class PromoCodeDAO {
                 String promoName = rs.getString("PROMO_NAME");
                 String promoType = rs.getString("PROMO_TYPE");
                 double promoValue = rs.getDouble("PROMO_VALUE");
-                double minPurchase = rs.getDouble("MIN_PURCAHSE");
+                double minPurchase = rs.getDouble("MIN_PURCHASE");
                 double discount = rs.getDouble("MAX_DISCOUNT");
                 int quota = rs.getInt("QUOTA");
                 int counter = rs.getInt("COUNTER");

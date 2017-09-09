@@ -22,8 +22,10 @@ public class Order {
     private PromoCode promoCode;
     private OrderItem[] orderItems;
     private OrderStatusLog[] statusLogs;
+    private String courierName;
+    private String trackingNo;
 
-    public Order(int orderId, Timestamp order_TimeStamp, double netAmt, double promoDiscAmt, Address address, String paymentRefNo, PromoCode promoCode, OrderItem[] orderItems, OrderStatusLog[] statusLogs) {
+    public Order(int orderId, Timestamp order_TimeStamp, double netAmt, double promoDiscAmt, Address address, String paymentRefNo, PromoCode promoCode, OrderItem[] orderItems, OrderStatusLog[] statusLogs, String courierName, String trackingNo) {
         this.orderId = orderId;
         this.order_TimeStamp = order_TimeStamp;
         this.netAmt = netAmt;
@@ -33,6 +35,8 @@ public class Order {
         this.promoCode = promoCode;
         this.orderItems = orderItems;
         this.statusLogs = statusLogs;
+        this.courierName = courierName;
+        this.trackingNo = trackingNo;
     }
 
     public int getOrderId() {
@@ -105,6 +109,22 @@ public class Order {
 
     public void setStatusLogs(OrderStatusLog[] statusLogs) {
         this.statusLogs = statusLogs;
+    }
+
+    public String getCourierName() {
+        return courierName;
+    }
+
+    public void setCourierName(String courierName) {
+        this.courierName = courierName;
+    }
+
+    public String getTrackingNo() {
+        return trackingNo;
+    }
+
+    public void setTrackingNo(String trackingNo) {
+        this.trackingNo = trackingNo;
     }
     
 }

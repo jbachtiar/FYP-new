@@ -14,11 +14,13 @@ import java.sql.Timestamp;
 public class OrderStatusLog {
     
     private OrderStatus orderStatus;
-    private Timestamp timeStamp;
+    private Timestamp startTimeStamp;
+    private Timestamp endTimeStamp;
 
-    public OrderStatusLog(OrderStatus orderStatus, Timestamp timeStamp) {
+    public OrderStatusLog(OrderStatus orderStatus, Timestamp startTimeStamp, Timestamp endTimeStamp) {
         this.orderStatus = orderStatus;
-        this.timeStamp = timeStamp;
+        this.startTimeStamp = startTimeStamp;
+        this.endTimeStamp = endTimeStamp;
     }
 
     public OrderStatus getOrderStatus() {
@@ -29,12 +31,20 @@ public class OrderStatusLog {
         this.orderStatus = orderStatus;
     }
 
-    public Timestamp getTimeStamp() {
-        return timeStamp;
+    public Timestamp getStartTimeStamp() {
+        return startTimeStamp;
     }
 
-    public void setTimeStamp(Timestamp timeStamp) {
-        this.timeStamp = timeStamp;
+    public void setStartTimeStamp(Timestamp startTimeStamp) {
+        this.startTimeStamp = startTimeStamp;
+    }
+
+    public Timestamp getEndTimeStamp() {
+        return endTimeStamp;
+    }
+
+    public void setEndTimeStamp(Timestamp endTimeStamp) {
+        this.endTimeStamp = endTimeStamp;
     }
     
 }

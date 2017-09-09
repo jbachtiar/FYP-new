@@ -13,6 +13,8 @@ import database.ConnectionManager;
 import entity.Address;
 import entity.Order;
 import entity.OrderItem;
+import entity.OrderStatusLog;
+import entity.PromoCode;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -130,7 +132,7 @@ public class OrderDAO {
                 PromoCodeDAO pcDao = new PromoCodeDAO();
                 Address a = new Address(email, recipientName, phoneNo, 0, addressLine, city, country, postalCode, "N");
                 OrderItemDAO orderItemDao = new OrderItemDAO();
-                order = new Order(orderId, orderDate, netAmt, promoDiscAmt, a, paymentRefNo, pcDao.getPromoCodeById(promoCode), orderItemDao.getOrderItemsByOrderId(orderId), orderLog.getOrderStatusByOrderId(orderId));
+                order = new Order(orderId, orderDate, netAmt, promoDiscAmt, a, paymentRefNo, pcDao.getPromoCodeById(promoCode), orderItemDao.getOrderItemsByOrderId(orderId), orderLog.getOrderStatusByOrderId(orderId), null, null);
                 orderList.add(order);
             }
         } finally {
@@ -138,6 +140,66 @@ public class OrderDAO {
         }
         
         return orderList;
+    }
+    
+    public Order[] getAllOrders() throws SQLException {
+        
+        PromoCodeDAO pcDao = new PromoCodeDAO();
+        OrderItemDAO orderItemDao = new OrderItemDAO();
+        
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        ArrayList<Order> orderList = new ArrayList<Order>();
+        Order order = null;
+        
+        String sql = "SELECT * FROM CUSTOMER_ORDER";
+        
+        try {
+            
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            rs = stmt.executeQuery();
+            
+            while (rs.next()) {
+                
+                int orderId = rs.getInt("ORDER_ID");
+                Timestamp orderDate = rs.getTimestamp("ORDER_DATE");
+                double netAmt = rs.getDouble("NET_AMT");
+                double promoDiscAmt = rs.getDouble("PROMO_DISC_AMT");
+                
+                //create address object: address from order table does not have an address id and a default parameter
+                String email = rs.getString("EMAIL");
+                String recipientName = rs.getString("RECIPIENT_NAME");
+                String phoneNo = rs.getString("PHONE_NO");
+                String addressLine = rs.getString("ADDRESS_LINE");
+                String city = rs.getString("CITY");
+                String country = rs.getString("COUNTRY");
+                String postalCode = rs.getString("POSTAL_CODE");
+                Address address = new Address(email, recipientName, phoneNo, 0, addressLine, city, country, postalCode, "N");
+                
+                String paymentRefNo = rs.getString("STRIPE_CHARGE_ID");
+
+                //create a promo code object
+                int promoCode = rs.getInt("PROMO_CODE_ID");
+                PromoCode pc = pcDao.getPromoCodeById(promoCode);
+                
+                //get all the order items under this order
+                OrderItem[] orderItems = orderItemDao.getOrderItemsByOrderId(orderId);
+                
+                //get latest order status
+                OrderStatusLogDAO orderStatusLogDAO = new OrderStatusLogDAO();
+                OrderStatusLog[] osl = orderStatusLogDAO.getOrderStatusByOrderId(orderId);
+                
+                order = new Order(orderId, orderDate, netAmt, promoDiscAmt, address, paymentRefNo, pc, orderItems, osl, null, null);
+                orderList.add(order);
+            }
+        } finally {
+            ConnectionManager.close(conn, stmt, rs);
+        }
+        
+        Order[] orderArr = orderList.toArray(new Order[orderList.size()]);
+        return orderArr;
     }
     
     public Order[] getOrderByEmail(String email) throws SQLException {
@@ -173,7 +235,7 @@ public class OrderDAO {
                 PromoCodeDAO pcDao = new PromoCodeDAO();
                 Address a = new Address(email, recipientName, phoneNo, 0, addressLine, city, country, postalCode, "N");
                 OrderItemDAO orderItemDao = new OrderItemDAO();
-                order = new Order(orderId, orderDate, netAmt, promoDiscAmt, a, paymentRefNo, pcDao.getPromoCodeById(promoCode), orderItemDao.getOrderItemsByOrderId(orderId), orderLog.getOrderStatusByOrderId(orderId));
+                order = new Order(orderId, orderDate, netAmt, promoDiscAmt, a, paymentRefNo, pcDao.getPromoCodeById(promoCode), orderItemDao.getOrderItemsByOrderId(orderId), orderLog.getOrderStatusByOrderId(orderId), null, null);
                 orderList.add(order);
             }
         }catch(SQLException e){
