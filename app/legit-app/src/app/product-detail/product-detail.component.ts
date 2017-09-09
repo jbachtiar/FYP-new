@@ -19,6 +19,7 @@ import { SharedService } from "../shared.service"
 export class ProductDetailComponent implements OnInit {
   selectedFabric: any;
   selectedColour: any;
+  selectedSize: any;
   selectedQuantity = 1;
   cartItem: CartItem = new CartItem();
   productId: string;
@@ -28,6 +29,7 @@ export class ProductDetailComponent implements OnInit {
   fabrics: any = {};
   quantity = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
   selectedFabricPrice: number;
+  selectedSizePrice: number;
   totalPrice: number;
   loading: boolean = true;
   loadingImage: boolean = false;
@@ -60,6 +62,8 @@ export class ProductDetailComponent implements OnInit {
         this.pattern = pattern;
         this.selectedFabric = pattern.fabrics[0]
         this.selectedColour = this.selectedFabric.colours[0]
+        this.selectedSize = this.selectedColour.sizes[0];
+        this.selectedSizePrice = + this.selectedSize.sizePrice
         this.selectedFabricPrice = +this.selectedFabric.fabric_price
         this.totalPrice = this.pattern.pattern_price + this.selectedFabricPrice
         this.stopLoading()
@@ -81,6 +85,19 @@ export class ProductDetailComponent implements OnInit {
     this.totalPrice = this.pattern.pattern_price + this.selectedFabricPrice;
 
     console.log("RECALCULATED PRICE" + this.totalPrice);
+  }
+
+  onSizeChange() {
+
+    this.selectedSizePrice=+ this.selectedSize.sizePrice;
+    this.totalPrice = this.pattern.pattern_price + this.selectedFabricPrice + this.selectedSizePrice
+    console.log("Pattern Price: " + this.pattern.pattern_price)
+    console.log("Fabric Price: " + this.selectedFabricPrice)
+    console.log("Size Price: " + this.selectedSizePrice)
+  
+  
+
+    console.log("RECALCULATED PRICE - fabric: " + this.totalPrice);
   }
 
   //onColourChange() {
