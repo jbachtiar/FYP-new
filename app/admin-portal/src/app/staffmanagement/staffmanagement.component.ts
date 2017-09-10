@@ -21,6 +21,8 @@ export class StaffmanagementComponent implements OnInit {
   private selectedRole: StaffRole = new StaffRole();
   private loading : boolean = false;
   private add : boolean = false;
+  private edStaff: Staff;
+  private edit : boolean = false;
   
   ngOnInit() {
     this.staffcontrolservice.getAllRoles()
@@ -60,18 +62,74 @@ export class StaffmanagementComponent implements OnInit {
   }
   
   cancelAdd(){
-    this.add = false;
+    let disposable = this.dialogService.addDialog(ConfirmationPopupComponent, {
+      title: 'Cancel add?',
+      message: 'Adding in the process, you may lose your added inputs.'
+    })
+      .subscribe((isConfirmed) => {
+        console.log("DIALOG")
+        //We get dialog result
+        if (isConfirmed) {
+          this.add = false;
+          
+        }
+        else {
+          //do nothing
+        }
+      });
+    
   }
 
+  
+  cancelEdit(){
+    let disposable = this.dialogService.addDialog(ConfirmationPopupComponent, {
+      title: 'Cancel edit?',
+      message: 'Editing in the process, you may lose your edited inputs.'
+    })
+      .subscribe((isConfirmed) => {
+        console.log("DIALOG")
+        //We get dialog result
+        if (isConfirmed) {
+          this.edit = false;
+          
+        }
+        else {
+          //do nothing
+        }
+      });
+    
+  }
+
+  editStaff(s : Staff){
+    //this.edStaff = s;
+    this.edit = true;
+
+  }
 
   deleteStaff(s : Staff){
-    this.staffcontrolservice.deleteStaff(this.token, s.email)
-    .subscribe(
-      res=>{
-        console.log(res)
-        this.ngOnInit()
-      }
-    )
+    let disposable = this.dialogService.addDialog(ConfirmationPopupComponent, {
+      title: 'Remove '+ s.firstName + " "+ s.lastName  +'?',
+      message: 'Are you sure to remove '+ s.firstName + " "+ s.lastName  +' from the staff list?'
+    })
+      .subscribe((isConfirmed) => {
+        console.log("DIALOG")
+        //We get dialog result
+        if (isConfirmed) {
+          this.staffcontrolservice.deleteStaff(this.token, s.email)
+          .subscribe(
+            res=>{
+              console.log(res)
+              this.ngOnInit()
+            }
+          )
+        }
+        else {
+          //do nothing
+        }
+      });
+    
+    
+    
   }
 
   stopLoading(){
