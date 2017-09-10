@@ -9,19 +9,20 @@
  -->
 
 <div class="row">
+  <div class="col-sm-12 progress-row">
   <div class="button-row">
     <div class="col-md-1">
-      <button md-fab>
+      <button [ngClass]="{'pulse': pulse.payment}" md-fab color="warn" [disabled]="isDisabled.payment">
         <i class="ti-wallet"></i>
       </button>
     </div>
 
     <div class="col-md-1">
-      </div>
+    </div>
 
     <div class="col-md-1">
-      <button md-fab color="primary">
-          <span class="ti-truck"></span>
+      <button [ngClass]="{'pulse': pulse.production}" md-fab color="warn" [disabled]="isDisabled.production">
+          <span class="ti-cut"></span>
       </button>
     </div>
 
@@ -29,36 +30,42 @@
     </div>
 
     <div class="col-md-1">
-      <button md-fab color="accent">Accent</button>
+      <button [ngClass]="{'pulse': pulse.packaging}" md-fab color="warn" [disabled]="isDisabled.packaging">
+          <span class="ti-package"></span>
+      </button>
     </div>
 
     <div class="col-md-1">
-      </div>
-
-    <div class="col-md-1">
-      <button md-fab color="warn">Warn</button>
     </div>
 
     <div class="col-md-1">
-      </div>
-
-    <div class="col-md-1">
-      <button md-fab [disabled]="isDisabled">Disabled</button>
+      <button [ngClass]="{'pulse': pulse.preparation}" md-fab color="warn" [disabled]="isDisabled.preparation">
+          <span class="ti-location-arrow"></span>
+      </button>
     </div>
 
     <div class="col-md-1">
-      </div>
-
-    <div class="col-md-1">
-      <button md-fab>
-      <md-icon class="md-24" aria-label="Example icon-button with a heart icon">favorite</md-icon>
-    </button>
     </div>
 
     <div class="col-md-1">
-      </div>
+      <button [ngClass]="{'pulse': pulse.transit}" md-fab color="warn" [disabled]="isDisabled.transit">
+        <span class="ti-truck"></span>
+      </button>
+    </div>
 
-      <md-progress-bar class="example-margin" [color]="color" [mode]="mode" [value]="value" [bufferValue]="bufferValue">
-        </md-progress-bar>
+    <div class="col-md-1">
+    </div>
+
+    <div class="col-md-1">
+      <button [ngClass]="{'pulse': pulse.completed}" md-fab color="warn" [disabled]="isDisabled.completed">
+          <span class="ti-check"></span>
+      </button>
+    </div>
+
+    <div class="col-md-1">
+    </div>
   </div>
-  
+  </div>
+    <md-progress-bar class="example-margin" [color]="color" [mode]="mode" [value]="value" [bufferValue]="bufferValue">
+    </md-progress-bar>
+  </div>

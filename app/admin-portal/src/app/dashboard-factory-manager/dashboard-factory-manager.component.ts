@@ -7,9 +7,9 @@ import { Router } from '@angular/router';
   selector: 'app-dashboard-factory-manager',
   templateUrl: './dashboard-factory-manager.component.html',
   styleUrls: ['./dashboard-factory-manager.component.css'],
-
   providers: [OrderService]
 })
+
 export class DashboardFactoryManagerComponent implements OnInit {
   private orders: any = {};
   itemCount = 0;
@@ -38,17 +38,22 @@ export class DashboardFactoryManagerComponent implements OnInit {
         // this.orderDisplay['order_id'] = o.order_id
         // this.orderDisplay['order_date'] = o.order_date
 
-        let status = o.order_status_log[0]
-        let currentStatus = status
-        let mostCurrentTimestamp = status.start_timestamp;
-        for (status of o.order_status_log) {
-          var timestamp = status.start_timestamp;
-          if (mostCurrentTimestamp < timestamp) {
-            mostCurrentTimestamp = timestamp;
-            currentStatus = status;
+        if(o.statusLogs.length>0){
+          let status = o.statusLogs[0]
+          console.log("STATUS: " + status)
+          let currentStatus = status
+          let mostCurrentTimestamp = status.startTimeStamp;
+          for (status of o.statusLogs) {
+            var timestamp = status.startTimeStamp;
+            if (mostCurrentTimestamp < timestamp) {
+              mostCurrentTimestamp = timestamp;
+              currentStatus = status;
+            }
           }
+          o['currentStatus'] = currentStatus.statusName;
+        }else{
+          o['currentStatus'] = 'NO DATA';
         }
-        o['currentStatus'] = currentStatus.status_name;
       }
     })
   }
@@ -93,17 +98,22 @@ export class DashboardFactoryManagerComponent implements OnInit {
         // this.orderDisplay['order_id'] = o.order_id
         // this.orderDisplay['order_date'] = o.order_date
 
-        let status = o.order_status_log[0]
-        let currentStatus = status
-        let mostCurrentTimestamp = status.start_timestamp;
-        for (status of o.order_status_log) {
-          var timestamp = status.start_timestamp;
-          if (mostCurrentTimestamp < timestamp) {
-            mostCurrentTimestamp = timestamp;
-            currentStatus = status;
+        if(o.statusLogs.length>0){
+          let status = o.statusLogs[0]
+          console.log("STATUS: " + status)
+          let currentStatus = status
+          let mostCurrentTimestamp = status.startTimeStamp;
+          for (status of o.statusLogs) {
+            var timestamp = status.startTimeStamp;
+            if (mostCurrentTimestamp < timestamp) {
+              mostCurrentTimestamp = timestamp;
+              currentStatus = status;
+            }
           }
+          o['currentStatus'] = currentStatus.statusName;
+        }else{
+          o['currentStatus'] = 'NO DATA';
         }
-        o['currentStatus'] = currentStatus.status_name;
       }
       console.log("ALL ORDERS: " + JSON.stringify(allOrders))
 
@@ -128,17 +138,22 @@ export class DashboardFactoryManagerComponent implements OnInit {
         // this.orderDisplay['order_id'] = o.order_id
         // this.orderDisplay['order_date'] = o.order_date
 
-        let status = o.order_status_log[0]
-        let currentStatus = status
-        let mostCurrentTimestamp = status.start_timestamp;
-        for (status of o.order_status_log) {
-          var timestamp = status.start_timestamp;
-          if (mostCurrentTimestamp < timestamp) {
-            mostCurrentTimestamp = timestamp;
-            currentStatus = status;
+        if(o.statusLogs.length>0){
+          let status = o.statusLogs[0]
+          console.log("STATUS: " + status)
+          let currentStatus = status
+          let mostCurrentTimestamp = status.startTimeStamp;
+          for (status of o.statusLogs) {
+            var timestamp = status.startTimeStamp;
+            if (mostCurrentTimestamp < timestamp) {
+              mostCurrentTimestamp = timestamp;
+              currentStatus = status;
+            }
           }
+          o['currentStatus'] = currentStatus.statusName;
+        }else{
+          o['currentStatus'] = 'NO DATA';
         }
-        o['currentStatus'] = currentStatus.status_name;
       }
       console.log("ALL ORDERS: " + JSON.stringify(allOrders))
       this.orders = allOrders;
@@ -163,17 +178,22 @@ export class DashboardFactoryManagerComponent implements OnInit {
         // this.orderDisplay['order_id'] = o.order_id
         // this.orderDisplay['order_date'] = o.order_date
 
-        let status = o.order_status_log[0]
-        let currentStatus = status
-        let mostCurrentTimestamp = status.start_timestamp;
-        for (status of o.order_status_log) {
-          var timestamp = status.start_timestamp;
-          if (mostCurrentTimestamp < timestamp) {
-            mostCurrentTimestamp = timestamp;
-            currentStatus = status;
+        if(o.statusLogs.length>0){
+          let status = o.statusLogs[0]
+          console.log("STATUS: " + status)
+          let currentStatus = status
+          let mostCurrentTimestamp = status.startTimeStamp;
+          for (status of o.statusLogs) {
+            var timestamp = status.startTimeStamp;
+            if (mostCurrentTimestamp < timestamp) {
+              mostCurrentTimestamp = timestamp;
+              currentStatus = status;
+            }
           }
+          o['currentStatus'] = currentStatus.statusName;
+        }else{
+          o['currentStatus'] = 'NO DATA';
         }
-        o['currentStatus'] = currentStatus.status_name;
       }
       console.log("ALL ORDERS: " + JSON.stringify(allOrders))
 
@@ -201,20 +221,23 @@ export class DashboardFactoryManagerComponent implements OnInit {
       this.itemResource.count().then(count => this.itemCount = count);
       //to get the latest status of the order
       for (let o of orders) {
-        // this.orderDisplay['order_id'] = o.order_id
-        // this.orderDisplay['order_date'] = o.order_date
-
-        let status = o.order_status_log[0]
-        let currentStatus = status
-        let mostCurrentTimestamp = status.start_timestamp;
-        for (status of o.order_status_log) {
-          var timestamp = status.start_timestamp;
-          if (mostCurrentTimestamp < timestamp) {
-            mostCurrentTimestamp = timestamp;
-            currentStatus = status;
+        console.log("TIMESTAMP: " + o.order_TimeStamp)
+        if(o.statusLogs.length>0){
+          let status = o.statusLogs[0]
+          console.log("STATUS: " + status.statusName)
+          let currentStatus = status
+          let mostCurrentTimestamp = status.startTimeStamp;
+          for (status of o.statusLogs) {
+            var timestamp = status.startTimeStamp;
+            if (mostCurrentTimestamp < timestamp) {
+              mostCurrentTimestamp = timestamp;
+              currentStatus = status;
+            }
           }
+          o['currentStatus'] = currentStatus.orderStatus.statusName;
+        }else{
+          o['currentStatus'] = 'NO DATA';
         }
-        o['currentStatus'] = currentStatus.status_name;
       }
     })
     // this.itemResource = new DataTableResource(this.orders);
@@ -224,6 +247,8 @@ export class DashboardFactoryManagerComponent implements OnInit {
 
   rowClick(rowEvent) {
     console.log('Clicked');
+    let link = ['orders', rowEvent.row.item.orderId];
+		this.router.navigate(link);
   }
 
   rowDoubleClick(rowEvent) {
