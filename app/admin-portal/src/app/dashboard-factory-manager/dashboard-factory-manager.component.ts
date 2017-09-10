@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { OrderService } from '../services/order.service'
 import { DataTableResource, DataTable, DataTableTranslations } from 'angular-4-data-table';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard-factory-manager',
@@ -21,7 +22,8 @@ export class DashboardFactoryManagerComponent implements OnInit {
   @ViewChild('tabGroup') tabGroup;
 
   constructor(
-    private orderService: OrderService) {
+    private orderService: OrderService,
+    private router: Router) {
     this.itemResource.count().then(count => this.itemCount = count);
   }
 
@@ -190,6 +192,7 @@ export class DashboardFactoryManagerComponent implements OnInit {
     })
 
   }
+  
   reloadItems(params) {
     this.orderService.getOrders().subscribe(orders => {
       this.orders = orders;
@@ -220,14 +223,18 @@ export class DashboardFactoryManagerComponent implements OnInit {
   }
 
   rowClick(rowEvent) {
-    console.log('Clicked: ');
+    console.log('Clicked');
   }
 
   rowDoubleClick(rowEvent) {
-    alert('Double clicked: ');
+    // alert('Double clicked: ' + rowEvent.row.item.order_id);
+    let link = ['orders', rowEvent.row.item.order_id];
+		this.router.navigate(link);
   }
 
-  rowTooltip(item) { return item.order_id; }
+  rowTooltip(item) { 
+    return "Order ID: " + item.order_id; 
+  }
 
   // special params:
 

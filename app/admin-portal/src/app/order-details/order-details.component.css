@@ -1,0 +1,49 @@
+:host /deep/ .data-table-row {
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.numbers {
+    font-family: Tahoma,Geneva,sans-serif;
+    font-size: 18px;
+    text-align: left;
+}
+
+.breadcrumb {
+    height: 140px;
+    background-color: white;
+}
+
+.item-count {
+    width:25px;
+    height:25px;
+    border:2.5px solid lightcoral;
+    padding-left: 2px;
+    border-radius: 500px;
+    -webkit-border-radius: 500px;
+    -moz-border-radius: 500px;
+}
+
+button {
+    font-family: Tahoma,Geneva,sans-serif;
+}
+
+.triangle{
+    width: 0;
+    height: 0;
+    border-top: 50px solid transparent;
+    border-left: 100px solid red;
+    border-bottom: 50px solid transparent;
+}
+
+/* button:target {
+    border-style: inset;
+} */
+
+.ti-wallet{
+    width: 20px;
+    height: 20px;
+}

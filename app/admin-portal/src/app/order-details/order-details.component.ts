@@ -2,13 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 @Component({
-  selector: 'app-order-management',
-  templateUrl: './order-management.component.html',
-  styleUrls: ['./order-management.component.css']
+  selector: 'app-order-details',
+  templateUrl: './order-details.component.html',
+  styleUrls: ['./order-details.component.css']
 })
-export class OrderManagementComponent implements OnInit {
+export class OrderDetailsComponent implements OnInit {
   orderId: string;
-  
+  color = 'primary';
+  mode = 'buffer';
+  value = 60;
+  bufferValue = 75;
+  isDisabled = true;
+
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {

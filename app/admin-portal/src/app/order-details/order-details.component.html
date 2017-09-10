@@ -1,0 +1,64 @@
+<!-- <button md-raised-button [ngStyle]="{'background-color': color.all}" (click)="onStatusChange('all')">All</button>
+<button md-raised-button [ngStyle]="{'background-color': color.payment}" (click)="onStatusChange('payment')">Payment Received</button>
+<button md-raised-button [ngStyle]="{'background-color': color.production}" (click)="onStatusChange('production')">Production</button>
+<button md-raised-button [ngStyle]="{'background-color': color.packaging}" (click)="onStatusChange('packaging')">Packaging</button>
+<button md-raised-button [ngStyle]="{'background-color': color.preparation}" (click)="onStatusChange('preparation')">Shipment Preparation</button>
+<button md-raised-button [ngStyle]="{'background-color': color.transit}" (click)="onStatusChange('transit')">In Transit</button>
+<button md-raised-button [ngStyle]="{'background-color': color.completed}" (click)="onStatusChange('completed')">Completed</button>
+
+ -->
+
+<div class="row">
+  <div class="button-row">
+    <div class="col-md-1">
+      <button md-fab>
+        <i class="ti-wallet"></i>
+      </button>
+    </div>
+
+    <div class="col-md-1">
+      </div>
+
+    <div class="col-md-1">
+      <button md-fab color="primary">
+          <span class="ti-truck"></span>
+      </button>
+    </div>
+
+    <div class="col-md-1">
+    </div>
+
+    <div class="col-md-1">
+      <button md-fab color="accent">Accent</button>
+    </div>
+
+    <div class="col-md-1">
+      </div>
+
+    <div class="col-md-1">
+      <button md-fab color="warn">Warn</button>
+    </div>
+
+    <div class="col-md-1">
+      </div>
+
+    <div class="col-md-1">
+      <button md-fab [disabled]="isDisabled">Disabled</button>
+    </div>
+
+    <div class="col-md-1">
+      </div>
+
+    <div class="col-md-1">
+      <button md-fab>
+      <md-icon class="md-24" aria-label="Example icon-button with a heart icon">favorite</md-icon>
+    </button>
+    </div>
+
+    <div class="col-md-1">
+      </div>
+
+      <md-progress-bar class="example-margin" [color]="color" [mode]="mode" [value]="value" [bufferValue]="bufferValue">
+        </md-progress-bar>
+  </div>
+  

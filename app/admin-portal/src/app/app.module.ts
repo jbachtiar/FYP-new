@@ -24,6 +24,7 @@ import { LoadingComponent } from './loading/loading.component';
 import { ConfirmationPopupComponent } from './confirmation-popup/confirmation-popup.component';
 import { DashboardFactoryManagerComponent } from './dashboard-factory-manager/dashboard-factory-manager.component';
 import { OrderManagementComponent } from './order-management/order-management.component';
+import { OrderDetailsComponent } from './order-details/order-details.component';
 
 import { ProductService } from './services/product.service';
 import { PagerService} from './services/pager.service'
@@ -32,7 +33,7 @@ import { OrderService } from './services/order.service'
 import { QRCodeModule } from 'angular2-qrcode';
 import { BootstrapModalModule } from 'ng2-bootstrap-modal';
 import { DataTableModule } from 'angular-4-data-table';
-import { MdTabsModule, MdButtonModule } from '@angular/material';
+import { MdTabsModule, MdButtonModule, MdProgressBarModule } from '@angular/material';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 
@@ -52,7 +53,8 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     LoadingComponent,
     ConfirmationPopupComponent,
     DashboardFactoryManagerComponent,
-    OrderManagementComponent
+    OrderManagementComponent,
+    OrderDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -65,6 +67,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     DataTableModule,
     MdTabsModule,
     MdButtonModule,
+    MdProgressBarModule,
     Ng2SearchPipeModule
     ],
   exports: [

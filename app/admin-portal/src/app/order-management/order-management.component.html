@@ -13,7 +13,7 @@
     <div class="row">
         <div class="col-lg-2 col-sm-6">
             <!-- <div class="card breadcrumb"> -->
-            <button md-button class="card breadcrumb" (click)="onClickStatus('payment')" [ngStyle]="{'background-color': 'red'}">
+            <button md-button class="card breadcrumb" (click)="onClickStatus('payment')" [ngStyle]="{'background-color': color.payment}">
                         <div class="content">
                             <div class="row">
                                 <div class="col-xs-3">
@@ -65,7 +65,7 @@
                 </button>
         </div>
         <div class="col-lg-2 col-sm-6">
-            <button md-button class="card breadcrumb" (click)="onClickStatus('package')" [ngStyle]="{'background-color':  color.payment}">
+            <button md-button class="card breadcrumb" (click)="onClickStatus('packaging')" [ngStyle]="{'background-color':  color.packaging}">
                     <div class="content">
                         <div class="row">
                             <div class="col-xs-3">
@@ -90,79 +90,82 @@
                 </button>
         </div>
         <div class="col-lg-2 col-sm-6">
-            <button md-button class="card breadcrumb">
-                    <div class="content">
-                        <div class="row">
-                            <div class="col-xs-3">
-                                <div class="icon-big icon-info text-center">
-                                    <i class="ti-wallet"></i>
+                <!-- <div class="card breadcrumb"> -->
+                <button md-button class="card breadcrumb" (click)="onClickStatus('payment')" [ngStyle]="{'background-color': color.payment}">
+                            <div class="content">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <div class="icon-big icon-warning text-center">
+                                            <i class="ti-wallet"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <p class="text-sm-right item-count">{{itemCount}}</p>
+                                        <div class="numbers">
+                                            Payment<br/>
+                                            Received
+                                        </div>
+                                    </div>
                                 </div>
+                                <!-- <div class="footer">
+                                    <hr />
+                                    <div class="stats">
+                                        <i class="ti-calendar"></i> Last day
+                                    </div>
+                                </div> -->
                             </div>
-                            <div class="col-xs-6">
-                                <p class="text-sm-right item-count">{{itemCount}}</p>
-                                <div class="numbers">
-                                    Shipment Preparation
-                                </div>
+                            </button>
+                <!-- </div> -->
+            </div>
+        <div class="col-lg-2 col-sm-6">
+            <button md-button class="card breadcrumb" (click)="onClickStatus('transit')" [ngStyle]="{'background-color':  color.payment}">
+                <div class="content">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <div class="icon-big icon-strong text-center">
+                                <i class="ti-truck"></i>
                             </div>
                         </div>
-                        <!-- <div class="footer">
-                            <hr />
-                            <div class="stats">
-                                <i class="ti-calendar"></i> Last day
+                        <div class="col-xs-6">
+                            <p class="text-sm-right item-count">{{itemCount}}</p>
+                            <div class="numbers">
+                                In Transit
                             </div>
-                        </div> -->
+                        </div>
                     </div>
-                </button>
+                    <!-- <div class="footer">
+                        <hr />
+                        <div class="stats">
+                            <i class="ti-calendar"></i> Last day
+                        </div>
+                    </div> -->
+                </div>
+            </button>
         </div>
         <div class="col-lg-2 col-sm-6">
-            <button md-button class="card breadcrumb">
-                        <div class="content">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <div class="icon-big icon-strong text-center">
-                                        <i class="ti-truck"></i>
-                                    </div>
-                                </div>
-                                <div class="col-xs-6">
-                                    <p class="text-sm-right item-count">{{itemCount}}</p>
-                                    <div class="numbers">
-                                        In Transit
-                                    </div>
-                                </div>
+            <button md-button class="card breadcrumb" >
+                <div class="content">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <div class="icon-big icon-success text-center">
+                                <i class="ti-check-box"></i>
                             </div>
-                            <!-- <div class="footer">
-                                <hr />
-                                <div class="stats">
-                                    <i class="ti-calendar"></i> Last day
-                                </div>
-                            </div> -->
                         </div>
-                    </button>
-        </div>
-        <div class="col-lg-2 col-sm-6">
-            <button md-button class="card breadcrumb">
-                        <div class="content">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <div class="icon-big icon-success text-center">
-                                        <i class="ti-check-box"></i>
-                                    </div>
-                                </div>
-                                <div class="col-xs-6">
-                                    <p class="text-sm-right item-count">{{itemCount}}</p>
-                                    <div class="numbers">
-                                        Completed
-                                    </div>
-                                </div>
+                        <div class="col-xs-6">
+                            <p class="text-sm-right item-count">{{itemCount}}</p>
+                            <div class="numbers">
+                                Completed
                             </div>
-                            <!-- <div class="footer">
-                                <hr />
-                                <div class="stats">
-                                    <i class="ti-calendar"></i> Last day
-                                </div>
-                            </div> -->
                         </div>
-                    </button>
+                    </div>
+                    <!-- <div class="footer">
+                        <hr />
+                        <div class="stats">
+                            <i class="ti-calendar"></i> Last day
+                        </div>
+                    </div> -->
+                </div>
+            </button>
         </div>
     </div>
 </div>
