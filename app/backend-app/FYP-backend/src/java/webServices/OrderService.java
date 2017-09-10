@@ -53,7 +53,7 @@ public class OrderService {
 
         try {
 
-            Order[] oArr = orderDao.getAllOrders();
+            Order[] oArr = orderDao.getOrderById(orderId);
             if (oArr == null) {
                 
                 jsonOutput.addProperty("status", "500");
