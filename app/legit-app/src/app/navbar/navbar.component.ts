@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { LoginPopupComponent } from '../login/login-popup.component';
 
 import { AuthenticationService } from '../authentication.service';
-import { ShoppingCart } from "../cart/model/shopping-cart.model";
+import { ShoppingCart } from "../model/shopping-cart.model";
 import { ShoppingCartService } from '../shopping-cart.service';
 
 import { DialogService } from "ng2-bootstrap-modal";
@@ -51,6 +51,7 @@ export class NavbarComponent implements OnInit {
         console.log("TOKEN: " + this.token)
         if (this.token != null) {
             this.authenticated = true;
+            this.shoppingCartService.retrieveCartDB()
         }
         this.shoppingCart = JSON.parse(localStorage.getItem('cart'));
 
@@ -59,7 +60,7 @@ export class NavbarComponent implements OnInit {
         }
 
 
-        this.itemCount = this.shoppingCart.noOfItems;
+        this.itemCount = this.shoppingCart.cartItems.length;
         console.log("AUTHENTICATED: " + this.authenticated);
     }
 
@@ -72,9 +73,9 @@ export class NavbarComponent implements OnInit {
         }
 
 
-        this.itemCount = this.shoppingCart.noOfItems;
+        //this.itemCount = this.shoppingCart.noOfItems;
 
-        this.itemCount = this.shoppingCart.noOfItems;
+        this.itemCount = this.shoppingCart.cartItems.length;
     }
 
     showLogin() {

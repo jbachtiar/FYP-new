@@ -12,61 +12,99 @@ import { ConfirmationPopupComponent } from '../confirmation-popup/confirmation-p
   providers: [StaffcontrolService]
 })
 export class UserComponent implements OnInit {
-  private user : Staff
+  private user: Staff
   //user: User;
   token: string;
-  private loading:boolean = true;  
-  
-  constructor(private staffcontrolservice : StaffcontrolService, private dialogService : DialogService){
+  private loading: boolean = true;
+  private editPass: boolean = false;
+  private updateProf :boolean = false;
+
+  constructor(private staffcontrolservice: StaffcontrolService, private dialogService: DialogService) {
     this.token = localStorage.getItem('token');
   }
 
   ngOnInit() {
     this.startLoading()
     console.log(this.token);
-    
-     this.staffcontrolservice.displayProfile(this.token).subscribe(
-          res => {
-            if(res.status==200){
-              this.user = res.staff
-              console.log(res.staff)
-              this.stopLoading()
-            }else{
-                this.stopLoading()
-                console.log("Retrieve failed");
-              
-            }
-          });
+
+    this.staffcontrolservice.displayProfile(this.token).subscribe(
+      res => {
+        if (res.status == 200) {
+          this.user = res.staff
+          console.log(res.staff)
+          this.stopLoading()
+        } else {
+          this.stopLoading()
+          console.log("Retrieve failed");
+
+        }
+      });
   }
 
-  startLoading(){
+  startLoading() {
     this.loading = true;
   }
 
-  
-  stopLoading(){
+
+  stopLoading() {
     this.loading = false;
   }
 
-  updateProfile(){
+  editPassword() {
+    this.editPass = true;
+  }
+
+  cancelPassword() {
+    this.editPass = false;
+  }
+
+  update(){
+    this.updateProf = true;
+  }
+
+  cancelUpdate(){
+    this.startLoading()
+    console.log(this.token);
+
+    this.staffcontrolservice.displayProfile(this.token).subscribe(
+      res => {
+        if (res.status == 200) {
+          this.user = res.staff
+          console.log(res.staff)
+          this.stopLoading()
+          this.updateProf = false
+        } else {
+          this.stopLoading()
+          console.log("Retrieve failed");
+          
+          this.updateProf = false
+        }
+      });
+  }
+
+  updateProfile() {
     this.startLoading()
     console.log("Im HERE")
-     this.staffcontrolservice.updateProfile(this.token, this.user)
-     .subscribe(
-               res => {
-                 if(res.status === '200'){
-                   console.log(res.status);
-                   this.stopLoading()
-                   let disposable = this.dialogService.addDialog(ConfirmationPopupComponent, {
-                    title: "Succesful!",
-                    message : 'Profile has been updated!' 
-                  })                                    
-                 }else{
-                   console.log(res.status);
-                   this.stopLoading()
-                 }
-               }
-     )
+    this.staffcontrolservice.updateProfile(this.token, this.user)
+      .subscribe(
+      res => {
+        if (res.status === '200') {
+          console.log(res.status);
+          this.stopLoading()
+          let disposable = this.dialogService.addDialog(ConfirmationPopupComponent, {
+            title: "Succesful!",
+            message: 'Profile has been updated!'
+          })
+        } else {
+          console.log(res.status);
+          this.stopLoading()
+          let disposable = this.dialogService.addDialog(ConfirmationPopupComponent, {
+            title: "Update Failed",
+            message: res.description,
+          })
+        }
+      }
+      )
 
   }
 }

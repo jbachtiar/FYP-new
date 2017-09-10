@@ -35,19 +35,16 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     console.log(this.token);
-
+    
     this.profileService.displayProfile(this.token).subscribe(
       res => {
         this.loading = true;
         if (res.status === '200') {
+          this.firstName = res.user.firstName
+          this.lastName = res.user.lastName
+          this.contact = res.user.phoneNo
           console.log("Retrieve successful");
-          this.customer = this.profileService.getCustomer();
-          this.firstName = this.customer.firstName;
-          this.lastName = this.customer.lastName;
-          this.contact = this.customer.contact;
-          // this.address = this.customer.address;
-          // this.postalCode = this.customer.postalCode;
-          this.password = this.customer.password;
+          
           this.loading = false;
         } else {
           console.log("Retrieve failed");
@@ -64,7 +61,7 @@ export class ProfileComponent implements OnInit {
   update() {
 
 
-    this.profileService.updateProfile(this.token, this.firstName, this.lastName, this.contact, this.address, this.postalCode, this.password)
+    this.profileService.updateProfile(this.token, this.firstName, this.lastName, this.contact, this.password)
       .subscribe(
       res => {
         if (res.status === '200') {

@@ -24,15 +24,15 @@ export class ProductService {
     }
 
     //getProductById(productId: string) {
-       // let url = CONFIG.quickViewBackendUrl;
-       // let finalUrl = url + "?productId=" + productId;
-       // return this._http.get(finalUrl).map(res => {
-         //   console.log("product is loaded" + res.json().status);
+    // let url = CONFIG.quickViewBackendUrl;
+    // let finalUrl = url + "?productId=" + productId;
+    // return this._http.get(finalUrl).map(res => {
+    //   console.log("product is loaded" + res.json().status);
 
-          //  return res.json().product;
+    //  return res.json().product;
 
-      //  });
-   // }
+    //  });
+    // }
 
     getPatternById(patternId: string) {
         let url = CONFIG.productCatalogueBackendUrl + '/customize';
@@ -78,7 +78,7 @@ export class ProductService {
             });
     }
 
-    public getProductId(patternId: string, fabricId: string, colourId: string) {
+    public getProductById(patternId: string, fabricId: string, colourId: string) {
         console.log('pattern: ' + patternId)
         console.log('fabric: ' + fabricId)
         console.log('colour: ' + colourId)
@@ -88,7 +88,12 @@ export class ProductService {
         return this._http.get(url)
             .map(res => {
                 //console.log(res.json().productId)
-                return res.json().productId
+
+                if (res.status === 200) {
+
+                    return res.json()
+
+                }
             })
         //console.log('product ID: '+ res.json().productId);
 
@@ -109,6 +114,7 @@ export class ProductService {
             .map(res => res.json().totalPrice);
 
     }
+
 
     public chargeStripe(token) {
         //get token from stripe response

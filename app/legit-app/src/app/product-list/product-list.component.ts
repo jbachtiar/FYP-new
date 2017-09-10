@@ -219,6 +219,7 @@ export class ProductListComponent implements OnInit {
     this.productService.getProductList().subscribe(
       products => {
         this.products = products;
+        console.log(this.products);
         //initialise paginator 
         this.setPage(1);
         this.stopLoading()

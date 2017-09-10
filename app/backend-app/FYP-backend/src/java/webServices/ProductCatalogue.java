@@ -8,13 +8,19 @@ package webServices;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
+import dao.BeddingSizeDAO;
+
 import dao.CollectionDAO;
 import dao.ColourDAO;
 import dao.FabricDAO;
 import dao.PatternDAO;
 import dao.ProductDAO;
 import entity.Bedding;
+import entity.BeddingSize;
 import entity.Collection;
 import entity.Colour;
 import entity.Fabric;
@@ -23,6 +29,8 @@ import entity.Product;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 import javax.annotation.security.PermitAll;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
@@ -46,8 +54,7 @@ import javax.ws.rs.core.MediaType;
 @Path("/ProductCatalogue")
 public class ProductCatalogue {
 
-    @Context
-    private HttpServletResponse response;
+    @Context private HttpServletResponse response;
 //
 //    @OPTIONS
 //    @PermitAll
@@ -124,6 +131,7 @@ public class ProductCatalogue {
 
                 temp.addProperty("design_price", b.getPattern().getPatternPrice());
                 temp.addProperty("fabric_price", b.getFabric().getFabricPrice());
+                temp.addProperty("lowest_price", productDao.getLowestCombinationPriceByPatternId(b.getPattern().getPatternId()));
                 JsonArray images = gson.toJsonTree(b.getImages()).getAsJsonArray(); // convert arraylist to jsonArray
                 temp.add("images", images);
                 JsonArray tags = gson.toJsonTree(b.getPattern().getTags()).getAsJsonArray(); // convert arraylist to jsonArray
@@ -136,8 +144,8 @@ public class ProductCatalogue {
             jsonOutput.add("patterns", patterns);
 
         } catch (SQLException e) {
-
-            jsonOutput.addProperty("status", "error");
+            System.out.println(e);
+            jsonOutput.addProperty("status", "SQL exception");
 
         }
 
@@ -155,6 +163,7 @@ public class ProductCatalogue {
         JsonObject jsonOutput = new JsonObject();
         JsonArray product = new JsonArray();
         ProductDAO productDao = new ProductDAO();
+        JsonParser parser = new JsonParser();
 
         try {
 
@@ -177,10 +186,24 @@ public class ProductCatalogue {
                 temp.addProperty("collection_name", p.getPattern().getCollection().getCollectionName());
                 temp.addProperty("colour_name", p.getColour().getColourName());
 
-                temp.addProperty("design_price", p.getPattern().getPatternPrice());
+                temp.addProperty("pattern_price", p.getPattern().getPatternPrice());
                 temp.addProperty("fabric_price", p.getFabric().getFabricPrice());
+
                 JsonArray images = gson.toJsonTree(p.getImages()).getAsJsonArray(); // convert arraylist to jsonArray
                 temp.add("images", images);
+                if (p.getProductType().equals("Bedding")) {
+
+                    BeddingSizeDAO beddingSizeDao = new BeddingSizeDAO();
+                    ArrayList<BeddingSize> beddingSizes = beddingSizeDao.getAllBeddingSizes();
+                    JsonArray sizes = new JsonArray();
+                    for (BeddingSize bs : beddingSizes) {
+                        String beddingSizeString = gson.toJson(bs);
+                        JsonElement beddingSizeElement = parser.parse(beddingSizeString);
+                        sizes.add(beddingSizeElement);
+                    }
+
+                    temp.add("sizes", sizes);
+                }
                 JsonArray tags = gson.toJsonTree(p.getPattern().getTags()).getAsJsonArray(); // convert arraylist to jsonArray
                 temp.add("tags", tags);
 
@@ -258,6 +281,7 @@ public class ProductCatalogue {
 
         JsonObject jsonOutput = new JsonObject();
         Gson gson = new GsonBuilder().create();
+        JsonParser parser = new JsonParser();
 
         try {
             PatternDAO patternDao = new PatternDAO();
@@ -300,7 +324,7 @@ public class ProductCatalogue {
                         Colour col = colours.get(j);
                         JsonObject co = new JsonObject();
                         int colorId = col.getColourId();
-                        
+
                         co.addProperty("colour_id", colorId);
                         co.addProperty("colour_name", col.getColourName());
 
@@ -309,6 +333,20 @@ public class ProductCatalogue {
                             JsonArray images = gson.toJsonTree(p.getImages()).getAsJsonArray();
 
                             co.add("images", images);
+
+                            if (p.getProductType().equals("Bedding")) {
+
+                                BeddingSizeDAO beddingSizeDao = new BeddingSizeDAO();
+                                ArrayList<BeddingSize> beddingSizes = beddingSizeDao.getAllBeddingSizes();
+                                JsonArray sizes = new JsonArray();
+                                for (BeddingSize bs : beddingSizes) {
+                                    String beddingSizeString = gson.toJson(bs);
+                                    JsonElement beddingSizeElement = parser.parse(beddingSizeString);
+                                    sizes.add(beddingSizeElement);
+                                }
+
+                                co.add("sizes", sizes);
+                            }
                         }
                         colorsJson.add(co);
                     }
@@ -665,39 +703,45 @@ public class ProductCatalogue {
 //        return finalJsonOutput;
 //    }
 //    
-//    @GET
-//    @Path("/getProductId")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public String getProductIdBy(@QueryParam("patternId") String patternId, @QueryParam("fabricId") String fabricId, @QueryParam("colourId") String colourId){
-//        
-//        
-//        response.setHeader("Access-Control-Allow-Origin", "*");
-//      
-//        JsonObject jsonOutput = new JsonObject();
-//        Gson gson = new GsonBuilder().create();
-//     
-//        try{
-//            
-//            Product p = ProductDAO.getProductByPatternFabricColor(patternId, fabricId, colourId);
-//            if(p==null){
-//                jsonOutput.addProperty("status", "Product not found");
-//           
-//            }else{
-//                jsonOutput.addProperty("status","200");
-//                jsonOutput.addProperty("productId", p.getSKU());
-//                
-//                 
-//            }
-//        }catch(SQLException e){
-//        
-//            jsonOutput.addProperty("status","error");
-//            
-//        }
-//        
-//        String finalJsonOutput = gson.toJson(jsonOutput);
-//        return finalJsonOutput;
-//    }
-//    
+   
+
+    @GET
+    @Path("/getProductId")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getProductById(@QueryParam("patternId") String patternId, @QueryParam("fabricId") String fabricId, @QueryParam("colourId") String colourId) {
+
+        response.setHeader("Access-Control-Allow-Origin", "*");
+
+        JsonObject jsonOutput = new JsonObject();
+        Gson gson = new GsonBuilder().create();
+        ProductDAO productDAO = new ProductDAO();
+        JsonParser parser = new JsonParser();
+        try {
+
+            Product p = productDAO.getProductByPatternFabricColor(Integer.parseInt(patternId), Integer.parseInt(fabricId), Integer.parseInt(colourId));
+            if (p == null) {
+                jsonOutput.addProperty("status", "Product not found");
+
+            } else {
+                String productString = gson.toJson(p);
+                JsonElement productElement = parser.parse(productString);
+                
+                jsonOutput.addProperty("status", "200");
+                jsonOutput.add("product", productElement );
+                
+               
+
+            }
+        } catch (SQLException e) {
+
+            jsonOutput.addProperty("status", "error");
+
+        }
+
+        String finalJsonOutput = gson.toJson(jsonOutput);
+        return finalJsonOutput;
+    }
+
 //    @GET
 //    @Path("/fabrics")
 //    @Produces(MediaType.APPLICATION_JSON)
@@ -734,4 +778,71 @@ public class ProductCatalogue {
 //        String finalJsonOutput = gson.toJson(jsonOutput);
 //        return finalJsonOutput;
 //    }
+    
+//    @GET
+//    @Path("/GetFilters")
+//    @Produces(MediaType.APPLICATION_JSON)
+//    public String getAllFilters() {
+//        
+//        response.setHeader("Access-Control-Allow-Headers", "Content-Type");
+//        response.setHeader("Access-Control-Allow-Origin", "*");
+//        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
+//
+//        Gson gson = new GsonBuilder().create();
+//        JsonObject jsonOutput = new JsonObject();
+//        
+//        JsonArray collectionArray = new JsonArray();
+//        JsonArray fabricArray = new JsonArray();
+//        JsonArray colourArray = new JsonArray();
+//        
+//        ProductDAO productDao = new ProductDAO();
+//
+//        try {
+//
+//            ArrayList<Bedding> bList = productDao.getAllBeddings();
+//            if (bList == null) {
+//                
+//                jsonOutput.addProperty("status", "500");
+//                jsonOutput.addProperty("msg", "No Beddings Available");
+//                
+//
+//            } else {
+//                
+//                Set<Integer> collectionSet = new HashSet();
+//                Set<Integer> fabricSet = new HashSet();
+//                Set<Integer> colourSet = new HashSet();
+//                
+//                
+//                
+//                
+//                
+//setOfIntegers.add(Integer.valueOf(10));
+//setOfIntegers.add(Integer.valueOf(20));
+//setOfIntegers.add(Integer.valueOf(30));
+//setOfIntegers.add(Integer.valueOf(40));
+//setOfIntegers.add(Integer.valueOf(50));
+//Logger l = Logger.getLogger("Test");
+//for (Integer i : setOfIntegers) {
+//  l.info("Integer value is : " + i);
+//}
+//
+//                
+//                jsonOutput.addProperty("status", "200");
+//                JsonArray colours = gson.toJsonTree(cList).getAsJsonArray(); // convert arraylist to jsonArray
+//                jsonOutput.add("colours", colours);
+//
+//            }
+//
+//        } catch (SQLException e) {
+//
+//            jsonOutput.addProperty("status", "500");
+//            jsonOutput.addProperty("msg", "ColourService: SQL Exception");
+//
+//        }
+//
+//        String finalJsonOutput = gson.toJson(jsonOutput);
+//        return finalJsonOutput;
+//        
+//    }
+    
 }

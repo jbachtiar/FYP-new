@@ -13,7 +13,7 @@
             <button type="button" class="btn btn-default" (click)="close()" >Cancel</button>
         </div>-->
                 <alert></alert>
-                <form name="form" (ngSubmit)="login()" #f="ngForm" novalidate>
+                <form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
                     <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !email.valid }">
 
                         <input type="text" class="form-control" placeholder="Email" name="email" [(ngModel)]="user.email" #email="ngModel" required

@@ -2,8 +2,8 @@ import { Injectable, ViewChild } from "@angular/core";
 import { Observable } from "rxjs/Observable";
 import { Observer } from "rxjs/Observer";
 import 'rxjs/add/operator/map'
-import { CartItem } from "./cart/model/cart-item.model";
-import { ShoppingCart } from "./cart/model/shopping-cart.model";
+import { CartItem } from "./model/cart-item.model";
+import { ShoppingCart } from "./model/shopping-cart.model";
 import { CONFIG } from './config/config.component'
 import { Http, Headers, Response } from '@angular/http';
 
@@ -14,8 +14,8 @@ export class ShoppingCartService {
   //private storage: Storage;
   private subscriptionObservable: Observable<ShoppingCart>;
   private subscribers: Array<Observer<ShoppingCart>> = new Array<Observer<ShoppingCart>>();
-  private item: CartItem;
-  private cart: ShoppingCart;
+  private item: CartItem = new CartItem();
+  private cart: ShoppingCart = new ShoppingCart();
   private token: string;
 
 
@@ -55,105 +55,105 @@ export class ShoppingCartService {
 
   //Add Item to Cart
   public addItem(cartItem: CartItem): void {
+    console.log(cartItem)
+    console.log("token : " + this.token)
     this.cart = this.retrieve();
-    console.log("Cart Item")
-    console.log('product Id : ' + cartItem.productId)
-    console.log('quantity : ' + cartItem.quantity)
-    console.log('each price : ' + cartItem.eachPrice)
+
+    // console.log("Cart Item")
+    // console.log('product Id : ' + cartItem.productId)
+    // console.log('quantity : ' + cartItem.quantity)
+    // console.log('each price : ' + cartItem.eachPrice)
 
 
+    //to check if the product exists in the cart
+    console.log(this.cart)
 
-    this.item = this.cart.items.find((p) => p.productId === cartItem.productId);
-    //console.log('retrieved id: ' + this.item.productId);
+    this.item = this.cart.cartItems.find((p) => p.product.productId === cartItem.product.productId);
+    
     if (this.item === undefined) {
+      //if does not exist create new cart item
+      this.item = cartItem;
+      console.log("item does not exist")
 
-      this.item = new CartItem();
-      this.item.productId = cartItem.productId;
-      this.item.quantity = cartItem.quantity;
-      this.item.patternName = cartItem.patternName;
-      this.item.url = cartItem.url;
-      this.item.fabricName = cartItem.fabricName;
-      this.item.colourName = cartItem.colourName;
-
-
-      console.log(cartItem.url)
-
-
-      console.log('productId : ' + this.item.productId)
+      console.log('productId : ' + this.item.product.productId)
+      console.log('UnitPrice : ' + this.item.unitPrice)
       console.log('quantity: ' + this.item.quantity)
-
-      var totalPrice: number = 0;
-      console.log('price before: ' + totalPrice)
-
-      this.item.eachPrice = cartItem.eachPrice
-      console.log(JSON.stringify(this.item))
-      console.log('price: ' + this.item.eachPrice);
-
-      this.cart.items.push(this.item);
-
-
+      //console.log(this.item)
+      
+      this.cart.cartItems.push(this.item);
     } else {
+      //if exist add the quantity
+      console.log("item exist")
       this.item.quantity += cartItem.quantity;
     }
 
-    this.cart.items = this.cart.items.filter((cartItem) => cartItem.quantity > 0);
-    console.log('retrieved: ' + JSON.stringify(this.cart));
-
-
+    this.cart.cartItems = this.cart.cartItems.filter((cartItem) => cartItem.quantity > 0);
+    
 
     this.calculateCart(this.cart);
+    //console.log(JSON.stringify(this.cart));
     this.save(this.cart);
-    this.dispatch(this.cart);
+    // this.dispatch(this.cart);
   }
 
   updateCartDB(cart: ShoppingCart) {
 
-
-    var params = JSON.stringify(cart);
+    let params: URLSearchParams = new URLSearchParams();
+    params.set('token', this.token);
+    params.set('cart', JSON.stringify(cart));
+    
     let headers = new Headers();
-
-
-    headers.append('Authorization', this.token);
+    //headers.append ('Authorization', token);
     headers.append(
-      'Content-type', 'application/json'
+        'Content-type', 'application/x-www-form-urlencoded'
     )
+    
 
-    console.log("update cart1")
+    console.log("update cart DB")
     let url = CONFIG.updateCartBackendUrl;
-    return this._http.post(url, params, { headers: headers })
-      .subscribe(res => {
-        console.log("update cart")
-        res.json()
+    console.log("url : " + url)
+
+    return this._http.post(url,params.toString(), {headers: headers} )
+    .subscribe(res =>{
+      console.log(cart)
+      console.log("IM HEERREE")
+    } );
 
 
-
-      });
+    //   });
 
   }
 
   public retrieveCartDB() {
     let headers = new Headers();
 
-    headers.append('Authorization', this.token);
-
+    headers.append(
+      'Content-type', 'application/x-www-form-urlencoded'
+    )
+    let params: URLSearchParams = new URLSearchParams();
+    params.set('token', this.token);
+    
     let url = CONFIG.cartBackendUrl + "/retrieveCart";
 
     console.log("HEY IM HERE");
-    return this._http.post(url, { headers: headers })
+    return this._http.post(url, params.toString(), { headers: headers })
       .subscribe(res => {
-        console.log("retrieved cart : " + res.json())
-
+        this.cart = res.json().cart
+        
+        localStorage.setItem(CART_KEY, JSON.stringify(this.cart));
       });
 
   }
 
   public updateCart(cart: ShoppingCart) {
     this.cart = cart
+    console.log(this.cart)
 
     this.calculateCart(this.cart);
     this.save(this.cart);
     this.dispatch(this.cart);
   }
+
 
 
   public empty(): void {
@@ -165,12 +165,11 @@ export class ShoppingCartService {
   private calculateCart(cart: ShoppingCart): void {
     let totalPrice: number = 0;
 
-    for (let item of cart.items) {
-      let price = item.quantity * item.eachPrice;
+    for (let item of cart.cartItems) {
+      let price = item.quantity * item.unitPrice;
       totalPrice += price;
     }
-    cart.noOfItems = cart.items.length
-    cart.totalPrice = totalPrice;
+    cart.price = totalPrice;
   }
 
   private retrieve(): ShoppingCart {
@@ -184,6 +183,15 @@ export class ShoppingCartService {
   }
 
   private save(cart: ShoppingCart): void {
+    console.log("SAVE CART")
+    console.log(cart)
+    if(this.token){
+      console.log("token exist")
+      this.updateCartDB(cart);
+    }else{
+      console.log("token does not exist")  
+    }
+    //this.updateCartDB(cart)
     localStorage.setItem(CART_KEY, JSON.stringify(cart));
   }
 
@@ -216,6 +224,30 @@ export class ShoppingCartService {
         }
       );
 
+  }
+
+  deleteItemDB(productId : number){
+    let params: URLSearchParams = new URLSearchParams();
+    let cart = this.retrieve()
+    params.set('token', this.token);
+    params.set('productId', ''+productId);
+    
+    let headers = new Headers();
+    //headers.append ('Authorization', token);
+    headers.append(
+        'Content-type', 'application/x-www-form-urlencoded'
+    )
+    
+
+    console.log("DELETE cart DB")
+    let url = CONFIG.cartBackendUrl + "/deleteItem";
+    console.log("url : " + url)
+
+    return this._http.post(url,params.toString(), {headers: headers} )
+    .subscribe(res =>{
+      //console.log(cart)
+      console.log("DELETE CART")
+    } );
   }
 
 }

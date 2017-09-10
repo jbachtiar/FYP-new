@@ -2,8 +2,8 @@ import { Component, OnInit, NgZone, Output, EventEmitter } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { StorageService } from '../storage.service';
 import { CartService } from '../cart.service';
-import { ShoppingCart } from "../cart/model/shopping-cart.model";
-import { CartItem } from "../cart/model/cart-item.model";
+import { ShoppingCart } from "../model/shopping-cart.model";
+import { CartItem } from "../model/cart-item.model";
 import { ShoppingCartService } from '../shopping-cart.service'
 import { DialogService } from "ng2-bootstrap-modal";
 import { ConfirmationPopupComponent } from '../confirmation-popup/confirmation-popup.component'
@@ -48,24 +48,24 @@ export class PaymentComponent implements OnInit {
     // this.postalCode = this.storageService.getPostCode();
     this.address = this.storageService.getAddress();
 
-    this.cartItem = this.shoppingCart.items;
+    this.cartItem = this.shoppingCart.cartItems;
 
-    this.cartService.getCartItemByCartId("C1").subscribe(
-      carts => {
+    // this.cartService.getCartItemByCartId("C1").subscribe(
+    //   carts => {
 
-        console.log("Cart items retrieved");
-        this.carts = carts;
-
-
-      })
-
-    this.cartService.getCartTotalPrice("C1").subscribe(
-      total_price => {
-        this.totalPrice = total_price;
-        console.log(this.totalPrice);
+    //     console.log("Cart items retrieved");
+    //     this.carts = carts;
 
 
-      })
+    //   })
+
+    // this.cartService.getCartTotalPrice("C1").subscribe(
+    //   total_price => {
+    //     this.totalPrice = total_price;
+    //     console.log(this.totalPrice);
+
+
+    //   })
   }
 
   openCheckout() {
@@ -76,7 +76,7 @@ export class PaymentComponent implements OnInit {
       token: (token: any) => {
         // You can access the token ID with `token.id`.
         // Get the token ID to our server-side code for use.
-        this.chargeStripe(token.id, this.shoppingCart.totalPrice * 100);
+        this.chargeStripe(token.id, this.shoppingCart.price * 100);
         // console.log("TOKEN: " + token.id)
         // var http = new XMLHttpRequest();
         // var url = "http://localhost:8084/FYP-backend/API/Payment/chargeStripe";
@@ -94,11 +94,11 @@ export class PaymentComponent implements OnInit {
         // http.send(params);    
       }
     });
-    console.log("TOTAL PRICE :" + this.shoppingCart.totalPrice)
+    console.log("TOTAL PRICE :" + this.shoppingCart.price)
     handler.open({
       name: 'Highlander',
       description: 'Secured Payment',
-      amount: this.shoppingCart.totalPrice * 100
+      amount: this.shoppingCart.price * 100
     });
   }
 

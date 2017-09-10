@@ -239,7 +239,7 @@ public class StaffDAO {
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, email);
 
-            rs = stmt.executeQuery();
+            stmt.executeUpdate();
 
         } finally {
             ConnectionManager.close(conn, stmt, rs);

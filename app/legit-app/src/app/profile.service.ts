@@ -8,7 +8,7 @@ import { CONFIG } from './config/config.component'
 @Injectable()
 export class ProfileService {
     private customer;
-
+    
 
     getCustomer() {
         return this.customer;
@@ -24,9 +24,12 @@ export class ProfileService {
         let url = CONFIG.profileBackendUrl;
         let params: URLSearchParams = new URLSearchParams();
         params.set('token', token)
-        //headers.append ('Authorization', token);
+        //headers.append ('Authorization', token); 
+        headers.append(
+            'Content-type', 'application/x-www-form-urlencoded'
+        )
         console.log(token);
-        return this._http.get(url + '/retrieve?token=' + token)
+        return this._http.post(url + '/retrieve', params.toString(), { headers })
 
             // let options = new RequestOptions({ headers: headers, params: params });
             // return this._http.get('http://localhost:8084/FYP-backend/API/profile/retrieve', options )
@@ -68,7 +71,7 @@ export class ProfileService {
                     this.customer = {
                         firstName: user.firstName,
                         lastName: user.lastName,
-                        contact: user.phoneNumber,
+                        contact: user.phoneNo,
                         address: user.address,
                         postalCode: user.postalCode,
                         password: user.password
@@ -82,13 +85,11 @@ export class ProfileService {
             });
     }
 
-    updateProfile(token: string, firstName: string, lastName: string, contact: string, address: string, postalCode: string, password: string) {
+    updateProfile(token: string, firstName: string, lastName: string, phoneNo: string,  password: string) {
         let params: URLSearchParams = new URLSearchParams();
         params.set('firstName', firstName);
         params.set('lastName', lastName);
-        params.set('phoneNumber', contact);
-        params.set('address', address);
-        params.set('postalCode', postalCode);
+        params.set('phoneNo', phoneNo);
         params.set('password', password);
         params.set('token', token);
         let headers = new Headers();

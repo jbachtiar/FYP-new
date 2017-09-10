@@ -1,4 +1,4 @@
-INSERT INTO CUSTOMER VALUES ('customer@gmail.com','Huiyan','Chen','85882165','1234','N');
+﻿INSERT INTO CUSTOMER VALUES ('customer@gmail.com','Huiyan','Chen','85882165','1234','N');
 
 INSERT INTO STAFF_ROLE VALUES ('1','Admin');
 INSERT INTO STAFF_ROLE VALUES ('2','Factory Manager');
@@ -10,8 +10,8 @@ INSERT INTO STAFF VALUES ('staff2@gmail.com','Matthew','Xia','12345678','1234','
 INSERT INTO STAFF VALUES ('staff3@gmail.com','James','Xia','12345678','1234','3');
 
 
-INSERT INTO CUSTOMER_ADDRESS VALUES ('1', 'customer@gmail.com','134 Highlander Ave 3','Singapore','Singapore','536748', 'Y');
-INSERT INTO CUSTOMER_ADDRESS VALUES ('2', 'customer@gmail.com','324 Orchard Ave 4','Singapore','Singapore','876324', 'N');
+INSERT INTO CUSTOMER_ADDRESS VALUES ('1', 'customer@gmail.com', 'hui yan', '91234230', '134 Highlander Ave 3','Singapore','Singapore','536748', 'Y');
+INSERT INTO CUSTOMER_ADDRESS VALUES ('2', 'customer@gmail.com', 'hy chen', '99122332', '324 Orchard Ave 4','Singapore','Singapore','876324', 'N');
 
 INSERT INTO COLLECTION VALUES ('1','Bestsellers');
 INSERT INTO COLLECTION VALUES ('2','2018 Spring');
@@ -121,3 +121,16 @@ INSERT INTO LAMP VALUES('001','Table Lamp',500);
 INSERT INTO LAMP VALUES('005','Table Lamp',500);
 INSERT INTO LAMP VALUES('008','Table Lamp',500);
 INSERT INTO LAMP VALUES('012','Table Lamp',500);
+
+
+INSERT INTO CUSTOMER_ORDER VALUES(1, CURRENT_TIMESTAMP, 1000.00, 0.00, 'YUXUAN', '91223223', '54A Zion Road', 'Singapore', 'Singapore', '247780', 'RFEWGORGKR3423420DDD', 'customer@gmail.com', 1, 'Shun Feng', null);
+
+INSERT INTO CUSTOMER_ORDER VALUES(2, CURRENT_TIMESTAMP, 900.00, 0.00, 'Human', '91233223', '54n Road', 'Singapore', 'Singapore', '247780', 'RFEWGOR222223420DDD', 'customer@gmail.com', 1, 'Shun Feng', null);
+
+INSERT INTO ORDER_ITEM VALUES(1, 3, 1, 200.0, 'INCOMPLETE');
+INSERT INTO ORDER_ITEM VALUES(1, 6, 1, 500.0, 'INCOMPLETE');
+INSERT INTO ORDER_ITEM VALUES(1, 7, 1, 300.0, 'INCOMPLETE');
+INSERT INTO ORDER_ITEM VALUES(2, 11, 1, 900.0, 'INCOMPLETE');
+
+INSERT INTO ORDER_STATUS_LOG VALUES(1, 2, CURRENT_TIMESTAMP, null, 0);
+INSERT INTO ORDER_STATUS_LOG VALUES(1, 1, CURRENT_TIMESTAMP, null, 0);

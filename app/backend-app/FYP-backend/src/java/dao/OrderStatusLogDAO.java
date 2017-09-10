@@ -28,7 +28,7 @@ public class OrderStatusLogDAO {
         ResultSet rs = null;
         ArrayList<OrderStatusLog> orderStatusLogs = new ArrayList<>();
 
-        String sql = "SELECT * FROM order_status_log ol and order_status os where os.status_id=ol.status_id and ol.order_id=?";
+        String sql = "SELECT ol.*, os.STATUS_NAME FROM mydb.order_status_log ol LEFT OUTER JOIN mydb.order_status os ON ol.STATUS_ID = os.STATUS_ID WHERE ol.ORDER_ID = ?";
 
         try {
             conn = ConnectionManager.getConnection();
@@ -39,8 +39,9 @@ public class OrderStatusLogDAO {
             while (rs.next()) {
                 int statusId = rs.getInt("STATUS_ID");
                 String orderStatus = rs.getString("STATUS_NAME");
-                Timestamp timeStamp = rs.getTimestamp("TIMESTAMP");
-                orderStatusLogs.add(new OrderStatusLog(new OrderStatus(statusId, orderStatus), timeStamp));
+                Timestamp startTimeStamp = rs.getTimestamp("START_TIMESTAMP");
+                Timestamp endTimeStamp = rs.getTimestamp("END_TIMESTAMP");
+                orderStatusLogs.add(new OrderStatusLog(new OrderStatus(statusId, orderStatus), startTimeStamp, endTimeStamp));
 
             }
 
