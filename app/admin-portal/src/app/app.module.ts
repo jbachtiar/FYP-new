@@ -29,12 +29,8 @@ import { PromoCodeComponent } from './promo-code/promo-code.component';
 
 import { ProductService } from './services/product.service';
 import { PagerService} from './services/pager.service'
-<<<<<<< HEAD
 import { PromoCodeService } from './services/promo-code.service'
-
-=======
 import { OrderService } from './services/order.service'
->>>>>>> 4e1ccf55131934c5aa70867b4f2339a5847900cc
 
 import { QRCodeModule } from 'angular2-qrcode';
 import { BootstrapModalModule } from 'ng2-bootstrap-modal';
