@@ -30,14 +30,13 @@ export class OrderFactoryManagerComponent implements OnInit {
   ngOnInit() {
     this.orderService.getOrders().subscribe(orders => {
       this.orders = orders;
-      //console.log("ORDERS: " + this.orders)
+
+      //data table initialisation
       this.itemResource = new DataTableResource(this.orders);
       this.itemResource.count().then(count => this.itemCount = count);
+      
       //to get the latest status of the order
       for (let o of orders) {
-        // this.orderDisplay['order_id'] = o.order_id
-        // this.orderDisplay['order_date'] = o.order_date
-
         if(o.statusLogs.length>0){
           let status = o.statusLogs[0]
           console.log("STATUS: " + status)
@@ -50,7 +49,7 @@ export class OrderFactoryManagerComponent implements OnInit {
               currentStatus = status;
             }
           }
-          o['currentStatus'] = currentStatus.statusName;
+          o['currentStatus'] = currentStatus.orderStatus.statusName;
         }else{
           o['currentStatus'] = 'NO DATA';
         }
@@ -150,7 +149,7 @@ export class OrderFactoryManagerComponent implements OnInit {
               currentStatus = status;
             }
           }
-          o['currentStatus'] = currentStatus.statusName;
+          o['currentStatus'] = currentStatus.orderStatus.statusName;
         }else{
           o['currentStatus'] = 'NO DATA';
         }
@@ -190,7 +189,7 @@ export class OrderFactoryManagerComponent implements OnInit {
               currentStatus = status;
             }
           }
-          o['currentStatus'] = currentStatus.statusName;
+          o['currentStatus'] = currentStatus.orderStatus.statusName;
         }else{
           o['currentStatus'] = 'NO DATA';
         }
