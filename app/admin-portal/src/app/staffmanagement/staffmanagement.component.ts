@@ -13,15 +13,17 @@ import { ConfirmationPopupComponent } from '../confirmation-popup/confirmation-p
   providers: [StaffcontrolService, DialogService]
 })
 export class StaffmanagementComponent implements OnInit {
-  constructor(private staffcontrolservice: StaffcontrolService, private dialogService : DialogService) { }
+  constructor(private staffcontrolservice: StaffcontrolService, private dialogService: DialogService) { }
   private token: string = localStorage.getItem('token');
   private staffs: Staff[];
   private staffRoles: StaffRole[];
   private newStaff: Staff = new Staff();
   private selectedRole: StaffRole = new StaffRole();
-  private loading : boolean = false;
-  private add : boolean = false;
-  
+  private loading: boolean = false;
+  private add: boolean = false;
+  private edStaff: Staff;
+  private edit: boolean = false;
+
   ngOnInit() {
     this.staffcontrolservice.getAllRoles()
       .subscribe(
@@ -50,31 +52,121 @@ export class StaffmanagementComponent implements OnInit {
       )
   }
 
-  startLoading(){
+  startLoading() {
     this.loading = true;
   }
 
-  
-  addStaff(){
+
+  addStaff() {
     this.add = true;
   }
-  
-  cancelAdd(){
-    this.add = false;
+
+  cancelAdd() {
+    let disposable = this.dialogService.addDialog(ConfirmationPopupComponent, {
+      title: 'Cancel add?',
+      message: 'Adding in the process, you may lose your added inputs.'
+    })
+      .subscribe((isConfirmed) => {
+        console.log("DIALOG")
+        //We get dialog result
+        if (isConfirmed) {
+          this.add = false;
+          this.ngOnInit()
+        }
+        else {
+          //do nothing
+        }
+      });
+
   }
 
 
-  deleteStaff(s : Staff){
-    this.staffcontrolservice.deleteStaff(this.token, s.email)
+  cancelEdit() {
+    let disposable = this.dialogService.addDialog(ConfirmationPopupComponent, {
+      title: 'Cancel edit?',
+      message: 'Editing in the process, you may lose your edited inputs.'
+    })
+      .subscribe((isConfirmed) => {
+        console.log("DIALOG")
+        //We get dialog result
+        if (isConfirmed) {
+          this.edit = false;
+          this.ngOnInit()
+
+        }
+        else {
+          //do nothing
+        }
+      });
+
+  }
+
+  editStaff(s: Staff) {
+    this.edStaff = s;
+    this.edit = true;
+    
+  }
+
+  editStaffConfirm(){
+    this.staffcontrolservice.editStaff(this.token , this.edStaff)
     .subscribe(
-      res=>{
-        console.log(res)
-        this.ngOnInit()
+      res => {
+        if (res.status === '200') {
+          //this.staffs = res.staffs;
+          console.log(res.status);
+          this.stopLoading()
+          let disposable = this.dialogService.addDialog(ConfirmationPopupComponent, {
+            title: "Edit Succesful!",
+            message: this.edStaff.firstName + " " + this.edStaff.lastName + '\'s details has been Updated!'
+          })
+            .subscribe((isConfirmed) => {
+              console.log("DIALOG")
+              //We get dialog result
+              if (isConfirmed) {
+                //this.emptyField()
+                this.ngOnInit()
+                this.edit = false;
+              }
+              else {
+                //do nothing
+              }
+            });
+        } else {
+          console.log(res.status);
+          this.stopLoading()
+        }
       }
-    )
+      )
+
   }
 
-  stopLoading(){
+  deleteStaff(s: Staff) {
+    let disposable = this.dialogService.addDialog(ConfirmationPopupComponent, {
+      title: 'Remove ' + s.firstName + " " + s.lastName + '?',
+      message: 'Are you sure to remove ' + s.firstName + " " + s.lastName + ' from the staff list?'
+    })
+      .subscribe((isConfirmed) => {
+        console.log("DIALOG")
+        //We get dialog result
+        if (isConfirmed) {
+          this.staffcontrolservice.deleteStaff(this.token, s.email)
+            .subscribe(
+            res => {
+              console.log(res)
+              this.ngOnInit()
+            }
+            )
+        }
+        else {
+          //do nothing
+        }
+      });
+
+
+
+  }
+
+  stopLoading() {
     this.loading = false;
   }
   addNewStaff() {
@@ -93,10 +185,20 @@ export class StaffmanagementComponent implements OnInit {
           this.stopLoading()
           let disposable = this.dialogService.addDialog(ConfirmationPopupComponent, {
             title: "Succesful!",
-            message : this.newStaff.firstName + " " + this.newStaff.lastName + ' has been added!' 
+            message: this.newStaff.firstName + " " + this.newStaff.lastName + ' has been added!'
           })
-          this.emptyField()
-          this.ngOnInit()
+            .subscribe((isConfirmed) => {
+              console.log("DIALOG")
+              //We get dialog result
+              if (isConfirmed) {
+                this.emptyField()
+                this.ngOnInit()
+                this.add = false;
+              }
+              else {
+                //do nothing
+              }
+            });
         } else {
           console.log(res.status);
           this.stopLoading()
@@ -105,7 +207,7 @@ export class StaffmanagementComponent implements OnInit {
       )
   }
 
-  emptyField(){
+  emptyField() {
     this.newStaff = new Staff();
   }
 

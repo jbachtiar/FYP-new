@@ -1,5 +1,5 @@
 <div class="container-fluid">
-    <div class="row">
+    <div *ngIf="!edit && !add" class="row">
         <div class="col-lg-12 col-md-12">
             <div class="card">
                 <div class="header">
@@ -33,10 +33,10 @@
                                 {{s.roleId}}
                             </td>
                             <td>
-                                    <button class="btn btn-info btn-fill btn-wd pull-right" (click)="editStaff(s)">Edit</button>
-                                    <br>
-                                    <button class="btn btn-info btn-fill btn-wd pull-right" (click)="deleteStaff(s)">Delete</button>
-                                    
+                                <button class="btn btn-info btn-fill btn-wd pull-right" (click)="editStaff(s)">Edit</button>
+                                <br>
+                                <button class="btn btn-info btn-fill btn-wd pull-right" (click)="deleteStaff(s)">Delete</button>
+
                             </td>
 
                         </tbody>
@@ -47,6 +47,97 @@
 
 
     </div>
+    <div *ngIf="edit" class="row">
+        <div class="col-lg-6 col-md-5">
+            <div class="card">
+                <div class="header">
+                    <h4 class="title">Edit <b>{{edStaff.firstName}} {{edStaff.lastName}}'s</b> Details </h4>
+                    <button class="btn btn-info btn-fill btn-wd" (click)="cancelEdit()">Cancel</button>
+                </div>
+                <hr>
+                <div class="content">
+                    <form name="form" *ngIf="!loading" (ngSubmit)="f.form.valid && addNewStaff()" #f="ngForm" novalidate>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Email address</label>
+                                    <input type="text" class="form-control border-input" [ngModelOptions]="{standalone: true}" [(ngModel)]="edStaff.email" #email="ngModel"
+                                        id="email" name="email" placeholder="Email" required>
+                                    <div *ngIf="f.submitted && !email.valid" class="help-block">
+                                        Email is required.
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Phone Number</label>
+                                    <input type="text" class="form-control border-input" [ngModelOptions]="{standalone: true}" [(ngModel)]="edStaff.phoneNo"
+                                        #phoneNo="ngModel" name="phoneNo" placeholder="Phone Number" required>
+                                    <div *ngIf="f.submitted && !phoneNo.valid" class="help-block">
+                                        Phone Number is required.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>First Name</label>
+                                    <input type="text" class="form-control border-input" [ngModelOptions]="{standalone: true}" [(ngModel)]="edStaff.firstName"
+                                        #firstName="ngModel" name="firstName" placeholder="First Name" required>
+                                    <div *ngIf="f.submitted && !firstName.valid" class="help-block">
+                                        First Name is required.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Last Name</label>
+                                    <input type="text" class="form-control border-input" [ngModelOptions]="{standalone: true}" [(ngModel)]="edStaff.lastName"
+                                        #lastName="ngModel" name="lastName" placeholder="Last Name" required>
+                                    <div *ngIf="f.submitted && !lastName.valid" class="help-block">
+                                        Last Name is required.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Password</label>
+                                    <input type="password" class="form-control border-input" [ngModelOptions]="{standalone: true}" [(ngModel)]="edStaff.password"
+                                        #password="ngModel" name="password" placeholder="Password" required>
+                                    <div *ngIf="f.submitted && !password.valid" class="help-block">
+                                        Password is required.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Role</label>
+                                    <br>
+                                    <select class="form-control border-input" [ngModelOptions]="{standalone: true}" id="role" [(ngModel)]="edStaff.roleId" name="role"
+                                        required #roleId="ngModel">
+                                            <option *ngFor="let role of staffRoles" [ngValue]="role.roleId" >{{role.roleName}}</option>
+                                        </select>
+                                    <div *ngIf="f.submitted && !role.valid" class="help-block">
+                                        Role is required.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="text-center">
+                            <button class="btn btn-info btn-fill btn-wd" (click)="editStaffConfirm()">Edit Staff</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div *ngIf="add" class="row">
         <div class="col-lg-6 col-md-5">
             <div class="card">
@@ -57,27 +148,28 @@
                 <hr>
                 <div class="content">
                     <app-loading *ngIf="loading"></app-loading>
-                        
+
                     <form name="form" *ngIf="!loading" (ngSubmit)="f.form.valid && addNewStaff()" #f="ngForm" novalidate>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Email address</label>
-                                    <input type="text" class="form-control border-input" [ngModelOptions]="{standalone: true}" [(ngModel)]="newStaff.email" #email="ngModel" id="email" name="email" placeholder="Email" required>
-                                        <div *ngIf="f.submitted && !email.valid" class="help-block">
-                                            Email is required.
-                                        </div>
-                                        
+                                    <input type="text" class="form-control border-input" [ngModelOptions]="{standalone: true}" [(ngModel)]="newStaff.email" #email="ngModel"
+                                        id="email" name="email" placeholder="Email" required>
+                                    <div *ngIf="f.submitted && !email.valid" class="help-block">
+                                        Email is required.
+                                    </div>
+
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Phone Number</label> 
-                                    <input type="text" class="form-control border-input" [ngModelOptions]="{standalone: true}" [(ngModel)]="newStaff.phoneNo" #phoneNo="ngModel" name="phoneNo" placeholder="Phone Number"
-                                        required>
-                                        <div *ngIf="f.submitted && !phoneNo.valid" class="help-block">
-                                            Phone Number is required.
-                                        </div>
+                                    <label for="exampleInputEmail1">Phone Number</label>
+                                    <input type="text" class="form-control border-input" [ngModelOptions]="{standalone: true}" [(ngModel)]="newStaff.phoneNo"
+                                        #phoneNo="ngModel" name="phoneNo" placeholder="Phone Number" required>
+                                    <div *ngIf="f.submitted && !phoneNo.valid" class="help-block">
+                                        Phone Number is required.
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -86,21 +178,21 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>First Name</label>
-                                    <input type="text" class="form-control border-input" [ngModelOptions]="{standalone: true}" [(ngModel)]="newStaff.firstName" #firstName="ngModel" name="firstName"
-                                        placeholder="First Name" required>
-                                        <div *ngIf="f.submitted && !firstName.valid" class="help-block">
-                                            First Name is required.
-                                        </div>
+                                    <input type="text" class="form-control border-input" [ngModelOptions]="{standalone: true}" [(ngModel)]="newStaff.firstName"
+                                        #firstName="ngModel" name="firstName" placeholder="First Name" required>
+                                    <div *ngIf="f.submitted && !firstName.valid" class="help-block">
+                                        First Name is required.
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Last Name</label>
-                                    <input type="text" class="form-control border-input" [ngModelOptions]="{standalone: true}" [(ngModel)]="newStaff.lastName" #lastName="ngModel" name="lastName"
-                                        placeholder="Last Name" required>
-                                        <div *ngIf="f.submitted && !lastName.valid" class="help-block">
-                                            Last Name is required.
-                                        </div>
+                                    <input type="text" class="form-control border-input" [ngModelOptions]="{standalone: true}" [(ngModel)]="newStaff.lastName"
+                                        #lastName="ngModel" name="lastName" placeholder="Last Name" required>
+                                    <div *ngIf="f.submitted && !lastName.valid" class="help-block">
+                                        Last Name is required.
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -108,24 +200,25 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Password</label>
-                                    <input type="password" class="form-control border-input" [ngModelOptions]="{standalone: true}" [(ngModel)]="newStaff.password" #password="ngModel" name="password"
-                                        placeholder="Password" required>
-                                        <div *ngIf="f.submitted && !password.valid" class="help-block">
-                                            Password is required.
-                                        </div>
+                                    <input type="password" class="form-control border-input" [ngModelOptions]="{standalone: true}" [(ngModel)]="newStaff.password"
+                                        #password="ngModel" name="password" placeholder="Password" required>
+                                    <div *ngIf="f.submitted && !password.valid" class="help-block">
+                                        Password is required.
+                                    </div>
                                 </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Role</label>
-                                        <br>
-                                        <select class="form-control border-input"  [ngModelOptions]="{standalone: true}" id="role" [(ngModel)]="newStaff.roleId" name="role" required  #roleId="ngModel">
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Role</label>
+                                    <br>
+                                    <select class="form-control border-input" [ngModelOptions]="{standalone: true}" id="role" [(ngModel)]="newStaff.roleId" name="role"
+                                        required #roleId="ngModel">
                                             <option *ngFor="let role of staffRoles" [ngValue]="role.roleId" >{{role.roleName}}</option>
                                         </select>
-                                        <div *ngIf="f.submitted && !role.valid" class="help-block">
-                                            Role is required.
-                                        </div>
+                                    <div *ngIf="f.submitted && !role.valid" class="help-block">
+                                        Role is required.
                                     </div>
+                                </div>
                             </div>
                         </div>
 
