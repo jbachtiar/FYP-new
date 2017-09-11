@@ -6,6 +6,7 @@ export const stagConfig = {
     fabricCatalogueBackendUrl:'',
     staffBackendUrl:'',
     quickViewBackendUrl:'',
-    eCommerceWebsiteUrl: ''
+    eCommerceWebsiteUrl: '',
+    promoCodeBackendUrl: '',
 
 }

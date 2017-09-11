@@ -24,6 +24,8 @@ import { LoadingComponent } from './loading/loading.component';
 import { ConfirmationPopupComponent } from './confirmation-popup/confirmation-popup.component';
 import { ProductService } from './services/product.service';
 import { PagerService} from './services/pager.service'
+import { PromoCodeService } from './services/promo-code.service'
+
 
 import { QRCodeModule } from 'angular2-qrcode';
 import { BootstrapModalModule } from 'ng2-bootstrap-modal';
@@ -60,7 +62,8 @@ import { PromoCodeComponent } from './promo-code/promo-code.component';
   providers: [
     AuthGuard,
     ProductService,
-    PagerService
+    PagerService,
+    PromoCodeService
   ],
   bootstrap: [AppComponent],
   entryComponents: [

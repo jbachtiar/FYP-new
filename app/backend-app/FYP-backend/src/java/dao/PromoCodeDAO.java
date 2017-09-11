@@ -208,7 +208,7 @@ public class PromoCodeDAO {
     }
     
     //Soft Delete
-    public void deletePromoCodeById(int promoId) throws SQLException {
+    public String deletePromoCodeById(int promoId) throws SQLException {
         
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -228,6 +228,7 @@ public class PromoCodeDAO {
             ConnectionManager.close(conn, stmt, rs);
             
         }
+        return "Success";
         
     }
  
