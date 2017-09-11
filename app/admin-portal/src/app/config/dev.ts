@@ -6,6 +6,6 @@ export const devConfig = {
     fabricCatalogueBackendUrl: 'http://localhost:8084/FYP-backend/API/FabricCatalogue',
     staffBackendUrl:'http://localhost:8084/FYP-backend/API/staff',
     quickViewBackendUrl: 'http://localhost:8084/FYP-backend/API/ProductCatalogue/pattern',
-    eCommerceWebsiteUrl: 'http://localhost:4200'
-
+    eCommerceWebsiteUrl: 'http://localhost:4200',
+    orderBackendUrl: 'http://localhost:8084/FYP-backend/API/OrderService'
 }
