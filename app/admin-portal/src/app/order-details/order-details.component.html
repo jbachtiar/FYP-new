@@ -1,9 +1,9 @@
 <!-- <h2 class="header">Order Number: #{{orderId}}</h2> -->
  <div class="row"> 
-  <div class="col-12 text-center">
-    <md-chip-list>
-      <md-chip color="warn" selected="true">Order Number: #{{orderId}}</md-chip>
-    </md-chip-list>
+  <div class="header col-12 text-center">
+    <b>
+      Order #{{orderId}}
+    </b>
   </div>
  </div>
 <hr>
@@ -74,14 +74,14 @@
 <br/>
 <div class="row">
   <div class="col-12 text-center">
-    <div class="button-row progress-button">
+    <div class="button-row">
       <button class="progress-button" md-raised-button [ngStyle]=" { 'background-color': 'white'} " (click)="onStatusChange( 'all') ">Previous Process</button>
-      <button class="progress-button" md-raised-button [ngStyle]="{ 'background-color': 'warn'} " (click)="onStatusChange( 'payment') ">Next Process</button>
+      <button class="progress-button" color="warn" md-raised-button (click)="onStatusChange( 'payment') ">Next Process</button>
     </div>
   </div>
 </div>
+<br/>
 <div class="container-fluid">
-  <hr>
   <h4 class="title">Order Summary</h4>
   <!-- <div class="card"> -->
     <md-card>

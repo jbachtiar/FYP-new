@@ -7,14 +7,15 @@
 }
  */
  md-chip{
-    font-family: 'Muli';
-    
+    font-family: 'Muli';  
      font-size: 30px;
  }
 
 .header{
     font-family: 'Muli';
+    color: #DD0330;
     font-size: 30px;
+
 }
 .h2 {
     font-family: 'Muli';
@@ -59,6 +60,9 @@ button {
     padding: 0px;
 }
 
+.progress-button{
+    width: 150px;
+}
 .pulse {
     box-shadow: 0 0 0 rgba(204, 44, 44, 0.40);
     animation: pulse 2s infinite;
@@ -106,10 +110,13 @@ td, th {
     width: 20%;
 }
 */
+hr{
+    border-color:rgba(221, 0, 45, 0.16);
+}
 
 thead{
     font-family: 'Muli';
-    font-size: 16px;
+    font-size: 13px;
 
 } 
 

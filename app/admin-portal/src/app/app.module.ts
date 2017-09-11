@@ -22,7 +22,7 @@ import { PatternDetailsAddComponent } from './pattern-details-add/pattern-detail
 import { PatternDetailsViewComponent } from './pattern-details-view/pattern-details-view.component';
 import { LoadingComponent } from './loading/loading.component';
 import { ConfirmationPopupComponent } from './confirmation-popup/confirmation-popup.component';
-import { DashboardFactoryManagerComponent } from './dashboard-factory-manager/dashboard-factory-manager.component';
+import { OrderFactoryManagerComponent } from './order-factory-manager/order-factory-manager.component';
 import { OrderManagementComponent } from './order-management/order-management.component';
 import { OrderDetailsComponent } from './order-details/order-details.component';
 import { PromoCodeComponent } from './promo-code/promo-code.component';
@@ -55,7 +55,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     LoadingComponent,
     ConfirmationPopupComponent,
     PromoCodeComponent,
-    DashboardFactoryManagerComponent,
+    OrderFactoryManagerComponent,
     OrderManagementComponent,
     OrderDetailsComponent
   ],

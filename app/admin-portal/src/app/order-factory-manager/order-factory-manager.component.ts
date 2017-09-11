@@ -4,13 +4,13 @@ import { DataTableResource, DataTable, DataTableTranslations } from 'angular-4-d
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-dashboard-factory-manager',
-  templateUrl: './dashboard-factory-manager.component.html',
-  styleUrls: ['./dashboard-factory-manager.component.css'],
+  selector: 'app-order-factory-manager',
+  templateUrl: './order-factory-manager.component.html',
+  styleUrls: ['./order-factory-manager.component.css'],
   providers: [OrderService]
 })
 
-export class DashboardFactoryManagerComponent implements OnInit {
+export class OrderFactoryManagerComponent implements OnInit {
   private orders: any = {};
   itemCount = 0;
   itemResource = new DataTableResource(this.orders);
@@ -247,13 +247,13 @@ export class DashboardFactoryManagerComponent implements OnInit {
 
   rowClick(rowEvent) {
     console.log('Clicked');
-    let link = ['orders', rowEvent.row.item.orderId];
-		this.router.navigate(link);
+    // let link = ['orders', rowEvent.row.item.orderId];
+		// this.router.navigate(link);
   }
 
   rowDoubleClick(rowEvent) {
     // alert('Double clicked: ' + rowEvent.row.item.order_id);
-    let link = ['orders', rowEvent.row.item.order_id];
+    let link = ['orders', rowEvent.row.item.orderId];
 		this.router.navigate(link);
   }
 
