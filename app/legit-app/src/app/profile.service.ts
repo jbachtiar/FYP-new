@@ -36,35 +36,7 @@ export class ProfileService {
             .map(res => {
                 // login successful if there's a jwt token in the response
                 let user = res.json();
-                user.address = [
-                    {
-                        "recipientName": "Huiyan Chen",
-                        "contact": "+658727178",
-                        "addressLine": "200 Blablabla Road",
-                        "city": "Singapore",
-                        "country": "Singapore",
-                        "postalCode": "20920",
-                        "isDefault": "Y"
-                    },
-                    {
-                        "recipientName": "Clarissa",
-                        "contact": "+921929393",
-                        "addressLine": "505 Erroria Road",
-                        "city": "Antananarivo",
-                        "country": "Madagascar",
-                        "postalCode": "12094",
-                        "isDefault": "no"
-                    },
-                    {
-                        "recipientName": "Yu Xuan",
-                        "contact": "+269202020",
-                        "addressLine": "400 Connectia Road",
-                        "city": "Reykjavík",
-                        "country": "Iceland",
-                        "postalCode": "12934",
-                        "isDefault": "no"
-                    }
-                ]
+                
                 if (user) {
 
                     //this.customer={firstName:user.firstName, lastName:user.lastName, contact:user.phoneNumber, address:user.address, postalCode:user.postalCode, password:user.password}

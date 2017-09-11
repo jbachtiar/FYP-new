@@ -69,7 +69,7 @@ export class ShoppingCartService {
     console.log(this.cart)
 
     this.item = this.cart.cartItems.find((p) => p.product.productId === cartItem.product.productId);
-    
+
     if (this.item === undefined) {
       //if does not exist create new cart item
       this.item = cartItem;
@@ -79,7 +79,7 @@ export class ShoppingCartService {
       console.log('UnitPrice : ' + this.item.unitPrice)
       console.log('quantity: ' + this.item.quantity)
       //console.log(this.item)
-      
+
       this.cart.cartItems.push(this.item);
     } else {
       //if exist add the quantity
@@ -88,7 +88,7 @@ export class ShoppingCartService {
     }
 
     this.cart.cartItems = this.cart.cartItems.filter((cartItem) => cartItem.quantity > 0);
-    
+
 
     this.calculateCart(this.cart);
     //console.log(JSON.stringify(this.cart));
@@ -101,23 +101,23 @@ export class ShoppingCartService {
     let params: URLSearchParams = new URLSearchParams();
     params.set('token', this.token);
     params.set('cart', JSON.stringify(cart));
-    
+
     let headers = new Headers();
     //headers.append ('Authorization', token);
     headers.append(
-        'Content-type', 'application/x-www-form-urlencoded'
+      'Content-type', 'application/x-www-form-urlencoded'
     )
-    
+
 
     console.log("update cart DB")
     let url = CONFIG.updateCartBackendUrl;
     console.log("url : " + url)
 
-    return this._http.post(url,params.toString(), {headers: headers} )
-    .subscribe(res =>{
-      console.log(cart)
-      console.log("IM HEERREE")
-    } );
+    return this._http.post(url, params.toString(), { headers: headers })
+      .subscribe(res => {
+        console.log(cart)
+        console.log("IM HEERREE")
+      });
 
 
     //   });
@@ -132,14 +132,14 @@ export class ShoppingCartService {
     )
     let params: URLSearchParams = new URLSearchParams();
     params.set('token', this.token);
-    
+
     let url = CONFIG.cartBackendUrl + "/retrieveCart";
 
     console.log("HEY IM HERE");
     return this._http.post(url, params.toString(), { headers: headers })
       .subscribe(res => {
         this.cart = res.json().cart
-        
+
         localStorage.setItem(CART_KEY, JSON.stringify(this.cart));
       });
 
@@ -185,11 +185,11 @@ export class ShoppingCartService {
   private save(cart: ShoppingCart): void {
     console.log("SAVE CART")
     console.log(cart)
-    if(this.token){
+    if (this.token) {
       console.log("token exist")
       this.updateCartDB(cart);
-    }else{
-      console.log("token does not exist")  
+    } else {
+      console.log("token does not exist")
     }
     //this.updateCartDB(cart)
     localStorage.setItem(CART_KEY, JSON.stringify(cart));
@@ -206,48 +206,58 @@ export class ShoppingCartService {
       });
   }
 
-  public addAddress(address: any){
+  public addAddress(address: any) {
     //call webservice to add address to database
     let params: URLSearchParams = new URLSearchParams();
-    params.set('token',this.token)
+    params.set('token', this.token)
     params.set('address', address)
     let headers = new Headers();
     //headers.append ('Authorization', token);
     headers.append(
-        'Content-type', 'application/x-www-form-urlencoded'
+      'Content-type', 'application/x-www-form-urlencoded'
     )
     //TO BE EDITED
     let url = 'www.google.com';
     return this._http.put(url + '/addAddress', params.toString(), { headers })
-        .map(res => {
-          return {'status':'200'}
-        }
+      .map(res => {
+        return { 'status': '200' }
+      }
       );
 
   }
 
-  deleteItemDB(productId : number){
+  deleteItemDB(productId: number) {
     let params: URLSearchParams = new URLSearchParams();
     let cart = this.retrieve()
     params.set('token', this.token);
-    params.set('productId', ''+productId);
-    
+    params.set('productId', '' + productId);
+
     let headers = new Headers();
     //headers.append ('Authorization', token);
     headers.append(
-        'Content-type', 'application/x-www-form-urlencoded'
+      'Content-type', 'application/x-www-form-urlencoded'
     )
-    
+
 
     console.log("DELETE cart DB")
     let url = CONFIG.cartBackendUrl + "/deleteItem";
     console.log("url : " + url)
 
-    return this._http.post(url,params.toString(), {headers: headers} )
-    .subscribe(res =>{
-      //console.log(cart)
-      console.log("DELETE CART")
-    } );
+    return this._http.post(url, params.toString(), { headers: headers })
+      .subscribe(res => {
+        //console.log(cart)
+        console.log("DELETE CART")
+      });
   }
 
+  saveAddress(addressJson) {
+    console.log("SAVE ADDRESS SERVICE")
+    var params = JSON.stringify(addressJson);
+    const headers = new Headers();
+    let url = CONFIG.addressBackendUrl + '/save'
+    headers.append('Content-Type', 'application/json');
+    return this._http.post(url, params, {
+      headers: headers
+    }).map(res => res
+      )};
 }

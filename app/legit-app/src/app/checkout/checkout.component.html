@@ -13,7 +13,7 @@
             <label for="address">Select a shipping address from your address book or enter a new address.</label><br/>
             <select class="form-control" [(ngModel)]="selectedAddress" #address="ngModel" [ngModelOptions]="{standalone: true}" name="address"
               (change)="checkAddress()">
-              <option *ngFor="let a of addressBook" [ngValue]="a">{{a.name}}, tel: {{a.contact}}, {{a.address_line}}, {{a.city}}, {{a.country}} {{a.postal_code}}</option>
+              <option *ngFor="let a of addressBook" [ngValue]="a">{{a.recipientName}}, tel: {{a.phoneNo}}, {{a.addressLine}}, {{a.city}}, {{a.country}} {{a.postalCode}}</option>
               <option [ngValue]="new">New Address</option>
             </select> &nbsp; &nbsp; &nbsp;
           </div>
