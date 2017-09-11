@@ -22,15 +22,26 @@ import { PatternDetailsAddComponent } from './pattern-details-add/pattern-detail
 import { PatternDetailsViewComponent } from './pattern-details-view/pattern-details-view.component';
 import { LoadingComponent } from './loading/loading.component';
 import { ConfirmationPopupComponent } from './confirmation-popup/confirmation-popup.component';
+import { DashboardFactoryManagerComponent } from './dashboard-factory-manager/dashboard-factory-manager.component';
+import { OrderManagementComponent } from './order-management/order-management.component';
+import { OrderDetailsComponent } from './order-details/order-details.component';
+import { PromoCodeComponent } from './promo-code/promo-code.component';
+
 import { ProductService } from './services/product.service';
 import { PagerService} from './services/pager.service'
+<<<<<<< HEAD
 import { PromoCodeService } from './services/promo-code.service'
 
+=======
+import { OrderService } from './services/order.service'
+>>>>>>> 4e1ccf55131934c5aa70867b4f2339a5847900cc
 
 import { QRCodeModule } from 'angular2-qrcode';
 import { BootstrapModalModule } from 'ng2-bootstrap-modal';
-import { PromoCodeComponent } from './promo-code/promo-code.component';
 
+import { DataTableModule } from 'angular-4-data-table';
+import { MdTabsModule, MdButtonModule, MdProgressBarModule, MdChipsModule, MdCardModule } from '@angular/material';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 
 @NgModule({
@@ -48,7 +59,10 @@ import { PromoCodeComponent } from './promo-code/promo-code.component';
     PatternDetailsViewComponent,
     LoadingComponent,
     ConfirmationPopupComponent,
-    PromoCodeComponent
+    PromoCodeComponent,
+    DashboardFactoryManagerComponent,
+    OrderManagementComponent,
+    OrderDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -57,7 +71,17 @@ import { PromoCodeComponent } from './promo-code/promo-code.component';
     HttpModule,
     RouterModule,
     QRCodeModule,
-    BootstrapModalModule
+    BootstrapModalModule,
+    DataTableModule,
+    MdTabsModule,
+    MdButtonModule,
+    MdProgressBarModule,
+    MdChipsModule,
+    Ng2SearchPipeModule,
+    MdCardModule
+    ],
+  exports: [
+    MdTabsModule
   ],
   providers: [
     AuthGuard,

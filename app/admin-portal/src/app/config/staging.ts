@@ -8,5 +8,7 @@ export const stagConfig = {
     quickViewBackendUrl:'',
     eCommerceWebsiteUrl: '',
     promoCodeBackendUrl: '',
+    orderBackendUrl: 'http://localhost:8084/FYP-backend/API/OrderService'
+    
 
 }
