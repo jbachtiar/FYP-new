@@ -3,15 +3,15 @@
     <label class="block bold">{{label}}</label>
     <input #inlineEditControl [required]="required" (blur)="onBlur($event)" [name]="value" [(ngModel)]="value" [type]="type"
       [placeholder]="label" />
-    <i title="Save" (click)="editDone()">Save</i>
+  
   </div>
   <div *ngIf="!editing">
-    <label class="block bold">{{label}}</label>
+    <label class="block bold"> {{label}} 
+      
+      <i title="Edit" (click)="edit(value)" class="ti-pencil"></i></label>
 
     <div tabindex="0" class="inline-edit">
       {{value}}&nbsp;
-
-      <i title="Edit" (click)="edit(value)" class="ti-arrow-down">Edit</i>
     </div>
   </div>
 

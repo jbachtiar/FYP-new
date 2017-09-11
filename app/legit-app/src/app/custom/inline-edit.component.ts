@@ -2,7 +2,7 @@ import { Component, Input, ElementRef, ViewChild, Renderer, forwardRef, OnInit }
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DialogService } from "ng2-bootstrap-modal";
 import { ConfirmationPopupComponent } from '../confirmation-popup/confirmation-popup.component'
-
+import { ProfileService } from '../profile.service'
 
 const INLINE_EDIT_CONTROL_VALUE_ACCESSOR = {
   provide: NG_VALUE_ACCESSOR,
@@ -44,7 +44,7 @@ export class InlineEditComponent implements ControlValueAccessor, OnInit {
     }
   }
 
-  constructor(element: ElementRef, private _renderer: Renderer, private dialogService: DialogService) {
+  constructor(element: ElementRef, private _renderer: Renderer, private dialogService: DialogService, private profileService: ProfileService) {
    
   }
 
@@ -79,18 +79,21 @@ export class InlineEditComponent implements ControlValueAccessor, OnInit {
     this.preValue = value;
     this.editing = true;
     // Focus on the input element just as the editing begins
-    setTimeout(_ => this._renderer.invokeElementMethod(this.inlineEditControl,
-      'focus', []));
-
-
+   // setTimeout(_ => this._renderer.invokeElementMethod(this.inlineEditControl,
+      //'focus', []));
+      
   }
 
-  editDone(): void {
+ // editDone(): void {
   
-    this.editing = false;
+   // this.editing = false;
+   // this.profileService.toggleSidebarVisibilty()
+    //console.log("saved");
     
-  }
 
+    
+ // }
+   
   ngOnInit() {
   }
 }
