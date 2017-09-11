@@ -235,6 +235,59 @@ public class Admin {
 
         return gson.toJson(jsonOutput);
     }
+    @OPTIONS
+    @PermitAll
+    @Path("/edit")
+    public void optionsEditStaff() {
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
+        response.setHeader("Access-Control-Allow-Headers", "auhtorization");
+
+    }
+
+    @POST
+    @Path("/edit")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String editStaff(@FormParam("token") String token, @FormParam("staff") String staffJson) {
+        response.setHeader("Access-Control-Allow-Origin", "*");
+
+        JsonObject jsonOutput = new JsonObject();
+        Gson gson = new GsonBuilder().create();
+        JsonParser parser = new JsonParser();
+        
+        StaffDAO staffDao = new StaffDAO();
+        Staff staff = gson.fromJson(staffJson, Staff.class);
+        
+        String status = "";
+        String email = tokenManagement.parseJWT(token);
+        if (email != null) {
+            try {
+                String result = staffDao.updateStaff(staff);
+                if (result.equals("Success")) {
+
+                    jsonOutput.addProperty("status", "200");
+                    jsonOutput.addProperty("description", "Updated Successfully");
+
+                } else {
+
+                    jsonOutput.addProperty("status", "500");
+                    jsonOutput.addProperty("description", "Failed to update");
+
+                }
+            } catch (SQLException e) {
+
+                jsonOutput.addProperty("status", "500");
+                jsonOutput.addProperty("description", "SQL Exception");
+
+            }
+        } else {
+            jsonOutput.addProperty("status", "500");
+            jsonOutput.addProperty("description", "Not Authorised");
+
+        }
+
+        return gson.toJson(jsonOutput);
+    }
 
     @GET
     @Path("/getRoles")

@@ -27,6 +27,7 @@ import { PagerService} from './services/pager.service'
 
 import { QRCodeModule } from 'angular2-qrcode';
 import { BootstrapModalModule } from 'ng2-bootstrap-modal';
+import { PromoCodeComponent } from './promo-code/promo-code.component';
 
 
 
@@ -44,7 +45,8 @@ import { BootstrapModalModule } from 'ng2-bootstrap-modal';
     PatternDetailsAddComponent,
     PatternDetailsViewComponent,
     LoadingComponent,
-    ConfirmationPopupComponent
+    ConfirmationPopupComponent,
+    PromoCodeComponent
   ],
   imports: [
     BrowserModule,
