@@ -15,7 +15,7 @@
                 <data-table id="order-grid " headerTitle="Orders " [items]="orders " [itemCount]="itemCount
     " (reload)="reloadItems($event) " (rowClick)="rowClick($event) " (rowDoubleClick)="rowDoubleClick($event) " [rowTooltip]="rowTooltip
     " [selectColumn]="true " [multiSelect]="false " [substituteRows]="false " [expandableRows]="true " [translations]="translations
-    " [indexColumnHeader]=" '#' " [selectOnRowClick]="true ">
+    " [indexColumnHeader]=" '#' " [selectOnRowClick]="true " [multiSelect]="true">
                     <template #dataTableExpand let-item="item ">
                         <div *ngFor="let oi of item.order_items ">
                             Product ID: {{oi.product_id}} Qty: {{oi.quantity}}
@@ -38,8 +38,8 @@
                 </data-table>
                 <div style="margin-top: 10px ">
                     <b>Selected:</b>
-                    <span *ngIf="orderTable.selectedRow==n ull "><i>No item selected</i></span>
-                    <span [textContent]="orderTable.selectedRow && orderTable.selectedRow.item.order_id "></span>
+                    <span *ngIf="orderTable.selectedRow==null "><i>No item selected</i></span>
+                    <span [textContent]="orderTable.selectedRow && orderTable.selectedRow.item.orderId "></span>
                 </div>
             </div>
             <!-- </div> -->
