@@ -6,6 +6,8 @@ export const prodConfig = {
     fabricCatalogueBackendUrl: 'http://ec2-52-35-18-15.us-west-2.compute.amazonaws.com/FYP-backend/API/FabricCatalogue',
     staffBackendUrl:'http://ec2-52-35-18-15.us-west-2.compute.amazonaws.com/FYP-backend/API/staff',
     quickViewBackendUrl: 'http://ec2-52-35-18-15.us-west-2.compute.amazonaws.com/FYP-backend/API/ProductCatalogue/pattern',
-    eCommerceWebsiteUrl: 'http://highlander-app.s3-website-us-west-2.amazonaws.com'
-
+    eCommerceWebsiteUrl: 'http://highlander-app.s3-website-us-west-2.amazonaws.com',
+    promoCodeBackendUrl: 'http://ec2-52-35-18-15.us-west-2.compute.amazonaws.com/FYP-backend/API/promoCode',
+    orderBackendUrl: 'http://localhost:8084/FYP-backend/API/OrderService',
+    orderStatusLogBackendUrl: 'http://localhost:8084/FYP-backend/API/OrderStatusLogService'    
 }

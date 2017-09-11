@@ -114,4 +114,21 @@ export class StaffcontrolService {
 
 
     }
+
+    editStaff(token: string, s : Staff){
+        let params: URLSearchParams = new URLSearchParams();
+        params.set('token', token);
+        params.set('staff', JSON.stringify(s));
+
+        let headers = new Headers();
+        //headers.append ('Authorization', token);
+        headers.append(
+            'Content-type', 'application/x-www-form-urlencoded'
+        )
+
+        let url = CONFIG.staffBackendUrl;
+        return this._http.post(url + '/edit', params.toString(), { headers })
+            .map(res => res.json());
+
+    }
 }
