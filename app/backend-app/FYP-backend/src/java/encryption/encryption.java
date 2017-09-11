@@ -11,6 +11,8 @@ import java.security.*;
  *
  * @author Sheryl
  */
+
+ //sha1 encryption
 public class encryption {
     public static String SHA1(String input){
         try{
