@@ -1,71 +1,138 @@
-<!-- <button md-raised-button [ngStyle]="{'background-color': color.all}" (click)="onStatusChange('all')">All</button>
-<button md-raised-button [ngStyle]="{'background-color': color.payment}" (click)="onStatusChange('payment')">Payment Received</button>
-<button md-raised-button [ngStyle]="{'background-color': color.production}" (click)="onStatusChange('production')">Production</button>
-<button md-raised-button [ngStyle]="{'background-color': color.packaging}" (click)="onStatusChange('packaging')">Packaging</button>
-<button md-raised-button [ngStyle]="{'background-color': color.preparation}" (click)="onStatusChange('preparation')">Shipment Preparation</button>
-<button md-raised-button [ngStyle]="{'background-color': color.transit}" (click)="onStatusChange('transit')">In Transit</button>
-<button md-raised-button [ngStyle]="{'background-color': color.completed}" (click)="onStatusChange('completed')">Completed</button>
-
- -->
-
+<!-- <h2 class="header">Order Number: #{{orderId}}</h2> -->
+ <div class="row"> 
+  <div class="col-12 text-center">
+    <md-chip-list>
+      <md-chip color="warn" selected="true">Order Number: #{{orderId}}</md-chip>
+    </md-chip-list>
+  </div>
+ </div>
+<hr>
+<br/>
 <div class="row">
-  <div class="col-sm-12 progress-row">
-  <div class="button-row">
-    <div class="col-md-1">
-      <button [ngClass]="{'pulse': pulse.payment}" md-fab color="warn" [disabled]="isDisabled.payment">
+  <div class="col-12 progress-row">
+    <div class="button-row">
+      <div class="col-md-1">
+      </div>
+      <div class="col-md-1">
+        <button [ngClass]="{'pulse': pulse.payment}" md-fab color="warn" [disabled]="isDisabled.payment">
         <i class="ti-wallet"></i>
       </button>
-    </div>
+      </div>
 
-    <div class="col-md-1">
-    </div>
+      <div class="col-md-1">
+      </div>
 
-    <div class="col-md-1">
-      <button [ngClass]="{'pulse': pulse.production}" md-fab color="warn" [disabled]="isDisabled.production">
+      <div class="col-md-1">
+        <button [ngClass]="{'pulse': pulse.production}" md-fab color="warn" [disabled]="isDisabled.production">
           <span class="ti-cut"></span>
       </button>
-    </div>
+      </div>
 
-    <div class="col-md-1">
-    </div>
+      <div class="col-md-1">
+      </div>
 
-    <div class="col-md-1">
-      <button [ngClass]="{'pulse': pulse.packaging}" md-fab color="warn" [disabled]="isDisabled.packaging">
+      <div class="col-md-1">
+        <button [ngClass]="{'pulse': pulse.packaging}" md-fab color="warn" [disabled]="isDisabled.packaging">
           <span class="ti-package"></span>
       </button>
-    </div>
+      </div>
 
-    <div class="col-md-1">
-    </div>
+      <div class="col-md-1">
+      </div>
 
-    <div class="col-md-1">
-      <button [ngClass]="{'pulse': pulse.preparation}" md-fab color="warn" [disabled]="isDisabled.preparation">
+      <div class="col-md-1">
+        <button [ngClass]="{'pulse': pulse.preparation}" md-fab color="warn" [disabled]="isDisabled.preparation">
           <span class="ti-location-arrow"></span>
       </button>
-    </div>
+      </div>
 
-    <div class="col-md-1">
-    </div>
+      <div class="col-md-1">
+      </div>
 
-    <div class="col-md-1">
-      <button [ngClass]="{'pulse': pulse.transit}" md-fab color="warn" [disabled]="isDisabled.transit">
+      <div class="col-md-1">
+        <button [ngClass]="{'pulse': pulse.transit}" md-fab color="warn" [disabled]="isDisabled.transit">
         <span class="ti-truck"></span>
       </button>
-    </div>
+      </div>
 
-    <div class="col-md-1">
-    </div>
+      <div class="col-md-1">
+      </div>
 
-    <div class="col-md-1">
-      <button [ngClass]="{'pulse': pulse.completed}" md-fab color="warn" [disabled]="isDisabled.completed">
+      <div class="col-md-1">
+        <button [ngClass]="{'pulse': pulse.completed}" md-fab color="warn" [disabled]="isDisabled.completed">
           <span class="ti-check"></span>
       </button>
-    </div>
+      </div>
 
-    <div class="col-md-1">
+
+
     </div>
   </div>
+  <md-progress-bar class="example-margin" [color]="color" [mode]="mode" [value]="value" [bufferValue]="bufferValue">
+  </md-progress-bar>
+</div>
+<br/>
+<div class="row">
+  <div class="col-12 text-center">
+    <div class="button-row progress-button">
+      <button class="progress-button" md-raised-button [ngStyle]=" { 'background-color': 'white'} " (click)="onStatusChange( 'all') ">Previous Process</button>
+      <button class="progress-button" md-raised-button [ngStyle]="{ 'background-color': 'warn'} " (click)="onStatusChange( 'payment') ">Next Process</button>
+    </div>
   </div>
-    <md-progress-bar class="example-margin" [color]="color" [mode]="mode" [value]="value" [bufferValue]="bufferValue">
-    </md-progress-bar>
-  </div>
+</div>
+<div class="container-fluid">
+  <hr>
+  <h4 class="title">Order Summary</h4>
+  <!-- <div class="card"> -->
+    <md-card>
+    <div class="content table-responsive table-full-width">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>ID</th>
+            <th>Type</th>
+            <th>Pattern</th>
+            <th>Fabric</th>
+            <th>Color</th>
+            <th>Size</th>
+            <th>Quantity</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of orderItems">
+            <td><img src="{{item.product.images[0].imageUrl}}" alt="..." class="img-product"><br/></td>
+            <td class="product-title">
+              {{item.product.productId}}
+            </td>
+            <td>
+              {{item.product.productType}}
+            </td>
+            <td>
+              {{item.product.pattern.patternName}}
+            </td>
+            <td>
+              {{item.product.fabric.fabricName}}
+
+            </td>
+            <td>
+              {{item.product.colour.colourName}}
+            </td>
+            <td>
+              {{item.product.size.sizeName}}
+            </td>
+
+            <td>
+              <!-- <button class="change-qty" (click)="decrement(item.product.productId)">-</button>  -->
+              {{item.quantity}}
+              <!-- <button class="change-qty" (click)="increment(item.product.productId)">+</button> -->
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+    </md-card>
+  <!-- </div> -->
+  <hr>
+</div>

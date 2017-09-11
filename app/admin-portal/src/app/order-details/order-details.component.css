@@ -1,13 +1,23 @@
-:host /deep/ .data-table-row {
+/* :host /deep/ .data-table-row {
     cursor: pointer;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
 }
+ */
+ md-chip{
+    font-family: 'Muli';
+    
+     font-size: 30px;
+ }
 
-.numbers {
-    font-family: Tahoma,Geneva,sans-serif;
+.header{
+    font-family: 'Muli';
+    font-size: 30px;
+}
+.h2 {
+    font-family: 'Muli';
     font-size: 18px;
     text-align: left;
 }
@@ -31,14 +41,6 @@ button {
     font-family: Tahoma,Geneva,sans-serif;
 }
 
-.triangle{
-    width: 0;
-    height: 0;
-    border-top: 50px solid transparent;
-    border-left: 100px solid red;
-    border-bottom: 50px solid transparent;
-}
-
 /* button:target {
     border-style: inset;
 } */
@@ -49,7 +51,12 @@ button {
 }
 
 .progress-row{
-    padding-left: 45px;
+    /* padding-right: 10px; */
+    /* align-items: center; */
+}
+
+.progress-bar{
+    padding: 0px;
 }
 
 .pulse {
@@ -85,3 +92,39 @@ button {
         box-shadow: 0 0 0 0 rgba(204,169,44, 0);
     }
   }
+
+  /* table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border-bottom: 1px solid goldenrod;
+    text-align: center;
+    padding: 8px;
+    width: 20%;
+}
+*/
+
+thead{
+    font-family: 'Muli';
+    font-size: 16px;
+
+} 
+
+.img-product {
+    width: 200px;
+    text-align: center;
+}
+
+.pattern-name{
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.title{
+    font-size: 20px;
+    color: #DD0330;
+    font-family: 'Muli';
+}

@@ -33,7 +33,7 @@ import { OrderService } from './services/order.service'
 import { QRCodeModule } from 'angular2-qrcode';
 import { BootstrapModalModule } from 'ng2-bootstrap-modal';
 import { DataTableModule } from 'angular-4-data-table';
-import { MdTabsModule, MdButtonModule, MdProgressBarModule } from '@angular/material';
+import { MdTabsModule, MdButtonModule, MdProgressBarModule, MdChipsModule, MdCardModule } from '@angular/material';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 
@@ -68,7 +68,9 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     MdTabsModule,
     MdButtonModule,
     MdProgressBarModule,
-    Ng2SearchPipeModule
+    MdChipsModule,
+    Ng2SearchPipeModule,
+    MdCardModule
     ],
   exports: [
     MdTabsModule
