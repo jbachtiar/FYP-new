@@ -135,3 +135,32 @@ thead{
     color: #DD0330;
     font-family: 'Muli';
 }
+
+.box{
+    position: relative;
+    
+}
+.box .progress-row{
+position: absolute;
+z-index: 999;
+margin: 0 auto;
+left: 0;
+right: 0;        
+text-align: center;
+top: -35%; /* Adjust this value to move the positioned div up and down */
+color: white;
+}
+
+.mat-mini-fab.mat-basic:hover {
+    color: white;
+    background: #f44336;
+}
+
+.annotation{
+    font-size: 8px;
+}
+
+.mat-mini-fab[disabled][disabled]{
+    background: #f44336;
+    color: white;
+}

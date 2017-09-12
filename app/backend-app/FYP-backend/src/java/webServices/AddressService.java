@@ -11,8 +11,10 @@ import com.google.gson.JsonObject;
 import dao.CustomerAddressDAO;
 import entity.Address;
 import java.sql.SQLException;
+import javax.annotation.security.PermitAll;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.OPTIONS;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Context;
@@ -29,6 +31,16 @@ public class AddressService {
     private HttpServletResponse response;
 
 
+    @OPTIONS
+    @PermitAll
+    @Path("/save")
+    public void optionsSave() {
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
+        response.setHeader("Access-Control-Allow-Headers", "authorization");
+
+    }
+    
     @POST
     @Path("/save")
     @Consumes(MediaType.APPLICATION_JSON)

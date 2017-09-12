@@ -10,38 +10,38 @@
     </div>
     <div class="row ">
         <!-- <div class="col-md-12 "> -->
-            <div class="card ">
-                <div style="margin: auto; max-width: 1000px; margin-bottom: 50px; ">
-                    <data-table id="order-grid " headerTitle="Orders " [items]="orders " [itemCount]="itemCount
+        <div class="card ">
+            <div style="margin: auto; max-width: 1000px; margin-bottom: 50px; ">
+                <data-table id="order-grid " headerTitle="Orders " [items]="orders " [itemCount]="itemCount
     " (reload)="reloadItems($event) " (rowClick)="rowClick($event) " (rowDoubleClick)="rowDoubleClick($event) " [rowTooltip]="rowTooltip
     " [selectColumn]="true " [multiSelect]="false " [substituteRows]="false " [expandableRows]="true " [translations]="translations
-    " [indexColumnHeader]=" '#' " [selectOnRowClick]="true ">
-                        <template #dataTableExpand let-item="item ">
-                            <div *ngFor="let oi of item.order_items ">
-                                Product ID: {{oi.product_id}} Qty: {{oi.quantity}}
-                            </div>
-                            <!-- <div [textContent]="item.order_items[0].product_id " style="padding: 5px; color: gray "></div> -->
-                        </template>
-                        <data-table-column [property]=" 'orderId' " [header]=" 'Order ID' " [sortable]="true
+    " [indexColumnHeader]=" '#' " [selectOnRowClick]="true " [multiSelect]="true">
+                    <template #dataTableExpand let-item="item ">
+                        <div *ngFor="let oi of item.order_items ">
+                            Product ID: {{oi.product_id}} Qty: {{oi.quantity}}
+                        </div>
+                        <!-- <div [textContent]="item.order_items[0].product_id " style="padding: 5px; color: gray "></div> -->
+                    </template>
+                    <data-table-column [property]=" 'orderId' " [header]=" 'Order ID' " [sortable]="true
     " [resizable]="true ">
-                        </data-table-column>
+                    </data-table-column>
 
-                        <data-table-column [property]=" 'order_TimeStamp' " [header]=" 'Date' " [sortable]="true " [resizable]="true ">
-                            <template #dataTableCell let-item="item ">
-                                <span>{{item.order_TimeStamp | date:'yyyy-MM-dd'}}</span>
-                            </template>
-                        </data-table-column>
+                    <data-table-column [property]=" 'order_TimeStamp' " [header]=" 'Date' " [sortable]="true " [resizable]="true ">
+                        <template #dataTableCell let-item="item ">
+                            <span>{{item.order_TimeStamp | date:'yyyy-MM-dd'}}</span>
+                        </template>
+                    </data-table-column>
 
-                        <data-table-column [property]=" 'currentStatus' " [header]=" 'Status' " [sortable]="true " [resizable]="true ">
-                        </data-table-column>
+                    <data-table-column [property]=" 'currentStatus' " [header]=" 'Status' " [sortable]="true " [resizable]="true ">
+                    </data-table-column>
 
-                    </data-table>
-                    <div style="margin-top: 10px ">
-                        <b>Selected:</b>
-                        <span *ngIf="orderTable.selectedRow==n ull "><i>No item selected</i></span>
-                        <span [textContent]="orderTable.selectedRow && orderTable.selectedRow.item.order_id "></span>
-                    </div>
+                </data-table>
+                <div style="margin-top: 10px ">
+                    <b>Selected:</b>
+                    <span *ngIf="orderTable.selectedRow==null "><i>No item selected</i></span>
+                    <span [textContent]="orderTable.selectedRow && orderTable.selectedRow.item.orderId "></span>
                 </div>
+            </div>
             <!-- </div> -->
         </div>
     </div>

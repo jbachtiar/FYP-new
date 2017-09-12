@@ -4,7 +4,8 @@ import { ProfileService } from '../profile.service'
 import { Customer } from '../interface/customer'
 import { DialogService } from "ng2-bootstrap-modal";
 import { ConfirmationPopupComponent } from '../confirmation-popup/confirmation-popup.component'
-
+import { StorageService } from '../storage.service';
+import { NgForm } from "@angular/forms/src/forms";
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -13,6 +14,7 @@ import { ConfirmationPopupComponent } from '../confirmation-popup/confirmation-p
 })
 export class ProfileComponent implements OnInit {
   private user: any = {};
+  private isDisplay = true;
   title = 'app';
   firstName: string;
   lastName: string;
@@ -23,28 +25,41 @@ export class ProfileComponent implements OnInit {
   customer: Customer;
   token: string;
   loading: boolean = true;
+  asideVisible: boolean;
+  form: NgForm;;
+
+
 
 
   constructor(
     private profileService: ProfileService,
+    private storageService: StorageService,
     private dialogService: DialogService) {
     this.token = localStorage.getItem('token');
+   // this.profileService.sidebarVisibilityChange.subscribe(value => {
+    //  console.log("saved!");
+    //  this.updateProfile();
+
+  //  });
+
 
   }
 
 
   ngOnInit() {
     console.log(this.token);
-    
+
     this.profileService.displayProfile(this.token).subscribe(
       res => {
         this.loading = true;
         if (res.status === '200') {
+          console.log(res.user);
           this.firstName = res.user.firstName
           this.lastName = res.user.lastName
           this.contact = res.user.phoneNo
+          this.password = res.user.password
           console.log("Retrieve successful");
-          
+
           this.loading = false;
         } else {
           console.log("Retrieve failed");
@@ -53,15 +68,27 @@ export class ProfileComponent implements OnInit {
       }
     )
 
+  }
 
+  updatePassword() {
+    this.isDisplay = false;
 
   }
 
+  back() {
+    this.isDisplay = true;
+ 
+  }
 
   update() {
 
+    this.isDisplay = true;
+    this.updateProfile()
 
-    this.profileService.updateProfile(this.token, this.firstName, this.lastName, this.contact, this.password)
+
+  }
+  updateProfile() {
+    this.profileService.updateProfile(this.token, this.firstName, this.lastName, this.contact, this.user.password)
       .subscribe(
       res => {
         if (res.status === '200') {

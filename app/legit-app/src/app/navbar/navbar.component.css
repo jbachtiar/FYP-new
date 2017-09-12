@@ -58,7 +58,7 @@
         position: relative;
         display: inline-block; /* Make the width of box same as image */
     }
-.box .text{
+.box .progress-row{
     position: absolute;
     z-index: 999;
     margin: 0 auto;
