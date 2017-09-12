@@ -6,11 +6,7 @@ import { prodConfig } from './prod';
 let config = devConfig;
 
 //change environment
-<<<<<<< HEAD
 let env = 'dev'
-=======
-let env = 'development'
->>>>>>> b335395423d28becba440bb554ce00c36c09494e
 
 if (env === 'production') {
   config = prodConfig;

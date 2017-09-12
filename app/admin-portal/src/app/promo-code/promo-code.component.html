@@ -4,7 +4,7 @@
       <div class="card">
         <div class="header">
           <h4 class="title">Promo Code List</h4>
-          <button class="btn btn-info btn-fill btn-wd pull-right" [disabled]="add" (click)="addStaff()">Add New Promo</button>
+          <button class="btn btn-info btn-fill btn-wd pull-right" [disabled]="add" (click)="addPromo()">Add New Promo</button>
         </div>
         <hr>
         <div class="content">
@@ -49,9 +49,9 @@
                 {{p.endDate}}
               </td>
               <td>
-                  <button class="btn btn-info btn-fill btn-wd pull-right" (click)="editPromo(p)">Edit</button>
-                  <br>
-                  <button class="btn btn-info btn-fill btn-wd pull-right" (click)="deletePromo(p)">Delete</button>
+                <button class="btn btn-info btn-fill btn-wd pull-right" (click)="editPromo(p)">Edit</button>
+                <br>
+                <button class="btn btn-info btn-fill btn-wd pull-right" (click)="deletePromo(p)">Delete</button>
               </td>
             </tbody>
           </table>
@@ -60,5 +60,115 @@
     </div>
 
 
+  </div>
+  <div *ngIf="add" class="row">
+    <div class="col-lg-6 col-md-5">
+      <div class="card">
+        <div class="header">
+          <h4 class="title">Add Promo Code </h4>
+          <button class="btn btn-info btn-fill btn-wd" (click)="cancelAdd()">Cancel</button>
+        </div>
+        <hr>
+        <div class="content">
+          <form name="form" *ngIf="!loading" (ngSubmit)="f.form.valid && addNewPromo()" #f="ngForm" novalidate>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Promo Code</label>
+                  <input #input (input)="input.value=$event.target.value.toUpperCase()" type="text" class="form-control border-input" name="promoCode"
+                    [ngModelOptions]="{standalone: true}" [(ngModel)]="newPromo.promoCode" #promoCode="ngModel" placeholder="Enter Promo Code"
+                    required>
+                  <div *ngIf="f.submitted && !promoCode.valid" class="help-block">
+                    Promo Code is required.
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Promo Name</label>
+                  <input type="text" class="form-control border-input" name="promoName" [ngModelOptions]="{standalone: true}" [(ngModel)]="newPromo.promoName"
+                    #promoName="ngModel" placeholder="Enter Promo Name" required>
+                  <div *ngIf="f.submitted && !promoName.valid" class="help-block">
+                    Promo Name is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-2">
+                <div class="form-group">
+                  <label>Type</label>
+                  <select class="form-control border-input" [ngModelOptions]="{standalone: true}" id="promoType" [(ngModel)]="newPromo.promoType"
+                    name="promoType" required #promoType="ngModel">
+                          <option [ngValue]="newPromo.promoType" value="%">%</option>
+                          <option [ngValue]="newPromo.promoType" value="$">$</option>
+                      </select>
+                  <div *ngIf="f.submitted && !promoType.valid" class="help-block">
+                    Promo Type is required.
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>Promo Value</label>
+                  <input type="number" min="0" class="form-control border-input" name="promoValue" [ngModelOptions]="{standalone: true}" [(ngModel)]="newPromo.promoValue"
+                    #promoValue="ngModel" placeholder="Enter Promo Value" required>
+                  <div *ngIf="f.submitted && !promoValue.valid" class="help-block">
+                    Promo Value is required.
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Quota</label>
+                  <input type="number" min="0" class="form-control border-input" name="quota" [ngModelOptions]="{standalone: true}" [(ngModel)]="newPromo.quota"
+                    #quota="ngModel" placeholder="Enter Quota" required>
+                  <div *ngIf="f.submitted && !quota.valid" class="help-block">
+                    Quota is required.
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Min Purchase</label>
+                  <input type="number" min="0" class="form-control border-input" name="minPurchase" [ngModelOptions]="{standalone: true}" [(ngModel)]="newPromo.minPurchase"
+                    #minPurchase="ngModel" placeholder="Enter Min Purchase" required>
+                  <div *ngIf="f.submitted && !minPurchase.valid" class="help-block">
+                    Min Purchase is required.
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Max Discount</label> $
+                  <input min="0" type="number" class="form-control border-input" name="maxDiscount" placeholder="Enter Max Discount" [ngModelOptions]="{standalone: true}"
+                    [(ngModel)]="newPromo.maxDiscount" #maxDiscount="ngModel" required>
+                  <div *ngIf="f.submitted && !maxDiscount.valid" class="help-block">
+                    Max Discount is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+
+                <label>Promo Period</label>
+                <my-date-range-picker class="border-input" name="rangeDate" [options]="myDateRangePickerOptions" placeholder="Enter Start and End Date"
+                  [(ngModel)]="rangeDate" required></my-date-range-picker>
+
+
+              </div>
+
+            </div>
+            <button class="btn btn-info btn-fill btn-wd">Add Promo</button>
+          </form>
+        </div>
+
+
+      </div>
+    </div>
   </div>
 </div>

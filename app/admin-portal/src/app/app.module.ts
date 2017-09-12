@@ -38,7 +38,8 @@ import { BootstrapModalModule } from 'ng2-bootstrap-modal';
 import { DataTableModule } from 'angular-4-data-table';
 import { MdTabsModule, MdButtonModule, MdProgressBarModule, MdChipsModule, MdCardModule } from '@angular/material';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
-
+import { MyDatePickerModule } from 'mydatepicker';
+import { MyDateRangePickerModule } from 'mydaterangepicker';
 
 @NgModule({
   declarations: [
@@ -74,7 +75,9 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     MdProgressBarModule,
     MdChipsModule,
     Ng2SearchPipeModule,
-    MdCardModule
+    MdCardModule,
+    MyDatePickerModule,
+    MyDateRangePickerModule 
     ],
   exports: [
     MdTabsModule

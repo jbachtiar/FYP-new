@@ -1,0 +1,46 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package webServices;
+
+import com.google.gson.TypeAdapter;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+import java.io.IOException;
+import java.sql.Date;
+
+/**
+ *
+ * @author Jeremy Bachtiar
+ */
+final class UnixEpochDateTypeAdapter
+        extends TypeAdapter<Date> {
+
+    private static final TypeAdapter<Date> unixEpochDateTypeAdapter = new UnixEpochDateTypeAdapter();
+
+    private UnixEpochDateTypeAdapter() {
+    }
+
+    static TypeAdapter<Date> getUnixEpochDateTypeAdapter() {
+        return unixEpochDateTypeAdapter;
+    }
+
+    @Override
+    public Date read(final JsonReader in)
+            throws IOException {
+        // this is where the conversion is performed
+        return new Date(in.nextLong());
+    }
+
+    @Override
+    @SuppressWarnings("resource")
+    public void write(final JsonWriter out, final Date value)
+            throws IOException {
+        // write back if necessary or throw UnsupportedOperationException
+        out.value(value.getTime());
+    }
+
+
+}

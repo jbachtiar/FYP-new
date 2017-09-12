@@ -15,6 +15,7 @@ import dao.PromoCodeDAO;
 import dao.StaffDAO;
 import entity.PromoCode;
 import entity.Staff;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.annotation.security.PermitAll;
@@ -27,6 +28,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import tokenManagement.tokenManagement;
+import static webServices.UnixEpochDateTypeAdapter.getUnixEpochDateTypeAdapter;
 
 /**
  *
@@ -94,7 +96,7 @@ public class PromoCodeService {
 
         return gson.toJson(jsonOutput);
     }
-    
+
     @OPTIONS
     @PermitAll
     @Path("/delete")
@@ -116,8 +118,6 @@ public class PromoCodeService {
         JsonParser parser = new JsonParser();
 
         PromoCodeDAO promoCodeDAO = new PromoCodeDAO();
-        Staff staff = null;
-        String status = "";
         String email = tokenManagement.parseJWT(token);
         if (email != null) {
             try {
@@ -135,6 +135,71 @@ public class PromoCodeService {
                 }
             } catch (SQLException e) {
 
+                jsonOutput.addProperty("status", "500");
+                jsonOutput.addProperty("description", "SQL Exception");
+
+            }
+        } else {
+            jsonOutput.addProperty("status", "500");
+            jsonOutput.addProperty("description", "Not Authorised");
+
+        }
+
+        return gson.toJson(jsonOutput);
+    }
+
+    @OPTIONS
+    @PermitAll
+    @Path("/add")
+    public void optionsAddPromo() {
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
+        response.setHeader("Access-Control-Allow-Headers", "auhtorization");
+
+    }
+
+    @POST
+    @Path("/add")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String addPromo(@FormParam("token") String token, @FormParam("promoCode") String promoCodeJson) {
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        String email = tokenManagement.parseJWT(token);
+        
+        
+        JsonObject jsonOutput = new JsonObject();
+        Gson gson = new GsonBuilder().registerTypeAdapter(Date.class, getUnixEpochDateTypeAdapter()).create();
+        PromoCodeDAO promoCodeDAO = new PromoCodeDAO();
+        String status = "";
+
+        PromoCode promoCode = gson.fromJson(promoCodeJson, PromoCode.class);
+        System.out.println("Promo name : "+ promoCode.getPromoName());
+        System.out.println("Promo code : "+promoCode.getPromoCode());
+        System.out.println("Promo id : "+promoCode.getPromoCodeId());
+        System.out.println("Promo type : "+promoCode.getPromoType());
+        System.out.println("Promo value : "+promoCode.getPromoValue());
+        System.out.println("Promo max : "+promoCode.getMaxDiscount());
+        System.out.println("Promo min : "+promoCode.getMinPurchase());
+        System.out.println("Promo start : "+promoCode.getStartDate());
+        System.out.println("Promo end : "+promoCode.getEndDate());
+        System.out.println("Promo counter: "+promoCode.getCounter());
+        System.out.println("Promo quota : "+promoCode.getQuota());
+        
+        if (email != null) {
+            try {
+                String result = promoCodeDAO.addPromoCode(promoCode);
+                if (result.equals("Success")) {
+
+                    jsonOutput.addProperty("status", "200");
+                    jsonOutput.addProperty("description", "Added Successfully");
+
+                } else {
+
+                    jsonOutput.addProperty("status", "500");
+                    jsonOutput.addProperty("description", "Failed to Add");
+
+                }
+            } catch (SQLException e) {
+                System.out.println(e);
                 jsonOutput.addProperty("status", "500");
                 jsonOutput.addProperty("description", "SQL Exception");
 

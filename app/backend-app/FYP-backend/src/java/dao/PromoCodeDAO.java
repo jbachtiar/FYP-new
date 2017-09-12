@@ -21,18 +21,19 @@ import java.util.ArrayList;
 public class PromoCodeDAO {
 
     //Create 1 PromoCode
-    public void addPromoCode(PromoCode pc) throws SQLException {
+    public String addPromoCode(PromoCode pc) throws SQLException {
         
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
-        String sql = "INSERT INTO PROMO_CODE (PROMO_CODE_ID, PROMO_CODE, PROMO_NAME, PROMO_TYPE, PROMO_VALUE, MIN_PURCHASE, MAX_DISCOUNT, QUOTA, COUNTER, START_DATE, END_DATE, DELETED) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO PROMO_CODE VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
 
         try {
             conn = ConnectionManager.getConnection();
             stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, pc.getPromoCodeId());
+            System.out.println("promo ID : " + this.getNextPromoCodeId());
+            stmt.setInt(1, this.getNextPromoCodeId());
             stmt.setString(2, pc.getPromoCode());
             stmt.setString(3, pc.getPromoName());
             stmt.setString(4, pc.getPromoType());
@@ -43,13 +44,15 @@ public class PromoCodeDAO {
             stmt.setInt(9, pc.getCounter());
             stmt.setDate(10, pc.getStartDate());
             stmt.setDate(11, pc.getEndDate());
-            stmt.setDouble(12, 'N');
+            stmt.setString(12,"N");
             stmt.executeUpdate();
 
             
         } finally {
             ConnectionManager.close(conn, stmt, rs);
         }
+        
+        return "Success";
         
     }
 
