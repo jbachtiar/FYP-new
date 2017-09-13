@@ -15,7 +15,7 @@
 
                 <button type="button" id="clear" class="btn btn-default" (click)="onClear()" >Clear All Filters</button>  
 
-                <select [(ngModel)]="selectedCollection" class="btn btn-default" (ngModelChange)="onSelectCollection(c.collectionId)">
+                <select [(ngModel)]="selectedCollection" class="btn btn-default" (ngModelChange)="onSelectCollection($event)">
                     <option disabled value=undefined class="hideoption" selected>Select Collection</option>
                     <option *ngFor="let c of collections" [ngValue]="c">{{c.collectionName}}</option>
                 </select>

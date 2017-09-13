@@ -62,9 +62,10 @@ export class ProductListComponent implements OnInit {
 
   }
   
-  onSelectCollection(collectionId) {
+  onSelectCollection(collection) {
+
     this.startLoading()
-    this.selectedCollectionId = collectionId.id;
+    this.selectedCollectionId = collection.collectionId;
     console.log(this.selectedCollectionId);
     console.log(this.selectedFabricId);
     console.log(this.selectedColourId);
@@ -80,9 +81,9 @@ export class ProductListComponent implements OnInit {
       });
   }
 
-  onSelectFabric(fabricid) {
+  onSelectFabric(fabric) {
     this.startLoading()
-    this.selectedFabricId = fabricid.id;
+    this.selectedFabricId = fabric.fabricId;
     console.log(this.selectedCollectionId);
     console.log(this.selectedFabricId);
     console.log(this.selectedColourId);
@@ -99,10 +100,10 @@ export class ProductListComponent implements OnInit {
   
   }
 
-  onSelectColour(colourid) {
+  onSelectColour(colour) {
     
     this.startLoading()
-    this.selectedColourId = colourid.id;
+    this.selectedColourId = colour.colourId;
     console.log(this.selectedCollectionId);
     console.log(this.selectedFabricId);
     console.log(this.selectedColourId);
