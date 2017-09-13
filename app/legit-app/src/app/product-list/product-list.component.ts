@@ -17,6 +17,9 @@ export class ProductListComponent implements OnInit {
   selectedFabricId;
   selectedColourId;
   selectedSortPriceId;
+  collections;
+  colours;
+  fabrics;
   queriedSearch;
   loading:boolean = true;
 
@@ -160,37 +163,37 @@ export class ProductListComponent implements OnInit {
      ];
   
   selectedCollection:any = null;
-  collections = [
-       {id: "CO1", name: "Bestsellers"},
-       {id: "CO2", name: "2018 Spring"},
-       {id: "CO3", name: "2018 Summer"},
-       {id: "CO4", name: "2017 Spring"}
-     ];
+  // collections = [
+  //      {id: "CO1", name: "Bestsellers"},
+  //      {id: "CO2", name: "2018 Spring"},
+  //      {id: "CO3", name: "2018 Summer"},
+  //      {id: "CO4", name: "2017 Spring"}
+  //    ];
 
   selectedFabric:any = null;
-  fabrics = [
-       {id: "F1", name: "Silk"},
-       {id: "F2", name: "Modal"},
-       {id: "F3", name: "Long Staple Cotton"},
-       {id: "F4", name: "Cotton"},
-       {id: "F5", name: "Lyocell Tencel"},
-       {id: "F6", name: "Polyester-Cotton"}
-     ];
+  // fabrics = [
+  //      {id: "F1", name: "Silk"},
+  //      {id: "F2", name: "Modal"},
+  //      {id: "F3", name: "Long Staple Cotton"},
+  //      {id: "F4", name: "Cotton"},
+  //      {id: "F5", name: "Lyocell Tencel"},
+  //      {id: "F6", name: "Polyester-Cotton"}
+  //    ];
 
   selectedColour:any = null;
-  colours = [
-       {id: "C1", name: "White"},
-       {id: "C2", name: "Black"},
-       {id: "C3", name: "Red"},
-       {id: "C4", name: "Yellow"},
-       {id: "C5", name: "Blue"},
-       {id: "C6", name: "Green"},
-       {id: "C7", name: "Pink"},
-       {id: "C8", name: "Purple"},
-       {id: "C9", name: "Brown"},
-       {id: "C10", name: "Gold"},
-       {id: "C11", name: "Silver"}
-     ];
+  // colours = [
+  //      {id: "C1", name: "White"},
+  //      {id: "C2", name: "Black"},
+  //      {id: "C3", name: "Red"},
+  //      {id: "C4", name: "Yellow"},
+  //      {id: "C5", name: "Blue"},
+  //      {id: "C6", name: "Green"},
+  //      {id: "C7", name: "Pink"},
+  //      {id: "C8", name: "Purple"},
+  //      {id: "C9", name: "Brown"},
+  //      {id: "C10", name: "Gold"},
+  //      {id: "C11", name: "Silver"}
+  //    ];
   
   //list of products 
   private products = []
@@ -223,6 +226,13 @@ export class ProductListComponent implements OnInit {
         //initialise paginator 
         this.setPage(1);
         this.stopLoading()
+      });
+
+    this.productService.getProductCatalogueFilters().subscribe(
+      filters => {
+        this.collections = filters.collections;
+        this.fabrics = filters.fabrics;
+        this.colours = filters.colours;
       });
   }
 

@@ -94,9 +94,13 @@ public class ProductCatalogue {
             JsonArray fabrics = gson.toJsonTree(fabricArr).getAsJsonArray();
             JsonArray colours = gson.toJsonTree(colourArr).getAsJsonArray();
             
-            jsonOutput.add("collections", collections);
-            jsonOutput.add("fabrics", fabrics);
-            jsonOutput.add("colours", colours);
+            JsonObject filter = new JsonObject();
+            
+            filter.add("collections", collections);
+            filter.add("fabrics", fabrics);
+            filter.add("colours", colours);
+            
+            jsonOutput.add("filters", filter);
 
         } catch (SQLException e) {
 

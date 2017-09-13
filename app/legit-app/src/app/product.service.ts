@@ -116,6 +116,17 @@ export class ProductService {
     }
 
 
+    getProductCatalogueFilters() {
+        let url = CONFIG.filterBackendUrl
+        return this._http.get(url)
+            .map(res => {
+                console.log(url)
+                console.log("filter is loaded" + res.json().filters);
+                return res.json().filters;
+            });
+    }
+
+
     public chargeStripe(token) {
         //get token from stripe response
         //send token to backend
