@@ -11,7 +11,6 @@ package dao;
  */
 import database.ConnectionManager;
 import entity.OrderItem;
-import entity.Product;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -39,11 +38,12 @@ public class OrderItemDAO {
 
             while (rs.next()) {
 
-                int productId = rs.getInt(2);
-                int quantity = rs.getInt(3);
-                double unitPrice = rs.getDouble(4);
+                int productId = rs.getInt("PRODUCT_ID");
+                int quantity = rs.getInt("QUANTITY");
+                double unitPrice = rs.getDouble("UNIT_PRICE");
+                String itemStatus = rs.getString("ITEM_STATUS");
                 ProductDAO pd = new ProductDAO();
-                orderItems.add(new OrderItem(pd.getProductById(productId), quantity, unitPrice));
+                orderItems.add(new OrderItem(pd.getProductById(productId), quantity, unitPrice, itemStatus));
 
             }
         } finally {

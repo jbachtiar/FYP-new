@@ -14,11 +14,13 @@ public class OrderItem {
     private Product product;
     private int quantity;
     private double unitPrice;
+    private String itemStatus;
 
-    public OrderItem(Product product, int quantity, double unitPrice) {
+    public OrderItem(Product product, int quantity, double unitPrice, String itemStatus) {
         this.product = product;
         this.quantity = quantity;
         this.unitPrice = unitPrice;
+        this.itemStatus = itemStatus;
     }
 
     public Product getProduct() {
@@ -43,6 +45,14 @@ public class OrderItem {
 
     public void setUnitPrice(double unitPrice) {
         this.unitPrice = unitPrice;
+    }
+
+    public String getItemStatus() {
+        return itemStatus;
+    }
+
+    public void setItemStatus(String itemStatus) {
+        this.itemStatus = itemStatus;
     }
     
 }
