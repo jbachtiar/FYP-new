@@ -36,11 +36,11 @@ export class ProfileComponent implements OnInit {
     private storageService: StorageService,
     private dialogService: DialogService) {
     this.token = localStorage.getItem('token');
-   // this.profileService.sidebarVisibilityChange.subscribe(value => {
+    // this.profileService.sidebarVisibilityChange.subscribe(value => {
     //  console.log("saved!");
     //  this.updateProfile();
 
-  //  });
+    //  });
 
 
   }
@@ -53,12 +53,13 @@ export class ProfileComponent implements OnInit {
       res => {
         this.loading = true;
         if (res.status === '200') {
-          console.log(res.user);
+          //   console.log(res.user);
           this.firstName = res.user.firstName
           this.lastName = res.user.lastName
           this.contact = res.user.phoneNo
           this.password = res.user.password
-          console.log("Retrieve successful");
+
+          //   console.log("Retrieve successful");
 
           this.loading = false;
         } else {
@@ -77,7 +78,7 @@ export class ProfileComponent implements OnInit {
 
   back() {
     this.isDisplay = true;
- 
+
   }
 
   update() {

@@ -10,7 +10,8 @@ import { Subject } from "rxjs/Subject";
 @Injectable()
 export class ProfileService {
     private customer;
-  //  isSidebarVisible: boolean;
+    private address: any = {};
+    //  isSidebarVisible: boolean;
 
     //sidebarVisibilityChange: Subject<boolean> = new Subject<boolean>();
 
@@ -21,17 +22,22 @@ export class ProfileService {
     }
 
 
-
-    constructor(private _http: Http) {
-       // this.sidebarVisibilityChange.subscribe((value) => {
-       //     this.isSidebarVisible = value
-      //  });
+    getAddress() {
+        return this.address;
     }
 
-   // toggleSidebarVisibilty() {
-     //   this.sidebarVisibilityChange.next(!this.isSidebarVisible);
-        //console.log(this.isSidebarVisible);
-   // }
+
+
+    constructor(private _http: Http) {
+        // this.sidebarVisibilityChange.subscribe((value) => {
+        //     this.isSidebarVisible = value
+        //  });
+    }
+
+    // toggleSidebarVisibilty() {
+    //   this.sidebarVisibilityChange.next(!this.isSidebarVisible);
+    //console.log(this.isSidebarVisible);
+    // }
 
     displayProfile(token: string) {
         //  let params: URLSearchParams = new URLSearchParams();
@@ -52,51 +58,27 @@ export class ProfileService {
             .map(res => {
                 // login successful if there's a jwt token in the response
                 let user = res.json();
-                user.address = [
-                    {
-                        "recipientName": "Huiyan Chen",
-                        "contact": "+658727178",
-                        "addressLine": "200 Blablabla Road",
-                        "city": "Singapore",
-                        "country": "Singapore",
-                        "postalCode": "20920",
-                        "isDefault": "Y"
-                    },
-                    {
-                        "recipientName": "Clarissa",
-                        "contact": "+921929393",
-                        "addressLine": "505 Erroria Road",
-                        "city": "Antananarivo",
-                        "country": "Madagascar",
-                        "postalCode": "12094",
-                        "isDefault": "no"
-                    },
-                    {
-                        "recipientName": "Yu Xuan",
-                        "contact": "+269202020",
-                        "addressLine": "400 Connectia Road",
-                        "city": "Reykjavík",
-                        "country": "Iceland",
-                        "postalCode": "12934",
-                        "isDefault": "no"
-                    }
-                ]
-                if (user) {
+                console.log(user);
+                
+                /*    if (user) {
+    
+                        //this.customer={firstName:user.firstName, lastName:user.lastName, contact:user.phoneNumber, address:user.address, postalCode:user.postalCode, password:user.password}
+                        this.customer = {
+                            firstName: user.firstName,
+                            lastName: user.lastName,
+                            contact: user.phoneNo,
+                            address: user.address,
+                            postalCode: user.postalCode,
+                            password: user.password
+                        }
+                       // console.log(this.customer);
+    
+                      
+    
+                    } */
 
-                    //this.customer={firstName:user.firstName, lastName:user.lastName, contact:user.phoneNumber, address:user.address, postalCode:user.postalCode, password:user.password}
-                    this.customer = {
-                        firstName: user.firstName,
-                        lastName: user.lastName,
-                        contact: user.phoneNo,
-                        address: user.address,
-                        postalCode: user.postalCode,
-                        password: user.password
-                    }
-                    console.log(this.customer);
 
-                    return user;
-
-                }
+                return user;
 
             });
     }

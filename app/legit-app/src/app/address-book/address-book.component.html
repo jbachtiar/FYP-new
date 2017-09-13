@@ -4,7 +4,7 @@
 
   <h3>Default Shipping Address</h3>
   <div class="card">
-    {{defaultAddress.recipientName}}
+    <b>Recipient Name: </b> {{defaultAddress.recipientName}}
     <br/> {{defaultAddress.contact}}
     <br/> {{defaultAddress.addressLine}}
     <br/> {{defaultAddress.city}}
@@ -16,7 +16,7 @@
   <div *ngFor="let a of addressBook">
     <div class="col-sm-6">
       <div class="card">
-        {{a.recipientName}}
+        <b>Recipient Name: </b> {{a.recipientName}}
         <br/> {{a.contact}}
         <br/> {{a.addressLine}}
         <br/> {{a.city}}
