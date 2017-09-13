@@ -13,9 +13,7 @@ import entity.Pattern;
 import entity.Fabric;
 import entity.Image;
 import entity.Product;
-import entity.PromoCode;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -134,46 +132,6 @@ public class ProductDAO {
 
     }
 
-//
-//    public static void insertProductToDB (Product p) throws SQLException{
-//        
-//        //may need to drop productr table first
-//        
-//        String SKU = p.getSKU();
-//        String patternID = p.getPatternID();
-//        String fabricID = p.getFabricID();
-//        String colorID = p.getColorID();
-//        Double colorPrice = p.getColorPrice();
-//        String imageURL = p.getImageUrl();
-//        
-//        Connection conn = null;
-//        PreparedStatement stmt = null;
-//        ResultSet rs = null;
-//        Product product = null;
-//
-//        String sql = "INSERT INTO PRODUCT (SKU, PATTERN_ID, FABRIC_ID, COLOUR_ID, COLOUR_PRICE, IMAGE_URL) VALUES(?,?,?,?,?,?)";      
-//
-//        try {
-//            
-//            conn = ConnectionManager.getConnection();
-//            stmt = conn.prepareStatement(sql);
-//            stmt.setString(1, SKU);
-//            stmt.setString(2, patternID);
-//            stmt.setString(3, fabricID);
-//            stmt.setString(4, colorID);
-//            stmt.setDouble(5, colorPrice);
-//            stmt.setString(6, imageURL);
-//            
-//            rs = stmt.executeQuery();
-//
-//        } finally {
-//            ConnectionManager.close(conn, stmt, rs);
-//        }
-//        
-//
-//        
-//    }
-//    
     public ArrayList<Bedding> getBeddingPatterns() throws SQLException {
 
         Connection conn = null;
@@ -382,6 +340,7 @@ public class ProductDAO {
         }
         return lowestPrice;
     }
+    
 //
 //    public static Product[] getfilteredProducts(String collectionId, String fabricId, String colourId, String sortPrice) throws SQLException {
 //

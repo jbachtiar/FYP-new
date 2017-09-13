@@ -191,6 +191,37 @@ public class ColourDAO {
         return colours;
     }
 
-  
+    public Colour[] getCurrentColour() throws SQLException{
+        
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        ArrayList<Colour> colourList = new ArrayList<Colour>();
+        
+        String sql = "SELECT COLOUR_ID, COLOUR_NAME FROM COLOUR WHERE DELETED = 'N' AND COLOUR_ID IN (SELECT DISTINCT COLOUR_ID FROM PRODUCT WHERE DELETED = 'N')"; 
+        
+        try {
+            
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            rs = stmt.executeQuery();
+            
+            while (rs.next()) {
+                
+              
+                int colourId = rs.getInt("COLOUR_ID");
+                String colourName = rs.getString("COLOUR_NAME");
+                Colour c = new Colour(colourId, colourName);
+                colourList.add(c);
+                
+            }
+
+        } finally {
+            ConnectionManager.close(conn, stmt, rs);
+        }
+        
+        return colourList.toArray(new Colour[colourList.size()]);
+   
+    }
 
 }

@@ -114,4 +114,37 @@ public class CollectionDAO {
         return c;
    
     }
+      
+    public Collection[] getCurrentCollections() throws SQLException{
+        
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        ArrayList<Collection> collectionList = new ArrayList<Collection>();
+        
+        String sql = "SELECT * FROM COLLECTION WHERE COLLECTION_ID IN (SELECT DISTINCT COLLECTION_ID FROM PATTERN WHERE PATTERN_ID IN (SELECT DISTINCT PATTERN_ID FROM PRODUCT WHERE DELETED = 'N'))"; 
+        
+        try {
+            
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            rs = stmt.executeQuery();
+            
+            while (rs.next()) {
+                
+              
+                int collectionId = rs.getInt("COLLECTION_ID");
+                String collectionName = rs.getString("COLLECTION_NAME");
+                Collection c = new Collection(collectionId, collectionName);
+                collectionList.add(c);
+                
+            }
+
+        } finally {
+            ConnectionManager.close(conn, stmt, rs);
+        }
+        
+        return collectionList.toArray(new Collection[collectionList.size()]);
+   
+    }
 }

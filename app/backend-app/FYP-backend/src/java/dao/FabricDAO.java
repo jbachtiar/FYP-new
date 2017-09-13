@@ -12,8 +12,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -249,6 +247,42 @@ public class FabricDAO {
         return fabric;
 
     }
+    
+    public Fabric[] getCurrentFabric() throws SQLException{
+        
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        ArrayList<Fabric> fabricList = new ArrayList<Fabric>();
+        
+        String sql = "SELECT * FROM FABRIC WHERE DELETED = 'N' AND FABRIC_ID IN (SELECT DISTINCT FABRIC_ID FROM PRODUCT WHERE DELETED = 'N')"; 
+        
+        try {
+            
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            rs = stmt.executeQuery();
+            
+            while (rs.next()) {
+                
+              
+                int fabricId = rs.getInt("FABRIC_ID");
+                String fabricName = rs.getString("FABRIC_NAME");
+                String fabricDesc = rs.getString("FABRIC_DESC");
+                Double fabricPrice = rs.getDouble("FABRIC_PRICE");
+                Fabric f = new Fabric(fabricId, fabricName, fabricDesc, fabricPrice);
+                fabricList.add(f);
+                
+            }
+
+        } finally {
+            ConnectionManager.close(conn, stmt, rs);
+        }
+        
+        return fabricList.toArray(new Fabric[fabricList.size()]);
+   
+    }
+    
     
 //    private static void handleSQLException(SQLException ex, String sql, String... parameters) {
 //        String msg = "Unable to access data; SQL=" + sql + "\n";
