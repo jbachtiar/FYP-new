@@ -12,7 +12,6 @@ import com.google.gson.JsonObject;
 import dao.OrderDAO;
 import entity.Order;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;

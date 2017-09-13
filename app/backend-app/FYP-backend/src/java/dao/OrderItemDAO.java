@@ -81,5 +81,32 @@ public class OrderItemDAO {
         return "Success";
 
     }
+    
+    public String updateOrderItemStatus(int orderId, int productId, String newStatus) throws SQLException {
+        
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        String sql = "UPDATE ORDER_ITEM SET ITEM_STATUS = ? WHERE ORDER_ID = ? AND PRODUCT_ID = ?";
+
+        try {
+
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            
+            stmt.setString(1, newStatus);
+            stmt.setInt(2, orderId);
+            stmt.setInt(3, productId);
+            stmt.executeUpdate();
+
+        } finally {
+            ConnectionManager.close(conn, stmt, rs);
+        }
+
+
+        return "Success";
+
+    }
 
 }
