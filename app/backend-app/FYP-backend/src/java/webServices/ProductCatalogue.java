@@ -54,7 +54,64 @@ import javax.ws.rs.core.MediaType;
 @Path("/ProductCatalogue")
 public class ProductCatalogue {
 
-    @Context private HttpServletResponse response;
+    @Context
+    private HttpServletResponse response;
+    
+    @GET
+    @Path("/GetFilters")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getAllFilters() {
+        
+        response.setHeader("Access-Control-Allow-Headers", "Content-Type");
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
+
+        Gson gson = new GsonBuilder().create();
+        JsonObject jsonOutput = new JsonObject();
+        
+        //get collection objects
+        JsonArray collectionArray = new JsonArray();
+        CollectionDAO collectionDao = new CollectionDAO();
+
+
+        //get fabric objects
+        JsonArray fabricArray = new JsonArray();
+        FabricDAO fabricDao = new FabricDAO();
+        
+
+        //get colour objects
+        JsonArray colourArray = new JsonArray();
+        ColourDAO colourDao = new ColourDAO();
+
+        try {
+
+            Collection[] collectionArr = collectionDao.getCurrentCollections();
+            Fabric[] fabricArr = fabricDao.getCurrentFabrics();
+            Colour[] colourArr = colourDao.getCurrentColours();
+           
+            jsonOutput.addProperty("status", "200");
+            JsonArray collections = gson.toJsonTree(collectionArr).getAsJsonArray();
+            JsonArray fabrics = gson.toJsonTree(fabricArr).getAsJsonArray();
+            JsonArray colours = gson.toJsonTree(colourArr).getAsJsonArray();
+            
+            jsonOutput.add("collections", collections);
+            jsonOutput.add("fabrics", fabrics);
+            jsonOutput.add("colours", colours);
+
+        } catch (SQLException e) {
+
+            jsonOutput.addProperty("status", "500");
+            jsonOutput.addProperty("msg", "Dropdown Error: SQL Exception");
+
+        }
+
+        String finalJsonOutput = gson.toJson(jsonOutput);
+        return finalJsonOutput;
+        
+    }
+    
+    
+    
 //
 //    @OPTIONS
 //    @PermitAll

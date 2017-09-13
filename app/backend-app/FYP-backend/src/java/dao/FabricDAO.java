@@ -248,7 +248,7 @@ public class FabricDAO {
 
     }
     
-    public Fabric[] getCurrentFabric() throws SQLException{
+    public Fabric[] getCurrentFabrics() throws SQLException{
         
         Connection conn = null;
         PreparedStatement stmt = null;

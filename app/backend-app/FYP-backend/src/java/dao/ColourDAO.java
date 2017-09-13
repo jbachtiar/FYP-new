@@ -191,7 +191,7 @@ public class ColourDAO {
         return colours;
     }
 
-    public Colour[] getCurrentColour() throws SQLException{
+    public Colour[] getCurrentColours() throws SQLException{
         
         Connection conn = null;
         PreparedStatement stmt = null;
