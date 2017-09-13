@@ -23,6 +23,7 @@ export class PromoCodeComponent implements OnInit {
   private newPromo: PromoCode = new PromoCode;
   private edit: boolean = false;
   private add: boolean = false;
+  private loading: boolean = false;
   private rangeDate: any;
 
   ngOnInit() {
@@ -42,10 +43,42 @@ export class PromoCodeComponent implements OnInit {
     this.promoCodeService.addPromo(this.token, this.newPromo)
       .subscribe(
         res =>{
-          console.log("Added")
+          if (res.status === '200') {
+            //this.staffs = res.staffs;
+            console.log(res.status);
+            this.startLoading()
+            let disposable = this.dialogService.addDialog(ConfirmationPopupComponent, {
+              title: "Succesful!",
+              message: this.newPromo.promoCode + ' has been added!'
+            })
+              .subscribe((isConfirmed) => {
+                console.log("DIALOG")
+                //We get dialog result
+                if (isConfirmed) {
+                  //this.emptyField()
+                  this.ngOnInit()
+                  this.newPromo = new PromoCode()
+                  this.add = false;
+                }
+                else {
+                  //do nothing
+                }
+              });
+          } else {
+            console.log(res.status);
+            this.stopLoading()
+          }
         }
       )
   }
+
+  startLoading() {
+    this.loading = true;
+  }
+  stopLoading() {
+    this.loading = false;
+  }
+
   deletePromo(p: PromoCode) {
     let disposable = this.dialogService.addDialog(ConfirmationPopupComponent, {
       title: 'Remove Promo Code?',

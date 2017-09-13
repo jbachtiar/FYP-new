@@ -172,17 +172,6 @@ public class PromoCodeService {
         String status = "";
 
         PromoCode promoCode = gson.fromJson(promoCodeJson, PromoCode.class);
-        System.out.println("Promo name : "+ promoCode.getPromoName());
-        System.out.println("Promo code : "+promoCode.getPromoCode());
-        System.out.println("Promo id : "+promoCode.getPromoCodeId());
-        System.out.println("Promo type : "+promoCode.getPromoType());
-        System.out.println("Promo value : "+promoCode.getPromoValue());
-        System.out.println("Promo max : "+promoCode.getMaxDiscount());
-        System.out.println("Promo min : "+promoCode.getMinPurchase());
-        System.out.println("Promo start : "+promoCode.getStartDate());
-        System.out.println("Promo end : "+promoCode.getEndDate());
-        System.out.println("Promo counter: "+promoCode.getCounter());
-        System.out.println("Promo quota : "+promoCode.getQuota());
         
         if (email != null) {
             try {
