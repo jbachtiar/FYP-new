@@ -12,7 +12,6 @@ import com.google.gson.JsonObject;
 import dao.OrderDAO;
 import entity.Order;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -39,7 +38,6 @@ public class OrderService {
     @Path("/getOrderById")
     @Produces(MediaType.APPLICATION_JSON)
     public String getOrderById(@QueryParam("orderId") int orderId) {
-
 
         response.setHeader("Access-Control-Allow-Headers", "Content-Type");
         response.setHeader("Access-Control-Allow-Origin", "*");

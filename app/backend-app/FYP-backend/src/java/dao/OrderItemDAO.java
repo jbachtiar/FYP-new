@@ -11,7 +11,6 @@ package dao;
  */
 import database.ConnectionManager;
 import entity.OrderItem;
-import entity.Product;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -39,11 +38,12 @@ public class OrderItemDAO {
 
             while (rs.next()) {
 
-                int productId = rs.getInt(2);
-                int quantity = rs.getInt(3);
-                double unitPrice = rs.getDouble(4);
+                int productId = rs.getInt("PRODUCT_ID");
+                int quantity = rs.getInt("QUANTITY");
+                double unitPrice = rs.getDouble("UNIT_PRICE");
+                String itemStatus = rs.getString("ITEM_STATUS");
                 ProductDAO pd = new ProductDAO();
-                orderItems.add(new OrderItem(pd.getProductById(productId), quantity, unitPrice));
+                orderItems.add(new OrderItem(pd.getProductById(productId), quantity, unitPrice, itemStatus));
 
             }
         } finally {
@@ -72,6 +72,33 @@ public class OrderItemDAO {
             stmt.setString(5, "INCOMPLETE");
 
             rs = stmt.executeQuery();
+
+        } finally {
+            ConnectionManager.close(conn, stmt, rs);
+        }
+
+
+        return "Success";
+
+    }
+    
+    public String updateOrderItemStatus(int orderId, int productId, String newStatus) throws SQLException {
+        
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        String sql = "UPDATE ORDER_ITEM SET ITEM_STATUS = ? WHERE ORDER_ID = ? AND PRODUCT_ID = ?";
+
+        try {
+
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            
+            stmt.setString(1, newStatus);
+            stmt.setInt(2, orderId);
+            stmt.setInt(3, productId);
+            stmt.executeUpdate();
 
         } finally {
             ConnectionManager.close(conn, stmt, rs);

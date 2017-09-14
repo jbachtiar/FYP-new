@@ -101,7 +101,9 @@ public class CustomerAddressDAO {
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, email);
             rs = stmt.executeQuery();
-            num = rs.getInt(1);
+            while (rs.next()) {
+                num = rs.getInt(1);
+            }
 
         } finally {
             ConnectionManager.close(conn, stmt, rs);
@@ -119,8 +121,7 @@ public class CustomerAddressDAO {
 
         String sql = "INSERT INTO CUSTOMER_ADDRESS (ADDRESS_ID, EMAIL, RECIPIENT_NAME, PHONE_NO, ADDRESS_LINE, CITY, COUNTRY, POSTAL_CODE, ISDEFAULT) VALUES (?,?,?,?,?,?,?,?,?)";
         String email = address.getEmail();
-        
-    
+
         try {
             conn = ConnectionManager.getConnection();
             stmt = conn.prepareStatement(sql);
@@ -142,11 +143,10 @@ public class CustomerAddressDAO {
             stmt.setString(8, postalCode);
             stmt.setString(9, isDefault);
 
-            rs = stmt.executeQuery();
+            stmt.executeUpdate();
         } finally {
             ConnectionManager.close(conn, stmt, rs);
         }
-        
 
         return "Success";
 

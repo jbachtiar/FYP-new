@@ -9,7 +9,7 @@ export class RegistrationService {
     constructor(private _http: Http) { }
 
 
-       register(firstName: string, lastName: string, email:string, contact:string, address: string, postalCode: string, password: string){
+       register(firstName: string, lastName: string, email:string, contact:string, country: string, city: string, address: string, postalCode: string, password: string){
         let params: URLSearchParams = new URLSearchParams();
         let headers= new Headers();
         let url = CONFIG.registrationBackendUrl;
@@ -21,6 +21,8 @@ export class RegistrationService {
         params.set('firstName', firstName);
         params.set('lastName', lastName);
         params.set('phoneNumber', contact);
+        params.set('country', country);
+        params.set('city', city);
         params.set('address', address);
         params.set('postalCode', postalCode);
         params.set('password', password);

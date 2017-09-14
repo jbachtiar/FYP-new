@@ -9,6 +9,8 @@ INSERT INTO STAFF VALUES ('staff1@gmail.com','Tom','John','12345678','1234','2')
 INSERT INTO STAFF VALUES ('staff2@gmail.com','Matthew','Xia','12345678','1234','3');
 INSERT INTO STAFF VALUES ('staff3@gmail.com','James','Xia','12345678','1234','3');
 
+INSERT INTO courier VALUES('Shun Feng','ShunFeng.com');
+
 
 INSERT INTO CUSTOMER_ADDRESS VALUES ('1', 'customer@gmail.com', 'hui yan', '91234230', '134 Highlander Ave 3','Singapore','Singapore','536748', 'Y');
 INSERT INTO CUSTOMER_ADDRESS VALUES ('2', 'customer@gmail.com', 'hy chen', '99122332', '324 Orchard Ave 4','Singapore','Singapore','876324', 'N');
@@ -74,6 +76,7 @@ INSERT INTO ORDER_STATUS VALUES('2','In Production');
 INSERT INTO ORDER_STATUS VALUES('3','Packaging');
 INSERT INTO ORDER_STATUS VALUES('4','Pending for Shipment');
 INSERT INTO ORDER_STATUS VALUES('5','Shipped');
+INSERT INTO ORDER_STATUS VALUES('6','Completed');
 
 INSERT INTO PROMO_CODE VALUES(1,"WELCOME5", "First Purchase", "% discount",5,50,100,10000,0,'2017-08-27','2017-09-10','N');
 INSERT INTO PROMO_CODE VALUES(2,"1MONTH", "1st Monthsary", "$ discount",50,200,50,10000,0,'2017-09-27','2017-10-27','N');
@@ -134,3 +137,4 @@ INSERT INTO ORDER_ITEM VALUES(2, 11, 1, 900.0, 'INCOMPLETE');
 
 INSERT INTO ORDER_STATUS_LOG VALUES(1, 2, CURRENT_TIMESTAMP, null, 0);
 INSERT INTO ORDER_STATUS_LOG VALUES(1, 1, CURRENT_TIMESTAMP, null, 0);
+

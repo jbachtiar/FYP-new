@@ -7,16 +7,17 @@ package webServices;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import dao.CustomerAddressDAO;
-import entity.Address;
+import dao.OrderDAO;
+import dao.OrderItemDAO;
+import entity.Order;
 import java.sql.SQLException;
-import javax.annotation.security.PermitAll;
 import javax.servlet.http.HttpServletResponse;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.OPTIONS;
-import javax.ws.rs.POST;
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
@@ -24,53 +25,53 @@ import javax.ws.rs.core.MediaType;
  *
  * @author Ong Yi Xuan
  */
-@Path("/AddressService")
-public class AddressService {
+
+@Path("/OrderItemService")
+public class OrderItemService {
     
     @Context
     private HttpServletResponse response;
-
-
-    @OPTIONS
-    @PermitAll
-    @Path("/save")
-    public void optionsSave() {
-        response.setHeader("Access-Control-Allow-Origin", "*");
-        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
-        response.setHeader("Access-Control-Allow-Headers", "authorization");
-
-    }
     
-    @POST
-    @Path("/save")
-    @Consumes(MediaType.APPLICATION_JSON)
-    public String saveAddress(final String json) {
+    
+    @GET
+    @Path("/updateOrderItemStatus")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String updateOrderItemStatus(@QueryParam("orderId") int orderId, @QueryParam("productId") int productId, @QueryParam("newStatus") String newStatus) {
         
-        CustomerAddressDAO cDAO = new CustomerAddressDAO();
         response.setHeader("Access-Control-Allow-Headers", "Content-Type");
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
-
-        Gson gs = new Gson();
-        Address addressToSave = gs.fromJson(json, Address.class);
         
         Gson gson = new GsonBuilder().create();
         JsonObject jsonOutput = new JsonObject();
+        ;
+        OrderItemDAO orderItemDao = new OrderItemDAO();
 
         try {
 
+            String msg = orderItemDao.updateOrderItemStatus(orderId, productId, newStatus);
+            if (msg.equals("Success")) {
+                
                 jsonOutput.addProperty("status", "200");
-                cDAO.addAddressToCustomer(addressToSave);
+                jsonOutput.addProperty("msg", "Order Item status updated");
+                
+
+            } else {
+                
+                jsonOutput.addProperty("status", "500");
+
+            }
 
         } catch (SQLException e) {
 
             jsonOutput.addProperty("status", "500");
+            jsonOutput.addProperty("msg", "OrderItemService: SQL Exception" +e.getMessage());
 
         }
 
         String finalJsonOutput = gson.toJson(jsonOutput);
-        return finalJsonOutput;
+        return finalJsonOutput;       
+        
     }
-
     
 }
