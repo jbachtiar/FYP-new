@@ -148,7 +148,7 @@ public class CustomerDAO {
                 stmt.setString(5, customer.getPassword());
                 stmt.setString(6, customer.getVerified());
 
-                rs = stmt.executeQuery();
+                stmt.executeUpdate();
 
             } finally {
                 ConnectionManager.close(conn, stmt, rs);
