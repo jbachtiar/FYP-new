@@ -8,6 +8,7 @@
 </div>
 <hr>
 <br/>
+<br/>
 <!-- <div class="box">
     <img src="/assets/images/shopping-bag.png" style="width:30px">
     <div class="text">
@@ -24,6 +25,11 @@
         <div class="col-md-1">
         </div>
         <div class="col-md-1">
+          <div class="annotation">
+            <font color="#DD0330">
+              &nbsp;&nbsp;&nbsp;PAYMENT<br/>&nbsp;&nbsp;RECEIVED
+            </font>
+          </div>
           <button [ngClass]="{'pulse': pulse.payment}" md-fab color="warn" [disabled]="isDisabled.payment">
         <i class="ti-wallet"></i>
       </button>
@@ -33,6 +39,11 @@
         </div>
 
         <div class="col-md-1">
+          <div class="annotation">
+            <font color="#DD0330">
+              <br/>&nbsp;PRODUCTION
+            </font>
+          </div>
           <button [ngClass]="{'pulse': pulse.production}" md-fab color="warn" [disabled]="isDisabled.production">
           <span class="ti-cut"></span>
       </button>
@@ -42,6 +53,11 @@
         </div>
 
         <div class="col-md-1">
+          <div class="annotation">
+            <font color="#DD0330">
+              <br/>&nbsp;&nbsp;PACKAGING
+            </font>
+          </div>
           <button [ngClass]="{'pulse': pulse.packaging}" md-fab color="warn" [disabled]="isDisabled.packaging">
           <span class="ti-package"></span>
       </button>
@@ -51,6 +67,11 @@
         </div>
 
         <div class="col-md-1">
+          <div class="annotation">
+            <font color="#DD0330">
+              &nbsp;&nbsp;&nbsp;SHIPMENT<br/>&nbsp;PREPARATION
+            </font>
+          </div>
           <button [ngClass]="{'pulse': pulse.preparation}" md-fab color="warn" [disabled]="isDisabled.preparation">
           <span class="ti-location-arrow"></span>
       </button>
@@ -60,6 +81,11 @@
         </div>
 
         <div class="col-md-1">
+          <div class="annotation">
+            <font color="#DD0330">
+              &nbsp;IN<br/>&nbsp;TRANSIT
+            </font>
+          </div>
           <button [ngClass]="{'pulse': pulse.transit}" md-fab color="warn" [disabled]="isDisabled.transit">
         <span class="ti-truck"></span>
       </button>
@@ -69,16 +95,17 @@
         </div>
 
         <div class="col-md-1">
+          <div class="annotation">
+            <font color="#DD0330">
+              <br/>&nbsp;COMPLETED
+            </font>
+          </div>
           <button [ngClass]="{'pulse': pulse.completed}" md-fab color="warn" [disabled]="isDisabled.completed">
           <span class="ti-check"></span>
       </button>
         </div>
-
-
-
       </div>
     </div>
-
   </div>
 
   <div class="row" style="margin-top:40px">
@@ -140,13 +167,12 @@
               <!-- <button class="change-qty" (click)="increment(item.product.productId)">+</button> -->
             </td>
             <td>
-                <button md-mini-fab color="basic" [disabled]="item.product.itemStatusBoolean"><span class="ti-check"></span></button>
-                <br/>
-                <div class="annotation">
-                {{item.product.itemStatus}}
-                </div>
-          </tr> 
-
+              <button md-mini-fab color="basic" [disabled]="item.product.itemStatusBoolean" (click)="onItemStatusChange(item)"><span class="ti-check"></span></button>
+              <br/>
+              <div class="annotation">
+                {{item.itemStatus}}
+              </div>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -185,4 +211,4 @@
   </md-card>
   <!-- </div> -->
   <hr>
-  </div>
+</div>

@@ -147,7 +147,7 @@ margin: 0 auto;
 left: 0;
 right: 0;        
 text-align: center;
-top: -35%; /* Adjust this value to move the positioned div up and down */
+top: -58%; /* Adjust this value to move the positioned div up and down */
 color: white;
 }
 
@@ -157,10 +157,20 @@ color: white;
 }
 
 .annotation{
+    font-family: 'Muli';
     font-size: 8px;
 }
+
+
 
 .mat-mini-fab[disabled][disabled]{
     background: #f44336;
     color: white;
+}
+
+.test{
+    padding-left: 0px;
+    color: #DD0330;
+    font-size: 8px;
+    text-align: center;
 }

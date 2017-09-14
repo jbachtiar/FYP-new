@@ -30,10 +30,10 @@ export class OrderService {
                 let orders = res.json().orders;
                 //temp
                 let orderItems = orders[0].orderItems
-                for(let oi of orderItems){
-                    oi.product['itemStatus'] = "COMPLETE";
-                }
-                orderItems[0].product['itemStatus'] = "INCOMPLETE"
+                // for(let oi of orderItems){
+                //     oi.product['itemStatus'] = "COMPLETE";
+                // }
+                // orderItems[0].product['itemStatus'] = "INCOMPLETE"
                 
                 // return res.json().orders;
                 return orders;
@@ -47,6 +47,15 @@ export class OrderService {
                 console.log("STATUS UPDATED")
                 return res.json();
             });
+    }
+
+    updateItemStatus(orderId, productId, newStatus){
+        // /OrderItemService/updateOrderItemStatus?orderId=2&productId=11&newStatus=COMPLETED
+        let params: URLSearchParams = new URLSearchParams();        
+        let url = CONFIG.orderItemBackendUrl + '/updateOrderItemStatus?orderId='+
+            orderId + '&productId=' + productId + '&newStatus=' + newStatus
+        return this._http.get(url, params.toString())
+        .map(res => res.json());
     }
 
 }

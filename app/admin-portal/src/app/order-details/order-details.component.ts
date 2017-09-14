@@ -36,13 +36,14 @@ export class OrderDetailsComponent implements OnInit {
         this.orderItems = orders[0].orderItems
         console.log("ITEM STATUS: " + this.orderItems[0].product.itemStatus)
         for(let item of this.orderItems){
-          if(item.product.itemStatus == "COMPLETE"){
+          console.log("ITEM STATUS = " + item.itemStatus)
+          if(item.itemStatus === "COMPLETE"){
             item.product['itemStatusBoolean'] = true
           }else{
             item.product['itemStatusBoolean'] = false
           }
+          console.log("BOO : " + item.product.itemStatusBoolean)
         }
-        console.log("ORDER:  " + JSON.stringify(this.order))
 
         if (this.order[0]['statusLogs'].length > 0) {
           let status = this.order[0].statusLogs[0]
@@ -153,5 +154,13 @@ export class OrderDetailsComponent implements OnInit {
       this.order = orders
       this.orderItems = orders[0].orderItems
     });
+  }
+
+  onItemStatusChange(item){
+    item.itemStatus = "COMPLETE"
+    item.product.itemStatusBoolean = true;
+    this.orderService.updateItemStatus(this.orderId, item.product.productId, "COMPLETE").subscribe(res=>{
+      console.log("ON ITEM STATUS CHANGE: " + res);
+    })
   }
 }
