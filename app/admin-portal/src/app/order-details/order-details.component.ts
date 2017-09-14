@@ -19,9 +19,9 @@ export class OrderDetailsComponent implements OnInit {
   mode = 'buffer';
   value = 100;
   bufferValue = 100;
-  isDisabled: any = { 'payment': false, 'production': false, 'packaging': false, 'preparation': false, 'transit': false, 'completed': false };
-  private map: any = { 1: 'payment', 2: 'production', 3: 'packaging', 4: 'preparation', 5: 'transit', 6: 'completed' }
-  pulse: any = { 'payment': false, 'production': false, 'packaging': false, 'preparation': false, 'transit': false, 'completed': false };
+  isDisabled: any = { 'payment': false, 'production': false, 'packaging': false, 'preparation': false, 'shipped': false, 'completed': false };
+  private map: any = { 1: 'payment', 2: 'production', 3: 'packaging', 4: 'preparation', 5: 'shipped', 6: 'completed' }
+  pulse: any = { 'payment': false, 'production': false, 'packaging': false, 'preparation': false, 'shipped': false, 'completed': false };
 
   constructor(
     private route: ActivatedRoute,
@@ -60,7 +60,6 @@ export class OrderDetailsComponent implements OnInit {
           }
           console.log("MOST CURRENT: "+ mostCurrentTimestamp)
           this.order[0]['currentStatus'] = currentStatus.orderStatus.statusName;
-          //1: payment, 2: production, 3: packaging, 4: preparation, 5: transit, 6: completed
 
           let statusId: number = currentStatus.orderStatus.statusId;
           this.statusId = statusId;
@@ -92,7 +91,7 @@ export class OrderDetailsComponent implements OnInit {
   updateProgressBar() {
     this.bufferValue = 100
     this.value = 100;
-    this.isDisabled = { 'payment': false, 'production': false, 'packaging': false, 'preparation': false, 'transit': false, 'completed': false };
+    this.isDisabled = { 'payment': false, 'production': false, 'packaging': false, 'preparation': false, 'shipped': false, 'completed': false };
     
     console.log("UPDATE PROGRESS BAR STATUS: " + this.statusId)
     if (this.statusId != 6) {

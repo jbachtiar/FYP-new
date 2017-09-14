@@ -1,4 +1,3 @@
-<!-- <h2 class="header">Order Number: #{{orderId}}</h2> -->
 <div class="row">
   <div class="header col-12 text-center">
     <b>
@@ -9,12 +8,6 @@
 <hr>
 <br/>
 <br/>
-<!-- <div class="box">
-    <img src="/assets/images/shopping-bag.png" style="width:30px">
-    <div class="text">
-        <h2 style="font-size: 15px;" *ngIf="itemCount!=0">{{itemCount}}</h2>
-    </div>
-</div> -->
 <div class="box">
   <md-progress-bar class="example-margin" [color]="color" [mode]="mode" [value]="value" [bufferValue]="bufferValue">
   </md-progress-bar>
@@ -27,7 +20,7 @@
         <div class="col-md-1">
           <div class="annotation">
             <font color="#DD0330">
-              &nbsp;&nbsp;&nbsp;PAYMENT<br/>&nbsp;&nbsp;RECEIVED
+              &nbsp;&nbsp;PAYMENT<br/>&nbsp;&nbsp;RECEIVED
             </font>
           </div>
           <button [ngClass]="{'pulse': pulse.payment}" md-fab color="warn" [disabled]="isDisabled.payment">
@@ -55,7 +48,7 @@
         <div class="col-md-1">
           <div class="annotation">
             <font color="#DD0330">
-              <br/>&nbsp;&nbsp;PACKAGING
+              <br/>&nbsp;PACKAGING
             </font>
           </div>
           <button [ngClass]="{'pulse': pulse.packaging}" md-fab color="warn" [disabled]="isDisabled.packaging">
@@ -83,10 +76,10 @@
         <div class="col-md-1">
           <div class="annotation">
             <font color="#DD0330">
-              &nbsp;IN<br/>&nbsp;TRANSIT
+              <br/>&nbsp;SHIPPED
             </font>
           </div>
-          <button [ngClass]="{'pulse': pulse.transit}" md-fab color="warn" [disabled]="isDisabled.transit">
+          <button [ngClass]="{'pulse': pulse.shipped}" md-fab color="warn" [disabled]="isDisabled.shipped">
         <span class="ti-truck"></span>
       </button>
         </div>
@@ -176,39 +169,6 @@
         </tbody>
       </table>
     </div>
-    <!-- <data-table [items]="orderItems" [itemCount]="itemCount" (reload)="reloadCars($event)" [pagination]="false" [indexColumn]="false"
-      [selectColumn]="true" [multiSelect]="true" [rowColors]="rowColors">
-      <data-table-column property="product.productId" header="ID" sortable="true">
-      </data-table-column>
-      <data-table-column property="product.productType" header="Type" sortable="true">
-      </data-table-column>
-      <data-table-column property="product.pattern.patternName" header="Pattern" sortable="true">
-      </data-table-column>
-      <data-table-column property="product.product.fabric.fabricName" header="Fabric" sortable="true">
-      </data-table-column>
-      <data-table-column property="product.colour.colourName" header="Colour" sortable="true">
-      </data-table-column>
-      <data-table-column property="product.size.sizeName" header="Size" sortable="true">
-      </data-table-column>
-      <data-table-column header="Status">
-        <template #dataTableHeader let-item="item">
-          <i>Status</i>
-        </template>
-        <template #dataTableCell let-item="item">
-          <button (click)="onItemStatus(item)" class="btn btn-sm btn-default">Complete</button>
-        </template>
-      </data-table-column>
-    </data-table>
-    <div>
-      <div>
-        <b>Selected:</b>
-        <span [textContent]="orderItems.selectedRows.length"></span>
-      </div>
-      <div *ngFor="let selected of orderItems.selectedRows">
-        <span [textContent]="selected.item.product.productId"></span>
-      </div>
-    </div> -->
   </md-card>
-  <!-- </div> -->
   <hr>
 </div>

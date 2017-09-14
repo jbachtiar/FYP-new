@@ -1,12 +1,14 @@
 <div class="container-fluid">
     <div class="row">
-        <button md-raised-button [ngStyle]=" { 'background-color': color.all} " (click)="onStatusChange( 'all') ">All</button>
-        <button md-raised-button [ngStyle]="{ 'background-color': color.payment} " (click)="onStatusChange( 'payment') ">Payment Received</button>
-        <button md-raised-button [ngStyle]="{ 'background-color': color.production} " (click)="onStatusChange( 'production') ">Production</button>
-        <button md-raised-button [ngStyle]="{ 'background-color': color.packaging} " (click)="onStatusChange( 'packaging') ">Packaging</button>
-        <button md-raised-button [ngStyle]="{ 'background-color': color.preparation} " (click)="onStatusChange( 'preparation') ">Shipment Preparation</button>
-        <button md-raised-button [ngStyle]="{ 'background-color': color.transit} " (click)="onStatusChange( 'transit') ">In Transit</button>
-        <button md-raised-button [ngStyle]="{ 'background-color': color.completed} " (click)="onStatusChange( 'completed') ">Completed</button>
+        <button md-raised-button [ngStyle]=" { 'background-color': color.all, 'color': fontColor.all} " (click)="onStatusChange( 'all') ">All
+            <!-- <span class=sup>&nbsp;{{itemCount}}</span> -->
+        </button>
+        <button md-raised-button [ngStyle]="{ 'background-color': color.payment, 'color': fontColor.payment} " (click)="onStatusChange( 'payment') ">Payment Received</button>
+        <button md-raised-button [ngStyle]="{ 'background-color': color.production, 'color': fontColor.production} " (click)="onStatusChange( 'production') ">Production</button>
+        <button md-raised-button [ngStyle]="{ 'background-color': color.packaging, 'color': fontColor.packaging} " (click)="onStatusChange( 'packaging') ">Packaging</button>
+        <button md-raised-button [ngStyle]="{ 'background-color': color.preparation, 'color': fontColor.preparation} " (click)="onStatusChange( 'preparation') ">Shipment Preparation</button>
+        <button md-raised-button [ngStyle]="{ 'background-color': color.shipped, 'color': fontColor.shipped} " (click)="onStatusChange('shipped') ">Shipped</button>
+        <button md-raised-button [ngStyle]="{ 'background-color': color.completed, 'color': fontColor.completed} " (click)="onStatusChange( 'completed') ">Completed</button>
     </div>
     <div class="row ">
         <!-- <div class="col-md-12 "> -->
@@ -18,7 +20,7 @@
     " [indexColumnHeader]=" '#' " [selectOnRowClick]="true " [multiSelect]="true">
                     <template #dataTableExpand let-item="item ">
                         <div *ngFor="let oi of item.order_items ">
-                            Product ID: {{oi.product_id}} Qty: {{oi.quantity}}
+                            Product ID: {{oi.product.productId}} Qty: {{oi.quantity}}
                         </div>
                         <!-- <div [textContent]="item.order_items[0].product_id " style="padding: 5px; color: gray "></div> -->
                     </template>

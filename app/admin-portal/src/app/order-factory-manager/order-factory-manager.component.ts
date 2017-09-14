@@ -15,7 +15,8 @@ export class OrderFactoryManagerComponent implements OnInit {
   itemCount = 0;
   itemResource = new DataTableResource(this.orders);
   private headers: any = ['Order ID', 'Order Date', 'Current Status', 'Country']
-  private color: any = { 'all': 'lightyellow', 'payment': 'white', 'production': 'white', 'packaging': 'white', 'preparing': 'white', 'transit': 'white', 'completed': 'white' }
+  private color: any = { 'all': 'lightcoral', 'payment': 'white', 'production': 'white', 'packaging': 'white', 'preparing': 'white', 'transit': 'white', 'completed': 'white' }
+  private fontColor: any = { 'all': 'white', 'payment': 'black', 'production': 'black', 'packaging': 'black', 'preparing': 'black', 'transit': 'black', 'completed': 'black' }
   private showTab: any = { 'all': true, 'payment': false, 'production': false, 'packaging': false, 'preparing': false, 'transit': false, 'completed': false }
   showTabTest: boolean = true;
   @ViewChild(DataTable) orderTable;
@@ -58,22 +59,16 @@ export class OrderFactoryManagerComponent implements OnInit {
   }
 
   onStatusChange(status) {
-    console.log("STATUS: " + status)
-    // console.log("BEFORE COLOR: " + this.color[status]);
-
-    this.color[status] = 'lightyellow';
+    this.color[status] = 'lightcoral';
+    this.fontColor[status] = 'white'
     this.showTab[status] = true;
     for (let colorStatus in this.color) {
       if (colorStatus != status) {
-        // console.log("COLOR STATUS: " + colorStatus)
         this.color[colorStatus] = 'white';
-
+        this.fontColor[colorStatus] = 'black'
         this.showTab[colorStatus] = false;
       }
     }
-
-    // console.log("AFTER COLOR: " + this.color[status]);
-
     if (status == 'all') {
       this.showAll();
     } else {
@@ -257,7 +252,7 @@ export class OrderFactoryManagerComponent implements OnInit {
   }
 
   rowTooltip(item) { 
-    return "Order ID: " + item.order_id; 
+    return "Order ID: " + item.orderId + '\nStatus: ' + item.currentStatus; 
   }
 
   // special params:

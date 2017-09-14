@@ -31,6 +31,8 @@ button {
     font-family: Tahoma,Geneva,sans-serif;
 }
 
-/* button:target {
-    border-style: inset;
-} */
+.sup {
+    position: relative;
+    bottom: 1ex; 
+    font-size: 80%;
+  }
