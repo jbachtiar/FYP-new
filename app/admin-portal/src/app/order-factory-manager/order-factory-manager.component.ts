@@ -18,7 +18,7 @@ export class OrderFactoryManagerComponent implements OnInit {
   private color: any = { 'all': 'lightcoral', 'payment': 'white', 'production': 'white', 'packaging': 'white', 'preparing': 'white', 'transit': 'white', 'completed': 'white' }
   private fontColor: any = { 'all': 'white', 'payment': 'black', 'production': 'black', 'packaging': 'black', 'preparing': 'black', 'transit': 'black', 'completed': 'black' }
   private showTab: any = { 'all': true, 'payment': false, 'production': false, 'packaging': false, 'preparing': false, 'transit': false, 'completed': false }
-  showTabTest: boolean = true;
+
   @ViewChild(DataTable) orderTable;
   @ViewChild('tabGroup') tabGroup;
 
