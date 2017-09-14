@@ -69,7 +69,8 @@ export class CheckoutComponent implements OnInit {
               this.selectedAddress = a;
             }
           });
-          // this.user.postCode = this.customer.postalCode;
+          console.log("EMAIL: " + this.addressBook[0].email)
+          
         } else {
           console.log("Retrieve failed");
         }
@@ -133,12 +134,11 @@ export class CheckoutComponent implements OnInit {
 
   saveAddress() {
     console.log("NEW ADDRESS: " + JSON.stringify(this.newAddress))
-    this.newAddress['email']=this.addressBook.email
+    this.newAddress['email']=this.addressBook[0].email
+    console.log("EMAIL: " + this.addressBook[0].email)
     this.newAddress['phoneNo']=this.newAddress.country_code+this.newAddress.contact
-    this.newAddress['addressId'] = ""
+    this.newAddress['addressId'] = 0
     this.newAddress['isDefault'] = "N"
-    console.log("SAVE ADDRESS: " + this.isSaveAddress)
-    console.log("NEW ADDRESS: " + JSON.stringify(this.newAddress))
     
     this.shoppingCartService.saveAddress(this.newAddress).subscribe(res=>{
       if(res.status==200){

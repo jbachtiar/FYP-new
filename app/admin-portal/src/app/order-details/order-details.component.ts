@@ -52,9 +52,7 @@ export class OrderDetailsComponent implements OnInit {
           for (status of this.order[0].statusLogs) {
             let timestamp = status.startTimeStamp;
             console.log("current timestamp: " + timestamp +"> most current" + mostCurrentTimestamp)
-            if (mostCurrentTimestamp < timestamp) {
-              console.log("betul")
-              
+            if (mostCurrentTimestamp < timestamp) {              
               mostCurrentTimestamp = timestamp;
               currentStatus = status;
             }

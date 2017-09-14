@@ -139,8 +139,8 @@ export class ShoppingCartService {
     return this._http.post(url, params.toString(), { headers: headers })
       .subscribe(res => {
         this.cart = res.json().cart
-
         localStorage.setItem(CART_KEY, JSON.stringify(this.cart));
+        return this.cart;        
       });
 
   }
@@ -251,12 +251,17 @@ export class ShoppingCartService {
   }
 
   saveAddress(addressJson) {
+    console.log("NEW ADDRESS: " + JSON.stringify(addressJson))
+    
+    let params: URLSearchParams = new URLSearchParams();
     console.log("SAVE ADDRESS SERVICE")
-    var params = JSON.stringify(addressJson);
+    params.set('address', JSON.stringify(addressJson));
+
+    console.log(params)
     const headers = new Headers();
     let url = CONFIG.addressBackendUrl + '/save'
-    headers.append('Content-Type', 'application/json');
-    return this._http.post(url, params, {
+    headers.append('Content-Type', 'application/x-www-form-urlencoded');
+    return this._http.post(url, params.toString(), {
       headers: headers
     }).map(res => res
       )};

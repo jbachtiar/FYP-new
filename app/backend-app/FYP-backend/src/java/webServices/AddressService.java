@@ -14,9 +14,11 @@ import java.sql.SQLException;
 import javax.annotation.security.PermitAll;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.OPTIONS;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
@@ -43,11 +45,11 @@ public class AddressService {
     
     @POST
     @Path("/save")
-    @Consumes(MediaType.APPLICATION_JSON)
-    public String saveAddress(final String json) {
+    @Produces(MediaType.APPLICATION_JSON)
+    public String saveAddress(@FormParam("address") String json) {
         
         CustomerAddressDAO cDAO = new CustomerAddressDAO();
-        response.setHeader("Access-Control-Allow-Headers", "Content-Type");
+//        response.setHeader("Access-Control-Allow-Headers", "Content-Type");
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
 
@@ -58,12 +60,12 @@ public class AddressService {
         JsonObject jsonOutput = new JsonObject();
 
         try {
-
+                System.out.println("JSON: " + json);
                 jsonOutput.addProperty("status", "200");
                 cDAO.addAddressToCustomer(addressToSave);
 
         } catch (SQLException e) {
-
+            System.out.println(e);
             jsonOutput.addProperty("status", "500");
 
         }
