@@ -58,7 +58,7 @@
         position: relative;
         display: inline-block; /* Make the width of box same as image */
     }
-.box .progress-row{
+.box .text{
     position: absolute;
     z-index: 999;
     margin: 0 auto;
@@ -78,3 +78,6 @@
     background: rgba(225,225,225,0)
 }
 
+button{
+    transition: all 0.4s;
+}
