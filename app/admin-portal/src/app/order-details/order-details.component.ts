@@ -68,17 +68,15 @@ export class OrderDetailsComponent implements OnInit {
           if (statusId != 6) {
             this.isDisabled[this.map[6]] = true
             this.bufferValue -= 4.1555
-            // this.value -= 95.8445
+
             //to colour the icons with the completed statuses only and adjust progress bar buffer and value
-
-            //TOBE UNCOMMENTED
-
             for (var i = 5; i > statusId; i--) {
               this.isDisabled[this.map[i]] = true;
               this.bufferValue -= 16.569
               console.log("this.value = " + this.value)
             }
             this.value = this.bufferValue - 16.569
+            this.bufferValue -= 16.569            
 
             //to make the icon of ongoing status pulse
             this.pulse[this.map[statusId]] = true;
@@ -99,17 +97,15 @@ export class OrderDetailsComponent implements OnInit {
     if (this.statusId != 6) {
       this.isDisabled[this.map[6]] = true
       this.bufferValue -= 4.1555
-      // this.value -= 95.8445
+
       //to colour the icons with the completed statuses only and adjust progress bar buffer and value
-
-      //TOBE UNCOMMENTED
-
       for (var i = 5; i > this.statusId; i--) {
         this.isDisabled[this.map[i]] = true;
         this.bufferValue -= 16.569
         console.log("this.value = " + this.value)
       }
       this.value = this.bufferValue - 16.569
+      this.bufferValue-=16.569
       
       //to make all icons unpulse first
       for(var i = 6; i>0; i--){
@@ -121,6 +117,8 @@ export class OrderDetailsComponent implements OnInit {
       this.bufferValue = 100
       this.value = 100
       this.isDisabled[this.map[6]] = false
+      this.pulse[this.map[this.statusId-1]] = false;
+      
     }
 
   }
