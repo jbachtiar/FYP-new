@@ -58,27 +58,23 @@ export class ProfileService {
             .map(res => {
                 // login successful if there's a jwt token in the response
                 let user = res.json();
-                console.log(user);
                 
-                /*    if (user) {
-    
-                        //this.customer={firstName:user.firstName, lastName:user.lastName, contact:user.phoneNumber, address:user.address, postalCode:user.postalCode, password:user.password}
-                        this.customer = {
-                            firstName: user.firstName,
-                            lastName: user.lastName,
-                            contact: user.phoneNo,
-                            address: user.address,
-                            postalCode: user.postalCode,
-                            password: user.password
-                        }
-                       // console.log(this.customer);
-    
-                      
-    
-                    } */
+                if (user) {
 
+                    //this.customer={firstName:user.firstName, lastName:user.lastName, contact:user.phoneNumber, address:user.address, postalCode:user.postalCode, password:user.password}
+                    this.customer = {
+                        firstName: user.firstName,
+                        lastName: user.lastName,
+                        contact: user.phoneNo,
+                        address: user.address,
+                        postalCode: user.postalCode,
+                        password: user.password
+                    }
+                    console.log(this.customer);
 
-                return user;
+                    return user;
+
+                }
 
             });
     }

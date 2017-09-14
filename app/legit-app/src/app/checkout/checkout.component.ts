@@ -54,19 +54,23 @@ export class CheckoutComponent implements OnInit {
       res => {
         if (res.status === '200') {
           console.log("Retrieve successful");
-          this.customer = this.profileService.getCustomer();
-          this.user.firstName = this.customer.firstName;
-          this.user.lastName = this.customer.lastName;
-          this.user.contact = this.customer.contact
-          this.user.address = this.customer.address;
-          this.addressBook = this.customer.address;
+          // this.customer = this.profileService.getCustomer();
+          // this.user.firstName = this.customer.firstName;
+          // this.user.lastName = this.customer.lastName;
+          // this.user.contact = this.customer.contact
+          // this.user.address = this.customer.address;
+          // this.addressBook = this.user.address;
+          this.user=res.user;
+          this.addressBook=this.user.address
+          console.log("address book: " + JSON.stringify(this.addressBook))
           this.addressBook.forEach(a => {
-            if (a.default == "yes") {
+            if (a.isDefault == "Y") {
               console.log("default address: " + JSON.stringify(a))
               this.selectedAddress = a;
             }
           });
-          // this.user.postCode = this.customer.postalCode;
+          console.log("EMAIL: " + this.addressBook[0].email)
+          
         } else {
           console.log("Retrieve failed");
         }
@@ -129,9 +133,21 @@ export class CheckoutComponent implements OnInit {
   }
 
   saveAddress() {
-    console.log("SAVE ADDRESS: " + this.isSaveAddress)
+    console.log("NEW ADDRESS: " + JSON.stringify(this.newAddress))
+    this.newAddress['email']=this.addressBook[0].email
+    console.log("EMAIL: " + this.addressBook[0].email)
+    this.newAddress['phoneNo']=this.newAddress.country_code+this.newAddress.contact
+    this.newAddress['addressId'] = 0
+    this.newAddress['isDefault'] = "N"
+    
+    this.shoppingCartService.saveAddress(this.newAddress).subscribe(res=>{
+      if(res.status==200){
+        alert("Address Saved");
+      }
+    })
+    // let newAddress = {"recipientName":"Clarissa","country_code":"+1 869","contact":"9898888","addressLine":"taman ratu","city":"jakarta","country":"Indonesia","postalCode":"11520"}
+    // let newAddress":[{"email":"customer@gmail.com","recipientName":"hui yan","phoneNo":"91234230","addressId":1,"addressLine":"134 Highlander Ave 3","city":"Singapore","country":"Singapore","postalCode":"536748","isDefault":"Y"}  
   }
-
   sameAddress() {
     this.startLoading()
     if (this.user.sameAddress) {
@@ -208,7 +224,8 @@ export class CheckoutComponent implements OnInit {
     // if (this.canRedirectToPayment()) {
     console.log("ADDRESS: " + JSON.stringify(this.newAddress));
     if (this.isNewAddress) {
-      this.newAddress.contact = "" + this.newAddress.country_code + this.newAddress.contact
+      // this.newAddress.contact = "" + this.newAddress.country_code + this.newAddress.contact
+      this.saveAddress()
       orderAddress.addresssId = ""
       orderAddress = this.newAddress
       if (this.isSaveAddress) {
