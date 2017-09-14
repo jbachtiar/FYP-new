@@ -39,7 +39,6 @@ public class OrderService {
     @Produces(MediaType.APPLICATION_JSON)
     public String getOrderById(@QueryParam("orderId") int orderId) {
 
-
         response.setHeader("Access-Control-Allow-Headers", "Content-Type");
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");

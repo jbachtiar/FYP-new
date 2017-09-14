@@ -67,14 +67,14 @@ export class ProductService {
           });
   }*/
 
-    getFilteredProductList(collectionId: string, fabricId: string, colourId: string, sortPrice: String, query: string) {
+    getFilteredProductList(collectionId: string, fabricId: string, colourId: string, sortPrice: string, query: string) {
         let url = CONFIG.filteredProductListBackendUrl
         let finalUrl = url + "?collectionId=" + collectionId + "&fabricId=" + fabricId + "&colourId=" + colourId + "&sortPrice=" + sortPrice + "&search=" + query;
         return this._http.get(finalUrl)
             .map(res => {
                 console.log(finalUrl)
-                console.log("product is loaded" + res.json().products);
-                return res.json().products;
+                console.log("product is loaded" + res.json().patterns);
+                return res.json().patterns;
             });
     }
 

@@ -6,7 +6,7 @@ export const devConfig = {
     profileBackendUrl:'http://localhost:8084/FYP-backend/API/profile',
     quickViewBackendUrl: 'http://localhost:8084/FYP-backend/API/ProductCatalogue/GetBedding',
     fabricBackendUrl: 'http://localhost:8084/FYP-backend/API/FabricCatalogue/fabrics',
-    filteredProductListBackendUrl: 'http://localhost:8084/FYP-backend/API/ProductCatalogue/filtersort',
+    filteredProductListBackendUrl: 'http://localhost:8084/FYP-backend/API/ProductCatalogue/FilterBeddingPatterns',
     searchedProductListBackendUrl: 'http://localhost:8084/FYP-backend/API/ProductCatalogue/search',
     getCartItemBackendUrl: 'http://localhost:8084/FYP-backend/API/Cart/items',
     updateCartItemBackendUrl: 'http://localhost:8084/FYP-backend/API/Cart/updateCartItems',
