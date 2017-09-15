@@ -29,6 +29,7 @@ import { CartService } from './cart.service'
 import { StorageService } from './storage.service'
 import { AuthGuard } from './guard/auth.guard'
 import { ShoppingCartService } from './shopping-cart.service';
+import { OrderService } from './order.service';
 import { SharedService } from './shared.service'
 
 import { BootstrapModalModule } from 'ng2-bootstrap-modal';
@@ -97,7 +98,8 @@ import { AddressBookComponent } from './address-book/address-book.component';
     StorageService,
     AuthGuard,
     ShoppingCartService,
-    SharedService
+    SharedService,
+    OrderService
   ],
   bootstrap: [AppComponent],
   entryComponents: [

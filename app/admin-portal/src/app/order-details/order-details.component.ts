@@ -26,7 +26,7 @@ export class OrderDetailsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private orderService: OrderService) {
-    }
+  }
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
@@ -35,11 +35,10 @@ export class OrderDetailsComponent implements OnInit {
         this.order = orders
         this.orderItems = orders[0].orderItems
         console.log("ITEM STATUS: " + this.orderItems[0].product.itemStatus)
-        for(let item of this.orderItems){
-          console.log("ITEM STATUS = " + item.itemStatus)
-          if(item.itemStatus === "COMPLETE"){
+        for (let item of this.orderItems) {
+          if (item.product.itemStatus == "COMPLETE") {
             item.product['itemStatusBoolean'] = true
-          }else{
+          } else {
             item.product['itemStatusBoolean'] = false
           }
           console.log("BOO : " + item.product.itemStatusBoolean)
@@ -52,13 +51,15 @@ export class OrderDetailsComponent implements OnInit {
           let mostCurrentTimestamp = status.startTimeStamp;
           for (status of this.order[0].statusLogs) {
             let timestamp = status.startTimeStamp;
-            console.log("current timestamp: " + timestamp +"> most current" + mostCurrentTimestamp)
-            if (mostCurrentTimestamp < timestamp) {              
+            console.log("current timestamp: " + timestamp + "> most current" + mostCurrentTimestamp)
+            if (mostCurrentTimestamp < timestamp) {
+              console.log("betul")
+
               mostCurrentTimestamp = timestamp;
               currentStatus = status;
             }
           }
-          console.log("MOST CURRENT: "+ mostCurrentTimestamp)
+          console.log("MOST CURRENT: " + mostCurrentTimestamp)
           this.order[0]['currentStatus'] = currentStatus.orderStatus.statusName;
 
           let statusId: number = currentStatus.orderStatus.statusId;
@@ -91,8 +92,8 @@ export class OrderDetailsComponent implements OnInit {
   updateProgressBar() {
     this.bufferValue = 100
     this.value = 100;
-    this.isDisabled = { 'payment': false, 'production': false, 'packaging': false, 'preparation': false, 'shipped': false, 'completed': false };
-    
+    this.isDisabled = { 'payment': false, 'production': false, 'packaging': false, 'preparation': false, 'transit': false, 'completed': false };
+
     console.log("UPDATE PROGRESS BAR STATUS: " + this.statusId)
     if (this.statusId != 6) {
       this.isDisabled[this.map[6]] = true
@@ -105,10 +106,8 @@ export class OrderDetailsComponent implements OnInit {
         console.log("this.value = " + this.value)
       }
       this.value = this.bufferValue - 16.569
-      this.bufferValue-=16.569
-      
       //to make all icons unpulse first
-      for(var i = 6; i>0; i--){
+      for (var i = 6; i > 0; i--) {
         this.pulse[this.map[i]] = false;
       }
       //to make the icon of ongoing status pulse
@@ -124,11 +123,11 @@ export class OrderDetailsComponent implements OnInit {
   }
 
   onNext() {
-    let newStatus = this.statusId+1
+    let newStatus = this.statusId + 1
     this.orderService.updateOrderStatus(this.orderId, this.statusId, newStatus).subscribe(res => {
       if (res.status == "200") {
         console.log("BEFORE STATUS: " + this.statusId)
-        this.statusId = this.statusId+1;
+        this.statusId = this.statusId + 1;
         console.log("ONNEXT")
         console.log("AFTER STATUS: " + this.statusId)
         this.updateProgressBar();
@@ -136,11 +135,11 @@ export class OrderDetailsComponent implements OnInit {
     })
   }
   onPrevious() {
-    let newStatus = this.statusId-1
+    let newStatus = this.statusId - 1
     this.orderService.updateOrderStatus(this.orderId, this.statusId, newStatus).subscribe(res => {
       if (res.status == "200") {
         console.log("BEFORE STATUS: " + this.statusId)
-        this.statusId = this.statusId-1;
+        this.statusId = this.statusId - 1;
         console.log("ONNEXT")
         console.log("AFTER STATUS: " + this.statusId)
         this.updateProgressBar();
@@ -148,7 +147,7 @@ export class OrderDetailsComponent implements OnInit {
     })
   }
 
-  reloadItems(params){
+  reloadItems(params) {
     this.orderService.getOrderById(this.orderId).subscribe(orders => {
       this.order = orders
       this.orderItems = orders[0].orderItems
