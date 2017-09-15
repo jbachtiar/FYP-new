@@ -16,12 +16,8 @@ export const prodConfig = {
     getCartTotalPriceBackendUrl: 'http://ec2-52-35-18-15.us-west-2.compute.amazonaws.com/FYP-backend/API/Cart/price',
     cartBackendUrl: 'http://ec2-52-35-18-15.us-west-2.compute.amazonaws.com/FYP-backend/API/Cart',
     paymentBackendUrl: 'http://localhost:8084/FYP-backend/API/Payment',
-<<<<<<< HEAD
     addressBackendUrl: 'http://localhost:8084/FYP-backend/API/AddressService',
-    filterBackendUrl: 'http://localhost:8084/FYP-backend/API/ProductCatalogue/GetFilters'
-=======
     filterBackendUrl: 'http://localhost:8084/FYP-backend/API/ProductCatalogue/GetFilters',
     orderBackendUrl: 'http://localhost:8084/FYP-backend/API/OrderService'
     
->>>>>>> customerTrackingOrder
 }
