@@ -30,165 +30,252 @@ import tokenManagement.tokenManagement;
  */
 @Path("/OrderService")
 public class OrderService {
-
+    
     @Context
     private HttpServletResponse response;
-
+    
     @GET
     @Path("/getOrderById")
     @Produces(MediaType.APPLICATION_JSON)
     public String getOrderById(@QueryParam("orderId") int orderId) {
-
+        
         response.setHeader("Access-Control-Allow-Headers", "Content-Type");
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
-
+        
         Gson gson = new GsonBuilder().create();
         JsonObject jsonOutput = new JsonObject();
-
+        
         JsonArray orderArray = new JsonArray();
         OrderDAO orderDao = new OrderDAO();
-
+        
         try {
-
+            
             Order[] oArr = orderDao.getOrderById(orderId);
             if (oArr == null) {
-
+                
                 jsonOutput.addProperty("status", "500");
                 jsonOutput.addProperty("msg", "No Orders Available");
-
+                
             } else {
-
+                
                 jsonOutput.addProperty("status", "200");
                 JsonArray orders = gson.toJsonTree(oArr).getAsJsonArray(); // convert arraylist to jsonArray
                 jsonOutput.add("orders", orders);
-
+                
             }
-
+            
         } catch (SQLException e) {
-
+            
             jsonOutput.addProperty("status", "500");
             jsonOutput.addProperty("msg", "OrderService: SQL Exception" + e.getMessage());
-
+            
         }
-
+        
         String finalJsonOutput = gson.toJson(jsonOutput);
         return finalJsonOutput;
     }
-
+    
     @GET
     @Path("/getAllOrders")
     @Produces(MediaType.APPLICATION_JSON)
     public String getAllOrders() {
-
+        
         response.setHeader("Access-Control-Allow-Headers", "Content-Type");
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
-
+        
         Gson gson = new GsonBuilder().create();
         JsonObject jsonOutput = new JsonObject();
-
+        
         JsonArray orderArray = new JsonArray();
         OrderDAO orderDao = new OrderDAO();
-
+        
         try {
-
+            
             Order[] oArr = orderDao.getAllOrders();
             if (oArr == null) {
-
+                
                 jsonOutput.addProperty("status", "500");
                 jsonOutput.addProperty("msg", "No Orders Available");
-
+                
             } else {
-
+                
                 jsonOutput.addProperty("status", "200");
                 JsonArray orders = gson.toJsonTree(oArr).getAsJsonArray(); // convert arraylist to jsonArray
                 jsonOutput.add("orders", orders);
-
+                
             }
-
+            
         } catch (SQLException e) {
-
+            
             jsonOutput.addProperty("status", "500");
             jsonOutput.addProperty("msg", "OrderService: SQL Exception" + e.getMessage());
-
+            
         }
-
+        
+        String finalJsonOutput = gson.toJson(jsonOutput);
+        return finalJsonOutput;
+    }
+    
+    @POST
+    @Path("/getOrdersByCustomer")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getAllOrdersByCustomer(@FormParam("token") String token) {
+        
+        response.setHeader("Access-Control-Allow-Headers", "Content-Type");
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
+        
+        String email = tokenManagement.parseJWT(token);        
+        Gson gson = new GsonBuilder().create();
+        JsonObject jsonOutput = new JsonObject();
+        JsonArray orderArray = new JsonArray();
+        OrderDAO orderDao = new OrderDAO();
+        
+        try {
+            
+            Order[] oArr = orderDao.getOrderByEmail(email);
+            
+            if (oArr == null) {
+                
+                jsonOutput.addProperty("status", "500");
+                jsonOutput.addProperty("msg", "No Orders Available");
+                
+            } else {
+                
+                jsonOutput.addProperty("status", "200");
+                JsonArray orders = gson.toJsonTree(oArr).getAsJsonArray(); // convert arraylist to jsonArray
+                jsonOutput.add("orders", orders);
+                
+            }
+            
+        } catch (SQLException e) {
+            
+            jsonOutput.addProperty("status", "500");
+            jsonOutput.addProperty("msg", "OrderService: SQL Exception" + e.getMessage());
+            
+        }
+        
+        String finalJsonOutput = gson.toJson(jsonOutput);
+        return finalJsonOutput;
+    }
+    
+    @POST
+        @Path("/getPastOrdersByCustomer")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getPastOrdersByCustomer(@FormParam("token") String token) {
+        
+        response.setHeader("Access-Control-Allow-Headers", "Content-Type");
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
+        
+        String email = tokenManagement.parseJWT(token);        
+        Gson gson = new GsonBuilder().create();
+        JsonObject jsonOutput = new JsonObject();
+        JsonArray orderArray = new JsonArray();
+        OrderDAO orderDao = new OrderDAO();
+        
+        try {
+            
+            Order[] oArr = orderDao.getPastOrdersByEmail(email);
+            
+            if (oArr == null) {
+                
+                jsonOutput.addProperty("status", "500");
+                jsonOutput.addProperty("msg", "No Orders Available");
+                
+            } else {
+                
+                jsonOutput.addProperty("status", "200");
+                JsonArray orders = gson.toJsonTree(oArr).getAsJsonArray(); // convert arraylist to jsonArray
+                jsonOutput.add("orders", orders);
+                
+            }
+            
+        } catch (SQLException e) {
+            
+            jsonOutput.addProperty("status", "500");
+            jsonOutput.addProperty("msg", "OrderService: SQL Exception" + e.getMessage());
+            
+        }
+        
         String finalJsonOutput = gson.toJson(jsonOutput);
         return finalJsonOutput;
     }
 
     @POST
-    @Path("/getAllOrdersByCustomer")
+    @Path("/getCurrentOrdersByCustomer")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getAllOrdersByCustomer(@FormParam("token") String token) {
-
+    public String getCurrentOrdersByCustomer(@FormParam("token") String token) {
+        
         response.setHeader("Access-Control-Allow-Headers", "Content-Type");
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
-
-        String email = tokenManagement.parseJWT(token); 
+        
+        String email = tokenManagement.parseJWT(token);        
         Gson gson = new GsonBuilder().create();
         JsonObject jsonOutput = new JsonObject();
         JsonArray orderArray = new JsonArray();
         OrderDAO orderDao = new OrderDAO();
-
+        
         try {
             
-            Order[] oArr = orderDao.getOrderByEmail(email);
+            Order[] oArr = orderDao.getCurrentOrdersByEmail(email);
+            
             if (oArr == null) {
-
+                
                 jsonOutput.addProperty("status", "500");
                 jsonOutput.addProperty("msg", "No Orders Available");
-
+                
             } else {
-
+                
                 jsonOutput.addProperty("status", "200");
                 JsonArray orders = gson.toJsonTree(oArr).getAsJsonArray(); // convert arraylist to jsonArray
                 jsonOutput.add("orders", orders);
-
+                
             }
-
+            
         } catch (SQLException e) {
-
+            
             jsonOutput.addProperty("status", "500");
             jsonOutput.addProperty("msg", "OrderService: SQL Exception" + e.getMessage());
-
+            
         }
-
+        
         String finalJsonOutput = gson.toJson(jsonOutput);
         return finalJsonOutput;
     }
-
+    
     @POST
     @Path("/save")
     @Consumes(MediaType.APPLICATION_JSON)
     public String saveOrder(final String json) {
-
+        
         response.setHeader("Access-Control-Allow-Headers", "Content-Type");
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
-
+        
         Gson gs = new Gson();
         Order orderToSave = gs.fromJson(json, Order.class);
         OrderDAO oDAO = new OrderDAO();
-
+        
         Gson gson = new GsonBuilder().create();
         JsonObject jsonOutput = new JsonObject();
-
+        
         try {
-
+            
             jsonOutput.addProperty("status", "200");
             oDAO.addOrder(orderToSave);
-
+            
         } catch (SQLException e) {
-
+            
             jsonOutput.addProperty("status", "500");
-
+            
         }
-
+        
         String finalJsonOutput = gson.toJson(jsonOutput);
         return finalJsonOutput;
     }
-
+    
 }

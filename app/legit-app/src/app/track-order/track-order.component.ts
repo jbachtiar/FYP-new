@@ -21,53 +21,17 @@ export class TrackOrderComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.orderService.getOrderByCustomer(this.token).subscribe(
+    this.orderService.getPastOrderByCustomer(this.token).subscribe(
       orders => {
-        this.allOrder = orders;
-        console.log("order" + JSON.stringify(this.allOrder));
-        for (let o of this.allOrder) {
-
-          //  this.counter++;
-
-
-          let mostCurrentStatusLog = o.statusLogs;
-          console.log("debug1" + mostCurrentStatusLog[0])
-          console.log("debug1" + mostCurrentStatusLog)
-
-          let mostCurrentTimestamp: number = mostCurrentStatusLog.startTimeStamp;
-          for (let sl of o.statusLogs) {
-
-            let timestamp = sl.startTimeStamp;
-
-
-            console.log("current timestamp: " + timestamp + "> most current" + mostCurrentTimestamp)
-            if (mostCurrentTimestamp < timestamp) {
-              mostCurrentTimestamp = timestamp;
-              //console.log("haha"+timestamp);
-              console.log("current timestamp: " + timestamp + "> most current" + mostCurrentTimestamp)
-
-              mostCurrentStatusLog = sl;
-              console.log("statusLog" + sl.orderStatus.statusName);
-              console.log(mostCurrentStatusLog.orderStatus.statusName);
-
-
-            }
-
-          }
-          if (mostCurrentStatusLog.orderStatus.statusName == "Completed") {
-            this.pastOrders.push(o);
-          }
-
-
-
-
-
-        };
-
-        console.log("counter" + this.counter);
-
+        this.pastOrders = orders;
+        console.log("past order" + JSON.stringify(this.pastOrders));
       });
     //console.log("haha" + JSON.stringify(this.pastOrders));
+     this.orderService.getCurrentOrderByCustomer(this.token).subscribe(
+      orders => {
+        this.currentOrders = orders;
+        console.log("current order" + JSON.stringify(this.currentOrders));
+      });
 
   }
 }

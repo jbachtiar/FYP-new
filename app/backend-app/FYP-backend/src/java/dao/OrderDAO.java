@@ -21,6 +21,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class OrderDAO {
 //    
@@ -60,25 +62,25 @@ public class OrderDAO {
 //        
 //        return address.toArray(new Address[address.size()]);
 //    }
-    
-    public String addOrder(Order o) throws SQLException{
+
+    public String addOrder(Order o) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
         PreparedStatement stmt1 = null;
         ResultSet rs = null;
         int orderId = getNextOrderId();
-        OrderItem[] orderItems =  o.getOrderItems();
+        OrderItem[] orderItems = o.getOrderItems();
         String email = o.getAddress().getEmail();
         Timestamp curr_ts = getCurrentTimeStamp();
-        
+
         String sql = "INSERT INTO ORDER (ORDER_ID, ORDER_DATE, NET_AMT, PROMO_DISC_AMT, RECIPIENT_NAME, PHONE_NO, ADDRESS_LINE, CITY, COUNTRY, POSTAL_CODE, STRIPE_CHARGE_ID, EMAIL, PROMO_CODE, COURIER_NAME, ORDER_TRACKING_NO) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         String sql1 = "INSERT INTO ORDER_STATUS_LOG (ORDER_ID, STATUS_ID, START_TIMESTAMP, END_TIMESTAMP, DURATION_HOURS) VALUES (?, ?, ?, ?, ?)";
-        
+
         try {
-            
+
             conn = ConnectionManager.getConnection();
             stmt = conn.prepareStatement(sql);
-            
+
             stmt.setInt(1, orderId);
             stmt.setTimestamp(2, curr_ts);
             stmt.setDouble(3, o.getNetAmt());
@@ -94,9 +96,9 @@ public class OrderDAO {
             stmt.setInt(13, o.getPromoCode().getPromoCodeId());
             stmt.setString(14, null);
             stmt.setString(15, null);
-            
+
             stmt.executeUpdate();
-            
+
             stmt1 = conn.prepareStatement(sql1);
             stmt1.setInt(1, orderId);
             stmt1.setInt(2, 1);
@@ -105,7 +107,7 @@ public class OrderDAO {
             stmt1.setDouble(5, 0);
 
             stmt1.executeUpdate();
-            
+
             for (OrderItem oI : orderItems) {
                 OrderItemDAO orderItemDAO = new OrderItemDAO();
                 String result = orderItemDAO.addOrderItems(orderId, oI);
@@ -113,35 +115,35 @@ public class OrderDAO {
         } finally {
             ConnectionManager.close(conn);
         }
-        
+
         return "Success";
-        
+
     }
-    
+
     public Order[] getOrderById(int orderId) throws SQLException {
-        
+
         PromoCodeDAO pcDao = new PromoCodeDAO();
         OrderItemDAO orderItemDao = new OrderItemDAO();
         ArrayList<Order> orderList = new ArrayList<Order>();
-        
+
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         Order order = null;
-        
+
         String sql = "SELECT * FROM CUSTOMER_ORDER WHERE ORDER_ID = ?";
         try {
             conn = ConnectionManager.getConnection();
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, orderId);
             rs = stmt.executeQuery();
-            
+
             while (rs.next()) {
-            
+
                 Timestamp orderDate = rs.getTimestamp("ORDER_DATE");
                 double netAmt = rs.getDouble("NET_AMT");
                 double promoDiscAmt = rs.getDouble("PROMO_DISC_AMT");
-                
+
                 //create address object: address from order table does not have an address id and a default parameter
                 String email = rs.getString("EMAIL");
                 String recipientName = rs.getString("RECIPIENT_NAME");
@@ -151,58 +153,58 @@ public class OrderDAO {
                 String country = rs.getString("COUNTRY");
                 String postalCode = rs.getString("POSTAL_CODE");
                 Address address = new Address(email, recipientName, phoneNo, 0, addressLine, city, country, postalCode, "N");
-                
+
                 String paymentRefNo = rs.getString("STRIPE_CHARGE_ID");
 
                 //create a promo code object
                 int promoCode = rs.getInt("PROMO_CODE_ID");
                 PromoCode pc = pcDao.getPromoCodeById(promoCode);
-                
+
                 //get all the order items under this order
                 OrderItem[] orderItems = orderItemDao.getOrderItemsByOrderId(orderId);
-                
+
                 //get latest order status
                 OrderStatusLogDAO orderStatusLogDAO = new OrderStatusLogDAO();
                 OrderStatusLog[] osl = orderStatusLogDAO.getOrderStatusByOrderId(orderId);
-                
+
                 order = new Order(orderId, orderDate, netAmt, promoDiscAmt, address, paymentRefNo, pc, orderItems, osl, null, null);
                 orderList.add(order);
-                
+
             }
         } finally {
             ConnectionManager.close(conn, stmt, rs);
         }
-        
+
         Order[] orderArr = orderList.toArray(new Order[orderList.size()]);
         return orderArr;
     }
-    
+
     public Order[] getAllOrders() throws SQLException {
-        
+
         PromoCodeDAO pcDao = new PromoCodeDAO();
         OrderItemDAO orderItemDao = new OrderItemDAO();
-        
+
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         ArrayList<Order> orderList = new ArrayList<Order>();
         Order order = null;
-        
+
         String sql = "SELECT * FROM CUSTOMER_ORDER";
-        
+
         try {
-            
+
             conn = ConnectionManager.getConnection();
             stmt = conn.prepareStatement(sql);
             rs = stmt.executeQuery();
-            
+
             while (rs.next()) {
-                
+
                 int orderId = rs.getInt("ORDER_ID");
                 Timestamp orderDate = rs.getTimestamp("ORDER_DATE");
                 double netAmt = rs.getDouble("NET_AMT");
                 double promoDiscAmt = rs.getDouble("PROMO_DISC_AMT");
-                
+
                 //create address object: address from order table does not have an address id and a default parameter
                 String email = rs.getString("EMAIL");
                 String recipientName = rs.getString("RECIPIENT_NAME");
@@ -212,42 +214,42 @@ public class OrderDAO {
                 String country = rs.getString("COUNTRY");
                 String postalCode = rs.getString("POSTAL_CODE");
                 Address address = new Address(email, recipientName, phoneNo, 0, addressLine, city, country, postalCode, "N");
-                
+
                 String paymentRefNo = rs.getString("STRIPE_CHARGE_ID");
 
                 //create a promo code object
                 int promoCode = rs.getInt("PROMO_CODE_ID");
                 PromoCode pc = pcDao.getPromoCodeById(promoCode);
-                
+
                 //get all the order items under this order
                 OrderItem[] orderItems = orderItemDao.getOrderItemsByOrderId(orderId);
-                
+
                 //get latest order status
                 OrderStatusLogDAO orderStatusLogDAO = new OrderStatusLogDAO();
                 OrderStatusLog[] osl = orderStatusLogDAO.getOrderStatusByOrderId(orderId);
-                
+
                 order = new Order(orderId, orderDate, netAmt, promoDiscAmt, address, paymentRefNo, pc, orderItems, osl, null, null);
                 orderList.add(order);
             }
         } finally {
             ConnectionManager.close(conn, stmt, rs);
         }
-        
+
         Order[] orderArr = orderList.toArray(new Order[orderList.size()]);
         return orderArr;
     }
-    
+
     public Order[] getOrderByEmail(String email) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        
-        ArrayList<Order> orderList = new ArrayList<Order>();
+
+        ArrayList<Order> orderList = new ArrayList<>();
         Order order = null;
-        
+
         String sql = "SELECT * FROM customer_order WHERE EMAIL = ?";
-        
-        System.out.println("GEt order by email");   
+
+        System.out.println("GEt order by email");
         try {
             conn = ConnectionManager.getConnection();
             stmt = conn.prepareStatement(sql);
@@ -273,23 +275,65 @@ public class OrderDAO {
                 order = new Order(orderId, orderDate, netAmt, promoDiscAmt, a, paymentRefNo, pcDao.getPromoCodeById(promoCode), orderItemDao.getOrderItemsByOrderId(orderId), orderLog.getOrderStatusByOrderId(orderId), null, null);
                 orderList.add(order);
             }
-        }catch(SQLException e){
+        } catch (SQLException e) {
             System.out.println("FROM ORDER DAO " + e);
-        }
-        
-        finally {
+        } finally {
             ConnectionManager.close(conn, stmt, rs);
         }
-        
+
         return orderList.toArray(new Order[orderList.size()]);
     }
-    
-    public int getNextOrderId() throws SQLException {
+
+    public Order[] getPastOrdersByEmail(String email) throws SQLException {
+        Order[] allOrders = getOrderByEmail(email);
+        ArrayList<Order> pastOrders = new ArrayList<>();
+        for (Order o : allOrders) {
+            OrderStatusLog theMostRecentStatusLog = o.getStatusLogs()[0];
+            Timestamp theMostRecentStartTime = theMostRecentStatusLog.getStartTimeStamp();
+            OrderStatusLog[] statusLogs = o.getStatusLogs();
+            for (OrderStatusLog statusLog : statusLogs) {
+                if (statusLog.getStartTimeStamp().after(theMostRecentStartTime)) {
+                    theMostRecentStartTime = statusLog.getStartTimeStamp();
+                    theMostRecentStatusLog = statusLog;
+                }
+            }
+
+            if (theMostRecentStatusLog.getOrderStatus().getStatusName().equals("Completed")) {
+                pastOrders.add(o);
+            }
+        }
+
+        return pastOrders.toArray(new Order[pastOrders.size()]);
+
+    }
+
+    public Order[] getCurrentOrdersByEmail(String email) throws SQLException {
+        Order[] allOrders = getOrderByEmail(email);
+        ArrayList<Order> orderArrayList = new ArrayList<>(Arrays.asList(allOrders));   
+        Order[] pastOrders = getPastOrdersByEmail(email);
+        for (int i=0; i<orderArrayList.size(); i++) {
+            for (Order pastOrder: pastOrders){
+                if (orderArrayList.get(i).getOrderId()==pastOrder.getOrderId()){
+                    orderArrayList.remove(i);
+                    i--;
+                }
+            }
+            
+            
+        }
         
+        return orderArrayList.toArray(new Order[orderArrayList.size()]);
+
+      
+        
+    }
+
+    public int getNextOrderId() throws SQLException {
+
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        
+
         int nextOrderId = 0;
 
         String sql = "SELECT MAX(ORDER_ID) AS MAX FROM ORDER";
@@ -301,27 +345,27 @@ public class OrderDAO {
 
             while (rs.next()) {
 
-                nextOrderId = rs.getInt("MAX") +1;
-                
+                nextOrderId = rs.getInt("MAX") + 1;
+
             }
 
         } finally {
-            
+
             ConnectionManager.close(conn, stmt, rs);
-            
+
         }
 
         return nextOrderId;
-        
+
     }
-    
+
     private java.sql.Timestamp getCurrentTimeStamp() {
 
         java.util.Date today = new java.util.Date();
         return new java.sql.Timestamp(today.getTime());
 
     }
-    
+
 //    private static void handleSQLException(SQLException ex, String sql, String... parameters) {
 //        String msg = "Unable to access data; SQL=" + sql + "\n";
 //        for (String parameter : parameters) {
