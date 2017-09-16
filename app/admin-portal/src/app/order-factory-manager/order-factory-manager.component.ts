@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 
 export class OrderFactoryManagerComponent implements OnInit {
   private orders: any = {};
+  private selectedStatus = "All";
   itemCount = 0;
   itemResource = new DataTableResource(this.orders);
   private headers: any = ['Order ID', 'Order Date', 'Current Status', 'Country']
@@ -35,10 +36,10 @@ export class OrderFactoryManagerComponent implements OnInit {
       //data table initialisation
       this.itemResource = new DataTableResource(this.orders);
       this.itemResource.count().then(count => this.itemCount = count);
-      
+
       //to get the latest status of the order
       for (let o of orders) {
-        if(o.statusLogs.length>0){
+        if (o.statusLogs.length > 0) {
           let status = o.statusLogs[0]
           console.log("STATUS: " + status)
           let currentStatus = status
@@ -51,7 +52,7 @@ export class OrderFactoryManagerComponent implements OnInit {
             }
           }
           o['currentStatus'] = currentStatus.orderStatus.statusName;
-        }else{
+        } else {
           o['currentStatus'] = 'NO DATA';
         }
       }
@@ -59,6 +60,7 @@ export class OrderFactoryManagerComponent implements OnInit {
   }
 
   onStatusChange(status) {
+    this.selectedStatus = status;
     this.color[status] = 'lightcoral';
     this.fontColor[status] = 'white'
     this.showTab[status] = true;
@@ -92,7 +94,7 @@ export class OrderFactoryManagerComponent implements OnInit {
         // this.orderDisplay['order_id'] = o.order_id
         // this.orderDisplay['order_date'] = o.order_date
 
-        if(o.statusLogs.length>0){
+        if (o.statusLogs.length > 0) {
           let status = o.statusLogs[0]
           console.log("STATUS: " + status)
           let currentStatus = status
@@ -105,7 +107,7 @@ export class OrderFactoryManagerComponent implements OnInit {
             }
           }
           o['currentStatus'] = currentStatus.statusName;
-        }else{
+        } else {
           o['currentStatus'] = 'NO DATA';
         }
       }
@@ -132,7 +134,7 @@ export class OrderFactoryManagerComponent implements OnInit {
         // this.orderDisplay['order_id'] = o.order_id
         // this.orderDisplay['order_date'] = o.order_date
 
-        if(o.statusLogs.length>0){
+        if (o.statusLogs.length > 0) {
           let status = o.statusLogs[0]
           console.log("STATUS: " + status)
           let currentStatus = status
@@ -145,7 +147,7 @@ export class OrderFactoryManagerComponent implements OnInit {
             }
           }
           o['currentStatus'] = currentStatus.orderStatus.statusName;
-        }else{
+        } else {
           o['currentStatus'] = 'NO DATA';
         }
       }
@@ -172,7 +174,7 @@ export class OrderFactoryManagerComponent implements OnInit {
         // this.orderDisplay['order_id'] = o.order_id
         // this.orderDisplay['order_date'] = o.order_date
 
-        if(o.statusLogs.length>0){
+        if (o.statusLogs.length > 0) {
           let status = o.statusLogs[0]
           console.log("STATUS: " + status)
           let currentStatus = status
@@ -185,7 +187,7 @@ export class OrderFactoryManagerComponent implements OnInit {
             }
           }
           o['currentStatus'] = currentStatus.orderStatus.statusName;
-        }else{
+        } else {
           o['currentStatus'] = 'NO DATA';
         }
       }
@@ -193,12 +195,17 @@ export class OrderFactoryManagerComponent implements OnInit {
 
       console.log("ALL ORDERS in filterOrders: " + JSON.stringify(allOrders))
       let filteredOrders: any = [];
-      for (let o of allOrders) {
-        if (o.currentStatus.toUpperCase() == status.toUpperCase()) {
-          filteredOrders.push(o)
+      if (status != "All") {
+        for (let o of allOrders) {
+          if (o.currentStatus.toUpperCase() == status.toUpperCase()) {
+            filteredOrders.push(o)
+          }
         }
+        this.orders = filteredOrders;
+      }else{
+        this.orders == allOrders
       }
-      this.orders = filteredOrders;
+      
       this.itemResource = new DataTableResource(this.orders);
       this.itemResource.count().then(count => this.itemCount = count);
       console.log("FILTERED ORDERS: " + JSON.stringify(filteredOrders));
@@ -206,53 +213,59 @@ export class OrderFactoryManagerComponent implements OnInit {
     })
 
   }
-  
-  reloadItems(params) {
-    this.orderService.getOrders().subscribe(orders => {
-      this.orders = orders;
-      //console.log("ORDERS: " + this.orders)
-      this.itemResource = new DataTableResource(this.orders);
-      this.itemResource.count().then(count => this.itemCount = count);
-      //to get the latest status of the order
-      for (let o of orders) {
-        console.log("TIMESTAMP: " + o.order_TimeStamp)
-        if(o.statusLogs.length>0){
-          let status = o.statusLogs[0]
-          console.log("STATUS: " + status.statusName)
-          let currentStatus = status
-          let mostCurrentTimestamp = status.startTimeStamp;
-          for (status of o.statusLogs) {
-            var timestamp = status.startTimeStamp;
-            if (mostCurrentTimestamp < timestamp) {
-              mostCurrentTimestamp = timestamp;
-              currentStatus = status;
-            }
-          }
-          o['currentStatus'] = currentStatus.orderStatus.statusName;
-        }else{
-          o['currentStatus'] = 'NO DATA';
-        }
-      }
-    })
-    // this.itemResource = new DataTableResource(this.orders);
+
+  reloadItems(params, selectedStatus) {
+    // console.log("PARAMS: " + JSON.stringify(params))
+    // this.orderService.getOrders().subscribe(orders => {
+    //   this.orders = orders;
+    //   //console.log("ORDERS: " + this.orders)
+    //   this.itemResource = new DataTableResource(this.orders);
+    //   this.itemResource.count().then(count => this.itemCount = count);
+    //   //to get the latest status of the order
+    //   for (let o of orders) {
+    //     console.log("TIMESTAMP: " + o.order_TimeStamp)
+    //     if(o.statusLogs.length>0){
+    //       let status = o.statusLogs[0]
+    //       console.log("STATUS: " + status.statusName)
+    //       let currentStatus = status
+    //       let mostCurrentTimestamp = status.startTimeStamp;
+    //       for (status of o.statusLogs) {
+    //         var timestamp = status.startTimeStamp;
+    //         if (mostCurrentTimestamp < timestamp) {
+    //           mostCurrentTimestamp = timestamp;
+    //           currentStatus = status;
+    //         }
+    //       }
+    //       o['currentStatus'] = currentStatus.orderStatus.statusName;
+    //     }else{
+    //       o['currentStatus'] = 'NO DATA';
+    //     }
+    //   }
+    // })
+    // // this.itemResource = new DataTableResource(this.orders);
+    // this.itemResource.query(params).then(orders => this.orders = orders);
+    // console.log("ITEMS: " + JSON.stringify(this.orders))
+    this.filterOrders(selectedStatus);
+    this.itemResource = new DataTableResource(this.orders);
     this.itemResource.query(params).then(orders => this.orders = orders);
     console.log("ITEMS: " + JSON.stringify(this.orders))
+
   }
 
   rowClick(rowEvent) {
     console.log('Clicked');
     // let link = ['orders', rowEvent.row.item.orderId];
-		// this.router.navigate(link);
+    // this.router.navigate(link);
   }
 
   rowDoubleClick(rowEvent) {
     // alert('Double clicked: ' + rowEvent.row.item.order_id);
     let link = ['orders', rowEvent.row.item.orderId];
-		this.router.navigate(link);
+    this.router.navigate(link);
   }
 
-  rowTooltip(item) { 
-    return "Order ID: " + item.orderId + '\nStatus: ' + item.currentStatus; 
+  rowTooltip(item) {
+    return "Order ID: " + item.orderId + '\nStatus: ' + item.currentStatus;
   }
 
   // special params:

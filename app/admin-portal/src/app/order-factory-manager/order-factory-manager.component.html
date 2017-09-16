@@ -15,7 +15,7 @@
         <div class="card ">
             <div style="margin: auto; max-width: 1000px; margin-bottom: 50px; ">
                 <data-table id="order-grid " headerTitle="Orders " [items]="orders " [itemCount]="itemCount
-    " (reload)="reloadItems($event) " (rowClick)="rowClick($event) " (rowDoubleClick)="rowDoubleClick($event) " [rowTooltip]="rowTooltip
+    " (reload)="reloadItems($event, selectedStatus) " (rowClick)="rowClick($event) " (rowDoubleClick)="rowDoubleClick($event) " [rowTooltip]="rowTooltip
     " [selectColumn]="true " [multiSelect]="false " [substituteRows]="false " [expandableRows]="true " [translations]="translations
     " [indexColumnHeader]=" '#' " [selectOnRowClick]="true " [multiSelect]="true">
                     <template #dataTableExpand let-item="item ">
