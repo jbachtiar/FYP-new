@@ -36,7 +36,7 @@ export class OrderDetailsComponent implements OnInit {
         this.orderItems = orders[0].orderItems
         console.log("ITEM STATUS: " + this.orderItems[0].product.itemStatus)
         for (let item of this.orderItems) {
-          if (item.product.itemStatus == "COMPLETE") {
+          if (item.itemStatus == "COMPLETE") {
             item.product['itemStatusBoolean'] = true
           } else {
             item.product['itemStatusBoolean'] = false
