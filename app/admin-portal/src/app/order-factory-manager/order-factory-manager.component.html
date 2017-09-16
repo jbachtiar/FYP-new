@@ -3,10 +3,10 @@
         <button md-raised-button [ngStyle]=" { 'background-color': color.all, 'color': fontColor.all} " (click)="onStatusChange( 'all') ">All
             <!-- <span class=sup>&nbsp;{{itemCount}}</span> -->
         </button>
-        <button md-raised-button [ngStyle]="{ 'background-color': color.payment, 'color': fontColor.payment} " (click)="onStatusChange( 'payment') ">Payment Received</button>
-        <button md-raised-button [ngStyle]="{ 'background-color': color.production, 'color': fontColor.production} " (click)="onStatusChange( 'production') ">Production</button>
+        <button md-raised-button [ngStyle]="{ 'background-color': color.payment, 'color': fontColor.payment} " (click)="onStatusChange( 'payment received') ">Payment Received</button>
+        <button md-raised-button [ngStyle]="{ 'background-color': color.production, 'color': fontColor.production} " (click)="onStatusChange( 'in production') ">In Production</button>
         <button md-raised-button [ngStyle]="{ 'background-color': color.packaging, 'color': fontColor.packaging} " (click)="onStatusChange( 'packaging') ">Packaging</button>
-        <button md-raised-button [ngStyle]="{ 'background-color': color.preparation, 'color': fontColor.preparation} " (click)="onStatusChange( 'preparation') ">Shipment Preparation</button>
+        <button md-raised-button [ngStyle]="{ 'background-color': color.preparation, 'color': fontColor.preparation} " (click)="onStatusChange( 'pending for shipment') ">Pending for Shipment</button>
         <button md-raised-button [ngStyle]="{ 'background-color': color.shipped, 'color': fontColor.shipped} " (click)="onStatusChange('shipped') ">Shipped</button>
         <button md-raised-button [ngStyle]="{ 'background-color': color.completed, 'color': fontColor.completed} " (click)="onStatusChange( 'completed') ">Completed</button>
     </div>
