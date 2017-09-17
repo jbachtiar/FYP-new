@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from "@angular/router";
 import { HttpModule } from '@angular/http';
 import { CommonModule } from '@angular/common';
+import { MdTabsModule, MdButtonModule, MdProgressBarModule, MdChipsModule, MdCardModule } from '@angular/material';
 
 import { routing } from './app.routing';
 
@@ -87,6 +88,11 @@ import { AddressBookComponent } from './address-book/address-book.component';
     routing,
     BootstrapModalModule,
     CommonModule,
+    MdTabsModule, 
+    MdButtonModule, 
+    MdProgressBarModule, 
+    MdChipsModule, 
+    MdCardModule
   ],
   providers: [
     AuthenticationService,
