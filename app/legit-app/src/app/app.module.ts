@@ -51,6 +51,7 @@ import { ConfirmationPopupComponent } from './confirmation-popup/confirmation-po
 import { LoadingComponent } from './loading/loading.component';
 import { DeleteConfirmationPopupComponent } from './delete-confirmation-popup/delete-confirmation-popup.component';
 import { AddressBookComponent } from './address-book/address-book.component';
+import { TrackOrderDetailComponent } from './track-order-detail/track-order-detail.component';
 
 @NgModule({
   declarations: [
@@ -79,7 +80,8 @@ import { AddressBookComponent } from './address-book/address-book.component';
     ConfirmationPopupComponent,
     LoadingComponent,
     DeleteConfirmationPopupComponent,
-    AddressBookComponent
+    AddressBookComponent,
+    TrackOrderDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -107,6 +109,7 @@ import { AddressBookComponent } from './address-book/address-book.component';
     SharedService,
     OrderService
   ],
+ 
   bootstrap: [AppComponent],
   entryComponents: [
     LoginPopupComponent, 

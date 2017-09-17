@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { OrderService } from '../order.service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-track-order',
@@ -17,7 +19,7 @@ export class TrackOrderComponent implements OnInit {
 
 
 
-  constructor(private orderService: OrderService) {
+  constructor(private orderService: OrderService, private router: Router) {
     this.token = localStorage.getItem('token');
 
   }
@@ -49,6 +51,13 @@ export class TrackOrderComponent implements OnInit {
     return theLastLog.orderStatus.statusName;
 
   }
+
+  viewOrder(orderId){
+    let link = ['profile-sidebar', orderId];
+    this.router.navigate(link);
+  }
+
+  
 
 
 }
