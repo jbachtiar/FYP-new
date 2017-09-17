@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { OrderService } from '../order.service';
 import { Router } from '@angular/router';
+import { SharedService } from '../shared.service';
 
 
 @Component({
@@ -14,12 +15,12 @@ export class TrackOrderComponent implements OnInit {
   private pastOrders: any = {}
   private currentOrders: any = {}
   private counter = 0;
-  private isDisplayCurrentOrder=true
-  private isDisplayPastOrder=true
+  private isDisplayCurrentOrder = true
+  private isDisplayPastOrder = true
 
 
 
-  constructor(private orderService: OrderService, private router: Router) {
+  constructor(private orderService: OrderService, private router: Router, private shardService: SharedService) {
     this.token = localStorage.getItem('token');
 
   }
@@ -29,35 +30,36 @@ export class TrackOrderComponent implements OnInit {
       orders => {
         this.pastOrders = orders;
         console.log("past order" + JSON.stringify(this.pastOrders));
-        if (this.pastOrders.length==0){
-          this.isDisplayPastOrder=false;
+        if (this.pastOrders.length == 0) {
+          this.isDisplayPastOrder = false;
         }
       });
     //console.log("haha" + JSON.stringify(this.pastOrders));
-     this.orderService.getCurrentOrderByCustomer(this.token).subscribe(
+    this.orderService.getCurrentOrderByCustomer(this.token).subscribe(
       orders => {
         this.currentOrders = orders;
         console.log("current order" + JSON.stringify(this.currentOrders));
-        if (this.currentOrders.length==0){
-          this.isDisplayCurrentOrder=false;
+        if (this.currentOrders.length == 0) {
+          this.isDisplayCurrentOrder = false;
         }
       });
 
   }
 
-  returnTheLatestOrderStatus(statusLogs){
-    let size=statusLogs.length
-    let theLastLog= statusLogs[size-1]
+  returnTheLatestOrderStatus(statusLogs) {
+    let size = statusLogs.length
+    let theLastLog = statusLogs[size - 1]
     return theLastLog.orderStatus.statusName;
 
   }
 
-  viewOrder(orderId){
+  viewOrder(orderId) {
     let link = ['profile-sidebar', orderId];
     this.router.navigate(link);
+    
   }
 
-  
+
 
 
 }

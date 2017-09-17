@@ -15,7 +15,7 @@
       padding-top:80px
  }
  .container-fluid{
-      padding-top:120px
+      padding-top:100px
  }
 
 .header{
@@ -29,6 +29,8 @@
     font-size: 18px;
     text-align: left;
 }
+
+
 
 .breadcrumb {
     height: 140px;
@@ -59,12 +61,14 @@ button {
 }
 
 .progress-row{
-    /* padding-right: 10px; */
+   /*  padding-right: 10px; */ 
+   
     /* align-items: center; */
 }
 
 .progress-bar{
     padding: 0px;
+
 }
 
 .progress-button{
@@ -123,7 +127,7 @@ hr{
 
 thead{
     font-family: 'Muli';
-    font-size: 13px;
+    font-size: 18px;
 
 } 
 
@@ -138,10 +142,11 @@ thead{
 }
 
 .title{
-    font-size: 20px;
+    font-size: 18px;
     color: #DD0330;
     font-family: 'Muli';
 }
+
 
 .box{
     position: relative;
@@ -154,7 +159,7 @@ margin: 0 auto;
 left: 0;
 right: 0;        
 text-align: center;
-top: -58%; /* Adjust this value to move the positioned div up and down */
+top: -100%; /* Adjust this value to move the positioned div up and down */
 color: white;
 }
 
@@ -165,8 +170,10 @@ color: white;
 
 .annotation{
     font-family: 'Muli';
-    font-size: 7.5px;
+    font-size: 12px;
 }
+
+
 
 
 
