@@ -63,7 +63,7 @@
                                 {{co.order_TimeStamp}}
                             </td>
                             <td>
-                                View Details
+                                <button [disabled]="loading" class="button" (click)=viewOrder(co.orderId)>View Details</button>
                             </td>
                         </tr>
 
