@@ -40,6 +40,7 @@ export class CartComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(JSON.stringify(this.shoppingCart))
     this.itemCount = this.shoppingCart.cartItems.length;
     if(this.itemCount > 0){
       this.empty = false;
@@ -89,14 +90,18 @@ export class CartComponent implements OnInit {
         //We get dialog result
         if (isConfirmed) {
           let indexCut =  this.shoppingCart.cartItems.findIndex((p) => p.product.productId === productId)
-          //this.shoppingCart.cartItems.splice(indexCut,1)
+          this.shoppingCart.cartItems.splice(indexCut,1)
           console.log("PRODUCT ID : " + productId)
           
           this.shoppingCartService.deleteItemDB(productId)
+          this.shoppingCartService.updateCart(this.shoppingCart)
+          if(this.shoppingCart.cartItems.length === 0){
+            this.empty = true;
+          }
           //this.updateCart()
-          //this.sharedService.updateCart();
-          window.location.reload()
-          console.log('index: ' + indexCut)
+          this.sharedService.updateCart();
+          //window.location.reload()
+          
         }
         else {
           //do nothing

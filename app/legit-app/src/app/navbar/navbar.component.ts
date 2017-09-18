@@ -47,6 +47,7 @@ export class NavbarComponent implements OnInit {
         this.isIn = bool === false ? true : false;
     }
     ngOnInit() {
+        console.log("NAVBAR RELOADED")
         this.token = localStorage.getItem('token');
         console.log("TOKEN: " + this.token)
         if (this.token != null) {
