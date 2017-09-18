@@ -11,6 +11,7 @@ import { PatternDetailsAddComponent } from './pattern-details-add/pattern-detail
 import { PatternDetailsViewComponent } from './pattern-details-view/pattern-details-view.component'
 import { PromoCodeComponent } from './promo-code/promo-code.component'
 import { OrderFactoryManagerComponent } from './order-factory-manager/order-factory-manager.component'
+import { OrderFactoryWorkerComponent } from './order-factory-worker/order-factory-worker.component'
 import { OrderDetailsComponent } from './order-details/order-details.component';
 
 import { AuthGuard } from './guard/guard';
@@ -26,6 +27,7 @@ const appRoutes: Routes = [
     { path: 'patternList/addPatternDetails', component: PatternDetailsAddComponent, canActivate: [AuthGuard]},
     { path: 'patternList/viewPatternDetails/:patternId', component: PatternDetailsViewComponent, canActivate: [AuthGuard]},
     { path: 'orders', component: OrderFactoryManagerComponent, canActivate: [AuthGuard]},
+    { path: 'viewOrders', component: OrderFactoryWorkerComponent, canActivate: [AuthGuard]},
     { path: 'orders/:orderId', component: OrderDetailsComponent, canActivate: [AuthGuard]}
     //{ path: 'register', component: RegisterComponent },
 ];

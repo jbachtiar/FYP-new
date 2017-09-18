@@ -38,6 +38,7 @@ import { BootstrapModalModule } from 'ng2-bootstrap-modal';
 import { DataTableModule } from 'angular-4-data-table';
 import { MdTabsModule, MdButtonModule, MdProgressBarModule, MdChipsModule, MdCardModule } from '@angular/material';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { OrderFactoryWorkerComponent } from './order-factory-worker/order-factory-worker.component';
 
 
 @NgModule({
@@ -58,7 +59,8 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     PromoCodeComponent,
     OrderFactoryManagerComponent,
     OrderManagementComponent,
-    OrderDetailsComponent
+    OrderDetailsComponent,
+    OrderFactoryWorkerComponent
   ],
   imports: [
     BrowserModule,
