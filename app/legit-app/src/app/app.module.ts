@@ -50,6 +50,8 @@ import { LoadingComponent } from './loading/loading.component';
 import { DeleteConfirmationPopupComponent } from './delete-confirmation-popup/delete-confirmation-popup.component';
 import { AddressBookComponent } from './address-book/address-book.component';
 
+import { Angulartics2Module, Angulartics2GoogleAnalytics } from 'angulartics2';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -86,6 +88,7 @@ import { AddressBookComponent } from './address-book/address-book.component';
     routing,
     BootstrapModalModule,
     CommonModule,
+    Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ])
   ],
   providers: [
     AuthenticationService,

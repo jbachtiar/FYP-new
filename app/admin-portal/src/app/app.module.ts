@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule }   from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { RouterModule }   from '@angular/router';
+import { RouterModule, Routes }   from '@angular/router';
 
 import { routing }        from './app.routing';
 
@@ -28,6 +28,7 @@ import { PagerService} from './services/pager.service'
 import { QRCodeModule } from 'angular2-qrcode';
 import { BootstrapModalModule } from 'ng2-bootstrap-modal';
 
+import { Angulartics2Module, Angulartics2GoogleAnalytics } from 'angulartics2';
 
 
 @NgModule({
@@ -53,7 +54,8 @@ import { BootstrapModalModule } from 'ng2-bootstrap-modal';
     HttpModule,
     RouterModule,
     QRCodeModule,
-    BootstrapModalModule
+    BootstrapModalModule,
+    Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ])
   ],
   providers: [
     AuthGuard,

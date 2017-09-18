@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Angulartics2GoogleAnalytics } from 'angulartics2';
 
 @Component({
   selector: 'app-root',
@@ -9,8 +10,8 @@ import { Router } from '@angular/router';
 export class AppComponent {
   title = 'app';
   
-  constructor(private _router: Router) {}
-
+  constructor(angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics, 
+              private _router: Router) {}
 
   onSelect(feature): void {
     console.log("FEATURE: " + feature);
