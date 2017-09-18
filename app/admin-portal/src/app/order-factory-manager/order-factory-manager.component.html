@@ -1,21 +1,21 @@
 <div class="container-fluid">
     <div class="row">
-        <button md-raised-button [ngStyle]=" { 'background-color': color.all, 'color': fontColor.all} " (click)="onStatusChange( 'all') ">All
+        <button md-raised-button [ngStyle]=" { 'background-color': color.all, 'color': fontColor.all} " (click)="onStatusChange(0) ">All
             <!-- <span class=sup>&nbsp;{{itemCount}}</span> -->
         </button>
-        <button md-raised-button [ngStyle]="{ 'background-color': color.payment, 'color': fontColor.payment} " (click)="onStatusChange( 'payment') ">Payment Received</button>
-        <button md-raised-button [ngStyle]="{ 'background-color': color.production, 'color': fontColor.production} " (click)="onStatusChange( 'production') ">Production</button>
-        <button md-raised-button [ngStyle]="{ 'background-color': color.packaging, 'color': fontColor.packaging} " (click)="onStatusChange( 'packaging') ">Packaging</button>
-        <button md-raised-button [ngStyle]="{ 'background-color': color.preparation, 'color': fontColor.preparation} " (click)="onStatusChange( 'preparation') ">Shipment Preparation</button>
-        <button md-raised-button [ngStyle]="{ 'background-color': color.shipped, 'color': fontColor.shipped} " (click)="onStatusChange('shipped') ">Shipped</button>
-        <button md-raised-button [ngStyle]="{ 'background-color': color.completed, 'color': fontColor.completed} " (click)="onStatusChange( 'completed') ">Completed</button>
+        <button md-raised-button [ngStyle]="{ 'background-color': color.payment, 'color': fontColor.payment} " (click)="onStatusChange(1) ">Payment Received</button>
+        <button md-raised-button [ngStyle]="{ 'background-color': color.production, 'color': fontColor.production} " (click)="onStatusChange(2) ">In Production</button>
+        <button md-raised-button [ngStyle]="{ 'background-color': color.packaging, 'color': fontColor.packaging} " (click)="onStatusChange(3) ">Packaging</button>
+        <button md-raised-button [ngStyle]="{ 'background-color': color.preparation, 'color': fontColor.preparation} " (click)="onStatusChange(4) ">Pending for Shipment</button>
+        <button md-raised-button [ngStyle]="{ 'background-color': color.shipped, 'color': fontColor.shipped} " (click)="onStatusChange(5) ">Shipped</button>
+        <button md-raised-button [ngStyle]="{ 'background-color': color.completed, 'color': fontColor.completed} " (click)="onStatusChange(6) ">Completed</button>
     </div>
     <div class="row ">
         <!-- <div class="col-md-12 "> -->
         <div class="card ">
             <div style="margin: auto; max-width: 1000px; margin-bottom: 50px; ">
                 <data-table id="order-grid " headerTitle="Orders " [items]="orders " [itemCount]="itemCount
-    " (reload)="reloadItems($event) " (rowClick)="rowClick($event) " (rowDoubleClick)="rowDoubleClick($event) " [rowTooltip]="rowTooltip
+    " (reload)="reloadItems($event, selectedStatus) " (rowClick)="rowClick($event) " (rowDoubleClick)="rowDoubleClick($event) " [rowTooltip]="rowTooltip
     " [selectColumn]="true " [multiSelect]="false " [substituteRows]="false " [expandableRows]="true " [translations]="translations
     " [indexColumnHeader]=" '#' " [selectOnRowClick]="true " [multiSelect]="true">
                     <template #dataTableExpand let-item="item ">

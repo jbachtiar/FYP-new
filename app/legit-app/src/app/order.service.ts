@@ -30,6 +30,20 @@ export class OrderService {
                 return orders;
             });
     }
+    
+    getOrderById(orderId) {
+        let params: URLSearchParams = new URLSearchParams();
+        let url = CONFIG.orderBackendUrl + '/getOrderById?orderId=' + orderId;
+        return this._http.get(url)
+            .map(res => {
+                console.log("ORDER: " + res.json().orders)
+                let orders = res.json().orders;
+                //temp
+                let orderItems = orders[0].orderItems
+             
+                return orders;
+            });
+    }
 
     getPastOrderByCustomer(token: string) {
         let headers = new Headers();

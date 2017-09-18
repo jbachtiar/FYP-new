@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from "@angular/router";
 import { HttpModule } from '@angular/http';
 import { CommonModule } from '@angular/common';
+import { MdTabsModule, MdButtonModule, MdProgressBarModule, MdChipsModule, MdCardModule } from '@angular/material';
 
 import { routing } from './app.routing';
 
@@ -50,6 +51,7 @@ import { ConfirmationPopupComponent } from './confirmation-popup/confirmation-po
 import { LoadingComponent } from './loading/loading.component';
 import { DeleteConfirmationPopupComponent } from './delete-confirmation-popup/delete-confirmation-popup.component';
 import { AddressBookComponent } from './address-book/address-book.component';
+import { TrackOrderDetailComponent } from './track-order-detail/track-order-detail.component';
 
 @NgModule({
   declarations: [
@@ -78,7 +80,8 @@ import { AddressBookComponent } from './address-book/address-book.component';
     ConfirmationPopupComponent,
     LoadingComponent,
     DeleteConfirmationPopupComponent,
-    AddressBookComponent
+    AddressBookComponent,
+    TrackOrderDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -87,6 +90,11 @@ import { AddressBookComponent } from './address-book/address-book.component';
     routing,
     BootstrapModalModule,
     CommonModule,
+    MdTabsModule, 
+    MdButtonModule, 
+    MdProgressBarModule, 
+    MdChipsModule, 
+    MdCardModule
   ],
   providers: [
     AuthenticationService,
@@ -101,6 +109,7 @@ import { AddressBookComponent } from './address-book/address-book.component';
     SharedService,
     OrderService
   ],
+ 
   bootstrap: [AppComponent],
   entryComponents: [
     LoginPopupComponent, 

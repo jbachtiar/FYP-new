@@ -140,7 +140,8 @@ export class ShoppingCartService {
       .subscribe(res => {
         this.cart = res.json().cart
         localStorage.setItem(CART_KEY, JSON.stringify(this.cart));
-        return this.cart;        
+        
+        return this.cart;
       });
 
   }
@@ -247,12 +248,14 @@ export class ShoppingCartService {
       .subscribe(res => {
         //console.log(cart)
         console.log("DELETE CART")
+        this.retrieveCartDB()
       });
+      
   }
 
   saveAddress(addressJson) {
     console.log("NEW ADDRESS: " + JSON.stringify(addressJson))
-    
+
     let params: URLSearchParams = new URLSearchParams();
     console.log("SAVE ADDRESS SERVICE")
     params.set('address', JSON.stringify(addressJson));
@@ -264,5 +267,6 @@ export class ShoppingCartService {
     return this._http.post(url, params.toString(), {
       headers: headers
     }).map(res => res
-      )};
+      )
+  };
 }

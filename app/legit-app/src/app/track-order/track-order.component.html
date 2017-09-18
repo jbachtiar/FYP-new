@@ -9,6 +9,7 @@
                     <th>Order Status</th>
                     <th>Price</th>
                     <th>Date of Purchase</th>
+                    <th>   </th>
                 </thead>
 
                 <tbody *ngFor="let co of currentOrders">
@@ -24,6 +25,9 @@
                         </td>
                         <td>
                             {{co.order_TimeStamp}}
+                        </td>
+                        <td>
+                            <button [disabled]="loading" class="button" (click)=viewOrder(co.orderId)>View Details</button>
                         </td>
                     </tr>
                 </tbody>
@@ -41,6 +45,7 @@
                         <th>Order Status</th>
                         <th>Price</th>
                         <th>Date of Purchase</th>
+                        <th></th>
                     </thead>
 
                     <tbody *ngFor="let co of pastOrders">
@@ -56,6 +61,9 @@
                             </td>
                             <td>
                                 {{co.order_TimeStamp}}
+                            </td>
+                            <td>
+                                <button [disabled]="loading" class="button" (click)=viewOrder(co.orderId)>View Details</button>
                             </td>
                         </tr>
 
