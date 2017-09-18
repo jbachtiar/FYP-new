@@ -1,7 +1,7 @@
 <div class="content">
 
   <div class="box">
-    <md-progress-bar class="example-margin" [color]="color" [mode]="mode" [value]="value" [bufferValue]="bufferValue">
+    <md-progress-bar [ngStyle]="{'color': goldenrod}" class="example-margin" [mode]="mode" [value]="value" [bufferValue]="bufferValue">
     </md-progress-bar>
 
     <div class="row">
@@ -11,11 +11,11 @@
           </div>
           <div class="col-md-1">
             <div class="annotation">
-              <font color="#DD0330">
+              <font class="status">
                 &nbsp;&nbsp;PAYMENT<br/>&nbsp;&nbsp;RECEIVED
               </font>
             </div>
-            <button [ngClass]="{'pulse': pulse.payment}" md-fab color="warn" [disabled]="isDisabled.payment">
+            <button [ngClass]="{'pulse': pulse.payment}" md-fab class="button" [disabled]="isDisabled.payment">
         <i class="ti-wallet"></i>
       </button>
           </div>
@@ -25,7 +25,7 @@
 
           <div class="col-md-1">
             <div class="annotation">
-              <font color="#DD0330">
+              <font class="status">
                 IN<br/>&nbsp;PRODUCTION
               </font>
             </div>
@@ -39,7 +39,7 @@
 
           <div class="col-md-1">
             <div class="annotation">
-              <font color="#DD0330">
+              <font class="status">
                 <br/>&nbsp;PACKAGING
               </font>
             </div>
@@ -53,7 +53,7 @@
 
           <div class="col-md-1">
             <div class="annotation">
-              <font color="#DD0330">
+              <font class="status">
                 PENDING FOR<br/>&nbsp;SHIPMENT
               </font>
             </div>
@@ -67,7 +67,7 @@
 
           <div class="col-md-1">
             <div class="annotation">
-              <font color="#DD0330">
+              <font class="status">
                 <br/>&nbsp;SHIPPED
               </font>
             </div>
@@ -81,7 +81,7 @@
 
           <div class="col-md-1">
             <div class="annotation">
-              <font color="#DD0330">
+              <font class="status">
                 <br/>&nbsp;COMPLETED
               </font>
             </div>
