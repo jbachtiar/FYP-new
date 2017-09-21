@@ -36,8 +36,18 @@ button{
     margin-right: 5px;
     margin-left: 5px;
     width: 20px;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
 
 }
+.change-qty:hover{
+    border: 1px solid white;
+    background-color: goldenrod; 
+    color: white;
+}
+
+
 .remove{
     border: 0px solid goldenrod;
     background-color: white; 
@@ -48,8 +58,11 @@ button{
     padding-right: 0px;
     padding-bottom: 0px;
     padding-left: 0px;
+    transition: all 0.5s;
+}
+.remove:hover{
+    text-shadow: 0.5px 0.5px 2px
     
-
 }
 
 .empty-cart{
@@ -94,6 +107,7 @@ th{
     animation: swing 1s ease;
     -webkit-animation-iteration-count: 1;
     animation-iteration-count: 1;
+    transition: all 0.5s;
 }
 
 @-webkit-keyframes swing
