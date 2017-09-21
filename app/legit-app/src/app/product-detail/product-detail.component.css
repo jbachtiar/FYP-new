@@ -67,3 +67,46 @@ body {
 img{
     transition:all 0.3s ease;   
 }
+
+.button {
+    border-radius: 0px;
+    border: 1px solid goldenrod;
+    background-color: goldenrod;
+    font-family: Georgia;
+    font-size: 14px;
+    color: white;
+    text-align: center;
+    padding-top: 5px;
+    padding-right: 20px;
+    padding-bottom: 5px;
+    padding-left: 20px;
+    margin-top: 10px;
+    width: 140px;
+    transition: all 0.5s;
+    cursor: pointer;
+  }
+
+.button span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+  }
+  
+  .button span:after {
+    content: '+';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -10px;
+    transition: 0.5s;
+  }
+  
+  .button:hover span {
+    padding-right: 20px;
+  }
+  
+  .button:hover span:after {
+    opacity: 1;
+    right: 0;
+  }
