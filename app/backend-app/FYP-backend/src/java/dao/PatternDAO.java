@@ -21,69 +21,69 @@ import java.util.logging.Logger;
  * @author Ong Yi Xuan
  */
 public class PatternDAO {
-//    
-//    public static void updatePatternToDB(CustomPattern cp) throws SQLException{
-//        
-//        //get the pattern id
-//        String patternID = cp.getPattern_id();
-//        System.out.println("Pattern ID: " +patternID);
-//        if(patternID.isEmpty()){
-//        System.out.println("Add Pattern");    
-//            //add new pattern to DB
-//            patternID = getNextPatternID();
-//            System.out.println(patternID);
-//            System.out.println(cp.getCollection_id());
-//            addPattern(patternID, cp.getPattern_name(), cp.getPattern_description(), cp.getPattern_price() , cp.getCollection_id());
-//            System.out.println("Success");
-//            //add to pattern_fabric table
-//            CustomFabric[] fabricArr = cp.getFabrics();
-//            
-//            for(CustomFabric cf : fabricArr){
-//                
-//                addPatternFabric(patternID, cf.getFabric_id());
-//                CustomColour[] fabricColourArr = cf.getColours();
-//                
-//                for(CustomColour cc : fabricColourArr){
-//                    
-//                    //add to product table (colour ..)
-//                    addProduct(patternID, cf.getFabric_id(), cc.getColour_id(), cc.getColour_price(), cc.getImage_url());
-//                }     
-//              
-//            }             
-//            
-//        }else{
-//            
-//            //pattern exists in database
-//            updatePattern(patternID, cp.getPattern_name(), cp.getPattern_description(), cp.getPattern_price() , cp.getCollection_id());
-//            
-//            //delete from product table in db
-//            deleteProductByPatternID(patternID);
-//            
-//            //delete from pattern fabric table in db
-//            deletePatternFabricByPatternID(patternID);
-//            
-//            //add to pattern_fabric table
-//            CustomFabric[] fabricArr = cp.getFabrics();
-//            
-//            for(CustomFabric cf : fabricArr){
-//                
-//                addPatternFabric(patternID, cf.getFabric_id());
-//                
-//                CustomColour[] fabricColourArr = cf.getColours();
-//                
-//                for(CustomColour cc : fabricColourArr){
-//                    
-//                    //add to product table (colour ..)
-//                    addProduct(patternID, cf.getFabric_id(), cc.getColour_id(), cc.getColour_price(), cc.getImage_url());
-//                }
-//                
-//            }
-//            
-//            
-//        }
-//        
-//        
-//    }
+   /* 
+    public void updatePatternToDB(Pattern p) throws SQLException{
+        
+        //get the pattern id
+        int patternID = p.getPatternId();
+        System.out.println("Pattern ID: " +patternID);
+        if(patternID == 0){
+        System.out.println("Add Pattern");    
+            //add new pattern to DB
+            patternID = getNextPatternId();
+            System.out.println(patternID);
+            System.out.println(p.getCollection().getCollectionId());
+            //addPattern(patternID, p.getPatternName(), p.getPatternDesc(), p.getPatternPrice() , p.getCollection().getCollectionId());
+            System.out.println("Success");
+            //add to pattern_fabric table
+            Fabric[] fabricArr = p.getPatternDesc();
+            
+            for(CustomFabric cf : fabricArr){
+                
+                addPatternFabric(patternID, cf.getFabric_id());
+                CustomColour[] fabricColourArr = cf.getColours();
+                
+                for(CustomColour cc : fabricColourArr){
+                    
+                    //add to product table (colour ..)
+                    addProduct(patternID, cf.getFabric_id(), cc.getColour_id(), cc.getColour_price(), cc.getImage_url());
+                }     
+              
+            }             
+            
+        }else{
+            
+            //pattern exists in database
+            updatePattern(patternID, cp.getPattern_name(), cp.getPattern_description(), cp.getPattern_price() , cp.getCollection_id());
+            
+            //delete from product table in db
+            deleteProductByPatternID(patternID);
+            
+            //delete from pattern fabric table in db
+            deletePatternFabricByPatternID(patternID);
+            
+            //add to pattern_fabric table
+            CustomFabric[] fabricArr = cp.getFabrics();
+            
+            for(CustomFabric cf : fabricArr){
+                
+                addPatternFabric(patternID, cf.getFabric_id());
+                
+                CustomColour[] fabricColourArr = cf.getColours();
+                
+                for(CustomColour cc : fabricColourArr){
+                    
+                    //add to product table (colour ..)
+                    addProduct(patternID, cf.getFabric_id(), cc.getColour_id(), cc.getColour_price(), cc.getImage_url());
+                }
+                
+            }
+            
+            
+        }
+        
+        
+    }*/
 //    
 //    public static void deleteProductByPatternID(String patternID) throws SQLException{
 //        
@@ -173,47 +173,6 @@ public class PatternDAO {
 //        
 //    }
 //    
-//    public static String getNextSKU() throws SQLException{
-//        
-//        Connection conn = null;
-//        PreparedStatement stmt = null;
-//        ResultSet rs = null;
-//        String sku = "";
-//        int intSku = -1;
-//        
-//        String sql = "SELECT MAX(SKU) AS SKU FROM PRODUCT"; 
-//        
-//        try {
-//            conn = ConnectionManager.getConnection();
-//            stmt = conn.prepareStatement(sql);
-//            rs = stmt.executeQuery();
-//            
-//            while (rs.next()) {
-//                
-//                sku = rs.getString("SKU");
-//                intSku = Integer.parseInt(sku) + 1;
-//                
-//               
-//            }
-//            
-//
-//        } finally {
-//            
-//            ConnectionManager.close(conn, stmt, rs);
-//            
-//        }
-//        
-//        if(intSku < 10){
-//            
-//            return "00" + intSku;
-//            
-//        }else{
-//            
-//            return "0" + intSku;
-//            
-//        }
-//        
-//    }
 //    
 //    public Pattern[] getAllPatterns() throws SQLException{
 //        
@@ -250,6 +209,37 @@ public class PatternDAO {
 //    }
 //    
 
+    public int getNextPatternId() throws SQLException {
+
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        int nextPatternId = 0;
+
+        String sql = "SELECT MAX(PATTERN_ID) AS MAX FROM PATTERN";
+
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+
+                nextPatternId = rs.getInt("MAX") + 1;
+
+            }
+
+        } finally {
+
+            ConnectionManager.close(conn, stmt, rs);
+
+        }
+
+        return nextPatternId;
+
+    }
+    
     public Pattern getPatternById(int patternId) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;

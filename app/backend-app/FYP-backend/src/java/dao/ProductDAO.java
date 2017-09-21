@@ -58,6 +58,7 @@ public class ProductDAO {
             
         }
         
+        sql = sql + " GROUP BY pat.PATTERN_ID";
         try {
             conn = ConnectionManager.getConnection();
             stmt = conn.prepareStatement(sql);
