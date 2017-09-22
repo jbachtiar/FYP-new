@@ -73,7 +73,7 @@ public class OrderDAO {
         String email = o.getAddress().getEmail();
         Timestamp curr_ts = getCurrentTimeStamp();
 
-        String sql = "INSERT INTO ORDER (ORDER_ID, ORDER_DATE, NET_AMT, PROMO_DISC_AMT, RECIPIENT_NAME, PHONE_NO, ADDRESS_LINE, CITY, COUNTRY, POSTAL_CODE, STRIPE_CHARGE_ID, EMAIL, PROMO_CODE, COURIER_NAME, ORDER_TRACKING_NO) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO CUSTOMER_ORDER (ORDER_ID, ORDER_DATE, NET_AMT, PROMO_DISC_AMT, RECIPIENT_NAME, PHONE_NO, ADDRESS_LINE, CITY, COUNTRY, POSTAL_CODE, STRIPE_CHARGE_ID, EMAIL, PROMO_CODE_ID, COURIER_NAME, ORDER_TRACKING_NO) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         String sql1 = "INSERT INTO ORDER_STATUS_LOG (ORDER_ID, STATUS_ID, START_TIMESTAMP, END_TIMESTAMP, DURATION_HOURS) VALUES (?, ?, ?, ?, ?)";
 
         try {

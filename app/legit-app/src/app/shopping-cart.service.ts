@@ -162,10 +162,6 @@ export class ShoppingCartService {
     this.save(newCart);
     this.dispatch(newCart);
   }
-  public emptyLogout(): void {
-    const newCart = new ShoppingCart();
-    localStorage.setItem(CART_KEY, JSON.stringify(newCart));
-  }
 
   private calculateCart(cart: ShoppingCart): void {
     let totalPrice: number = 0;
@@ -209,26 +205,6 @@ export class ShoppingCartService {
           // we want all subscribers to get the update even if one errors.
         }
       });
-  }
-
-  public addAddress(address: any) {
-    //call webservice to add address to database
-    let params: URLSearchParams = new URLSearchParams();
-    params.set('token', this.token)
-    params.set('address', address)
-    let headers = new Headers();
-    //headers.append ('Authorization', token);
-    headers.append(
-      'Content-type', 'application/x-www-form-urlencoded'
-    )
-    //TO BE EDITED
-    let url = 'www.google.com';
-    return this._http.put(url + '/addAddress', params.toString(), { headers })
-      .map(res => {
-        return { 'status': '200' }
-      }
-      );
-
   }
 
   deleteItemDB(productId: number) {

@@ -227,18 +227,7 @@ export class CheckoutComponent implements OnInit {
       this.saveAddress()
       orderAddress.addresssId = ""
       orderAddress = this.newAddress
-      if (this.isSaveAddress) {
-        //call service to save address here
-        this.shoppingCartService.addAddress(this.newAddress).subscribe(
-          res => {
-            if (res.status === '200') {
-              console.log("new address entry added");
-            } else {
-              console.log("unable to add new address")
-            }
-          });
 
-      }
     } else {
       //
       orderAddress.addressId = ""
