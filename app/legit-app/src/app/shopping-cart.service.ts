@@ -162,6 +162,10 @@ export class ShoppingCartService {
     this.save(newCart);
     this.dispatch(newCart);
   }
+  public emptyLogout(): void {
+    const newCart = new ShoppingCart();
+    localStorage.setItem(CART_KEY, JSON.stringify(newCart));
+  }
 
   private calculateCart(cart: ShoppingCart): void {
     let totalPrice: number = 0;
