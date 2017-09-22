@@ -129,7 +129,8 @@ export class PaymentComponent implements OnInit {
 
   updateCart(){
     console.log("UPDATE CART FUNCTION")
-    this.sharedService.emptyCart();
+    this.shoppingCartService.empty();
+    this.sharedService.updateCart();
   }
 
   showSuccessfulDialog() {
