@@ -151,5 +151,26 @@ public class CartItemDAO {
 
         return "Success";
     }
+    
+    public String deleteCartItemByCartId(int cartId) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        CartItem cartItem = null;
+
+        String sql = "DELETE FROM CART_ITEM WHERE CART_ID= ?";
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, cartId);
+            System.out.println("SQL" + cartId);
+            stmt.executeUpdate();
+
+        } finally {
+            ConnectionManager.close(conn, stmt, rs);
+        }
+
+        return "Success";
+    }
 
 }

@@ -29,6 +29,7 @@ export class PaymentComponent implements OnInit {
   private shoppingCart: ShoppingCart;
   private cartItem: CartItem[];
   private stripeToken;
+  private loading : boolean = false;
 
 
   constructor(
@@ -55,11 +56,13 @@ export class PaymentComponent implements OnInit {
   }
 
   openCheckout() {
+    
     console.log("CHECKOUT")
     var handler = (<any>window).StripeCheckout.configure({
       key: 'pk_test_PcfRcpvH8lJ8P7GtXdwbTl9D',
       locale: 'auto',
       token: (token: any) => {
+        
         // You can access the token ID with `token.id`.
         // Get the token ID to our server-side code for use.
         this.chargeStripe(token.id, this.shoppingCart.price * 100);
@@ -67,6 +70,8 @@ export class PaymentComponent implements OnInit {
       }
     });
     console.log("TOTAL PRICE :" + this.shoppingCart.price)
+    this.loading = true;
+    
     handler.open({
       name: 'Highlander',
       description: 'Secured Payment',
@@ -77,6 +82,7 @@ export class PaymentComponent implements OnInit {
   chargeStripe(token, amount) {
     this.shoppingCartService.chargeStripe(token, amount).subscribe(res => {
       console.log(res)
+      
       if (res.status == 200) {
         //remove items in cart
         this.updateCart()
@@ -85,16 +91,19 @@ export class PaymentComponent implements OnInit {
         // this.orderService.saveOrder()
         //create modal 
         this.showSuccessfulDialog()
+        this.loading = false;
         //go home
       } else {
         this.showErrorDialog()
+        this.loading = false;
       }
     });
   }
 
   updateCart(){
     console.log("UPDATE CART FUNCTION")
-    this.sharedService.emptyCart();
+    this.shoppingCartService.empty();
+    this.sharedService.updateCart();
   }
 
   showSuccessfulDialog() {

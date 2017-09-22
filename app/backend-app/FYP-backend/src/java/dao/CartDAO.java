@@ -30,25 +30,24 @@ public class CartDAO {
         Cart c = getCartByEmail(email);
         CartItem[] cartItems = cartItemDao.getCartItemsByCartId(c.getCartId());
         double totalPrice = 0;
-        
+
         for (CartItem cI : cartItems) {
             totalPrice += (cI.getUnitPrice() * cI.getQuantity());
         }
-        
+
         String sql = "UPDATE CART SET CART_PRICE = ? WHERE CART_ID = ?";
-        
+
         try {
             conn = ConnectionManager.getConnection();
             stmt = conn.prepareStatement(sql);
             stmt.setDouble(1, totalPrice);
             stmt.setInt(2, c.getCartId());
-            
-            
+
             stmt.executeUpdate();
         } finally {
             ConnectionManager.close(conn);
         }
-        
+
         return "Success";
     }
 
@@ -57,7 +56,7 @@ public class CartDAO {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-
+        CartItemDAO cartItemDAO = new CartItemDAO();
         Cart cart = getCartByEmail(email);
 
         if (cart == null) {
@@ -80,7 +79,6 @@ public class CartDAO {
                 System.out.println("Cart added");
                 System.out.println("cart size : " + c.getCartItems().length);
                 for (CartItem cI : cartItems) {
-                    CartItemDAO cartItemDAO = new CartItemDAO();
                     String result = cartItemDAO.addCartItem(cartId, cI);
                 }
             } finally {
@@ -94,9 +92,16 @@ public class CartDAO {
             System.out.println("Cart Price : " + c.getPrice());
             System.out.println("Cart Id : " + c.getCartId());
             int cartId = cart.getCartId();
-            for (CartItem cI : cartItems) {
-                CartItemDAO cartItemDAO = new CartItemDAO();
-                String result = cartItemDAO.addCartItem(cartId, cI);
+
+            if (cartItems.length != 0) {
+                for (CartItem cI : cartItems) {
+
+                    String result = cartItemDAO.addCartItem(cartId, cI);
+                }
+            } else {
+                System.out.println("CARTID : " + c.getCartId());
+                String result = cartItemDAO.deleteCartItemByCartId(cartId);
+                System.out.println("Result" + result);
             }
 
             String sql = "UPDATE CART SET CART_PRICE = ? WHERE CART_ID = ?";
@@ -113,7 +118,7 @@ public class CartDAO {
             }
 
         }
-
+        
         return "Success";
 
     }

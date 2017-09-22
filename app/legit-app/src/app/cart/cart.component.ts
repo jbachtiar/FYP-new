@@ -40,6 +40,7 @@ export class CartComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.sharedService.updateCart()
     console.log(JSON.stringify(this.shoppingCart))
     this.itemCount = this.shoppingCart.cartItems.length;
     if(this.itemCount > 0){
