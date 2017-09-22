@@ -28,8 +28,12 @@ import entity.Pattern;
 import entity.Product;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.annotation.security.PermitAll;
 import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.OPTIONS;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
@@ -93,7 +97,7 @@ public class ProductCatalogue {
             jsonOutput.add("filters", filter);
 
         } catch (SQLException e) {
-
+            System.out.println(e);
             jsonOutput.addProperty("status", "500");
             jsonOutput.addProperty("msg", "Dropdown Error: SQL Exception");
 
@@ -183,49 +187,49 @@ public class ProductCatalogue {
 
     
     
-//
-//    @OPTIONS
-//    @PermitAll
-//    @Path("/update")  // post delete update 
-//    public void optionsUpdateProduct() {
-//        response.setHeader("Access-Control-Allow-Origin", "*");
-//        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
-//        response.setHeader("Access-Control-Allow-Headers", "content-type");
-//        
-//    }
-//    
-//    
-//    @POST
-//    @Path("/update")
-//    @Consumes(MediaType.APPLICATION_JSON)
-//    public String updateProduct(final String json){
-//        response.setHeader("Access-Control-Allow-Origin", "*");
-//        
-//        
-//        Gson gson = new Gson(); 
-//        CustomPattern cp = gson.fromJson(json, CustomPattern.class);
-//        
-//        JsonObject jsonOutput = new JsonObject();
-//        
-//        try{
-//            
-//            jsonOutput.addProperty("status", "200");
-//            PatternDAO.updatePatternToDB(cp);
-//            
-//            
-//        }catch(SQLException e){
-//            
-//            
-//            jsonOutput.addProperty("status", "error");
-//            jsonOutput.addProperty("msg", e.getMessage());
-//        }
-//        
-//        String finalJsonOutput = gson.toJson(jsonOutput);
-//        return finalJsonOutput;
-//        
-//    }
-//    
-//    
+/*
+    @OPTIONS
+    @PermitAll
+    @Path("/update")  // post delete update 
+    public void optionsUpdateProduct() {
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
+        response.setHeader("Access-Control-Allow-Headers", "content-type");
+        
+    }
+    
+    
+    @POST
+    @Path("/update")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String updateProduct(final String json){
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        
+        
+        Gson gson = new Gson(); 
+        Product p = gson.fromJson(json, Product.class);
+        
+        JsonObject jsonOutput = new JsonObject();
+        
+        try{
+            
+            jsonOutput.addProperty("status", "200");
+            PatternDAO.updatePatternToDB(p.getPattern());
+            
+            
+        }catch(SQLException e){
+            
+            
+            jsonOutput.addProperty("status", "error");
+            jsonOutput.addProperty("msg", e.getMessage());
+        }
+        
+        String finalJsonOutput = gson.toJson(jsonOutput);
+        return finalJsonOutput;
+        
+    }
+    */
+    
 
     @GET
     @Path("/BeddingPatterns")

@@ -33,7 +33,7 @@ export class NavbarComponent implements OnInit {
         private router: Router,
         private shoppingCartService: ShoppingCartService,
         private sharedService: SharedService) {
-        this.subscription=this.sharedService.updateCart$.subscribe(
+        this.subscription = this.sharedService.updateCart$.subscribe(
             () => {
                 //alert('(Component2) Method called!');
                 this.recalculateQty();
@@ -62,6 +62,7 @@ export class NavbarComponent implements OnInit {
 
 
         this.itemCount = this.shoppingCart.cartItems.length;
+        this.sharedService.updateCart();
         console.log("AUTHENTICATED: " + this.authenticated);
     }
 
@@ -98,9 +99,14 @@ export class NavbarComponent implements OnInit {
 
     logout() {
         this.authenticationService.logout();
+        this.emptyCart()
         window.location.reload();
     }
 
-
+    emptyCart() {
+        console.log("CART IS EMPTIED")
+        this.shoppingCartService.empty()
+        //window.location.reload()
+    }
 
 }
