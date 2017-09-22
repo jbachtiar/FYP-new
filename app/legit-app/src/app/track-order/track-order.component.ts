@@ -17,7 +17,7 @@ export class TrackOrderComponent implements OnInit {
   private counter = 0;
   private isDisplayCurrentOrder = true
   private isDisplayPastOrder = true
-
+  private loading :boolean  = true;
 
 
   constructor(private orderService: OrderService, private router: Router, private shardService: SharedService) {
@@ -28,6 +28,7 @@ export class TrackOrderComponent implements OnInit {
   ngOnInit() {
     this.orderService.getPastOrderByCustomer(this.token).subscribe(
       orders => {
+        this.loading = true
         this.pastOrders = orders;
         console.log("past order" + JSON.stringify(this.pastOrders));
         if (this.pastOrders.length == 0) {
@@ -41,7 +42,10 @@ export class TrackOrderComponent implements OnInit {
         console.log("current order" + JSON.stringify(this.currentOrders));
         if (this.currentOrders.length == 0) {
           this.isDisplayCurrentOrder = false;
+          this.loading = false
         }
+
+        this.loading = false
       });
 
   }

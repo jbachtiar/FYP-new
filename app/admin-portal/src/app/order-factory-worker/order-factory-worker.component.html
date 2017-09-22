@@ -1,50 +1,50 @@
 <div class="container-fluid">
-  <div class="row">
-      <button md-raised-button [ngStyle]=" { 'background-color': color.all, 'color': fontColor.all} " (click)="onStatusChange( 'all') ">All
-          <!-- <span class=sup>&nbsp;{{itemCount}}</span> -->
-      </button>
-      <button md-raised-button [ngStyle]="{ 'background-color': color.payment, 'color': fontColor.payment} " (click)="onStatusChange( 'payment') ">Payment Received</button>
-      <button md-raised-button [ngStyle]="{ 'background-color': color.production, 'color': fontColor.production} " (click)="onStatusChange( 'production') ">Production</button>
-      <button md-raised-button [ngStyle]="{ 'background-color': color.packaging, 'color': fontColor.packaging} " (click)="onStatusChange( 'packaging') ">Packaging</button>
-      <button md-raised-button [ngStyle]="{ 'background-color': color.preparation, 'color': fontColor.preparation} " (click)="onStatusChange( 'preparation') ">Shipment Preparation</button>
-      <button md-raised-button [ngStyle]="{ 'background-color': color.shipped, 'color': fontColor.shipped} " (click)="onStatusChange('shipped') ">Shipped</button>
-      <button md-raised-button [ngStyle]="{ 'background-color': color.completed, 'color': fontColor.completed} " (click)="onStatusChange( 'completed') ">Completed</button>
-  </div>
-  <div class="row ">
-      <!-- <div class="col-md-12 "> -->
-      <div class="card ">
-          <div style="margin: auto; max-width: 1000px; margin-bottom: 50px; ">
-              <data-table id="order-grid " headerTitle="Orders " [items]="orders " [itemCount]="itemCount
-  " (reload)="reloadItems($event) " (rowClick)="rowClick($event) " (rowDoubleClick)="rowDoubleClick($event) " [rowTooltip]="rowTooltip
-  " [selectColumn]="true " [multiSelect]="false " [substituteRows]="false " [expandableRows]="true " [translations]="translations
-  " [indexColumnHeader]=" '#' " [selectOnRowClick]="true " [multiSelect]="true">
-                  <template #dataTableExpand let-item="item ">
-                      <div *ngFor="let oi of item.order_items ">
-                          Product ID: {{oi.product.productId}} Qty: {{oi.quantity}}
-                      </div>
-                      <!-- <div [textContent]="item.order_items[0].product_id " style="padding: 5px; color: gray "></div> -->
-                  </template>
-                  <data-table-column [property]=" 'orderId' " [header]=" 'Order ID' " [sortable]="true
-  " [resizable]="true ">
-                  </data-table-column>
+    <div class="row">
+        <button md-raised-button [ngStyle]=" { 'background-color': color.all, 'color': fontColor.all} " (click)="onStatusChange(0) ">All
+            <!-- <span class=sup>&nbsp;{{itemCount}}</span> -->
+        </button>
+        <button md-raised-button [ngStyle]="{ 'background-color': color.payment, 'color': fontColor.payment} " (click)="onStatusChange(1) ">Payment Received</button>
+        <button md-raised-button [ngStyle]="{ 'background-color': color.production, 'color': fontColor.production} " (click)="onStatusChange(2) ">In Production</button>
+        <button md-raised-button [ngStyle]="{ 'background-color': color.packaging, 'color': fontColor.packaging} " (click)="onStatusChange(3) ">Packaging</button>
+        <button md-raised-button [ngStyle]="{ 'background-color': color.preparation, 'color': fontColor.preparation} " (click)="onStatusChange(4) ">Pending for Shipment</button>
+        <button md-raised-button [ngStyle]="{ 'background-color': color.shipped, 'color': fontColor.shipped} " (click)="onStatusChange(5) ">Shipped</button>
+        <button md-raised-button [ngStyle]="{ 'background-color': color.completed, 'color': fontColor.completed} " (click)="onStatusChange(6) ">Completed</button>
+    </div>
+    <div class="row ">
+        <!-- <div class="col-md-12 "> -->
+        <div class="card ">
+            <div style="margin: auto; max-width: 1000px; margin-bottom: 50px; ">
+                <data-table id="order-grid " headerTitle="Orders " [items]="orders " [itemCount]="itemCount
+    " (reload)="reloadItems($event, selectedStatus) " (rowClick)="rowClick($event) " (rowDoubleClick)="rowDoubleClick($event) " [rowTooltip]="rowTooltip
+    " [selectColumn]="true " [multiSelect]="false " [substituteRows]="false " [expandableRows]="true " [translations]="translations
+    " [indexColumnHeader]=" '#' " [selectOnRowClick]="true " [multiSelect]="true">
+                    <template #dataTableExpand let-item="item ">
+                        <div *ngFor="let oi of item.order_items ">
+                            Product ID: {{oi.product.productId}} Qty: {{oi.quantity}}
+                        </div>
+                        <!-- <div [textContent]="item.order_items[0].product_id " style="padding: 5px; color: gray "></div> -->
+                    </template>
+                    <data-table-column [property]=" 'orderId' " [header]=" 'Order ID' " [sortable]="true
+    " [resizable]="true ">
+                    </data-table-column>
 
-                  <data-table-column [property]=" 'order_TimeStamp' " [header]=" 'Date' " [sortable]="true " [resizable]="true ">
-                      <template #dataTableCell let-item="item ">
-                          <span>{{item.order_TimeStamp | date:'yyyy-MM-dd'}}</span>
-                      </template>
-                  </data-table-column>
+                    <data-table-column [property]=" 'order_TimeStamp' " [header]=" 'Date' " [sortable]="true " [resizable]="true ">
+                        <template #dataTableCell let-item="item ">
+                            <span>{{item.order_TimeStamp | date:'yyyy-MM-dd'}}</span>
+                        </template>
+                    </data-table-column>
 
-                  <data-table-column [property]=" 'currentStatus' " [header]=" 'Status' " [sortable]="true " [resizable]="true ">
-                  </data-table-column>
+                    <data-table-column [property]=" 'currentStatus' " [header]=" 'Status' " [sortable]="true " [resizable]="true ">
+                    </data-table-column>
 
-              </data-table>
-              <div style="margin-top: 10px ">
-                  <b>Selected:</b>
-                  <span *ngIf="orderTable.selectedRow==null "><i>No item selected</i></span>
-                  <span [textContent]="orderTable.selectedRow && orderTable.selectedRow.item.orderId "></span>
-              </div>
-          </div>
-          <!-- </div> -->
-      </div>
-  </div>
+                </data-table>
+                <div style="margin-top: 10px ">
+                    <b>Selected:</b>
+                    <span *ngIf="orderTable.selectedRow==null "><i>No item selected</i></span>
+                    <span [textContent]="orderTable.selectedRow && orderTable.selectedRow.item.orderId "></span>
+                </div>
+            </div>
+            <!-- </div> -->
+        </div>
+    </div>
 </div>

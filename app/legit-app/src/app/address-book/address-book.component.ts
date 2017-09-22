@@ -11,7 +11,7 @@ export class AddressBookComponent implements OnInit {
   private token: string;
   private addressBook: any = {}
   private defaultAddress: any = {}
-  private loading: boolean;
+  private loading: boolean = true;
   private customer;
 
   constructor(
