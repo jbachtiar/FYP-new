@@ -202,7 +202,6 @@ export class CheckoutComponent implements OnInit {
         }
       }
     );
-
   }
   onQtyChange(c) {
 
@@ -247,7 +246,8 @@ export class CheckoutComponent implements OnInit {
     }
   
     this.router.navigateByUrl('/checkout/payment');
-    this.storageService.setShippingAddress(orderAddress.name, orderAddress.contact, orderAddress.address_line, orderAddress.city, orderAddress.country, orderAddress.postal_code);
+    console.log("orderAddress in checkout ts: " + JSON.stringify(orderAddress))
+    this.storageService.setShippingAddress(orderAddress);
 
     // this.cartService.updateCart("C1", new Date().toLocaleDateString(), this.showTotalPrice()).subscribe(
     //   res => {
@@ -274,17 +274,7 @@ export class CheckoutComponent implements OnInit {
 
     }
     return totalPrice + "";
-
   }
-
-  // canRedirectToPayment(): boolean {
-
-  //   if (this.user.firstName.length > 0 && this.user.lastName.length > 0 && this.user.address.length > 0 && this.user.contact.length > 0 && this.user.postCode.length > 0) {
-  //     return true;
-  //   } else {
-  //     return false;
-  //   }
-  // }
 
   checkAddress() {
     console.log("address is changed to: " + this.selectedAddress)

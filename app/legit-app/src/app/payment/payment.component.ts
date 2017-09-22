@@ -10,19 +10,20 @@ import { ConfirmationPopupComponent } from '../confirmation-popup/confirmation-p
 import { CartComponent } from '../cart/cart.component'
 import { NavbarComponent } from '../navbar/navbar.component'
 import { SharedService } from '../shared.service'
+import { OrderService } from '../order.service'
 
 @Component({
   selector: 'app-payment',
   templateUrl: './payment.component.html',
   styleUrls: ['./payment.component.css'],
-  providers: [ShoppingCartService]
+  providers: [ShoppingCartService, OrderService]
 })
 export class PaymentComponent implements OnInit {
   private carts: any = {};
   // firstName: string;
   name: string;
   contact: string;
-  address: string;
+  address;
   // postalCode: string;
   totalPrice: string;
   private shoppingCart: ShoppingCart;
@@ -37,6 +38,7 @@ export class PaymentComponent implements OnInit {
     private sharedService: SharedService,
     private _ngZone: NgZone,
     private dialogService: DialogService,
+    private orderService: OrderService,
     private router: Router) {
     this.shoppingCart = JSON.parse(localStorage.getItem('cart'), );
   }
@@ -47,25 +49,9 @@ export class PaymentComponent implements OnInit {
     this.contact = this.storageService.getContact();
     // this.postalCode = this.storageService.getPostCode();
     this.address = this.storageService.getAddress();
+    console.log("ADDRESS oioioi: " + this.address);
 
     this.cartItem = this.shoppingCart.cartItems;
-
-    // this.cartService.getCartItemByCartId("C1").subscribe(
-    //   carts => {
-
-    //     console.log("Cart items retrieved");
-    //     this.carts = carts;
-
-
-    //   })
-
-    // this.cartService.getCartTotalPrice("C1").subscribe(
-    //   total_price => {
-    //     this.totalPrice = total_price;
-    //     console.log(this.totalPrice);
-
-
-    //   })
   }
 
   openCheckout() {
@@ -77,21 +63,7 @@ export class PaymentComponent implements OnInit {
         // You can access the token ID with `token.id`.
         // Get the token ID to our server-side code for use.
         this.chargeStripe(token.id, this.shoppingCart.price * 100);
-        // console.log("TOKEN: " + token.id)
-        // var http = new XMLHttpRequest();
-        // var url = "http://localhost:8084/FYP-backend/API/Payment/chargeStripe";
-        // var params = "stripeToken="+token.id;
-        // http.open("POST", url, true);
 
-        // //Send the proper header information along with the request
-        // http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
-        // http.onreadystatechange = function() {//Call a function when the state changes.
-        //     if(http.readyState == 4 && http.status == 200) {
-        //         //alert(http.responseText); 
-        //     }
-        // }
-        // http.send(params);    
       }
     });
     console.log("TOTAL PRICE :" + this.shoppingCart.price)
@@ -109,7 +81,8 @@ export class PaymentComponent implements OnInit {
         //remove items in cart
         this.updateCart()
         //add order to database
-        //TO BE DONE
+        console.log(JSON.stringify(this.shoppingCart))
+        // this.orderService.saveOrder()
         //create modal 
         this.showSuccessfulDialog()
         //go home
