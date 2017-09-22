@@ -97,7 +97,7 @@ public class ProductCatalogue {
             jsonOutput.add("filters", filter);
 
         } catch (SQLException e) {
-
+            System.out.println(e);
             jsonOutput.addProperty("status", "500");
             jsonOutput.addProperty("msg", "Dropdown Error: SQL Exception");
 
