@@ -12,6 +12,7 @@ export class StorageService {
     country
     postalCode: string;
     addressObject: object;
+    save:boolean
 
 
     constructor() { }
@@ -31,9 +32,14 @@ export class StorageService {
     //     return this.address;
     // }
 
-getAddress(){
+    getAddress(){
         return this.addressObject;
     }
+
+    getSaveAddress(){
+        return this.save;
+    }
+    
     getPostCode(): string {
         return this.postalCode;
     }
@@ -48,8 +54,9 @@ getAddress(){
     //     this.postalCode = postalCode
     // }
 
-    setShippingAddress(addressObject) {
+    setShippingAddress(addressObject, save) {
         this.addressObject = addressObject
+        this.save = save
     }
 
 

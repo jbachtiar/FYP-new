@@ -249,4 +249,10 @@ export class ShoppingCartService {
     }).map(res => res
       )
   };
+
+  public emptyLogout(): void {
+    const newCart = new ShoppingCart();
+    localStorage.setItem(CART_KEY, JSON.stringify(newCart));
+  }
+  
 }

@@ -64,6 +64,7 @@ public class OrderDAO {
 //    }
 
     public String addOrder(Order o) throws SQLException {
+        System.out.println("IM IN ADDORDER");
         Connection conn = null;
         PreparedStatement stmt = null;
         PreparedStatement stmt1 = null;
@@ -75,7 +76,7 @@ public class OrderDAO {
 
         String sql = "INSERT INTO CUSTOMER_ORDER (ORDER_ID, ORDER_DATE, NET_AMT, PROMO_DISC_AMT, RECIPIENT_NAME, PHONE_NO, ADDRESS_LINE, CITY, COUNTRY, POSTAL_CODE, STRIPE_CHARGE_ID, EMAIL, PROMO_CODE_ID, COURIER_NAME, ORDER_TRACKING_NO) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         String sql1 = "INSERT INTO ORDER_STATUS_LOG (ORDER_ID, STATUS_ID, START_TIMESTAMP, END_TIMESTAMP, DURATION_HOURS) VALUES (?, ?, ?, ?, ?)";
-
+        
         try {
 
             conn = ConnectionManager.getConnection();
@@ -93,7 +94,12 @@ public class OrderDAO {
             stmt.setString(10, o.getAddress().getPostalCode());
             stmt.setString(11, o.getPaymentRefNo());
             stmt.setString(12, email);
-            stmt.setInt(13, o.getPromoCode().getPromoCodeId());
+            PromoCode pc = o.getPromoCode();
+            int promoCodeId = 0;
+            if(pc!=null){
+                promoCodeId = pc.getPromoCodeId();
+            }   
+            stmt.setInt(13, promoCodeId);
             stmt.setString(14, null);
             stmt.setString(15, null);
 
@@ -336,7 +342,7 @@ public class OrderDAO {
 
         int nextOrderId = 0;
 
-        String sql = "SELECT MAX(ORDER_ID) AS MAX FROM ORDER";
+        String sql = "SELECT MAX(ORDER_ID) AS MAX FROM CUSTOMER_ORDER";
 
         try {
             conn = ConnectionManager.getConnection();
