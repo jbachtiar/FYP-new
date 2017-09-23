@@ -53,6 +53,8 @@ import { DeleteConfirmationPopupComponent } from './delete-confirmation-popup/de
 import { AddressBookComponent } from './address-book/address-book.component';
 import { TrackOrderDetailComponent } from './track-order-detail/track-order-detail.component';
 
+import { Angulartics2Module, Angulartics2GoogleAnalytics } from 'angulartics2';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -94,7 +96,8 @@ import { TrackOrderDetailComponent } from './track-order-detail/track-order-deta
     MdButtonModule, 
     MdProgressBarModule, 
     MdChipsModule, 
-    MdCardModule
+    MdCardModule,
+    Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ])
   ],
   providers: [
     AuthenticationService,

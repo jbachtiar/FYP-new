@@ -4,6 +4,8 @@ import { PagerService } from '../pager.service'
 import { Router } from '@angular/router';
 import { DialogService } from "ng2-bootstrap-modal";
 import { QuickViewComponent } from '../quick-view/quick-view.component';
+import { Angulartics2GoogleAnalytics } from 'angulartics2';
+declare var ga: any;
 
 @Component({
   selector: 'app-product-list',
@@ -211,7 +213,8 @@ export class ProductListComponent implements OnInit {
   constructor(
     private productService:ProductService, 
     private pagerService: PagerService,
-    private dialogService:DialogService, 
+    private dialogService:DialogService,
+    angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics, 
     private router: Router) { }
     
   ngOnInit() {
@@ -256,7 +259,39 @@ export class ProductListComponent implements OnInit {
         this.pagedProducts = this.products.slice(this.pager.startIndex, this.pager.endIndex + 1);
   }
 
-  showQuickView(patternId){
+  showQuickView(patternId, pattern_name){
+    (function (i, s, o, g, r, a?, m?) {
+      i['GoogleAnalyticsObject'] = r;
+      i[r] = i[r] || function () {
+              (i[r].q = i[r].q || []).push(arguments)
+          }, i[r].l = 1 * <any>new Date();
+      a = s.createElement(o),
+          m = s.getElementsByTagName(o)[0];
+      a.async = 1;
+      a.src = g;
+      m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-106185727-2', 'auto');
+    ga('require', 'ec');
+    ga('ec:addProduct',{
+    // productFieldObject stores product click and other details
+    
+    'id': patternId, // Product ID/SKU - Type: string
+    
+    'name': pattern_name, // Product name - Type: string
+  
+    'category': 'Beddings', // Product category - Type: string
+  
+    'brand': '[Server Variable]', // Product brand - Type: string
+    
+    });
+    
+     ga('ec:setAction', 'click', {'list': 'Product List'});
+    
+      // Send click with an event, then send user to product page.
+     ga('send', 'event', 'enhanced ecommerce', 'Quick View Clicks', pattern_name);
+     ga('send', 'pageview');
+
     console.log("Quick view pattern ID: " + patternId)
      let disposable = this.dialogService.addDialog( QuickViewComponent, {
             title:'QuickView', 
@@ -275,4 +310,81 @@ export class ProductListComponent implements OnInit {
     
 
   }
+
+    onProductClick(patternId,pattern_name) {
+      (function (i, s, o, g, r, a?, m?) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * <any>new Date();
+        a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+      })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+      console.log(pattern_name);
+      ga('create', 'UA-106185727-2', 'auto');
+      ga('require', 'ec');
+      ga('ec:addProduct',{
+      // productFieldObject stores product click and other details
+      
+      'id': patternId, // Product ID/SKU - Type: string
+      
+      'name': pattern_name, // Product name - Type: string
+    
+      'category': 'Beddings', // Product category - Type: string
+    
+      'brand': '[Server Variable]', // Product brand - Type: string
+      
+      });
+      
+       ga('ec:setAction', 'click', {'list': 'Product List'});
+      
+        // Send click with an event, then send user to product page.
+       ga('send', 'event', 'enhanced ecommerce', 'Product Detail Clicks', pattern_name);
+      
+       ga('send', 'pageview');
+
+    }
+
+    onQuickViewClick(patternId,pattern_name) {
+      (function (i, s, o, g, r, a?, m?) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * <any>new Date();
+        a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+      })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+      ga('create', 'UA-106185727-2', 'auto');
+      ga('require', 'ec');
+      ga('ec:addProduct',{
+      // productFieldObject stores product click and other details
+      
+      'id': patternId, // Product ID/SKU - Type: string
+      
+      'name': pattern_name, // Product name - Type: string
+    
+      'category': 'Beddings', // Product category - Type: string
+    
+      'brand': '[Server Variable]', // Product brand - Type: string
+      
+      });
+      
+       ga('ec:setAction', 'click', {'list': 'Product List'});
+      
+        // Send click with an event, then send user to product page.
+       ga('send', 'event', 'enhanced ecommerce', 'Quick View Clicks', pattern_name);
+       ga('send', 'pageview');
+    }
+
+    
+
+
+
+
 }

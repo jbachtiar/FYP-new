@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule }   from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { RouterModule }   from '@angular/router';
+import { RouterModule, Routes }   from '@angular/router';
 
 import { routing }        from './app.routing';
 
@@ -39,6 +39,7 @@ import { DataTableModule } from 'angular-4-data-table';
 import { MdTabsModule, MdButtonModule, MdProgressBarModule, MdChipsModule, MdCardModule } from '@angular/material';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { OrderFactoryWorkerComponent } from './order-factory-worker/order-factory-worker.component';
+import { Angulartics2Module, Angulartics2GoogleAnalytics } from 'angulartics2';
 
 
 @NgModule({
@@ -76,7 +77,8 @@ import { OrderFactoryWorkerComponent } from './order-factory-worker/order-factor
     MdProgressBarModule,
     MdChipsModule,
     Ng2SearchPipeModule,
-    MdCardModule
+    MdCardModule,
+    Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ])
     ],
   exports: [
     MdTabsModule
