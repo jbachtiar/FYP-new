@@ -40,6 +40,7 @@ import { MdTabsModule, MdButtonModule, MdProgressBarModule, MdChipsModule, MdCar
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { OrderFactoryWorkerComponent } from './order-factory-worker/order-factory-worker.component';
 import { Angulartics2Module, Angulartics2GoogleAnalytics } from 'angulartics2';
+import { AnalyticsDashboardComponent } from './analytics-dashboard/analytics-dashboard.component';
 
 
 @NgModule({
@@ -61,7 +62,8 @@ import { Angulartics2Module, Angulartics2GoogleAnalytics } from 'angulartics2';
     OrderFactoryManagerComponent,
     OrderManagementComponent,
     OrderDetailsComponent,
-    OrderFactoryWorkerComponent
+    OrderFactoryWorkerComponent,
+    AnalyticsDashboardComponent
   ],
   imports: [
     BrowserModule,
