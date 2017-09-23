@@ -24,11 +24,13 @@ export class PaymentComponent implements OnInit {
   name: string;
   contact: string;
   address;
+  save;
   // postalCode: string;
   totalPrice: string;
   private shoppingCart: ShoppingCart;
   private cartItem: CartItem[];
   private stripeToken;
+  private paymentRefNo: string;
 
 
   constructor(
@@ -49,6 +51,7 @@ export class PaymentComponent implements OnInit {
     this.contact = this.storageService.getContact();
     // this.postalCode = this.storageService.getPostCode();
     this.address = this.storageService.getAddress();
+    this.save = this.storageService.getSaveAddress();
     console.log("ADDRESS oioioi: " + this.address);
 
     this.cartItem = this.shoppingCart.cartItems;
@@ -63,7 +66,6 @@ export class PaymentComponent implements OnInit {
         // You can access the token ID with `token.id`.
         // Get the token ID to our server-side code for use.
         this.chargeStripe(token.id, this.shoppingCart.price * 100);
-
       }
     });
     console.log("TOTAL PRICE :" + this.shoppingCart.price)
@@ -77,9 +79,10 @@ export class PaymentComponent implements OnInit {
   chargeStripe(token, amount) {
     this.shoppingCartService.chargeStripe(token, amount).subscribe(res => {
       console.log(res)
+      res = res
       if (res.status == 200) {
-        //remove items in cart
-        this.updateCart()
+        //reference id
+        this.paymentRefNo = res.paymentRefNo
         //add order to database
         let newOrder = {
           "orderId": 0,
@@ -87,7 +90,7 @@ export class PaymentComponent implements OnInit {
           "netAmt": this.shoppingCart.price,
           "promoDiscAmt": 0,
           "address": this.address,
-          "paymentRefNo": "",
+          "paymentRefNo": this.paymentRefNo,
           "promoCode": null,
           "orderItems": this.shoppingCart.cartItems,
           "statusLogs": [],
@@ -99,9 +102,15 @@ export class PaymentComponent implements OnInit {
         this.orderService.saveOrder(newOrder).subscribe(res => {
           res = res.json()
           if (res.status == 200) {
+            //empty cart
+            this.updateCart()
+            //save address if requested
+            if(this.save){
+              this.saveAddress()
+            }
             //create modal 
             this.showSuccessfulDialog()
-          }else {
+          } else {
             this.showErrorDialog()
           }
         });
@@ -146,5 +155,13 @@ export class PaymentComponent implements OnInit {
         }
       });
 
+  }
+
+  saveAddress() {
+    this.shoppingCartService.saveAddress(this.address).subscribe(res => {
+      if (res.status == 200) {
+        console.log("Address has been saved");
+      }
+    });
   }
 }

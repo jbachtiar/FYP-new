@@ -220,23 +220,23 @@ export class CheckoutComponent implements OnInit {
 
   submit() {
     let orderAddress: any = {}
-    // if (this.canRedirectToPayment()) {
     console.log("ADDRESS: " + JSON.stringify(this.newAddress));
     if (this.isNewAddress) {
-      // this.newAddress.contact = "" + this.newAddress.country_code + this.newAddress.contact
-      this.saveAddress()
+      // this.saveAddress()
+      this.newAddress['email']=this.addressBook[0].email
+      this.newAddress['phoneNo']=this.newAddress.country_code+this.newAddress.contact
+      this.newAddress['addressId'] = 0
+      this.newAddress['isDefault'] = "N"
       orderAddress.addresssId = ""
       orderAddress = this.newAddress
-
     } else {
-      //
       orderAddress.addressId = ""
       orderAddress = this.selectedAddress;
     }
   
     this.router.navigateByUrl('/checkout/payment');
     console.log("orderAddress in checkout ts: " + JSON.stringify(orderAddress))
-    this.storageService.setShippingAddress(orderAddress);
+    this.storageService.setShippingAddress(orderAddress, this.isSaveAddress);
 
     // this.cartService.updateCart("C1", new Date().toLocaleDateString(), this.showTotalPrice()).subscribe(
     //   res => {

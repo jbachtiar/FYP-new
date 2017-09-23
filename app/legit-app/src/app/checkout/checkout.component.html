@@ -90,7 +90,7 @@
               <div *ngIf="f.submitted && !postalcode.valid" class="help-block">Postalcode is required</div>
             </div>
 
-            <input type="checkbox" [(ngModel)]="saveAddress" name="saveAddress" (ngModelChange)="saveAddress()">
+            <input type="checkbox" [(ngModel)]="isSaveAddress" name="isSaveAddress">
             <label>Save in address book</label>
             <br/>
 
