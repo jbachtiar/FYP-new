@@ -39,6 +39,8 @@ import { DataTableModule } from 'angular-4-data-table';
 import { MdTabsModule, MdButtonModule, MdProgressBarModule, MdChipsModule, MdCardModule } from '@angular/material';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { OrderFactoryWorkerComponent } from './order-factory-worker/order-factory-worker.component';
+import { OrderManagementSuperuserComponent } from './order-management-superuser/order-management-superuser.component';
+import { OrderDetailsSuperuserComponent } from './order-details-superuser/order-details-superuser.component';
 
 
 @NgModule({
@@ -60,7 +62,9 @@ import { OrderFactoryWorkerComponent } from './order-factory-worker/order-factor
     OrderFactoryManagerComponent,
     OrderManagementComponent,
     OrderDetailsComponent,
-    OrderFactoryWorkerComponent
+    OrderFactoryWorkerComponent,
+    OrderManagementSuperuserComponent,
+    OrderDetailsSuperuserComponent
   ],
   imports: [
     BrowserModule,
@@ -85,7 +89,8 @@ import { OrderFactoryWorkerComponent } from './order-factory-worker/order-factor
     AuthGuard,
     ProductService,
     PagerService,
-    PromoCodeService
+    PromoCodeService,
+    OrderService 
   ],
   bootstrap: [AppComponent],
   entryComponents: [

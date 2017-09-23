@@ -1,0 +1,101 @@
+<div class="container-fluid">
+
+  <div class="col-lg-12 col-md-12">
+    <div class="card">
+      <div class="header">
+        <h4 class="title">Order Number: {{orderId}}</h4>
+
+      </div>
+      <hr>
+      <div class="content">
+        <table>
+          <thead>
+            <th>Status</th>
+            <th>Shipping Tracking Number</th>
+            <th>Order Total Price</th>
+            <th>Customer Email</th>
+
+          </thead>
+          <tbody>
+            <td>
+              {{returnTheLatestOrderStatus()}}
+
+            </td>
+            <td>
+              {{order.trackingNo}}
+            </td>
+            <td>
+              {{order.netAmt}}
+            </td>
+            <td>
+              {{order.address.email}}
+
+            </td>
+          </tbody>
+        </table>
+        <hr>
+
+        <h4><b>Stripe Charge ID:</b> {{order.paymentRefNo}}</h4>
+
+        <h4><b>Delivery Address:</b> {{order.address.addressLine}} {{order.address.city}} {{order.address.country}} {{order.address.postalCode}}</h4>
+
+        <hr>
+        <h4 class="title">Order Summary</h4>
+        <hr>
+        <table>
+          <thead>
+            <tr>
+              <th>Product Type</th>
+              <th>Product ID</th> 
+              <th>Pattern</th>
+              <th>Fabric</th>
+              <th>Color</th>
+              <th>Size</th>
+              <th>Quantity</th>
+              <th>Price </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of orderItems">
+              <td>
+                {{item.product.productType}}
+              </td>
+
+              <td class="product-title">
+                {{item.product.productId}}
+              </td>
+
+              <td>
+                {{item.product.pattern.patternName}}
+              </td>
+              <td>
+                {{item.product.fabric.fabricName}}
+
+              </td>
+              <td>
+                {{item.product.colour.colourName}}
+              </td>
+              <td>
+                {{item.product.size.sizeName}}
+              </td>
+
+              <td>
+                {{item.quantity}}
+
+              </td>
+
+              <td>
+                {{item.unitPrice}}
+
+              </td>
+
+            </tr>
+          </tbody>
+          </table>
+      </div>
+    </div>
+  </div>
+
+
+
+</div>
