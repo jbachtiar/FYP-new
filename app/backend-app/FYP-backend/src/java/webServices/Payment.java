@@ -56,9 +56,11 @@ public class Payment {
         params.put("source", token);
         try {
             Charge charge = Charge.create(params);
+            System.out.println("CHARGE ID: " + charge.getId());
             status = "200";
             responseMap.put("status", status);
             responseMap.put("token", token);
+            responseMap.put("paymentRefNo", charge.getId());
 
         } catch (StripeException e) {
             status = ""+e.getStatusCode();
