@@ -71,7 +71,7 @@ public class OrderItemDAO {
             stmt.setDouble(4, oI.getUnitPrice());
             stmt.setString(5, "INCOMPLETE");
 
-            rs = stmt.executeQuery();
+            stmt.executeUpdate();   
 
         } finally {
             ConnectionManager.close(conn, stmt, rs);

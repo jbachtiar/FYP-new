@@ -12,10 +12,12 @@ import com.google.gson.JsonObject;
 import dao.OrderDAO;
 import entity.Order;
 import java.sql.SQLException;
+import javax.annotation.security.PermitAll;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
+import javax.ws.rs.OPTIONS;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -247,12 +249,22 @@ public class OrderService {
         return finalJsonOutput;
     }
     
+    @OPTIONS
+    @PermitAll
+    @Path("/save")
+    public void optionsSave() {
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
+        response.setHeader("Access-Control-Allow-Headers", "authorization");
+
+    }
+    
     @POST
     @Path("/save")
-    @Consumes(MediaType.APPLICATION_JSON)
-    public String saveOrder(final String json) {
-        
-        response.setHeader("Access-Control-Allow-Headers", "Content-Type");
+    @Produces(MediaType.APPLICATION_JSON)
+    public String saveOrder(@FormParam("order") String json) {
+        System.out.println("ORDER JSON: " + json);
+        //response.setHeader("Access-Control-Allow-Headers", "Content-Type");
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
         
@@ -269,6 +281,7 @@ public class OrderService {
             oDAO.addOrder(orderToSave);
             
         } catch (SQLException e) {
+            System.out.println("EXCEPTION e: " + e);
             
             jsonOutput.addProperty("status", "500");
             

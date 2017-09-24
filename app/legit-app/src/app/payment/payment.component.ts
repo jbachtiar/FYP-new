@@ -10,25 +10,27 @@ import { ConfirmationPopupComponent } from '../confirmation-popup/confirmation-p
 import { CartComponent } from '../cart/cart.component'
 import { NavbarComponent } from '../navbar/navbar.component'
 import { SharedService } from '../shared.service'
+import { OrderService } from '../order.service'
 
 @Component({
   selector: 'app-payment',
   templateUrl: './payment.component.html',
   styleUrls: ['./payment.component.css'],
-  providers: [ShoppingCartService]
+  providers: [ShoppingCartService, OrderService]
 })
 export class PaymentComponent implements OnInit {
   private carts: any = {};
   // firstName: string;
   name: string;
   contact: string;
-  address: string;
+  address;
+  save;
   // postalCode: string;
   totalPrice: string;
   private shoppingCart: ShoppingCart;
   private cartItem: CartItem[];
   private stripeToken;
-  private loading : boolean = false;
+  private paymentRefNo: string;
 
 
   constructor(
@@ -38,6 +40,7 @@ export class PaymentComponent implements OnInit {
     private sharedService: SharedService,
     private _ngZone: NgZone,
     private dialogService: DialogService,
+    private orderService: OrderService,
     private router: Router) {
     this.shoppingCart = JSON.parse(localStorage.getItem('cart'), );
   }
@@ -48,58 +51,24 @@ export class PaymentComponent implements OnInit {
     this.contact = this.storageService.getContact();
     // this.postalCode = this.storageService.getPostCode();
     this.address = this.storageService.getAddress();
+    this.save = this.storageService.getSaveAddress();
+    console.log("ADDRESS oioioi: " + this.address);
 
     this.cartItem = this.shoppingCart.cartItems;
-
-    // this.cartService.getCartItemByCartId("C1").subscribe(
-    //   carts => {
-
-    //     console.log("Cart items retrieved");
-    //     this.carts = carts;
-
-
-    //   })
-
-    // this.cartService.getCartTotalPrice("C1").subscribe(
-    //   total_price => {
-    //     this.totalPrice = total_price;
-    //     console.log(this.totalPrice);
-
-
-    //   })
   }
 
   openCheckout() {
-    
     console.log("CHECKOUT")
     var handler = (<any>window).StripeCheckout.configure({
       key: 'pk_test_PcfRcpvH8lJ8P7GtXdwbTl9D',
       locale: 'auto',
       token: (token: any) => {
-        
         // You can access the token ID with `token.id`.
         // Get the token ID to our server-side code for use.
         this.chargeStripe(token.id, this.shoppingCart.price * 100);
-        // console.log("TOKEN: " + token.id)
-        // var http = new XMLHttpRequest();
-        // var url = "http://localhost:8084/FYP-backend/API/Payment/chargeStripe";
-        // var params = "stripeToken="+token.id;
-        // http.open("POST", url, true);
-
-        // //Send the proper header information along with the request
-        // http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
-        // http.onreadystatechange = function() {//Call a function when the state changes.
-        //     if(http.readyState == 4 && http.status == 200) {
-        //         //alert(http.responseText); 
-        //     }
-        // }
-        // http.send(params);    
       }
     });
     console.log("TOTAL PRICE :" + this.shoppingCart.price)
-    this.loading = true;
-    
     handler.open({
       name: 'Highlander',
       description: 'Secured Payment',
@@ -110,27 +79,50 @@ export class PaymentComponent implements OnInit {
   chargeStripe(token, amount) {
     this.shoppingCartService.chargeStripe(token, amount).subscribe(res => {
       console.log(res)
-      
+      res = res
       if (res.status == 200) {
-        //remove items in cart
-        this.updateCart()
+        //reference id
+        this.paymentRefNo = res.paymentRefNo
         //add order to database
-        //TO BE DONE
-        //create modal 
-        this.showSuccessfulDialog()
-        this.loading = false;
-        //go home
+        let newOrder = {
+          "orderId": 0,
+          "Timestamp": null,
+          "netAmt": this.shoppingCart.price,
+          "promoDiscAmt": 0,
+          "address": this.address,
+          "paymentRefNo": this.paymentRefNo,
+          "promoCode": null,
+          "orderItems": this.shoppingCart.cartItems,
+          "statusLogs": [],
+          "courierName": "",
+          "trackingNo": ""
+        }
+        console.log(JSON.stringify(this.shoppingCart))
+
+        this.orderService.saveOrder(newOrder).subscribe(res => {
+          res = res.json()
+          if (res.status == 200) {
+            //empty cart
+            this.updateCart()
+            //save address if requested
+            if(this.save){
+              this.saveAddress()
+            }
+            //create modal 
+            this.showSuccessfulDialog()
+          } else {
+            this.showErrorDialog()
+          }
+        });
       } else {
         this.showErrorDialog()
-        this.loading = false;
       }
     });
   }
 
-  updateCart(){
+  updateCart() {
     console.log("UPDATE CART FUNCTION")
-    this.shoppingCartService.empty();
-    this.sharedService.updateCart();
+    this.sharedService.emptyCart();
   }
 
   showSuccessfulDialog() {
@@ -163,5 +155,13 @@ export class PaymentComponent implements OnInit {
         }
       });
 
+  }
+
+  saveAddress() {
+    this.shoppingCartService.saveAddress(this.address).subscribe(res => {
+      if (res.status == 200) {
+        console.log("Address has been saved");
+      }
+    });
   }
 }

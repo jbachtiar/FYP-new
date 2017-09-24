@@ -7,11 +7,12 @@ export class StorageService {
 
     name: string;
     contact: string;
-    // address: string;
     address_line: string;
     city: string;
     country
     postalCode: string;
+    addressObject: object;
+    save:boolean
 
 
     constructor() { }
@@ -31,9 +32,14 @@ export class StorageService {
     //     return this.address;
     // }
 
-    getAddress(): string{
-        return this.address_line+", "+this.city+", "+this.country+" "+this.postalCode
+    getAddress(){
+        return this.addressObject;
     }
+
+    getSaveAddress(){
+        return this.save;
+    }
+    
     getPostCode(): string {
         return this.postalCode;
     }
@@ -48,14 +54,9 @@ export class StorageService {
     //     this.postalCode = postalCode
     // }
 
-    setShippingAddress(name: string, contact: string, address_line: string, city: string, country: string, postalCode: string) {
-        // this.firstName = firstName
-        this.name = name
-        this.contact = contact
-        this.address_line = address_line
-        this.city = city
-        this.country = country
-        this.postalCode = postalCode
+    setShippingAddress(addressObject, save) {
+        this.addressObject = addressObject
+        this.save = save
     }
 
 

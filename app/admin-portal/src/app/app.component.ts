@@ -1,3 +1,4 @@
+import { Angulartics2GoogleAnalytics } from 'angulartics2';
 import { Component } from '@angular/core';
 
 @Component({
@@ -9,6 +10,8 @@ export class AppComponent {
   title = 'app';
   private token;
   private authenticated = false;
+
+  constructor(angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) {}
 
   ngOnInit() {
         this.token = localStorage.getItem('token');

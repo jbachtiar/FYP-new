@@ -101,6 +101,30 @@ public class CustomerDAO {
         }
         return customers;
     }
+    
+    public String updateCustomerVerification(String email, String status) throws SQLException{
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        if (retrieveCustomerByEmail(email) == null) {
+            return "Customer does not exist";
+        } else {
+
+            String sql = "UPDATE CUSTOMER SET verified = ? WHERE EMAIL=?";
+            try {
+                conn = ConnectionManager.getConnection();
+                stmt = conn.prepareStatement(sql);
+                stmt.setString(1, status);
+                stmt.setString(2, email);
+                stmt.executeUpdate();
+
+            } finally {
+                ConnectionManager.close(conn, stmt, rs);
+            }
+        }
+        return "Success";
+    }
 
     public String updateCustomerByEmail(String email, String firstName, String lastName, String phoneNo, String password) throws SQLException {
         Connection conn = null;

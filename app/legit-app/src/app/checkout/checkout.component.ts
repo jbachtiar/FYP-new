@@ -202,7 +202,6 @@ export class CheckoutComponent implements OnInit {
         }
       }
     );
-
   }
   onQtyChange(c) {
 
@@ -221,33 +220,23 @@ export class CheckoutComponent implements OnInit {
 
   submit() {
     let orderAddress: any = {}
-    // if (this.canRedirectToPayment()) {
     console.log("ADDRESS: " + JSON.stringify(this.newAddress));
     if (this.isNewAddress) {
-      // this.newAddress.contact = "" + this.newAddress.country_code + this.newAddress.contact
-      this.saveAddress()
+      // this.saveAddress()
+      this.newAddress['email']=this.addressBook[0].email
+      this.newAddress['phoneNo']=this.newAddress.country_code+this.newAddress.contact
+      this.newAddress['addressId'] = 0
+      this.newAddress['isDefault'] = "N"
       orderAddress.addresssId = ""
       orderAddress = this.newAddress
-      if (this.isSaveAddress) {
-        //call service to save address here
-        this.shoppingCartService.addAddress(this.newAddress).subscribe(
-          res => {
-            if (res.status === '200') {
-              console.log("new address entry added");
-            } else {
-              console.log("unable to add new address")
-            }
-          });
-
-      }
     } else {
-      //
       orderAddress.addressId = ""
       orderAddress = this.selectedAddress;
     }
   
     this.router.navigateByUrl('/checkout/payment');
-    this.storageService.setShippingAddress(orderAddress.name, orderAddress.contact, orderAddress.address_line, orderAddress.city, orderAddress.country, orderAddress.postal_code);
+    console.log("orderAddress in checkout ts: " + JSON.stringify(orderAddress))
+    this.storageService.setShippingAddress(orderAddress, this.isSaveAddress);
 
     // this.cartService.updateCart("C1", new Date().toLocaleDateString(), this.showTotalPrice()).subscribe(
     //   res => {
@@ -274,17 +263,7 @@ export class CheckoutComponent implements OnInit {
 
     }
     return totalPrice + "";
-
   }
-
-  // canRedirectToPayment(): boolean {
-
-  //   if (this.user.firstName.length > 0 && this.user.lastName.length > 0 && this.user.address.length > 0 && this.user.contact.length > 0 && this.user.postCode.length > 0) {
-  //     return true;
-  //   } else {
-  //     return false;
-  //   }
-  // }
 
   checkAddress() {
     console.log("address is changed to: " + this.selectedAddress)

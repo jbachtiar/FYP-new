@@ -8,11 +8,13 @@
           <h4 class="title">Shipping Address</h4>
         </div>
         <div class="details-box">
-          <h5 class="name">{{address.name}}</h5>
           <div class="details">
-            {{address}}
+            <h5 class="name">{{address.recipientName}} </h5> Tel: {{address.phoneNo}}<br/> <br/> {{address.addressLine}} <br/> {{address.city}}
+            <br/> {{address.country}}
+            <br/> {{address.postalCode}}
+
             <!-- <br/> Singapore {{postalCode}} -->
-            <br/> Phone Number : {{contact}}
+            <br/>
           </div>
         </div>
         <div class="header">
