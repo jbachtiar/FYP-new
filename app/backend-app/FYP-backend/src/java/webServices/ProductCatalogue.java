@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import javax.annotation.security.PermitAll;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.OPTIONS;
 import javax.ws.rs.POST;
@@ -50,6 +51,47 @@ public class ProductCatalogue {
 
     @Context
     private HttpServletResponse response;
+    
+    @OPTIONS
+    @PermitAll
+    @Path("/save")
+    public void optionsSave() {
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
+        response.setHeader("Access-Control-Allow-Headers", "authorization");
+
+    }
+    
+    @POST
+    @Path("/save")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String saveProduct(@FormParam("product") String json) {
+        
+        ProductDAO pDAO = new ProductDAO();
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
+
+        Gson gs = new Gson();
+        Product productToSave = gs.fromJson(json, Product.class);
+        
+        Gson gson = new GsonBuilder().create();
+        JsonObject jsonOutput = new JsonObject();
+
+        try {
+                System.out.println("JSON: " + json);
+                jsonOutput.addProperty("status", "200");
+                pDAO.addProduct(productToSave);
+
+        } catch (SQLException e) {
+            System.out.println(e);
+            jsonOutput.addProperty("status", "500");
+
+        }
+
+        String finalJsonOutput = gson.toJson(jsonOutput);
+        return finalJsonOutput;
+    }
+
     
     @GET
     @Path("/GetFilters")

@@ -107,7 +107,7 @@ public class ProductDAO {
         try {
             conn = ConnectionManager.getConnection();
             stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, p.getProductId());
+            stmt.setInt(1, getNextProductId());
             stmt.setString(2, p.getProductType());
             stmt.setInt(3, p.getPattern().getPatternId());
             stmt.setInt(4, p.getColour().getColourId());
