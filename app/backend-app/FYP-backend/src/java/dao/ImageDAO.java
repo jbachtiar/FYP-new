@@ -33,7 +33,7 @@ public class ImageDAO {
             conn = ConnectionManager.getConnection();
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, productId);
-            stmt.setInt(2, i.getImageId());
+            stmt.setInt(2, getNextProductImageId(productId));
             stmt.setString(3, i.getImageUrl());
             stmt.executeUpdate();
 
@@ -44,7 +44,7 @@ public class ImageDAO {
         
     }
 
-    public int getImageId() throws SQLException {
+    public int getNextProductImageId(int productId) throws SQLException {
         
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -52,11 +52,12 @@ public class ImageDAO {
         
         int nextImageId = 0;
 
-        String sql = "SELECT MAX(IMAGE_ID) AS MAX FROM PRODUCT_IMAGE";
+        String sql = "SELECT MAX(IMAGE_ID) AS MAX FROM PRODUCT_IMAGE WHERE PRODUCT_ID = ?";
 
         try {
             conn = ConnectionManager.getConnection();
             stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, productId);
             rs = stmt.executeQuery();
 
             while (rs.next()) {

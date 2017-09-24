@@ -101,19 +101,28 @@ public class ProductDAO {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
+        Image[] images = p.getImages();
+        int nextProductId = getNextProductId();
 
         String sql = "INSERT INTO PRODUCT (PRODUCT_ID, PRODUCT_TYPE, PATTERN_ID, COLOUR_ID, FABRIC_ID, DELETED) VALUES (?,?,?,?,?,?)";
 
         try {
             conn = ConnectionManager.getConnection();
             stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, getNextProductId());
+            stmt.setInt(1, nextProductId);
             stmt.setString(2, p.getProductType());
             stmt.setInt(3, p.getPattern().getPatternId());
             stmt.setInt(4, p.getColour().getColourId());
             stmt.setInt(5, p.getFabric().getFabricId());
             stmt.setString(6, "N");
             stmt.executeUpdate();
+            
+            for(Image i : images){
+                
+                ImageDAO iDao = new ImageDAO();
+                iDao.addImage(nextProductId, i);
+                
+            }
 
         } finally {
             ConnectionManager.close(conn, stmt, rs);
