@@ -25,14 +25,14 @@ public class ColourDAO {
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
-        String sql = "INSERT INTO COLOUR VALUES (?,?,?)";
+        String sql = "INSERT INTO COLOUR (COLOUR_ID, COLOUR_NAME, DELETED) VALUES (?,?,?)";
         if (getColourById(colour.getColourId()) != null) {
 
             try {
 
                 conn = ConnectionManager.getConnection();
                 stmt = conn.prepareStatement(sql);
-                stmt.setInt(1, colour.getColourId());
+                stmt.setInt(1, getNextColourId());
                 stmt.setString(2, colour.getColourName());
                 stmt.setString(3, "N");
 
@@ -224,4 +224,35 @@ public class ColourDAO {
    
     }
 
+    public int getNextColourId() throws SQLException {
+
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        int nextColourId = 0;
+
+        String sql = "SELECT MAX(COLOUR_ID) AS MAX FROM COLOUR";
+
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+
+                nextColourId = rs.getInt("MAX") + 1;
+
+            }
+
+        } finally {
+
+            ConnectionManager.close(conn, stmt, rs);
+
+        }
+
+        return nextColourId;
+
+    }
+    
 }

@@ -13,8 +13,12 @@ import dao.ColourDAO;
 import entity.Colour;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.annotation.security.PermitAll;
 import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
+import javax.ws.rs.OPTIONS;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
@@ -74,5 +78,47 @@ public class ColourService {
         return finalJsonOutput;
         
     }
+    
+    @OPTIONS
+    @PermitAll
+    @Path("/save")
+    public void optionsSave() {
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
+        response.setHeader("Access-Control-Allow-Headers", "authorization");
+
+    }
+    
+    @POST
+    @Path("/save")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String saveColour(@FormParam("colour") String json) {
+        
+        ColourDAO cDAO = new ColourDAO();
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
+
+        Gson gs = new Gson();
+        Colour colourToSave = gs.fromJson(json, Colour.class);
+        
+        Gson gson = new GsonBuilder().create();
+        JsonObject jsonOutput = new JsonObject();
+
+        try {
+                System.out.println("JSON: " + json);
+                jsonOutput.addProperty("status", "200");
+                cDAO.addColour(colourToSave);
+
+        } catch (SQLException e) {
+            System.out.println(e);
+            jsonOutput.addProperty("status", "500");
+
+        }
+
+        String finalJsonOutput = gson.toJson(jsonOutput);
+        return finalJsonOutput;
+    }
+
+    
     
 }
