@@ -25,10 +25,7 @@
     "@angular/router": "^4.4.3",
     "angular-4-data-table": "^0.2.3",
     "angular2-qrcode": "^2.0.1",
-<<<<<<< HEAD
     "angulartics2": "^2.4.0",
-=======
->>>>>>> super-user
     "aws-sdk": "^2.122.0",
     "bootstrap": "^3.3.7",
     "core-js": "^2.5.1",
