@@ -7,6 +7,15 @@ body {
     color: #B0A171;
     line-height:  1em;
 }
+.quote>h3{
+    color: #B0A171;
+    line-height:  1em;
+    font-size: 20px;
+}
+.quote>h5{
+    font-size: 14px;
+    color: rgb(200,200,200);
+}
 
 .parallax {
     /* The image used */
@@ -41,3 +50,22 @@ body {
 
 
 
+@media only screen and (max-width: 500px) {
+    .about-title{
+        color : white;
+        font-size: 30px;
+        letter-spacing: 5px;
+        line-height: 350px;
+        text-shadow: 3px 3px 10px black;
+        font-family: Georgia;
+        border: 10px double white;
+        min-height: 400px; 
+    }
+
+    .quote>h3{
+        color: #B0A171;
+        font-size: 18px;
+    }
+
+
+}
