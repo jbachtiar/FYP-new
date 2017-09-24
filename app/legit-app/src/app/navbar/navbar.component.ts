@@ -105,7 +105,7 @@ export class NavbarComponent implements OnInit {
 
     emptyCart() {
         console.log("CART IS EMPTIED")
-        this.shoppingCartService.empty()
+        this.shoppingCartService.emptyLogout()
         //window.location.reload()
     }
 
