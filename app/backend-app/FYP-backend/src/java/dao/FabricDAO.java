@@ -25,7 +25,7 @@ public class FabricDAO {
         PreparedStatement stmt = null;
         ResultSet rs = null;
        
-        String sql = "INSERT INTO COLOUR VALUES (?,?,?,?,?)";
+        String sql = "INSERT INTO FABRIC (FABRIC_ID, FABRIC_NAME, FABRIC_DESC, FABRIC_PRICE, DELETED) VALUES (?,?,?,?,?)";
         
         if(getFabricById(fabric.getFabricId())!=null){
             
@@ -33,13 +33,13 @@ public class FabricDAO {
 
                 conn = ConnectionManager.getConnection();
                 stmt = conn.prepareStatement(sql);
-                stmt.setInt(1, fabric.getFabricId());
+                stmt.setInt(1, getNextFabricId());
                 stmt.setString(2, fabric.getFabricName());
                 stmt.setString(3, fabric.getFabricDesc());
                 stmt.setDouble(4, fabric.getFabricPrice());
                 stmt.setString(5, "N");
                 
-                rs = stmt.executeQuery();
+                stmt.executeUpdate();
                 
             } finally {
                 ConnectionManager.close(conn, stmt, rs);
@@ -281,6 +281,37 @@ public class FabricDAO {
         
         return fabricList.toArray(new Fabric[fabricList.size()]);
    
+    }
+    
+    public int getNextFabricId() throws SQLException {
+
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        int nextFabricId = 0;
+
+        String sql = "SELECT MAX(FABRIC_ID) AS MAX FROM FABRIC";
+
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+
+                nextFabricId = rs.getInt("MAX") + 1;
+
+            }
+
+        } finally {
+
+            ConnectionManager.close(conn, stmt, rs);
+
+        }
+
+        return nextFabricId;
+
     }
     
     

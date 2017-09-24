@@ -36,7 +36,7 @@ public class ColourDAO {
                 stmt.setString(2, colour.getColourName());
                 stmt.setString(3, "N");
 
-                rs = stmt.executeQuery();
+                stmt.executeUpdate();
 
             } finally {
                 ConnectionManager.close(conn, stmt, rs);
