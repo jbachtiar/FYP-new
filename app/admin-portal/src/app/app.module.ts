@@ -39,8 +39,13 @@ import { DataTableModule } from 'angular-4-data-table';
 import { MdTabsModule, MdButtonModule, MdProgressBarModule, MdChipsModule, MdCardModule } from '@angular/material';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { OrderFactoryWorkerComponent } from './order-factory-worker/order-factory-worker.component';
+<<<<<<< HEAD
 import { Angulartics2Module, Angulartics2GoogleAnalytics } from 'angulartics2';
 import { AnalyticsDashboardComponent } from './analytics-dashboard/analytics-dashboard.component';
+=======
+import { OrderManagementSuperuserComponent } from './order-management-superuser/order-management-superuser.component';
+import { OrderDetailsSuperuserComponent } from './order-details-superuser/order-details-superuser.component';
+>>>>>>> super-user
 
 
 @NgModule({
@@ -63,7 +68,12 @@ import { AnalyticsDashboardComponent } from './analytics-dashboard/analytics-das
     OrderManagementComponent,
     OrderDetailsComponent,
     OrderFactoryWorkerComponent,
+<<<<<<< HEAD
     AnalyticsDashboardComponent
+=======
+    OrderManagementSuperuserComponent,
+    OrderDetailsSuperuserComponent
+>>>>>>> super-user
   ],
   imports: [
     BrowserModule,
@@ -89,7 +99,8 @@ import { AnalyticsDashboardComponent } from './analytics-dashboard/analytics-das
     AuthGuard,
     ProductService,
     PagerService,
-    PromoCodeService
+    PromoCodeService,
+    OrderService 
   ],
   bootstrap: [AppComponent],
   entryComponents: [

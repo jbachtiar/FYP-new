@@ -1,0 +1,38 @@
+:host /deep/ .data-table-row {
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.numbers{
+    font-family: Tahoma,Geneva,sans-serif;
+    font-size: 18px;
+    text-align: left;
+}
+
+.breadcrumb{
+    height: 140px;
+    background-color: white;
+}
+
+.item-count {
+    width:25px;
+    height:25px;
+    border:2.5px solid lightcoral;
+    padding-left: 2px;
+    border-radius: 500px;
+    -webkit-border-radius: 500px;
+    -moz-border-radius: 500px;
+}
+
+button {
+    font-family: Tahoma,Geneva,sans-serif;
+}
+
+.sup {
+    position: relative;
+    bottom: 1ex; 
+    font-size: 80%;
+  }

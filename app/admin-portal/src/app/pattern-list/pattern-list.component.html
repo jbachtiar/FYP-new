@@ -53,16 +53,16 @@
             </thead>
             <tbody *ngFor="let p of pagedPatterns">
               <td>
-                <img src="{{p.image_url}}" height="120" width="120" alt="...">
+                <img src="{{p.images[0].imageUrl}}" height="120" width="120" alt="...">
               </td>
               <td>
-                {{p.pattern_name}}
+                {{p.design_name}}
               </td>
               <td>
                 {{p.collection_name}}
               </td>
               <td>
-                {{p.pattern_price}}
+                {{p.design_price}}
               </td>
               <td>
                 <button class="btn btn-info btn-fill btn-wd" (click)="onViewPattern(p.pattern_id)" style="margin-bottom:5px">View</button>                &emsp;

@@ -13,12 +13,12 @@ export class ProductService {
 
     getPatternList() {
         let params: URLSearchParams = new URLSearchParams();
-        let url = CONFIG.productCatalogueBackendUrl + '/uniquePatterns';
+        let url = CONFIG.productCatalogueBackendUrl + '/BeddingPatterns';
 
         return this._http.get(url)
             .map(res => {
                 //console.log("product is loaded"+res.json().patterns);
-                return res.json().products;
+                return res.json().patterns;
                 // return mockJson.products;
             });
     }
@@ -73,7 +73,7 @@ export class ProductService {
     // }
 
     getPatternById(patternId: string) {
-        let url = CONFIG.productCatalogueBackendUrl + '/customization';
+        let url = CONFIG.productCatalogueBackendUrl + '/customize';
         let finalUrl = url + "?patternId=" + patternId
         return this._http.get(finalUrl)
             .map(res => {
