@@ -64,8 +64,7 @@ p.solid:hover{
     /* The image used */
     background-image: url("https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Website+Images/home2.jpg");
 
-    min-height: 550px; 
-
+    height: 100%;
     /* Create the parallax scrolling effect */
     background-attachment: fixed;
     background-position: center;
@@ -95,13 +94,12 @@ p.solid:hover{
     color : white;
     font-size: 30px;
     letter-spacing: 5px;
-    line-height: 400px;
+    line-height: 50vh;
     text-shadow: 3px 3px 10px black;
     font-family: Georgia;
     border: 10px double white;
-    min-height: 550px; 
-    padding-top: 50px;
-}
+    /* min-height: 550px;  */
+    }
 
 row.img{
     width: 50px;
@@ -109,3 +107,29 @@ row.img{
 }
 
 
+@media only screen and (max-width: 500px) {
+    .home-title{
+        color : white;
+        font-size: 24px;
+        letter-spacing: 2px;
+        line-height: 40px;
+        text-shadow: 3px 3px 10px black;
+        font-family: Georgia;
+        border: 10px double white;
+        padding-bottom: 100px;
+        padding-top: 100px;
+        /* min-height: 550px;  */
+        }
+
+        p.separator{
+            border-style: solid;
+            border-left: none;
+            border-right: none;
+            border-top: none;
+            border-color: #B0A171;
+            border-width: 8px;
+            width: 100%;
+            
+        }
+    
+    }
