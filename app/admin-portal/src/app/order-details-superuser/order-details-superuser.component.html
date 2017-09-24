@@ -11,6 +11,7 @@
         <table>
           <thead>
             <th>Status</th>
+            <th>Courier</th>
             <th>Shipping Tracking Number</th>
             <th>Order Total Price</th>
             <th>Customer Email</th>
@@ -20,6 +21,9 @@
             <td>
               {{returnTheLatestOrderStatus()}}
 
+            </td>
+            <td>
+              {{order.courierName}}
             </td>
             <td>
               {{order.trackingNo}}
@@ -46,7 +50,7 @@
           <thead>
             <tr>
               <th>Product Type</th>
-              <th>Product ID</th> 
+              <th>Product ID</th>
               <th>Pattern</th>
               <th>Fabric</th>
               <th>Color</th>
@@ -91,7 +95,7 @@
 
             </tr>
           </tbody>
-          </table>
+        </table>
       </div>
     </div>
   </div>
