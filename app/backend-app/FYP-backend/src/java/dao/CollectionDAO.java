@@ -21,6 +21,61 @@ import java.util.logging.Logger;
  */
 public class CollectionDAO {
     
+    public String addCollection(Collection collection) throws SQLException {
+
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        String sql = "INSERT INTO COLLECTION (COLLECTION_ID, COLLECTION_NAME) VALUES (?,?)";
+
+            try {
+
+                conn = ConnectionManager.getConnection();
+                stmt = conn.prepareStatement(sql);
+                stmt.setInt(1, getNextCollectionId());
+                stmt.setString(2, collection.getCollectionName());
+
+                stmt.executeUpdate();
+
+            } finally {
+                ConnectionManager.close(conn, stmt, rs);
+            }
+
+        return "Success";
+    }
+    
+    public int getNextCollectionId() throws SQLException {
+
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        int nextCollectionId = 0;
+
+        String sql = "SELECT MAX(COLLECTION_ID) AS MAX FROM COLLECTION";
+
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+
+                nextCollectionId = rs.getInt("MAX") + 1;
+
+            }
+
+        } finally {
+
+            ConnectionManager.close(conn, stmt, rs);
+
+        }
+
+        return nextCollectionId;
+
+    }
+    
     public String addTag(Collection c) throws SQLException{
         
         Connection conn = null;
