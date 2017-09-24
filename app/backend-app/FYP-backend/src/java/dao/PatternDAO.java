@@ -21,6 +21,35 @@ import java.util.logging.Logger;
  * @author Ong Yi Xuan
  */
 public class PatternDAO {
+    
+    public String addPattern(Pattern pattern) throws SQLException {
+
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        String sql = "INSERT INTO PATTERN (PATTERN_ID, PATTERN_NAME, PATTERN_DESC, PATTERN_PRICE, DELETED, COLLECTION_ID) VALUES (?,?,?,?,?,?)";
+
+            try {
+
+                conn = ConnectionManager.getConnection();
+                stmt = conn.prepareStatement(sql);
+                stmt.setInt(1, getNextPatternId());
+                stmt.setString(2, pattern.getPatternName());
+                stmt.setString(3, pattern.getPatternDesc());
+                stmt.setDouble(4, pattern.getPatternPrice());
+                stmt.setString(5, "N");
+                stmt.setInt(6, pattern.getCollection().getCollectionId());
+
+                stmt.executeUpdate();
+
+            } finally {
+                ConnectionManager.close(conn, stmt, rs);
+            }
+        
+        return "Success";
+    }
+    
    /* 
     public void updatePatternToDB(Pattern p) throws SQLException{
         
