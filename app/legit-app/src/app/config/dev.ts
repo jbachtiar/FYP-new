@@ -1,6 +1,6 @@
 export const devConfig = {
     authenticationBackendUrl:'http://localhost:8084/FYP-backend/API/authentication/login',
-    registrationBackendUrl:'http://localhost:8084/FYP-backend/API/registration/insert',
+    registrationBackendUrl:'http://localhost:8084/FYP-backend/API/registration',
     productCatalogueBackendUrl:'http://localhost:8084/FYP-backend/API/ProductCatalogue',
     productListBackendUrl:'http://localhost:8084/FYP-backend/API/ProductCatalogue/BeddingPatterns',
     profileBackendUrl:'http://localhost:8084/FYP-backend/API/profile',

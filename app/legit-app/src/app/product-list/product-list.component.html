@@ -38,34 +38,38 @@
                 </select>
 
                 <input type="text" [(ngModel)]="queryString" id="search" placeholder="Search by product name.." class="btn btn-default" (ngModelChange)="onSearch(queryString)">
-        
-            </div>  
+
+            </div>
         </div>
         <hr>
-    </div>
-    <div class="row" >
-        <app-loading *ngIf="loading"></app-loading>
-        
-        <div  *ngIf="!loading">
+
+        <div class="row">
+            <app-loading *ngIf="loading"></app-loading>
+
+            <div *ngIf="!loading">
                 <div *ngFor="let product of pagedProducts">
                     <div class="col-sm-4 col-lg-4 col-md-4">
                         <div class="quickview">
-                            <img src="{{product.images[0].imageUrl}}" alt="..." class="img-thumbnail img-product"  [routerLink]="['/productDetails', product.pattern_id]" (click)=onProductClick(product.pattern_id,product.design_name)><br/>
+                            <img src="{{product.images[0].imageUrl}}" alt="..." class="img-thumbnail img-product" [routerLink]="['/productDetails', product.pattern_id]"
+                                (click)=onProductClick(product.pattern_id,product.design_name)><br/>
                             <div class="overlay">
                                 <div class="quickview-text" (click)=showQuickView(product.pattern_id,product.design_name)>Quick View</div>
                             </div>
+
+                        </div>
+                        <div class="text-center">
                             <h5 class="product-name"><a class="product-name" [routerLink]="['/productDetails', product.pattern_id]">{{product.pattern_name}}</a></h5>
                             <span class="label label-warning">{{product.collection_name}}</span>
                             <h6 class="product-price"><a class="product-price" style="font-size:13px"> Starting from</a> ${{product.lowest_price}}
-                                </h6><br/><br/>
-
+                            </h6><br/><br/>
                         </div>
                     </div>
                 </div>
+            </div>
+            <!-- pager -->
         </div>
-        <!-- pager -->
         <hr>
-        <div class="text-center">
+        <div class="row text-center">
             <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
                 <li [ngClass]="{disabled:pager.currentPage === 1}">
                     <a class="page-tab" (click)="setPage(1)">First</a>
@@ -85,6 +89,6 @@
             </ul>
         </div>
         <br>
+
     </div>
 </body>
-

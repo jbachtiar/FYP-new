@@ -34,6 +34,7 @@ import { OrderService } from './order.service';
 import { SharedService } from './shared.service'
 
 import { BootstrapModalModule } from 'ng2-bootstrap-modal';
+import { CarouselModule } from 'ngx-bootstrap'; 
 
 import { EqualValidator } from './register/equal-validator.directive';
 import { QuickViewComponent } from './quick-view/quick-view.component';
@@ -54,6 +55,7 @@ import { AddressBookComponent } from './address-book/address-book.component';
 import { TrackOrderDetailComponent } from './track-order-detail/track-order-detail.component';
 
 import { Angulartics2Module, Angulartics2GoogleAnalytics } from 'angulartics2';
+import { AccountVerificationComponent } from './account-verification/account-verification.component';
 
 @NgModule({
   declarations: [
@@ -83,7 +85,8 @@ import { Angulartics2Module, Angulartics2GoogleAnalytics } from 'angulartics2';
     LoadingComponent,
     DeleteConfirmationPopupComponent,
     AddressBookComponent,
-    TrackOrderDetailComponent
+    TrackOrderDetailComponent,
+    AccountVerificationComponent
   ],
   imports: [
     BrowserModule,
@@ -97,6 +100,7 @@ import { Angulartics2Module, Angulartics2GoogleAnalytics } from 'angulartics2';
     MdProgressBarModule, 
     MdChipsModule, 
     MdCardModule,
+    CarouselModule,
     Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ])
   ],
   providers: [
