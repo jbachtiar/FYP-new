@@ -54,6 +54,7 @@ import { AddressBookComponent } from './address-book/address-book.component';
 import { TrackOrderDetailComponent } from './track-order-detail/track-order-detail.component';
 
 import { Angulartics2Module, Angulartics2GoogleAnalytics } from 'angulartics2';
+import { AccountVerificationComponent } from './account-verification/account-verification.component';
 
 @NgModule({
   declarations: [
@@ -83,7 +84,8 @@ import { Angulartics2Module, Angulartics2GoogleAnalytics } from 'angulartics2';
     LoadingComponent,
     DeleteConfirmationPopupComponent,
     AddressBookComponent,
-    TrackOrderDetailComponent
+    TrackOrderDetailComponent,
+    AccountVerificationComponent
   ],
   imports: [
     BrowserModule,

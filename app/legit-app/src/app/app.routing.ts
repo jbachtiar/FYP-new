@@ -16,6 +16,7 @@ import { PaymentComponent } from './payment/payment.component'
 import { AuthGuard } from './guard/auth.guard'
 import { CartComponent } from './cart/cart.component'
 import { TrackOrderDetailComponent} from './track-order-detail/track-order-detail.component';
+import { AccountVerificationComponent } from './account-verification/account-verification.component'
 //import { CanDeactivateGuard} from './guard/submitForm.guard'
 
 const appRoutes: Routes = [
@@ -34,8 +35,7 @@ const appRoutes: Routes = [
     { path: 'checkout/payment', component: PaymentComponent, canActivate: [AuthGuard] },
     { path: 'cart', component: CartComponent },
     { path: 'profile-sidebar/:orderId', component: TrackOrderDetailComponent },
-    
-
+    { path: 'activate-account/:email/:code', component: AccountVerificationComponent}
 ];
 
 export const routing = RouterModule.forRoot(appRoutes);

@@ -1,6 +1,6 @@
 export const prodConfig = {
     authenticationBackendUrl:'http://ec2-52-35-18-15.us-west-2.compute.amazonaws.com/FYP-backend/API/authentication/login',
-    registrationBackendUrl:'http://ec2-52-35-18-15.us-west-2.compute.amazonaws.com/FYP-backend/API/registration/insert',
+    registrationBackendUrl:'http://ec2-52-35-18-15.us-west-2.compute.amazonaws.com/FYP-backend/API/registration',
     productCatalogueBackendUrl:'http://ec2-52-35-18-15.us-west-2.compute.amazonaws.com/FYP-backend/API/ProductCatalogue',
     productListBackendUrl:'http://ec2-52-35-18-15.us-west-2.compute.amazonaws.com/FYP-backend/API/ProductCatalogue/uniquePatterns',
     profileBackendUrl:'http://ec2-52-35-18-15.us-west-2.compute.amazonaws.com/FYP-backend/API/profile',

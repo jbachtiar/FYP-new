@@ -69,9 +69,6 @@ export class RegisterComponent implements OnInit {
       });
     //We can close dialog calling disposable.unsubscribe();
     //If dialog was not closed manually close it by timeout
-    setTimeout(() => {
-      disposable.unsubscribe();
-    }, 10000);
 
   }
 }
