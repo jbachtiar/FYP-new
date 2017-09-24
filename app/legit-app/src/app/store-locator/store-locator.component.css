@@ -51,3 +51,11 @@ body {
     color: #B0A171;
     font-size: 17px;
 }
+
+
+@media only screen and (max-width: 500px) {
+
+    .quote>h3{
+        font-size: 18px;
+    }
+}
