@@ -34,6 +34,7 @@ import { OrderService } from './order.service';
 import { SharedService } from './shared.service'
 
 import { BootstrapModalModule } from 'ng2-bootstrap-modal';
+import { CarouselModule } from 'ngx-bootstrap'; 
 
 import { EqualValidator } from './register/equal-validator.directive';
 import { QuickViewComponent } from './quick-view/quick-view.component';
@@ -94,7 +95,8 @@ import { TrackOrderDetailComponent } from './track-order-detail/track-order-deta
     MdButtonModule, 
     MdProgressBarModule, 
     MdChipsModule, 
-    MdCardModule
+    MdCardModule,
+    CarouselModule
   ],
   providers: [
     AuthenticationService,

@@ -4,12 +4,66 @@
   <div class="container" *ngIf="!loading">
     <div class="row">
       <div class="col-sm-6">
+        <!-- Test Carousel -->
+        <div id='carousel-custom' class='carousel slide' data-ride='carousel'>
+          <div class='carousel-outer'>
+            <!-- Wrapper for slides -->
+            <div class='carousel-inner'>
+              <div class='item active'>
+                <img src='{{selectedColour.images[0].imageUrl}}' alt='' />
+              </div>
+              <div class='item'>
+                <img src='https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Product+Images/P1.png' alt='' />
+              </div>
+              <div class='item'>
+                <img src='https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Product+Images/P5.png' alt='' />
+              </div>
+
+
+            </div>
+            <!-- Controls -->
+            <a class='left carousel-control' href="#carousel-custom" data-slide='prev' role="button">
+                  <span class='glyphicon glyphicon-chevron-left'></span>
+              </a>
+            <a class='right carousel-control' data-slide='next' role="button">
+                  <span class='glyphicon glyphicon-chevron-right'></span>
+              </a>
+          </div>
+
+          <!-- Indicators -->
+          <ol class='carousel-indicators'>
+            <li data-target='#carousel-custom' data-slide-to='0' class='active'><img src='{{selectedColour.images[0].imageUrl}}' class="thumb" alt='LOADING' /></li>
+            <li data-target='#carousel-custom' data-slide-to='1'><img src='https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Product+Images/P1.png' class="thumb"
+                alt='LOADING2' /></li>
+            <li data-target='#carousel-custom' data-slide-to='2'><img src='https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Product+Images/P5.png' class="thumb" alt='LOADING3' /></li>
+            <!-- <li data-target='#carousel-custom' data-slide-to='3'><img src='{{selectedColour.images[0].imageUrl}}' class ="thumb" alt='LOADING4' /></li> -->
+          </ol>
+        </div>
+
+
+
+
+        <!-- <carousel>
+          <slide>
+            <img style="width:600px" src="https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Product+Images/P1.png" alt="First slide">
+          </slide>
+          <slide>
+            <img style="width:600px" src="https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Product+Images/P2.png" alt="Second slide">
+          </slide>
+          <slide>
+            <img style="width:600px" src="https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Product+Images/P3.png" alt="Third slide">
+          </slide>
+        </carousel>
+      </div> -->
+        <!-- <div class="col-sm-6">
 
         <div *ngIf="loadingImage" class="loading">
           <img src="../assets/images/loading.gif" alt="loading" />
         </div>
         <img *ngIf="!loadingImage" (load)="onLoad()" src="{{selectedColour.images[0].imageUrl}}" class="img-responsive" alt="Some picture"
-        /> </div>
+        />
+      </div>   -->
+      </div>
       <div class="col-sm-6">
         <h3 class="product-name">{{pattern.pattern_name}}</h3>
 
@@ -37,12 +91,12 @@
         <br/><br/>
         <button type="button" (click)="addCart()" class="btn btn-default button" data-dismiss="modal"><span>Add to Cart</span></button>
         <button (click)="emptyCart()"></button>
-        <h2 class = "description"> Description</h2>
-          <h4><b>Pattern</b></h4>
-          <p>{{pattern.pattern_description}}</p>
-          <h4><b>Fabric</b></h4>
-          <h4><i>{{selectedFabric.fabric_name}}</i></h4>
-          <p>{{selectedFabric.fabric_description}}</p>
+        <h2 class="description"> Description</h2>
+        <h4><b>Pattern</b></h4>
+        <p>{{pattern.pattern_description}}</p>
+        <h4><b>Fabric</b></h4>
+        <h4><i>{{selectedFabric.fabric_name}}</i></h4>
+        <p>{{selectedFabric.fabric_description}}</p>
         <br>
       </div>
     </div>
