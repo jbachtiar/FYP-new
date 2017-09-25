@@ -5,6 +5,10 @@
     background-color: rgba(255, 255, 255, 1);
     border: 0px; 
     box-shadow: 0px 2px 10px lightgray;
+    -moz-transition: max-height 0.3s, opacity 0.2s 0.1s, visibility 0s 0.3s;
+    -ms-transition: max-height 0.3s, opacity 0.2s 0.1s, visibility 0s 0.3s;
+    -o-transition: max-height 0.3s, opacity 0.2s 0.1s, visibility 0s 0.3s;
+    transition: max-height 0.3s, opacity 0.2s 0.1s, visibility 0s 0.3s;
 }
 
 .nav-item {
@@ -75,6 +79,18 @@
 
 .navbar-toggle:active , .navbar-toggle:focus{
     border: 0px solid goldenrod;
-    background: rgba(225,225,225,0)
+    background: rgba(225,225,225,0);-webkit-transition: max-height 0.3s, opacity 0.2s 0.1s, visibility 0s 0.3s;
+
 }
 
+
+@media only screen and (max-width: 500px) {
+    .navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover {
+        color: black;
+        background-color: rgba(240,230,140,0.2);
+    
+        border-top: 0px solid rgba(218,165,32,0.7);
+        border-bottom: 2px solid rgba(218,165,32,0.5ch);
+    }
+    
+}

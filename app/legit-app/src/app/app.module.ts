@@ -21,6 +21,8 @@ import { InlineEditComponent } from './custom/inline-edit.component';
 
 import { CONFIG } from './config/config.component';
 
+import { ResponsiveModule } from 'ng2-responsive'
+
 import { AuthenticationService } from './authentication.service'
 import { RegistrationService } from './registration.service'
 import { ProfileService } from './profile.service'
@@ -35,6 +37,7 @@ import { SharedService } from './shared.service'
 
 import { BootstrapModalModule } from 'ng2-bootstrap-modal';
 import { CarouselModule } from 'ngx-bootstrap'; 
+
 
 import { EqualValidator } from './register/equal-validator.directive';
 import { QuickViewComponent } from './quick-view/quick-view.component';
@@ -101,7 +104,8 @@ import { AccountVerificationComponent } from './account-verification/account-ver
     MdChipsModule, 
     MdCardModule,
     CarouselModule,
-    Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ])
+    Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ]),
+    ResponsiveModule
   ],
   providers: [
     AuthenticationService,

@@ -1,57 +1,94 @@
-<body class="container" *ngIf = "empty">
+<body class="container" *ngIf="empty">
   <div class="row">
     <h1 class="title" style="font-size: 20px; color:gray; text-align:center">Your Shopping Cart is Empty!</h1>
   </div>
 </body>
 
 
-<body class="container" *ngIf = "!empty">
+<body class="container" *ngIf="!empty">
   <div class="row">
-    <h1 class="title">My Shopping Cart</h1>
-    <button class="pull-right checkout" routerLink="/checkout">Checkout</button>
+    <div class="col-md-6">
+      <h1 class="title">My Shopping Cart</h1>
     </div>
-    <hr>
-    <table>
-    <tr>
-      <th>Product</th>
-      <th>Description</th>
-      <th>Quantity</th>
-      <th>Total</th>
-      <th></th>
-    </tr>
-    <tr *ngFor="let item of shoppingCart.cartItems">
-      <td><img src="{{item.product.images[0].imageUrl}}" alt="..." class="img-product"><br/></td>
-      <td class="product-title">
-        <div class = "pattern-name">{{item.product.pattern.patternName}}</div>
-        {{item.product.productId}}
-        <br>
-        {{item.product.fabric.fabricName}}
-        <br>
-        {{item.product.colour.colourName}}
-        <br>
-        {{item.product.size.sizeName}}
-        <br>
-        {{item.product.size.dimensions}}
-        <br>
-        $ {{item.unitPrice}}.00
-      </td>
-      <td>
-        <button class="change-qty" (click)="decrement(item.product.productId)">-</button>
-        {{item.quantity}}
-        <button class="change-qty" (click)="increment(item.product.productId)">+</button>
-      </td>
-      <td>
-        $ {{item.quantity*item.unitPrice}}.00
-      </td>
-      <td>  
-          <button class="remove" (click)="remove(item.product.productId)">remove</button>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="3" style="text-align: right; font-size: 16px; font-weight:bold">Total Price</td>
-      <td>$ {{shoppingCart.price}}.00</td>
-      <td></td>
-    </tr>
-  </table>
+
+    <div class="col-md-6">
+      <button class="pull-right checkout" routerLink="/checkout" *hideItDevice="['mobile','tablet']">Checkout</button>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-s-12 col-xs-12" *hideItDevice="['mobile','tablet']">
+      <table>
+        <tr>
+          <th>Product</th>
+          <th>Description</th>
+          <th>Quantity</th>
+          <th>Total</th>
+          <th></th>
+        </tr>
+        <tr *ngFor="let item of shoppingCart.cartItems">
+          <td><img src="{{item.product.images[0].imageUrl}}" alt="..." class="img-product"><br/></td>
+          <td class="product-title">
+            <div class="pattern-name">{{item.product.pattern.patternName}}</div>
+            {{item.product.productId}}
+            <br> {{item.product.fabric.fabricName}}
+            <br> {{item.product.colour.colourName}}
+            <br> {{item.product.size.sizeName}}
+            <br> {{item.product.size.dimensions}}
+            <br> $ {{item.unitPrice}}.00
+          </td>
+          <td>
+            <button class="change-qty" (click)="decrement(item.product.productId)">-</button> {{item.quantity}}
+            <button class="change-qty" (click)="increment(item.product.productId)">+</button>
+          </td>
+          <td>
+            $ {{item.quantity*item.unitPrice}}.00
+          </td>
+          <td>
+            <button class="remove" (click)="remove(item.product.productId)">remove</button>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3" style="text-align: right; font-size: 16px; font-weight:bold">Total Price</td>
+          <td>$ {{shoppingCart.price}}.00</td>
+          <td></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="container" *showItDevice="['mobile','tablet']">
+      <div *ngFor="let item of shoppingCart.cartItems">
+        <div class="row">
+          <div class="col-xs-6 col-s-6" style="margin-right:0px; padding-right:0px">
+            <img src="{{item.product.images[0].imageUrl}}" alt="..." class="img-product">
+          </div>
+          <div class="col-xs-6 col-s-6" style="padding-left:0px">
+
+            <div class="pattern-name">{{item.product.pattern.patternName}}</div>
+            <b>Product ID:</b> {{item.product.productId}}
+            <br><b>Fabric:</b> {{item.product.fabric.fabricName}}
+            <br><b>Colour:</b> {{item.product.colour.colourName}}
+            <br><b>Size:</b> {{item.product.size.sizeName}}
+            <br>
+            <button class="change-qty" (click)="decrement(item.product.productId)">-</button> {{item.quantity}}
+            <button class="change-qty" (click)="increment(item.product.productId)">+</button> @ $ {{item.unitPrice}}.00
+            <br>
+            <br>
+            <button class="remove pull-right" (click)="remove(item.product.productId)">remove</button>
+
+          </div>
+        </div>
+
+        <hr>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div col-xs-12 col-s-12>
+            <button class="checkout" routerLink="/checkout">Checkout     <span class="glyphicon glyphicon-menu-right"></span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <hr>
 </body>
