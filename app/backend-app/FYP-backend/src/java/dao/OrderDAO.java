@@ -158,6 +158,7 @@ public class OrderDAO {
                 String city = rs.getString("CITY");
                 String country = rs.getString("COUNTRY");
                 String postalCode = rs.getString("POSTAL_CODE");
+              
                 Address address = new Address(email, recipientName, phoneNo, 0, addressLine, city, country, postalCode, "N");
 
                 String paymentRefNo = rs.getString("STRIPE_CHARGE_ID");
@@ -172,8 +173,10 @@ public class OrderDAO {
                 //get latest order status
                 OrderStatusLogDAO orderStatusLogDAO = new OrderStatusLogDAO();
                 OrderStatusLog[] osl = orderStatusLogDAO.getOrderStatusByOrderId(orderId);
+                String courierName= rs.getString("COURIER_NAME");
+                String oderTrackingNo= rs.getString("ORDER_TRACKING_NO");
 
-                order = new Order(orderId, orderDate, netAmt, promoDiscAmt, address, paymentRefNo, pc, orderItems, osl, null, null);
+                order = new Order(orderId, orderDate, netAmt, promoDiscAmt, address, paymentRefNo, pc, orderItems, osl, courierName, oderTrackingNo);
                 orderList.add(order);
 
             }
@@ -189,6 +192,7 @@ public class OrderDAO {
 
         PromoCodeDAO pcDao = new PromoCodeDAO();
         OrderItemDAO orderItemDao = new OrderItemDAO();
+      
 
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -226,6 +230,9 @@ public class OrderDAO {
                 //create a promo code object
                 int promoCode = rs.getInt("PROMO_CODE_ID");
                 PromoCode pc = pcDao.getPromoCodeById(promoCode);
+                
+                String courierName= rs.getString("COURIER_NAME");
+                String oderTrackingNo= rs.getString("ORDER_TRACKING_NO");
 
                 //get all the order items under this order
                 OrderItem[] orderItems = orderItemDao.getOrderItemsByOrderId(orderId);
@@ -234,7 +241,7 @@ public class OrderDAO {
                 OrderStatusLogDAO orderStatusLogDAO = new OrderStatusLogDAO();
                 OrderStatusLog[] osl = orderStatusLogDAO.getOrderStatusByOrderId(orderId);
 
-                order = new Order(orderId, orderDate, netAmt, promoDiscAmt, address, paymentRefNo, pc, orderItems, osl, null, null);
+                order = new Order(orderId, orderDate, netAmt, promoDiscAmt, address, paymentRefNo, pc, orderItems, osl, courierName, oderTrackingNo);
                 orderList.add(order);
             }
         } finally {

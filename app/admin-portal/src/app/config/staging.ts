@@ -1,7 +1,7 @@
 export const stagConfig = {
     authenticationBackendUrl:'',
     registrationBackendUrl:'',
-    productCatalogueBackendUrl:'',
+    productCatalogueBackendUrl:'http://localhost:8084/FYP-backend/API/ProductCatalogue/BeddingPatterns',
     patternCatalogueBackendUrl:'',
     fabricCatalogueBackendUrl:'',
     staffBackendUrl:'',
