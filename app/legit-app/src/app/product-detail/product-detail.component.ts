@@ -69,7 +69,7 @@ export class ProductDetailComponent implements OnInit {
         this.selectedSize = this.selectedColour.sizes[0];
         this.selectedSizePrice = + this.selectedSize.sizePrice
         this.selectedFabricPrice = +this.selectedFabric.fabric_price
-        this.totalPrice = this.pattern.pattern_price + this.selectedFabricPrice
+        this.totalPrice = this.pattern.pattern_price + this.selectedFabricPrice +  this.selectedSizePrice
         this.stopLoading()
       });
   }
