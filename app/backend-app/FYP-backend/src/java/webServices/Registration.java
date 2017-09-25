@@ -44,6 +44,7 @@ import javax.ws.rs.core.Context;
 //import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import tokenManagement.tokenManagement;
+import utility.SendEmail;
 
 /**
  *
@@ -81,7 +82,7 @@ public class Registration {
             //generate hash string for email verification link
             StringBuffer hexString = new StringBuffer();
             MessageDigest md = MessageDigest.getInstance("MD5");
-            byte[] hash = new byte[256];
+            byte[] hash = new byte[32];
             new Random().nextBytes(hash);
 
             for (int i = 0; i < hash.length; i++) {
@@ -100,9 +101,13 @@ public class Registration {
             if (addCustomerResult.equals("Success")) {
                 customerAddressDao.addAddressToCustomer(a);
                 cartDao.addCart(c, email);
+                
+                //send verification link
+                SendEmail.sendVerificationEmail(email, hexString.toString());
 
                 responseMap.put("status", "200");
             } else {
+                responseMap.put("status", "500");
                 responseMap.put("description", addCustomerResult);
 
             }
@@ -203,9 +208,9 @@ public class Registration {
 
                 if (custHash.equals(code)) {
                     customerDAO.updateCustomerVerification(email, "Y");
-             
+
                     responseMap.put("status", "200");
-                    
+
                 } else {
                     description = "Invalid verification link";
                     responseMap.put("status", "500");
@@ -218,8 +223,7 @@ public class Registration {
             responseMap.put("status", "500");
             responseMap.put("description", ex.toString());
         }
-        
-        
+
         String finalJsonOutput = gson.toJson(responseMap);
         return finalJsonOutput;
 

@@ -65,6 +65,7 @@ export class AccountVerificationComponent implements OnInit {
                         //We get dialog result
                         if (isConfirmed) {
                           this.router.navigate(['']);
+                          window.location.reload();
                         }
                         else {
                           this.router.navigate(['']);
