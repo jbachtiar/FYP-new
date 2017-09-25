@@ -8,15 +8,15 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
         </button>
-        <a *showItDevice="['mobile','tablet']" class="btn btn-cart" routerLink="/cart">
-            <div class="box">
-                <img src="/assets/images/shopping-bag.png" style="width:30px">
-                <div class="text">
-                    <h2 style="font-size: 15px;" *ngIf="itemCount!=0">{{itemCount}}</h2>
+            <a *showItDevice="['mobile','tablet']" class="btn btn-cart pull-left" routerLink="/cart">
+                <div class="box">
+                    <img src="/assets/images/shopping-bag.png" style="width:30px">
+                    <div class="text">
+                        <h2 style="font-size: 15px;" *ngIf="itemCount!=0">{{itemCount}}</h2>
+                    </div>
                 </div>
-            </div>
-        </a>    
-        <a class="navbar-brand" routerLink=''>Highlander</a>
+            </a>
+            <a class="navbar-brand text-center" routerLink=''>Highlander</a>
 
         </div>
         <div class="collapse navbar-collapse in" [ngClass]="{ 'in': isIn }">
@@ -27,7 +27,7 @@
                 <li class="nav-item" (click)="toggleState()" routerLinkActive="active"><a class="nav-link" routerLink="/accessories">Home Accesssories</a></li>
                 <li class="nav-item" (click)="toggleState()" routerLinkActive="active"><a class="nav-link" routerLink="/store-locator">Find Us</a></li>
             </ul>
-            <ul class="nav navbar-nav pull-right" >
+            <ul class="nav navbar-nav pull-right">
                 <a *hideItDevice="['mobile','tablet']" (click)="toggleState()" class="btn btn-cart" routerLink="/cart">
                     <div class="box">
                         <img src="/assets/images/shopping-bag.png" style="width:30px">
@@ -51,10 +51,10 @@
 <router-outlet></router-outlet>
 <script>
     (function (i, s, o, g, r, a, m) {
-    i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
-        (i[r].q = i[r].q || []).push(arguments)
-    }, i[r].l = 1 * new Date(); a = s.createElement(o),
-        m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
     })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
 
     ga('create', 'UA-106185727-2', 'auto');

@@ -83,6 +83,28 @@
       </div>
       <div class="container">
         <div class="row">
+          <h1 class="title">Order Summary | <i>{{shoppingCart.cartItems.length}} item(s)</i></h1>
+        </div>
+        <hr>
+        <div class="row">
+          <table>
+            <tbody>
+              <tr>
+                <td>Subtotal</td>
+                <td class="table-right"><b>$ {{shoppingCart.price}}.00</b></td>
+              </tr>
+              <tr >
+                <td>Delivery</td>
+                <td class="table-right" >free</td>
+              </tr>
+              <tr >
+                  <td>Total</td>
+                  <td class="table-right" style="font-size: 24px;"><b>$ {{shoppingCart.price}}.00</b></td>
+                </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="row">
           <div col-xs-12 col-s-12>
             <button class="checkout" routerLink="/checkout">Checkout     <span class="glyphicon glyphicon-menu-right"></span></button>
           </div>

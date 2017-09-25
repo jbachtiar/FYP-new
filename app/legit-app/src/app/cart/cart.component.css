@@ -195,5 +195,25 @@ th{
         font-size: 16px;
         vertical-align: middle;
     }
+    .title{
+        font-size: 24px;
+    }
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+    
+    td, th {
+        border-bottom: 0px solid goldenrod;
+        text-align: left;
+        font-size: 14px;
+        padding: 8px;
+        width: 20%;
+    }
+    .table-right{
+        text-align: right;
+        font-size: 16px
+    }
 
 }
