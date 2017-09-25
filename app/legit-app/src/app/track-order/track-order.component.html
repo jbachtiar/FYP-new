@@ -2,80 +2,241 @@
 </app-loading>
 
 <div *ngIf="!loading">
-    <h2>Track Order</h2>
-    <hr>
+    <div *ngIf="isDisplayOrderList">
+        <h2>Track Order</h2>
+        <hr>
 
-    <h4> <b> Current Orders </b> </h4>
-    <div [hidden]="!isDisplayCurrentOrder">
-        <table>
-            <thead>
-                <th>Order ID</th>
-                <th>Order Status</th>
-                <th>Price</th>
-                <th>Date of Purchase</th>
-                <th> </th>
-            </thead>
+        <h4> <b> Current Orders </b> </h4>
+        <div [hidden]="!isDisplayCurrentOrder">
+            <table>
+                <thead>
+                    <th>Order ID</th>
+                    <th>Order Status</th>
+                    <th>Price</th>
+                    <th>Date of Purchase</th>
+                    <th> </th>
+                </thead>
 
-            <tbody *ngFor="let co of currentOrders">
-                <tr>
-                    <td>
-                        {{co.orderId}}
-                    </td>
-                    <td>
-                        {{returnTheLatestOrderStatus(co.statusLogs)}}
-                    </td>
-                    <td>
-                        {{co.netAmt}}
-                    </td>
-                    <td>
-                        {{co.order_TimeStamp}}
-                    </td>
-                    <td>
-                        <button [disabled]="loading" class="button" (click)=viewOrder(co.orderId)>View Details</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+                <tbody *ngFor="let co of currentOrders">
+                    <tr>
+                        <td>
+                            {{co.orderId}}
+                        </td>
+                        <td>
+                            {{returnTheLatestOrderStatus(co.statusLogs)}}
+                        </td>
+                        <td>
+                            {{co.netAmt}}
+                        </td>
+                        <td>
+                            {{co.order_TimeStamp}}
+                        </td>
+                        <td>
+                            <button [disabled]="loading" class="button" (click)=viewOrder(co.orderId)>View Details</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <p [hidden]="isDisplayCurrentOrder">
+            No Order In Process
+        </p>
+
+        <h4> <b> Past Purchases </b></h4>
+        <div [hidden]="!isDisplayPastOrder">
+            <table>
+                <thead>
+                    <th>Order ID</th>
+                    <th>Order Status</th>
+                    <th>Price</th>
+                    <th>Date of Purchase</th>
+                    <th></th>
+                </thead>
+
+                <tbody *ngFor="let co of pastOrders">
+                    <tr>
+                        <td>
+                            {{co.orderId}}
+                        </td>
+                        <td>
+                            {{returnTheLatestOrderStatus(co.statusLogs)}}
+                        </td>
+                        <td>
+                            {{co.netAmt}}
+                        </td>
+                        <td>
+                            {{co.order_TimeStamp}}
+                        </td>
+                        <td>
+                            <button [disabled]="loading" class="button" (click)=viewOrder(co.orderId)>View Details</button>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+        <p [hidden]="isDisplayPastOrder">
+            No Past Purchase
+        </p>
     </div>
-    <p [hidden]="isDisplayCurrentOrder">
-        No Order In Process
-    </p>
+    <div *ngIf="!isDisplayOrderList">
+        <div class="content">
 
-    <h4> <b> Past Purchases </b></h4>
-    <div [hidden]="!isDisplayPastOrder">
-        <table>
-            <thead>
-                <th>Order ID</th>
-                <th>Order Status</th>
-                <th>Price</th>
-                <th>Date of Purchase</th>
-                <th></th>
-            </thead>
+            <div class="box">
+                <md-progress-bar [ngStyle]="{'color': goldenrod}" class="example-margin" [mode]="mode" [value]="value" [bufferValue]="bufferValue">
+                </md-progress-bar>
 
-            <tbody *ngFor="let co of pastOrders">
-                <tr>
-                    <td>
-                        {{co.orderId}}
-                    </td>
-                    <td>
-                        {{returnTheLatestOrderStatus(co.statusLogs)}}
-                    </td>
-                    <td>
-                        {{co.netAmt}}
-                    </td>
-                    <td>
-                        {{co.order_TimeStamp}}
-                    </td>
-                    <td>
-                        <button [disabled]="loading" class="button" (click)=viewOrder(co.orderId)>View Details</button>
-                    </td>
-                </tr>
+                <div class="row">
+                    <div class="col-12 progress-row">
+                        <div class="button-row">
+                         
+                            <div class="col-md-1">
+                                <div class="annotation">
+                                    <font class="status">
+                                        &nbsp;&nbsp;PAYMENT<br/>&nbsp;&nbsp;RECEIVED
+                                    </font>
+                                </div>
+                                <button [ngClass]="{'pulse': pulse.payment}" md-fab class="button" [disabled]="isDisabled.payment">
+        <i class="ti-wallet"></i>
+      </button>
+                            </div>
 
-            </tbody>
-        </table>
+                            <div class="col-md-1">
+                            </div>
+
+                            <div class="col-md-1">
+                                <div class="annotation">
+                                    <font class="status">
+                                        IN<br/>&nbsp;PRODUCTION
+                                    </font>
+                                </div>
+                                <button [ngClass]="{'pulse': pulse.production}" md-fab  class="button" [disabled]="isDisabled.production">
+          <span class="ti-cut"></span>
+      </button>
+                            </div>
+
+                            <div class="col-md-1">
+                            </div>
+
+                            <div class="col-md-1">
+                                <div class="annotation">
+                                    <font class="status">
+                                        <br/>&nbsp;PACKAGING
+                                    </font>
+                                </div>
+                                <button [ngClass]="{'pulse': pulse.packaging}" md-fab  class="button" [disabled]="isDisabled.packaging">
+          <span class="ti-package"></span>
+      </button>
+                            </div>
+
+                            <div class="col-md-1">
+                            </div>
+
+                            <div class="col-md-1">
+                                <div class="annotation">
+                                    <font class="status">
+                                        PENDING FOR<br/>&nbsp;SHIPMENT
+                                    </font>
+                                </div>
+                                <button [ngClass]="{'pulse': pulse.preparation}" md-fab  class="button" [disabled]="isDisabled.preparation">
+          <span class="ti-location-arrow"></span>
+      </button>
+                            </div>
+
+                            <div class="col-md-1">
+                            </div>
+
+                            <div class="col-md-1">
+                                <div class="annotation">
+                                    <font class="status">
+                                        <br/>&nbsp;SHIPPED
+                                    </font>
+                                </div>
+                                <button [ngClass]="{'pulse': pulse.shipped}" md-fab  class="button" [disabled]="isDisabled.shipped">
+        <span class="ti-truck"></span>
+      </button>
+                            </div>
+
+                            <div class="col-md-1">
+                            </div>
+
+                            <div class="col-md-1">
+                                <div class="annotation">
+                                    <font class="status">
+                                        <br/>&nbsp;COMPLETED
+                                    </font>
+                                </div>
+                                <button [ngClass]="{'pulse': pulse.completed}" md-fab  class="button" [disabled]="isDisabled.completed">
+          <span class="ti-check"></span>
+      </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="container-fluid">
+                <md-card>
+                    <h4 class="title">Order Summary</h4>
+
+
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>ID</th>
+                                <th>Type</th>
+                                <th>Pattern</th>
+                                <th>Fabric</th>
+                                <th>Color</th>
+                                <th>Size</th>
+                                <th>Quantity</th>
+                                <th>Price </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of orderItems">
+                                <td><img src="{{item.product.images[0].imageUrl}}" alt="..." class="img-product"><br/></td>
+                                <td class="product-title">
+                                    {{item.product.productId}}
+                                </td>
+                                <td>
+                                    {{item.product.productType}}
+                                </td>
+                                <td>
+                                    {{item.product.pattern.patternName}}
+                                </td>
+                                <td>
+                                    {{item.product.fabric.fabricName}}
+
+                                </td>
+                                <td>
+                                    {{item.product.colour.colourName}}
+                                </td>
+                                <td>
+                                    {{item.product.size.sizeName}}
+                                </td>
+
+                                <td>
+                                    {{item.quantity}}
+
+                                </td>
+
+                                <td>
+                                    {{item.unitPrice}}
+
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </md-card>
+            </div>
+        </div>
+
     </div>
 
-    <p [hidden]="isDisplayPastOrder">
-        No Past Purchase
-    </p>
 </div>
