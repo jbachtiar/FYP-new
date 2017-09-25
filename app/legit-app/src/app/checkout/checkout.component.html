@@ -181,13 +181,13 @@
       <div class="form-group" placeholder="Phone Number" [ngClass]="{ 'has-error': f.submitted && !contact.valid }">
         <label for="contact">Contact Number</label>
         <div class="row">
-          <div class="col-sm-3 col-xs-3">
+          <div class="col-sm-3 col-xs-3" style="padding-right:0px;">
             <select class="form-control" name='country_code' [(ngModel)]='newAddress.country_code' #country_code="ngModel">
           <option *ngFor="let cc of countryCodes" [ngValue]="cc">{{cc}}</option>
       </select>
           </div>
 
-          <div class="col-sm-9 col-xs-9">
+          <div class="col-sm-9 col-xs-9" style="padding-left:5px;">
             <input class="form-control" type="text" class="form-control" name="contact" [(ngModel)]="newAddress.contact" #contact="ngModel"
               required pattern="[0-9]*" />
             <!-- <div *ngIf="f.submitted && !contact.valid" class="help-block">Phone number is required</div> -->
