@@ -8,7 +8,7 @@
  */
  md-chip{
     font-family: 'Muli';  
-     font-size: 30px;
+    font-size: 30px;
  }
 
  .content{
@@ -143,8 +143,8 @@ thead{
 
 .title{
     font-size: 18px;
-    color: #DD0330;
     font-family: 'Muli';
+    font-weight: bold;
 }
 
 
@@ -184,7 +184,7 @@ color: white;
 
 .test{
     padding-left: 0px;
-    color: #DD0330;
+    color:goldenrod;
     font-size: 10px;
     text-align: center;
 }

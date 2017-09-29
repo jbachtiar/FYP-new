@@ -1,10 +1,17 @@
-typings
-/src/**/*.js
-*.map
-node_modules
-npm-debug.log*
-dist/*
+# Created by https://www.gitignore.io/api/netbeans
 
+<<<<<<< HEAD
+### NetBeans ###
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+# End of https://www.gitignore.io/api/netbeans
+=======
 .DS_Store
 app/legit-app/.vscode/launch.json
 app/backend-app/FYP-backend/src/java/database/connection.properties
+>>>>>>> 2590292be67c392d3673b4b427da6fcbfd620970
