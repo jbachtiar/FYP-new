@@ -37,7 +37,7 @@ export class CartPopupComponent extends DialogComponent<CartPopupModel, boolean>
     this.close();
   }
   onViewCart(): void {
-    this.confirm();
+    this.close()
     let link = ['/cart'];
     this.router.navigate(link);
   }

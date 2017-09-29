@@ -155,9 +155,10 @@ export class QuickViewComponent extends DialogComponent<QuickViewPopupModel, boo
             console.log("DIALOG")
             //We get dialog result
             if (isConfirmed) {
-              this.confirm()
+              //do nothing
             }
             else {
+              //do nothing
             }
           });
         //We can close dialog calling disposable.unsubscribe();
