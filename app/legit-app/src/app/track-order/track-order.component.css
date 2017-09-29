@@ -1,0 +1,58 @@
+h2{
+    font-family: Georgia;
+    font-size: 22px;
+    color: #888888;
+}
+
+h4{
+    font-family: Georgia;
+    text-align: center;
+
+}
+p{
+   
+    text-align: center;
+
+}
+hr{
+    color: goldenrod;
+    background-color: goldenrod;
+    height: 0.5px;
+}
+
+
+table {
+    font-family: Georgia;
+    border-collapse: collapse;
+    width: 100%;
+ 
+  
+    
+}
+
+
+td, th {
+    border-top: 1px solid gray;
+    border-bottom: 1px solid gray;
+    text-align: left;
+    padding: 8px;
+    width: 20%;
+   
+}
+
+th{
+    font-size: 18px;
+}
+
+.button{
+    border: 1px solid goldenrod;
+    background-color: goldenrod; 
+    font-family: Georgia;
+    font-size: 16px;
+    color: white;
+    padding-top: 5px;
+    padding-right: 30px;
+    padding-bottom: 5px;
+    padding-left: 30px;
+    margin-top: 10px;
+}

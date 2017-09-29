@@ -1,0 +1,27 @@
+h2{
+    font-family: Georgia;
+    color: #888888;
+}
+
+input[type=text],[type=password] {
+    border-radius: 0px;
+    border: none;
+    border-bottom: 1px solid goldenrod;
+}
+
+.button{
+    border: 1px solid goldenrod;
+    background-color: goldenrod; 
+    font-family: Georgia;
+    font-size: 16px;
+    color: white;
+    padding-top: 5px;
+    padding-right: 40px;
+    padding-bottom: 5px;
+    padding-left: 40px;
+    margin-top: 10px;
+}
+
+body { 
+    padding-top: 65px; 
+}

@@ -1,0 +1,121 @@
+body { 
+    padding-top: 65px; 
+}
+img{
+    border: 0px;
+}
+
+.img-product:hover {
+    box-shadow: 3px 3px 5px 5px #888888
+}
+
+
+.overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: white;
+  opacity: 20%;
+  overflow: hidden;
+  width: 100%;
+  height: 0;
+  transition: .5s ease;
+}
+
+.quickview {
+  position: relative;
+}
+.quickview:hover .overlay {
+  height: 15%;
+}
+
+.quickview-text {
+  white-space: nowrap; 
+  color: #888888;
+  font-size: 18px;
+  position: absolute;
+  overflow: hidden;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  font-family: Georgia;
+  cursor: pointer;
+}
+
+.product-name{
+    font-size: 24px;
+    color: goldenrod;
+    font-family: Georgia; 
+}
+
+.product-price{
+    font-size: 18px;
+    color: black; 
+    font-family: Georgia;
+}
+
+.page-tab{
+    color: #888888; 
+    border: 0px;
+    font-family: Georgia; 
+}
+.page-tab:hover {
+    color: goldenrod; 
+    border: 0px;
+    border-radius: 0px;
+    background: lightgray; 
+}
+
+.page-tab:active, select {
+    color: lightgray; 
+    border: 0px;
+    border-radius: 0px;
+    background: goldenrod;
+    font-family: Georgia; 
+}
+
+.parallax {
+    /* The image used */
+    background-image: url("https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Website+Images/fabric-bg.jpg");
+
+    /* Set a specific height */
+    min-height: 400px; 
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+p{
+    color: goldenrod;
+    font-size: 16px;
+    margin-top: 20px;
+    margin-bottom: 40px;
+    font-family: Georgia;
+}
+
+.fabric-title{
+    color : white;
+    font-size: 30px;
+    letter-spacing: 5px;
+    line-height: 400px;
+    text-shadow: 3px 3px 10px black;
+    font-family: Georgia;
+    border: 10px double white;
+}
+.pagination{
+    border: 0.5 solid;
+    border-color: goldenrod;
+    cursor: pointer;
+}
+.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
+    z-index: 3;
+    color: #fff;
+    background-color: goldenrod;
+    
+}
+

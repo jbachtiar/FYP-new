@@ -1,0 +1,15 @@
+p{
+    color: #B0A171;
+    font-size: 16px;
+    margin-top: 20px;
+    margin-bottom: 40px;
+    font-family: Georgia;
+}
+hr {
+    border: 0;
+    clear:both;
+    display:block;
+    width: 96%;                
+    background-color: #B0A171;
+    height: 1px;
+}

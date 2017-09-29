@@ -1,0 +1,101 @@
+.container {
+    padding-top: 80px;
+    line-height: 200%
+ 
+
+}
+.title{
+    display: inline-block;
+    text-align: left;
+    font-family: Georgia;
+    font-size: 20px;
+    font-weight: normal;
+    color: white;
+    padding-left: 15px;
+}
+
+.form{
+    padding-top : 15px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 15px;
+}
+
+.header{
+    padding-top:5px;
+    background-color: goldenrod;
+    
+}
+.item{
+    width: 30%
+}
+
+.content{
+    border: solid 1px goldenrod;
+}
+
+.button{
+    border: 1px solid goldenrod;
+    background-color: goldenrod; 
+    font-family: Georgia;
+    font-size: 16px;
+    color: white;
+    padding-top: 5px;
+    padding-right: 40px;
+    padding-bottom: 5px;
+    padding-left: 40px;
+    margin-top: 10px;
+}
+
+h4{
+    font-weight: bold;
+}
+
+.change-qty{
+    border: 0px solid goldenrod;
+    border-radius:  10px;
+    background-color: white; 
+    font-family: Georgia;
+    font-size: 16px;
+    color: goldenrod;
+    padding-top: 0px;
+    padding-right: 0px;
+    padding-bottom: 0px;
+    padding-left: 0px;
+    margin-right: 0px;
+    margin-left: 0px;
+    width: 20px;
+
+}
+
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border-bottom: 1px solid goldenrod;
+    text-align: left;
+    padding: 8px;
+    width: 20%;
+}
+
+.img-product {
+    width: 110px;
+    text-align: center;
+}
+
+.pattern-name{
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.product-title{
+    line-height: 150%;
+}
+
+.country-code{
+    width : 100px;
+}

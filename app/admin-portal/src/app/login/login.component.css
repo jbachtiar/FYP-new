@@ -1,0 +1,38 @@
+.card {
+  border-radius: 10px;
+  box-shadow: 6px 6px 8px rgba(204, 197, 185, 0.5);
+  background-color: white;
+  border: 0.5px solid goldenrod;
+  margin-bottom: 20px;
+  margin-top: 60px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 50px;
+  padding-right: 50px;
+  position: relative;
+  z-index: 1;
+}
+
+body {
+    background-color: #FFDF00;
+}
+
+h2 {
+  font-family: Georgia;
+  color: gray;
+}
+
+.form-control{
+  border: 0.3px solid lightgray;
+}
+
+button{
+  border-radius: 10px;
+  padding: 10px 50px 10px 50px;
+  align-items: right;
+  background-color: goldenrod;
+  border: 0px;
+  font-family: Georgia;
+  font-size: 18px;
+  color: white;
+}

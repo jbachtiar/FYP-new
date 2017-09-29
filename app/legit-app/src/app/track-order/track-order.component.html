@@ -1,0 +1,81 @@
+<app-loading *ngIf="loading">
+</app-loading>
+
+<div *ngIf="!loading">
+    <h2>Track Order</h2>
+    <hr>
+
+    <h4> <b> Current Orders </b> </h4>
+    <div [hidden]="!isDisplayCurrentOrder">
+        <table>
+            <thead>
+                <th>Order ID</th>
+                <th>Order Status</th>
+                <th>Price</th>
+                <th>Date of Purchase</th>
+                <th> </th>
+            </thead>
+
+            <tbody *ngFor="let co of currentOrders">
+                <tr>
+                    <td>
+                        {{co.orderId}}
+                    </td>
+                    <td>
+                        {{returnTheLatestOrderStatus(co.statusLogs)}}
+                    </td>
+                    <td>
+                        {{co.netAmt}}
+                    </td>
+                    <td>
+                        {{co.order_TimeStamp}}
+                    </td>
+                    <td>
+                        <button [disabled]="loading" class="button" (click)=viewOrder(co.orderId)>View Details</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <p [hidden]="isDisplayCurrentOrder">
+        No Order In Process
+    </p>
+
+    <h4> <b> Past Purchases </b></h4>
+    <div [hidden]="!isDisplayPastOrder">
+        <table>
+            <thead>
+                <th>Order ID</th>
+                <th>Order Status</th>
+                <th>Price</th>
+                <th>Date of Purchase</th>
+                <th></th>
+            </thead>
+
+            <tbody *ngFor="let co of pastOrders">
+                <tr>
+                    <td>
+                        {{co.orderId}}
+                    </td>
+                    <td>
+                        {{returnTheLatestOrderStatus(co.statusLogs)}}
+                    </td>
+                    <td>
+                        {{co.netAmt}}
+                    </td>
+                    <td>
+                        {{co.order_TimeStamp}}
+                    </td>
+                    <td>
+                        <button [disabled]="loading" class="button" (click)=viewOrder(co.orderId)>View Details</button>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+    <p [hidden]="isDisplayPastOrder">
+        No Past Purchase
+    </p>
+</div>

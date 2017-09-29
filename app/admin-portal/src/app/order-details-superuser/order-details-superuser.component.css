@@ -1,0 +1,28 @@
+table {
+    font-family: Georgia;
+    border-collapse: collapse;
+    width: 100%;
+ 
+  
+    
+}
+
+
+td, th {
+    border-top: 1px solid gray;
+    border-bottom: 1px solid gray;
+    text-align: left;
+    padding: 8px;
+    width: 20%;
+   
+}
+
+th{
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.title{
+     font-weight: bold;
+
+}

@@ -1,0 +1,100 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-12 col-md-12">
+      <div class="card">
+        <div class="header">
+          <div class="col-md-12">
+
+                <select [(ngModel)]="selectedCollection" class="btn btn-default" (ngModelChange)="onSelectCollection($event)">
+                    <option disabled value=undefined class="hideoption" selected>Select Collection</option>
+                    <option *ngFor="let c of collections" [ngValue]="c">{{c.name}}</option>
+                </select>
+
+                <select [(ngModel)]="selectedFabric" class="btn btn-default" (ngModelChange)="onSelectFabric($event)">
+                    <option disabled value=undefined class="hideoption" selected>Select Fabric</option>
+                    <option *ngFor="let f of fabrics" [ngValue]="f">{{f.name}}</option>
+                </select>
+
+                <select [(ngModel)]="selectedColour" class="btn btn-default" (ngModelChange)="onSelectColour($event)">
+                    <option disabled value=undefined class="hideoption" selected>Select Colour</option>
+                    <option *ngFor="let c of colours" [ngValue]="c">{{c.name}}</option>
+                </select>
+
+                <select [(ngModel)]="sortPrice" class="btn btn-default" (ngModelChange)="onSelectSort($event)">
+                    <option disabled value=undefined class="hideoption" selected>Sort Price by</option>
+                    <option *ngFor="let s of sorts" [ngValue]="s">{{s.name}}</option>
+                </select>
+
+                <input type="text" [(ngModel)]="queryString" id="search" placeholder="Search by product name.." class="btn btn-default" (ngModelChange)="onSearch(queryString)">
+                <button class="btn btn-info btn-wd" id="clear" (click)="onClear()">Clear All Filters</button>
+        </div>
+
+        <br>
+        <br>
+        <br>
+        
+        
+        
+        <hr>
+        <div *ngIf="loading" style="margin-top:100px">
+            <app-loading ></app-loading>
+            </div>
+        <div *ngIf="!loading" class="content">
+            
+          <table >
+            <thead>
+              <th></th>
+              <th>Design Name</th>
+              <th>Collection</th>
+              <th>Design Price</th>
+              <th>
+                <button class="btn btn-info btn-wd add" (click)="onAddPattern()">Add New Pattern</button>
+              </th>
+            </thead>
+            <tbody *ngFor="let p of pagedPatterns">
+              <td>
+                <img src="{{p.images[0].imageUrl}}" height="120" width="120" alt="...">
+              </td>
+              <td>
+                {{p.design_name}}
+              </td>
+              <td>
+                {{p.collection_name}}
+              </td>
+              <td>
+                {{p.design_price}}
+              </td>
+              <td>
+                <button class="btn btn-info btn-fill btn-wd" (click)="onViewPattern(p.pattern_id)" style="margin-bottom:5px">View</button>                &emsp;
+                <button class="btn btn-info btn-fill btn-wd" (click)="onEditPattern(p.pattern_id)">Edit</button>
+              </td>
+            </tbody>
+          </table>
+        </div>  
+
+          <!-- pager -->
+  
+        <div class="text-center">
+        <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+            <li [ngClass]="{disabled:pager.currentPage === 1}">
+                <a class="page-tab" (click)="setPage(1)">First</a>
+            </li>
+            <li [ngClass]="{disabled:pager.currentPage === 1}">
+                <a class="page-tab" (click)="setPage(pager.currentPage - 1)">Previous</a>
+            </li>
+            <li *ngFor="let page of pager.pages" class="page-tab" [ngClass]="{active:pager.currentPage === page}">
+                <a class="page-tab" (click)="setPage(page)">{{page}}</a>
+            </li>
+            <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                <a class="page-tab" (click)="setPage(pager.currentPage + 1)">Next</a>
+            </li>
+            <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                <a class="page-tab" (click)="setPage(pager.totalPages)">Last</a>
+            </li>
+        </ul>
+        </div>
+      </div>
+
+
+    </div>
+  </div>

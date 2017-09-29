@@ -1,0 +1,28 @@
+<body>
+    <div class="col-lg-4 col-md-4 col-xs-10 col-xs-offset-1 col-md-offset-4 col-lg-offset-4">
+        <div class="card">
+
+            
+            <h2 style="text-align:center">Admin Login</h2>
+            
+            <app-loading *ngIf="loading"></app-loading>
+            <form name="form" *ngIf="!loading"(ngSubmit)="login()" #f="ngForm" novalidate>
+                <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !email.valid }">
+                    <label for="email">Email</label>
+                    <input placeholder="Email" type="text" class="form-control" name="email" [(ngModel)]="user.email" #email="ngModel" required
+                    />
+                    <div *ngIf="f.submitted && !email.valid" class="help-block">Email is required</div>
+                </div>
+                <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+                    <label for="password">Password</label>
+                    <input placeholder="Password" type="password" class="form-control" name="password" [(ngModel)]="user.password" #password="ngModel"
+                        required />
+                    <div *ngIf="f.submitted && !password.valid" class="help-block">Password is required</div>
+                </div>
+                <div class="form-group" style="text-align:center">
+                    <button [disabled]="loading" class="button">Login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>

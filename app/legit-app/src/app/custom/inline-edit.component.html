@@ -1,0 +1,21 @@
+<div>
+  <div *ngIf="editing">
+    <label class="block bold">{{label}}</label>
+    <input #inlineEditControl [required]="required" (blur)="onBlur($event)" [name]="value" [(ngModel)]="value" [type]="type"
+      [placeholder]="label" />
+  
+  </div>
+  <div *ngIf="!editing">
+    <label class="block bold"> {{label}} 
+      
+      <i title="Edit" (click)="edit(value)" class="ti-pencil"></i></label>
+
+    <div tabindex="0" class="inline-edit">
+      {{value}}&nbsp;
+    </div>
+  </div>
+
+
+
+
+</div>

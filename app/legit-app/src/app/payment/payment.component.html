@@ -1,0 +1,58 @@
+<div class="container">
+  <app-loading *ngIf="loading"> </app-loading>
+  
+  <div class="col-md-12" *ngIf="!loading">
+    <div class="card">
+      <div class="content">
+        <div class="header">
+          <h4 class="title">Shipping Address</h4>
+        </div>
+        <div class="details-box">
+          <div class="details">
+            <h5 class="name">{{address.recipientName}} </h5> Tel: {{address.phoneNo}}<br/> <br/> {{address.addressLine}} <br/> {{address.city}}
+            <br/> {{address.country}}
+            <br/> {{address.postalCode}}
+
+            <!-- <br/> Singapore {{postalCode}} -->
+            <br/>
+          </div>
+        </div>
+        <div class="header">
+          <h4 class="title">Order Summary</h4>
+        </div>
+        <table>
+          <tr>
+            <th>Product</th>
+            <th>Description</th>
+            <th>Quantity</th>
+            <th>Total</th>
+          </tr>
+          <tr *ngFor="let item of shoppingCart.cartItems">
+            <td><img src="{{item.product.images[0].imageUrl}}" alt="..." class="img-product"><br/></td>
+            <td class="product-title">
+              <div class="pattern-name">{{item.product.pattern.patternName}}</div>
+              {{item.product.productId}}
+              <br> {{item.product.fabric.fabricName}}
+              <br> {{item.product.colour.colourName}}
+              <br> $ {{item.unitPrice}}.00
+            </td>
+            <td>
+              {{item.quantity}}
+            </td>
+            <td>
+              $ {{item.quantity*item.unitPrice}}.00
+            </td>
+          </tr>
+          <tr style="border: 0px">
+            <td></td>
+            <td></td>
+            <td style="text-align: right; font-size: 16px; font-weight: bold">Total Price</td>
+            <td>$ {{shoppingCart.price}}.00</td>
+          </tr>
+        </table>
+      </div>
+      <a routerLink="/checkout"> <button class="left-button back">Back</button> </a>
+      <button class="right-button pull-right" (click)="openCheckout()">Place Your Order</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,30 @@
+.col-md-4{
+     
+    width: 20%;
+    float: right;    
+}
+.card{
+    padding-bottom: 10px;
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    
+}
+
+td, th {
+    border-bottom: 1px solid gray;
+    text-align: left;
+    padding: 8px;
+    width: 20%;
+}
+
+th{
+    font-size: 18px;
+}
+.add{
+    background-color: green;
+    border: 0px;
+}

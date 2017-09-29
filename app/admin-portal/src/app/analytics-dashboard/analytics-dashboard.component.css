@@ -1,0 +1,14 @@
+td, th {
+    border: 1px solid lightgray;
+    text-align: left;
+    padding: 8px;
+}
+table{
+    border-radius: 10px;
+    width: 100%;
+}
+
+label{
+    color: black;
+    font-size: 14px;
+}

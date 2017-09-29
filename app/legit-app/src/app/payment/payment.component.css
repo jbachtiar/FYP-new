@@ -1,0 +1,123 @@
+.container {
+    padding-top: 80px;
+    line-height: 200%;
+
+
+}
+.title{
+    display: inline-block;
+    text-align: left;
+    font-family: Georgia;
+    font-size: 20px;
+    font-weight: normal;
+    color: white;
+    padding-left: 15px;
+}
+
+.header{
+    padding-top:5px;
+    background-color: goldenrod;
+    
+}
+.item{
+    width: 30%
+}
+
+.content{
+    border: solid 1px goldenrod;
+}
+
+.left-button{
+    border: 1px solid goldenrod;
+    background-color: goldenrod; 
+    font-family: Georgia;
+    font-size: 16px;
+    color: white;
+    padding-top: 5px;
+    padding-right: 40px;
+    padding-bottom: 5px;
+    padding-left: 40px;
+    margin-top: 10px;
+}
+
+.right-button{
+    border: 1px solid goldenrod;
+    background-color: goldenrod; 
+    font-family: Georgia;
+    font-size: 16px;
+    color: white;
+    padding-top: 5px;
+    padding-right: 40px;
+    padding-bottom: 5px;
+    padding-left: 40px;
+    margin-top: 10px;
+}
+
+h4{
+    font-weight: bold;
+}
+
+h5{
+    font-weight: bold;
+}
+
+.details-box{
+    padding-left: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.name{
+    font-size: 20px;
+    font-family: Georgia;
+}
+
+.details{
+    font-size: 14px;
+    font-family: sans-serif;
+}
+
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border-bottom: 1px solid goldenrod;
+    text-align: center;
+    padding: 8px;
+    width: 20%;
+}
+
+th{
+    font-size: 18px;
+}
+
+.img-product {
+    width: 150px;
+    text-align: center;
+}
+
+.back{
+    border: 1px solid lightgray;
+    background-color: lightgray; 
+    font-family: Georgia;
+    font-size: 16px;
+    color: white;
+    padding-top: 5px;
+    padding-right: 40px;
+    padding-bottom: 5px;
+    padding-left: 40px;
+    margin-top: 10px;
+}
+
+.pattern-name{
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.product-title{
+    line-height: 150%;
+}

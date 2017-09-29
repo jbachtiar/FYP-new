@@ -1,0 +1,73 @@
+<app-loading *ngIf="loading">
+</app-loading>
+
+<div class="col-md-9 content" *ngIf="!loading">
+        <h2>My Profile</h2>
+        <hr>
+        <app-inline-edit [(ngModel)]="firstName" label="First Name" [required]="true" type="text">
+        </app-inline-edit>
+
+        <app-inline-edit [(ngModel)]="lastName" label="Last Name" [required]="true" type="text">
+        </app-inline-edit>
+
+        <app-inline-edit [(ngModel)]="contact" label="Contact Number" [required]="true" type="text">
+        </app-inline-edit>
+
+        <div [hidden]="!isDisplay"> <b>Password </b> <span (click)=updatePassword() class="ti-pencil">  </span> <br> ******* 
+        </div>
+
+        <form [hidden]="isDisplay" name="form" (ngSubmit)="f.form.valid && update()" #f="ngForm" novalidate>
+                <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+                        <input type="password" class="form-control" placeholder="Password" id="password" name="password" [(ngModel)]="user.password"
+                                #password="ngModel" required />
+                        <div *ngIf="password.touched || f.submitted" class="help-block">
+                                <div [hidden]="!password.hasError('required')">Password is required</div>
+                        </div>
+                </div>
+
+                <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !confirmPassword.valid }">
+                        <input type="password" class="form-control" placeholder="Re-type Password" id="confirmPassword" name="confirmPassword" required
+                                validateEqual="password" [(ngModel)]="user.confirmPassword" #confirmPassword="ngModel" />
+                        <div *ngIf="confirmPassword.touched || f.submitted" class="help-block">
+                                <div [hidden]="!confirmPassword.hasError('required')">Re-type your password</div>
+                                <div *ngIf="confirmPassword.errors?.validateEqual">
+                                        Passwords did not match
+                                </div>
+                        </div>
+
+
+                </div>
+              
+                <button [hidden]="isDisplay" type="reset" class="left-button"(click)=back()>Back</button>
+                <button [disabled]="loading" class="right-button">Update</button>
+                
+                <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+                />
+
+
+        </form>
+
+
+        <button [hidden]="!isDisplay" [disabled]="loading" class="button" (click)=update()>Update</button>
+
+
+
+
+
+
+
+        <!-- <app-inline-edit [(ngModel)]="address" label="Address" [required]="true" type="text">
+                </app-inline-edit>  
+
+                <app-inline-edit [(ngModel)]="postalCode" label="Postal Code" [required]="true" type="text">
+                </app-inline-edit>     -->
+
+        <!-- <app-inline-edit [(ngModel)]="password" label="Password" [required]="true" type="password">
+                </app-inline-edit>   -->
+
+
+        <!--  <div class="form-group">
+                        <button (click)="update()" [disabled]="loading" class="button">Update</button>
+                </div> -->
+
+</div>
