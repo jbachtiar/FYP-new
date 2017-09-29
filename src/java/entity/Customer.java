@@ -10,69 +10,100 @@ package entity;
  * @author JeremyBachtiar
  */
 public class Customer {
-    private int custID;
-    private String name;
-    private String contact;
+    
+    private String email;
+    private String firstName;
+    private String lastName;
+    private String phoneNumber;
     private String address;
+    private String country;
+    private String postalCode;
     private String password;
-    private String paymentMethod;
+    private String verified;
 
-    public Customer(int custID, String name, String contact, String address, String password, String paymentMethod) {
-        this.custID = custID;
-        this.name = name;
-        this.contact = contact;
+    public Customer(String email, String firstName, String lastName, String phoneNumber, String address, String country, String postalCode, String password, String verified) {
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
         this.address = address;
+        this.country = country;
+        this.postalCode = postalCode;
         this.password = password;
-        this.paymentMethod = paymentMethod;
+        this.verified = verified;
     }
 
-    public void setCustID(int custID) {
-        this.custID = custID;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public void setContact(String contact) {
-        this.contact = contact;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public void setAddress(String address) {
         this.address = address;
     }
 
+     public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
+    }
+
     public void setPassword(String password) {
         this.password = password;
     }
 
-    public void setPaymentMethod(String paymentMethod) {
-        this.paymentMethod = paymentMethod;
-    }
-    
-    public int getCustID() {
-        return custID;
+    public void setVerified(String verified) {
+        this.verified = verified;
     }
 
-    public String getName() {
-        return name;
+    public String getEmail() {
+        return email;
     }
 
-    public String getContact() {
-        return contact;
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
     public String getAddress() {
         return address;
     }
 
+    public String getCountry() {
+        return country;
+    }
+
+    public String getPostalCode() {
+        return postalCode;
+    }
+
     public String getPassword() {
         return password;
     }
 
-    public String getPaymentMethod() {
-        return paymentMethod;
+    public String getVerified() {
+        return verified;
     }
-    
+
     
 }

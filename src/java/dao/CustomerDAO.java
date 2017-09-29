@@ -36,15 +36,17 @@ public class CustomerDAO {
             rs = stmt.executeQuery();
             
             while (rs.next()) {
-                int id = rs.getInt(1);
-                String first_name = rs.getString(2);
-                String contact = rs.getString(3);
-                String address = rs.getString(4);
-                String password = rs.getString(5);
-                String paymentMethod = rs.getString(6);
-                String last_name = rs.getString(8);
-                String name = first_name+" "+last_name;
-                customer = new Customer(id, name, contact, address, password, paymentMethod);
+                
+                String firstName = rs.getString(2);
+                String lastName = rs.getString(3);
+                String phoneNumber = rs.getString(4);
+                String address = rs.getString(5);
+                String country = rs.getString(6);
+                String postalCode = rs.getString(7);
+                String password = rs.getString(8);
+                String verified = rs.getString(9);
+              
+                customer = new Customer(email,firstName,lastName, phoneNumber, address, country, postalCode, password, verified);
              
             }
 
@@ -62,7 +64,7 @@ public class CustomerDAO {
         ResultSet rs = null;
         String password = null;
         
-        String sql = "SELECT password FROM customer WHERE contact =  ? "; 
+        String sql = "SELECT password FROM customer WHERE email =  ? "; 
         try {
             conn = ConnectionManager.getConnection();
             stmt = conn.prepareStatement(sql);
@@ -82,78 +84,90 @@ public class CustomerDAO {
         return password;
     }
     
-             
-    public static void addCustomer(int id, String first_name, String last_name, String contact, String address, String password, String paymentMethod, String email) {
+    
+    public static int retrieveNumOfCustomers() {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
+        int numOfCustomer=0;
         
-        String sql = "Insert into customer values (?,?,?,?,?,?,?,?)"; 
+        String sql = "SELECT count(*) FROM customer"; 
         try {
             conn = ConnectionManager.getConnection();
             stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, id);
-            stmt.setString(2, first_name );
-            stmt.setString(3, contact);
-            stmt.setString(4, address);
-            stmt.setString(5, password);
-            stmt.setString(6, paymentMethod);
-            stmt.setString(7, email);
-            stmt.setString(7, last_name);
+             rs = stmt.executeQuery();
             
-            stmt.executeUpdate();
-            
-          
+            while (rs.next()) {
+                numOfCustomer = rs.getInt(1);
+             
+            }
+
         } catch (SQLException ex) {
             handleSQLException(ex, sql);
         } finally {
             ConnectionManager.close(conn, stmt, rs);
         }
-       
+        return numOfCustomer;
     }
-    
-    
-      public static int getNumOfCustomers() {
+        
+     public static void insertCustomer(String email, String firstName, String lastName, String phoneNumber, String address, String postalCode, String password ) {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        int numOfCus = 0;
-        String sql = "Select count(*) from customer"; 
-
+        String sql = "INSERT into customer values(?,?,?,?,?,?,?,?,?)";
+ 
         try {
             conn = ConnectionManager.getConnection();
             stmt = conn.prepareStatement(sql);
-            rs = stmt.executeQuery();
-            while (rs.next()) {
-                numOfCus = rs.getInt(1);
-             
-            }
-        } catch (SQLException e) {
-            System.out.println(e);
+            stmt.setString(1, email);
+            stmt.setString(2,firstName);
+            stmt.setString(3, lastName);
+            stmt.setString(4, phoneNumber);
+            stmt.setString(5, address);
+            stmt.setString(6, "Singapore");
+            stmt.setString(7, postalCode);
+            stmt.setString(8, password);
+            stmt.setString(9, "N");
+           
+            stmt.executeUpdate();
+            
+        } catch (SQLException ex) {
+            handleSQLException(ex, sql);
         } finally {
             ConnectionManager.close(conn, stmt, rs);
         }
-        return numOfCus;
+     }
+        
+        public static void updateCustomer(String email, String firstName, String lastName, String phoneNumber, String address, String postalCode, String password ) {
+            Connection conn = null;
+            PreparedStatement stmt = null;
+            ResultSet rs = null;
+            String sql = "update customer set first_name=?, last_name=?, phone_number=?, address=?, country=?, postal_code=?, password=? where email=?";
+ 
+            try {
+                conn = ConnectionManager.getConnection();
+                stmt = conn.prepareStatement(sql);
+              
+                stmt.setString(1,firstName);
+                stmt.setString(2, lastName);
+                stmt.setString(3, phoneNumber);
+                stmt.setString(4, address);
+                stmt.setString(5, "Singapore");
+                stmt.setString(6, postalCode);
+                stmt.setString(7, password);
+                stmt.setString(8, email);
+       
+
+                stmt.executeUpdate();
+
+            } catch (SQLException ex) {
+                handleSQLException(ex, sql);
+            } finally {
+                ConnectionManager.close(conn, stmt, rs);
+            }
+    
+    
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     
     

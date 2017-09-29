@@ -1,8 +1,11 @@
-typings
-/src/**/*.js
-*.map
-node_modules
-npm-debug.log*
-dist/*
+# Created by https://www.gitignore.io/api/netbeans
 
-.DS_Store
+### NetBeans ###
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+# End of https://www.gitignore.io/api/netbeans
