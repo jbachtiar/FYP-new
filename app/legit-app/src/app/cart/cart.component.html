@@ -17,7 +17,7 @@
   </div>
   <hr>
   <div class="row">
-    <div class="col-s-12 col-xs-12" *hideItDevice="['mobile','tablet']">
+    <div class="col-sm-12 col-xs-12" *hideItDevice="['mobile','tablet']">
       <table>
         <tr>
           <th>Product</th>
@@ -59,10 +59,10 @@
     <div class="container" *showItDevice="['mobile','tablet']">
       <div *ngFor="let item of shoppingCart.cartItems">
         <div class="row">
-          <div class="col-xs-6 col-s-6" style="margin-right:0px; padding-right:0px">
+          <div class="col-xs-6 col-sm-6" style="margin-right:0px; padding-right:0px">
             <img src="{{item.product.images[0].imageUrl}}" alt="..." class="img-product">
           </div>
-          <div class="col-xs-6 col-s-6" style="padding-left:0px">
+          <div class="col-xs-6 col-sm-6" style="padding-left:0px">
 
             <div class="pattern-name">{{item.product.pattern.patternName}}</div>
             <b>Product ID:</b> {{item.product.productId}}
@@ -105,7 +105,7 @@
           </table>
         </div>
         <div class="row">
-          <div col-xs-12 col-s-12>
+          <div col-xs-12 col-sm-12>
             <button class="checkout" routerLink="/checkout">Checkout     <span class="glyphicon glyphicon-menu-right"></span></button>
           </div>
         </div>

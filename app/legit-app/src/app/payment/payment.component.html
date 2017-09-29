@@ -1,8 +1,8 @@
 <div class="container">
   <app-loading *ngIf="loading"> </app-loading>
-  
+
   <div class="col-md-12" *ngIf="!loading">
-    <div class="card">
+    <div class="card" *hideItDevice="['mobile','tablet']">
       <div class="content">
         <div class="header">
           <h4 class="title">Shipping Address</h4>
@@ -53,6 +53,77 @@
       </div>
       <a routerLink="/checkout"> <button class="left-button back">Back</button> </a>
       <button class="right-button pull-right" (click)="openCheckout()">Place Your Order</button>
+    </div>
+  </div>
+
+  <div class="container" style="padding-top:0px;" *ngIf="!loading">
+
+    <div class="container" style="padding-top:0px;" *showItDevice="['mobile','tablet']">
+      <div class="row">
+        <h1 class="title">Shipping Address</h1>
+      </div>
+      <hr>
+      <div class="details">
+          <h5 class="name">{{address.recipientName}} </h5> 
+          <div class="details">
+              <b>Phone Number :</b> {{address.phoneNo}}
+              <br>
+              <b>Address :</b><br/> {{address.addressLine}}, {{address.city}}, {{address.country}} {{address.postalCode}}    
+          </div>
+          
+          <!-- <br/> Singapore {{postalCode}} -->
+          <br/>
+      </div>
+      <hr>
+      <div class="row">
+        <h1 class="title">Order Summary | <i>{{shoppingCart.cartItems.length}} item(s)</i></h1>
+      </div>
+      <hr>
+      <div *ngFor="let item of shoppingCart.cartItems">
+        <div class="row">
+          <div class="col-xs-6 col-sm-6" style="margin-right:0px; padding-right:5px">
+            <img src="{{item.product.images[0].imageUrl}}" alt="..." class="img-product">
+          </div>
+          <div class="col-xs-6 col-sm-6" style="padding-left:15px; line-height:150%">
+
+            <div class="pattern-name">{{item.product.pattern.patternName}}</div>
+            <b>Product ID:</b> {{item.product.productId}}
+            <br><b>Fabric:</b> {{item.product.fabric.fabricName}}
+            <br><b>Colour:</b> {{item.product.colour.colourName}}
+            <br><b>Size:</b> {{item.product.size.sizeName}}
+            <br> {{item.quantity}} @ $ {{item.unitPrice}}.00
+            <br>
+            <br>
+          </div>
+        </div>
+
+        <hr>
+      </div>
+      <div class="row">
+        <table>
+          <tbody>
+            <tr>
+              <td>Subtotal</td>
+              <td class="table-right"><b>$ {{shoppingCart.price}}.00</b></td>
+            </tr>
+            <tr>
+              <td>Delivery</td>
+              <td class="table-right">free</td>
+            </tr>
+            <tr>
+              <td>Total</td>
+              <td class="table-right" style="font-size: 24px;"><b>$ {{shoppingCart.price}}.00</b></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <hr>
+      <div class="row">
+        <div col-xs-12 col-sm-12>
+          <button class="checkout" (click)="openCheckout()">Place Your Order   <span style="padding-left:10px; padding-bottom:0px;"class="glyphicon glyphicon-credit-card"></span></button>
+          <a routerLink="/checkout"> <button class="left-button back">Back</button> </a>
+        </div>
+      </div>
     </div>
   </div>
 </div>

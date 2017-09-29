@@ -31,6 +31,7 @@ export class PaymentComponent implements OnInit {
   private cartItem: CartItem[];
   private stripeToken;
   private paymentRefNo: string;
+  private loading: boolean = false;
 
 
   constructor(
@@ -58,6 +59,8 @@ export class PaymentComponent implements OnInit {
   }
 
   openCheckout() {
+    
+    this.loading = true;
     console.log("CHECKOUT")
     var handler = (<any>window).StripeCheckout.configure({
       key: 'pk_test_PcfRcpvH8lJ8P7GtXdwbTl9D',
@@ -105,7 +108,7 @@ export class PaymentComponent implements OnInit {
             //empty cart
             this.updateCart()
             //save address if requested
-            if(this.save){
+            if (this.save) {
               this.saveAddress()
             }
             //create modal 
@@ -132,9 +135,13 @@ export class PaymentComponent implements OnInit {
     })
       .subscribe((isConfirmed) => {
         if (isConfirmed) {
+
+          this.loading = false;
           this.router.navigate(['/']);
         }
         else {
+          
+          this.loading = false;
           this.router.navigate(['/']);
         }
       });
@@ -148,9 +155,13 @@ export class PaymentComponent implements OnInit {
       .subscribe((isConfirmed) => {
         //We get dialog result
         if (isConfirmed) {
+          
+          this.loading = false;
           // this.router.navigate(['/']);
         }
         else {
+          
+          this.loading = false;
           // this.router.navigate(['/']);
         }
       });
