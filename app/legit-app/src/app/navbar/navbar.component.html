@@ -2,14 +2,15 @@
 
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed burger" data-toggle="collapse" data-target=".navbar-collapse" (click)="toggleState()">
+            <button type="button" class="navbar-toggle collapsed burger pull-left" data-toggle="collapse" data-target=".navbar-collapse"
+                (click)="toggleState()">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
-        </button>
-            <a *showItDevice="['mobile','tablet']" class="btn btn-cart pull-left" routerLink="/cart">
-                <div class="box">
+            </button>
+            <a *showItDevice="['mobile','tablet']" class="btn btn-cart pull-right" routerLink="/cart">
+                <div class="box" style="margin-bottom : 10px;">
                     <img src="/assets/images/shopping-bag.png" style="width:30px">
                     <div class="text">
                         <h2 style="font-size: 15px;" *ngIf="itemCount!=0">{{itemCount}}</h2>
@@ -26,9 +27,16 @@
                 <li class="nav-item" (click)="toggleState()" routerLinkActive="active"><a class="nav-link" routerLink="/products">Fabrics</a></li>
                 <li class="nav-item" (click)="toggleState()" routerLinkActive="active"><a class="nav-link" routerLink="/accessories">Home Accesssories</a></li>
                 <li class="nav-item" (click)="toggleState()" routerLinkActive="active"><a class="nav-link" routerLink="/store-locator">Find Us</a></li>
+                <!-- <div *showItDevice="['mobile','tablet']"> -->
+                <li class="nav-item" (click)="toggleState()" routerLinkActive="active" *showItDevice="['mobile','tablet']"><a *ngIf="authenticated" class="nav-link" routerLink="../profile-sidebar">My Profile</a></li>
+                <li class="nav-item" (click)="toggleState()" routerLinkActive="active" *showItDevice="['mobile','tablet']"><a *ngIf="authenticated" class="nav-link" (click)="logout()">Logout</a></li>
+                <!-- </div> -->
+                <li class="nav-item" (click)="toggleState()" routerLinkActive="active" *showItDevice="['mobile','tablet']"><a *ngIf="!authenticated" class="nav-link" routerLink="../register">Register</a></li>
+                <li class="nav-item" (click)="toggleState()" routerLinkActive="active" *showItDevice="['mobile','tablet']"><a *ngIf="!authenticated" class="nav-link" (click)="showLogin()">Login</a></li>
             </ul>
-            <ul class="nav navbar-nav pull-right">
-                <a *hideItDevice="['mobile','tablet']" (click)="toggleState()" class="btn btn-cart" routerLink="/cart">
+
+            <ul class="nav navbar-nav pull-right" *hideItDevice="['mobile','tablet']">
+                <a (click)="toggleState()" class="btn btn-cart" routerLink="/cart">
                     <div class="box">
                         <img src="/assets/images/shopping-bag.png" style="width:30px">
                         <div class="text">

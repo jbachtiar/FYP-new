@@ -37,3 +37,9 @@ button :active{
     border: 1px solid goldenrod;
     background-color: black; 
 }
+
+@media only screen and (max-width: 500px) {
+    .modal-dialog{
+        margin-top : 30%;
+    }
+}
