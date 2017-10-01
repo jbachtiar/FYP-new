@@ -1,8 +1,8 @@
 <div class="container">
   <app-loading *ngIf="loading"> </app-loading>
-
-  <div class="col-md-12" *ngIf="!loading">
-    <div class="card" *hideItDevice="['mobile','tablet']">
+  <!-- Normal Display -->
+  <div class="row" *ngIf="!loading">
+    <div class="card col-md-4" *hideItDevice="['mobile','tablet']">
       <div class="content">
         <div class="header">
           <h4 class="title">Shipping Address</h4>
@@ -17,6 +17,10 @@
             <br/>
           </div>
         </div>
+      </div>
+    </div>
+    <div class="card col-md-8" *hideItDevice="['mobile','tablet']">
+      <div class="content">
         <div class="header">
           <h4 class="title">Order Summary</h4>
         </div>
@@ -56,6 +60,8 @@
     </div>
   </div>
 
+
+  <!-- Mobile Display -->
   <div class="container" style="padding-top:0px;" *ngIf="!loading">
 
     <div class="container" style="padding-top:0px;" *showItDevice="['mobile','tablet']">
@@ -64,15 +70,15 @@
       </div>
       <hr>
       <div class="details">
-          <h5 class="name">{{address.recipientName}} </h5> 
-          <div class="details">
-              <b>Phone Number :</b> {{address.phoneNo}}
-              <br>
-              <b>Address :</b><br/> {{address.addressLine}}, {{address.city}}, {{address.country}} {{address.postalCode}}    
-          </div>
-          
-          <!-- <br/> Singapore {{postalCode}} -->
-          <br/>
+        <h5 class="name">{{address.recipientName}} </h5>
+        <div class="details">
+          <b>Phone Number :</b> {{address.phoneNo}}
+          <br>
+          <b>Address :</b><br/> {{address.addressLine}}, {{address.city}}, {{address.country}} {{address.postalCode}}
+        </div>
+
+        <!-- <br/> Singapore {{postalCode}} -->
+        <br/>
       </div>
       <hr>
       <div class="row">
