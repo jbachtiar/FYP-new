@@ -32,6 +32,7 @@ export class TrackOrderDetailComponent implements OnInit {
         this.order = orders;
         this.orderItems = orders[0].orderItems;
         this.statusLog = orders[0].statusLogs;
+        console.log(this.statusLog)
         if (this.statusLog.length > 0) {
           this.returnTheLatestOrderStatus(this.statusLog);
           if (this.statusId != 6) {

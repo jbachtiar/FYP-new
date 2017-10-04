@@ -1,13 +1,40 @@
 <body class="container">
-  <div class="row">
-    <div class="col-md-3">     
-      <ul>
-        <li><a class="sidebar-item active" (click)=manageAccount()>Manage Account</a></li>
-        <li><a class="sidebar-item" (click)=manageAddressBook()>Address Book</a></li>
-        <li><a class="sidebar-item" (click)=trackOrder()>Track Order</a></li>
-      </ul>
+  <div class="container" *hideItDevice="['mobile','tablet']">
+    <div class="row">
+      <div class="col-md-3 col-sm-12 col-xs-12">
+        <ul id="menu">
+          <li class="sub"><a class="sidebar-item active" (click)=manageAccount()>Manage Account</a></li>
+          <li class="sub"><a class="sidebar-item" (click)=manageAddressBook()>Address Book</a></li>
+          <li class="sub"><a class="sidebar-item" (click)=trackOrder()>Track Order</a></li>
+        </ul>
+      </div>
+      <div class="content col-md-9">
+        <app-profile *ngIf="account"></app-profile>
+        <app-address-book *ngIf="addressBook"></app-address-book>
+        <app-track-order *ngIf="track"></app-track-order>
+      </div>
     </div>
-    <div class="content col-md-9" >
+  </div>
+  <div class="container" *showItDevice="['mobile','tablet']">
+
+    <div class="row">
+      <div class="col-sm-12 col-xs-12">
+        <table>
+          <thead>
+            <th>
+              <a class="" (click)=manageAccount()>Manage Account</a>
+            </th>
+            <th>
+              <a class="" (click)=manageAddressBook()>Address Book</a>
+            </th>
+            <th>
+              <a class="" (click)=trackOrder()>Track Order</a>
+            </th>
+          </thead>
+        </table>
+      </div>
+    </div>
+    <div class="row">
       <app-profile *ngIf="account"></app-profile>
       <app-address-book *ngIf="addressBook"></app-address-book>
       <app-track-order *ngIf="track"></app-track-order>

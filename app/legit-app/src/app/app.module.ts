@@ -56,7 +56,8 @@ import { LoadingComponent } from './loading/loading.component';
 import { DeleteConfirmationPopupComponent } from './delete-confirmation-popup/delete-confirmation-popup.component';
 import { AddressBookComponent } from './address-book/address-book.component';
 import { TrackOrderDetailComponent } from './track-order-detail/track-order-detail.component';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MdExpansionModule} from '@angular/material'
 import { Angulartics2Module, Angulartics2GoogleAnalytics } from 'angulartics2';
 import { AccountVerificationComponent } from './account-verification/account-verification.component';
 
@@ -105,7 +106,9 @@ import { AccountVerificationComponent } from './account-verification/account-ver
     MdCardModule,
     CarouselModule,
     Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ]),
-    ResponsiveModule
+    ResponsiveModule,
+    MdExpansionModule,
+    BrowserAnimationsModule
   ],
   providers: [
     AuthenticationService,

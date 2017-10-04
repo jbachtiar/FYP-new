@@ -142,9 +142,9 @@ thead{
 }
 
 .title{
-    font-size: 18px;
-    color: #DD0330;
-    font-family: 'Muli';
+    font-size: 24px;
+    color: goldenrod;
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 
@@ -195,4 +195,133 @@ color: white;
 
 .button{
     background-color: goldenrod;
+}
+
+@media only screen and (max-width: 500px) {
+    .border{
+        
+        border-left: 1px solid gray;
+        border-right: 1px solid gray;
+        border-bottom: 1px solid gray;
+    }
+    .see{
+        background-color: rgba(0, 0, 0, 0);
+        color: gray;
+        border: 0px solid gray !important;
+        border-radius: 0px;
+     }
+    hr.style13 {
+        height: 10px;
+        border: 0;
+        box-shadow: 0 10px 10px -10px #8c8b8b inset;
+    }
+    h5{
+        font-size: 14px;
+    }
+    h1{
+        margin-top : 0px;
+    }
+    md-card{
+        padding-top : 20px !important;
+    }
+    
+    md-panel-title{
+        font-size: 30px;
+    }
+    .timeline {
+        border-left: 0.25em solid goldenrod;
+        background: rgba(255, 255, 255, 0.1);
+        margin: 1em auto;
+        line-height: 1.4em;
+        padding: 0.5em;
+        padding-left: 3em;
+        list-style: none;
+        text-align: left;
+        margin-left: 3em;
+        /* margin-right: 3em; */
+        /* border-radius: 0.5em; */
+        min-width: 22em;
+      }
+      
+      .timeline .event:before,
+      .timeline .event:after {
+        position: absolute;
+        display: block;
+        top: 1em;
+      }
+      
+      .timeline .event:before {
+        left: -15em;
+        color: rgba(255, 255, 255, 0.8);
+        content: attr(data-date);
+        text-align: right;
+        font-weight: 100;
+        font-size: 0.9em;
+        min-width: 9em;
+      }
+      
+      .timeline .event:after {
+        box-shadow: 0 0 0 0.2em goldenrod;
+        left: -3.5em;
+        background: #FFFFFF;
+        border-radius: 50%;
+        height: 0.75em;
+        width: 0.75em;
+        content: "";
+      }
+      .timeline .event .member-location,
+      .timeline .event .member-parameters {
+        display: none;
+      }
+      
+      .timeline .event:last-of-type .member-location,
+      .timeline .event:last-of-type .member-parameters {
+        display: block;
+      }
+      
+      .member-infos {
+        padding: 10px;
+        padding-left: 0px;
+        text-align: left;
+        position: relative;
+      }
+      
+      .member-infos > h1 {
+        font-weight: bold;
+        font-size: 18px;
+      }
+      
+      .member-location a:before {
+        margin-right: 5px;
+      }
+      
+      .member-location {
+        text-indent: 2px;
+        font-size: 14px;
+        margin-top: 10px;
+      }
+      .event {
+        min-width: 20em;
+        width: 100%;
+        vertical-align: middle;
+        box-sizing: border-box;
+        position: relative;
+      }
+      .img-product{
+          width: 180px;
+      }
+      h1{
+          font-size: 28px;
+          font-family: Georgia, 'Times New Roman', Times, serif;
+          margin-bottom : 0px;
+      }
+      .line{
+          margin-top : 4px
+      }
+         
+      .status{
+          color: green;
+          text-align: center;
+          margin-top: 10px;
+      }
 }

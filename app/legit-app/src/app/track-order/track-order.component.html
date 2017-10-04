@@ -1,23 +1,24 @@
 <app-loading *ngIf="loading">
 </app-loading>
 
-<div *ngIf="!loading">
+<div class="container" *ngIf="!loading">
     <h2>Track Order</h2>
     <hr>
 
     <h4> <b> Current Orders </b> </h4>
+    <hr>
     <div [hidden]="!isDisplayCurrentOrder">
-        <table>
+        <table class="table table-hover">
             <thead>
                 <th>Order ID</th>
                 <th>Order Status</th>
                 <th>Price</th>
                 <th>Date of Purchase</th>
-                <th> </th>
+                <th *hideItDevice="['mobile','tablet']"> </th>
             </thead>
 
             <tbody *ngFor="let co of currentOrders">
-                <tr>
+                <tr (click)=viewOrder(co.orderId)>
                     <td>
                         {{co.orderId}}
                     </td>
@@ -30,7 +31,7 @@
                     <td>
                         {{co.order_TimeStamp}}
                     </td>
-                    <td>
+                    <td *hideItDevice="['mobile','tablet']">
                         <button [disabled]="loading" class="button" (click)=viewOrder(co.orderId)>View Details</button>
                     </td>
                 </tr>
@@ -42,6 +43,7 @@
     </p>
 
     <h4> <b> Past Purchases </b></h4>
+    <hr>
     <div [hidden]="!isDisplayPastOrder">
         <table>
             <thead>
@@ -49,11 +51,11 @@
                 <th>Order Status</th>
                 <th>Price</th>
                 <th>Date of Purchase</th>
-                <th></th>
+                <th *hideItDevice="['mobile','tablet']"></th>
             </thead>
 
             <tbody *ngFor="let co of pastOrders">
-                <tr>
+                <tr viewOrder(co.orderId)>
                     <td>
                         {{co.orderId}}
                     </td>
@@ -66,7 +68,7 @@
                     <td>
                         {{co.order_TimeStamp}}
                     </td>
-                    <td>
+                    <td *hideItDevice="['mobile','tablet']">
                         <button [disabled]="loading" class="button" (click)=viewOrder(co.orderId)>View Details</button>
                     </td>
                 </tr>

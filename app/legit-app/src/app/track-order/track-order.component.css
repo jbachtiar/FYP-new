@@ -56,3 +56,12 @@ th{
     padding-left: 30px;
     margin-top: 10px;
 }
+
+@media only screen and (max-width: 500px) {
+    th{
+        font-size: 14px;
+    }
+    tr:active{
+        background: gray;
+    }
+}

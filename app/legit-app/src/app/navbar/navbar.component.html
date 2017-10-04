@@ -29,12 +29,8 @@
                 <li class="nav-item" (click)="toggleState()" routerLinkActive="active"><a class="nav-link" routerLink="/store-locator">Find Us</a></li>
                 <!-- <div *showItDevice="['mobile','tablet']"> -->
                 <li class="nav-item" (click)="toggleState()" routerLinkActive="active" *showItDevice="['mobile','tablet']">
-                    <a *ngIf="authenticated" class="nav-link dropdown-toggle slide" routerLink="../profile-sidebar" ref="#"  data-toggle="dropdown" >My Profile</a>
-                    <ul class="dropdown-menu multi-level">
-                            <li><a href="#">Manage Account</a></li>
-                            <li><a href="#">Address Book</a></li>
-                            <li><a href="#">Track Order</a></li>
-                    </ul>
+                    <a *ngIf="authenticated" class="nav-link dropdown-toggle slide" ref="#" routerLink="../profile-sidebar" data-toggle="dropdown">My Profile</a>
+
                 </li>
                 <li class="nav-item" (click)="toggleState()" routerLinkActive="active" *showItDevice="['mobile','tablet']"><a *ngIf="authenticated" class="nav-link" (click)="logout()">Logout</a></li>
                 <!-- </div> -->

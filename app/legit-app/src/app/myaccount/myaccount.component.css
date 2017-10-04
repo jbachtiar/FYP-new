@@ -35,3 +35,27 @@ body {
     border: 1px solid goldenrod;
 }
 
+
+@media only screen and (max-width: 500px) {
+    th{
+        border: 0.5px solid goldenrod;
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        color: goldenrod;
+        text-align: center;
+        padding: 4px 4px;
+    }
+    th > a{
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        color: goldenrod;
+        text-align: center;
+    }
+    th > a :hover, th > a:active, th:hover, th:active ,a:active, a:hover{
+        background: goldenrod;
+        color: white
+    }
+
+    table{
+        width: 100%;
+        text-align: center;
+    }
+}
