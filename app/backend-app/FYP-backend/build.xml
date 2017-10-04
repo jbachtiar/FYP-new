@@ -7,13 +7,8 @@
 <!-- the Compile on Save feature is turned off for the project. -->
 <!-- You can turn off the Compile on Save (or Deploy on Save) setting -->
 <!-- in the project's Project Properties dialog box.-->
-<<<<<<< HEAD:build.xml
-<project name="JP-backend" default="default" basedir=".">
-    <description>Builds, tests, and runs the project JP-backend.</description>
-=======
 <project name="FYP-backend" default="default" basedir=".">
     <description>Builds, tests, and runs the project FYP-backend.</description>
->>>>>>> 2590292be67c392d3673b4b427da6fcbfd620970:app/backend-app/FYP-backend/build.xml
     <import file="nbproject/build-impl.xml"/>
     <!--
 
