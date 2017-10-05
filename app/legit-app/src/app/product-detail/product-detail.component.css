@@ -166,7 +166,7 @@ img{
     }
     .right {
         position: absolute;
-        left : 290px;
+        /* left : 290px; */
     }
     .thumb{
         width : 80px;
@@ -188,10 +188,14 @@ img{
     .carousel-inner{
         margin : 0px;
         padding: 0px;
+        /* width : 350px; */
     }
     .description{
         text-align: justify;
         border : 0px;
+    }
+    #carousel-custom{
+        width: 350px;
     }
 
 }    

@@ -45,3 +45,10 @@ body {
     border-radius: 15px;
     padding:10px;
 }
+
+
+@media only screen and (max-width: 500px) {
+    .mobile-contain{
+        padding-left : 12px;
+    }
+}
