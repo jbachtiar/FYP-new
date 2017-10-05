@@ -48,13 +48,18 @@
                     </div>
                 </a>
                 <a (click)="toggleState()" class="btn btn-cart" routerLink="../profile-sidebar" *ngIf="authenticated">
-                    <div class="box">
-                        <img src="/assets/images/user.png" style="width:30px">
+                    <div class="box dropdown">
+                        <img class="dropbtn" src="/assets/images/user.png" style="width:30px">
+                        <div class="dropdown-content nav-item">
+                            <a *ngIf="authenticated" routerLink="../profile-sidebar">My Account</a>
+                            <a *ngIf="authenticated" (click)="logout()">Logout</a>
+                        </div>
                     </div>
+
                 </a>
                 <button *ngIf="!authenticated" class="btn btn-default" (click)=showLogin()>Login</button>
                 <a routerLink="../register"><button *ngIf = "!authenticated"class="btn btn-default">Register</button> </a>
-                <button *ngIf="authenticated" class="btn btn-default" (click)="logout()">Logout</button>
+                <!-- <button *ngIf="authenticated" class="btn btn-default" (click)="logout()">Logout</button> -->
             </ul>
         </div>
     </nav>
