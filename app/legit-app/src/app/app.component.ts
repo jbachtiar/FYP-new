@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd  } from '@angular/router';
 import { Angulartics2GoogleAnalytics } from 'angulartics2';
 
 @Component({
@@ -8,6 +8,7 @@ import { Angulartics2GoogleAnalytics } from 'angulartics2';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  
   title = 'app';
   
   constructor(angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics, 
@@ -23,5 +24,14 @@ export class AppComponent {
       let link = ['/register'];
       this._router.navigate(link);
     }
-	}
+    
+  }
+  ngOnInit() {
+    this._router.events.subscribe((evt) => {
+        if (!(evt instanceof NavigationEnd)) {
+            return;
+        }
+        window.scrollTo(0, 0)
+    });
+}
 }
