@@ -18,6 +18,8 @@ export class TrackOrderComponent implements OnInit {
   private isDisplayCurrentOrder = true
   private isDisplayPastOrder = true
   private loading :boolean  = true;
+  private details : boolean = false;
+  private outputOrderId : number = 0;
 
 
   constructor(private orderService: OrderService, private router: Router, private shardService: SharedService) {
@@ -80,8 +82,10 @@ export class TrackOrderComponent implements OnInit {
   }
 
   viewOrder(orderId) {
-    let link = ['profile-sidebar', orderId];
-    this.router.navigate(link);
+    // let link = ['profile-sidebar', orderId];
+    // this.router.navigate(link);
+    this.outputOrderId = orderId
+    this.details = true
     
   }
 
