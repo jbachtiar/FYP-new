@@ -5,19 +5,23 @@
         <div class="header">
           <div class="col-md-12">
 
+                <div class="row">
+
+                <button type="button" id="clear" class="btn btn-default" (click)="onClear()">Clear All Filters</button>
+
                 <select [(ngModel)]="selectedCollection" class="btn btn-default" (ngModelChange)="onSelectCollection($event)">
                     <option disabled value=undefined class="hideoption" selected>Select Collection</option>
-                    <option *ngFor="let c of collections" [ngValue]="c">{{c.name}}</option>
+                    <option *ngFor="let c of collections" [ngValue]="c">{{c.collectionName}}</option>
                 </select>
 
                 <select [(ngModel)]="selectedFabric" class="btn btn-default" (ngModelChange)="onSelectFabric($event)">
                     <option disabled value=undefined class="hideoption" selected>Select Fabric</option>
-                    <option *ngFor="let f of fabrics" [ngValue]="f">{{f.name}}</option>
+                    <option *ngFor="let f of fabrics" [ngValue]="f">{{f.fabricName}}</option>
                 </select>
 
                 <select [(ngModel)]="selectedColour" class="btn btn-default" (ngModelChange)="onSelectColour($event)">
                     <option disabled value=undefined class="hideoption" selected>Select Colour</option>
-                    <option *ngFor="let c of colours" [ngValue]="c">{{c.name}}</option>
+                    <option *ngFor="let c of colours" [ngValue]="c">{{c.colourName}}</option>
                 </select>
 
                 <select [(ngModel)]="sortPrice" class="btn btn-default" (ngModelChange)="onSelectSort($event)">
@@ -26,7 +30,8 @@
                 </select>
 
                 <input type="text" [(ngModel)]="queryString" id="search" placeholder="Search by product name.." class="btn btn-default" (ngModelChange)="onSearch(queryString)">
-                <button class="btn btn-info btn-wd" id="clear" (click)="onClear()">Clear All Filters</button>
+
+            </div>
         </div>
 
         <br>
