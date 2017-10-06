@@ -54,7 +54,7 @@ public class ProductCatalogue {
     
     
     @GET
-    @Path("/GetProductById")
+    @Path("/getProductById")
     @Produces(MediaType.APPLICATION_JSON)
     public Product getProductById(@QueryParam("productId") int productId) {
         

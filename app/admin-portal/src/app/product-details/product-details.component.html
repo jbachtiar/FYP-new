@@ -1,0 +1,114 @@
+<body>
+  <app-loading *ngIf="loading"></app-loading>
+  <div *ngIf="!loading">
+    <md-card>
+      <div class="row">
+        <div class="header">
+          <h1> <b>&nbsp; ID: 0000{{product.productId}}</b></h1>
+        </div>
+        <button md-raised-button [ngStyle]="{'background-color': 'lightcoral', 'color': 'white'}" (click)="onEdit()">Edit</button>
+        
+      </div>
+      <br/>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label><b>Product Type</b></label><br/> {{product.productType}}
+          </div>
+          <div class="form-group">
+            <label><b>Fabric</b></label><br/> {{product.fabric.fabricName}}
+          </div>
+          <div class="form-group">
+            <label><b>Colour</b></label><br/> {{product.colour.colourName}}
+          </div>
+
+          <div class="form-group">
+            <label>QR Code</label><br/>
+            <div>
+              <qr-code [value]=patternUrl [size]="150"></qr-code>
+            </div>
+          </div>
+
+        </div>
+
+        <!--QR Code-->
+        <div class="col-sm-4">
+          <img src="{{product.images[0].imageUrl}}" alt="..." class="img-thumbnail img-product" [routerLink]="['/productDetails', product.pattern_id]">
+          <a href={{product.images[0].imageUrl}}>View Image</a>
+
+
+        </div>
+      </div>
+    </md-card>
+
+    <!-- <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label><b>Available Options :</b></label><br/> Fabrics: -->
+    <!--<table class="table table-striped">
+              <tr>
+                <td>
+                  <select [(ngModel)]="selectedFabric">
+                  <option *ngFor="let f of fabrics" [ngValue]="f">{{f.fabric_name}}</option>
+              </select>
+               &nbsp; &nbsp; &nbsp;
+                  <button class="btn btn-default" (click)="onAddFabric(selectedFabric)">Add</button>
+                </td>
+              </tr>
+            </table>-->
+    <!-- <ul class="list-group" *ngFor="let fabric of pattern.fabrics; let i=index"> -->
+    <!-- <div class="fabric-card"> -->
+    <!-- <md-card class="example-card"> -->
+    <!-- <div class="card card-inverse card-info mb-3 text-center"> -->
+    <!-- <h4 class="card-title">
+                    <li class="list-group-item"> -->
+    <!-- <md-card-header>
+                <div md-card-avatar class="example-header-image"></div>
+                <md-card-title>{{ fabric.fabric_name }}</md-card-title> -->
+
+
+
+    <!-- </li>
+                  </h4> -->
+    <!-- <md-card-subtitle>Colours:</md-card-subtitle>
+              </md-card-header> -->
+    <!--dropdown to select colours for the fabric-->
+    <!--<table class="table table-striped">
+                    <tr>
+                      <th>
+                        <p class="text-center">
+                          <select [(ngModel)]="selectedColour[fabric.fabric_id]">
+                                <option *ngFor="let cd of fabric.colours_dropdown" [ngValue]="cd">{{cd.colour_name}}</option>
+                            </select> &nbsp; &nbsp; &nbsp;
+                          <button class="btn btn-default" (click)="onAddColour(fabric,selectedColour[fabric.fabric_id])">Add</button>
+                        </p>
+                      </th>
+                    </tr>
+                  </table>-->
+    <!--<td>-->
+    <!-- <ul class="list-group colour-group" *ngFor="let fc of fabric.colours">
+                <li class="list-group-item">{{fc.colour_name}}
+                  <div class="upload-and-view">
+
+
+                    <img md-card-image src="assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+                    <a href={{fc.imagesimage_url}}>View Image</a>
+                  </div>
+
+
+                </li>
+
+              </ul> -->
+    <!-- </div> -->
+    <!-- </div> -->
+    <!-- </md-card>
+
+          </ul>
+
+
+        </div> -->
+    <!--<button class="btn btn-success" (click)="onSave()">Save</button>-->
+
+  </div>
+
+</body>

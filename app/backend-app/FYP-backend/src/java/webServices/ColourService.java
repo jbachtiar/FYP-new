@@ -37,7 +37,7 @@ public class ColourService {
     private HttpServletResponse response;
     
     @GET
-    @Path("/GetColours")
+    @Path("/getColours")
     @Produces(MediaType.APPLICATION_JSON)
     public String getAllColours() {
         

@@ -23,7 +23,6 @@ import { PatternDetailsViewComponent } from './pattern-details-view/pattern-deta
 import { LoadingComponent } from './loading/loading.component';
 import { ConfirmationPopupComponent } from './confirmation-popup/confirmation-popup.component';
 import { OrderFactoryManagerComponent } from './order-factory-manager/order-factory-manager.component';
-import { OrderManagementComponent } from './order-management/order-management.component';
 import { OrderDetailsComponent } from './order-details/order-details.component';
 import { PromoCodeComponent } from './promo-code/promo-code.component';
 
@@ -36,13 +35,36 @@ import { QRCodeModule } from 'angular2-qrcode';
 import { BootstrapModalModule } from 'ng2-bootstrap-modal';
 
 import { DataTableModule } from 'angular-4-data-table';
-import { MdTabsModule, MdButtonModule, MdProgressBarModule, MdChipsModule, MdCardModule } from '@angular/material';
+import { MdTabsModule, MdButtonModule, MdProgressBarModule, MdChipsModule, MdCardModule, MatCardModule } from '@angular/material';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { OrderFactoryWorkerComponent } from './order-factory-worker/order-factory-worker.component';
 import { Angulartics2Module, Angulartics2GoogleAnalytics } from 'angulartics2';
 import { AnalyticsDashboardComponent } from './analytics-dashboard/analytics-dashboard.component';
 import { OrderManagementSuperuserComponent } from './order-management-superuser/order-management-superuser.component';
 import { OrderDetailsSuperuserComponent } from './order-details-superuser/order-details-superuser.component';
+import { CatalogueComponent } from './catalogue/catalogue.component';
+import { FabricCatalogueComponent } from './fabric-catalogue/fabric-catalogue.component';
+import { ColourCatalogueComponent } from './colour-catalogue/colour-catalogue.component';
+import { SizeCatalogueComponent } from './size-catalogue/size-catalogue.component';
+import { ProductCatalogueComponent } from './product-catalogue/product-catalogue.component';
+import { PatternCatalogueComponent } from './pattern-catalogue/pattern-catalogue.component';
+import { CollectionCatalogueComponent } from './collection-catalogue/collection-catalogue.component';
+import { ProductDetailsComponent } from './product-details/product-details.component';
+import { FabricDetailsComponent } from './fabric-details/fabric-details.component';
+import { ColourDetailsComponent } from './colour-details/colour-details.component';
+import { CollectionDetailsComponent } from './collection-details/collection-details.component';
+import { ProductDetailsAddComponent } from './product-details-add/product-details-add.component';
+import { ProductDetailsEditComponent } from './product-details-edit/product-details-edit.component';
+import { CollectionDetailsAddComponent } from './collection-details-add/collection-details-add.component';
+import { CollectionDetailsEditComponent } from './collection-details-edit/collection-details-edit.component';
+import { ColourDetailsEditComponent } from './colour-details-edit/colour-details-edit.component';
+import { ColourDetailsAddComponent } from './colour-details-add/colour-details-add.component';
+import { FabricDetailsAddComponent } from './fabric-details-add/fabric-details-add.component';
+import { FabricDetailsEditComponent } from './fabric-details-edit/fabric-details-edit.component';
+import { DesignCatalogueComponent } from './design-catalogue/design-catalogue.component';
+import { DesignDetailsComponent } from './design-details/design-details.component';
+import { DesignDetailsAddComponent } from './design-details-add/design-details-add.component';
+import { DesignDetailsEditComponent } from './design-details-edit/design-details-edit.component';
 
 
 @NgModule({
@@ -62,12 +84,34 @@ import { OrderDetailsSuperuserComponent } from './order-details-superuser/order-
     ConfirmationPopupComponent,
     PromoCodeComponent,
     OrderFactoryManagerComponent,
-    OrderManagementComponent,
     OrderDetailsComponent,
     OrderFactoryWorkerComponent,
     AnalyticsDashboardComponent,
     OrderManagementSuperuserComponent,
-    OrderDetailsSuperuserComponent
+    OrderDetailsSuperuserComponent,
+    CatalogueComponent,
+    FabricCatalogueComponent,
+    ColourCatalogueComponent,
+    SizeCatalogueComponent,
+    ProductCatalogueComponent,
+    PatternCatalogueComponent,
+    CollectionCatalogueComponent,
+    ProductDetailsComponent,
+    FabricDetailsComponent,
+    ColourDetailsComponent,
+    CollectionDetailsComponent,
+    ProductDetailsAddComponent,
+    ProductDetailsEditComponent,
+    CollectionDetailsAddComponent,
+    CollectionDetailsEditComponent,
+    ColourDetailsEditComponent,
+    ColourDetailsAddComponent,
+    FabricDetailsAddComponent,
+    FabricDetailsEditComponent,
+    DesignCatalogueComponent,
+    DesignDetailsComponent,
+    DesignDetailsAddComponent,
+    DesignDetailsEditComponent
   ],
   imports: [
     BrowserModule,
@@ -84,6 +128,7 @@ import { OrderDetailsSuperuserComponent } from './order-details-superuser/order-
     MdChipsModule,
     Ng2SearchPipeModule,
     MdCardModule,
+    MatCardModule,
     Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ])
     ],
   exports: [
