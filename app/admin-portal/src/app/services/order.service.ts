@@ -34,7 +34,7 @@ export class OrderService {
                 //     oi.product['itemStatus'] = "COMPLETE";
                 // }
                 // orderItems[0].product['itemStatus'] = "INCOMPLETE"
-                
+
                 // return res.json().orders;
                 return orders;
             });
@@ -43,19 +43,35 @@ export class OrderService {
     updateOrderStatus(orderId, previousStatusId, newStatusId) {
         let url = CONFIG.orderStatusLogBackendUrl + '/update?orderId=' + orderId + '&previousStatusId=' + previousStatusId + '&newStatusId=' + newStatusId
         return this._http.get(url)
-            .map(res=>{
+            .map(res => {
                 console.log("STATUS UPDATED")
                 return res.json();
             });
     }
 
-    updateItemStatus(orderId, productId, newStatus){
+    updateItemStatus(orderId, productId, newStatus) {
         // /OrderItemService/updateOrderItemStatus?orderId=2&productId=11&newStatus=COMPLETED
-        let params: URLSearchParams = new URLSearchParams();        
-        let url = CONFIG.orderItemBackendUrl + '/updateOrderItemStatus?orderId='+
+        let params: URLSearchParams = new URLSearchParams();
+        let url = CONFIG.orderItemBackendUrl + '/updateOrderItemStatus?orderId=' +
             orderId + '&productId=' + productId + '&newStatus=' + newStatus
         return this._http.get(url, params.toString())
-        .map(res => res.json());
+            .map(res => res.json());
+    }
+
+    updateOrder(orderJson) {
+        let url = CONFIG.orderBackendUrl + "/update";
+        console.log("NEW ORDER: " + JSON.stringify(orderJson))
+
+        let params: URLSearchParams = new URLSearchParams();
+        console.log("Update order SERVICE")
+        params.set('order', JSON.stringify(orderJson));
+
+        console.log(params)
+        const headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        return this._http.post(url, params.toString(), {
+            headers: headers
+        }).map(res => res)
     }
 
 }
