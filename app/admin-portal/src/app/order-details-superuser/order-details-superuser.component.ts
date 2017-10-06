@@ -13,6 +13,7 @@ export class OrderDetailsSuperuserComponent implements OnInit {
   private order: any = {};
   private user: any = {};
   private orderItems: any = {};
+  private edit: boolean = false;
   private status: any = {};
   private index: number = 0;
   orderStatusSize: any;
@@ -34,6 +35,7 @@ export class OrderDetailsSuperuserComponent implements OnInit {
         console.log("status" + this.order.statusLogs[0].orderStatus.statusName);
         this.orderItems = orders[0].orderItems;
         this.selectedCourier = this.order.courierName;
+        this.selectedStatus=this.returnTheLatestOrderStatus;
         //  console.log("selectedCourier"+this.selectedCourier);
 
       });
@@ -67,11 +69,14 @@ export class OrderDetailsSuperuserComponent implements OnInit {
     return currentStatus.orderStatus.statusName;
 
   }
+  editOrder(){
+    this.edit=true;
+  }
 
-  editOrder() {
+  updateOrder() {
 
 
-    let newOder = {
+    let newOrder = {
       "orderId": this.orderId,
       "newStatusId": this.statusMap[this.selectedStatus],
       "Timestamp": this.order.order_TimeStamp,
@@ -86,7 +91,14 @@ export class OrderDetailsSuperuserComponent implements OnInit {
       "trackingNo": this.order.trackingNo
 
     }
+    this.orderService.updateOrder(newOrder).subscribe(res => {
+      res = res.json()
+      if (res.status == 200) {
+     
+      }
+    });
+
+    this.edit=false;
 
   }
-
 }

@@ -1,6 +1,6 @@
 <div class="container-fluid">
 
-  <div class="col-lg-12 col-md-12">
+  <div *ngIf="!edit" class="col-lg-12 col-md-12">
     <div class="card">
       <div class="header">
         <h4 class="title">Order Number: {{orderId}}</h4>
@@ -102,11 +102,11 @@
           </tbody>
         </table>
         <br>
-        <button class="btn btn-info btn-fill btn-wd">Edit Order</button>
+        <button class="btn btn-info btn-fill btn-wd" (click)="editOrder()">Edit Order</button>
       </div>
     </div>
   </div>
-  <div class="col-lg-12 col-md-12">
+  <div *ngIf="edit" class="col-lg-12 col-md-12">
     <div class="card">
 
       <div class="header">
@@ -120,7 +120,7 @@
         <h4><b>Stripe Charge ID:</b> {{order.paymentRefNo}}</h4>
         <hr>
 
-        <form name="form" (ngSubmit)="f.form.valid && editOrder()" #f="ngForm" novalidate>
+        <form name="form" (ngSubmit)="f.form.valid && updateOrder()" #f="ngForm" novalidate>
           <label for="status">Status</label>
           <select  [ngModelOptions]="{standalone: true}" [(ngModel)]="selectedStatus">
               <option *ngFor="let s of statusMenu" [ngValue]="s">{{s}}</option>
@@ -201,7 +201,7 @@
 
                 <td>
                   <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !size.valid }">
-                    <input type="text" name="size" [ngModelOptions]="{standalone: true}" [(ngModel)]="item.product.size.sizeName" #pattern="ngModel"
+                    <input type="text" name="size" [ngModelOptions]="{standalone: true}" [(ngModel)]="item.product.size.sizeName" #size="ngModel"
                       required />
                     <div *ngIf="f.submitted && !size.valid" class="help-block">size is required</div>
                   </div>
