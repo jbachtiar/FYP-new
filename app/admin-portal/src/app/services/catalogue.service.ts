@@ -7,7 +7,7 @@ import { CONFIG } from '../config/config.component';
 
 @Injectable()
 export class CatalogueService {
-
+    
 
     constructor(private _http: Http) { }
 
@@ -49,14 +49,42 @@ export class CatalogueService {
     getAllPatterns() {
         let url = CONFIG.patternBackendUrl + '/getPatterns';
         console.log("URL: " + url);
-        
+
 
         return this._http.get(url)
             .map(res => {
                 console.log("PATTERNS3: " + JSON.stringify(res.json().patterns))
-                
+
                 return res.json().patterns;
             });
+    }
+
+    getProductById(productId: string) {
+        let url = CONFIG.productCatalogueBackendUrl + '/getProductById';
+        let finalUrl = url + "?productId=" + productId
+        return this._http.get(finalUrl)
+            .map(res => {
+                console.log(finalUrl)
+                console.log("product is loaded: " + res.json());
+                return res.json();
+            });
+    }
+
+    
+    saveProduct(product) {
+        let url = CONFIG.productCatalogueBackendUrl + "/save";
+        console.log("NEW ORDER: " + JSON.stringify(product))
+
+        let params: URLSearchParams = new URLSearchParams();
+        console.log("SAVE order SERVICE")
+        params.set('product', JSON.stringify(product));
+
+        console.log(params)
+        const headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        return this._http.post(url, params.toString(), {
+            headers: headers
+        }).map(res => res)
     }
 
 

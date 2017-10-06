@@ -17,6 +17,8 @@ import { OrderDetailsComponent } from './order-details/order-details.component';
 import { OrderManagementSuperuserComponent} from './order-management-superuser/order-management-superuser.component';
 import { OrderDetailsSuperuserComponent} from './order-details-superuser/order-details-superuser.component';
 import { CatalogueComponent } from './catalogue/catalogue.component'
+import { ProductDetailsComponent } from './product-details/product-details.component'
+import { ProductDetailsEditComponent } from './product-details-edit/product-details-edit.component'
 
 import { AuthGuard } from './guard/guard';
 
@@ -30,15 +32,16 @@ const appRoutes: Routes = [
     { path: 'patternList/patternDetails/:patternId', component: PatternDetailsComponent, canActivate: [AuthGuard]},
     { path: 'patternList/addPatternDetails', component: PatternDetailsAddComponent, canActivate: [AuthGuard]},
     { path: 'patternList/viewPatternDetails/:patternId', component: PatternDetailsViewComponent, canActivate: [AuthGuard]},
-{ path: 'orders', component: OrderFactoryManagerComponent, canActivate: [AuthGuard]},
+    { path: 'orders', component: OrderFactoryManagerComponent, canActivate: [AuthGuard]},
     { path: 'viewOrders', component: OrderFactoryWorkerComponent, canActivate: [AuthGuard]},
     { path: 'analyticsdashboard', component: AnalyticsDashboardComponent, canActivate: [AuthGuard]},
     { path: 'orders/:orderId', component: OrderDetailsComponent, canActivate: [AuthGuard]},
     { path: 'orders/:orderId', component: OrderDetailsComponent, canActivate: [AuthGuard]},
     { path: 'superuser', component: OrderManagementSuperuserComponent, canActivate: [AuthGuard]},
     { path: 'superuser/order/:orderId', component: OrderDetailsSuperuserComponent, canActivate: [AuthGuard]},
-    { path: 'catalogue', component: CatalogueComponent, canActivate: [AuthGuard]}
-    
+    { path: 'catalogue', component: CatalogueComponent, canActivate: [AuthGuard]},
+    { path: 'catalogue/product/:productId', component: ProductDetailsComponent, canActivate: [AuthGuard]},
+    { path: 'catalogue/product/edit/:productId', component: ProductDetailsEditComponent, canActivate: [AuthGuard]}    
     //{ path: 'register', component: RegisterComponent },
 ];
 

@@ -6,15 +6,72 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'collection-catalogue',
   templateUrl: './collection-catalogue.component.html',
-  styleUrls: ['./collection-catalogue.component.css']
+  styleUrls: ['./collection-catalogue.component.css'],
+  providers: [CatalogueService]
+  
 })
 export class CollectionCatalogueComponent implements OnInit {
+  private collections: any = {};
+  private params;
   itemCount = 0;
-  // itemResource = new DataTableResource(this.orders);
-  constructor() { }
+  itemResource = new DataTableResource(this.collections);
 
-  ngOnInit() {
+  @ViewChild(DataTable) table;
+  @ViewChild('tabGroup') tabGroup;
+
+  constructor(
+    private catService: CatalogueService,
+    private router: Router) {
+    this.itemResource.count().then(count => this.itemCount = count);
 
   }
+
+  ngOnInit() {
+    this.catService.getAllCollections().subscribe(collections => {
+      this.collections = collections;
+      console.log("PATTERNS1: " + JSON.stringify(this.collections))
+
+
+
+      //data table initialisation
+      this.itemResource = new DataTableResource(this.collections);
+      this.itemResource.count().then(count => this.itemCount = count);
+
+    });
+  }
+
+  reloadItems(params) {
+    this.catService.getAllCollections().subscribe(collections => {
+      this.collections = collections;
+      console.log("PATTERNS1: " + JSON.stringify(this.collections))
+
+      console.log("PATTERNS: " + JSON.stringify(this.collections))
+      this.params = params
+      this.itemResource = new DataTableResource(this.collections);
+      this.itemResource.count().then(count => this.itemCount = count);
+      this.itemResource.query(params).then(items => this.collections = items);
+      console.log("ITEMS: " + JSON.stringify(this.collections))
+    });
+  }
+  rowClick(rowEvent) {
+    console.log('Clicked');
+  }
+
+  rowDoubleClick(rowEvent) {
+    let link = ['superuser/order', rowEvent.row.item.orderId];
+    this.router.navigate(link);
+  }
+
+  rowTooltip(item) {
+    return "Collection ID: " + item.collectionId + '\nPattern Name: ' + item.collectionName;
+  }
+
+  translations = <DataTableTranslations>{
+    indexColumn: 'Index column',
+    expandColumn: 'Expand column',
+    selectColumn: 'Select column',
+    paginationLimit: 'Max results',
+    paginationRange: 'Result range'
+  };
 
 }

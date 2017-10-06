@@ -47,12 +47,12 @@ export class ProductCatalogueComponent implements OnInit {
   }
 
   rowClick(rowEvent) {
-    console.log('Clicked');
+    let link = ['catalogue/product', rowEvent.row.item.product_id];
+    this.router.navigate(link);
   }
 
   rowDoubleClick(rowEvent) {
-    let link = ['superuser/order', rowEvent.row.item.orderId];
-    this.router.navigate(link);
+    //do sth
   }
 
   rowTooltip(item) {
