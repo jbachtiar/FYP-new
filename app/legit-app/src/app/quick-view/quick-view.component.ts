@@ -7,6 +7,8 @@ import { CartItem } from "../model/cart-item.model";
 import { CartPopupComponent } from '../cart-popup/cart-popup.component'
 import { SharedService } from "../shared.service"
 import { Product } from "../model/product";
+import { Angulartics2GoogleAnalytics } from 'angulartics2';
+declare var ga: any;
 
 export interface QuickViewPopupModel {
   title: string;
@@ -168,5 +170,33 @@ export class QuickViewComponent extends DialogComponent<QuickViewPopupModel, boo
         }, 10000);
 
       });
+
+      //Google Analytics
+      (function (i, s, o, g, r, a?, m?) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * <any>new Date();
+        a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+      })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+      console.log(this.selectedProduct.pattern.patternName);
+      ga('create', 'UA-106185727-2', 'auto');
+      ga('require', 'ec');
+      ga('ec:addProduct',{
+      // productFieldObject stores product click and other details
+      'id': this.selectedProduct.pattern.patternId, // Product ID/SKU - Type: string
+      'name': this.selectedProduct.pattern.patternName, // Product name - Type: string
+      'category': 'Beddings', // Product category - Type: string
+      'price': this.cartItem.unitPrice, // Product price - Type: numeric
+      });
+        // Send Add cart event to enhanced ecommerce
+        ga('ec:setAction', 'add');
+        // Send click with an event, then send user to product page.
+        ga('send', 'event', 'Cart Movement', 'Product Added to Cart', this.selectedProduct.pattern.patternName);
+        ga('send', 'pageview');
   }
 }
