@@ -21,6 +21,7 @@ import javax.ws.rs.OPTIONS;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
@@ -79,6 +80,36 @@ public class ColourService {
         
     }
     
+    @GET
+    @Path("/GetColourById")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Colour getColourById(@QueryParam("colourId") int colourId) {
+        
+        ColourDAO cDAO = new ColourDAO();
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
+        
+        Gson gson = new GsonBuilder().create();
+        JsonObject jsonOutput = new JsonObject();
+
+        try {
+                jsonOutput.addProperty("status", "200");
+                Colour c = cDAO.getColourById(colourId);
+                return c;
+
+        } catch (SQLException e) {
+            System.out.println(e);
+            jsonOutput.addProperty("status", "500");
+            return null;
+
+        }
+
+        //String finalJsonOutput = gson.toJson(jsonOutput);
+        //return finalJsonOutput;
+        
+    }
+    
+    
     @OPTIONS
     @PermitAll
     @Path("/save")
@@ -119,6 +150,71 @@ public class ColourService {
         return finalJsonOutput;
     }
 
+    @OPTIONS
+    @PermitAll
+    @Path("/update")
+    public void optionsUpdate() {
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
+        response.setHeader("Access-Control-Allow-Headers", "authorization");
+
+    }
     
+    @POST
+    @Path("/update")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String updateColour(@FormParam("colour") String json) {
+        
+        ColourDAO cDAO = new ColourDAO();
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
+
+        Gson gs = new Gson();
+        Colour colourToUpdate = gs.fromJson(json, Colour.class);
+        
+        Gson gson = new GsonBuilder().create();
+        JsonObject jsonOutput = new JsonObject();
+
+        try {
+                System.out.println("JSON: " + json);
+                jsonOutput.addProperty("status", "200");
+                cDAO.updateColour(colourToUpdate);
+
+        } catch (SQLException e) {
+            System.out.println(e);
+            jsonOutput.addProperty("status", "500");
+
+        }
+
+        String finalJsonOutput = gson.toJson(jsonOutput);
+        return finalJsonOutput;
+    }
+    
+    
+    @GET
+    @Path("/delete")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String deleteColour(@QueryParam("colourId") int colourId) {
+
+        ColourDAO cDAO = new ColourDAO();
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
+        
+        Gson gson = new GsonBuilder().create();
+        JsonObject jsonOutput = new JsonObject();
+
+        try {
+                jsonOutput.addProperty("status", "200");
+                cDAO.deleteColourById(colourId);
+
+        } catch (SQLException e) {
+            System.out.println(e);
+            jsonOutput.addProperty("status", "500");
+
+        }
+
+        String finalJsonOutput = gson.toJson(jsonOutput);
+        return finalJsonOutput;
+    }
     
 }

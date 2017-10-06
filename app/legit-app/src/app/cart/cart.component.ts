@@ -7,6 +7,8 @@ import { Subscription } from "rxjs/Subscription";
 import { DialogService } from "ng2-bootstrap-modal";
 import { DeleteConfirmationPopupComponent } from '../delete-confirmation-popup/delete-confirmation-popup.component'
 import { SharedService } from '../shared.service'
+import { Angulartics2GoogleAnalytics } from 'angulartics2';
+declare var ga: any;
 
 @Component({
   selector: 'app-cart',
@@ -46,7 +48,25 @@ export class CartComponent implements OnInit {
     if(this.itemCount > 0){
       this.empty = false;
     }
-
+    //Google Analytics
+    (function (i, s, o, g, r, a?, m?) {
+      i['GoogleAnalyticsObject'] = r;
+      i[r] = i[r] || function () {
+              (i[r].q = i[r].q || []).push(arguments)
+          }, i[r].l = 1 * <any>new Date();
+      a = s.createElement(o),
+          m = s.getElementsByTagName(o)[0];
+      a.async = 1;
+      a.src = g;
+      m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-106185727-2', 'auto');
+    ga('require', 'ec');
+    // Send checkout event 1 event to enhanced ecommerce
+    ga('ec:setAction', 'checkout', {'step': 4});
+    // Send click with an event
+    ga('send', 'event', 'Session Movement', 'View Cart');
+    ga('send', 'pageview');
     //this.shoppingCartService.retrieveCartDB();
 
     this.cartItem = this.shoppingCart.cartItems
@@ -54,6 +74,7 @@ export class CartComponent implements OnInit {
     // this.cartSubscription = this.cart.subscribe((cart) => {
     // this.itemCount = cart.items.map((x) => x.quantity).reduce((p, n) => p + n, 0);
     // });
+    
   }
 
   //increase product qty
@@ -102,12 +123,38 @@ export class CartComponent implements OnInit {
           //this.updateCart()
           this.sharedService.updateCart();
           //window.location.reload()
+
+          //Google Analytics
+          (function (i, s, o, g, r, a?, m?) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * <any>new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+          })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+          console.log();
+          ga('create', 'UA-106185727-2', 'auto');
+          ga('require', 'ec');
+          ga('ec:addProduct',{
+          // productFieldObject stores product click and other details
+          'id': productId, // Product ID/SKU - Type: string
+          });
+            // Send Add cart event to enhanced ecommerce
+            ga('ec:setAction', 'remove');
+            // Send click with an event, then send user to product page.
+            ga('send', 'event', 'Cart Movement', 'Product Removed from Cart', productId);
+            ga('send', 'pageview');
           
         }
         else {
           //do nothing
         }
       });
+      
     
   }
 

@@ -238,6 +238,26 @@ export class ProductListComponent implements OnInit {
         this.fabrics = filters.fabrics;
         this.colours = filters.colours;
       });
+
+    //Google Analytics
+    (function (i, s, o, g, r, a?, m?) {
+      i['GoogleAnalyticsObject'] = r;
+      i[r] = i[r] || function () {
+              (i[r].q = i[r].q || []).push(arguments)
+          }, i[r].l = 1 * <any>new Date();
+      a = s.createElement(o),
+          m = s.getElementsByTagName(o)[0];
+      a.async = 1;
+      a.src = g;
+      m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-106185727-2', 'auto');
+    ga('require', 'ec');
+    // Send checkout event 1 event to enhanced ecommerce
+    ga('ec:setAction', 'checkout', {'step': 2});
+    // Send click with an event
+    ga('send', 'event', 'Session Movement', 'View Products');
+    ga('send', 'pageview');
   }
 
   
@@ -287,8 +307,8 @@ export class ProductListComponent implements OnInit {
     });
     
      ga('ec:setAction', 'click', {'list': 'Product List'});
-    
-      // Send click with an event, then send user to product page.
+    // Send checkout event 1 event to enhanced ecommerce
+    // Send click with an event, then send user to product page.
      ga('send', 'event', 'enhanced ecommerce', 'Quick View Clicks', pattern_name);
      ga('send', 'pageview');
 
@@ -306,85 +326,42 @@ export class ProductListComponent implements OnInit {
                   //do nothing
               }
           });
-    
-    
-
   }
 
-    onProductClick(patternId,pattern_name) {
-      (function (i, s, o, g, r, a?, m?) {
-        i['GoogleAnalyticsObject'] = r;
-        i[r] = i[r] || function () {
-                (i[r].q = i[r].q || []).push(arguments)
-            }, i[r].l = 1 * <any>new Date();
-        a = s.createElement(o),
-            m = s.getElementsByTagName(o)[0];
-        a.async = 1;
-        a.src = g;
-        m.parentNode.insertBefore(a, m)
-      })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-      console.log(pattern_name);
-      ga('create', 'UA-106185727-2', 'auto');
-      ga('require', 'ec');
-      ga('ec:addProduct',{
-      // productFieldObject stores product click and other details
-      
-      'id': patternId, // Product ID/SKU - Type: string
-      
-      'name': pattern_name, // Product name - Type: string
+  onProductClick(patternId,pattern_name) {
+    (function (i, s, o, g, r, a?, m?) {
+      i['GoogleAnalyticsObject'] = r;
+      i[r] = i[r] || function () {
+              (i[r].q = i[r].q || []).push(arguments)
+          }, i[r].l = 1 * <any>new Date();
+      a = s.createElement(o),
+          m = s.getElementsByTagName(o)[0];
+      a.async = 1;
+      a.src = g;
+      m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    console.log(pattern_name);
+    ga('create', 'UA-106185727-2', 'auto');
+    ga('require', 'ec');
+    ga('ec:addProduct',{
+    // productFieldObject stores product click and other details
     
-      'category': 'Beddings', // Product category - Type: string
+    'id': patternId, // Product ID/SKU - Type: string
     
-      'brand': '[Server Variable]', // Product brand - Type: string
-      
-      });
-      
-       ga('ec:setAction', 'click', {'list': 'Product List'});
-      
-        // Send click with an event, then send user to product page.
-       ga('send', 'event', 'enhanced ecommerce', 'Product Detail Clicks', pattern_name);
-      
-       ga('send', 'pageview');
-
-    }
-
-    onQuickViewClick(patternId,pattern_name) {
-      (function (i, s, o, g, r, a?, m?) {
-        i['GoogleAnalyticsObject'] = r;
-        i[r] = i[r] || function () {
-                (i[r].q = i[r].q || []).push(arguments)
-            }, i[r].l = 1 * <any>new Date();
-        a = s.createElement(o),
-            m = s.getElementsByTagName(o)[0];
-        a.async = 1;
-        a.src = g;
-        m.parentNode.insertBefore(a, m)
-      })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-      ga('create', 'UA-106185727-2', 'auto');
-      ga('require', 'ec');
-      ga('ec:addProduct',{
-      // productFieldObject stores product click and other details
-      
-      'id': patternId, // Product ID/SKU - Type: string
-      
-      'name': pattern_name, // Product name - Type: string
+    'name': pattern_name, // Product name - Type: string
+  
+    'category': 'Beddings', // Product category - Type: string
+  
+    'brand': '[Server Variable]', // Product brand - Type: string
     
-      'category': 'Beddings', // Product category - Type: string
+    });
     
-      'brand': '[Server Variable]', // Product brand - Type: string
-      
-      });
-      
-       ga('ec:setAction', 'click', {'list': 'Product List'});
-      
-        // Send click with an event, then send user to product page.
-       ga('send', 'event', 'enhanced ecommerce', 'Quick View Clicks', pattern_name);
-       ga('send', 'pageview');
-    }
-
+      ga('ec:setAction', 'click', {'list': 'Product List'});
     
+      // Send click with an event, then send user to product page.
+      ga('send', 'event', 'enhanced ecommerce', 'Product Detail Clicks', pattern_name);
+    
+      ga('send', 'pageview');
 
-
-
-
+  }
 }

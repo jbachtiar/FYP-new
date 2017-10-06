@@ -164,7 +164,7 @@ public class OrderService {
     }
     
     @POST
-        @Path("/getPastOrdersByCustomer")
+    @Path("/getPastOrdersByCustomer")
     @Produces(MediaType.APPLICATION_JSON)
     public String getPastOrdersByCustomer(@FormParam("token") String token) {
         
@@ -279,6 +279,52 @@ public class OrderService {
             
             jsonOutput.addProperty("status", "200");
             oDAO.addOrder(orderToSave);
+            
+        } catch (SQLException e) {
+            System.out.println("EXCEPTION e: " + e);
+            
+            jsonOutput.addProperty("status", "500");
+            
+        }
+        
+        String finalJsonOutput = gson.toJson(jsonOutput);
+        return finalJsonOutput;
+    }
+    
+    @OPTIONS
+    @PermitAll
+    @Path("/update")
+    public void optionsUpdate() {
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
+        response.setHeader("Access-Control-Allow-Headers", "authorization");
+
+    }
+    
+    @POST
+    @Path("/update")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String updateOrder(@FormParam("order") String json) {
+        System.out.println("Update ORDER JSON: " + json);
+        //response.setHeader("Access-Control-Allow-Headers", "Content-Type");
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
+        
+        Gson gs = new Gson();
+        Order orderToUpdate = gs.fromJson(json, Order.class);
+        JsonObject status = gs.fromJson(json, JsonObject.class);
+
+        int newStatusId = status.get("newStatusId").getAsInt();
+        
+        OrderDAO oDAO = new OrderDAO();
+        
+        Gson gson = new GsonBuilder().create();
+        JsonObject jsonOutput = new JsonObject();
+        
+        try {
+            
+            jsonOutput.addProperty("status", "200");
+            oDAO.updateOrder(orderToUpdate, newStatusId);
             
         } catch (SQLException e) {
             System.out.println("EXCEPTION e: " + e);
