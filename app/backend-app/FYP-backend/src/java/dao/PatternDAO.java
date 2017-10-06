@@ -21,7 +21,41 @@ import java.util.logging.Logger;
  * @author Ong Yi Xuan
  */
 public class PatternDAO {
-    
+
+    public ArrayList<Pattern> getAllAvailablePatterns() throws SQLException {
+
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        ArrayList<Pattern> patternList = new ArrayList<Pattern>();
+
+        String sql = "SELECT * FROM PATTERN WHERE DELETED = ? ";
+        try {
+
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, "N");
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                int patternId = rs.getInt("PATTERN_ID");
+                String patternName = rs.getString("PATTERN_NAME");
+                String patternDesc = rs.getString("PATTERN_DESC");
+                double patternPrice = rs.getDouble("PATTERN_PRICE");
+
+//    public Pattern(int patternId, String patternName, String patternDesc, double patternPrice, Collection collection, Tag[] tags) {
+                Pattern pattern = new Pattern(patternId, patternName, patternDesc, patternPrice, null, null);
+                patternList.add(pattern);
+            }
+
+        } finally {
+            ConnectionManager.close(conn, stmt, rs);
+        }
+
+        return patternList;
+
+    }
+
     public String addPattern(Pattern pattern) throws SQLException {
 
         Connection conn = null;
@@ -30,27 +64,27 @@ public class PatternDAO {
 
         String sql = "INSERT INTO PATTERN (PATTERN_ID, PATTERN_NAME, PATTERN_DESC, PATTERN_PRICE, DELETED, COLLECTION_ID) VALUES (?,?,?,?,?,?)";
 
-            try {
+        try {
 
-                conn = ConnectionManager.getConnection();
-                stmt = conn.prepareStatement(sql);
-                stmt.setInt(1, getNextPatternId());
-                stmt.setString(2, pattern.getPatternName());
-                stmt.setString(3, pattern.getPatternDesc());
-                stmt.setDouble(4, pattern.getPatternPrice());
-                stmt.setString(5, "N");
-                stmt.setInt(6, pattern.getCollection().getCollectionId());
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, getNextPatternId());
+            stmt.setString(2, pattern.getPatternName());
+            stmt.setString(3, pattern.getPatternDesc());
+            stmt.setDouble(4, pattern.getPatternPrice());
+            stmt.setString(5, "N");
+            stmt.setInt(6, pattern.getCollection().getCollectionId());
 
-                stmt.executeUpdate();
+            stmt.executeUpdate();
 
-            } finally {
-                ConnectionManager.close(conn, stmt, rs);
-            }
-        
+        } finally {
+            ConnectionManager.close(conn, stmt, rs);
+        }
+
         return "Success";
     }
-    
-   /* 
+
+    /* 
     public void updatePatternToDB(Pattern p) throws SQLException{
         
         //get the pattern id
@@ -237,7 +271,6 @@ public class PatternDAO {
 //        return patternArrayList.toArray(new Pattern[patternArrayList.size()]);
 //    }
 //    
-
     public int getNextPatternId() throws SQLException {
 
         Connection conn = null;
@@ -268,7 +301,7 @@ public class PatternDAO {
         return nextPatternId;
 
     }
-    
+
     public Pattern getPatternById(int patternId) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;

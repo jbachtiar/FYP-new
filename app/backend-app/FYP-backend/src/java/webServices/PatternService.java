@@ -7,13 +7,18 @@ package webServices;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import dao.FabricDAO;
 import dao.PatternDAO;
+import entity.Fabric;
 import entity.Pattern;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.annotation.security.PermitAll;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.FormParam;
+import javax.ws.rs.GET;
 import javax.ws.rs.OPTIONS;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -30,6 +35,50 @@ public class PatternService {
     
     @Context
     private HttpServletResponse response;
+    
+    @GET
+    @Path("/getPatterns")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getAllPatterns() {
+        
+        response.setHeader("Access-Control-Allow-Headers", "Content-Type");
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
+
+        Gson gson = new GsonBuilder().create();
+        JsonObject jsonOutput = new JsonObject();
+        
+        JsonArray patternArray = new JsonArray();
+        PatternDAO patternDAO = new PatternDAO();
+
+        try {
+
+            ArrayList<Pattern> pList = patternDAO.getAllAvailablePatterns();
+            if (pList == null) {
+                
+                jsonOutput.addProperty("status", "500");
+                jsonOutput.addProperty("msg", "No Patterns Available");
+                
+
+            } else {
+                
+                jsonOutput.addProperty("status", "200");
+                JsonArray patterns = gson.toJsonTree(pList).getAsJsonArray(); // convert arraylist to jsonArray
+                jsonOutput.add("patterns", patterns);
+
+            }
+
+        } catch (SQLException e) {
+
+            jsonOutput.addProperty("status", "500");
+            jsonOutput.addProperty("msg", "PatternService: " + e.toString());
+
+        }
+
+        String finalJsonOutput = gson.toJson(jsonOutput);
+        return finalJsonOutput;
+        
+    }
     
     @OPTIONS
     @PermitAll
