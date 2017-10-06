@@ -16,7 +16,7 @@
 
 .header{
     padding-top:5px;
-    background-color: goldenrod;
+    background-color: #B0A171;
     
 }
 .item{
@@ -24,12 +24,12 @@
 }
 
 .content{
-    border: solid 1px goldenrod;
+    border: solid 1px #B0A171;
 }
 
 .left-button{
-    border: 1px solid goldenrod;
-    background-color: goldenrod; 
+    border: 1px solid #B0A171;
+    background-color: #B0A171; 
     font-family: Georgia;
     font-size: 16px;
     color: white;
@@ -41,8 +41,8 @@
 }
 
 .right-button{
-    border: 1px solid goldenrod;
-    background-color: goldenrod; 
+    border: 1px solid #B0A171;
+    background-color: #B0A171; 
     font-family: Georgia;
     font-size: 16px;
     color: white;
@@ -85,7 +85,7 @@ table {
 }
 
 td, th {
-    border-bottom: 1px solid goldenrod;
+    border-bottom: 1px solid #B0A171;
     text-align: center;
     padding: 8px;
     width: 20%;
@@ -133,7 +133,7 @@ th{
     }
     .checkout{
         color: white;
-        background-color: goldenrod;
+        background-color: #B0A171;
         border: 0px;
         width: 100%;
         height: 40px;
@@ -153,7 +153,7 @@ th{
     }
     
     td, th {
-        border-bottom: 0px solid goldenrod;
+        border-bottom: 0px solid #B0A171;
         text-align: left;
         font-size: 14px;
         padding: 8px;

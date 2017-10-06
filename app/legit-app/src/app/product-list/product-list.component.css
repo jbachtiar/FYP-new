@@ -46,7 +46,7 @@ img{
 
 .product-name{
     font-size: 24px;
-    color: goldenrod;
+    color: #B0A171;
     font-family: Georgia; 
 }
 
@@ -62,7 +62,7 @@ img{
     font-family: Georgia; 
 }
 .page-tab:hover {
-    color: goldenrod; 
+    color: #B0A171; 
     border: 0px;
     border-radius: 0px;
     background: lightgray; 
@@ -72,7 +72,7 @@ img{
     color: lightgray; 
     border: 0px;
     border-radius: 0px;
-    background: goldenrod;
+    background: #B0A171;
     font-family: Georgia; 
 }
 
@@ -91,7 +91,7 @@ img{
 }
 
 p{
-    color: goldenrod;
+    color: #B0A171;
     font-size: 16px;
     margin-top: 20px;
     margin-bottom: 40px;
@@ -109,13 +109,13 @@ p{
 }
 .pagination{
     border: 0.5 solid;
-    border-color: goldenrod;
+    border-color: #B0A171;
     cursor: pointer;
 }
 .pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
     z-index: 3;
     color: #fff;
-    background-color: goldenrod;
+    background-color: #B0A171;
     
 }
 
