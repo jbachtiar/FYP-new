@@ -45,6 +45,57 @@ public class CollectionDAO {
         return "Success";
     }
     
+    public String deleteCollectionById(int id) throws SQLException {
+
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        String sql = "UPDATE COLLECTION SET DELETED = ? WHERE COLLECTION_ID = ?";
+
+        try {
+
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, "Y");
+            stmt.setInt(2, id);
+
+            rs = stmt.executeQuery();
+
+        } finally {
+            ConnectionManager.close(conn, stmt, rs);
+        }
+
+        return "Success";
+
+    }
+
+    
+    public String updateCollection(Collection collection) throws SQLException {
+
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        String sql = "UPDATE COLLECTION SET COLLECTION_NAME = ? WHERE COLLECTION_ID = ?";
+
+            try {
+
+                conn = ConnectionManager.getConnection();
+                stmt = conn.prepareStatement(sql);
+                
+                stmt.setString(1, collection.getCollectionName());
+                stmt.setInt(2, collection.getCollectionId());
+
+                stmt.executeUpdate();
+
+            } finally {
+                ConnectionManager.close(conn, stmt, rs);
+            }
+
+        return "Success";
+    }
+    
     public int getNextCollectionId() throws SQLException {
 
         Connection conn = null;

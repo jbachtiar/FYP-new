@@ -68,7 +68,7 @@ public class PatternDAO {
                 stmt.setDouble(3, pattern.getPatternPrice());
                 stmt.setString(4, "N");
                 stmt.setInt(5, pattern.getCollection().getCollectionId());
-                stmt.setInt(6, getNextPatternId());
+                stmt.setInt(6, pattern.getPatternId());
 
                 stmt.executeUpdate();
 
