@@ -188,6 +188,70 @@ public class OrderDAO {
         return orderArr;
     }
 
+    public String updateOrder(Order o) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        PreparedStatement stmt1 = null;
+        ResultSet rs = null;
+        int orderId = o.getOrderId();
+        OrderItem[] orderItems = o.getOrderItems();
+        String email = o.getAddress().getEmail();
+        Timestamp curr_ts = getCurrentTimeStamp();
+
+        String sql = "UPDATE CUSTOMER_ORDER SET ORDER_DATE = ?, NET_AMT = ?, PROMO_DISC_AMT = ?, RECIPIENT_NAME = ?, PHONE_NO = ?, ADDRESS_LINE = ?, CITY = ?, COUNTRY = ?, POSTAL_CODE = ?, STRIPE_CHARGE_ID = ?, EMAIL = ?, PROMO_CODE_ID = ?, COURIER_NAME = ?, ORDER_TRACKING_NO = ? WHERE ORDER_ID = ?";
+        String sql1 = "INSERT INTO ORDER_STATUS_LOG (ORDER_ID, STATUS_ID, START_TIMESTAMP, END_TIMESTAMP, DURATION_HOURS) VALUES (?, ?, ?, ?, ?)";
+        
+        try {
+
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            
+            stmt.setTimestamp(1, curr_ts);
+            stmt.setDouble(2, o.getNetAmt());
+            stmt.setDouble(3, o.getPromoDiscAmt());
+            stmt.setString(4, o.getAddress().getRecipientName());
+            stmt.setString(5, o.getAddress().getPhoneNo());
+            stmt.setString(6, o.getAddress().getAddressLine());
+            stmt.setString(7, o.getAddress().getCity());
+            stmt.setString(8, o.getAddress().getCountry());
+            stmt.setString(9, o.getAddress().getPostalCode());
+            stmt.setString(10, o.getPaymentRefNo());
+            stmt.setString(11, email);
+            
+            PromoCode pc = o.getPromoCode();
+            int promoCodeId = 0;
+            if(pc!=null){
+                promoCodeId = pc.getPromoCodeId();
+            }   
+            stmt.setInt(12, promoCodeId);
+            stmt.setString(13, o.getCourierName());
+            stmt.setString(14, o.getTrackingNo());
+            stmt.setInt(15, orderId); //where condition
+            stmt.executeUpdate();
+
+            stmt1 = conn.prepareStatement(sql1);
+            stmt1.setInt(1, orderId);
+            stmt1.setInt(2, 1);
+            stmt1.setTimestamp(3, curr_ts);
+            stmt1.setTimestamp(4, null);
+            stmt1.setDouble(5, 0);
+
+            stmt1.executeUpdate();
+
+            for (OrderItem oI : orderItems) {
+                OrderItemDAO orderItemDAO = new OrderItemDAO();
+                String result = orderItemDAO.updateOrderItems(orderId, oI);
+            }
+        } finally {
+            ConnectionManager.close(conn);
+        }
+
+        return "Success";
+
+    }
+
+    
+    
     public Order[] getAllOrders() throws SQLException {
 
         PromoCodeDAO pcDao = new PromoCodeDAO();
