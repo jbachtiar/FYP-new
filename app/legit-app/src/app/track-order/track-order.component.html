@@ -2,82 +2,90 @@
 </app-loading>
 
 <div class="mobile-contain" *ngIf="!loading">
-    <h2>Track Order</h2>
-    <hr>
+    <div *ngIf="!details">
+        <h2>Track Order</h2>
+        <hr>
 
-    <h4> <b> Current Orders </b> </h4>
-    <hr>
-    <div [hidden]="!isDisplayCurrentOrder">
-        <table class="table table-hover">
-            <thead>
-                <th>Order ID</th>
-                <th>Order Status</th>
-                <th>Price</th>
-                <th>Date of Purchase</th>
-                <th *hideItDevice="['mobile','tablet']"> </th>
-            </thead>
+        <h4> <b> Current Orders </b> </h4>
+        <hr>
+        <div [hidden]="!isDisplayCurrentOrder">
+            <table class="table table-hover">
+                <thead>
+                    <th>Order ID</th>
+                    <th>Order Status</th>
+                    <th>Price</th>
+                    <th>Date of Purchase</th>
+                    <th *hideItDevice="['mobile','tablet']"> </th>
+                </thead>
 
-            <tbody *ngFor="let co of currentOrders">
-                <tr (click)=viewOrder(co.orderId)>
-                    <td>
-                        {{co.orderId}}
-                    </td>
-                    <td>
-                        {{returnTheLatestOrderStatus(co.statusLogs)}}
-                    </td>
-                    <td>
-                        {{co.netAmt}}
-                    </td>
-                    <td>
-                        {{co.order_TimeStamp}}
-                    </td>
-                    <td *hideItDevice="['mobile','tablet']">
-                        <button [disabled]="loading" class="button" (click)=viewOrder(co.orderId)>View Details</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+                <tbody *ngFor="let co of currentOrders">
+                    <tr (click)=viewOrder(co.orderId)>
+                        <td>
+                            {{co.orderId}}
+                        </td>
+                        <td>
+                            {{returnTheLatestOrderStatus(co.statusLogs)}}
+                        </td>
+                        <td>
+                            {{co.netAmt}}
+                        </td>
+                        <td>
+                            {{co.order_TimeStamp}}
+                        </td>
+                        <td *hideItDevice="['mobile','tablet']">
+                            <button [disabled]="loading" class="button" (click)=viewOrder(co.orderId)>View Details</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <p [hidden]="isDisplayCurrentOrder">
+            No Order In Process
+        </p>
+
+        <h4> <b> Past Purchases </b></h4>
+        <hr>
+        <div [hidden]="!isDisplayPastOrder">
+            <table>
+                <thead>
+                    <th>Order ID</th>
+                    <th>Order Status</th>
+                    <th>Price</th>
+                    <th>Date of Purchase</th>
+                    <th *hideItDevice="['mobile','tablet']"></th>
+                </thead>
+
+                <tbody *ngFor="let co of pastOrders">
+                    <tr viewOrder(co.orderId)>
+                        <td>
+                            {{co.orderId}}
+                        </td>
+                        <td>
+                            {{returnTheLatestOrderStatus(co.statusLogs)}}
+                        </td>
+                        <td>
+                            {{co.netAmt}}
+                        </td>
+                        <td>
+                            {{co.order_TimeStamp}}
+                        </td>
+                        <td *hideItDevice="['mobile','tablet']">
+                            <button [disabled]="loading" class="button" (click)=viewOrder(co.orderId)>View Details</button>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+        <p [hidden]="isDisplayPastOrder">
+            No Past Purchase
+        </p>
     </div>
-    <p [hidden]="isDisplayCurrentOrder">
-        No Order In Process
-    </p>
 
-    <h4> <b> Past Purchases </b></h4>
-    <hr>
-    <div [hidden]="!isDisplayPastOrder">
-        <table>
-            <thead>
-                <th>Order ID</th>
-                <th>Order Status</th>
-                <th>Price</th>
-                <th>Date of Purchase</th>
-                <th *hideItDevice="['mobile','tablet']"></th>
-            </thead>
 
-            <tbody *ngFor="let co of pastOrders">
-                <tr viewOrder(co.orderId)>
-                    <td>
-                        {{co.orderId}}
-                    </td>
-                    <td>
-                        {{returnTheLatestOrderStatus(co.statusLogs)}}
-                    </td>
-                    <td>
-                        {{co.netAmt}}
-                    </td>
-                    <td>
-                        {{co.order_TimeStamp}}
-                    </td>
-                    <td *hideItDevice="['mobile','tablet']">
-                        <button [disabled]="loading" class="button" (click)=viewOrder(co.orderId)>View Details</button>
-                    </td>
-                </tr>
-
-            </tbody>
-        </table>
+    <!-- Diplay Order details -->
+    <div *ngIf="details">
+        <app-track-order-detail [orderId]="outputOrderId"></app-track-order-detail>
     </div>
-
-    <p [hidden]="isDisplayPastOrder">
-        No Past Purchase
-    </p>
 </div>
