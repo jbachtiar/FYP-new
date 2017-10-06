@@ -188,7 +188,7 @@ public class OrderDAO {
         return orderArr;
     }
 
-    public String updateOrder(Order o) throws SQLException {
+    public String updateOrder(Order o, int newStatusId) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
         PreparedStatement stmt1 = null;
@@ -231,7 +231,7 @@ public class OrderDAO {
 
             stmt1 = conn.prepareStatement(sql1);
             stmt1.setInt(1, orderId);
-            stmt1.setInt(2, 1);
+            stmt1.setInt(2, newStatusId);
             stmt1.setTimestamp(3, curr_ts);
             stmt1.setTimestamp(4, null);
             stmt1.setDouble(5, 0);

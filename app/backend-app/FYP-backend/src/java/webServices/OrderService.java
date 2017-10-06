@@ -164,7 +164,7 @@ public class OrderService {
     }
     
     @POST
-        @Path("/getPastOrdersByCustomer")
+    @Path("/getPastOrdersByCustomer")
     @Produces(MediaType.APPLICATION_JSON)
     public String getPastOrdersByCustomer(@FormParam("token") String token) {
         
@@ -312,6 +312,10 @@ public class OrderService {
         
         Gson gs = new Gson();
         Order orderToUpdate = gs.fromJson(json, Order.class);
+        JsonObject status = gs.fromJson(json, JsonObject.class);
+
+        int newStatusId = status.get("newStatusId").getAsInt();
+        
         OrderDAO oDAO = new OrderDAO();
         
         Gson gson = new GsonBuilder().create();
@@ -320,7 +324,7 @@ public class OrderService {
         try {
             
             jsonOutput.addProperty("status", "200");
-            oDAO.updateOrder(orderToUpdate);
+            oDAO.updateOrder(orderToUpdate, newStatusId);
             
         } catch (SQLException e) {
             System.out.println("EXCEPTION e: " + e);
