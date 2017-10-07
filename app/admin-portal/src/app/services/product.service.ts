@@ -83,6 +83,17 @@ export class ProductService {
             });
     }
 
+    getPatternByName(patternName: string) {
+        let url = CONFIG.productCatalogueBackendUrl + '/patternCombination';
+        let finalUrl = url + "?patternName=" + patternName
+        return this._http.get(finalUrl)
+            .map(res => {
+                console.log(finalUrl)
+                console.log("product is loaded: " + res.json().pattern);
+                return res.json().pattern;
+            });
+    }
+
     getAllFabrics() {
         let url = CONFIG.productCatalogueBackendUrl + '/fabrics';
         return this._http.get(url)
@@ -132,7 +143,7 @@ export class ProductService {
         console.log("UPDATE PATTERN SERVICE")
         var params = JSON.stringify(patternJson);
         const headers = new Headers();
-        let url=CONFIG.productCatalogueBackendUrl+'/update'
+        let url = CONFIG.productCatalogueBackendUrl + '/update'
         headers.append('Content-Type', 'application/json');
         return this._http.post(url, params, {
             headers: headers

@@ -33,22 +33,22 @@ import javax.ws.rs.core.MediaType;
  */
 @Path("/PatternService")
 public class PatternService {
-    
+
     @Context
     private HttpServletResponse response;
-    
+
     @GET
     @Path("/getPatterns")
     @Produces(MediaType.APPLICATION_JSON)
     public String getAllPatterns() {
-        
+
         response.setHeader("Access-Control-Allow-Headers", "Content-Type");
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
 
         Gson gson = new GsonBuilder().create();
         JsonObject jsonOutput = new JsonObject();
-        
+
         JsonArray patternArray = new JsonArray();
         PatternDAO patternDAO = new PatternDAO();
 
@@ -56,13 +56,12 @@ public class PatternService {
 
             ArrayList<Pattern> pList = patternDAO.getAllAvailablePatterns();
             if (pList == null) {
-                
+
                 jsonOutput.addProperty("status", "500");
                 jsonOutput.addProperty("msg", "No Patterns Available");
-                
 
             } else {
-                
+
                 jsonOutput.addProperty("status", "200");
                 JsonArray patterns = gson.toJsonTree(pList).getAsJsonArray(); // convert arraylist to jsonArray
                 jsonOutput.add("patterns", patterns);
@@ -78,9 +77,9 @@ public class PatternService {
 
         String finalJsonOutput = gson.toJson(jsonOutput);
         return finalJsonOutput;
-        
+
     }
-    
+
     @OPTIONS
     @PermitAll
     @Path("/save")
@@ -90,26 +89,26 @@ public class PatternService {
         response.setHeader("Access-Control-Allow-Headers", "authorization");
 
     }
-    
+
     @POST
     @Path("/save")
     @Produces(MediaType.APPLICATION_JSON)
     public String savePattern(@FormParam("pattern") String json) {
-        
+
         PatternDAO pDAO = new PatternDAO();
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
 
         Gson gs = new Gson();
         Pattern patternToSave = gs.fromJson(json, Pattern.class);
-        
+
         Gson gson = new GsonBuilder().create();
         JsonObject jsonOutput = new JsonObject();
 
         try {
-                System.out.println("JSON: " + json);
-                jsonOutput.addProperty("status", "200");
-                pDAO.addPattern(patternToSave);
+            System.out.println("JSON: " + json);
+            jsonOutput.addProperty("status", "200");
+            pDAO.addPattern(patternToSave);
 
         } catch (SQLException e) {
             System.out.println(e);
@@ -130,26 +129,26 @@ public class PatternService {
         response.setHeader("Access-Control-Allow-Headers", "authorization");
 
     }
-    
+
     @POST
     @Path("/update")
     @Produces(MediaType.APPLICATION_JSON)
     public String updatePattern(@FormParam("pattern") String json) {
-        
+
         PatternDAO pDAO = new PatternDAO();
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
 
         Gson gs = new Gson();
         Pattern patternToUpdate = gs.fromJson(json, Pattern.class);
-        
+
         Gson gson = new GsonBuilder().create();
         JsonObject jsonOutput = new JsonObject();
 
         try {
-                System.out.println("JSON: " + json);
-                jsonOutput.addProperty("status", "200");
-                pDAO.updatePattern(patternToUpdate);
+            System.out.println("JSON: " + json);
+            jsonOutput.addProperty("status", "200");
+            pDAO.updatePattern(patternToUpdate);
 
         } catch (SQLException e) {
             System.out.println(e);
@@ -160,7 +159,7 @@ public class PatternService {
         String finalJsonOutput = gson.toJson(jsonOutput);
         return finalJsonOutput;
     }
-    
+
     @GET
     @Path("/delete")
     @Produces(MediaType.APPLICATION_JSON)
@@ -169,13 +168,13 @@ public class PatternService {
         PatternDAO pDAO = new PatternDAO();
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
-        
+
         Gson gson = new GsonBuilder().create();
         JsonObject jsonOutput = new JsonObject();
 
         try {
-                jsonOutput.addProperty("status", "200");
-                pDAO.deletePatternById(patternId);
+            jsonOutput.addProperty("status", "200");
+            pDAO.deletePatternById(patternId);
 
         } catch (SQLException e) {
             System.out.println(e);
@@ -186,23 +185,23 @@ public class PatternService {
         String finalJsonOutput = gson.toJson(jsonOutput);
         return finalJsonOutput;
     }
-    
+
     @GET
     @Path("/GetPatternById")
     @Produces(MediaType.APPLICATION_JSON)
     public Pattern getColourById(@QueryParam("patternId") int patternId) {
-        
+
         PatternDAO pDAO = new PatternDAO();
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
-        
+
         Gson gson = new GsonBuilder().create();
         JsonObject jsonOutput = new JsonObject();
 
         try {
-                jsonOutput.addProperty("status", "200");
-                Pattern p = pDAO.getPatternById(patternId);
-                return p;
+            jsonOutput.addProperty("status", "200");
+            Pattern p = pDAO.getPatternById(patternId);
+            return p;
 
         } catch (SQLException e) {
             System.out.println(e);
@@ -213,7 +212,7 @@ public class PatternService {
 
         //String finalJsonOutput = gson.toJson(jsonOutput);
         //return finalJsonOutput;
-        
     }
-    
+
+
 }

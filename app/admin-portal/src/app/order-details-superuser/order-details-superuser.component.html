@@ -19,11 +19,11 @@
           </thead>
           <tbody>
             <td>
-              {{returnTheLatestOrderStatus()}}
+              {{selectedStatus}}
 
             </td>
             <td>
-              {{order.courierName}}
+              {{selectedCourier}}
             </td>
             <td>
               {{order.trackingNo}}
@@ -122,12 +122,12 @@
 
         <form name="form" (ngSubmit)="f.form.valid && updateOrder()" #f="ngForm" novalidate>
           <label for="status">Status</label>
-          <select  [ngModelOptions]="{standalone: true}" [(ngModel)]="selectedStatus">
+          <select [ngModelOptions]="{standalone: true}" [(ngModel)]="selectedStatus">
               <option *ngFor="let s of statusMenu" [ngValue]="s">{{s}}</option>
           </select>
 
           <label for="courier">Courier</label>
-          <select  [ngModelOptions]="{standalone: true}" [(ngModel)]="order.courierName">
+          <select [ngModelOptions]="{standalone: true}" [(ngModel)]="selectedCourier">
               <option *ngFor="let c of courierMenu" [ngValue]="c">{{c}}</option>
           </select>
 
@@ -173,29 +173,20 @@
                   {{ item.product.productType}}
                 </td>
                 <td>
-                  <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !pattern.valid }">
-                    <input type="text" name="pattern" [ngModelOptions]="{standalone: true}" [(ngModel)]="item.product.pattern.patternName" #pattern="ngModel"
-                      required />
-                    <div *ngIf="f.submitted && !pattern.valid" class="help-block">Pattern is required</div>
-                  </div>
-
+                  <select [(ngModel)]="item.product.pattern.patternName" (ngModelChange)="onPatternChange(item.product.pattern.patternName)"
+                    [ngModelOptions]="{standalone: true}">
+                    <option *ngFor="let p of patternMenu" [ngValue]="p.design_name">{{p.design_name}}</option>
+                  </select>
                 </td>
 
                 <td>
-                  <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !fabric.valid }">
-                    <input type="text" name="fabric" [ngModelOptions]="{standalone: true}" [(ngModel)]="item.product.fabric.fabricName" #fabric="ngModel"
-                      required />
-                    <div *ngIf="f.submitted && !fabric.valid" class="help-block">Fabric is required</div>
-                  </div>
-
+                  <select [ngModelOptions]="{standalone: true}" [(ngModel)]="selectedFabric" (ngModelChange)="onFabricChange()">
+                    <option *ngFor="let f of fabricMenu" [ngValue]="f">{{f.fabric_name}}</option>
+                  </select>
                 </td>
 
                 <td>
-                  <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !colour.valid }">
-                    <input type="text" name="colour" [ngModelOptions]="{standalone: true}" [(ngModel)]="item.product.colour.colourName" #colour="ngModel"
-                      required />
-                    <div *ngIf="f.submitted && !colour.valid" class="help-block">Colour is required</div>
-                  </div>
+          
 
                 </td>
 

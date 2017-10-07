@@ -594,6 +594,106 @@ public class ProductCatalogue {
         String finalJsonOutput = gson.toJson(jsonOutput);
         return finalJsonOutput;
     }
+    
+    @GET
+    @Path("/patternCombination")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getBeddingCombinationsByPatternName(@QueryParam("patternName") String patternName) {
+
+        response.setHeader("Access-Control-Allow-Origin", "*");
+
+        JsonObject jsonOutput = new JsonObject();
+        Gson gson = new GsonBuilder().create();
+        JsonParser parser = new JsonParser();
+
+        try {
+            PatternDAO patternDao = new PatternDAO();
+            FabricDAO fabricDao = new FabricDAO();
+            CollectionDAO collectionDao = new CollectionDAO();
+            Pattern pattern = patternDao.getPatternByName(patternName);
+            int patternId= pattern.getPatternId();
+            ColourDAO colourDao = new ColourDAO();
+            ProductDAO productDao = new ProductDAO();
+            ArrayList<Fabric> fabrics = fabricDao.getFabricsByPatternId(patternId);
+
+            Collection c = collectionDao.getCollectionByPatternId(patternId);
+            if (fabrics.isEmpty()) {
+                jsonOutput.addProperty("status", "Fabric not found");
+
+            } else {
+                jsonOutput.addProperty("status", "200");
+                JsonObject patt = new JsonObject();
+                patt.addProperty("pattern_id", pattern.getPatternId());
+                patt.addProperty("pattern_name", pattern.getPatternName());
+                patt.addProperty("pattern_description", pattern.getPatternDesc());
+                patt.addProperty("pattern_price", pattern.getPatternPrice());
+
+                patt.addProperty("collection_id", c.getCollectionId());
+                patt.addProperty("collection_name", c.getCollectionName());
+
+                JsonArray fabricsJson = new JsonArray();
+
+                for (int i = 0; i < fabrics.size(); i++) {
+                    Fabric f = fabrics.get(i);
+                    int fabricId = f.getFabricId();
+                    ArrayList<Colour> colours = colourDao.getAvailableColoursByPatternIdFabricId(patternId, fabricId);
+
+                    JsonObject fa = new JsonObject();
+                    fa.addProperty("fabric_id", fabricId);
+                    fa.addProperty("fabric_name", f.getFabricName());
+                    fa.addProperty("fabric_description", f.getFabricDesc());
+                    fa.addProperty("fabric_price", f.getFabricPrice());
+                    JsonArray colorsJson = new JsonArray();
+                    for (int j = 0; j < colours.size(); j++) {
+                        Colour col = colours.get(j);
+                        JsonObject co = new JsonObject();
+                        int colorId = col.getColourId();
+
+                        co.addProperty("colour_id", colorId);
+                        co.addProperty("colour_name", col.getColourName());
+
+                        Product p = productDao.getProductByPatternFabricColor(pattern.getPatternId(), fabricId, colorId);
+                        if (p != null) {
+                            JsonArray images = gson.toJsonTree(p.getImages()).getAsJsonArray();
+
+                            co.add("images", images);
+
+                            if (p.getProductType().equals("Bedding")) {
+
+                                BeddingSizeDAO beddingSizeDao = new BeddingSizeDAO();
+                                ArrayList<BeddingSize> beddingSizes = beddingSizeDao.getAllBeddingSizes();
+                                JsonArray sizes = new JsonArray();
+                                for (BeddingSize bs : beddingSizes) {
+                                    String beddingSizeString = gson.toJson(bs);
+                                    JsonElement beddingSizeElement = parser.parse(beddingSizeString);
+                                    sizes.add(beddingSizeElement);
+                                }
+
+                                co.add("sizes", sizes);
+                            }
+                        }
+                        colorsJson.add(co);
+                    }
+
+                    fa.add("colours", colorsJson);
+
+                    fabricsJson.add(fa);
+                }
+
+                patt.add("fabrics", fabricsJson);
+                jsonOutput.add("pattern", patt);
+
+            }
+        } catch (SQLException e) {
+
+            jsonOutput.addProperty("status", "error");
+
+        }
+
+        String finalJsonOutput = gson.toJson(jsonOutput);
+        return finalJsonOutput;
+    }
+
 
 //    @GET
 //    @Path("/filtersort")
