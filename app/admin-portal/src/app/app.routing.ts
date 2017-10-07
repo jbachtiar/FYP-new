@@ -18,7 +18,15 @@ import { OrderManagementSuperuserComponent} from './order-management-superuser/o
 import { OrderDetailsSuperuserComponent} from './order-details-superuser/order-details-superuser.component';
 import { CatalogueComponent } from './catalogue/catalogue.component'
 import { ProductDetailsComponent } from './product-details/product-details.component'
-import { ProductDetailsEditComponent } from './product-details-edit/product-details-edit.component'
+import { DesignDetailsComponent } from './design-details/design-details.component'
+import { FabricDetailsComponent } from './fabric-details/fabric-details.component'
+import { ColourDetailsComponent } from './colour-details/colour-details.component'
+import { CollectionDetailsComponent } from './collection-details/collection-details.component'
+import { ProductDetailsAddComponent } from './product-details-add/product-details-add.component'
+import { DesignDetailsAddComponent } from './design-details-add/design-details-add.component'
+import { FabricDetailsAddComponent } from './fabric-details-add/fabric-details-add.component'
+import { ColourDetailsAddComponent } from './colour-details-add/colour-details-add.component'
+import { CollectionDetailsAddComponent } from './collection-details-add/collection-details-add.component'
 
 import { AuthGuard } from './guard/guard';
 
@@ -41,7 +49,18 @@ const appRoutes: Routes = [
     { path: 'superuser/order/:orderId', component: OrderDetailsSuperuserComponent, canActivate: [AuthGuard]},
     { path: 'catalogue', component: CatalogueComponent, canActivate: [AuthGuard]},
     { path: 'catalogue/product/:productId', component: ProductDetailsComponent, canActivate: [AuthGuard]},
-    { path: 'catalogue/product/edit/:productId', component: ProductDetailsEditComponent, canActivate: [AuthGuard]}    
+    { path: 'catalogue/design/:patternId', component: DesignDetailsComponent, canActivate: [AuthGuard]},
+    { path: 'catalogue/fabric/:fabricId', component: FabricDetailsComponent, canActivate: [AuthGuard]},
+    { path: 'catalogue/colour/:colourId', component: ColourDetailsComponent, canActivate: [AuthGuard]},
+    { path: 'catalogue/collection/:collectionId', component: CollectionDetailsComponent, canActivate: [AuthGuard]},
+    { path: 'catalogue/add/product', component: ProductDetailsAddComponent, canActivate: [AuthGuard]},
+    { path: 'catalogue/add/design', component: DesignDetailsAddComponent, canActivate: [AuthGuard]},
+    { path: 'catalogue/add/fabric', component: FabricDetailsAddComponent, canActivate: [AuthGuard]},
+    { path: 'catalogue/add/colour', component: ColourDetailsAddComponent, canActivate: [AuthGuard]},
+    { path: 'catalogue/add/collection', component: CollectionDetailsAddComponent, canActivate: [AuthGuard]}    
+    
+    
+    
     //{ path: 'register', component: RegisterComponent },
 ];
 
