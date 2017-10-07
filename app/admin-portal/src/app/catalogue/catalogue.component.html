@@ -4,6 +4,10 @@
 <button md-raised-button [ngStyle]="{'background-color': color.colour, 'color': fontColor.colour}" (click)="onTypeChange('colour')">Colour</button>
 <button md-raised-button [ngStyle]="{'background-color': color.collection, 'color': fontColor.collection}" (click)="onTypeChange('collection')">Collection</button>
 
+<div style="float:right;">
+        <button md-raised-button (click) = "onNewItem()" [ngStyle]="{'background-color': 'lightseagreen', 'color': 'white'}">New</button>
+        
+</div>
 <div *ngIf="showTab.product">
     <product-catalogue></product-catalogue>
 </div>
