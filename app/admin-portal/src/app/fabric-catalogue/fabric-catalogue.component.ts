@@ -54,12 +54,12 @@ export class FabricCatalogueComponent implements OnInit {
   }
 
   rowClick(rowEvent) {
-    console.log('Clicked');
+    let link = ['catalogue/fabric', rowEvent.row.item.fabricId];
+    this.router.navigate(link);
   }
 
   rowDoubleClick(rowEvent) {
-    let link = ['superuser/order', rowEvent.row.item.orderId];
-    this.router.navigate(link);
+   //doSth
   }
 
   rowTooltip(item) {

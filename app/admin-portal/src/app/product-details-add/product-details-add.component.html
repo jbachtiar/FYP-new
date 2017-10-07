@@ -1,3 +1,94 @@
-<p>
-  product-details-add works!
-</p>
+<md-card>
+  <div class="row">
+    <div class="header">
+      <h1> <b>New Product</b></h1>
+    </div>
+    <button md-raised-button [ngStyle]="{'background-color': buttonColour, 'color': buttonTextColour}" (click)="onEdit()">{{buttonText}}</button>
+
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <form *ngIf="!loading" name="form" (ngSubmit)="f.form.valid && submit()" #f="ngForm" class="form" novalidate>
+        
+        <div class="form-group">
+          <div>
+            <label for="type">Product Type</label>
+          </div>
+          <div ng-class="{'valid':type.$valid}">
+            <select class="form-control" name='type' [(ngModel)]='product.productType' #type="ngModel" required>
+                        <option *ngFor="let t of types" [ngValue]="t">{{t}}</option>
+            </select>
+          </div>
+          <div *ngIf="(f.submitted && !type.valid && !product.productType) || (!type.valid && type.dirty)" class="help-block">Type is required</div>
+        </div>
+        <div class="form-group">
+          <div>
+            <label for="patternName">Design </label>
+          </div>
+          <div ng-class="{'valid':pattern.$valid}">
+            <select class="form-control" name='pattern' [(ngModel)]="product.pattern" #pattern="ngModel" required>
+                  <option *ngFor="let p of patterns" [ngValue]="p">{{p.patternName}}</option>
+              </select>
+          </div>
+          <div *ngIf="(f.submitted && !pattern.valid && !pattern.fabric) || (!pattern.valid && pattern.dirty)" class="help-block">Design is required</div>
+        </div>
+
+        <div class="form-group">
+          <div>
+            <label for="fabricName">Fabric </label>
+          </div>
+          <div ng-class="{'valid':fabric.$valid}">
+            <select class="form-control" name='fabric' [(ngModel)]="product.fabric" #fabric="ngModel" required>
+                <option *ngFor="let f of fabrics" [ngValue]="f">{{f.fabricName}}</option>
+            </select>
+          </div>
+          <div *ngIf="(f.submitted && !fabric.valid && !product.fabric) || (!fabric.valid && fabric.dirty)" class="help-block">Fabric is required</div>
+        </div>
+
+        <div class="form-group">
+          <div>
+            <label for="colour">Colour</label>
+          </div>
+          <div ng-class="{'valid':colour.$valid}">
+            <select class="form-control" name='colour' [(ngModel)]='product.colour' #colour="ngModel" required>
+                            <option *ngFor="let c of colours" [ngValue]="c">{{c.colourName}}</option>
+                        </select>
+          </div>
+          <div *ngIf="(f.submitted && !colour.valid && !product.colour) || (!colour.valid && colour.dirty)" class="help-block">Colour is required</div>
+        </div>
+
+        <div class="form-group">
+          <button md-raised-button [ngStyle]="{'background-color': 'lightcoral', 'color': 'white'}">Save</button>
+        </div>
+
+      </form>
+
+    </div>
+
+    <!-- <div class="col-sm-4"> -->
+
+    <!-- <img src="{{product.images[0].imageUrl}}" alt="..." class="img-thumbnail img-product" [routerLink]="['/productDetails', product.pattern_id]">
+      <a href={{product.images[0].imageUrl}}>View Image</a> -->
+    <div class="form-group">
+      <div class="col-sm-6">
+        <label><b>Images</b></label><br/>
+        <button md-button color="primary" (click)="onAddImage()">Add More</button>
+      </div>
+      <span *ngFor="let image of product.images">
+            
+            <div class="col-sm-3">
+              
+                <a href={{image.imageUrl}}><img src="{{image.imageUrl}}" alt="..." class="img-thumbnail img-product"></a><br/>
+                Image {{image.imageId}} <br/>
+                <label class="btn btn-default btn-file">  
+                    
+                Upload Image <input type="file" (change)="onUploadImage($event, image)" style="display: none;">
+              </label>
+              
+              </div>
+      </span>
+    </div>
+
+  </div>
+  <!-- </div> -->
+</md-card>

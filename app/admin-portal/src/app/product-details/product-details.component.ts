@@ -30,14 +30,13 @@ export class ProductDetailsComponent implements OnInit {
   selectedPattern;
   patternUrl = "";
   loading: boolean = true;
-  types = ["Bedding", "Lamp"]
 
   constructor(private catService: CatalogueService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
       this.productId = params['productId']; // grab the parameter from url
-      this.patternUrl = CONFIG.eCommerceWebsiteUrl + '/productDetails/' + this.productId
+      this.patternUrl = CONFIG.eCommerceWebsiteUrl + '/productDetails/' + this.product.pattern.patternId
     });
     this.catService.getProductById(this.productId).subscribe(
       product => {
@@ -46,6 +45,11 @@ export class ProductDetailsComponent implements OnInit {
         this.selectedFabric = this.product.fabric
         this.selectedColour = this.product.colour
         this.selectedPattern = this.product.pattern
+        //add 0000 padding
+        let temp = "" + product.productId
+        var pad = "0000"
+        var ans = pad.substring(0, pad.length - temp.length) + temp
+        product['productId_display'] = ans
         this.catService.getAllFabrics().subscribe(
           fabrics => {
             this.fabrics = fabrics;
@@ -90,6 +94,8 @@ export class ProductDetailsComponent implements OnInit {
     this.loading = false;
   }
 
+
+
   onEdit() {
     if (!this.editPage) {
       this.editPage = true;
@@ -116,6 +122,16 @@ export class ProductDetailsComponent implements OnInit {
       this.onEdit()
 
     });
+  }
+
+  onAddImage() {
+    let images = this.product.images
+    let lastId = images.length
+    let newImage = {
+      "imageId": lastId + 1,
+      "imageUrl": "assets/img/upload_image.png"
+    }
+    images.push(newImage)
   }
 
   onUploadImage(fileInput: any, image: any) {
