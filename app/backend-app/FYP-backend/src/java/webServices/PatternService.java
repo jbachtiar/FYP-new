@@ -114,6 +114,12 @@ public class PatternService {
         } catch (SQLException e) {
             System.out.println(e);
             jsonOutput.addProperty("status", "500");
+            jsonOutput.addProperty("error", e.toString());
+
+        } catch (Exception e) {
+            System.out.println(e);
+            jsonOutput.addProperty("status", "500");
+            jsonOutput.addProperty("error", e.toString());
 
         }
 
@@ -188,7 +194,7 @@ public class PatternService {
     }
     
     @GET
-    @Path("/GetPatternById")
+    @Path("/getPatternById")
     @Produces(MediaType.APPLICATION_JSON)
     public Pattern getColourById(@QueryParam("patternId") int patternId) {
         
