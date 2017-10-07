@@ -21,7 +21,41 @@ import java.util.logging.Logger;
  * @author Ong Yi Xuan
  */
 public class PatternDAO {
-    
+
+    public ArrayList<Pattern> getAllAvailablePatterns() throws SQLException {
+
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        ArrayList<Pattern> patternList = new ArrayList<Pattern>();
+
+        String sql = "SELECT * FROM PATTERN WHERE DELETED = ? ";
+        try {
+
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, "N");
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                int patternId = rs.getInt("PATTERN_ID");
+                String patternName = rs.getString("PATTERN_NAME");
+                String patternDesc = rs.getString("PATTERN_DESC");
+                double patternPrice = rs.getDouble("PATTERN_PRICE");
+
+//    public Pattern(int patternId, String patternName, String patternDesc, double patternPrice, Collection collection, Tag[] tags) {
+                Pattern pattern = new Pattern(patternId, patternName, patternDesc, patternPrice, null, null);
+                patternList.add(pattern);
+            }
+
+        } finally {
+            ConnectionManager.close(conn, stmt, rs);
+        }
+
+        return patternList;
+
+    }
+
     public String addPattern(Pattern pattern) throws SQLException {
 
         Connection conn = null;

@@ -52,6 +52,62 @@ public class ProductCatalogue {
     @Context
     private HttpServletResponse response;
     
+    
+    @GET
+    @Path("/getProductById")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Product getProductById(@QueryParam("productId") int productId) {
+        
+        ProductDAO pDAO = new ProductDAO();
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
+        
+        Gson gson = new GsonBuilder().create();
+        JsonObject jsonOutput = new JsonObject();
+
+        try {
+                jsonOutput.addProperty("status", "200");
+                Product p = pDAO.getProductById(productId);
+                return p;
+
+        } catch (SQLException e) {
+            System.out.println(e);
+            jsonOutput.addProperty("status", "500");
+            return null;
+
+        }
+
+        //String finalJsonOutput = gson.toJson(jsonOutput);
+        //return finalJsonOutput;
+        
+    }
+    
+    @GET
+    @Path("/delete")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String deleteProduct(@QueryParam("productId") int productId) {
+
+        ProductDAO pDAO = new ProductDAO();
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
+        
+        Gson gson = new GsonBuilder().create();
+        JsonObject jsonOutput = new JsonObject();
+
+        try {
+                jsonOutput.addProperty("status", "200");
+                pDAO.deleteProductById(productId);
+
+        } catch (SQLException e) {
+            System.out.println(e);
+            jsonOutput.addProperty("status", "500");
+
+        }
+
+        String finalJsonOutput = gson.toJson(jsonOutput);
+        return finalJsonOutput;
+    }
+    
     @OPTIONS
     @PermitAll
     @Path("/save")
@@ -91,6 +147,47 @@ public class ProductCatalogue {
         String finalJsonOutput = gson.toJson(jsonOutput);
         return finalJsonOutput;
     }
+    
+    @OPTIONS
+    @PermitAll
+    @Path("/update")
+    public void optionsUpdate() {
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
+        response.setHeader("Access-Control-Allow-Headers", "authorization");
+
+    }
+    
+    @POST
+    @Path("/update")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String updateProduct(@FormParam("product") String json) {
+        
+        ProductDAO pDAO = new ProductDAO();
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
+
+        Gson gs = new Gson();
+        Product productToUpdate = gs.fromJson(json, Product.class);
+        
+        Gson gson = new GsonBuilder().create();
+        JsonObject jsonOutput = new JsonObject();
+
+        try {
+                System.out.println("JSON: " + json);
+                jsonOutput.addProperty("status", "200");
+                pDAO.updateProduct(productToUpdate);
+
+        } catch (SQLException e) {
+            System.out.println(e);
+            jsonOutput.addProperty("status", "500");
+
+        }
+
+        String finalJsonOutput = gson.toJson(jsonOutput);
+        return finalJsonOutput;
+    }
+
 
     
     @GET
@@ -226,52 +323,6 @@ public class ProductCatalogue {
         String finalJsonOutput = gson.toJson(jsonOutput);
         return finalJsonOutput;
     }
-
-    
-    
-/*
-    @OPTIONS
-    @PermitAll
-    @Path("/update")  // post delete update 
-    public void optionsUpdateProduct() {
-        response.setHeader("Access-Control-Allow-Origin", "*");
-        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
-        response.setHeader("Access-Control-Allow-Headers", "content-type");
-        
-    }
-    
-    
-    @POST
-    @Path("/update")
-    @Consumes(MediaType.APPLICATION_JSON)
-    public String updateProduct(final String json){
-        response.setHeader("Access-Control-Allow-Origin", "*");
-        
-        
-        Gson gson = new Gson(); 
-        Product p = gson.fromJson(json, Product.class);
-        
-        JsonObject jsonOutput = new JsonObject();
-        
-        try{
-            
-            jsonOutput.addProperty("status", "200");
-            PatternDAO.updatePatternToDB(p.getPattern());
-            
-            
-        }catch(SQLException e){
-            
-            
-            jsonOutput.addProperty("status", "error");
-            jsonOutput.addProperty("msg", e.getMessage());
-        }
-        
-        String finalJsonOutput = gson.toJson(jsonOutput);
-        return finalJsonOutput;
-        
-    }
-    */
-    
 
     @GET
     @Path("/BeddingPatterns")

@@ -10,8 +10,8 @@ body {
 
 
 button{
-    border: 1px solid goldenrod;
-    background-color: goldenrod; 
+    border: 1px solid #B0A171;
+    background-color: #B0A171; 
     font-family: Georgia;
     font-size: 16px;
     color: white;
@@ -23,12 +23,12 @@ button{
 }
 
 .change-qty{
-    border: 1px solid goldenrod;
+    border: 1px solid #B0A171;
     border-radius:  10px;
     background-color: white; 
     font-family: Georgia;
     font-size: 16px;
-    color: goldenrod;
+    color: #B0A171;
     padding-top: 0px;
     padding-right: 0px;
     padding-bottom: 0px;
@@ -43,13 +43,13 @@ button{
 }
 .change-qty:hover{
     border: 1px solid white;
-    background-color: goldenrod; 
+    background-color: #B0A171; 
     color: white;
 }
 
 
 .remove{
-    border: 0px solid goldenrod;
+    border: 0px solid #B0A171;
     background-color: white; 
     font-family: Georgia;
     font-size: 16px;
@@ -62,18 +62,18 @@ button{
 }
 .remove:hover{
     text-shadow: 0.5px 0.5px 2px;
-    color : goldenrod;
+    color : #B0A171;
     
 }
 
 .empty-cart{
-    border: 1px solid goldenrod;
+    border: 1px solid #B0A171;
     background-color: white; 
     padding-right: 0px;
     padding-left: 0px;
     font-family: Georgia;
     font-size: 14px;
-    color: goldenrod;
+    color: #B0A171;
 }   
 
 table {
@@ -83,7 +83,7 @@ table {
 }
 
 td, th {
-    border-bottom: 1px solid goldenrod;
+    border-bottom: 1px solid #B0A171;
     text-align: center;
     padding: 8px;
     width: 20%;
@@ -205,7 +205,7 @@ th{
     }
     
     td, th {
-        border-bottom: 0px solid goldenrod;
+        border-bottom: 0px solid #B0A171;
         text-align: left;
         font-size: 14px;
         padding: 8px;

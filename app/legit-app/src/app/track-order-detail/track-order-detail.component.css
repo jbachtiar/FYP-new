@@ -6,6 +6,80 @@
     user-select: none;
 }
  */
+ /* desc{
+    width: 4em;
+    height: 4em;
+    text-align: center;
+    line-height: 2em;
+    border-radius: 2em;
+    background: goldenrod;
+    margin: 2.5em;
+    display: inline-block;
+    color: goldenrod !important;
+    position: relative;
+    padding-top: 1em;
+ }
+
+
+ li {
+    width: 4em;
+    height: 4em;
+    text-align: center;
+    line-height: 2em;
+    border-radius: 2em;
+    background: goldenrod;
+    margin: 2.5em;
+    display: inline-block;
+    color: white;
+    position: relative;
+    padding-top: 1em;
+  }
+  
+  li::before {
+    content: '';
+    position: absolute;
+    top: 1.9em;
+    left: -7em;
+    width: 8em;
+    height: .2em;
+    background: goldenrod;
+    z-index: 300;
+  }
+  
+  li:first-child::before {
+    display: none;
+  }
+  
+  .active {
+    background: goldenrod;
+  }
+  
+  .active ~ li {
+    background: lightgray;
+  }
+  
+  .active ~ li::before {
+    background: lightgray;
+  }
+   */
+  body {
+    font-family: sans-serif;
+    padding: 2em;
+  }
+  
+
+
+
+.promo-code{
+    border: 1px solid rgb(65, 190, 50);
+    border-radius: 3px;
+    padding: 4px;
+    margin: 3px;
+    margin-top: 3px;
+    color: white;
+    background-color: rgb(65, 190, 50);
+}
+
  md-chip{
     font-family: 'Muli';  
      font-size: 30px;
@@ -143,7 +217,7 @@ thead{
 
 .title{
     font-size: 24px;
-    color: goldenrod;
+    color: #B0A171;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
@@ -190,11 +264,11 @@ color: white;
 }
 
 .status{
-    color: goldenrod;
+    color: #B0A171;
 }
 
 .button{
-    background-color: goldenrod;
+    background-color: #B0A171;
 }
 
 @media only screen and (max-width: 500px) {
@@ -229,7 +303,7 @@ color: white;
         font-size: 30px;
     }
     .timeline {
-        border-left: 0.25em solid goldenrod;
+        border-left: 0.25em solid #B0A171;
         background: rgba(255, 255, 255, 0.1);
         margin: 1em auto;
         line-height: 1.4em;
@@ -261,7 +335,7 @@ color: white;
       }
       
       .timeline .event:after {
-        box-shadow: 0 0 0 0.2em goldenrod;
+        box-shadow: 0 0 0 0.2em #B0A171;
         left: -3.5em;
         background: #FFFFFF;
         border-radius: 50%;

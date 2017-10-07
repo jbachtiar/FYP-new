@@ -21,6 +21,37 @@ import java.util.logging.Logger;
  */
 public class CollectionDAO {
     
+        public ArrayList<Collection> getAllAvailableCollections() throws SQLException {
+
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        ArrayList<Collection> colourList = new ArrayList<Collection>();
+
+        String sql = "SELECT * FROM COLLECTION WHERE DELETED = ? ";
+        try {
+
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, "N");
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                int collId = rs.getInt("COLLECTION_ID");
+                String collName = rs.getString("COLLECTION_NAME");
+
+                Collection collection = new Collection(collId, collName);
+                colourList.add(collection);
+            }
+
+        } finally {
+            ConnectionManager.close(conn, stmt, rs);
+        }
+
+        return colourList;
+
+    }
+    
     public String addCollection(Collection collection) throws SQLException {
 
         Connection conn = null;
