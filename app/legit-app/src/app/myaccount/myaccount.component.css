@@ -5,7 +5,7 @@ ul {
     height: 100%;
     background-color: white;
     text-align: right;
-    border: 0.5px solid goldenrod;
+    border: 0.5px solid #B0A171;
 }
 
 li a {
@@ -14,13 +14,13 @@ li a {
     padding: 8px 16px;
     text-decoration: none;
     font-family: Georgia;
-    color: goldenrod;
+    color: #B0A171;
     /*border: 0.5px solid goldenrod;*/
 }
 
 /* Change the link color on hover */
 li a:hover, a:focus {
-    background-color: goldenrod;
+    background-color: #B0A171;
     color: white;
 }
 
@@ -32,25 +32,25 @@ body {
 }
 
 .content{
-    border: 1px solid goldenrod;
+    border: 1px solid #B0A171;
 }
 
 
 @media only screen and (max-width: 500px) {
     th{
-        border: 0.5px solid goldenrod;
+        border: 0.5px solid #B0A171;
         font-family: Georgia, 'Times New Roman', Times, serif;
-        color: goldenrod;
+        color: #B0A171;
         text-align: center;
         padding: 4px 4px;
     }
     th > a{
         font-family: Georgia, 'Times New Roman', Times, serif;
-        color: goldenrod;
+        color: #B0A171;
         text-align: center;
     }
     th > a :hover, th > a:active, th:hover, th:active ,a:active, a:hover{
-        background: goldenrod;
+        background: #B0A171;
         color: white
     }
 

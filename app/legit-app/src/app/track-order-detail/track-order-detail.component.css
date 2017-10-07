@@ -217,7 +217,7 @@ thead{
 
 .title{
     font-size: 24px;
-    color: goldenrod;
+    color: #B0A171;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
@@ -264,11 +264,11 @@ color: white;
 }
 
 .status{
-    color: goldenrod;
+    color: #B0A171;
 }
 
 .button{
-    background-color: goldenrod;
+    background-color: #B0A171;
 }
 
 @media only screen and (max-width: 500px) {
@@ -303,7 +303,7 @@ color: white;
         font-size: 30px;
     }
     .timeline {
-        border-left: 0.25em solid goldenrod;
+        border-left: 0.25em solid #B0A171;
         background: rgba(255, 255, 255, 0.1);
         margin: 1em auto;
         line-height: 1.4em;
@@ -335,7 +335,7 @@ color: white;
       }
       
       .timeline .event:after {
-        box-shadow: 0 0 0 0.2em goldenrod;
+        box-shadow: 0 0 0 0.2em #B0A171;
         left: -3.5em;
         background: #FFFFFF;
         border-radius: 50%;

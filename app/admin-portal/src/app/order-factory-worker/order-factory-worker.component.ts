@@ -145,10 +145,10 @@ export class OrderFactoryWorkerComponent implements OnInit {
     console.log('Clicked');
   }
 
-  rowDoubleClick(rowEvent) {
-    let link = ['orders', rowEvent.row.item.orderId];
-    this.router.navigate(link);
-  }
+  // rowDoubleClick(rowEvent) {
+  //   let link = ['orders', rowEvent.row.item.orderId];
+  //   this.router.navigate(link);
+  // }
 
   rowTooltip(item) {
     return "Order ID: " + item.orderId + '\nStatus: ' + item.currentStatus;

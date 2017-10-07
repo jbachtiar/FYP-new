@@ -1,8 +1,11 @@
+<app-loading *ngIf="loading"></app-loading>
+
+<!-- web view -->
 <div class="content" *hideItDevice="['mobile','tablet']" style="padding-top:100px">
 
-  <div class="box">
+  <div class="box" *ngIf="!loading">
 
-    <md-progress-bar [ngStyle]="{'color': goldenrod}" class="example-margin" [mode]="mode" [value]="value" [bufferValue]="bufferValue">
+    <md-progress-bar [ngStyle]="{'color': B0A171}" class="example-margin" [mode]="mode" [value]="value" [bufferValue]="bufferValue">
     </md-progress-bar>
 
     <div class="row">
@@ -96,7 +99,7 @@
 
 
   </div>
-  <div class="" style="padding-top:10px;">
+  <div class="" style="padding-top:10px;" *ngIf="!loading">
     <h1 class="title">ORDER 000000{{order[0].orderId}}</h1>
     <i>{{order[0].order_TimeStamp}}</i>
     <hr>
@@ -183,91 +186,93 @@
 
 <!-- mobile view -->
 <div class="content container" *showItDevice="['mobile','tablet']" style="padding-top:5px">
-  <div class="row" style="margin-top:10px; margin-bottom:10px">
-    <h1 class="title">ORDER 000000{{order[0].orderId}}</h1>
-    <i>{{order[0].order_TimeStamp}}</i>
-  </div>
-
-  <md-card style="padding-top:5px !important;">
-    <div class="row">
-      <h5 class="col-sm-5 col-xs-5">Latest Status : </h5>
-      <div class="col-sm-7 col-xs-7">
-        <h5 class="pull-right"><i>Next : {{map[statusId+1]}}</i></h5>
-      </div>
+  <div *ngIf="!loading">
+    <div class="row" style="margin-top:10px; margin-bottom:10px">
+      <h1 class="title">ORDER 000000{{order[0].orderId}}</h1>
+      <i>{{order[0].order_TimeStamp}}</i>
     </div>
-    <h2 class="status">{{statusLog[statusLog.length - 1].orderStatus.statusName}}</h2>
-  </md-card>
 
-  <button type="button" class="pull-right see" data-toggle="collapse" data-target="#more">see previous</button>
-
-  <hr class="">
-  <div id="more" class="collapse">
-    <ul class="timeline">
-      <li class="event" *ngFor="let s of statusLog">
-        <div class="member-infos">
-          <h1 class='member-title'>{{s.orderStatus.statusName}}</h1>
-          <h2 class="member-location "><span class=''></span>{{s.startTimeStamp}}</h2>
+    <md-card style="padding-top:5px !important;">
+      <div class="row">
+        <h5 class="col-sm-5 col-xs-5">Latest Status : </h5>
+        <div class="col-sm-7 col-xs-7">
+          <h5 class="pull-right"><i>Next : {{map[statusId+1]}}</i></h5>
         </div>
-      </li>
-    </ul>
-    <hr>
-  </div>
-  <md-card>
-    <md-card-header>
-      <md-card-title class="title">
-        Shipping Details
-      </md-card-title>
-    </md-card-header>
-    <md-card-content>
-      <b>{{order[0].address.recipientName}}</b>
-      <br> {{order[0].address.phoneNo}}
-      <br> {{order[0].address.addressLine}}
-      <br> {{order[0].address.city}}, {{order[0].address.country}} {{order[0].address.postalCode}}
-      <br>
-      <br>
-      <b>Courier :</b>
-      <br> {{order[0].courierName}}
-      <br>
-      <b>Tracking No : </b>
-      <br> Not available yet.
-    </md-card-content>
-    <hr>
-    <md-card-header>
-      <md-card-title class="title">
-        Payment Details
-      </md-card-title>
-    </md-card-header>
-    <md-card-content>
-      <b>Ref No. : </b>
-      <br> {{order[0].paymentRefNo}}
-      <br>
-      <b>Promo Code : </b>
-      <br>
-      <span class="promo-code">{{order[0].promoCode.promoCode}}</span>
-      <br>
-    </md-card-content>
-  </md-card>
-  <h1 style="margin-top:10px;">Order Details</h1>
-  <hr class="line">
-  <div *ngFor="let item of orderItems">
-    <div class="row">
-      <div class="col-xs-6 col-sm-6" style="margin-right:0px; padding-right:5px">
-        <img src="{{item.product.images[0].imageUrl}}" alt="..." class="img-product">
       </div>
-      <div class="col-xs-6 col-sm-6" style="padding-left:15px; line-height:150%">
+      <h2 class="status">{{statusLog[statusLog.length - 1].orderStatus.statusName}}</h2>
+    </md-card>
 
-        <div class="pattern-name">{{item.product.pattern.patternName}}</div>
-        <b>Product ID:</b> {{item.product.productId}}
-        <br><b>Fabric:</b> {{item.product.fabric.fabricName}}
-        <br><b>Colour:</b> {{item.product.colour.colourName}}
-        <br><b>Size:</b> {{item.product.size.sizeName}}
-        <br><b>Qty:</b> {{item.quantity}} @ $ {{item.unitPrice}}.00
-        <br>
-        <br>
-      </div>
+    <button type="button" class="pull-right see" data-toggle="collapse" data-target="#more">see previous</button>
+
+    <hr class="">
+    <div id="more" class="collapse">
+      <ul class="timeline">
+        <li class="event" *ngFor="let s of statusLog">
+          <div class="member-infos">
+            <h1 class='member-title'>{{s.orderStatus.statusName}}</h1>
+            <h2 class="member-location "><span class=''></span>{{s.startTimeStamp}}</h2>
+          </div>
+        </li>
+      </ul>
+      <hr>
     </div>
+    <md-card>
+      <md-card-header>
+        <md-card-title class="title">
+          Shipping Details
+        </md-card-title>
+      </md-card-header>
+      <md-card-content>
+        <b>{{order[0].address.recipientName}}</b>
+        <br> {{order[0].address.phoneNo}}
+        <br> {{order[0].address.addressLine}}
+        <br> {{order[0].address.city}}, {{order[0].address.country}} {{order[0].address.postalCode}}
+        <br>
+        <br>
+        <b>Courier :</b>
+        <br> {{order[0].courierName}}
+        <br>
+        <b>Tracking No : </b>
+        <br> Not available yet.
+      </md-card-content>
+      <hr>
+      <md-card-header>
+        <md-card-title class="title">
+          Payment Details
+        </md-card-title>
+      </md-card-header>
+      <md-card-content>
+        <b>Ref No. : </b>
+        <br> {{order[0].paymentRefNo}}
+        <br>
+        <b>Promo Code : </b>
+        <br>
+        <span class="promo-code">{{order[0].promoCode.promoCode}}</span>
+        <br>
+      </md-card-content>
+    </md-card>
+    <h1 style="margin-top:10px;">Order Details</h1>
+    <hr class="line">
+    <div *ngFor="let item of orderItems">
+      <div class="row">
+        <div class="col-xs-6 col-sm-6" style="margin-right:0px; padding-right:5px">
+          <img src="{{item.product.images[0].imageUrl}}" alt="..." class="img-product">
+        </div>
+        <div class="col-xs-6 col-sm-6" style="padding-left:15px; line-height:150%">
 
-    <hr>
+          <div class="pattern-name">{{item.product.pattern.patternName}}</div>
+          <b>Product ID:</b> {{item.product.productId}}
+          <br><b>Fabric:</b> {{item.product.fabric.fabricName}}
+          <br><b>Colour:</b> {{item.product.colour.colourName}}
+          <br><b>Size:</b> {{item.product.size.sizeName}}
+          <br><b>Qty:</b> {{item.quantity}} @ $ {{item.unitPrice}}.00
+          <br>
+          <br>
+        </div>
+      </div>
+
+      <hr>
+    </div>
   </div>
   <!-- end of mobile view -->
 </div>

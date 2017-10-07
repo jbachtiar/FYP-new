@@ -9,7 +9,7 @@
 <br/>
 <br/>
 <div class="box">
-  <md-progress-bar class="example-margin" [color]="color" [mode]="mode" [value]="value" [bufferValue]="bufferValue">
+  <md-progress-bar style="top:10px"class="example-margin" [color]="color" [mode]="mode" [value]="value" [bufferValue]="bufferValue">
   </md-progress-bar>
 
   <div class="row">
@@ -19,7 +19,7 @@
         </div>
         <div class="col-md-1">
           <div class="annotation">
-            <font color="#DD0330">
+            <font color="#DD0330" style="font-size : 12px">
               &nbsp;&nbsp;PAYMENT<br/>&nbsp;&nbsp;RECEIVED
             </font>
           </div>
@@ -33,7 +33,7 @@
 
         <div class="col-md-1">
           <div class="annotation">
-            <font color="#DD0330">
+            <font color="#DD0330" style="font-size : 12px">
               IN<br/>&nbsp;PRODUCTION
             </font>
           </div>
@@ -47,7 +47,7 @@
 
         <div class="col-md-1">
           <div class="annotation">
-            <font color="#DD0330">
+            <font color="#DD0330" style="font-size : 12px">
               <br/>&nbsp;PACKAGING
             </font>
           </div>
@@ -61,8 +61,8 @@
 
         <div class="col-md-1">
           <div class="annotation">
-            <font color="#DD0330">
-              PENDING FOR<br/>&nbsp;SHIPMENT
+            <font color="#DD0330" style="font-size : 12px">
+              PENDING SHIPMENT
             </font>
           </div>
           <button [ngClass]="{'pulse': pulse.preparation}" md-fab color="warn" [disabled]="isDisabled.preparation">
@@ -75,7 +75,7 @@
 
         <div class="col-md-1">
           <div class="annotation">
-            <font color="#DD0330">
+            <font color="#DD0330" style="font-size : 12px">
               <br/>&nbsp;SHIPPED
             </font>
           </div>
@@ -89,7 +89,7 @@
 
         <div class="col-md-1">
           <div class="annotation">
-            <font color="#DD0330">
+            <font color="#DD0330" style="font-size : 12px">
               <br/>&nbsp;COMPLETED
             </font>
           </div>
