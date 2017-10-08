@@ -20,7 +20,7 @@ export class OrderDetailsSuperuserComponent implements OnInit {
   private index: number = 0;
   orderStatusSize: any;
   statusMap: any = { 'Payment Received': 1, 'In Production': 2, 'Packaging': 3, 'Pending for Shipment': 4, 'Shipped': 5, 'Completed': 6, 'Cancelled': 7 }
-  statusMenu = ["Payment Received", "In Production", "Packaging", "Pending for Shipment", "Shipped", "Completed", "Cancelled"];
+  statusMenu = ["Payment Received", "In Production", "Packaging", "Pending for Shipment", "Shipped", "Completed", "Canceled"];
   courierMenu = ["Shun Feng", "DHL"];
   sizeMenu = ["Single", "Double", "Queen", "King"];
   patternMenu: any
