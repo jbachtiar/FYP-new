@@ -127,7 +127,7 @@
           </select>
 
           <label for="courier">Courier</label>
-          <select [ngModelOptions]="{standalone: true}" [(ngModel)]="selectedCourier">
+          <select [ngModelOptions]="{standalone: true}" [(ngModel)]="order.courierName">
               <option *ngFor="let c of courierMenu" [ngValue]="c">{{c}}</option>
           </select>
 

@@ -23,10 +23,12 @@ export class OrderDetailsSuperuserComponent implements OnInit {
   patternMenu: any
   fabricMenu: any
   selectedStatus: any;
+  initialStatus: any;
   selectedCourier: any;
   selectedFabric: any;
   selectedColour: any;
   pattern:any;
+  newStatusId: any;
   //statusMenu: any = [];
   constructor(private route: ActivatedRoute, private orderService: OrderService, private productService: ProductService) { }
 
@@ -74,6 +76,7 @@ export class OrderDetailsSuperuserComponent implements OnInit {
       }
     }
     this.selectedStatus = currentStatus.orderStatus.statusName;
+    this.initialStatus= currentStatus.orderStatus.statusName;
     //  return currentStatus.orderStatus.statusName;
 
   }
@@ -114,11 +117,18 @@ export class OrderDetailsSuperuserComponent implements OnInit {
 
   updateOrder() {
 
+    if(this.initialStatus==this.selectedStatus){
+      this.newStatusId=0;
+
+    }else{
+      this.newStatusId=this.statusMap[this.selectedStatus];
+    }
+
 
     let newOrder = {
       "orderId": this.orderId,
-      "newStatusId": this.statusMap[this.selectedStatus],
-      "Timestamp": this.order.order_TimeStamp,
+      "newStatusId": this.newStatusId,
+      "order_TimeStamp": this.order.order_TimeStamp,
       "netAmt": this.order.netAmt,
       "promoDiscAmt": this.order.promoDiscAmt,
       "address": this.order.address,
@@ -126,10 +136,11 @@ export class OrderDetailsSuperuserComponent implements OnInit {
       "promoCode": this.order.promoCode,
       "orderItems": this.order.orderItems,
       "statusLogs": this.order.statusLogs,
-      "courierName": this.selectedCourier,
+      "courierName": this.order.courierName,
       "trackingNo": this.order.trackingNo
 
     }
+    console.log(newOrder);
     this.orderService.updateOrder(newOrder).subscribe(res => {
       res = res.json()
       if (res.status == 200) {

@@ -315,6 +315,7 @@ public class OrderService {
         JsonObject status = gs.fromJson(json, JsonObject.class);
 
         int newStatusId = status.get("newStatusId").getAsInt();
+        //int newStatusId=1;
         
         OrderDAO oDAO = new OrderDAO();
         
