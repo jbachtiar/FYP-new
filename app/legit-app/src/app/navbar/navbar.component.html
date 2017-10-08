@@ -17,14 +17,14 @@
                     </div>
                 </div>
             </a>
-            <a class="navbar-brand text-center" routerLink=''>Highlander</a>
+             <img href='' class="navbar-brand text-center" src="/assets/images/logo.jpg" style="height:60px; padding:5px; padding-bottom:10px; margin-right:20px;">
 
         </div>
         <div class="collapse navbar-collapse in" [ngClass]="{ 'in': isIn }">
             <ul class="nav navbar-nav">
                 <li class="nav-item" (click)="toggleState()" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a class="nav-link" routerLink=''>Home</a></li>
                 <li class="nav-item" (click)="toggleState()" routerLinkActive="active"><a class="nav-link" routerLink="/about">About</a></li>
-                <li class="nav-item" (click)="toggleState()" routerLinkActive="active"><a class="nav-link" routerLink="/products">Fabrics</a></li>
+                <li class="nav-item" (click)="toggleState()" routerLinkActive="active"><a class="nav-link" routerLink="/products">Beddings</a></li>
                 <li class="nav-item" (click)="toggleState()" routerLinkActive="active"><a class="nav-link" routerLink="/accessories">Home Accesssories</a></li>
                 <li class="nav-item" (click)="toggleState()" routerLinkActive="active"><a class="nav-link" routerLink="/store-locator">Find Us</a></li>
                 <!-- <div *showItDevice="['mobile','tablet']"> -->

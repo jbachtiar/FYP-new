@@ -1,12 +1,12 @@
 input[type=text],[type=password] {
     border-radius: 0px;
     border: none;
-    border-bottom: 1px solid goldenrod;
+    border-bottom: 1px solid #B0A171;
 }
 
 .button{
-    border: 1px solid goldenrod;
-    background-color: goldenrod; 
+    border: 1px solid #B0A171;
+    background-color: #B0A171; 
     font-family: Georgia;
     font-size: 16px;
     color: white;

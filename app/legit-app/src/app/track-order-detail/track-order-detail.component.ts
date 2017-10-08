@@ -15,6 +15,7 @@ export class TrackOrderDetailComponent implements OnInit {
   private orderItems: any = {}
   private statusLog: any = {}
   private statusId: number;
+  private loading : boolean = true;
 
   color = 'accent';
   mode = 'determinate';
@@ -52,8 +53,9 @@ export class TrackOrderDetailComponent implements OnInit {
 
             //to make the icon of ongoing status pulse
             this.pulse[this.map[this.statusId]] = true;
+          this.loading = false;
           }
-
+          this.loading = false;
         }
 
       });

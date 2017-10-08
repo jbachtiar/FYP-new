@@ -54,7 +54,7 @@ public class ProductCatalogue {
     
     
     @GET
-    @Path("/GetProductById")
+    @Path("/getProductById")
     @Produces(MediaType.APPLICATION_JSON)
     public Product getProductById(@QueryParam("productId") int productId) {
         
@@ -141,6 +141,7 @@ public class ProductCatalogue {
         } catch (SQLException e) {
             System.out.println(e);
             jsonOutput.addProperty("status", "500");
+            jsonOutput.addProperty("error: ", e.toString());
 
         }
 

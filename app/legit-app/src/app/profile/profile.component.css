@@ -5,14 +5,14 @@ h2{
 }
 
 hr{
-    color: goldenrod;
-    background-color: goldenrod;
+    color: #B0A171;
+    background-color: #B0A171;
     height: 0.5px;
 }
 
 .button{
-    border: 1px solid goldenrod;
-    background-color: goldenrod; 
+    border: 1px solid #B0A171;
+    background-color: #B0A171; 
     font-family: Georgia;
     font-size: 16px;
     color: white;
@@ -26,7 +26,7 @@ hr{
 input[type=text],[type=password] {
     border-radius: 0px;
     border: none;
-    border-bottom: 1px solid goldenrod;
+    border-bottom: 1px solid #B0A171;
 }
 
 body { 
@@ -34,8 +34,8 @@ body {
 }
 
 .left-button{
-    border: 1px solid goldenrod;
-    background-color: goldenrod; 
+    border: 1px solid #B0A171;
+    background-color: #B0A171; 
     font-family: Georgia;
     font-size: 16px;
     color: white;
@@ -46,8 +46,8 @@ body {
     margin-top: 10px;
 }
 .right-button{
-    border: 1px solid goldenrod;
-    background-color: goldenrod; 
+    border: 1px solid #B0A171;
+    background-color: #B0A171; 
     font-family: Georgia;
     font-size: 16px;
     color: white;

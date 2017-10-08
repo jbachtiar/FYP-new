@@ -1,0 +1,25 @@
+<div class="row ">
+  <!-- <div class="col-md-12 "> -->
+  <div class="card ">
+    <div style="margin: auto; max-width: 1000px; margin-bottom: 50px; ">
+      <data-table id="product-grid " [items]="collections " [itemCount]="itemCount
+  " (reload)="reloadItems($event) " (rowClick)="rowClick($event) " (rowDoubleClick)="rowDoubleClick($event) " [rowTooltip]="rowTooltip
+  " [substituteRows]="false " [translations]="translations
+  " [indexColumnHeader]=" '#' " [selectOnRowClick]="true " [multiSelect]="false">
+        <data-table-column [property]=" 'collectionId' " [header]=" 'Collection ID' " [sortable]="true
+  " [resizable]="true ">
+        </data-table-column>
+        <data-table-column [property]=" 'collectionName'      " [header]=" 'Collection Name' " [sortable]="true
+  " [resizable]="true ">
+        </data-table-column>
+
+      </data-table>
+      <div style="margin-top: 10px ">
+        <b>Selected:</b>
+        <span *ngIf="table.selectedRow==null "><i>No item selected</i></span>
+        <span [textContent]="table.selectedRow && orderTable.selectedRow.item.product_id "></span>
+      </div>
+    </div>
+    <!-- </div> -->
+  </div>
+</div>

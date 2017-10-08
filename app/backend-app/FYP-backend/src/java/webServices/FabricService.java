@@ -7,10 +7,14 @@ package webServices;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import dao.ColourDAO;
 import dao.FabricDAO;
+import entity.Colour;
 import entity.Fabric;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.annotation.security.PermitAll;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.FormParam;
@@ -32,6 +36,51 @@ public class FabricService {
     
     @Context
     private HttpServletResponse response;
+    
+    @GET
+    @Path("/getFabrics")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getAllFabrics() {
+        
+        response.setHeader("Access-Control-Allow-Headers", "Content-Type");
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
+
+        Gson gson = new GsonBuilder().create();
+        JsonObject jsonOutput = new JsonObject();
+        
+        JsonArray fabricArray = new JsonArray();
+        FabricDAO fabricDAO = new FabricDAO();
+
+        try {
+
+            ArrayList<Fabric> cList = fabricDAO.getAllAvailableFabrics();
+            if (cList == null) {
+                
+                jsonOutput.addProperty("status", "500");
+                jsonOutput.addProperty("msg", "No Fabrics Available");
+                
+
+            } else {
+                
+                jsonOutput.addProperty("status", "200");
+                JsonArray fabrics = gson.toJsonTree(cList).getAsJsonArray(); // convert arraylist to jsonArray
+                jsonOutput.add("fabrics", fabrics);
+
+            }
+
+        } catch (SQLException e) {
+
+            jsonOutput.addProperty("status", "500");
+            jsonOutput.addProperty("msg", "FabricService: " + e.toString());
+
+        }
+
+        String finalJsonOutput = gson.toJson(jsonOutput);
+        return finalJsonOutput;
+        
+    }
+    
     
     @OPTIONS
     @PermitAll
@@ -106,6 +155,12 @@ public class FabricService {
         } catch (SQLException e) {
             System.out.println(e);
             jsonOutput.addProperty("status", "500");
+            jsonOutput.addProperty("SQL exception", e.toString());
+
+        }catch (Exception e) {
+            System.out.println(e);
+            jsonOutput.addProperty("status", "500");
+            jsonOutput.addProperty("Exception", e.toString());
 
         }
 
@@ -132,6 +187,12 @@ public class FabricService {
         } catch (SQLException e) {
             System.out.println(e);
             jsonOutput.addProperty("status", "500");
+            jsonOutput.addProperty("error", e.toString());
+
+        }catch (Exception e) {
+            System.out.println(e);
+            jsonOutput.addProperty("status", "500");
+            jsonOutput.addProperty("error", e.toString());
 
         }
 
@@ -140,7 +201,7 @@ public class FabricService {
     }
     
     @GET
-    @Path("/GetFabricById")
+    @Path("/getFabricById")
     @Produces(MediaType.APPLICATION_JSON)
     public Fabric getFabricById(@QueryParam("fabricId") int fabricId) {
         

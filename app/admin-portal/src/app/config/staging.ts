@@ -12,5 +12,9 @@ export const stagConfig = {
     orderStatusLogBackendUrl: 'http://localhost:8084/FYP-backend/API/OrderStatusLogService',
     orderItemBackendUrl: 'http://localhost:8084/FYP-backend/API/OrderItemService',
     filterBackendUrl: 'http://localhost:8084/FYP-backend/API/ProductCatalogue/GetFilters',
-    filteredProductListBackendUrl: 'http://localhost:8084/FYP-backend/API/ProductCatalogue/FilterBeddingPatterns'
+    filteredProductListBackendUrl: 'http://localhost:8084/FYP-backend/API/ProductCatalogue/FilterBeddingPatterns',
+    collectionBackendUrl: 'http://localhost:8084/FYP-backend/API/CollectionService',
+    fabricBackendUrl: 'http://localhost:8084/FYP-backend/API/FabricService',
+    colourBackendUrl: 'http://localhost:8084/FYP-backend/API/ColourService',
+    patternBackendUrl: 'http://localhost:8084/FYP-backend/API/PatternService'    
 }

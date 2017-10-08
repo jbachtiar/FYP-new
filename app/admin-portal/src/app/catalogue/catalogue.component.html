@@ -1,0 +1,30 @@
+<button md-raised-button [ngStyle]="{'background-color': color.product, 'color': fontColor.product}" (click)="onTypeChange('product')">Product</button>
+<button md-raised-button [ngStyle]="{'background-color': color.design, 'color': fontColor.design}" (click)="onTypeChange('design')">Design</button>
+<button md-raised-button [ngStyle]="{'background-color': color.fabric, 'color': fontColor.fabric}" (click)="onTypeChange('fabric')">Fabric</button>
+<button md-raised-button [ngStyle]="{'background-color': color.colour, 'color': fontColor.colour}" (click)="onTypeChange('colour')">Colour</button>
+<button md-raised-button [ngStyle]="{'background-color': color.collection, 'color': fontColor.collection}" (click)="onTypeChange('collection')">Collection</button>
+
+<div style="float:right;">
+        <button md-raised-button (click) = "onNewItem()" [ngStyle]="{'background-color': 'lightseagreen', 'color': 'white'}">New</button>
+        
+</div>
+<div *ngIf="showTab.product">
+    <product-catalogue></product-catalogue>
+</div>
+
+<div *ngIf="showTab.design">
+    <design-catalogue></design-catalogue>
+</div>
+
+<div *ngIf="showTab.fabric">
+    <fabric-catalogue></fabric-catalogue>
+</div>
+
+<div *ngIf="showTab.colour">
+    <colour-catalogue></colour-catalogue>
+</div>
+
+<div *ngIf="showTab.collection">
+    <collection-catalogue></collection-catalogue>
+</div>
+

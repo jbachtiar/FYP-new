@@ -37,7 +37,7 @@ public class ColourService {
     private HttpServletResponse response;
     
     @GET
-    @Path("/GetColours")
+    @Path("/getColours")
     @Produces(MediaType.APPLICATION_JSON)
     public String getAllColours() {
         
@@ -81,7 +81,7 @@ public class ColourService {
     }
     
     @GET
-    @Path("/GetColourById")
+    @Path("/getColourById")
     @Produces(MediaType.APPLICATION_JSON)
     public Colour getColourById(@QueryParam("colourId") int colourId) {
         
@@ -183,6 +183,12 @@ public class ColourService {
         } catch (SQLException e) {
             System.out.println(e);
             jsonOutput.addProperty("status", "500");
+            jsonOutput.addProperty("SQL exception", e.toString());
+
+        }catch (Exception e) {
+            System.out.println(e);
+            jsonOutput.addProperty("status", "500");
+            jsonOutput.addProperty("Exception", e.toString());
 
         }
 
