@@ -162,7 +162,7 @@ export class CatalogueService {
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
         return this._http.post(url, params.toString(), {
             headers: headers
-        }).map(res => res)
+        }).map(res => res.json())
     }
 
     saveProduct(product) {
@@ -173,7 +173,7 @@ export class CatalogueService {
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
         return this._http.post(url, params.toString(), {
             headers: headers
-        }).map(res => res)
+        }).map(res => res.json())
     }
 
     savePattern(pattern){
@@ -184,7 +184,7 @@ export class CatalogueService {
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
         return this._http.post(url, params.toString(), {
             headers: headers
-        }).map(res => res)
+        }).map(res => res.json())
     }
 
     saveFabric(fabric){
@@ -195,7 +195,7 @@ export class CatalogueService {
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
         return this._http.post(url, params.toString(), {
             headers: headers
-        }).map(res => res)
+        }).map(res => res.json())
     }
 
     saveColour(colour){
@@ -206,7 +206,7 @@ export class CatalogueService {
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
         return this._http.post(url, params.toString(), {
             headers: headers
-        }).map(res => res)
+        }).map(res => res.json())
     }
 
     saveCollection(coll){
@@ -217,6 +217,6 @@ export class CatalogueService {
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
         return this._http.post(url, params.toString(), {
             headers: headers
-        }).map(res => res)
+        }).map(res => res.json())
     }
 }

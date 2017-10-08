@@ -36,7 +36,6 @@ export class ProductDetailsComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
       this.productId = params['productId']; // grab the parameter from url
-      this.patternUrl = CONFIG.eCommerceWebsiteUrl + '/productDetails/' + this.product.pattern.patternId
     });
     this.catService.getProductById(this.productId).subscribe(
       product => {
@@ -45,6 +44,8 @@ export class ProductDetailsComponent implements OnInit {
         this.selectedFabric = this.product.fabric
         this.selectedColour = this.product.colour
         this.selectedPattern = this.product.pattern
+        this.patternUrl = CONFIG.eCommerceWebsiteUrl + '/productDetails/' + this.product.pattern.patternId
+        
         //add 0000 padding
         let temp = "" + product.productId
         var pad = "0000"
@@ -56,7 +57,7 @@ export class ProductDetailsComponent implements OnInit {
             for (let f of this.fabrics) {
               if (f['fabricId'] == this.selectedFabric.fabricId) {
                 console.log("same")
-                this.selectedFabric = f
+                this.product.fabric = f
               }
             }
           });
@@ -66,7 +67,7 @@ export class ProductDetailsComponent implements OnInit {
             // this.selectedColour = this.colours[0]
             for (let c of this.colours) {
               if (c['colourId'] == this.selectedColour.colourId) {
-                this.selectedColour = c
+                this.product.colour = c
               }
             }
           });
@@ -76,7 +77,7 @@ export class ProductDetailsComponent implements OnInit {
             // this.selectedColour = this.colours[0]
             for (let p of this.patterns) {
               if (p['patternId'] == this.selectedPattern.patternId) {
-                this.selectedPattern = p
+                this.product.pattern = p
               }
             }
           });
@@ -111,7 +112,7 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   submit() {
-    this.catService.saveProduct(this.product).subscribe(res => {
+    this.catService.updateProduct(this.product).subscribe(res => {
       res = res.json()
       if (res.status == 200) {
         //this.onEdit()

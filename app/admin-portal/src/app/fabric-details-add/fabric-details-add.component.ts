@@ -11,7 +11,6 @@ import { CatalogueService } from '../services/catalogue.service'
   providers: [CatalogueService]
 })
 export class FabricDetailsAddComponent implements OnInit {
-  editPage = false;
   buttonText = "Edit";
   buttonColour = "lightcoral"
   buttonTextColour = "white"
@@ -44,26 +43,12 @@ export class FabricDetailsAddComponent implements OnInit {
     this.loading = false;
   }
 
-  onEdit() {
-    if (!this.editPage) {
-      this.editPage = true;
-      this.buttonText = "Back"
-      this.buttonColour = "white"
-      this.buttonTextColour = "lightcoral"
-    } else {
-      this.editPage = false;
-      this.buttonText = "Edit"
-      this.buttonColour = "lightcoral"
-      this.buttonTextColour = "white"
-    }
-  }
-
   submit() {
     this.catService.saveFabric(this.item).subscribe(res => {
-      res = res.json()
       if (res.status == 200) {
-        this.onEdit()
-        alert("Changes Saved ID" + this.item.fabricId)
+        alert("New Fabric Added ID: " + res.newFabricId)
+        let link = ['/catalogue/fabric/' + res.newFabricId];
+        this.router.navigate(link);
       } else {
         alert("Changes cannot be saved")
       }

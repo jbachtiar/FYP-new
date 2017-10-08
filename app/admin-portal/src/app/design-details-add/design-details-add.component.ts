@@ -74,10 +74,11 @@ export class DesignDetailsAddComponent implements OnInit {
  
   submit() {
     this.catService.savePattern(this.item).subscribe(res => {
-      res = res.json()
       if (res.status == 200) {
         //this.onEdit()
-        alert("Changes Saved ID" + this.item.patternId)
+        alert("New Design Added ID: " + res.newPatternId)
+        let link = ['/catalogue/design/' + res.newPatternId];
+        this.router.navigate(link);
       } else {
         alert("Changes cannot be saved")
       }

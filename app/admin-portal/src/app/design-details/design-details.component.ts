@@ -27,7 +27,7 @@ export class DesignDetailsComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
       this.id = params['patternId']; // grab the parameter from url
-      this.patternUrl = CONFIG.eCommerceWebsiteUrl + '/productDetails/' + this.item.patternId
+      this.patternUrl = CONFIG.eCommerceWebsiteUrl + '/productDetails/' + this.id
     });
     this.catService.getPatternById(this.id).subscribe(
       item => {
@@ -46,7 +46,7 @@ export class DesignDetailsComponent implements OnInit {
             // this.selectedColour = this.colours[0]
             for (let c of this.collections) {
               if (c['collectionId'] == this.selectedCollection.collectionId) {
-                this.selectedCollection = c
+                this.item.collection = c
               }
             }
           });
@@ -86,6 +86,9 @@ export class DesignDetailsComponent implements OnInit {
       if (res.status == 200) {
         //this.onEdit()
         alert("Changes Saved ID" + this.item.patternId)
+        console.log(JSON.stringify(this.item))
+        let link = ['/catalogue'];
+        this.router.navigate(link);
       } else {
         alert("Changes cannot be saved")
       }

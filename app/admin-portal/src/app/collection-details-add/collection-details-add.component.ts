@@ -11,7 +11,6 @@ import { CatalogueService } from '../services/catalogue.service'
   providers: [CatalogueService]
 })
 export class CollectionDetailsAddComponent implements OnInit {
-  editPage = false;
   buttonText = "Edit";
   buttonColour = "lightcoral"
   buttonTextColour = "white"
@@ -41,26 +40,12 @@ export class CollectionDetailsAddComponent implements OnInit {
     this.loading = false;
   }
 
-  onEdit() {
-    if (!this.editPage) {
-      this.editPage = true;
-      this.buttonText = "Back"
-      this.buttonColour = "white"
-      this.buttonTextColour = "lightcoral"
-    } else {
-      this.editPage = false;
-      this.buttonText = "Edit"
-      this.buttonColour = "lightcoral"
-      this.buttonTextColour = "white"
-    }
-  }
-
   submit() {
     this.catService.saveCollection(this.item).subscribe(res => {
-      res = res.json()
       if (res.status == 200) {
-        this.onEdit()
-        alert("Changes Saved ID" + this.item.collectionId)
+        alert("New Collection Added ID: " + res.newCollectionId)
+        let link = ['/catalogue/collection/' + res.newCollectionId];
+        this.router.navigate(link);
       } else {
         alert("Changes cannot be saved")
       }
