@@ -28,6 +28,7 @@ export class NavbarComponent implements OnInit {
 
 
     constructor(
+        
         private dialogService: DialogService,
         private authenticationService: AuthenticationService,
         private router: Router,
@@ -100,7 +101,8 @@ export class NavbarComponent implements OnInit {
     logout() {
         this.authenticationService.logout();
         this.emptyCart()
-        window.location.reload();
+        window.location.reload()
+        this.router.navigate([''])
     }
 
     emptyCart() {
