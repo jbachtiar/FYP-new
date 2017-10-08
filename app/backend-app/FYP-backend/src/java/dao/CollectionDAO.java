@@ -52,11 +52,12 @@ public class CollectionDAO {
 
     }
     
-    public String addCollection(Collection collection) throws SQLException {
+    public int addCollection(Collection collection) throws SQLException {
 
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
+        int nextCollectionId = getNextCollectionId();
 
         String sql = "INSERT INTO COLLECTION (COLLECTION_ID, COLLECTION_NAME) VALUES (?,?)";
 
@@ -64,7 +65,7 @@ public class CollectionDAO {
 
                 conn = ConnectionManager.getConnection();
                 stmt = conn.prepareStatement(sql);
-                stmt.setInt(1, getNextCollectionId());
+                stmt.setInt(1, nextCollectionId);
                 stmt.setString(2, collection.getCollectionName());
 
                 stmt.executeUpdate();
@@ -73,7 +74,7 @@ public class CollectionDAO {
                 ConnectionManager.close(conn, stmt, rs);
             }
 
-        return "Success";
+        return nextCollectionId;
     }
     
     public String deleteCollectionById(int id) throws SQLException {

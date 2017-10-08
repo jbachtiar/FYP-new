@@ -109,7 +109,7 @@ public class PatternService {
         try {
                 System.out.println("JSON: " + json);
                 jsonOutput.addProperty("status", "200");
-                pDAO.addPattern(patternToSave);
+                jsonOutput.addProperty("newPatternId", pDAO.addPattern(patternToSave));
 
         } catch (SQLException e) {
             System.out.println(e);

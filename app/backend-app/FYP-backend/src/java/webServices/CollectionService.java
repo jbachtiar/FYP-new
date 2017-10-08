@@ -10,9 +10,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import dao.CollectionDAO;
-import dao.PatternDAO;
 import entity.Collection;
-import entity.Colour;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.annotation.security.PermitAll;
@@ -108,8 +106,8 @@ public class CollectionService {
         try {
             System.out.println("JSON: " + json);
             jsonOutput.addProperty("status", "200");
-            cDAO.addCollection(collectionToSave);
-
+            jsonOutput.addProperty("newCollectionId", cDAO.addCollection(collectionToSave));
+            
          } catch (SQLException e) {
             System.out.println(e);
             jsonOutput.addProperty("status", "500");

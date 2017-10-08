@@ -110,7 +110,7 @@ public class FabricService {
         try {
                 System.out.println("JSON: " + json);
                 jsonOutput.addProperty("status", "200");
-                fDAO.addFabric(fabricToSave);
+                jsonOutput.addProperty("newFabricId", fDAO.addFabric(fabricToSave));
 
         } catch (SQLException e) {
             System.out.println(e);

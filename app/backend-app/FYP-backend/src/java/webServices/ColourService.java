@@ -137,8 +137,8 @@ public class ColourService {
 
         try {
                 System.out.println("JSON: " + json);
-                jsonOutput.addProperty("status", "200");
-                cDAO.addColour(colourToSave);
+                jsonOutput.addProperty("status", "200");       
+                jsonOutput.addProperty("newColourId", cDAO.addColour(colourToSave));
 
         } catch (SQLException e) {
             System.out.println(e);

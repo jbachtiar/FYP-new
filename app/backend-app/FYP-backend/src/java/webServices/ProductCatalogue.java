@@ -136,7 +136,7 @@ public class ProductCatalogue {
         try {
                 System.out.println("JSON: " + json);
                 jsonOutput.addProperty("status", "200");
-                pDAO.addProduct(productToSave);
+                jsonOutput.addProperty("newProductId", pDAO.addProduct(productToSave));
 
         } catch (SQLException e) {
             System.out.println(e);

@@ -19,12 +19,13 @@ import java.util.ArrayList;
  */
 public class ColourDAO {
 
-    public String addColour(Colour colour) throws SQLException {
+    public int addColour(Colour colour) throws SQLException {
 
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-
+        int nextColourId = getNextColourId();
+        
         String sql = "INSERT INTO COLOUR (COLOUR_ID, COLOUR_NAME, DELETED) VALUES (?,?,?)";
         if (getColourById(colour.getColourId()) != null) {
 
@@ -42,10 +43,10 @@ public class ColourDAO {
                 ConnectionManager.close(conn, stmt, rs);
             }
         } else {
-            return "Colour already exist";
+            return 0;
         }
 
-        return "Success";
+        return nextColourId;
     }
 
     public Colour getColourById(int colourId) throws SQLException {

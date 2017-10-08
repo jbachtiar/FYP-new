@@ -56,19 +56,20 @@ public class PatternDAO {
 
     }
 
-    public String addPattern(Pattern pattern) throws SQLException {
+    public int addPattern(Pattern pattern) throws SQLException {
 
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-
+        int nextPatternId = getNextPatternId();
+        
         String sql = "INSERT INTO PATTERN (PATTERN_ID, PATTERN_NAME, PATTERN_DESC, PATTERN_PRICE, DELETED, COLLECTION_ID) VALUES (?,?,?,?,?,?)";
 
             try {
 
                 conn = ConnectionManager.getConnection();
                 stmt = conn.prepareStatement(sql);
-                stmt.setInt(1, getNextPatternId());
+                stmt.setInt(1, nextPatternId);
                 stmt.setString(2, pattern.getPatternName());
                 stmt.setString(3, pattern.getPatternDesc());
                 stmt.setDouble(4, pattern.getPatternPrice());
@@ -81,7 +82,7 @@ public class PatternDAO {
                 ConnectionManager.close(conn, stmt, rs);
             }
         
-        return "Success";
+        return nextPatternId;
     }   
 
     public String updatePattern(Pattern pattern) throws SQLException {

@@ -96,7 +96,7 @@ public class ProductDAO {
     }
     
     //Create 1 Product
-    public void addProduct(Product p) throws SQLException {
+    public int addProduct(Product p) throws SQLException {
 
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -127,6 +127,8 @@ public class ProductDAO {
         } finally {
             ConnectionManager.close(conn, stmt, rs);
         }
+        
+        return nextProductId;
 
     }
 

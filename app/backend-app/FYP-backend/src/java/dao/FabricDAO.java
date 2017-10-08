@@ -19,11 +19,12 @@ import java.util.ArrayList;
  */
 public class FabricDAO {
     
-    public String addFabric(Fabric fabric) throws SQLException{
+    public int addFabric(Fabric fabric) throws SQLException{
         
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
+        int nextFabricId = getNextFabricId();
        
         String sql = "INSERT INTO FABRIC (FABRIC_ID, FABRIC_NAME, FABRIC_DESC, FABRIC_PRICE, DELETED) VALUES (?,?,?,?,?)";
         
@@ -33,7 +34,7 @@ public class FabricDAO {
 
                 conn = ConnectionManager.getConnection();
                 stmt = conn.prepareStatement(sql);
-                stmt.setInt(1, getNextFabricId());
+                stmt.setInt(1, nextFabricId);
                 stmt.setString(2, fabric.getFabricName());
                 stmt.setString(3, fabric.getFabricDesc());
                 stmt.setDouble(4, fabric.getFabricPrice());
@@ -45,10 +46,10 @@ public class FabricDAO {
                 ConnectionManager.close(conn, stmt, rs);
             }
         }else{
-            return "Fabric already exist";
+            return 0;
         }
         
-        return "Success";
+        return nextFabricId;
     }
     
     public Fabric getFabricById(int fabricId) throws SQLException{
