@@ -164,6 +164,7 @@ public class ColourDAO {
         PreparedStatement stmt = null;
         ResultSet rs = null;
         ArrayList<Colour> colours = new ArrayList();
+      
 
         String sql = "SELECT colour_id from product where fabric_id=? and pattern_id=? and deleted=?";
         try {
@@ -187,7 +188,41 @@ public class ColourDAO {
         }
         return colours;
     }
+    
+     public ArrayList<Colour> getAvailableColoursByPatternNameFabricName(String patternName, String fabricName) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        ArrayList<Colour> colours = new ArrayList();
+        PatternDAO patternDao= new PatternDAO();
+        FabricDAO fabricDao = new FabricDAO();
+        int patternId= patternDao.getPatternByName(patternName).getPatternId();
+        int fabricId= fabricDao.getFabricByName(fabricName).getFabricId();
+        
+        String sql = "SELECT colour_id from product where fabric_id=? and pattern_id=? and deleted=?";
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, fabricId);
+            stmt.setInt(2, patternId);
+            stmt.setString(3, "N");
+            
+            rs = stmt.executeQuery();
 
+            while (rs.next()) {
+
+                int colourId = rs.getInt("colour_id");
+                colours.add(getColourById(colourId));
+
+            }
+
+        } finally {
+            ConnectionManager.close(conn, stmt, rs);
+        }
+        return colours;
+    }
+    
+     
     public Colour[] getCurrentColours() throws SQLException{
         
         Connection conn = null;

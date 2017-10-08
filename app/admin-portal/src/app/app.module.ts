@@ -30,6 +30,7 @@ import { ProductService } from './services/product.service';
 import { PagerService} from './services/pager.service'
 import { PromoCodeService } from './services/promo-code.service'
 import { OrderService } from './services/order.service'
+import { CatalogueService} from './services/catalogue.service'
 
 import { QRCodeModule } from 'angular2-qrcode';
 import { BootstrapModalModule } from 'ng2-bootstrap-modal';
@@ -139,7 +140,8 @@ import { DesignDetailsEditComponent } from './design-details-edit/design-details
     ProductService,
     PagerService,
     PromoCodeService,
-    OrderService 
+    OrderService,
+    CatalogueService
   ],
   bootstrap: [AppComponent],
   entryComponents: [

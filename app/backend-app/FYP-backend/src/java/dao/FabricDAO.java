@@ -80,6 +80,39 @@ public class FabricDAO {
         
     }
     
+     public Fabric getFabricByName(String fabricName) throws SQLException{
+        
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Fabric result = null;
+        
+        String sql = "SELECT * FROM FABRIC WHERE FABRIC_NAME = ?";
+        
+        try {
+            
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, fabricName);
+            rs = stmt.executeQuery();
+            
+            while(rs.next()){
+                int fabricId = rs.getInt("FABRIC_ID");
+                String fabricDesc = rs.getString("FABRIC_DESC");
+                double fabricPrice = rs.getDouble("FABRIC_PRICE");
+                String deleted = rs.getString("DELETED");
+                
+                result = new Fabric(fabricId, fabricName,fabricDesc,fabricPrice);
+            }
+
+        } finally {
+            ConnectionManager.close(conn, stmt, rs);
+        }
+        
+        return result;
+        
+    }
+    
     public ArrayList<Fabric> getAllAvailableFabrics() throws SQLException{
         
         Connection conn = null;

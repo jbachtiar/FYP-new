@@ -81,6 +81,50 @@ public class ColourService {
     }
     
     @GET
+    @Path("/getColoursByPatternFabric")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getColoursByPatternFabricName(@QueryParam("patternName") String patternName, @QueryParam("fabricName") String fabricName) {
+        
+        response.setHeader("Access-Control-Allow-Headers", "Content-Type");
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
+
+        Gson gson = new GsonBuilder().create();
+        JsonObject jsonOutput = new JsonObject();
+        
+        JsonArray colourArray = new JsonArray();
+        ColourDAO colourDao = new ColourDAO();
+
+        try {
+
+            ArrayList<Colour> cList = colourDao.getAvailableColoursByPatternNameFabricName(patternName, fabricName);
+            if (cList == null) {
+                
+                jsonOutput.addProperty("status", "500");
+                jsonOutput.addProperty("msg", "No Colours Available");
+                
+
+            } else {
+                
+                jsonOutput.addProperty("status", "200");
+                JsonArray colours = gson.toJsonTree(cList).getAsJsonArray(); // convert arraylist to jsonArray
+                jsonOutput.add("colours", colours);
+
+            }
+
+        } catch (SQLException e) {
+
+            jsonOutput.addProperty("status", "500");
+            jsonOutput.addProperty("msg", "ColourService: SQL Exception");
+
+        }
+
+        String finalJsonOutput = gson.toJson(jsonOutput);
+        return finalJsonOutput;
+        
+    }
+    
+    @GET
     @Path("/getColourById")
     @Produces(MediaType.APPLICATION_JSON)
     public Colour getColourById(@QueryParam("colourId") int colourId) {

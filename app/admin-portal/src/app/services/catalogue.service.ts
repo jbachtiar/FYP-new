@@ -99,6 +99,17 @@ export class CatalogueService {
             });
     }
 
+    getColoursByPatternFabric(patternName: string, fabricName: string){
+        let url = CONFIG.colourBackendUrl + '/getColoursByPatternFabric';
+        let finalUrl = url + "?patternName=" +patternName+"&fabricName="+fabricName
+        return this._http.get(finalUrl)
+            .map(res => {
+                console.log(finalUrl)
+                return res.json().colours;
+            });
+    }
+
+
     getCollectionById(collId: string){
         let url = CONFIG.collectionBackendUrl + '/getCollectionById';
         let finalUrl = url + "?collectionId=" + collId
