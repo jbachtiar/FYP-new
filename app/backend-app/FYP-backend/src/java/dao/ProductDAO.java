@@ -101,8 +101,42 @@ public class ProductDAO {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
+        
+        Connection conn1 = null;
+        PreparedStatement stmt1 = null;
+        ResultSet rs1 = null;
+        
         Image[] images = p.getImages();
         int nextProductId = getNextProductId();
+        
+        //before adding to the product table, need to add to its child tables first
+        String productType = p.getProductType();
+        if(productType.equals("Bedding")){
+            
+            BeddingSizeDAO bsDAO = new BeddingSizeDAO();
+            ArrayList<BeddingSize> bsList = bsDAO.getAllBeddingSizes();
+            for(int i = 0; i < bsList.size(); i++){
+                
+                BeddingSize bs = bsList.get(i);
+                String sizeName = bs.getSizeName();
+                
+                String sqlBedding = "INSERT INTO BEDDING (PRODUCT_ID, SIZE_NAME) VALUES (?,?)";
+                
+                try {
+                    conn1 = ConnectionManager.getConnection();
+                    stmt1 = conn.prepareStatement(sqlBedding);
+                    stmt1.setInt(1, nextProductId);
+                    stmt1.setString(2, sizeName);
+                    stmt.executeUpdate();
+               
+                } finally {
+                    ConnectionManager.close(conn1, stmt1, rs1);
+                }
+                
+            }
+            
+        }
+        
 
         String sql = "INSERT INTO PRODUCT (PRODUCT_ID, PRODUCT_TYPE, PATTERN_ID, COLOUR_ID, FABRIC_ID, DELETED) VALUES (?,?,?,?,?,?)";
 
