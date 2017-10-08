@@ -7,7 +7,7 @@
 
   </div>
   <div class="row">
-    <div class="col-sm-6">
+    <div class="col-sm-6 col-md-6 col-lg-6">
       <form *ngIf="!loading" name="form" (ngSubmit)="f.form.valid && submit()" #f="ngForm" class="form" novalidate>
         
         <div class="form-group">
@@ -70,7 +70,7 @@
     <!-- <img src="{{product.images[0].imageUrl}}" alt="..." class="img-thumbnail img-product" [routerLink]="['/productDetails', product.pattern_id]">
       <a href={{product.images[0].imageUrl}}>View Image</a> -->
     <div class="form-group">
-      <div class="col-sm-6">
+      <div class="col-sm-6 col-md-6 col-lg-6">
         <label><b>Images</b></label><br/>
         <button md-button color="primary" (click)="onAddImage()">Add More</button>
       </div>
