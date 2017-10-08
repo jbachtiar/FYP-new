@@ -122,7 +122,10 @@
             <td><img src="{{item.product.images[0].imageUrl}}" alt="..." class="img-product"><br/></td>
             <td class="product-title">
               <div class="pattern-name"> {{item.product.pattern.patternName}}</div>
-              {{item.product.productId}}
+              <b>Product ID:</b> {{item.product.productId}}
+              <br><b>Fabric:</b> {{item.product.fabric.fabricName}}
+              <br><b>Colour:</b> {{item.product.colour.colourName}}
+              <br><b>Size:</b> {{item.product.size.sizeName}}
               <br> $ {{item.unitPrice}}.00
             </td>
             <td>
