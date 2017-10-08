@@ -39,7 +39,7 @@
               </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !coll.valid }">
               <div>
                 <label for="collection">Collection</label>
               </div>
@@ -48,7 +48,7 @@
                             <option *ngFor="let c of collections" [ngValue]="c">{{c.collectionName}}</option>
                         </select>
               </div>
-              <div *ngIf="(f.submitted && coll.valid && !item.collection) || (!coll.valid && coll.dirty)" class="help-block">Collection is required</div>
+              <div *ngIf="(f.submitted && coll.valid && item.collection.collectionId==0) || (!coll.valid && coll.dirty)" class="help-block">Collection is required</div>
             </div>
 
             <div class="form-group">
