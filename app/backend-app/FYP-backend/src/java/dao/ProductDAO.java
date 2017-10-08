@@ -204,7 +204,7 @@ public class ProductDAO {
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
-        String sql = "UPDATE PRODUCT SET PRODUCT_TYPE = ?, DESIGN_ID = ?, COLOUR_ID = ? WHERE PRODUCT_ID = ?";
+        String sql = "UPDATE PRODUCT SET PRODUCT_TYPE = ?, PATTERN_ID = ?, COLOUR_ID = ? WHERE PRODUCT_ID = ?";
 
         try {
             conn = ConnectionManager.getConnection();

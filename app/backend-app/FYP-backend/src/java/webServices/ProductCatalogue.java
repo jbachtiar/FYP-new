@@ -182,6 +182,7 @@ public class ProductCatalogue {
         } catch (SQLException e) {
             System.out.println(e);
             jsonOutput.addProperty("status", "500");
+            jsonOutput.addProperty("SQL Exception", e.toString());
 
         }
 
