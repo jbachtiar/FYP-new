@@ -28,6 +28,7 @@ import entity.Pattern;
 import entity.Product;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import javax.annotation.security.PermitAll;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
@@ -41,6 +42,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 
 import javax.ws.rs.core.MediaType;
+import utility.BeddingComparator;
 
 /**
  *
@@ -287,6 +289,16 @@ public class ProductCatalogue {
 
             ArrayList<Bedding> beddingDesigns = productDao.getFilteredBeddingPatterns(collectionId, fabricId, colourId, sortPrice, search);
             jsonOutput.addProperty("status", "200");
+            
+            if(sortPrice.equals("asc")){
+                
+                Collections.sort(beddingDesigns, new BeddingComparator());
+                
+            }else if(sortPrice.equals("desc")){
+                
+                Collections.sort(beddingDesigns, Collections.reverseOrder(new BeddingComparator()));
+                
+            }
 
             for (Bedding b : beddingDesigns) {
 

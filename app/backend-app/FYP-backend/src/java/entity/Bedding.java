@@ -5,8 +5,6 @@
  */
 package entity;
 
-import java.util.ArrayList;
-
 /**
  *
  * @author Ong Yi Xuan
