@@ -10,9 +10,9 @@
 <br/>
 <br/>
 <div class="box">
-  <md-progress-bar style="top:10px"class="example-margin" [color]="color" [mode]="mode" [value]="value" [bufferValue]="bufferValue">
+  <md-progress-bar style="top:10px" class="example-margin" [color]="color" [mode]="mode" [value]="value" [bufferValue]="bufferValue">
   </md-progress-bar>
-<br/>
+  <br/>
   <div class="row">
     <div class="col-12 progress-row">
       <div class="button-row">
@@ -117,58 +117,108 @@
   <h4 class="title">Order Summary</h4>
   <!-- <div class="card"> -->
   <md-card>
-    <div class="content table-responsive table-full-width">
-      <table class="table table-hover">
-        <thead>
-          <tr>
-            <th>Product</th>
-            <th>ID</th>
-            <th>Type</th>
-            <th>Pattern</th>
-            <th>Fabric</th>
-            <th>Color</th>
-            <th>Size</th>
-            <th>Quantity</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let item of orderItems">
-            <td><img src="{{item.product.images[0].imageUrl}}" alt="..." class="img-product"><br/></td>
-            <td class="product-title">
-              {{item.product.productId}}
-            </td>
-            <td>
-              {{item.product.productType}}
-            </td>
-            <td>
-              {{item.product.pattern.patternName}}
-            </td>
-            <td>
-              {{item.product.fabric.fabricName}}
+    <div *ngIf="statusId==2">
+      <div class="content table-responsive table-full-width">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>ID</th>
+              <th>Type</th>
+              <th>Pattern</th>
+              <th>Fabric</th>
+              <th>Color</th>
+              <th>Size</th>
+              <th>Quantity</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of orderItems">
+              <td><img src="{{item.product.images[0].imageUrl}}" alt="..." class="img-product"><br/></td>
+              <td class="product-title">
+                {{item.product.productId}}
+              </td>
+              <td>
+                {{item.product.productType}}
+              </td>
+              <td>
+                {{item.product.pattern.patternName}}
+              </td>
+              <td>
+                {{item.product.fabric.fabricName}}
 
-            </td>
-            <td>
-              {{item.product.colour.colourName}}
-            </td>
-            <td>
-              {{item.product.size.sizeName}}
-            </td>
+              </td>
+              <td>
+                {{item.product.colour.colourName}}
+              </td>
+              <td>
+                {{item.product.size.sizeName}}
+              </td>
 
-            <td>
-              <!-- <button class="change-qty" (click)="decrement(item.product.productId)">-</button>  -->
-              {{item.quantity}}
-              <!-- <button class="change-qty" (click)="increment(item.product.productId)">+</button> -->
-            </td>
-            <td>
-              <button md-mini-fab color="basic" [disabled]="item.product.itemStatusBoolean" (click)="onItemStatusChange(item)"><span class="ti-check"></span></button>
-              <br/>
-              <div class="annotation">
-                {{item.itemStatus}}
-              </div>
-          </tr>
-        </tbody>
-      </table>
+              <td>
+                <!-- <button class="change-qty" (click)="decrement(item.product.productId)">-</button>  -->
+                {{item.quantity}}
+                <!-- <button class="change-qty" (click)="increment(item.product.productId)">+</button> -->
+              </td>
+              <td>
+                <button md-mini-fab color="basic" [disabled]="item.product.itemStatusBoolean" (click)="onItemStatusChange(item)"><span class="ti-check"></span></button>
+                <br/>
+                <div class="annotation">
+                  {{item.itemStatus}}
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div *ngIf="statusId!=2">
+      <div class="content table-responsive table-full-width">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>ID</th>
+              <th>Type</th>
+              <th>Pattern</th>
+              <th>Fabric</th>
+              <th>Color</th>
+              <th>Size</th>
+              <th>Quantity</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of orderItems">
+              <td><img src="{{item.product.images[0].imageUrl}}" alt="..." class="img-product"><br/></td>
+              <td class="product-title">
+                {{item.product.productId}}
+              </td>
+              <td>
+                {{item.product.productType}}
+              </td>
+              <td>
+                {{item.product.pattern.patternName}}
+              </td>
+              <td>
+                {{item.product.fabric.fabricName}}
+
+              </td>
+              <td>
+                {{item.product.colour.colourName}}
+              </td>
+              <td>
+                {{item.product.size.sizeName}}
+              </td>
+
+              <td>
+                {{item.quantity}}
+              </td>
+              
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </md-card>
   <hr>
