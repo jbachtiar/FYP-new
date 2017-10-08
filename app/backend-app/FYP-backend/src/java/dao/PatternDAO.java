@@ -65,7 +65,8 @@ public class PatternDAO {
         
         String sql = "INSERT INTO PATTERN (PATTERN_ID, PATTERN_NAME, PATTERN_DESC, PATTERN_PRICE, DELETED, COLLECTION_ID) VALUES (?,?,?,?,?,?)";
 
-            try {
+        try {
+
 
                 conn = ConnectionManager.getConnection();
                 stmt = conn.prepareStatement(sql);
@@ -76,14 +77,17 @@ public class PatternDAO {
                 stmt.setString(5, "N");
                 stmt.setInt(6, pattern.getCollection().getCollectionId());
 
-                stmt.executeUpdate();
 
-            } finally {
-                ConnectionManager.close(conn, stmt, rs);
-            }
+            stmt.executeUpdate();
+
+        } finally {
+            ConnectionManager.close(conn, stmt, rs);
+        }
+
         
         return nextPatternId;
     }   
+
 
     public String updatePattern(Pattern pattern) throws SQLException {
 
@@ -93,27 +97,27 @@ public class PatternDAO {
 
         String sql = "UPDATE PATTERN SET PATTERN_NAME = ?, PATTERN_DESC = ? , PATTERN_PRICE = ?, DELETED = ?, COLLECTION_ID = ? WHERE PATTERN_ID = ?";
 
-            try {
+        try {
 
-                conn = ConnectionManager.getConnection();
-                stmt = conn.prepareStatement(sql);
-                
-                stmt.setString(1, pattern.getPatternName());
-                stmt.setString(2, pattern.getPatternDesc());
-                stmt.setDouble(3, pattern.getPatternPrice());
-                stmt.setString(4, "N");
-                stmt.setInt(5, pattern.getCollection().getCollectionId());
-                stmt.setInt(6, pattern.getPatternId());
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
 
-                stmt.executeUpdate();
+            stmt.setString(1, pattern.getPatternName());
+            stmt.setString(2, pattern.getPatternDesc());
+            stmt.setDouble(3, pattern.getPatternPrice());
+            stmt.setString(4, "N");
+            stmt.setInt(5, pattern.getCollection().getCollectionId());
+            stmt.setInt(6, pattern.getPatternId());
 
-            } finally {
-                ConnectionManager.close(conn, stmt, rs);
-            }
-        
+            stmt.executeUpdate();
+
+        } finally {
+            ConnectionManager.close(conn, stmt, rs);
+        }
+
         return "Success";
     }
-    
+
     public String deletePatternById(int id) throws SQLException {
 
         Connection conn = null;
@@ -139,7 +143,6 @@ public class PatternDAO {
 
     }
 
-    
     public int getNextPatternId() throws SQLException {
 
         Connection conn = null;
@@ -170,7 +173,7 @@ public class PatternDAO {
         return nextPatternId;
 
     }
-    
+
     public Pattern getPatternById(int patternId) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -186,6 +189,34 @@ public class PatternDAO {
             while (rs.next()) {
 
                 String patternName = rs.getString("PATTERN_NAME");
+                String patternDescription = rs.getString("PATTERN_DESC");
+                Double patternPrice = rs.getDouble("PATTERN_PRICE");
+                int collectionId = rs.getInt("COLLECTION_ID");
+                String collectionName = rs.getString("COLLECTION_NAME");
+                TagDAO td = new TagDAO();
+                pattern = new Pattern(patternId, patternName, patternDescription, patternPrice, new Collection(collectionId, collectionName), td.getTagsByPatternId(patternId));
+            }
+        } finally {
+            ConnectionManager.close(conn, stmt, rs);
+        }
+        return pattern;
+    }
+
+    public Pattern getPatternByName(String patternName) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Pattern pattern = null;
+
+        String sql = "SELECT d.*, c.COLLECTION_NAME FROM PATTERN d LEFT OUTER JOIN COLLECTION c ON d.COLLECTION_ID = c.COLLECTION_ID where d.pattern_name=? ";
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, patternName);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+
+                int patternId = rs.getInt("PATTERN_ID");
                 String patternDescription = rs.getString("PATTERN_DESC");
                 Double patternPrice = rs.getDouble("PATTERN_PRICE");
                 int collectionId = rs.getInt("COLLECTION_ID");

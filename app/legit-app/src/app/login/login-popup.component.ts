@@ -53,6 +53,7 @@ export class LoginPopupComponent extends DialogComponent<LoginPopupModel, boolea
                 }else{
                     console.log("RES STATUS :" + res.status);
                     this.alertService.error(res.description);
+                    this.loading = false; 
                 }
             }
         )
