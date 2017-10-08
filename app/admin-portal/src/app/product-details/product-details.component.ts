@@ -36,7 +36,6 @@ export class ProductDetailsComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
       this.productId = params['productId']; // grab the parameter from url
-      this.patternUrl = CONFIG.eCommerceWebsiteUrl + '/productDetails/' + this.product.pattern.patternId
     });
     this.catService.getProductById(this.productId).subscribe(
       product => {
@@ -45,6 +44,8 @@ export class ProductDetailsComponent implements OnInit {
         this.selectedFabric = this.product.fabric
         this.selectedColour = this.product.colour
         this.selectedPattern = this.product.pattern
+        this.patternUrl = CONFIG.eCommerceWebsiteUrl + '/productDetails/' + this.product.pattern.patternId
+        
         //add 0000 padding
         let temp = "" + product.productId
         var pad = "0000"
@@ -111,7 +112,7 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   submit() {
-    this.catService.saveProduct(this.product).subscribe(res => {
+    this.catService.updateProduct(this.product).subscribe(res => {
       res = res.json()
       if (res.status == 200) {
         //this.onEdit()

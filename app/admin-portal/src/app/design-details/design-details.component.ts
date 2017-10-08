@@ -46,7 +46,7 @@ export class DesignDetailsComponent implements OnInit {
             // this.selectedColour = this.colours[0]
             for (let c of this.collections) {
               if (c['collectionId'] == this.selectedCollection.collectionId) {
-                this.selectedCollection = c
+                this.item.collection = c
               }
             }
           });
@@ -86,6 +86,7 @@ export class DesignDetailsComponent implements OnInit {
       if (res.status == 200) {
         //this.onEdit()
         alert("Changes Saved ID" + this.item.patternId)
+        console.log(JSON.stringify(this.item))
       } else {
         alert("Changes cannot be saved")
       }
