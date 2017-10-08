@@ -36,26 +36,23 @@ export class OrderDetailsComponent implements OnInit {
       this.orderService.getOrderById(this.orderId).subscribe(orders => {
         this.order = orders
         this.orderItems = orders[0].orderItems
-        console.log("ITEM STATUS: " + this.orderItems[0].product.itemStatus)
         for (let item of this.orderItems) {
           if (item.itemStatus == "COMPLETE") {
             item.product['itemStatusBoolean'] = true
           } else {
             item.product['itemStatusBoolean'] = false
           }
-          console.log("BOO : " + item.product.itemStatusBoolean)
         }
 
         if (this.order[0]['statusLogs'].length > 0) {
           let status = this.order[0].statusLogs[0]
-          console.log("STATUS: " + status)
           let currentStatus = status
           let mostCurrentTimestamp = status.startTimeStamp;
           for (status of this.order[0].statusLogs) {
             let timestamp = status.startTimeStamp;
             console.log("current timestamp: " + timestamp + "> most current" + mostCurrentTimestamp)
             if (mostCurrentTimestamp < timestamp) {
-              console.log("betul")
+              console.log("correct")
 
               mostCurrentTimestamp = timestamp;
               currentStatus = status;
@@ -79,7 +76,7 @@ export class OrderDetailsComponent implements OnInit {
               console.log("this.value = " + this.value)
             }
             this.value = this.bufferValue - 16.569
-            this.bufferValue -= 16.569            
+            this.bufferValue -= 16.569
 
             //to make the icon of ongoing status pulse
             this.pulse[this.map[statusId]] = true;
@@ -108,6 +105,7 @@ export class OrderDetailsComponent implements OnInit {
         console.log("this.value = " + this.value)
       }
       this.value = this.bufferValue - 16.569
+      this.bufferValue = 0
       //to make all icons unpulse first
       for (var i = 6; i > 0; i--) {
         this.pulse[this.map[i]] = false;
@@ -118,35 +116,91 @@ export class OrderDetailsComponent implements OnInit {
       this.bufferValue = 100
       this.value = 100
       this.isDisabled[this.map[6]] = false
-      this.pulse[this.map[this.statusId-1]] = false;
-      
+      this.pulse[this.map[this.statusId - 1]] = false;
+
     }
 
   }
 
   onNext() {
+    let prevStatus = this.statusId
     let newStatus = this.statusId + 1
-    this.orderService.updateOrderStatus(this.orderId, this.statusId, newStatus).subscribe(res => {
-      if (res.status == "200") {
-        console.log("BEFORE STATUS: " + this.statusId)
-        this.statusId = this.statusId + 1;
-        console.log("ONNEXT")
-        console.log("AFTER STATUS: " + this.statusId)
-        this.updateProgressBar();
+    let allComplete = true
+
+    if (prevStatus == 2 && newStatus > prevStatus) {
+      for (let item of this.orderItems) {
+        if (item.itemStatus != "COMPLETE") {
+          allComplete = false
+        }
       }
-    })
+      if (!allComplete) {
+        let disposable = this.dialogService.addDialog(ConfirmationPopupComponent, {
+          title: 'Reminder',
+          message: 'Please check if all the items are completed before moving to the next status.'
+        })
+          .subscribe((isConfirmed) => {
+            if (isConfirmed) {
+              //doNth
+            }
+          });
+      }else{
+        let disposable = this.dialogService.addDialog(ConfirmationPopupComponent, {
+          title: '',
+          message: 'Move order to the next status?'
+        })
+          .subscribe((isConfirmed) => {
+            if (isConfirmed) {
+              this.orderService.updateOrderStatus(this.orderId, this.statusId, newStatus).subscribe(res => {
+                if (res.status == "200") {
+                  console.log("BEFORE STATUS: " + this.statusId)
+                  this.statusId = this.statusId + 1;
+                  console.log("ONNEXT")
+                  console.log("AFTER STATUS: " + this.statusId)
+                  this.updateProgressBar();
+                }
+              });
+            }
+          });
+      }
+    } else {
+      let disposable = this.dialogService.addDialog(ConfirmationPopupComponent, {
+        title: '',
+        message: 'Move order to the next status?'
+      })
+        .subscribe((isConfirmed) => {
+          if (isConfirmed) {
+            this.orderService.updateOrderStatus(this.orderId, this.statusId, newStatus).subscribe(res => {
+              if (res.status == "200") {
+                console.log("BEFORE STATUS: " + this.statusId)
+                this.statusId = this.statusId + 1;
+                console.log("ONNEXT")
+                console.log("AFTER STATUS: " + this.statusId)
+                this.updateProgressBar();
+              }
+            });
+          }
+        });
+    }
   }
   onPrevious() {
     let newStatus = this.statusId - 1
-    this.orderService.updateOrderStatus(this.orderId, this.statusId, newStatus).subscribe(res => {
-      if (res.status == "200") {
-        console.log("BEFORE STATUS: " + this.statusId)
-        this.statusId = this.statusId - 1;
-        console.log("ONNEXT")
-        console.log("AFTER STATUS: " + this.statusId)
-        this.updateProgressBar();
-      }
+    let disposable = this.dialogService.addDialog(ConfirmationPopupComponent, {
+      title: '',
+      message: 'Move order to the previous status?'
     })
+      .subscribe((isConfirmed) => {
+        if (isConfirmed) {
+          this.orderService.updateOrderStatus(this.orderId, this.statusId, newStatus).subscribe(res => {
+            if (res.status == "200") {
+              console.log("BEFORE STATUS: " + this.statusId)
+              this.statusId = this.statusId - 1;
+              console.log("ONNEXT")
+              console.log("AFTER STATUS: " + this.statusId)
+              this.updateProgressBar();
+            }
+          });
+        }
+      });
   }
 
   reloadItems(params) {
@@ -156,10 +210,10 @@ export class OrderDetailsComponent implements OnInit {
     });
   }
 
-  onItemStatusChange(item){
+  onItemStatusChange(item) {
     item.itemStatus = "COMPLETE"
     item.product.itemStatusBoolean = true;
-    this.orderService.updateItemStatus(this.orderId, item.product.productId, "COMPLETE").subscribe(res=>{
+    this.orderService.updateItemStatus(this.orderId, item.product.productId, "COMPLETE").subscribe(res => {
       console.log("ON ITEM STATUS CHANGE: " + res);
     })
   }

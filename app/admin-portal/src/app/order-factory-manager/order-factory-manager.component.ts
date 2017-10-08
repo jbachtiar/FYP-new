@@ -142,12 +142,12 @@ export class OrderFactoryManagerComponent implements OnInit {
   }
 
   rowClick(rowEvent) {
-    console.log('Clicked');
+    let link = ['orders', rowEvent.row.item.orderId];
+    this.router.navigate(link);
   }
 
   rowDoubleClick(rowEvent) {
-    let link = ['orders', rowEvent.row.item.orderId];
-    this.router.navigate(link);
+    //doSth
   }
 
   rowTooltip(item) {
