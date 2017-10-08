@@ -12,7 +12,6 @@ import { CatalogueService } from '../services/catalogue.service'
 })
 
 export class ColourDetailsAddComponent implements OnInit {
-  editPage = false;
   buttonText = "Edit";
   buttonColour = "lightcoral"
   buttonTextColour = "white"
@@ -44,26 +43,14 @@ export class ColourDetailsAddComponent implements OnInit {
     this.loading = false;
   }
 
-  onEdit() {
-    if (!this.editPage) {
-      this.editPage = true;
-      this.buttonText = "Back"
-      this.buttonColour = "white"
-      this.buttonTextColour = "lightcoral"
-    } else {
-      this.editPage = false;
-      this.buttonText = "Edit"
-      this.buttonColour = "lightcoral"
-      this.buttonTextColour = "white"
-    }
-  }
+  
 
   submit() {
     this.catService.saveColour(this.item).subscribe(res => {
-      res = res.json()
       if (res.status == 200) {
-        this.onEdit()
-        alert("Changes Saved ID" + this.item.colourId)
+        alert("New Colour Added ID: " + res.newColourId)
+        let link = ['/catalogue/colour/' + res.newColourId];
+        this.router.navigate(link);
       } else {
         alert("Changes cannot be saved")
       }

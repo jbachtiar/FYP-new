@@ -68,10 +68,10 @@ export class CollectionDetailsComponent implements OnInit {
 
   submit() {
     this.catService.updateCollection(this.item).subscribe(res => {
-      res = res.json()
       if (res.status == 200) {
+        alert("Changes Saved")
         this.onEdit()
-        alert("Changes Saved ID" + this.item.collectionId)
+        
       } else {
         alert("Changes cannot be saved")
       }

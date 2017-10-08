@@ -57,7 +57,7 @@ export class ProductDetailsComponent implements OnInit {
             for (let f of this.fabrics) {
               if (f['fabricId'] == this.selectedFabric.fabricId) {
                 console.log("same")
-                this.selectedFabric = f
+                this.product.fabric = f
               }
             }
           });
@@ -67,7 +67,7 @@ export class ProductDetailsComponent implements OnInit {
             // this.selectedColour = this.colours[0]
             for (let c of this.colours) {
               if (c['colourId'] == this.selectedColour.colourId) {
-                this.selectedColour = c
+                this.product.colour = c
               }
             }
           });
@@ -77,7 +77,7 @@ export class ProductDetailsComponent implements OnInit {
             // this.selectedColour = this.colours[0]
             for (let p of this.patterns) {
               if (p['patternId'] == this.selectedPattern.patternId) {
-                this.selectedPattern = p
+                this.product.pattern = p
               }
             }
           });

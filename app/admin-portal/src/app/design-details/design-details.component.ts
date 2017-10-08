@@ -27,7 +27,7 @@ export class DesignDetailsComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
       this.id = params['patternId']; // grab the parameter from url
-      this.patternUrl = CONFIG.eCommerceWebsiteUrl + '/productDetails/' + this.item.patternId
+      this.patternUrl = CONFIG.eCommerceWebsiteUrl + '/productDetails/' + this.id
     });
     this.catService.getPatternById(this.id).subscribe(
       item => {
@@ -87,6 +87,8 @@ export class DesignDetailsComponent implements OnInit {
         //this.onEdit()
         alert("Changes Saved ID" + this.item.patternId)
         console.log(JSON.stringify(this.item))
+        let link = ['/catalogue'];
+        this.router.navigate(link);
       } else {
         alert("Changes cannot be saved")
       }

@@ -80,11 +80,11 @@
                   <label for="patternName">Design </label>
                 </div>
                 <div ng-class="{'valid':pattern.$valid}">
-                  <select class="form-control" name='pattern' [(ngModel)]="selectedPattern" #pattern="ngModel" required>
+                  <select class="form-control" name='pattern' [(ngModel)]="product.pattern" #pattern="ngModel" required>
                         <option *ngFor="let p of patterns" [ngValue]="p">{{p.patternName}}</option>
                     </select>
                 </div>
-                <div *ngIf="(f.submitted && pattern.valid && !pattern.fabric) || (!pattern.valid && pattern.dirty)" class="help-block">Pattern is required</div>
+                <div *ngIf="(f.submitted && pattern.valid && !product.pattern) || (!pattern.valid && pattern.dirty)" class="help-block">Pattern is required</div>
               </div>
 
               <div class="form-group">
@@ -92,7 +92,7 @@
                   <label for="fabricName">Fabric </label>
                 </div>
                 <div ng-class="{'valid':fabric.$valid}">
-                  <select class="form-control" name='fabric' [(ngModel)]="selectedFabric" #fabric="ngModel" required>
+                  <select class="form-control" name='fabric' [(ngModel)]="product.fabric" #fabric="ngModel" required>
                       <option *ngFor="let f of fabrics" [ngValue]="f">{{f.fabricName}}</option>
                   </select>
                 </div>
@@ -104,7 +104,7 @@
                   <label for="colour">Colour</label>
                 </div>
                 <div ng-class="{'valid':colour.$valid}">
-                  <select class="form-control" name='colour' [(ngModel)]='selectedColour' #colour="ngModel" required>
+                  <select class="form-control" name='colour' [(ngModel)]='product.colour' #colour="ngModel" required>
                                   <option *ngFor="let c of colours" [ngValue]="c">{{c.colourName}}</option>
                               </select>
                 </div>

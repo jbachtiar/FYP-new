@@ -88,10 +88,10 @@ export class ProductDetailsAddComponent implements OnInit {
     this.productId = "TEST"
     console.log("NEW PRODUCT: " + this.product)
     this.catService.saveProduct(this.product).subscribe(res => {
-      res = res.json()
       if (res.status == 200) {
-        //this.onEdit()
-        alert("Changes Saved")
+        alert("New Product Added ID: " + res.newProductId)
+        let link = ['/catalogue/product/' + res.newProductId];
+        this.router.navigate(link);
       } else {
         alert("Changes cannot be saved")
       }
