@@ -1,4 +1,4 @@
-﻿INSERT INTO CUSTOMER VALUES ('customer@gmail.com','Huiyan','Chen','85882165','1234','N');
+﻿INSERT INTO CUSTOMER VALUES ('customer@gmail.com','Huiyan','Chen','85882165','1234','Y');
 
 INSERT INTO STAFF_ROLE VALUES ('1','Admin');
 INSERT INTO STAFF_ROLE VALUES ('2','Factory Manager');
@@ -12,14 +12,14 @@ INSERT INTO STAFF VALUES ('staff3@gmail.com','James','Xia','12345678','1234','3'
 INSERT INTO courier VALUES('Shun Feng','ShunFeng.com');
 
 
-INSERT INTO CUSTOMER_ADDRESS VALUES ('1', 'customer@gmail.com', 'hui yan', '91234230', '134 Highlander Ave 3','Singapore','Singapore','536748', 'Y');
-INSERT INTO CUSTOMER_ADDRESS VALUES ('2', 'customer@gmail.com', 'hy chen', '99122332', '324 Orchard Ave 4','Singapore','Singapore','876324', 'N');
+INSERT INTO CUSTOMER_ADDRESS VALUES ('1', 'customer@gmail.com', 'Hui Yan', '91234230', '134 Highlander Ave 3','Singapore','Singapore','536748', 'Y');
+INSERT INTO CUSTOMER_ADDRESS VALUES ('2', 'customer@gmail.com', 'Mark Chen', '99122332', '324 Orchard Ave 4','Singapore','Singapore','876324', 'N');
 
-INSERT INTO COLLECTION VALUES ('1','Bestsellers');
-INSERT INTO COLLECTION VALUES ('2','2018 Spring');
-INSERT INTO COLLECTION VALUES ('3','2018 Summer');
-INSERT INTO COLLECTION VALUES ('4','2017 Spring');
-INSERT INTO COLLECTION VALUES ('5','2017 Winter');
+INSERT INTO COLLECTION VALUES ('1','Bestsellers','N');
+INSERT INTO COLLECTION VALUES ('2','2018 Spring','N');
+INSERT INTO COLLECTION VALUES ('3','2018 Summer','N');
+INSERT INTO COLLECTION VALUES ('4','2017 Spring','N');
+INSERT INTO COLLECTION VALUES ('5','2017 Winter','N');
 
 INSERT INTO PATTERN VALUES ('1','Forest','Hi, here is a description on Forest',100,'N','1');
 INSERT INTO PATTERN VALUES ('2','Birds','Hi, here is a description on Birds',120,'N','1');
@@ -81,7 +81,6 @@ INSERT INTO ORDER_STATUS VALUES('4','Pending for Shipment');
 INSERT INTO ORDER_STATUS VALUES('5','Shipped');
 INSERT INTO ORDER_STATUS VALUES('6','Completed');
 
-INSERT INTO PROMO_CODE VALUES(0,"NONE", "NONE", "NONE",0,0,0,0,0,'2017-01-01','2017-02-02','N');
 INSERT INTO PROMO_CODE VALUES(1,"WELCOME5", "First Purchase", "% discount",5,50,100,10000,0,'2017-08-27','2017-09-10','N');
 INSERT INTO PROMO_CODE VALUES(2,"1MONTH", "1st Monthsary", "$ discount",50,200,50,10000,0,'2017-09-27','2017-10-27','N');
 
