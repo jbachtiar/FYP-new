@@ -212,7 +212,7 @@ public class FabricDAO {
                 stmt.setDouble(3, fabric.getFabricPrice());
                 stmt.setInt(4, fabric.getFabricId());
                 
-                rs = stmt.executeQuery();
+                stmt.executeUpdate();
                 
             } finally {
                 ConnectionManager.close(conn, stmt, rs);

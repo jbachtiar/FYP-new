@@ -150,7 +150,7 @@ public class ColourDAO {
                 stmt.setString(1, colour.getColourName());
                 stmt.setInt(2, colour.getColourId());
 
-                rs = stmt.executeQuery();
+                stmt.executeUpdate();
 
             } finally {
                 ConnectionManager.close(conn, stmt, rs);
