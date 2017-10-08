@@ -79,9 +79,6 @@ public class ProductCatalogue {
 
         }
 
-        //String finalJsonOutput = gson.toJson(jsonOutput);
-        //return finalJsonOutput;
-        
     }
     
     @GET
@@ -137,8 +134,17 @@ public class ProductCatalogue {
 
         try {
                 System.out.println("JSON: " + json);
-                jsonOutput.addProperty("status", "200");
-                jsonOutput.addProperty("newProductId", pDAO.addProduct(productToSave));
+                
+                if(!pDAO.productCombinationExist(productToSave)){
+                    jsonOutput.addProperty("status", "200");
+                    jsonOutput.addProperty("newProductId", pDAO.addProduct(productToSave));
+                    
+                }else{
+                    
+                    jsonOutput.addProperty("status", "500");
+                    jsonOutput.addProperty("error: ", "Combination Exists");
+                }
+                
 
         } catch (SQLException e) {
             System.out.println(e);
@@ -460,56 +466,6 @@ public class ProductCatalogue {
         String finalJsonOutput = gson.toJson(jsonOutput);
         return finalJsonOutput;
     }
-//
-//    @GET
-//    @Path("/product")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public String getProductById(@QueryParam("sku") String sku) {
-//        
-//        response.setHeader("Access-Control-Allow-Origin", "*");
-//
-//        JsonObject jsonOutput = new JsonObject();
-//        Gson gson = new GsonBuilder().create();
-//
-//        try {
-//
-//            Product p = ProductDAO.retrieveProductById(sku);
-//            if (p == null) {
-//                jsonOutput.addProperty("status", "Product not found");
-//
-//            } else {
-//                jsonOutput.addProperty("status", "200");
-//                JsonObject temp = new JsonObject();
-//                temp.addProperty("SKU", p.getSKU());
-//                temp.addProperty("pattern_id", p.getPatternID());
-//                temp.addProperty("fabric_id", p.getFabricID());
-//                temp.addProperty("collection_id", p.getCollectionID());
-//                temp.addProperty("colour_id", p.getColorID());
-//
-//                temp.addProperty("pattern_name", p.getPatternName());
-//                temp.addProperty("fabric_name", p.getFabricName());
-//                temp.addProperty("collection_name", p.getCollectionName());
-//                temp.addProperty("colour_name", p.getColorName());
-//
-//                temp.addProperty("pattern_price", p.getFabricPrice());
-//                temp.addProperty("fabric_price", p.getFabricPrice());
-//                temp.addProperty("colour_price", p.getFabricPrice());
-//                temp.addProperty("image_url", p.getImageUrl());
-//                JsonArray tags = gson.toJsonTree(p.getTags()).getAsJsonArray(); // convert arraylist to jsonArray
-//                temp.add("tags", tags);
-//                jsonOutput.add("product", temp);
-//
-//            }
-//        } catch (SQLException e) {
-//
-//            jsonOutput.addProperty("status", "error");
-//
-//        }
-//
-//        String finalJsonOutput = gson.toJson(jsonOutput);
-//        return finalJsonOutput;
-//    }
-//
 
     @GET
     @Path("/customize")
@@ -708,265 +664,6 @@ public class ProductCatalogue {
         return finalJsonOutput;
     }
 
-
-//    @GET
-//    @Path("/filtersort")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public String getProductsCataloguebyFilter(@QueryParam("collectionId") String collectionId, @QueryParam("fabricId") String fabricId, @QueryParam("colourId") String colourId, @QueryParam("sortPrice") String sortPrice, @QueryParam("search") String search) {
-//        
-//        response.setHeader("Access-Control-Allow-Origin", "*");
-//        
-//        Gson gson = new GsonBuilder().create();
-//        JsonObject jsonOutput = new JsonObject();
-//        JsonArray products = new JsonArray();
-//
-//        try {
-//
-//            Product[] pArray = ProductDAO.getfilteredProductList(collectionId, fabricId, colourId, sortPrice, search);
-//            jsonOutput.addProperty("status", "200");
-//
-//            for (Product p : pArray) {
-//
-//                JsonObject temp = new JsonObject();
-//
-//                temp.addProperty("SKU", p.getSKU());
-//                temp.addProperty("pattern_id", p.getPatternID());
-//                temp.addProperty("fabric_id", p.getFabricID());
-//                temp.addProperty("collection_id", p.getCollectionID());
-//                temp.addProperty("colour_id", p.getColorID());
-//
-//                temp.addProperty("pattern_name", p.getPatternName());
-//                temp.addProperty("fabric_name", p.getFabricName());
-//                temp.addProperty("collection_name", p.getCollectionName());
-//                temp.addProperty("colour_name", p.getColorName());
-//
-//                temp.addProperty("pattern_price", p.getFabricPrice());
-//                temp.addProperty("fabric_price", p.getFabricPrice());
-//                temp.addProperty("colour_price", p.getFabricPrice());
-//                temp.addProperty("image_url", p.getImageUrl());
-//
-//                JsonArray tags = gson.toJsonTree(p.getTags()).getAsJsonArray(); // convert arraylist to jsonArray
-//                temp.add("tags", tags);
-//
-//                products.add(temp);
-//
-//            }
-//
-//            jsonOutput.add("products", products);
-//
-//        } catch (SQLException e) {
-//
-//            jsonOutput.addProperty("status", "error");
-//
-//        }
-//
-//        String finalJsonOutput = gson.toJson(jsonOutput);
-//        return finalJsonOutput;
-//    }
-//
-//    @GET
-//    @Path("/search")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public String getSearchProducts(@QueryParam("search") String search) {
-//        
-//        
-//        response.setHeader("Access-Control-Allow-Origin", "*");
-//        
-//        Gson gson = new GsonBuilder().create();
-//        JsonObject jsonOutput = new JsonObject();
-//        JsonArray products = new JsonArray();
-//
-//        if (search.isEmpty() || search.equals(" ")) {
-//
-//            return getProductsCatalogue();
-//
-//        } else {
-//
-//            try {
-//
-//                Product[] pArray = ProductDAO.getSearchProducts(search);
-//                jsonOutput.addProperty("status", "200");
-//
-//                for (Product p : pArray) {
-//
-//                    JsonObject temp = new JsonObject();
-//
-//                    temp.addProperty("SKU", p.getSKU());
-//                    temp.addProperty("pattern_id", p.getPatternID());
-//                    temp.addProperty("fabric_id", p.getFabricID());
-//                    temp.addProperty("collection_id", p.getCollectionID());
-//                    temp.addProperty("colour_id", p.getColorID());
-//
-//                    temp.addProperty("pattern_name", p.getPatternName());
-//                    temp.addProperty("fabric_name", p.getFabricName());
-//                    temp.addProperty("collection_name", p.getCollectionName());
-//                    temp.addProperty("colour_name", p.getColorName());
-//
-//                    temp.addProperty("pattern_price", p.getFabricPrice());
-//                    temp.addProperty("fabric_price", p.getFabricPrice());
-//                    temp.addProperty("colour_price", p.getFabricPrice());
-//                    temp.addProperty("image_url", p.getImageUrl());
-//
-//                    JsonArray tags = gson.toJsonTree(p.getTags()).getAsJsonArray(); // convert arraylist to jsonArray
-//                    temp.add("tags", tags);
-//
-//                    products.add(temp);
-//
-//                }
-//
-//                jsonOutput.add("products", products);
-//
-//            } catch (SQLException e) {
-//
-//                jsonOutput.addProperty("status", "error");
-//
-//            }
-//
-//            String finalJsonOutput = gson.toJson(jsonOutput);
-//            return finalJsonOutput;
-//        }
-//    }
-//    
-//    //Get product ID for Cart
-//    @GET
-//    @Path("/filters")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public String getProductsCataloguebyFilters(@QueryParam("collectionId") String collectionId, @QueryParam("fabricId") String fabricId, @QueryParam("colourId") String colourId, @QueryParam("sortPrice") String sortPrice, @QueryParam("search") String search) {
-//        
-//        
-//        response.setHeader("Access-Control-Allow-Origin", "*");
-//        
-//        Gson gson = new GsonBuilder().create();
-//        JsonObject jsonOutput = new JsonObject();
-//        JsonArray products = new JsonArray();
-//
-//        try {
-//
-//            Product[] pArray = ProductDAO.getfilteredProductList(collectionId, fabricId, colourId, sortPrice, search);
-//            jsonOutput.addProperty("status", "200");
-//
-//            for (Product p : pArray) {
-//
-//                JsonObject temp = new JsonObject();
-//
-//                temp.addProperty("SKU", p.getSKU());
-//                temp.addProperty("pattern_id", p.getPatternID());
-//                temp.addProperty("fabric_id", p.getFabricID());
-//                temp.addProperty("collection_id", p.getCollectionID());
-//                temp.addProperty("colour_id", p.getColorID());
-//
-//                temp.addProperty("pattern_name", p.getPatternName());
-//                temp.addProperty("fabric_name", p.getFabricName());
-//                temp.addProperty("collection_name", p.getCollectionName());
-//                temp.addProperty("colour_name", p.getColorName());
-//
-//                temp.addProperty("pattern_price", p.getFabricPrice());
-//                temp.addProperty("fabric_price", p.getFabricPrice());
-//                temp.addProperty("colour_price", p.getFabricPrice());
-//                temp.addProperty("image_url", p.getImageUrl());
-//
-//                JsonArray tags = gson.toJsonTree(p.getTags()).getAsJsonArray(); // convert arraylist to jsonArray
-//                temp.add("tags", tags);
-//
-//                products.add(temp);
-//
-//            }
-//
-//            jsonOutput.add("products", products);
-//
-//        } catch (SQLException e) {
-//
-//            jsonOutput.addProperty("status", "error");
-//
-//        }
-//
-//        String finalJsonOutput = gson.toJson(jsonOutput);
-//        return finalJsonOutput;
-//    }
-//    
-//    
-//    @PUT
-//    @Path("/updatePatternFabric")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public String updatePatternFabric (@Context HttpHeaders httpHeaders, @FormParam("patternID") String patternID,@FormParam("fabricID") String fabricID){
-//        //String password = CustomerDAO.retrievePasswordByEmail(email);
-//        
-//        response.setHeader("Access-Control-Allow-Origin", "*");
-//        
-//        HashMap<String, String> responseMap = new HashMap<>();
-//        Gson gson = new GsonBuilder().create();
-//        String status;
-//        Pattern pattern = null;
-//                
-//        
-//        ProductDAO.updatePatternFabric(patternID, fabricID);
-//        status = "200";
-//        responseMap.put("status", status);
-//        
-//        //responseMap.put("status", STATUS_ERROR_NULL_PASSWORD);
-//        return gson.toJson(responseMap);
-//    }
-//    
-
-//    @GET
-//    @Path("/adminPatternFilter")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public String getadminFilter(@QueryParam("collectionId") String collectionId, @QueryParam("fabricId") String fabricId, @QueryParam("colourId") String colourId, @QueryParam("sortPrice") String sortPrice, @QueryParam("search") String search) {
-//        
-//        
-//        response.setHeader("Access-Control-Allow-Origin", "*");
-//        
-//        System.out.println("bad");
-//        Gson gson = new GsonBuilder().create();
-//        JsonObject jsonOutput = new JsonObject();
-//        JsonArray products = new JsonArray();
-//
-//        try {
-//
-//            Product[] pArray = ProductDAO.getfilteredProductList(collectionId, fabricId, colourId, sortPrice, search);
-//            System.out.println("Hello");
-//            jsonOutput.addProperty("status", "200");
-//
-//            for (Product p : pArray) {
-//
-//                JsonObject temp = new JsonObject();
-//
-//                temp.addProperty("SKU", p.getSKU());
-//                temp.addProperty("pattern_id", p.getPatternID());
-//                temp.addProperty("fabric_id", p.getFabricID());
-//                temp.addProperty("collection_id", p.getCollectionID());
-//                temp.addProperty("colour_id", p.getColorID());
-//
-//                temp.addProperty("pattern_name", p.getPatternName());
-//                temp.addProperty("fabric_name", p.getFabricName());
-//                temp.addProperty("collection_name", p.getCollectionName());
-//                temp.addProperty("colour_name", p.getColorName());
-//
-//                temp.addProperty("pattern_price", p.getFabricPrice());
-//                temp.addProperty("fabric_price", p.getFabricPrice());
-//                temp.addProperty("colour_price", p.getFabricPrice());
-//                temp.addProperty("image_url", p.getImageUrl());
-//
-//                JsonArray tags = gson.toJsonTree(p.getTags()).getAsJsonArray(); // convert arraylist to jsonArray
-//                temp.add("tags", tags);
-//
-//                products.add(temp);
-//
-//            }
-//
-//            jsonOutput.add("products", products);
-//
-//        } catch (SQLException e) {
-//
-//            jsonOutput.addProperty("status", "error");
-//
-//        }
-//
-//        String finalJsonOutput = gson.toJson(jsonOutput);
-//        return finalJsonOutput;
-//    }
-//    
-   
 
     @GET
     @Path("/getProductId")

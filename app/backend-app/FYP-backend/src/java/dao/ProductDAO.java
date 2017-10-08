@@ -95,6 +95,48 @@ public class ProductDAO {
         return beddings;
     }
     
+    public boolean productCombinationExist(Product p){
+        
+        Connection conn1 = null;
+        PreparedStatement stmt1 = null;
+        ResultSet rs1 = null;
+        
+        int newProductId = 0;
+        
+        String productIdSQL = "SELECT PRODUCT_ID FROM PRODUCT WHERE PATTERN_ID = ? AND FABRIC_ID = ? AND COLOUR_ID = ?";
+        try {
+
+            conn1 = ConnectionManager.getConnection();
+            stmt1 = conn1.prepareStatement(productIdSQL);
+            
+            stmt1.setInt(1, p.getPattern().getPatternId());
+            stmt1.setInt(2, p.getFabric().getFabricId());
+            stmt1.setInt(3, p.getColour().getColourId());
+
+            rs1 = stmt1.executeQuery();
+            
+            while (rs1.next()) {
+                newProductId = rs1.getInt("PRODUCT_ID");
+            }
+            
+            if(newProductId > 0){
+            
+                return true;
+            
+            }
+
+        } catch(SQLException e){
+            
+            return true;
+            
+        }finally {
+            ConnectionManager.close(conn1, stmt1, rs1);
+        }
+        
+        return false;
+        
+    }
+
     //Create 1 Product
     public int addProduct(Product p) throws SQLException {
 
