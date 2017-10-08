@@ -25,22 +25,22 @@ public class ColourDAO {
         PreparedStatement stmt = null;
         ResultSet rs = null;
         int nextColourId = getNextColourId();
-        
+
         String sql = "INSERT INTO COLOUR (COLOUR_ID, COLOUR_NAME, DELETED) VALUES (?,?,?)";
 
-            try {
+        try {
 
-                conn = ConnectionManager.getConnection();
-                stmt = conn.prepareStatement(sql);
-                stmt.setInt(1, getNextColourId());
-                stmt.setString(2, colour.getColourName());
-                stmt.setString(3, "N");
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, getNextColourId());
+            stmt.setString(2, colour.getColourName());
+            stmt.setString(3, "N");
 
-                stmt.executeUpdate();
+            stmt.executeUpdate();
 
-            } finally {
-                ConnectionManager.close(conn, stmt, rs);
-            }
+        } finally {
+            ConnectionManager.close(conn, stmt, rs);
+        }
 
         return nextColourId;
     }
@@ -63,6 +63,35 @@ public class ColourDAO {
 
             while (rs.next()) {
                 String colourName = rs.getString("COLOUR_NAME");
+                result = new Colour(colourId, colourName);
+            }
+
+        } finally {
+            ConnectionManager.close(conn, stmt, rs);
+        }
+
+        return result;
+
+    }
+
+    public Colour getColourByName(String colourName) throws SQLException {
+
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Colour result = null;
+
+        String sql = "SELECT * FROM COLOUR WHERE COLOUR_NAME = ?";
+
+        try {
+
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, colourName);
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                int colourId = rs.getInt("COLOUR_ID");
                 result = new Colour(colourId, colourName);
             }
 
@@ -164,7 +193,6 @@ public class ColourDAO {
         PreparedStatement stmt = null;
         ResultSet rs = null;
         ArrayList<Colour> colours = new ArrayList();
-      
 
         String sql = "SELECT colour_id from product where fabric_id=? and pattern_id=? and deleted=?";
         try {
@@ -173,7 +201,7 @@ public class ColourDAO {
             stmt.setInt(1, fabricId);
             stmt.setInt(2, patternId);
             stmt.setString(3, "N");
-            
+
             rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -188,17 +216,17 @@ public class ColourDAO {
         }
         return colours;
     }
-    
-     public ArrayList<Colour> getAvailableColoursByPatternNameFabricName(String patternName, String fabricName) throws SQLException {
+
+    public ArrayList<Colour> getAvailableColoursByPatternNameFabricName(String patternName, String fabricName) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         ArrayList<Colour> colours = new ArrayList();
-        PatternDAO patternDao= new PatternDAO();
+        PatternDAO patternDao = new PatternDAO();
         FabricDAO fabricDao = new FabricDAO();
-        int patternId= patternDao.getPatternByName(patternName).getPatternId();
-        int fabricId= fabricDao.getFabricByName(fabricName).getFabricId();
-        
+        int patternId = patternDao.getPatternByName(patternName).getPatternId();
+        int fabricId = fabricDao.getFabricByName(fabricName).getFabricId();
+
         String sql = "SELECT colour_id from product where fabric_id=? and pattern_id=? and deleted=?";
         try {
             conn = ConnectionManager.getConnection();
@@ -206,7 +234,7 @@ public class ColourDAO {
             stmt.setInt(1, fabricId);
             stmt.setInt(2, patternId);
             stmt.setString(3, "N");
-            
+
             rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -221,39 +249,37 @@ public class ColourDAO {
         }
         return colours;
     }
-    
-     
-    public Colour[] getCurrentColours() throws SQLException{
-        
+
+    public Colour[] getCurrentColours() throws SQLException {
+
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         ArrayList<Colour> colourList = new ArrayList<Colour>();
-        
-        String sql = "SELECT COLOUR_ID, COLOUR_NAME FROM COLOUR WHERE DELETED = 'N' AND COLOUR_ID IN (SELECT DISTINCT COLOUR_ID FROM PRODUCT WHERE DELETED = 'N')"; 
-        
+
+        String sql = "SELECT COLOUR_ID, COLOUR_NAME FROM COLOUR WHERE DELETED = 'N' AND COLOUR_ID IN (SELECT DISTINCT COLOUR_ID FROM PRODUCT WHERE DELETED = 'N')";
+
         try {
-            
+
             conn = ConnectionManager.getConnection();
             stmt = conn.prepareStatement(sql);
             rs = stmt.executeQuery();
-            
+
             while (rs.next()) {
-                
-              
+
                 int colourId = rs.getInt("COLOUR_ID");
                 String colourName = rs.getString("COLOUR_NAME");
                 Colour c = new Colour(colourId, colourName);
                 colourList.add(c);
-                
+
             }
 
         } finally {
             ConnectionManager.close(conn, stmt, rs);
         }
-        
+
         return colourList.toArray(new Colour[colourList.size()]);
-   
+
     }
 
     public int getNextColourId() throws SQLException {
@@ -286,5 +312,5 @@ public class ColourDAO {
         return nextColourId;
 
     }
-    
+
 }

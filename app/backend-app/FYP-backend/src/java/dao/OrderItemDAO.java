@@ -55,27 +55,34 @@ public class OrderItemDAO {
 
     public String updateOrderItems(int orderId, OrderItem oI) throws SQLException {
         int newProductId = 0;
-        
+
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        
+
         Connection conn1 = null;
         PreparedStatement stmt1 = null;
         ResultSet rs1 = null;
-        
+        PatternDAO patternDao = new PatternDAO();
+        FabricDAO fabricDao = new FabricDAO();
+        ColourDAO colourDao = new ColourDAO();
+
         String productIdSQL = "SELECT PRODUCT_ID FROM PRODUCT WHERE PATTERN_ID = ? AND FABRIC_ID = ? AND COLOUR_ID = ?";
         try {
 
             conn1 = ConnectionManager.getConnection();
             stmt1 = conn1.prepareStatement(productIdSQL);
-            
-            stmt1.setInt(1, oI.getProduct().getPattern().getPatternId());
-            stmt1.setInt(2, oI.getProduct().getFabric().getFabricId());
-            stmt1.setInt(3, oI.getProduct().getColour().getColourId());
+
+            int patternId = (patternDao.getPatternByName(oI.getProduct().getPattern().getPatternName())).getPatternId();
+            int fabricId = (fabricDao.getFabricByName(oI.getProduct().getFabric().getFabricName())).getFabricId();
+            int colourId = (colourDao.getColourByName(oI.getProduct().getColour().getColourName())).getColourId();
+
+            stmt1.setInt(1, patternId);
+            stmt1.setInt(2, fabricId);
+            stmt1.setInt(3, colourId);
 
             rs1 = stmt1.executeQuery();
-            
+
             while (rs1.next()) {
                 newProductId = rs1.getInt("PRODUCT_ID");
             }
@@ -84,16 +91,13 @@ public class OrderItemDAO {
             ConnectionManager.close(conn1, stmt1, rs1);
         }
 
-        
-        
         String sql = "UPDATE ORDER_ITEM SET PRODUCT_ID = ?, QUANTITY = ?, UNIT_PRICE = ?, ITEM_STATUS = ? WHERE ORDER_ID = ? AND PRODUCT_ID = ?";
-        
-        
+
         try {
 
             conn = ConnectionManager.getConnection();
             stmt = conn.prepareStatement(sql);
-            
+
             stmt.setInt(1, newProductId);
             stmt.setInt(2, oI.getQuantity());
             stmt.setDouble(3, oI.getUnitPrice());
@@ -101,17 +105,16 @@ public class OrderItemDAO {
             stmt.setInt(5, orderId);
             stmt.setInt(6, oI.getProduct().getProductId());
 
-            stmt.executeUpdate();   
+            stmt.executeUpdate();
 
         } finally {
             ConnectionManager.close(conn, stmt, rs);
         }
 
-
         return "Success";
 
     }
-    
+
     public String addOrderItems(int orderId, OrderItem oI) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -123,26 +126,25 @@ public class OrderItemDAO {
 
             conn = ConnectionManager.getConnection();
             stmt = conn.prepareStatement(sql);
-            
+
             stmt.setInt(1, orderId);
             stmt.setInt(2, oI.getProduct().getProductId());
             stmt.setInt(3, oI.getQuantity());
             stmt.setDouble(4, oI.getUnitPrice());
             stmt.setString(5, "INCOMPLETE");
 
-            stmt.executeUpdate();   
+            stmt.executeUpdate();
 
         } finally {
             ConnectionManager.close(conn, stmt, rs);
         }
 
-
         return "Success";
 
     }
-    
+
     public String updateOrderItemStatus(int orderId, int productId, String newStatus) throws SQLException {
-        
+
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -153,7 +155,7 @@ public class OrderItemDAO {
 
             conn = ConnectionManager.getConnection();
             stmt = conn.prepareStatement(sql);
-            
+
             stmt.setString(1, newStatus);
             stmt.setInt(2, orderId);
             stmt.setInt(3, productId);
@@ -162,7 +164,6 @@ public class OrderItemDAO {
         } finally {
             ConnectionManager.close(conn, stmt, rs);
         }
-
 
         return "Success";
 

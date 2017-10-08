@@ -120,8 +120,8 @@ export class OrderDetailsSuperuserComponent implements OnInit {
   }
 
   onFabricChange(fabricName, patternName) {
-   //this.selectedColour = this.selectedFabric.colours[0];
-   console.log("fabricName"+fabricName);
+    //this.selectedColour = this.selectedFabric.colours[0];
+    console.log("fabricName" + fabricName);
     this.catalogueService.getColoursByPatternFabric(patternName, fabricName).subscribe(
       colour => {
         //console.log("pattern" + patternName);
@@ -173,6 +173,10 @@ export class OrderDetailsSuperuserComponent implements OnInit {
     });
 
     this.edit = false;
+    this.editProd = false;
+
+   
+
 
   }
 }
