@@ -15,34 +15,33 @@
         <div class="card ">
             <div style="margin: auto; max-width: 1000px; margin-bottom: 50px; ">
                 <data-table id="order-grid " headerTitle="Orders " [items]="orders " [itemCount]="itemCount
-    " (reload)="reloadItems($event, selectedStatus) " (rowClick)="rowClick($event) " (rowDoubleClick)="rowDoubleClick($event) " [rowTooltip]="rowTooltip
-    " [selectColumn]="true " [multiSelect]="false " [substituteRows]="false " [expandableRows]="true " [translations]="translations
-    " [indexColumnHeader]=" '#' " [selectOnRowClick]="true " [multiSelect]="true">
-    <template #dataTableExpand let-item="item ">
-            <table id="example" class="table table-hover">
-                <thead>
-                    <th>ID</th>
-                    <th>Type</th>
-                    <th>Pattern</th>
-                    <th>Fabric</th>
-                    <th>Colour</th>
-                    <th>Size</th>
-                    <th>Qty</th>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let oi of item.orderItems ">
-                        <td>{{oi.product.productId}}</td>
-                        <td>{{oi.product.productType}}</td>
-                        <td>{{oi.product.pattern.patternName}}</td>
-                        <td>{{oi.product.fabric.fabricName}}</td>
-                        <td>{{oi.product.colour.colourName}}</td>
-                        <td>{{oi.product.size.sizeName}}</td>
-                        <td>{{oi.quantity}}</td>
-                    </tr>
-                </tbody>
-            </table>
-            <!-- <div [textContent]="item.order_items[0].product_id " style="padding: 5px; color: gray "></div> -->
-        </template>
+" (reload)="reloadItems($event, selectedStatus) " (rowClick)="rowClick($event) " (rowDoubleClick)="rowDoubleClick($event) "
+                    [rowTooltip]="rowTooltip" [substituteRows]="false " [expandableRows]="true " [translations]="translations" [indexColumnHeader]=" '#' ">
+                    <template #dataTableExpand let-item="item ">
+                        <table id="example" class="table table-hover">
+                            <thead>
+                                <th>ID</th>
+                                <th>Type</th>
+                                <th>Pattern</th>
+                                <th>Fabric</th>
+                                <th>Colour</th>
+                                <th>Size</th>
+                                <th>Qty</th>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let oi of item.orderItems ">
+                                    <td>{{oi.product.productId}}</td>
+                                    <td>{{oi.product.productType}}</td>
+                                    <td>{{oi.product.pattern.patternName}}</td>
+                                    <td>{{oi.product.fabric.fabricName}}</td>
+                                    <td>{{oi.product.colour.colourName}}</td>
+                                    <td>{{oi.product.size.sizeName}}</td>
+                                    <td>{{oi.quantity}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <!-- <div [textContent]="item.order_items[0].product_id " style="padding: 5px; color: gray "></div> -->
+                    </template>
                     <data-table-column [property]=" 'orderId' " [header]=" 'Order ID' " [sortable]="true
     " [resizable]="true ">
                     </data-table-column>
