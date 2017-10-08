@@ -123,24 +123,64 @@ export class OrderDetailsComponent implements OnInit {
   }
 
   onNext() {
+    let prevStatus = this.statusId
     let newStatus = this.statusId + 1
-    let disposable = this.dialogService.addDialog(ConfirmationPopupComponent, {
-      title: '',
-      message: 'Move order to the next status?'
-    })
-      .subscribe((isConfirmed) => {
-        if (isConfirmed) {
-          this.orderService.updateOrderStatus(this.orderId, this.statusId, newStatus).subscribe(res => {
-            if (res.status == "200") {
-              console.log("BEFORE STATUS: " + this.statusId)
-              this.statusId = this.statusId + 1;
-              console.log("ONNEXT")
-              console.log("AFTER STATUS: " + this.statusId)
-              this.updateProgressBar();
+    let allComplete = true
+
+    if (prevStatus == 2 && newStatus > prevStatus) {
+      for (let item of this.orderItems) {
+        if (item.itemStatus != "COMPLETE") {
+          allComplete = false
+        }
+      }
+      if (!allComplete) {
+        let disposable = this.dialogService.addDialog(ConfirmationPopupComponent, {
+          title: 'Reminder',
+          message: 'Please check if all the items are completed before moving to the next status.'
+        })
+          .subscribe((isConfirmed) => {
+            if (isConfirmed) {
+              //doNth
             }
           });
-        }
-      });
+      }else{
+        let disposable = this.dialogService.addDialog(ConfirmationPopupComponent, {
+          title: '',
+          message: 'Move order to the next status?'
+        })
+          .subscribe((isConfirmed) => {
+            if (isConfirmed) {
+              this.orderService.updateOrderStatus(this.orderId, this.statusId, newStatus).subscribe(res => {
+                if (res.status == "200") {
+                  console.log("BEFORE STATUS: " + this.statusId)
+                  this.statusId = this.statusId + 1;
+                  console.log("ONNEXT")
+                  console.log("AFTER STATUS: " + this.statusId)
+                  this.updateProgressBar();
+                }
+              });
+            }
+          });
+      }
+    } else {
+      let disposable = this.dialogService.addDialog(ConfirmationPopupComponent, {
+        title: '',
+        message: 'Move order to the next status?'
+      })
+        .subscribe((isConfirmed) => {
+          if (isConfirmed) {
+            this.orderService.updateOrderStatus(this.orderId, this.statusId, newStatus).subscribe(res => {
+              if (res.status == "200") {
+                console.log("BEFORE STATUS: " + this.statusId)
+                this.statusId = this.statusId + 1;
+                console.log("ONNEXT")
+                console.log("AFTER STATUS: " + this.statusId)
+                this.updateProgressBar();
+              }
+            });
+          }
+        });
+    }
   }
   onPrevious() {
     let newStatus = this.statusId - 1
