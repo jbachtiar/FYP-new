@@ -230,15 +230,16 @@ public class OrderDAO {
             stmt.setInt(15, orderId); //where condition
             stmt.executeUpdate();
 
-            stmt1 = conn.prepareStatement(sql1);
-            stmt1.setInt(1, orderId);
-            stmt1.setInt(2, newStatusId);
-            stmt1.setTimestamp(3, curr_ts);
-            stmt1.setTimestamp(4, null);
-            stmt1.setDouble(5, 0);
-
-            stmt1.executeUpdate();
-
+            if(newStatusId > 0){
+                stmt1 = conn.prepareStatement(sql1);
+                stmt1.setInt(1, orderId);
+                stmt1.setInt(2, newStatusId);
+                stmt1.setTimestamp(3, curr_ts);
+                stmt1.setTimestamp(4, null);
+                stmt1.setDouble(5, 0);
+                stmt1.executeUpdate();    
+            }
+            
             for (OrderItem oI : orderItems) {
                 OrderItemDAO orderItemDAO = new OrderItemDAO();
                 String result = orderItemDAO.updateOrderItems(orderId, oI);

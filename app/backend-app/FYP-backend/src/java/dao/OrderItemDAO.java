@@ -54,12 +54,41 @@ public class OrderItemDAO {
     }
 
     public String updateOrderItems(int orderId, OrderItem oI) throws SQLException {
+        int newProductId = 0;
+        
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
+        
+        Connection conn1 = null;
+        PreparedStatement stmt1 = null;
+        ResultSet rs1 = null;
+        
+        String productIdSQL = "SELECT PRODUCT_ID FROM PRODUCT WHERE PATTERN_ID = ? AND FABRIC_ID = ? AND COLOUR_ID = ?";
+        try {
 
+            conn1 = ConnectionManager.getConnection();
+            stmt1 = conn1.prepareStatement(productIdSQL);
+            
+            stmt1.setInt(1, oI.getProduct().getPattern().getPatternId());
+            stmt1.setInt(2, oI.getProduct().getFabric().getFabricId());
+            stmt1.setInt(3, oI.getProduct().getColour().getColourId());
+
+            rs1 = stmt1.executeQuery();
+            
+            while (rs1.next()) {
+                newProductId = rs1.getInt("PRODUCT_ID");
+            }
+
+        } finally {
+            ConnectionManager.close(conn1, stmt1, rs1);
+        }
+
+        
+        
         String sql = "UPDATE ORDER_ITEM SET QUANTITY = ?, UNIT_PRICE = ?, ITEM_STATUS = ? WHERE ORDER_ID = ? AND PRODUCT_ID = ?";
-
+        
+        
         try {
 
             conn = ConnectionManager.getConnection();
@@ -69,7 +98,7 @@ public class OrderItemDAO {
             stmt.setDouble(2, oI.getUnitPrice());
             stmt.setString(3, oI.getItemStatus());
             stmt.setInt(4, orderId);
-            stmt.setInt(5, oI.getProduct().getProductId());
+            stmt.setInt(5, newProductId);
 
             stmt.executeUpdate();   
 
