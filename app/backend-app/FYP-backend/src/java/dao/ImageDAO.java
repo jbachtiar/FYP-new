@@ -146,19 +146,20 @@ public class ImageDAO {
     }
     
     //Update
-    public void updateImage(Image i) throws SQLException{
+    public void updateImage(int productId, Image i) throws SQLException{
         
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
-        String sql = "UPDATE PRODUCT_IMAGE SET IMAGE_URL = ? WHERE IMAGE_ID = ?";
+        String sql = "UPDATE PRODUCT_IMAGE SET IMAGE_URL = ? WHERE PRODUCT_ID = ? AND IMAGE_ID = ?";
 
         try {
             conn = ConnectionManager.getConnection();
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, i.getImageUrl());
-            stmt.setInt(2, i.getImageId());
+            stmt.setInt(2, productId);
+            stmt.setInt(3, i.getImageId());
             stmt.executeUpdate();
 
         } finally {
