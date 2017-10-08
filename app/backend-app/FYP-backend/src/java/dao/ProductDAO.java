@@ -124,10 +124,10 @@ public class ProductDAO {
                 
                 try {
                     conn1 = ConnectionManager.getConnection();
-                    stmt1 = conn.prepareStatement(sqlBedding);
+                    stmt1 = conn1.prepareStatement(sqlBedding);
                     stmt1.setInt(1, nextProductId);
                     stmt1.setString(2, sizeName);
-                    stmt.executeUpdate();
+                    stmt1.executeUpdate();
                
                 } finally {
                     ConnectionManager.close(conn1, stmt1, rs1);
