@@ -61,8 +61,6 @@ export class ProductDetailsEditComponent implements OnInit {
     this.catService.saveProduct(this.product).subscribe(res => {
       res = res.json()
       if (res.status == 200) {
-        
-        
         alert("Changes Saved")
       } else {
         alert("Changes cannot be saved")

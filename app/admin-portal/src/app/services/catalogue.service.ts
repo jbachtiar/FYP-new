@@ -65,21 +65,55 @@ export class CatalogueService {
         return this._http.get(finalUrl)
             .map(res => {
                 console.log(finalUrl)
-                console.log("product is loaded: " + res.json());
+                return res.json();
+            });
+    }
+
+    getPatternById(patternId: string){
+        let url = CONFIG.patternBackendUrl + '/getPatternById';
+        let finalUrl = url + "?patternId=" + patternId
+        return this._http.get(finalUrl)
+            .map(res => {
+                console.log(finalUrl)
+                return res.json();
+            });
+    }
+
+    getFabricById(fabricId: string){
+        let url = CONFIG.fabricBackendUrl + '/getFabricById';
+        let finalUrl = url + "?fabricId=" + fabricId
+        return this._http.get(finalUrl)
+            .map(res => {
+                console.log(finalUrl)
+                return res.json();
+            });
+    }
+
+    getColourById(colourId: string){
+        let url = CONFIG.colourBackendUrl + '/getColourById';
+        let finalUrl = url + "?colourId=" + colourId
+        return this._http.get(finalUrl)
+            .map(res => {
+                console.log(finalUrl)
+                return res.json();
+            });
+    }
+
+    getCollectionById(collId: string){
+        let url = CONFIG.collectionBackendUrl + '/getCollectionById';
+        let finalUrl = url + "?collectionId=" + collId
+        return this._http.get(finalUrl)
+            .map(res => {
+                console.log(finalUrl)
                 return res.json();
             });
     }
 
     
-    saveProduct(product) {
-        let url = CONFIG.productCatalogueBackendUrl + "/save";
-        console.log("NEW ORDER: " + JSON.stringify(product))
-
+    updateProduct(product) {
+        let url = CONFIG.productCatalogueBackendUrl + "/update";
         let params: URLSearchParams = new URLSearchParams();
-        console.log("SAVE order SERVICE")
         params.set('product', JSON.stringify(product));
-
-        console.log(params)
         const headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
         return this._http.post(url, params.toString(), {
@@ -87,5 +121,102 @@ export class CatalogueService {
         }).map(res => res)
     }
 
+    updatePattern(pattern){
+        let url = CONFIG.patternBackendUrl + "/update";
+        let params: URLSearchParams = new URLSearchParams();
+        params.set('pattern', JSON.stringify(pattern));
+        const headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        return this._http.post(url, params.toString(), {
+            headers: headers
+        }).map(res => res)
+    }
 
+    updateFabric(fabric){
+        let url = CONFIG.fabricBackendUrl + "/update";
+        let params: URLSearchParams = new URLSearchParams();
+        params.set('fabric', JSON.stringify(fabric));
+        const headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        return this._http.post(url, params.toString(), {
+            headers: headers
+        }).map(res => res)
+    }
+
+    updateColour(colour){
+        let url = CONFIG.colourBackendUrl + "/update";
+        let params: URLSearchParams = new URLSearchParams();
+        params.set('colour', JSON.stringify(colour));
+        const headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        return this._http.post(url, params.toString(), {
+            headers: headers
+        }).map(res => res)
+    }
+
+    updateCollection(coll){
+        let url = CONFIG.collectionBackendUrl + "/update";
+        let params: URLSearchParams = new URLSearchParams();
+        params.set('collection', JSON.stringify(coll));
+        const headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        return this._http.post(url, params.toString(), {
+            headers: headers
+        }).map(res => res)
+    }
+
+    saveProduct(product) {
+        let url = CONFIG.productCatalogueBackendUrl + "/save";
+        let params: URLSearchParams = new URLSearchParams();
+        params.set('product', JSON.stringify(product));
+        const headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        return this._http.post(url, params.toString(), {
+            headers: headers
+        }).map(res => res)
+    }
+
+    savePattern(pattern){
+        let url = CONFIG.patternBackendUrl + "/save";
+        let params: URLSearchParams = new URLSearchParams();
+        params.set('pattern', JSON.stringify(pattern));
+        const headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        return this._http.post(url, params.toString(), {
+            headers: headers
+        }).map(res => res)
+    }
+
+    saveFabric(fabric){
+        let url = CONFIG.fabricBackendUrl + "/save";
+        let params: URLSearchParams = new URLSearchParams();
+        params.set('fabric', JSON.stringify(fabric));
+        const headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        return this._http.post(url, params.toString(), {
+            headers: headers
+        }).map(res => res)
+    }
+
+    saveColour(colour){
+        let url = CONFIG.colourBackendUrl + "/save";
+        let params: URLSearchParams = new URLSearchParams();
+        params.set('colour', JSON.stringify(colour));
+        const headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        return this._http.post(url, params.toString(), {
+            headers: headers
+        }).map(res => res)
+    }
+
+    saveCollection(coll){
+        let url = CONFIG.collectionBackendUrl + "/save";
+        let params: URLSearchParams = new URLSearchParams();
+        params.set('collection', JSON.stringify(coll));
+        const headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        return this._http.post(url, params.toString(), {
+            headers: headers
+        }).map(res => res)
+    }
 }

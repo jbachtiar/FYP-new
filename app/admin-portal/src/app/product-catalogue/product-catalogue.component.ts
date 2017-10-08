@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   selector: 'product-catalogue',
   templateUrl: './product-catalogue.component.html',
   styleUrls: ['./product-catalogue.component.css'],
-  providers:[CatalogueService]
+  providers: [CatalogueService]
 
 })
 export class ProductCatalogueComponent implements OnInit {
@@ -28,8 +28,13 @@ export class ProductCatalogueComponent implements OnInit {
   ngOnInit() {
     this.catService.getAllProducts().subscribe(products => {
       this.products = products;
-
-
+      //add 0000 padding
+      for (let p of products) {
+        let temp = "" + p.product_id
+        var pad = "0000"
+        var ans = pad.substring(0, pad.length - temp.length) + temp
+        p['product_id_display'] = ans
+      }
       //data table initialisation
       this.itemResource = new DataTableResource(this.products);
       this.itemResource.count().then(count => this.itemCount = count);
@@ -39,11 +44,21 @@ export class ProductCatalogueComponent implements OnInit {
   }
 
   reloadItems(params) {
-    this.params = params
-    this.itemResource = new DataTableResource(this.products);
-    this.itemResource.count().then(count => this.itemCount = count);    
-    this.itemResource.query(params).then(items => this.products = items);
-    console.log("ITEMS: " + JSON.stringify(this.products))
+    this.catService.getAllProducts().subscribe(products => {
+      this.products = products;
+      //add 0000 padding
+      for (let p of products) {
+        let temp = "" + p.product_id
+        var pad = "0000"
+        var ans = pad.substring(0, pad.length - temp.length) + temp
+        p['product_id_display'] = ans
+      }
+      this.params = params
+      this.itemResource = new DataTableResource(this.products);
+      this.itemResource.count().then(count => this.itemCount = count);
+      this.itemResource.query(params).then(items => this.products = items);
+      console.log("ITEMS: " + JSON.stringify(this.products))
+    });
   }
 
   rowClick(rowEvent) {

@@ -155,6 +155,12 @@ public class FabricService {
         } catch (SQLException e) {
             System.out.println(e);
             jsonOutput.addProperty("status", "500");
+            jsonOutput.addProperty("SQL exception", e.toString());
+
+        }catch (Exception e) {
+            System.out.println(e);
+            jsonOutput.addProperty("status", "500");
+            jsonOutput.addProperty("Exception", e.toString());
 
         }
 
@@ -181,6 +187,12 @@ public class FabricService {
         } catch (SQLException e) {
             System.out.println(e);
             jsonOutput.addProperty("status", "500");
+            jsonOutput.addProperty("error", e.toString());
+
+        }catch (Exception e) {
+            System.out.println(e);
+            jsonOutput.addProperty("status", "500");
+            jsonOutput.addProperty("error", e.toString());
 
         }
 
@@ -189,7 +201,7 @@ public class FabricService {
     }
     
     @GET
-    @Path("/GetFabricById")
+    @Path("/getFabricById")
     @Produces(MediaType.APPLICATION_JSON)
     public Fabric getFabricById(@QueryParam("fabricId") int fabricId) {
         

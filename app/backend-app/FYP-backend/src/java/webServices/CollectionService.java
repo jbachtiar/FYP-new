@@ -110,9 +110,15 @@ public class CollectionService {
             jsonOutput.addProperty("status", "200");
             cDAO.addCollection(collectionToSave);
 
-        } catch (SQLException e) {
+         } catch (SQLException e) {
             System.out.println(e);
             jsonOutput.addProperty("status", "500");
+            jsonOutput.addProperty("SQL exception", e.toString());
+
+        }catch (Exception e) {
+            System.out.println(e);
+            jsonOutput.addProperty("status", "500");
+            jsonOutput.addProperty("Exception", e.toString());
 
         }
 
@@ -187,7 +193,7 @@ public class CollectionService {
     }
     
     @GET
-    @Path("/GetCollectionById")
+    @Path("/getCollectionById")
     @Produces(MediaType.APPLICATION_JSON)
     public Collection getCollectionById(@QueryParam("collectionId") int collectionId) {
         

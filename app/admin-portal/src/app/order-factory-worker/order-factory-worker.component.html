@@ -10,18 +10,38 @@
         <button md-raised-button [ngStyle]="{ 'background-color': color.shipped, 'color': fontColor.shipped} " (click)="onStatusChange(5) ">Shipped</button>
         <button md-raised-button [ngStyle]="{ 'background-color': color.completed, 'color': fontColor.completed} " (click)="onStatusChange(6) ">Completed</button>
     </div>
-    <div class="row ">
+    <div class="row " *ngIf="!production">
         <!-- <div class="col-md-12 "> -->
         <div class="card ">
             <div style="margin: auto; max-width: 1000px; margin-bottom: 50px; ">
-                <data-table id="order-grid " headerTitle="Orders " [items]="orders " [itemCount]="itemCount
-    " (reload)="reloadItems($event, selectedStatus) " (rowClick)="rowClick($event) " (rowDoubleClick)="rowDoubleClick($event) " [rowTooltip]="rowTooltip
-    " [selectColumn]="true " [multiSelect]="false " [substituteRows]="false " [expandableRows]="true " [translations]="translations
+
+                <data-table id="order-grid " headerTitle="Orders " [items]="orders" [itemCount]="itemCount" (reload)="reloadItems($event, selectedStatus)"
+                    (rowClick)="rowClick($event)" [rowTooltip]="rowTooltip" [selectColumn]="true " [multiSelect]="false " [substituteRows]="false "
+                    [expandableRows]="true " [translations]="translations
     " [indexColumnHeader]=" '#' " [selectOnRowClick]="true " [multiSelect]="true">
                     <template #dataTableExpand let-item="item ">
-                        <div *ngFor="let oi of item.order_items ">
-                            Product ID: {{oi.product.productId}} Qty: {{oi.quantity}}
-                        </div>
+                        <table id="example" class="table table-hover">
+                            <thead>
+                                <th>ID</th>
+                                <th>Type</th>
+                                <th>Pattern</th>
+                                <th>Fabric</th>
+                                <th>Colour</th>
+                                <th>Size</th>
+                                <th>Qty</th>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let oi of item.orderItems ">
+                                    <td>{{oi.product.productId}}</td>
+                                    <td>{{oi.product.productType}}</td>
+                                    <td>{{oi.product.pattern.patternName}}</td>
+                                    <td>{{oi.product.fabric.fabricName}}</td>
+                                    <td>{{oi.product.colour.colourName}}</td>
+                                    <td>{{oi.product.size.sizeName}}</td>
+                                    <td>{{oi.quantity}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
                         <!-- <div [textContent]="item.order_items[0].product_id " style="padding: 5px; color: gray "></div> -->
                     </template>
                     <data-table-column [property]=" 'orderId' " [header]=" 'Order ID' " [sortable]="true
@@ -38,11 +58,91 @@
                     </data-table-column>
 
                 </data-table>
-                <div style="margin-top: 10px ">
+                <!-- <div style="margin-top: 10px ">
                     <b>Selected:</b>
                     <span *ngIf="orderTable.selectedRow==null "><i>No item selected</i></span>
                     <span [textContent]="orderTable.selectedRow && orderTable.selectedRow.item.orderId "></span>
+                </div> -->
+            </div>
+            <!-- </div> -->
+        </div>
+    </div>
+
+    <div class="row" *ngIf="production">
+        <div class="card ">
+            <div style="margin: auto; max-width: 1000px; margin-bottom: 50px; ">
+                <div *ngFor="let o of orders">
+                    <data-table id="order-grid " headerTitle="Order {{o.orderId}}" [items]="o.orderItems" [itemCount]="itemCount" (rowClick)="rowClick($event)"
+                        (rowDoubleClick)="rowDoubleClick($event)" [rowTooltip]="rowTooltip" [selectColumn]="true " [multiSelect]="false "
+                        [substituteRows]="false " [expandableRows]="false " [translations]="translations
+                " [indexColumnHeader]=" '#' " [selectOnRowClick]="true " [multiSelect]="false">
+
+                        <data-table-column [property]=" 'productId' " [header]=" 'ID' " [sortable]="true
+                " [resizable]="true ">
+                            <template #dataTableCell let-item="item ">
+                                <span>{{item.product.productId}}</span>
+                            </template>
+                        </data-table-column>
+                        <data-table-column [property]=" 'productType' " [header]=" 'Type' " [sortable]="true
+                        " [resizable]="true ">
+                            <template #dataTableCell let-item="item ">
+                                <span>{{item.product.productType}}</span>
+                            </template>
+                        </data-table-column>
+                        <data-table-column [property]=" 'pattern' " [header]=" 'Pattern' " [sortable]="true
+                " [resizable]="true ">
+                            <template #dataTableCell let-item="item ">
+                                <span>{{item.product.pattern.patternName}}</span>
+                            </template>
+                        </data-table-column>
+                        <data-table-column [property]=" 'fabric' " [header]=" 'Fabric' " [sortable]="true
+                        " [resizable]="true ">
+                            <template #dataTableCell let-item="item ">
+                                <span>{{item.product.fabric.fabricName}}</span>
+                            </template>
+                        </data-table-column>
+                        <data-table-column [property]=" 'colour' " [header]=" 'Colour' " [sortable]="true
+                        " [resizable]="true ">
+                            <template #dataTableCell let-item="item ">
+                                <span>{{item.product.colour.colourName}}</span>
+                            </template>
+                        </data-table-column>
+                        <data-table-column [property]=" 'size' " [header]=" 'Size' " [sortable]="true
+                        " [resizable]="true ">
+                            <template #dataTableCell let-item="item ">
+                                <span>{{item.product.size.sizeName}}</span>
+                            </template>
+                        </data-table-column>
+                        <data-table-column [property]=" 'qty' " [header]=" 'Qty' " [sortable]="true
+                        " [resizable]="true ">
+                            <template #dataTableCell let-item="item ">
+                                <span>{{item.quantity}}</span>
+                            </template>
+                        </data-table-column>
+                        <data-table-column [property]=" 'status' " [header]=" 'Status' " [sortable]="true
+                        " [resizable]="true ">
+                            <template #dataTableCell let-item="item ">
+                                <span>{{item.itemStatus}}</span>
+                            </template>
+                        </data-table-column>
+                        <!-- 
+                        <data-table-column [property]=" 'order_TimeStamp' " [header]=" 'Date' " [sortable]="true " [resizable]="true ">
+                            <template #dataTableCell let-item="item ">
+                                <span>{{item.order_TimeStamp | date:'yyyy-MM-dd'}}</span>
+                            </template>
+                        </data-table-column>
+    
+                        <data-table-column [property]=" 'currentStatus' " [header]=" 'Status' " [sortable]="true " [resizable]="true ">
+                        </data-table-column> -->
+
+                    </data-table>
                 </div>
+
+                <!-- <div style="margin-top: 10px ">
+                            <b>Selected:</b>
+                            <span *ngIf="orderTable.selectedRow==null "><i>No item selected</i></span>
+                            <span [textContent]="orderTable.selectedRow && orderTable.selectedRow.item.orderId "></span>
+                        </div> -->
             </div>
             <!-- </div> -->
         </div>
