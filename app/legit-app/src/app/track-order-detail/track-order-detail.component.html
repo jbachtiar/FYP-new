@@ -33,7 +33,7 @@
                 IN<br/>&nbsp;PRODUCTION
               </font>
             </div>
-            <button [ngClass]="{'pulse': pulse.production}" md-fab color="warn" [disabled]="isDisabled.production">
+            <button [ngClass]="{'pulse': pulse.production}" md-fab class="button"[disabled]="isDisabled.production">
           <span class="ti-cut"></span>
       </button>
           </div>
@@ -47,7 +47,7 @@
                 <br/>&nbsp;PACKAGING
               </font>
             </div>
-            <button [ngClass]="{'pulse': pulse.packaging}" md-fab color="warn" [disabled]="isDisabled.packaging">
+            <button [ngClass]="{'pulse': pulse.packaging}" md-fab class="button"[disabled]="isDisabled.packaging">
           <span class="ti-package"></span>
       </button>
           </div>
@@ -58,10 +58,10 @@
           <div class="col-md-1">
             <div class="annotation">
               <font class="status">
-                PENDING FOR<br/>&nbsp;SHIPMENT
+                PENDING<br/>&nbsp;SHIPMENT
               </font>
             </div>
-            <button [ngClass]="{'pulse': pulse.preparation}" md-fab color="warn" [disabled]="isDisabled.preparation">
+            <button [ngClass]="{'pulse': pulse.preparation}" md-fab class="button" [disabled]="isDisabled.preparation">
           <span class="ti-location-arrow"></span>
       </button>
           </div>
@@ -75,7 +75,7 @@
                 <br/>&nbsp;SHIPPED
               </font>
             </div>
-            <button [ngClass]="{'pulse': pulse.shipped}" md-fab color="warn" [disabled]="isDisabled.shipped">
+            <button [ngClass]="{'pulse': pulse.shipped}" md-fab class="button" [disabled]="isDisabled.shipped">
         <span class="ti-truck"></span>
       </button>
           </div>
@@ -89,7 +89,7 @@
                 <br/>&nbsp;COMPLETED
               </font>
             </div>
-            <button [ngClass]="{'pulse': pulse.completed}" md-fab color="warn" [disabled]="isDisabled.completed">
+            <button [ngClass]="{'pulse': pulse.completed}" md-fab class="button" [disabled]="isDisabled.completed">
           <span class="ti-check"></span>
       </button>
           </div>

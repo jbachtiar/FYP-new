@@ -17,22 +17,22 @@
 
                 <button type="button" id="clear" class="btn btn-default" (click)="onClear()">Clear All Filters</button>
 
-                <select [(ngModel)]="selectedCollection" class="btn btn-default" (ngModelChange)="onSelectCollection($event)">
+                <select [(ngModel)]="selectedCollection" class="dropdown btn btn-default" (ngModelChange)="onSelectCollection($event)">
                     <option disabled value=undefined class="hideoption" selected>Select Collection</option>
                     <option *ngFor="let c of collections" [ngValue]="c">{{c.collectionName}}</option>
                 </select>
 
-                <select [(ngModel)]="selectedFabric" class="btn btn-default" (ngModelChange)="onSelectFabric($event)">
+                <select [(ngModel)]="selectedFabric" class="dropdown btn btn-default" (ngModelChange)="onSelectFabric($event)">
                     <option disabled value=undefined class="hideoption" selected>Select Fabric</option>
                     <option *ngFor="let f of fabrics" [ngValue]="f">{{f.fabricName}}</option>
                 </select>
 
-                <select [(ngModel)]="selectedColour" class="btn btn-default" (ngModelChange)="onSelectColour($event)">
+                <select [(ngModel)]="selectedColour" class="dropdown btn btn-default" (ngModelChange)="onSelectColour($event)">
                     <option disabled value=undefined class="hideoption" selected>Select Colour</option>
                     <option *ngFor="let c of colours" [ngValue]="c">{{c.colourName}}</option>
                 </select>
 
-                <select [(ngModel)]="sortPrice" class="btn btn-default" (ngModelChange)="onSelectSort($event)">
+                <select [(ngModel)]="sortPrice" class="dropdown btn btn-default" (ngModelChange)="onSelectSort($event)">
                     <option disabled value=undefined class="hideoption" selected>Sort Price by</option>
                     <option *ngFor="let s of sorts" [ngValue]="s">{{s.name}}</option>
                 </select>

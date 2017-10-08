@@ -94,7 +94,7 @@
 
 .header{
     font-family: 'Muli';
-    color: #DD0330;
+    color: #B0A171;
     font-size: 30px;
 
 }
@@ -123,6 +123,7 @@
 
 button {
     font-family: Tahoma,Geneva,sans-serif;
+    background-color: #B0A171; 
 }
 
 /* button:target {
@@ -239,7 +240,7 @@ color: white;
 
 .mat-mini-fab.mat-basic:hover {
     color: white;
-    background: #f44336;
+    background: #B0A171;
 }
 
 .annotation{
@@ -252,13 +253,13 @@ color: white;
 
 
 .mat-mini-fab[disabled][disabled]{
-    background: #f44336;
+    background: #B0A171;
     color: white;
 }
 
 .test{
     padding-left: 0px;
-    color: #DD0330;
+    color: #B0A171;
     font-size: 10px;
     text-align: center;
 }
