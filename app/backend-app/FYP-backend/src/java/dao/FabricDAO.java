@@ -27,8 +27,6 @@ public class FabricDAO {
         int nextFabricId = getNextFabricId();
        
         String sql = "INSERT INTO FABRIC (FABRIC_ID, FABRIC_NAME, FABRIC_DESC, FABRIC_PRICE, DELETED) VALUES (?,?,?,?,?)";
-        
-        if(getFabricById(fabric.getFabricId())!=null){
             
             try {
 
@@ -45,9 +43,6 @@ public class FabricDAO {
             } finally {
                 ConnectionManager.close(conn, stmt, rs);
             }
-        }else{
-            return 0;
-        }
         
         return nextFabricId;
     }

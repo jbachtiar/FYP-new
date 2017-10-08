@@ -27,7 +27,6 @@ public class ColourDAO {
         int nextColourId = getNextColourId();
         
         String sql = "INSERT INTO COLOUR (COLOUR_ID, COLOUR_NAME, DELETED) VALUES (?,?,?)";
-        if (getColourById(colour.getColourId()) != null) {
 
             try {
 
@@ -42,9 +41,6 @@ public class ColourDAO {
             } finally {
                 ConnectionManager.close(conn, stmt, rs);
             }
-        } else {
-            return 0;
-        }
 
         return nextColourId;
     }
