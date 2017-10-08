@@ -29,8 +29,6 @@ public class BeddingSizeDAO {
 
         String sql = "INSERT INTO BEDDING_SIZE VALUES (?,?,?)";
 
-        if (getBeddingSizeByName(bs.getSizeName()) != null) {
-
             try {
 
                 conn = ConnectionManager.getConnection();
@@ -44,9 +42,6 @@ public class BeddingSizeDAO {
             } finally {
                 ConnectionManager.close(conn, stmt, rs);
             }
-        } else {
-            return "Beddig size already exist";
-        }
 
         return "Success";
     }
