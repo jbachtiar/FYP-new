@@ -59,7 +59,7 @@ public class CollectionDAO {
         ResultSet rs = null;
         int nextCollectionId = getNextCollectionId();
 
-        String sql = "INSERT INTO COLLECTION (COLLECTION_ID, COLLECTION_NAME) VALUES (?,?)";
+        String sql = "INSERT INTO COLLECTION (COLLECTION_ID, COLLECTION_NAME, DELETED) VALUES (?,?,?)";
 
             try {
 
@@ -67,6 +67,7 @@ public class CollectionDAO {
                 stmt = conn.prepareStatement(sql);
                 stmt.setInt(1, nextCollectionId);
                 stmt.setString(2, collection.getCollectionName());
+                stmt.setString(3, "N");
 
                 stmt.executeUpdate();
 
