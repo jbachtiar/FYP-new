@@ -245,8 +245,9 @@ public class ProductDAO {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
+        Image[] images = p.getImages();
 
-        String sql = "UPDATE PRODUCT SET PRODUCT_TYPE = ?, PATTERN_ID = ?, COLOUR_ID = ? WHERE PRODUCT_ID = ?";
+        String sql = "UPDATE PRODUCT SET PRODUCT_TYPE = ?, PATTERN_ID = ?, COLOUR_ID = ?, FABRIC_ID = ? WHERE PRODUCT_ID = ?";
 
         try {
             conn = ConnectionManager.getConnection();
@@ -254,8 +255,16 @@ public class ProductDAO {
             stmt.setString(1, p.getProductType());
             stmt.setInt(2, p.getPattern().getPatternId());
             stmt.setInt(3, p.getColour().getColourId());
-            stmt.setInt(4, p.getProductId());
+            stmt.setInt(4, p.getFabric().getFabricId());
+            stmt.setInt(5, p.getProductId());
             stmt.executeUpdate();
+            
+            for(Image i : images){
+                
+                ImageDAO iDao = new ImageDAO();
+                iDao.updateImage(p.getProductId(), i);
+                
+            }
 
         } finally {
 
