@@ -92,13 +92,13 @@ public class Authentication {
 
                     } else {
                         description = "Invalid password";
-                        responseMap.put("status", "200");
+                        responseMap.put("status", "500");
                         responseMap.put("description", description);
                         //responseMap.put("status", STATUS_INVALID_PASSWORD);
                     }
                 } else {
                     status = "Invalid passsword";
-                    responseMap.put("status", "200");
+                    responseMap.put("status", "500");
                     responseMap.put("description", description);
                     //responseMap.put("status", STATUS_ERROR_NULL_PASSWORD);
                 }
