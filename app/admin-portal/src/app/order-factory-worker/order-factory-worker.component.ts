@@ -22,6 +22,7 @@ export class OrderFactoryWorkerComponent implements OnInit {
   private map: any = { 0: 'all', 1: 'payment', 2: 'production', 3: 'packaging', 4: 'preparation', 5: 'shipped', 6: 'completed' }
   private mapDB: any = {0: 'all', 1: 'Payment Received', 2: 'In Production', 3: 'Packaging', 4: 'Pending for Shipment', 5: 'Shipped', 6: 'Completed'}
   private params;
+  production = false
 
   @ViewChild(DataTable) orderTable;
   @ViewChild('tabGroup') tabGroup;
@@ -66,6 +67,11 @@ export class OrderFactoryWorkerComponent implements OnInit {
   onStatusChange(statusId) {
     let status = this.map[statusId]
     this.selectedStatus = status;
+    if(this.selectedStatus == "production"){
+      this.production = true;
+    }else{
+      this.production = false;
+    }
     this.color[status] = 'lightcoral';
     this.fontColor[status] = 'white'
     for (let colorStatus in this.color) {
@@ -76,7 +82,7 @@ export class OrderFactoryWorkerComponent implements OnInit {
     }
 
     this.filterOrders(this.mapDB[statusId]);
-
+    console.log("status : "  + this.production)
   }
 
   filterOrders(status) {
@@ -89,7 +95,7 @@ export class OrderFactoryWorkerComponent implements OnInit {
       for (let o of allOrders) {
         if (o.statusLogs.length > 0) {
           let status = o.statusLogs[0]
-          console.log("STATUS: " + status)
+          // console.log("STATUS: " + JSON.stringify(status))
           let currentStatus = status
           let mostCurrentTimestamp = status.startTimeStamp;
           for (status of o.statusLogs) {
@@ -105,10 +111,10 @@ export class OrderFactoryWorkerComponent implements OnInit {
           o['currentStatus'] = 'NO DATA';
         }
       }
-      console.log("ALL ORDERS: " + JSON.stringify(allOrders))
+      // console.log("ALL ORDERS: " + JSON.stringify(allOrders))
 
       let filteredOrders: any = [];
-      console.log("STATUS: " + status.toUpperCase())
+      // console.log("STATUS: " + status.toUpperCase())
       if (status.toUpperCase() != "ALL") {
         for (let o of allOrders) {
           if (o.currentStatus.toUpperCase() == status.toUpperCase()) {
@@ -116,17 +122,17 @@ export class OrderFactoryWorkerComponent implements OnInit {
           }
         }
         this.orders = filteredOrders;
-        console.log("FILTERED ORDERS: " + JSON.stringify(filteredOrders));
+        // console.log("FILTERED ORDERS: " + JSON.stringify(filteredOrders));
         
       } else {
-        console.log("ALL ORDERSSSSSSSSSSS kzl")
+        // console.log("ALL ORDERSSSSSSSSSSS kzl")
         this.orders = allOrders
       }
 
       this.itemResource = new DataTableResource(this.orders);
       this.itemResource.count().then(count => this.itemCount = count);
       this.itemResource.query(this.params).then(orders => this.orders = orders);      
-      console.log("ITEMS: " + JSON.stringify(this.orders))
+      // console.log("ITEMS: " + JSON.stringify(this.orders))
       
     })
 
