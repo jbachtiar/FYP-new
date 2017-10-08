@@ -178,9 +178,9 @@ export class PatternDetailsAddComponent implements OnInit {
     console.log(AWSService)
     let file = fileInput.target.files[0];
     let fileName = this.patternId + '_' + fabricColour.colour_id + '.png'
-    AWSService.config.accessKeyId = '';
+    AWSService.config.accessKeyId = 'AKIAJR7LKNNCXB6OVEPQ';
     AWSService.config.update({ region: 'us-west-2' });
-    AWSService.config.secretAccessKey = '';
+    AWSService.config.secretAccessKey = 'dm4dlSmAXlI3LZBLfRc59b/w2cKH/AhjNSMSmSs5';
     let bucket = new AWSService.S3({ params: { Bucket: 'elasticbeanstalk-us-west-2-126347216585/Product Images' } })
     let params = { Key: fileName, Body: file, ACL: "public-read" };
     bucket.upload(params, function (error, res) {
