@@ -354,7 +354,7 @@ public class ProductDAO {
         PreparedStatement stmt = null;
         ResultSet rs = null;
         ArrayList<Bedding> beddings = new ArrayList<>();
-        String sql = "SELECT P.*, B.SIZE_NAME FROM PRODUCT P LEFT OUTER JOIN BEDDING B ON B.PRODUCT_ID=P.PRODUCT_ID WHERE P.PRODUCT_TYPE=? AND DELETED = 'N'";
+        String sql = "SELECT distinct P.* FROM PRODUCT P LEFT OUTER JOIN BEDDING B ON B.PRODUCT_ID=P.PRODUCT_ID WHERE P.PRODUCT_TYPE=? AND DELETED = 'N'";
         try {
             conn = ConnectionManager.getConnection();
             stmt = conn.prepareStatement(sql);
@@ -365,7 +365,7 @@ public class ProductDAO {
                 int productId = rs.getInt("product_id");
                 int patternId = rs.getInt("pattern_id");
                 int colourId = rs.getInt("colour_id");
-                String sizeName = rs.getString("size_name");
+                String sizeName = "King";
                 int fabricId = rs.getInt("fabric_id");
 
                 PatternDAO dd = new PatternDAO();

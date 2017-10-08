@@ -52,6 +52,48 @@ public class ProductCatalogue {
     @Context
     private HttpServletResponse response;
     
+    @GET
+    @Path("/getBeddings")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getAllBeddings() {
+
+        response.setHeader("Access-Control-Allow-Headers", "Content-Type");
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
+
+        Gson gson = new GsonBuilder().create();
+        JsonObject jsonOutput = new JsonObject();
+
+        JsonArray productArray = new JsonArray();
+        ProductDAO productDAO = new ProductDAO();
+
+        try {
+
+            ArrayList<Bedding> pList = productDAO.getAllBeddings();
+            if (pList == null) {
+
+                jsonOutput.addProperty("status", "500");
+                jsonOutput.addProperty("msg", "No Patterns Available");
+
+            } else {
+
+                jsonOutput.addProperty("status", "200");
+                JsonArray products = gson.toJsonTree(pList).getAsJsonArray(); // convert arraylist to jsonArray
+                jsonOutput.add("products", products);
+
+            }
+
+        } catch (SQLException e) {
+
+            jsonOutput.addProperty("status", "500");
+            jsonOutput.addProperty("msg", "PatternService: " + e.toString());
+
+        }
+
+        String finalJsonOutput = gson.toJson(jsonOutput);
+        return finalJsonOutput;
+
+    }
     
     @GET
     @Path("/getProductById")
@@ -143,6 +185,10 @@ public class ProductCatalogue {
             jsonOutput.addProperty("status", "500");
             jsonOutput.addProperty("error: ", e.toString());
 
+        } catch (Exception e){
+            System.out.println(e);
+            jsonOutput.addProperty("status", "500");
+            jsonOutput.addProperty("error: ", e.toString());
         }
 
         String finalJsonOutput = gson.toJson(jsonOutput);

@@ -29,7 +29,7 @@ public class PatternDAO {
         ResultSet rs = null;
         ArrayList<Pattern> patternList = new ArrayList<Pattern>();
 
-        String sql = "SELECT * FROM PATTERN WHERE DELETED = ? ";
+        String sql = "SELECT d.*, c.COLLECTION_NAME FROM PATTERN d LEFT OUTER JOIN COLLECTION c ON d.COLLECTION_ID = c.COLLECTION_ID where d.DELETED=? ";
         try {
 
             conn = ConnectionManager.getConnection();
@@ -42,6 +42,19 @@ public class PatternDAO {
                 String patternName = rs.getString("PATTERN_NAME");
                 String patternDesc = rs.getString("PATTERN_DESC");
                 double patternPrice = rs.getDouble("PATTERN_PRICE");
+                
+//                String sql2 = "SELECT * FROM BEDDING WHERE PRODUCT_ID=?";
+//                PreparedStatement stmt2 = conn.prepareStatement(sql2);
+//                stmt2.setInt(1, productId);
+//                rs2 = stmt2.executeQuery();
+//                while (rs2.next()) {
+//
+//                    String sizeName = rs2.getString("SIZE_NAME");
+//                    BeddingSizeDAO bzd = new BeddingSizeDAO();
+//
+//                    BeddingSize bs = bzd.getBeddingSizeByName(sizeName);
+//                    product = new Bedding(bs, productId, "Bedding", d, c, f, images);
+//                }
 
 //    public Pattern(int patternId, String patternName, String patternDesc, double patternPrice, Collection collection, Tag[] tags) {
                 Pattern pattern = new Pattern(patternId, patternName, patternDesc, patternPrice, null, null);
@@ -62,21 +75,19 @@ public class PatternDAO {
         PreparedStatement stmt = null;
         ResultSet rs = null;
         int nextPatternId = getNextPatternId();
-        
+
         String sql = "INSERT INTO PATTERN (PATTERN_ID, PATTERN_NAME, PATTERN_DESC, PATTERN_PRICE, DELETED, COLLECTION_ID) VALUES (?,?,?,?,?,?)";
 
         try {
 
-
-                conn = ConnectionManager.getConnection();
-                stmt = conn.prepareStatement(sql);
-                stmt.setInt(1, nextPatternId);
-                stmt.setString(2, pattern.getPatternName());
-                stmt.setString(3, pattern.getPatternDesc());
-                stmt.setDouble(4, pattern.getPatternPrice());
-                stmt.setString(5, "N");
-                stmt.setInt(6, pattern.getCollection().getCollectionId());
-
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, nextPatternId);
+            stmt.setString(2, pattern.getPatternName());
+            stmt.setString(3, pattern.getPatternDesc());
+            stmt.setDouble(4, pattern.getPatternPrice());
+            stmt.setString(5, "N");
+            stmt.setInt(6, pattern.getCollection().getCollectionId());
 
             stmt.executeUpdate();
 
@@ -84,10 +95,8 @@ public class PatternDAO {
             ConnectionManager.close(conn, stmt, rs);
         }
 
-        
         return nextPatternId;
-    }   
-
+    }
 
     public String updatePattern(Pattern pattern) throws SQLException {
 
@@ -133,7 +142,7 @@ public class PatternDAO {
             stmt.setString(1, "Y");
             stmt.setInt(2, id);
 
-            rs = stmt.executeQuery();
+            stmt.executeUpdate();
 
         } finally {
             ConnectionManager.close(conn, stmt, rs);
