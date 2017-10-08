@@ -209,6 +209,7 @@ public class OrderDAO {
             stmt.setTimestamp(1, curr_ts);
             stmt.setDouble(2, o.getNetAmt());
             stmt.setDouble(3, o.getPromoDiscAmt());
+            //System.out.print(o.getAddress().getRecipientName());
             stmt.setString(4, o.getAddress().getRecipientName());
             stmt.setString(5, o.getAddress().getPhoneNo());
             stmt.setString(6, o.getAddress().getAddressLine());
