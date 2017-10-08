@@ -13,8 +13,10 @@ import javax.mail.internet.MimeMessage;
 public class SendEmail {
 
     public static void sendVerificationEmail(String email, String code) {
-        
-        String verificationLink = "http://localhost:4200/activate-account/"+email+"/"+code;
+        //localhost
+//        String verificationLink = "http://localhost:4200/activate-account/"+email+"/"+code;
+        //deployed
+        String verificationLink = "http://highlander-app.s3-website-us-west-2.amazonaws.com/activate-account/"+email+"/"+code;
 
         final String username = "legit.test.acc";
         final String password = "leGITpassword$1";
