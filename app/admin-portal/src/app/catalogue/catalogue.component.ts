@@ -34,13 +34,13 @@ export class CatalogueComponent implements OnInit {
     // this.filterOrders(this.mapDB[statusId]);
   }
 
-  onNewItem(){
-    let link = ['/catalogue/add/'+this.selectedType];
+  onNewItem() {
+    let link = ['/catalogue/add/' + this.selectedType];
     this.router.navigate(link);
   }
 
-  goTo(location: string): void {
-    window.location.hash = location;
-}
+  // goTo(location: string): void {
+  //   window.location.hash = location;
+  // }
 
 }

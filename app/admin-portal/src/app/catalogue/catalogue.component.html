@@ -3,7 +3,6 @@
 <button md-raised-button [ngStyle]="{'background-color': color.fabric, 'color': fontColor.fabric}" (click)="onTypeChange('fabric')">Fabric</button>
 <button md-raised-button [ngStyle]="{'background-color': color.colour, 'color': fontColor.colour}" (click)="onTypeChange('colour')">Colour</button>
 <button md-raised-button [ngStyle]="{'background-color': color.collection, 'color': fontColor.collection}" (click)="onTypeChange('collection')">Collection</button>
-<button md-raised-button [ngStyle]="{'background-color': color.collection, 'color': fontColor.collection}" (click)="goTo('collection')">Collection</button>
 
 <div style="float:right;">
         <button md-raised-button (click) = "onNewItem()" [ngStyle]="{'background-color': 'lightseagreen', 'color': 'white'}">New</button>
@@ -25,7 +24,7 @@
     <colour-catalogue></colour-catalogue>
 </div>
 
-<div  id="collection" *ngIf="showTab.collection" name="collection">
+<div *ngIf="showTab.collection" name="collection">
     <collection-catalogue></collection-catalogue>
 </div>
 

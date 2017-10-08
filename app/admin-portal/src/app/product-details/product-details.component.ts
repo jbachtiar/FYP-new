@@ -113,13 +113,12 @@ export class ProductDetailsComponent implements OnInit {
     this.catService.updateProduct(this.product).subscribe(res => {
       res = res.json()
       if (res.status == 200) {
-        //this.onEdit()
+        console.log(this.product)
+        this.onEdit()
         alert("Changes Saved")
       } else {
         alert("Changes cannot be saved")
       }
-      this.onEdit()
-
     });
   }
 
