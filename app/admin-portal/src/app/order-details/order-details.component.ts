@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { OrderService } from '../services/order.service'
-
+import { ConfirmationPopupComponent } from '../confirmation-popup/confirmation-popup.component'
+import { DialogService } from "ng2-bootstrap-modal";
 
 @Component({
   selector: 'app-order-details',
@@ -25,7 +26,8 @@ export class OrderDetailsComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private orderService: OrderService) {
+    private orderService: OrderService,
+    private dialogService: DialogService) {
   }
 
   ngOnInit() {

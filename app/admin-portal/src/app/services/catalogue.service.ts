@@ -7,7 +7,7 @@ import { CONFIG } from '../config/config.component';
 
 @Injectable()
 export class CatalogueService {
-    
+
 
     constructor(private _http: Http) { }
 
@@ -36,7 +36,17 @@ export class CatalogueService {
             });
     }
 
-    getAllProducts() {
+    getAllBeddings(){
+        let params: URLSearchParams = new URLSearchParams();
+        let url = CONFIG.productCatalogueBackendUrl + '/getBeddings';
+
+        return this._http.get(url)
+            .map(res => {
+                return res.json().products;
+            });
+    }
+
+    getAllProductsByPatterns() {
         let params: URLSearchParams = new URLSearchParams();
         let url = CONFIG.productCatalogueBackendUrl + '/BeddingPatterns';
 
@@ -69,7 +79,7 @@ export class CatalogueService {
             });
     }
 
-    getPatternById(patternId: string){
+    getPatternById(patternId: string) {
         let url = CONFIG.patternBackendUrl + '/getPatternById';
         let finalUrl = url + "?patternId=" + patternId
         return this._http.get(finalUrl)
@@ -79,7 +89,7 @@ export class CatalogueService {
             });
     }
 
-    getFabricById(fabricId: string){
+    getFabricById(fabricId: string) {
         let url = CONFIG.fabricBackendUrl + '/getFabricById';
         let finalUrl = url + "?fabricId=" + fabricId
         return this._http.get(finalUrl)
@@ -89,7 +99,7 @@ export class CatalogueService {
             });
     }
 
-    getColourById(colourId: string){
+    getColourById(colourId: string) {
         let url = CONFIG.colourBackendUrl + '/getColourById';
         let finalUrl = url + "?colourId=" + colourId
         return this._http.get(finalUrl)
@@ -110,7 +120,7 @@ export class CatalogueService {
     }
 
 
-    getCollectionById(collId: string){
+    getCollectionById(collId: string) {
         let url = CONFIG.collectionBackendUrl + '/getCollectionById';
         let finalUrl = url + "?collectionId=" + collId
         return this._http.get(finalUrl)
@@ -120,7 +130,6 @@ export class CatalogueService {
             });
     }
 
-    
     updateProduct(product) {
         let url = CONFIG.productCatalogueBackendUrl + "/update";
         let params: URLSearchParams = new URLSearchParams();
@@ -132,7 +141,7 @@ export class CatalogueService {
         }).map(res => res)
     }
 
-    updatePattern(pattern){
+    updatePattern(pattern) {
         let url = CONFIG.patternBackendUrl + "/update";
         let params: URLSearchParams = new URLSearchParams();
         params.set('pattern', JSON.stringify(pattern));
@@ -143,7 +152,7 @@ export class CatalogueService {
         }).map(res => res)
     }
 
-    updateFabric(fabric){
+    updateFabric(fabric) {
         let url = CONFIG.fabricBackendUrl + "/update";
         let params: URLSearchParams = new URLSearchParams();
         params.set('fabric', JSON.stringify(fabric));
@@ -154,7 +163,7 @@ export class CatalogueService {
         }).map(res => res)
     }
 
-    updateColour(colour){
+    updateColour(colour) {
         let url = CONFIG.colourBackendUrl + "/update";
         let params: URLSearchParams = new URLSearchParams();
         params.set('colour', JSON.stringify(colour));
@@ -165,7 +174,7 @@ export class CatalogueService {
         }).map(res => res)
     }
 
-    updateCollection(coll){
+    updateCollection(coll) {
         let url = CONFIG.collectionBackendUrl + "/update";
         let params: URLSearchParams = new URLSearchParams();
         params.set('collection', JSON.stringify(coll));
@@ -187,7 +196,7 @@ export class CatalogueService {
         }).map(res => res.json())
     }
 
-    savePattern(pattern){
+    savePattern(pattern) {
         let url = CONFIG.patternBackendUrl + "/save";
         let params: URLSearchParams = new URLSearchParams();
         params.set('pattern', JSON.stringify(pattern));
@@ -198,7 +207,7 @@ export class CatalogueService {
         }).map(res => res.json())
     }
 
-    saveFabric(fabric){
+    saveFabric(fabric) {
         let url = CONFIG.fabricBackendUrl + "/save";
         let params: URLSearchParams = new URLSearchParams();
         params.set('fabric', JSON.stringify(fabric));
@@ -209,7 +218,7 @@ export class CatalogueService {
         }).map(res => res.json())
     }
 
-    saveColour(colour){
+    saveColour(colour) {
         let url = CONFIG.colourBackendUrl + "/save";
         let params: URLSearchParams = new URLSearchParams();
         params.set('colour', JSON.stringify(colour));
@@ -220,7 +229,7 @@ export class CatalogueService {
         }).map(res => res.json())
     }
 
-    saveCollection(coll){
+    saveCollection(coll) {
         let url = CONFIG.collectionBackendUrl + "/save";
         let params: URLSearchParams = new URLSearchParams();
         params.set('collection', JSON.stringify(coll));
@@ -230,4 +239,56 @@ export class CatalogueService {
             headers: headers
         }).map(res => res.json())
     }
+
+    deleteProduct(productId: string) {
+        let url = CONFIG.productCatalogueBackendUrl + '/delete';
+        let finalUrl = url + "?productId=" + productId
+        return this._http.get(finalUrl)
+            .map(res => {
+                console.log(finalUrl)
+                return res.json();
+            });
+    }
+
+    deletePattern(patternId: string) {
+        let url = CONFIG.patternBackendUrl + '/delete';
+        let finalUrl = url + "?patternId=" + patternId
+        return this._http.get(finalUrl)
+            .map(res => {
+                console.log(finalUrl)
+                return res.json();
+            });
+    }
+
+    deleteFabric(fabricId: string) {
+        let url = CONFIG.fabricBackendUrl + '/delete';
+        let finalUrl = url + "?fabricId=" + fabricId
+        return this._http.get(finalUrl)
+            .map(res => {
+                console.log(finalUrl)
+                return res.json();
+            });
+    }
+
+    deleteColour(colourId: string) {
+        let url = CONFIG.colourBackendUrl + '/delete';
+        let finalUrl = url + "?colourId=" + colourId
+        return this._http.get(finalUrl)
+            .map(res => {
+                console.log(finalUrl)
+                return res.json();
+            });
+    }
+
+    deleteCollection    (collId: string) {
+        let url = CONFIG.collectionBackendUrl + '/delete';
+        let finalUrl = url + "?collectionId=" + collId
+        return this._http.get(finalUrl)
+            .map(res => {
+                console.log(finalUrl)
+                return res.json();
+            });
+    }
+
+
 }

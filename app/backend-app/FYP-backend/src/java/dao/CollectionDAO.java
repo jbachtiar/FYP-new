@@ -93,7 +93,7 @@ public class CollectionDAO {
             stmt.setString(1, "Y");
             stmt.setInt(2, id);
 
-            rs = stmt.executeQuery();
+            stmt.executeUpdate();
 
         } finally {
             ConnectionManager.close(conn, stmt, rs);

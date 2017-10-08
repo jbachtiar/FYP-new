@@ -8,23 +8,23 @@
         <button md-raised-button (click) = "onNewItem()" [ngStyle]="{'background-color': 'lightseagreen', 'color': 'white'}">New</button>
         
 </div>
-<div *ngIf="showTab.product">
+<div *ngIf="showTab.product" name="product">
     <product-catalogue></product-catalogue>
 </div>
 
-<div *ngIf="showTab.design">
+<div *ngIf="showTab.design" name="design">
     <design-catalogue></design-catalogue>
 </div>
 
-<div *ngIf="showTab.fabric">
+<div *ngIf="showTab.fabric" name="fabric">
     <fabric-catalogue></fabric-catalogue>
 </div>
 
-<div *ngIf="showTab.colour">
+<div *ngIf="showTab.colour" name="colour">
     <colour-catalogue></colour-catalogue>
 </div>
 
-<div *ngIf="showTab.collection">
+<div *ngIf="showTab.collection" name="collection">
     <collection-catalogue></collection-catalogue>
 </div>
 

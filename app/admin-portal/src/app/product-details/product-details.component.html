@@ -8,8 +8,13 @@
         <div class="header">
           <h1> <b>&nbsp; Product ID: {{product.productId_display}}</b></h1>
         </div>
-        <button md-raised-button [ngStyle]="{'background-color': buttonColour, 'color': buttonTextColour}" (click)="onEdit()">{{buttonText}}</button>
-
+        <div *ngIf="!editPage">
+          <button md-raised-button [ngStyle]="{'background-color': buttonColour, 'color': buttonTextColour}" (click)="onEdit()">{{buttonText}}</button>
+        </div>
+        <div *ngIf="editPage">
+            <button md-raised-button [ngStyle]="{'background-color': buttonColour, 'color': buttonTextColour}" (click)="onEdit()">{{buttonText}}</button>            
+          <button md-raised-button [ngStyle]="{'background-color': '#8B8B8B', 'color': 'white'}" (click)="onDelete()">Delete</button>
+        </div>
       </div>
       <br/>
       <div *ngIf="!editPage">
@@ -42,7 +47,7 @@
             <div class="col-sm-6">
               <label><b>Images</b></label><br/>
             </div>
-            <span *ngFor="let image of product.images">
+              <span *ngFor="let image of product.images">
                     
                     <div class="col-sm-3">
                         <a href={{image.imageUrl}}><img src="{{image.imageUrl}}" alt="..." class="img-thumbnail img-product"></a><br/>
@@ -125,7 +130,7 @@
             <a href={{product.images[0].imageUrl}}>View Image</a> -->
           <div class="form-group">
             <div class="col-sm-6">
-              <label><b>Images</b></label><br/> 
+              <label><b>Images</b></label><br/>
               <button md-button color="primary" (click)="onAddImage()">Add More</button>
             </div>
             <span *ngFor="let image of product.images">
@@ -135,9 +140,8 @@
                       <a href={{image.imageUrl}}><img src="{{image.imageUrl}}" alt="..." class="img-thumbnail img-product"></a><br/>
                       Image {{image.imageId}} <br/>
                       <label class="btn btn-default btn-file">  
-                          
-                      Upload Image <input type="file" (change)="onUploadImage($event, image)" style="display: none;">
-                    </label>
+                        Upload Image <input type="file" (change)="onUploadImage($event, image)" style="display: none;">
+                      </label>
                     
                     </div>
             </span>

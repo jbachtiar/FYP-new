@@ -11,20 +11,25 @@
           </template>
         </data-table-column>
 
-        <data-table-column [property]=" 'product_id_display' " [header]=" 'Product ID' " [sortable]="true
-" [resizable]="true ">
+        <data-table-column [property]=" 'productId_display' " [header]=" 'Product ID' " [sortable]="true" [resizable]="true ">
         </data-table-column>
 
-        <data-table-column [property]=" 'design_name' " [header]=" 'Design Name' " [sortable]="true
-" [resizable]="true ">
+        <data-table-column [property]=" 'pattern' " [header]=" 'Pattern' " [sortable]="true " [resizable]="true ">
+          <template #dataTableCell let-item="item ">
+            <span>{{item.pattern.patternName}}</span>
+          </template>
         </data-table-column>
 
-        <data-table-column [property]=" 'fabric_name' " [header]=" 'Fabric Name' " [sortable]="true
-        " [resizable]="true ">
+        <data-table-column [property]=" 'fabric' " [header]=" 'Fabric' " [sortable]="true " [resizable]="true ">
+          <template #dataTableCell let-item="item ">
+            <span>{{item.fabric.fabricName}}</span>
+          </template>
         </data-table-column>
 
-        <data-table-column [property]=" 'colour_name' " [header]=" 'Colour Name' " [sortable]="true
-        " [resizable]="true ">
+        <data-table-column [property]=" 'colour' " [header]=" 'Colour' " [sortable]="true " [resizable]="true ">
+          <template #dataTableCell let-item="item ">
+            <span>{{item.colour.colourName}}</span>
+          </template>
         </data-table-column>
 
       </data-table>

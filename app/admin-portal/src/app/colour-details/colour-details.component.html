@@ -8,8 +8,13 @@
         <div class="header">
           <h1> <b>&nbsp; Colour ID: {{item.colourId_display}}</b></h1>
         </div>
-        <button md-raised-button [ngStyle]="{'background-color': buttonColour, 'color': buttonTextColour}" (click)="onEdit()">{{buttonText}}</button>
-
+        <div *ngIf="!editPage">
+          <button md-raised-button [ngStyle]="{'background-color': buttonColour, 'color': buttonTextColour}" (click)="onEdit()">{{buttonText}}</button>
+        </div>
+        <div *ngIf="editPage">
+          <button md-raised-button [ngStyle]="{'background-color': buttonColour, 'color': buttonTextColour}" (click)="onEdit()">{{buttonText}}</button>
+          <button md-raised-button [ngStyle]="{'background-color': '#8B8B8B', 'color': 'white'}" (click)="onDelete()">Delete</button>
+        </div>
       </div>
       <br/>
       <div *ngIf="!editPage">

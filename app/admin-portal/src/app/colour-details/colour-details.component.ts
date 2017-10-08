@@ -78,4 +78,19 @@ export class ColourDetailsComponent implements OnInit {
       }
     });
   }
+
+  onDelete(){
+    this.catService.deleteColour(this.id).subscribe(
+      res => {
+        if (res.status == 200) {
+          alert("Colour Deleted")
+          let link = ['/catalogue/'];
+          this.router.navigate(link);
+        } else {
+          alert("Changes cannot be saved")
+        }
+      });
+
+  }
+
 }

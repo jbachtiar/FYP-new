@@ -77,4 +77,18 @@ export class CollectionDetailsComponent implements OnInit {
       }
     });
   }
+
+  onDelete(){
+    this.catService.deleteCollection(this.id).subscribe(
+      res => {
+        if (res.status == 200) {
+          alert("Collection Deleted")
+          let link = ['/catalogue/'];
+          this.router.navigate(link);
+        } else {
+          alert("Changes cannot be saved")
+        }
+      });
+
+  }
 }

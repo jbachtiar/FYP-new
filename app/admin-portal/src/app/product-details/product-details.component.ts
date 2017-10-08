@@ -95,8 +95,6 @@ export class ProductDetailsComponent implements OnInit {
     this.loading = false;
   }
 
-
-
   onEdit() {
     if (!this.editPage) {
       this.editPage = true;
@@ -115,13 +113,12 @@ export class ProductDetailsComponent implements OnInit {
     this.catService.updateProduct(this.product).subscribe(res => {
       res = res.json()
       if (res.status == 200) {
-        //this.onEdit()
+        console.log(this.product)
+        this.onEdit()
         alert("Changes Saved")
       } else {
         alert("Changes cannot be saved")
       }
-      this.onEdit()
-
     });
   }
 
@@ -153,6 +150,20 @@ export class ProductDetailsComponent implements OnInit {
       image['imageUrl'] = imageUrl
       console.log("FC: " + JSON.stringify(image))
     })
+  }
+
+  onDelete(){
+    this.catService.deleteProduct(this.productId).subscribe(
+      res => {
+        if (res.status == 200) {
+          alert("Product Deleted")
+          let link = ['/catalogue/'];
+          this.router.navigate(link);
+        } else {
+          alert("Changes cannot be saved")
+        }
+      });
+
   }
 
 }

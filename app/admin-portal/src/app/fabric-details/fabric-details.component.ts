@@ -79,4 +79,18 @@ export class FabricDetailsComponent implements OnInit {
 
     });
   }
+
+  onDelete(){
+    this.catService.deleteFabric(this.id).subscribe(
+      res => {
+        if (res.status == 200) {
+          alert("Fabric Deleted")
+          let link = ['/catalogue/'];
+          this.router.navigate(link);
+        } else {
+          alert("Changes cannot be saved")
+        }
+      });
+
+  }
 }
