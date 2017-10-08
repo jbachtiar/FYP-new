@@ -39,4 +39,8 @@ export class CatalogueComponent implements OnInit {
     this.router.navigate(link);
   }
 
+  goTo(location: string): void {
+    window.location.hash = location;
+}
+
 }

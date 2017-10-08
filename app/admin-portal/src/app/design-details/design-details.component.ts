@@ -97,4 +97,18 @@ export class DesignDetailsComponent implements OnInit {
     });
   }
 
+  onDelete(){
+    this.catService.deletePattern(this.id).subscribe(
+      res => {
+        if (res.status == 200) {
+          alert("Design Deleted")
+          let link = ['/catalogue/'];
+          this.router.navigate(link);
+        } else {
+          alert("Changes cannot be saved")
+        }
+      });
+
+  }
+
 }

@@ -26,14 +26,14 @@ export class ProductCatalogueComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.catService.getAllProducts().subscribe(products => {
+    this.catService.getAllBeddings().subscribe(products => {
       this.products = products;
       //add 0000 padding
       for (let p of products) {
-        let temp = "" + p.product_id
+        let temp = "" + p.productId
         var pad = "0000"
         var ans = pad.substring(0, pad.length - temp.length) + temp
-        p['product_id_display'] = ans
+        p['productId_display'] = ans
       }
       //data table initialisation
       this.itemResource = new DataTableResource(this.products);
@@ -44,14 +44,14 @@ export class ProductCatalogueComponent implements OnInit {
   }
 
   reloadItems(params) {
-    this.catService.getAllProducts().subscribe(products => {
+    this.catService.getAllBeddings().subscribe(products => {
       this.products = products;
       //add 0000 padding
       for (let p of products) {
-        let temp = "" + p.product_id
+        let temp = "" + p.productId
         var pad = "0000"
         var ans = pad.substring(0, pad.length - temp.length) + temp
-        p['product_id_display'] = ans
+        p['productId_display'] = ans
       }
       this.params = params
       this.itemResource = new DataTableResource(this.products);
@@ -62,7 +62,7 @@ export class ProductCatalogueComponent implements OnInit {
   }
 
   rowClick(rowEvent) {
-    let link = ['catalogue/product', rowEvent.row.item.product_id];
+    let link = ['catalogue/product', rowEvent.row.item.productId];
     this.router.navigate(link);
   }
 
@@ -71,7 +71,7 @@ export class ProductCatalogueComponent implements OnInit {
   }
 
   rowTooltip(item) {
-    return "Product ID: " + item.product_id + '\nProduct Name: ' + item.design_name;
+    return "Product ID: " + item.productId + '\nProduct Name: ' + item.pattern.patternName;
   }
 
   translations = <DataTableTranslations>{
