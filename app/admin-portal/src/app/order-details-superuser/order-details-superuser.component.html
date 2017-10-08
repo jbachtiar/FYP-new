@@ -180,7 +180,7 @@
                 </td>
 
                 <td>
-                  <select [ngModelOptions]="{standalone: true}" [(ngModel)]="selectedFabric" (ngModelChange)="onFabricChange()">
+                  <select [ngModelOptions]="{standalone: true}" [(ngModel)]="item.product.fabric.fabricName" (ngModelChange)="onFabricChange()">
                     <option *ngFor="let f of fabricMenu" [ngValue]="f">{{f.fabric_name}}</option>
                   </select>
                 </td>

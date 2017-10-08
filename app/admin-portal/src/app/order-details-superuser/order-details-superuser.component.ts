@@ -93,9 +93,10 @@ export class OrderDetailsSuperuserComponent implements OnInit {
    
     this.productService.getPatternByName(patternName).subscribe(
       pattern => {
-         this.fabricMenu=pattern.fabrics;
-         this.selectedFabric = this.fabricMenu[0];
-         console.log(this.selectedFabric);
+        console.log("pattern"+patternName);
+        this.fabricMenu=pattern.fabrics;
+        // this.selectedFabric = this.fabricMenu[0];
+        console.log("fabric"+this.fabricMenu);
         
       });
 
