@@ -38,15 +38,20 @@
           </tbody>
         </table>
         <hr>
-        <h4><b>Payment Timestamp:</b> {{order.order_TimeStamp}}</h4>
+        <h4>
+          <b>Payment Timestamp:</b> {{order.order_TimeStamp}}</h4>
 
-        <h4><b>Stripe Charge ID:</b> {{order.paymentRefNo}}</h4>
+        <h4>
+          <b>Stripe Charge ID:</b> {{order.paymentRefNo}}</h4>
 
-        <h4><b>Promo Code:</b> {{order.promoCode.promoCode}}</h4>
+        <h4>
+          <b>Promo Code:</b> {{order.promoCode.promoCode}}</h4>
         <hr>
 
-        <h4><b>Recipient Name: </b>{{order.address.recipientName}} </h4>
-        <h4><b>Delivery Address:</b> {{order.address.addressLine}} {{order.address.city}} {{order.address.country}} {{order.address.postalCode}}</h4>
+        <h4>
+          <b>Recipient Name: </b>{{order.address.recipientName}} </h4>
+        <h4>
+          <b>Delivery Address:</b> {{order.address.addressLine}} {{order.address.city}} {{order.address.country}} {{order.address.postalCode}}</h4>
 
         <hr>
         <h4 class="title">Order Summary</h4>
@@ -114,21 +119,25 @@
       </div>
       <hr>
       <div class="content">
-        <h4><b>Customer Email:</b> {{order.address.email}}</h4>
-        <h4><b>Order Total Price:</b> {{order.netAmt}}</h4>
-        <h4><b>Payment Timestamp:</b> {{order.order_TimeStamp}}</h4>
-        <h4><b>Stripe Charge ID:</b> {{order.paymentRefNo}}</h4>
+        <h4>
+          <b>Customer Email:</b> {{order.address.email}}</h4>
+        <h4>
+          <b>Order Total Price:</b> {{order.netAmt}}</h4>
+        <h4>
+          <b>Payment Timestamp:</b> {{order.order_TimeStamp}}</h4>
+        <h4>
+          <b>Stripe Charge ID:</b> {{order.paymentRefNo}}</h4>
         <hr>
 
         <form name="form" (ngSubmit)="f.form.valid && updateOrder()" #f="ngForm" novalidate>
           <label for="status">Status</label>
           <select [ngModelOptions]="{standalone: true}" [(ngModel)]="selectedStatus">
-              <option *ngFor="let s of statusMenu" [ngValue]="s">{{s}}</option>
+            <option *ngFor="let s of statusMenu" [ngValue]="s">{{s}}</option>
           </select>
 
           <label for="courier">Courier</label>
           <select [ngModelOptions]="{standalone: true}" [(ngModel)]="order.courierName">
-              <option *ngFor="let c of courierMenu" [ngValue]="c">{{c}}</option>
+            <option *ngFor="let c of courierMenu" [ngValue]="c">{{c}}</option>
           </select>
 
           <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !shippingTrackingNum.valid }">
@@ -152,66 +161,136 @@
           <hr>
           <h4 class="title">Order Summary</h4>
           <hr>
-          <table>
-            <thead>
-              <th>Product ID</th>
-              <th>Product Type</th>
-              <th>Pattern</th>
-              <th>Fabric</th>
-              <th>Color</th>
-              <th>Size</th>
-              <th>Quantity</th>
-              <th>Price </th>
-            </thead>
-            <tbody>
+          <div class="displayProduct" *ngIf="!editProd">
+            <table>
+              <thead>
+                <th> </th>
+                <th>Product Type</th>
+                <th>Product ID</th>
+                <th>Pattern</th>
+                <th>Fabric</th>
+                <th>Color</th>
+                <th>Size</th>
+                <th>Quantity</th>
+                <th>Price </th>
+              </thead>
 
-              <tr *ngFor="let item of orderItems">
-                <td class="product-title">
-                  {{item.product.productId}}
-                </td>
-                <td class="product-title">
-                  {{ item.product.productType}}
-                </td>
-                <td>
-                  <select [(ngModel)]="item.product.pattern.patternName" (ngModelChange)="onPatternChange(item.product.pattern.patternName)"
-                    [ngModelOptions]="{standalone: true}">
-                    <option *ngFor="let p of patternMenu" [ngValue]="p.design_name">{{p.design_name}}</option>
-                  </select>
-                </td>
+              <tbody>
+                <tr *ngFor="let item of orderItems">
+                  <td>
+                    <u>
+                      <div class="quickview-text" (click)=editProduct(item)>Edit Product</div>
+                    </u>
+                  </td>
 
-                <td>
-                  <select [ngModelOptions]="{standalone: true}" [(ngModel)]="item.product.fabric.fabricName" (ngModelChange)="onFabricChange()">
-                    <option *ngFor="let f of fabricMenu" [ngValue]="f">{{f.fabric_name}}</option>
-                  </select>
-                </td>
 
-                <td>
-          
+                  <td>
+                    {{item.product.productType}}
+                  </td>
 
-                </td>
+                  <td class="product-title">
+                    {{item.product.productId}}
+                  </td>
 
-                <td>
-                  <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !size.valid }">
-                    <input type="text" name="size" [ngModelOptions]="{standalone: true}" [(ngModel)]="item.product.size.sizeName" #size="ngModel"
-                      required />
-                    <div *ngIf="f.submitted && !size.valid" class="help-block">size is required</div>
-                  </div>
+                  <td>
+                    {{item.product.pattern.patternName}}
+                  </td>
 
-                </td>
+                  <td>
+                    {{item.product.fabric.fabricName}}
 
-                <td>
-                  {{item.quantity}}
+                  </td>
+                  <td>
+                    {{item.product.colour.colourName}}
+                  </td>
+                  <td>
+                    {{item.product.size.sizeName}}
+                  </td>
 
-                </td>
+                  <td>
+                    {{item.quantity}}
 
-                <td>
-                  {{item.unitPrice}}
+                  </td>
 
-                </td>
+                  <td>
+                    {{item.unitPrice}}
 
-              </tr>
-            </tbody>
-          </table>
+                  </td>
+
+                </tr>
+              </tbody>
+
+            </table>
+          </div>
+          <div class="editProduct" *ngIf="editProd">
+            <table>
+              <thead>
+
+                <th>Product Type</th>
+                <th>Product ID</th>
+                <th>Pattern</th>
+                <th>Fabric</th>
+                <th>Color</th>
+                <th>Size</th>
+                <th>Quantity</th>
+                <th>Price </th>
+              </thead>
+
+
+              <tbody>
+
+                <tr>
+                  <td class="product-title">
+                    {{ selectedItem.product.productType}}
+                  </td>
+
+                  <td class="product-title">
+                    {{selectedItem.product.productId}}
+                  </td>
+
+                  <td>
+                    <select [(ngModel)]="selectedItem.product.pattern.patternName" (ngModelChange)="onPatternChange(selectedItem.product.pattern.patternName)"
+                      [ngModelOptions]="{standalone: true}">
+                      <option *ngFor="let p of patternMenu" [ngValue]="p.design_name">{{p.design_name}}</option>
+                    </select>
+                  </td>
+
+                  <td>
+                    <select [ngModelOptions]="{standalone: true}" [(ngModel)]="selectedItem.product.fabric.fabricName" (ngModelChange)="onFabricChange(selectedItem.product.fabric.fabricName, selectedItem.product.pattern.patternName)">
+                      <option *ngFor="let f of fabricMenu" [ngValue]="f.fabric_name">{{f.fabric_name}}</option>
+                    </select>
+                  </td>
+
+                  <td>
+                    <select [ngModelOptions]="{standalone: true}" [(ngModel)]="selectedItem.product.colour.colourName">
+                      <option *ngFor="let c of colourMenu" [ngValue]="c.colourName">{{c.colourName}}</option>
+                    </select>
+
+                 </td>
+
+                  <td>
+                    <select [ngModelOptions]="{standalone: true}" [(ngModel)]="selectedItem.product.size.sizeName">
+                      <option *ngFor="let s of sizeMenu" [ngValue]="s">{{s}}</option>
+                    </select>
+
+                  </td>
+
+                  <td>
+                    {{selectedItem.quantity}}
+
+                  </td>
+
+                  <td>
+                    {{selectedItem.unitPrice}}
+
+                  </td>
+
+                </tr>
+              </tbody>
+
+
+            </table>
+          </div>
           <br>
           <button class="btn btn-info btn-fill btn-wd">Update Order</button>
         </form>

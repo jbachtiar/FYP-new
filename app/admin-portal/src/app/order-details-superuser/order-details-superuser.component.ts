@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { OrderService } from '../services/order.service'
 import { ProductService } from '../services/product.service'
+import { CatalogueService } from '../services/catalogue.service'
 @Component({
   selector: 'app-order-details-superuser',
   templateUrl: './order-details-superuser.component.html',
@@ -14,23 +15,27 @@ export class OrderDetailsSuperuserComponent implements OnInit {
   private user: any = {};
   private orderItems: any = {};
   private edit: boolean = false;
+  private editProd: boolean = false;
   private status: any = {};
   private index: number = 0;
   orderStatusSize: any;
   statusMap: any = { 'Payment Received': 1, 'In Production': 2, 'Packaging': 3, 'Pending for Shipment': 4, 'Shipped': 5, 'Completed': 6, 'Cancelled': 7 }
   statusMenu = ["Payment Received", "In Production", "Packaging", "Pending for Shipment", "Shipped", "Completed", "Cancelled"];
-  courierMenu = ["Shun Feng", "DHL"]
+  courierMenu = ["Shun Feng", "DHL"];
+  sizeMenu = ["Single", "Double", "Queen", "King"];
   patternMenu: any
   fabricMenu: any
+  colourMenu: any
   selectedStatus: any;
+  selectedItem: any;
   initialStatus: any;
   selectedCourier: any;
   selectedFabric: any;
   selectedColour: any;
-  pattern:any;
+  pattern: any;
   newStatusId: any;
   //statusMenu: any = [];
-  constructor(private route: ActivatedRoute, private orderService: OrderService, private productService: ProductService) { }
+  constructor(private route: ActivatedRoute, private orderService: OrderService, private productService: ProductService, private catalogueService: CatalogueService) { }
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
@@ -45,7 +50,7 @@ export class OrderDetailsSuperuserComponent implements OnInit {
 
 
         this.returnTheLatestOrderStatus();
-     
+
 
 
       });
@@ -76,7 +81,7 @@ export class OrderDetailsSuperuserComponent implements OnInit {
       }
     }
     this.selectedStatus = currentStatus.orderStatus.statusName;
-    this.initialStatus= currentStatus.orderStatus.statusName;
+    this.initialStatus = currentStatus.orderStatus.statusName;
     //  return currentStatus.orderStatus.statusName;
 
   }
@@ -92,36 +97,55 @@ export class OrderDetailsSuperuserComponent implements OnInit {
 
   }
 
+  editProduct(item) {
+    //console.log("product is clicked");
+    this.editProd = true;
+    this.selectedItem = item;
+
+
+
+  }
+
   onPatternChange(patternName) {
-   
+
     this.productService.getPatternByName(patternName).subscribe(
       pattern => {
-        console.log("pattern"+patternName);
-        this.fabricMenu=pattern.fabrics;
+        console.log("pattern" + patternName);
+        this.fabricMenu = pattern.fabrics;
         // this.selectedFabric = this.fabricMenu[0];
-        console.log("fabric"+this.fabricMenu);
-        
+        console.log("fabric" + this.fabricMenu);
+
       });
 
   }
 
-  onFabricChange(){
-    this.selectedColour=this.selectedFabric.colours[0];
-  
+  onFabricChange(fabricName, patternName) {
+   //this.selectedColour = this.selectedFabric.colours[0];
+   console.log("fabricName"+fabricName);
+    this.catalogueService.getColoursByPatternFabric(patternName, fabricName).subscribe(
+      colour => {
+        //console.log("pattern" + patternName);
+        this.colourMenu = colour;
+        // this.selectedFabric = this.fabricMenu[0];
+        console.log("color" + this.colourMenu);
+
+      });
+
+
 
 
   }
 
-  
+
 
 
   updateOrder() {
 
-    if(this.initialStatus==this.selectedStatus){
-      this.newStatusId=0;
+    if (this.initialStatus == this.selectedStatus) {
+      this.newStatusId = 0;
 
-    }else{
-      this.newStatusId=this.statusMap[this.selectedStatus];
+    } else {
+      this.newStatusId = this.statusMap[this.selectedStatus];
     }
 
 
