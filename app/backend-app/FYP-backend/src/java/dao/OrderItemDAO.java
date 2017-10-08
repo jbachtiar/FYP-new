@@ -86,7 +86,7 @@ public class OrderItemDAO {
 
         
         
-        String sql = "UPDATE ORDER_ITEM SET QUANTITY = ?, UNIT_PRICE = ?, ITEM_STATUS = ? WHERE ORDER_ID = ? AND PRODUCT_ID = ?";
+        String sql = "UPDATE ORDER_ITEM SET PRODUCT_ID = ?, QUANTITY = ?, UNIT_PRICE = ?, ITEM_STATUS = ? WHERE ORDER_ID = ? AND PRODUCT_ID = ?";
         
         
         try {
@@ -94,11 +94,12 @@ public class OrderItemDAO {
             conn = ConnectionManager.getConnection();
             stmt = conn.prepareStatement(sql);
             
-            stmt.setInt(1, oI.getQuantity());
-            stmt.setDouble(2, oI.getUnitPrice());
-            stmt.setString(3, oI.getItemStatus());
-            stmt.setInt(4, orderId);
-            stmt.setInt(5, newProductId);
+            stmt.setInt(1, newProductId);
+            stmt.setInt(2, oI.getQuantity());
+            stmt.setDouble(3, oI.getUnitPrice());
+            stmt.setString(4, oI.getItemStatus());
+            stmt.setInt(5, orderId);
+            stmt.setInt(6, oI.getProduct().getProductId());
 
             stmt.executeUpdate();   
 
