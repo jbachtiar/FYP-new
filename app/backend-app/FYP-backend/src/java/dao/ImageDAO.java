@@ -107,6 +107,39 @@ public class ImageDAO {
         return i;
 
     }
+    
+     public Image getImageByIdProductId(int imageId, int productId) throws SQLException {
+
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Image i = null;
+
+        String sql = "SELECT * FROM PRODUCT_IMAGE WHERE IMAGE_ID = ? AND PRODUCT_ID = ? ";
+
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, imageId);
+            stmt.setInt(2, productId);
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+
+                String imageUrl = rs.getString("IMAGE_URL");
+                i = new Image(imageId, imageUrl);
+                
+            }
+
+        } finally {
+            
+            ConnectionManager.close(conn, stmt, rs);
+            
+        }
+
+        return i;
+
+    }
 
     public Image[] getAllImagesByProductId(int productId) throws SQLException {
 

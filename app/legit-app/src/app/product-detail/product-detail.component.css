@@ -159,10 +159,10 @@ img{
         margin-top: 30px;
     }
     .zoom{
-        width : 350px;
+        width : 300px;
     }
     .item{
-        width : 350px;
+        width : 300px;
     }
     .right {
         position: absolute;
@@ -188,14 +188,14 @@ img{
     .carousel-inner{
         margin : 0px;
         padding: 0px;
-        /* width : 350px; */
+        width : 300px;
     }
     .description{
         text-align: justify;
         border : 0px;
     }
     #carousel-custom{
-        width: 350px;
+        width: 300px;
     }
 
 }    

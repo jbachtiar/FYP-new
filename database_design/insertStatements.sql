@@ -1,9 +1,11 @@
-INSERT INTO CUSTOMER VALUES('customer@gmail.com','Huiyan','Chen','87652345','1234','Y');
+﻿
+INSERT INTO CUSTOMER VALUES ('customer@gmail.com','Huiyan','Chen','85882165','1234','Y');
+
+
 
 INSERT INTO STAFF_ROLE VALUES ('1','Admin');
 INSERT INTO STAFF_ROLE VALUES ('2','Factory Manager');
 INSERT INTO STAFF_ROLE VALUES ('3','Factory Worker');
-
 
 INSERT INTO STAFF VALUES ('staff@gmail.com','Ming','Xia','12345678','1234','1');
 INSERT INTO STAFF VALUES ('staff1@gmail.com','Tom','John','12345678','1234','2');
@@ -11,7 +13,6 @@ INSERT INTO STAFF VALUES ('staff2@gmail.com','Matthew','Xia','12345678','1234','
 INSERT INTO STAFF VALUES ('staff3@gmail.com','James','Xia','12345678','1234','3');
 
 INSERT INTO courier VALUES('Shun Feng','ShunFeng.com');
-INSERT INTO courier VALUES('DHL','http://www.dhl.com/en.html');
 
 
 INSERT INTO CUSTOMER_ADDRESS VALUES ('1', 'customer@gmail.com', 'Hui Yan', '91234230', '134 Highlander Ave 3','Singapore','Singapore','536748', 'Y');
@@ -82,9 +83,7 @@ INSERT INTO ORDER_STATUS VALUES('3','Packaging');
 INSERT INTO ORDER_STATUS VALUES('4','Pending for Shipment');
 INSERT INTO ORDER_STATUS VALUES('5','Shipped');
 INSERT INTO ORDER_STATUS VALUES('6','Completed');
-INSERT INTO ORDER_STATUS VALUES('7','Cancelled');
 
-INSERT INTO PROMO_CODE VALUES(0,"NONE", "NONE", "NONE",0,0,0,0,0,'2015-01-01','2015-01-02','N');
 INSERT INTO PROMO_CODE VALUES(1,"WELCOME5", "First Purchase", "% discount",5,50,100,10000,0,'2017-08-27','2017-09-10','N');
 INSERT INTO PROMO_CODE VALUES(2,"1MONTH", "1st Monthsary", "$ discount",50,200,50,10000,0,'2017-09-27','2017-10-27','N');
 
@@ -115,17 +114,17 @@ INSERT INTO PRODUCT VALUES('011','Bedding','6','1','N','5');
 INSERT INTO PRODUCT VALUES('012','Bedding','7','1','N','4');
 
 INSERT INTO PRODUCT_IMAGE VALUES('001','1','https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Product+Images/P1.png');
-INSERT INTO PRODUCT_IMAGE VALUES('002','2','https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Product+Images/P2.png');
-INSERT INTO PRODUCT_IMAGE VALUES('003','3','https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Product+Images/P3.png');
-INSERT INTO PRODUCT_IMAGE VALUES('004','4','https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Product+Images/P4.png');
-INSERT INTO PRODUCT_IMAGE VALUES('005','5','https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Product+Images/P5.png');
-INSERT INTO PRODUCT_IMAGE VALUES('006','6','https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Product+Images/P6.png');
-INSERT INTO PRODUCT_IMAGE VALUES('007','7','https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Product+Images/P7.png');
-INSERT INTO PRODUCT_IMAGE VALUES('008','8','https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Product+Images/P8.png');
-INSERT INTO PRODUCT_IMAGE VALUES('009','9','https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Product+Images/P9.png');
-INSERT INTO PRODUCT_IMAGE VALUES('010','10','https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Product+Images/P10.png');
-INSERT INTO PRODUCT_IMAGE VALUES('011','11','https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Product+Images/P11.png');
-INSERT INTO PRODUCT_IMAGE VALUES('012','12','https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Product+Images/P12.png');
+INSERT INTO PRODUCT_IMAGE VALUES('002','1','https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Product+Images/P2.png');
+INSERT INTO PRODUCT_IMAGE VALUES('003','1','https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Product+Images/P3.png');
+INSERT INTO PRODUCT_IMAGE VALUES('004','1','https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Product+Images/P4.png');
+INSERT INTO PRODUCT_IMAGE VALUES('005','1','https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Product+Images/P5.png');
+INSERT INTO PRODUCT_IMAGE VALUES('006','1','https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Product+Images/P6.png');
+INSERT INTO PRODUCT_IMAGE VALUES('007','1','https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Product+Images/P7.png');
+INSERT INTO PRODUCT_IMAGE VALUES('008','1','https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Product+Images/P8.png');
+INSERT INTO PRODUCT_IMAGE VALUES('009','1','https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Product+Images/P9.png');
+INSERT INTO PRODUCT_IMAGE VALUES('010','1','https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Product+Images/P10.png');
+INSERT INTO PRODUCT_IMAGE VALUES('011','1','https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Product+Images/P11.png');
+INSERT INTO PRODUCT_IMAGE VALUES('012','1','https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Product+Images/P12.png');
 
 INSERT INTO LAMP VALUES('001','Table Lamp',500);
 INSERT INTO LAMP VALUES('005','Table Lamp',500);
