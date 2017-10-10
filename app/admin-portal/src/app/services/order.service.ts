@@ -50,7 +50,6 @@ export class OrderService {
     }
 
     updateItemStatus(orderId, productId, newStatus) {
-        // /OrderItemService/updateOrderItemStatus?orderId=2&productId=11&newStatus=COMPLETED
         let params: URLSearchParams = new URLSearchParams();
         let url = CONFIG.orderItemBackendUrl + '/updateOrderItemStatus?orderId=' +
             orderId + '&productId=' + productId + '&newStatus=' + newStatus
@@ -72,6 +71,22 @@ export class OrderService {
         return this._http.post(url, params.toString(), {
             headers: headers
         }).map(res => res)
+    }
+
+    getAllCouriers() {
+        let url = CONFIG.orderBackendUrl + '/getCouriers'
+        return this._http.get(url)
+            .map(res => {
+                return res.json().couriers;
+            });
+    }
+
+    updateShipment(orderId, courierName, trackingNo){
+        let params: URLSearchParams = new URLSearchParams();
+        let url = CONFIG.orderBackendUrl + '/updateShipment?orderId=' +
+            orderId + '&courierName=' + courierName + '&trackingNo=' + trackingNo
+        return this._http.get(url, params.toString())
+            .map(res => res.json());
     }
 
 }
