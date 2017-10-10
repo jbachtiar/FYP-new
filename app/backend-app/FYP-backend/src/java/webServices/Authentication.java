@@ -81,15 +81,20 @@ public class Authentication {
                     if (password.equals(customer.getPassword())) {
                         //out.println("exist");
                         //String name = customer.getName();
-                        
-                        status = "200";
-                        token = tokenManagement.createJWT(email, "highlander", "login");
-                        //String address = fireStation.getAddress();
-                        //responseMap.put("Customer ", name);
-                        //responseMap.put("address", address);
-                        //responseMap.put("status", STATUS_OK);
-                        responseMap.put("status", status);
-                        responseMap.put("token", token);
+                        if (customer.getVerified().equals("Y")) {
+                            status = "200";
+                            token = tokenManagement.createJWT(email, "highlander", "login");
+                            //String address = fireStation.getAddress();
+                            //responseMap.put("Customer ", name);
+                            //responseMap.put("address", address);
+                            //responseMap.put("status", STATUS_OK);
+                            responseMap.put("status", status);
+                            responseMap.put("token", token);
+                        } else {
+                            description = "Account is not verified";
+                            responseMap.put("status", "500");
+                            responseMap.put("description", description);
+                        }
 
                     } else {
                         description = "Invalid password";

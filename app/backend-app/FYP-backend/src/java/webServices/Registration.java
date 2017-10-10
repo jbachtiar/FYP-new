@@ -101,7 +101,7 @@ public class Registration {
             if (addCustomerResult.equals("Success")) {
                 customerAddressDao.addAddressToCustomer(a);
                 cartDao.addCart(c, email);
-                
+
                 //send verification link
                 SendEmail.sendVerificationEmail(email, hexString.toString());
 
@@ -158,6 +158,15 @@ public class Registration {
                 System.out.println("HASH: " + custHash);
 
                 if (custHash.equals(code)) {
+
+                    try {
+                        customerDAO.updateCustomerVerification(email, "Y");
+                    } catch (SQLException ex) {
+                        Logger.getLogger(Registration.class.getName()).log(Level.SEVERE, null, ex);
+                        responseMap.put("status", "500");
+                        responseMap.put("description", ex.toString());
+                    }
+
                     responseMap.put("status", "200");
                 } else {
                     description = "Incorrect verification code";

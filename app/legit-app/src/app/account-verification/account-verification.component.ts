@@ -11,14 +11,14 @@ import { DialogService } from "ng2-bootstrap-modal";
   selector: 'app-account-verification',
   templateUrl: './account-verification.component.html',
   styleUrls: ['./account-verification.component.css'],
-  providers: [ RegistrationService, AlertService ]
+  providers: [RegistrationService, AlertService]
 })
 export class AccountVerificationComponent implements OnInit {
   private email;
   private code;
   private user: any = {};
-  private isCorrectCode:boolean = false;
-  private loading:boolean = false;
+  private isCorrectCode: boolean = false;
+  private loading: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -31,62 +31,60 @@ export class AccountVerificationComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
-      this.email = params['email']; 
+      this.email = params['email'];
       this.code = params['code'];
       this.verifyCode();
     });
   }
 
-  verifyCode(){
-    this.registrationService.verifyCode(this.email, this.code).subscribe(res=>{
-      if(res.status == 200){
+  verifyCode() {
+    this.registrationService.verifyCode(this.email, this.code).subscribe(res => {
+      if (res.status == 200) {
         this.isCorrectCode = true;
       }
     })
   }
 
-  verifyAccount(){
+  verifyAccount() {
+    console.log("VERIFIED")
     this.loading = true;
     //calling service
     this.authenticationService.login(this.user.email, this.user.password)
-    .subscribe(
-        res => {
-            console.log("RES: " + res);
-            if(res.status == '200'){
-                console.log("RES STATUS :" + "Login successful");
-                this.registrationService.verifyAccount(res.token, this.code).subscribe(res2=>{
-                  if(res2.status == 200){
-                    let disposable = this.dialogService.addDialog(ConfirmationPopupComponent, {
-                      title: 'Congratulations!',
-                      message: 'Your account is now active and ready to use.'
-                    })
-                      .subscribe((isConfirmed) => {
-                        console.log("DIALOG")
-                        //We get dialog result
-                        if (isConfirmed) {
-                          this.router.navigate(['']);
-                          window.location.reload();
-                        }
-                        else {
-                          this.router.navigate(['']);
-                        }
-                      });
-                    //We can close dialog calling disposable.unsubscribe();
-                    //If dialog was not closed manually close it by timeout
-                    setTimeout(() => {
-                      disposable.unsubscribe();
-                      this.router.navigate(['']);                      
-                    }, 50000);
-                  }
+      .subscribe(
+      res => {
+        console.log("RES: " + res);
+        if (res.status == '200') {
+          console.log("RES STATUS :" + "Login successful");
+          let disposable = this.dialogService.addDialog(ConfirmationPopupComponent, {
+            title: 'Congratulations!',
+            message: 'Your account is now active and ready to use.'
+          })
+            .subscribe((isConfirmed) => {
+              console.log("DIALOG")
+              //We get dialog result
+              if (isConfirmed) {
+                this.router.navigate(['']);
+                window.location.reload();
+              }
+              else {
+                this.router.navigate(['']);
+              }
+            });
+          //We can close dialog calling disposable.unsubscribe();
+          //If dialog was not closed manually close it by timeout
+          setTimeout(() => {
+            disposable.unsubscribe();
+            this.router.navigate(['']);
+          }, 50000);
 
-                })
-            }else{
-                console.log("RES STATUS :" + res.status);
-                this.alertService.error(res.description);
-            }
         }
-    )
-    this.loading = false; 
+        else {
+          console.log("RES STATUS :" + res.status);
+          this.alertService.error(res.description);
+        }
+
+      })
+    this.loading = false;
   }
-  
+
 }
