@@ -60,24 +60,24 @@ export class TrackOrderComponent implements OnInit {
   }
   */
   returnTheLatestOrderStatus(statusLogs) {
-    let status = statusLogs[0];
-    console.log("STATUS: " + status)
-    let currentStatus = status
-    let mostCurrentTimestamp = status.startTimeStamp;
-    for (status of statusLogs) {
-      let timestamp = status.startTimeStamp;
-      console.log("current timestamp: " + timestamp + "> most current" + mostCurrentTimestamp)
-      if (mostCurrentTimestamp < timestamp) {
-        console.log("betul")
+      let status = statusLogs[0];
+      console.log("STATUS: " + status)
+      let currentStatus = status
+      let mostCurrentTimestamp = status.startTimeStamp;
+      for (status of statusLogs) {
+        let timestamp = status.startTimeStamp;
+        console.log("current timestamp: " + timestamp + "> most current" + mostCurrentTimestamp)
+        if (mostCurrentTimestamp < timestamp) {
+          console.log("betul")
 
-        mostCurrentTimestamp = timestamp;
-        currentStatus = status;
+          mostCurrentTimestamp = timestamp;
+          currentStatus = status;
+        }
       }
-    }
-    console.log("MOST CURRENT: " + mostCurrentTimestamp)
-    //    this.order[0]['currentStatus'] = currentStatus.orderStatus.statusName;
+      console.log("MOST CURRENT: " + mostCurrentTimestamp)
+      //    this.order[0]['currentStatus'] = currentStatus.orderStatus.statusName;
 
-    return  currentStatus.orderStatus.statusName;
+      return  currentStatus.orderStatus.statusName;
 
   }
 

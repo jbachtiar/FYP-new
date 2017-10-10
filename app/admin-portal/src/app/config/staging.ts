@@ -16,5 +16,6 @@ export const stagConfig = {
     collectionBackendUrl: 'http://localhost:8084/FYP-backend/API/CollectionService',
     fabricBackendUrl: 'http://localhost:8084/FYP-backend/API/FabricService',
     colourBackendUrl: 'http://localhost:8084/FYP-backend/API/ColourService',
-    patternBackendUrl: 'http://localhost:8084/FYP-backend/API/PatternService'    
+    patternBackendUrl: 'http://localhost:8084/FYP-backend/API/PatternService',
+    beddingSizeBackendUrl: 'http://localhost:8084/FYP-backend/API/BeddingSizeService'   
 }
