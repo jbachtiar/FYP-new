@@ -12,3 +12,20 @@ label{
     color: black;
     font-size: 14px;
 }
+
+#view-selector, #auth-button{
+    display: none !important;
+}
+
+#timeline{
+    font-family: 'Muli' !important;
+}
+
+.gapi-analytics-data-chart{
+    font: 'Muli' !important;
+}
+
+body{
+    color: transparent;
+    font-family: 'Muli' !important;
+}

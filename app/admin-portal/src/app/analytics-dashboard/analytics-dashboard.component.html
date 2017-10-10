@@ -1,24 +1,42 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Embed API Demo</title>
-</head>
+
 <body>
+  <md-card>
 
-<!-- Step 1: Create the containing elements. -->
-
-<section id="auth-button"></section>
-<section id="view-selector"></section>
-<section id="timeline"></section>
-<section id="patternClicks"></section>
-<section id="usertype"></section>
-<section id="userBrowser"></section>
-<section id="userCountry"></section>
-
-
-<!-- Step 2: Load the library. -->
-
-
-
+    <!-- Step 1: Create the containing elements. -->
+    <div class="row">
+      <div class="col-md-6">
+        <section id="auth-button"></section>
+      </div>
+      <div class="col-md-6">
+        <section id="view-selector"></section>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <section id="timeline"></section>
+      </div>
+    </div>
+  </md-card>
+  <br/>
+  <md-card>
+    <div class="row">
+      <div class="col-md-4">
+        <section id="usertype"></section>
+      </div>
+      <div class="col-md-4">
+        <section id="userCountry"></section>
+      </div>
+      <div class="col-md-4">
+        <section id="userBrowser"></section>
+      </div>
+    </div>
+  </md-card>
+  <br/>
+  <md-card>
+    <section id="patternClicks"></section>
+  </md-card>
 </body>
+
 </html>

@@ -41,7 +41,37 @@ export class AnalyticsDashboardComponent implements OnInit {
         },
         chart: {
           type: 'LINE',
-          container: 'timeline'
+          container: 'timeline',
+          options: {
+            'legend': 'left',
+            'title': 'Audience Overview',
+            // 'is3D':true,
+            // 'width':400,
+            // 'height':300
+            width: '100%',
+            // pieHole: 4 / 9
+            colors: ['lightseagreen'],
+            fontName: 'Muli',
+            titleTextStyle: {
+              // color: <string>,
+              fontName: 'Muli',
+              fontSize: 20,
+              // bold: true
+              // italic: <boolean> 
+            },
+            series: {
+              // Gives each series an axis name that matches the Y-axis below.
+              0: { axis: 'Sessions' },
+            },
+
+            // vAxis: {
+            //   title: 'Sessions'
+            // },
+            // hAxis: {
+            //   title: 'Time'
+            // },
+
+          }
         }
       });
 
@@ -54,12 +84,30 @@ export class AnalyticsDashboardComponent implements OnInit {
           'end-date': 'today',
         },
         chart: {
-          type: 'LINE',
-          container: 'patternClicks'
+          type: 'COLUMN',
+          container: 'patternClicks',
+          options: {
+            'legend': 'left',
+            'title': 'Product Popularity',
+            // 'is3D':true,
+            // 'width':400,
+            // 'height':300
+            width: '100%',
+            colors: ['#DD0330'],
+            // pieHole: 4 / 9
+            fontName: 'Muli',
+            titleTextStyle: {
+              // color: <string>,
+              fontName: 'Muli',
+              fontSize: 20,
+              // bold: true
+              // italic: <boolean> 
+            },
+            
+            
+          }
         }
       });
-
-
 
       var userType = new gapi.analytics.googleCharts.DataChart({
         reportType: 'ga',
@@ -71,21 +119,25 @@ export class AnalyticsDashboardComponent implements OnInit {
         },
         chart: {
           type: 'PIE',
-          container: 'usertype'
-        }
-      });
-
-      var userType = new gapi.analytics.googleCharts.DataChart({
-        reportType: 'ga',
-        query: {
-          'dimensions': 'ga:userType',
-          'metrics': 'ga:users',
-          'start-date': '30daysAgo',
-          'end-date': 'yesterday',
-        },
-        chart: {
-          type: 'PIE',
-          container: 'usertype'
+          container: 'usertype',
+          options: {
+            'legend': 'left',
+            'title': 'User Type',
+            // 'is3D':true,
+            // 'width':400,
+            // 'height':300
+            width: '100%',
+            colors: ["#FFAA00","#2089B2"],
+            // pieHole: 4 / 9
+            fontName: 'Muli',
+            titleTextStyle: {
+              // color: <string>,
+              fontName: 'Muli',
+              fontSize: 20,
+              // bold: true
+              // italic: <boolean> 
+            }
+          }
         }
       });
 
@@ -102,8 +154,21 @@ export class AnalyticsDashboardComponent implements OnInit {
           container: 'userCountry',
           type: 'PIE',
           options: {
+            'legend': 'left',
+            'title': 'User Location',
+            // 'is3D':true,
+            // 'width':400,
+            // 'height':300
             width: '100%',
-            pieHole: 4 / 9
+            pieHole: 4 / 9,
+            fontName: 'Muli',
+            titleTextStyle: {
+              // color: <string>,
+              fontName: 'Muli',
+              fontSize: 20,
+              // bold: true
+              // italic: <boolean> 
+            }
           }
         }
       });
@@ -121,8 +186,21 @@ export class AnalyticsDashboardComponent implements OnInit {
           container: 'userBrowser',
           type: 'PIE',
           options: {
+            'legend': 'left',
+            'title': 'Top Browser',
+            // 'is3D':true,
+            // 'width':400,
+            // 'height':300
             width: '100%',
-            pieHole: 4 / 9
+            pieHole: 4 / 9,
+            fontName: 'Muli',
+            titleTextStyle: {
+              // color: <string>,
+              fontName: 'Muli',
+              fontSize: 20,
+              // bold: true
+              // italic: <boolean> 
+            }
           }
         }
       });
