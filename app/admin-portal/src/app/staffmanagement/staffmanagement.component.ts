@@ -23,6 +23,7 @@ export class StaffmanagementComponent implements OnInit {
   private add: boolean = false;
   private edStaff: Staff;
   private edit: boolean = false;
+  private staffCodes : any = {1 : 'Admin', 2 : 'Factory Manager', 3: "Factory Worker"} 
 
   ngOnInit() {
     this.staffcontrolservice.getAllRoles()
