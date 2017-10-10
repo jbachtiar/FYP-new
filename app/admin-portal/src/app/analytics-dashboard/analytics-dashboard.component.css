@@ -13,7 +13,7 @@ label{
     font-size: 14px;
 }
 
-#view-selector, #auth-button{
+#view-selector{
     display: none !important;
 }
 
@@ -26,6 +26,5 @@ label{
 }
 
 body{
-    color: transparent;
     font-family: 'Muli' !important;
 }
