@@ -49,9 +49,13 @@ body {
         color: #B0A171;
         text-align: center;
     }
-    th > a :hover, th > a:active, th:hover, th:active ,a:active, a:hover{
-        background: #B0A171;
-        color: white
+    th:active, th:hover{
+        /* background: rgb(220,220,220); */
+        color: white;
+    }
+    a:active, a:hover{
+        /* background: rgb(220,220,220); */
+        color: white;
     }
 
     table{
