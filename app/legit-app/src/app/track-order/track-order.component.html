@@ -56,7 +56,7 @@
                 </thead>
 
                 <tbody *ngFor="let co of pastOrders">
-                    <tr viewOrder(co.orderId)>
+                    <tr (click)=viewOrder(co.orderId)>
                         <td>
                             {{co.orderId}}
                         </td>

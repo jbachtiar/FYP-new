@@ -61,14 +61,14 @@ export class TrackOrderComponent implements OnInit {
   */
   returnTheLatestOrderStatus(statusLogs) {
     let status = statusLogs[0];
-    console.log("STATUS: " + status)
+    // console.log("STATUS: " + status)
     let currentStatus = status
     let mostCurrentTimestamp = status.startTimeStamp;
     for (status of statusLogs) {
       let timestamp = status.startTimeStamp;
-      console.log("current timestamp: " + timestamp + "> most current" + mostCurrentTimestamp)
+      // console.log("current timestamp: " + timestamp + "> most current" + mostCurrentTimestamp)
       if (mostCurrentTimestamp < timestamp) {
-        console.log("betul")
+        // console.log("betul")
 
         mostCurrentTimestamp = timestamp;
         currentStatus = status;
