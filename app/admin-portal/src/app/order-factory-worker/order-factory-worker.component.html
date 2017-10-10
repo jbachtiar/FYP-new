@@ -13,7 +13,7 @@
     <div class="row " *ngIf="!production">
         <!-- <div class="col-md-12 "> -->
         <div class="card ">
-            <div style="margin: auto; max-width: 1000px; margin-bottom: 50px; ">
+            <div style="padding:10px; padding-bottom:20px;margin: auto; max-width: 1000px; margin-bottom: 50px; ">
 
                 <data-table id="order-grid " headerTitle="Orders " [items]="orders" [itemCount]="itemCount" (reload)="reloadItems($event, selectedStatus)"
                     (rowClick)="rowClick($event)" [rowTooltip]="rowTooltip" [selectColumn]="true " [multiSelect]="false " [substituteRows]="false "
@@ -70,7 +70,7 @@
 
     <div class="row" *ngIf="production">
         <div class="card ">
-            <div style="margin: auto; max-width: 1000px; margin-bottom: 50px; ">
+            <div style="padding:10px; padding-bottom:20px; margin: auto; max-width: 1000px; margin-bottom: 50px; ">
                 <div *ngFor="let o of orders">
                     <data-table id="order-grid " headerTitle="Order {{o.orderId}}" [items]="o.orderItems" [itemCount]="itemCount" (rowClick)="rowClick($event)"
                         (rowDoubleClick)="rowDoubleClick($event)" [rowTooltip]="rowTooltip" [selectColumn]="true " [multiSelect]="false "
@@ -122,7 +122,7 @@
                         <data-table-column [property]=" 'status' " [header]=" 'Status' " [sortable]="true
                         " [resizable]="true ">
                             <template #dataTableCell let-item="item ">
-                                <span>{{item.itemStatus}}</span>
+                                <span [ngClass]="item.itemStatus=='INCOMPLETE' ? 'incomplete' : 'complete'">{{item.itemStatus}}</span>
                             </template>
                         </data-table-column>
                         <!-- 

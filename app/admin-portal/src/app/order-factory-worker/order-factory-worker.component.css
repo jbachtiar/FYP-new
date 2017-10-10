@@ -36,3 +36,13 @@ button {
     bottom: 1ex; 
     font-size: 80%;
   }
+
+  .incomplete{
+      color: black;
+      background-color: yellow;
+  }
+
+  .complete{
+      color: white;
+    background-color: green;
+  }
