@@ -3,6 +3,8 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { OrderService } from '../services/order.service'
 import { ProductService } from '../services/product.service'
 import { CatalogueService } from '../services/catalogue.service'
+import { BeddingSizeService } from '../services/beddingSize.service'
+
 @Component({
   selector: 'app-order-details-superuser',
   templateUrl: './order-details-superuser.component.html',
@@ -16,13 +18,14 @@ export class OrderDetailsSuperuserComponent implements OnInit {
   private orderItems: any = {};
   private edit: boolean = false;
   private editProd: boolean = false;
+  private shipped: boolean = false;
   private status: any = {};
   private index: number = 0;
   orderStatusSize: any;
-  statusMap: any = { 'Payment Received': 1, 'In Production': 2, 'Packaging': 3, 'Pending for Shipment': 4, 'Shipped': 5, 'Completed': 6, 'Canceled': 7 }
-  statusMenu = ["Payment Received", "In Production", "Packaging", "Pending for Shipment", "Shipped", "Completed", "Canceled"];
-  courierMenu = ["Shun Feng", "DHL"];
-  sizeMenu = ["Single", "Double", "Queen", "King"];
+  statusMap: any = {};
+  statusMenu: any;
+  courierMenu: any;
+  sizeMenu: any
   patternMenu: any
   fabricMenu: any
   colourMenu: any
@@ -35,21 +38,24 @@ export class OrderDetailsSuperuserComponent implements OnInit {
   pattern: any;
   newStatusId: any;
   //statusMenu: any = [];
-  constructor(private route: ActivatedRoute, private orderService: OrderService, private productService: ProductService, private catalogueService: CatalogueService) { }
+  constructor(private route: ActivatedRoute, private orderService: OrderService, private productService: ProductService, private catalogueService: CatalogueService, private beddingSizeService: BeddingSizeService) { }
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
       this.orderId = params['orderId']; // grab the order id
       this.orderService.getOrderById(this.orderId).subscribe(orders => {
-
+        console.log("order uploaded" + JSON.stringify(orders[0]));
         this.order = orders[0];
-        this.status = this.order.statusLogs[0];
+        this.status = this.order.statusLogs;
         //  console.log("status" + this.order.statusLogs[0].orderStatus.statusName);
         this.orderItems = orders[0].orderItems;
         this.selectedCourier = orders[0].courierName;
 
 
-        this.returnTheLatestOrderStatus();
+        this.returnTheLatestOrderStatus(this.status);
+        if(this.initialStatus=="Shipped"){
+          this.shipped=true;
+        }
 
 
 
@@ -64,23 +70,27 @@ export class OrderDetailsSuperuserComponent implements OnInit {
 
   }
 
-  returnTheLatestOrderStatus() {
+  returnTheLatestOrderStatus(statusLogs) {
 
 
-    //console.log("STATUS: " + status)
-    let currentStatus = this.status
-    let mostCurrentTimestamp = this.status.startTimeStamp;
-    for (let s of this.order.statusLogs) {
-      let timestamp = s.startTimeStamp;
-      //console.log("current timestamp: " + timestamp + "> most current" + mostCurrentTimestamp)
+    let status = statusLogs[0];
+    console.log("STATUS: " + status)
+    let currentStatus = status
+    let mostCurrentTimestamp = status.startTimeStamp;
+    for (status of this.order.statusLogs) {
+      let timestamp = status.startTimeStamp;
+      console.log("current timestamp: " + timestamp + "> most current" + mostCurrentTimestamp)
       if (mostCurrentTimestamp < timestamp) {
-        //console.log("betul")
+        console.log("betul")
 
         mostCurrentTimestamp = timestamp;
-        currentStatus = s;
+        currentStatus = status;
       }
     }
+
+
     this.selectedStatus = currentStatus.orderStatus.statusName;
+    console.log("selectedStatus" + this.selectedStatus);
     this.initialStatus = currentStatus.orderStatus.statusName;
     //  return currentStatus.orderStatus.statusName;
 
@@ -90,6 +100,38 @@ export class OrderDetailsSuperuserComponent implements OnInit {
     this.productService.getPatternList().subscribe(
       patterns => {
         this.patternMenu = patterns;
+
+      });
+
+    this.beddingSizeService.getAllBeddingSizes().subscribe(
+      sizes => {
+        this.sizeMenu= sizes;
+
+
+      });
+
+
+
+    this.orderService.getCouriers().subscribe(
+      couriers => {
+        this.courierMenu = couriers;
+        console.log("couriers" + this.courierMenu);
+
+      });
+
+
+    this.orderService.getOrderStatus().subscribe(
+      status => {
+        this.statusMenu = status;
+        for (let s of this.statusMenu) {
+          this.statusMap[s.statusName] = s.statusId;
+
+        }
+
+        console.log("statusLog" + this.statusMap);
+
+
+
 
       });
 
@@ -110,10 +152,10 @@ export class OrderDetailsSuperuserComponent implements OnInit {
 
     this.productService.getPatternByName(patternName).subscribe(
       pattern => {
-        console.log("pattern" + patternName);
+        //console.log("pattern" + patternName);
         this.fabricMenu = pattern.fabrics;
         // this.selectedFabric = this.fabricMenu[0];
-        console.log("fabric" + this.fabricMenu);
+        //console.log("fabric" + this.fabricMenu);
 
       });
 
@@ -127,7 +169,7 @@ export class OrderDetailsSuperuserComponent implements OnInit {
         //console.log("pattern" + patternName);
         this.colourMenu = colour;
         // this.selectedFabric = this.fabricMenu[0];
-        console.log("color" + this.colourMenu);
+        // console.log("color" + this.colourMenu);
 
       });
 
@@ -140,13 +182,16 @@ export class OrderDetailsSuperuserComponent implements OnInit {
 
 
   updateOrder() {
+    console.log("status id" + this.selectedStatus);
 
     if (this.initialStatus == this.selectedStatus) {
       this.newStatusId = 0;
 
     } else {
       this.newStatusId = this.statusMap[this.selectedStatus];
+      console.log("status id" + this.newStatusId);
     }
+
 
 
     let newOrder = {
@@ -174,7 +219,7 @@ export class OrderDetailsSuperuserComponent implements OnInit {
 
     this.edit = false;
     this.editProd = false;
-    window.location.reload();
+    //window.location.reload();
 
 
 

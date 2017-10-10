@@ -10,8 +10,10 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import dao.OrderDAO;
+import dao.OrderStatusDAO;
 import dao.OrderStatusLogDAO;
 import entity.Order;
+import entity.OrderStatus;
 import java.sql.SQLException;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.GET;
@@ -102,6 +104,48 @@ public class OrderStatusLogService {
                 jsonOutput.addProperty("status", "200");
                 JsonArray orders = gson.toJsonTree(oArr).getAsJsonArray(); // convert arraylist to jsonArray
                 jsonOutput.add("orders", orders);
+
+            }
+
+        } catch (SQLException e) {
+
+            jsonOutput.addProperty("status", "500");
+            jsonOutput.addProperty("msg", "OrderService: SQL Exception" +e.getMessage());
+
+        }
+
+        String finalJsonOutput = gson.toJson(jsonOutput);
+        return finalJsonOutput;
+    }
+    
+    @GET
+    @Path("/getAllOrderStatus")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getAllOrderStatus() {
+
+        response.setHeader("Access-Control-Allow-Headers", "Content-Type");
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
+
+        Gson gson = new GsonBuilder().create();
+        JsonObject jsonOutput = new JsonObject();
+        
+        OrderStatusDAO orderStatusDao = new OrderStatusDAO();
+
+        try {
+
+            OrderStatus[] sArr = orderStatusDao.getAllOrderStatuses();
+            if (sArr == null) {
+                
+                jsonOutput.addProperty("status", "500");
+                jsonOutput.addProperty("msg", "No Order Status Available");
+                
+
+            } else {
+                
+                jsonOutput.addProperty("status", "200");
+                JsonArray orders = gson.toJsonTree(sArr).getAsJsonArray(); // convert arraylist to jsonArray
+                jsonOutput.add("orderStatus", orders);
 
             }
 

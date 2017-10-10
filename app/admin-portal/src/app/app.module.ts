@@ -31,6 +31,7 @@ import { PagerService} from './services/pager.service'
 import { PromoCodeService } from './services/promo-code.service'
 import { OrderService } from './services/order.service'
 import { CatalogueService} from './services/catalogue.service'
+import { BeddingSizeService } from './services/beddingSize.service'
 
 import { QRCodeModule } from 'angular2-qrcode';
 import { BootstrapModalModule } from 'ng2-bootstrap-modal';
@@ -143,7 +144,8 @@ import { ShippingDetailsPopupComponent } from './shipping-details-popup/shipping
     PagerService,
     PromoCodeService,
     OrderService,
-    CatalogueService
+    CatalogueService,
+    BeddingSizeService 
   ],
   bootstrap: [AppComponent],
   entryComponents: [
