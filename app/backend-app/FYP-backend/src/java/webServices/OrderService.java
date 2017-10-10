@@ -9,10 +9,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-<<<<<<< HEAD
-=======
 import dao.BeddingSizeDAO;
->>>>>>> superUserEnhancement
 import dao.CourierDAO;
 import dao.OrderDAO;
 import entity.Courier;
@@ -126,9 +123,7 @@ public class OrderService {
         String finalJsonOutput = gson.toJson(jsonOutput);
         return finalJsonOutput;
     }
-<<<<<<< HEAD
 
-=======
     
     @GET
     @Path("/getAllCouriers")
@@ -174,7 +169,6 @@ public class OrderService {
 
 
     
->>>>>>> superUserEnhancement
     @POST
     @Path("/getOrdersByCustomer")
     @Produces(MediaType.APPLICATION_JSON)
@@ -397,48 +391,7 @@ public class OrderService {
     }
     
     
-    
-    @GET
-    @Path("/getCouriers")
-    @Produces(MediaType.APPLICATION_JSON)
-    public String getAllCouriers() {
 
-        response.setHeader("Access-Control-Allow-Headers", "Content-Type");
-        response.setHeader("Access-Control-Allow-Origin", "*");
-        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
-
-        Gson gson = new GsonBuilder().create();
-        JsonObject jsonOutput = new JsonObject();
-
-        JsonArray orderArray = new JsonArray();
-        CourierDAO cDAO = new CourierDAO();
-
-        try {
-
-            Courier[] cArr = cDAO.getAllAvailableCouriers();
-            if (cArr == null) {
-
-                jsonOutput.addProperty("status", "500");
-                jsonOutput.addProperty("msg", "No Couriers Available");
-
-            } else {
-
-                jsonOutput.addProperty("status", "200");
-                JsonArray couriers = gson.toJsonTree(cArr).getAsJsonArray(); // convert arraylist to jsonArray
-                jsonOutput.add("couriers", couriers);
-
-            }
-
-        } catch (SQLException e) {
-
-            jsonOutput.addProperty("status", "500");
-            jsonOutput.addProperty("msg", "OrderService: SQL Exception" + e.getMessage());
-
-        }
-
-        String finalJsonOutput = gson.toJson(jsonOutput);
-        return finalJsonOutput;
-    }
     
     @GET
     @Path("/updateShipment")
