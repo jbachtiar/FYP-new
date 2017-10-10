@@ -187,7 +187,29 @@ public class OrderDAO {
         Order[] orderArr = orderList.toArray(new Order[orderList.size()]);
         return orderArr;
     }
+    public String updateOrderShipment(int orderId, String courierName, String trackingNo) throws SQLException{
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        PreparedStatement stmt1 = null;
+        ResultSet rs = null;
 
+        String sql = "UPDATE CUSTOMER_ORDER SET COURIER_NAME = ?, ORDER_TRACKING_NO = ? WHERE ORDER_ID = ?";
+        try{
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            
+            stmt.setString(1,courierName);
+            stmt.setString(2, trackingNo);
+            stmt.setInt(3, orderId);
+            
+            stmt.executeUpdate();
+            
+        } finally {
+            ConnectionManager.close(conn);
+        }
+
+        return "Success";
+    }
     public String updateOrder(Order o, int newStatusId) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;

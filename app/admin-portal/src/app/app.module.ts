@@ -66,6 +66,7 @@ import { DesignCatalogueComponent } from './design-catalogue/design-catalogue.co
 import { DesignDetailsComponent } from './design-details/design-details.component';
 import { DesignDetailsAddComponent } from './design-details-add/design-details-add.component';
 import { DesignDetailsEditComponent } from './design-details-edit/design-details-edit.component';
+import { ShippingDetailsPopupComponent } from './shipping-details-popup/shipping-details-popup.component';
 
 
 @NgModule({
@@ -112,7 +113,8 @@ import { DesignDetailsEditComponent } from './design-details-edit/design-details
     DesignCatalogueComponent,
     DesignDetailsComponent,
     DesignDetailsAddComponent,
-    DesignDetailsEditComponent
+    DesignDetailsEditComponent,
+    ShippingDetailsPopupComponent
   ],
   imports: [
     BrowserModule,
@@ -145,7 +147,8 @@ import { DesignDetailsEditComponent } from './design-details-edit/design-details
   ],
   bootstrap: [AppComponent],
   entryComponents: [
-    ConfirmationPopupComponent
+    ConfirmationPopupComponent,
+    ShippingDetailsPopupComponent
   ]
 })
 export class AppModule { }

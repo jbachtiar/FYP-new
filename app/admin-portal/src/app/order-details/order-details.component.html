@@ -105,8 +105,8 @@
   <div class="row" style="margin-top:40px">
     <div class="col-12 text-center">
       <div class="button-row">
-        <button class="progress-button" md-raised-button [ngStyle]=" { 'background-color': 'white'} " (click)="onPrevious() ">Previous Process</button>
-        <button class="progress-button" color="warn" md-raised-button (click)="onNext()">Next Process</button>
+        <button class="progress-button" md-raised-button [ngStyle]=" { 'background-color': 'white'} " (click)="onPrevious() " [disabled]="orderJustStarted">Previous Process</button>
+        <button class="progress-button" color="warn" md-raised-button (click)="onNext()" [disabled]="orderIsCompleted">Next Process</button>
       </div>
     </div>
   </div>
