@@ -3,6 +3,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { AlertService } from '../alert.service'
 import { AuthenticationService } from '../authentication.service'
+import { ShoppingCart } from "../model/shopping-cart.model";
+import { ShoppingCartService } from '../shopping-cart.service';
 
 import { DialogComponent, DialogService } from "ng2-bootstrap-modal";
 
@@ -28,6 +30,7 @@ export class LoginPopupComponent extends DialogComponent<LoginPopupModel, boolea
         dialogService: DialogService,
         private route: ActivatedRoute,
         private router: Router,
+        private shoppingCartService: ShoppingCartService,
         private authenticationService: AuthenticationService,
         private alertService: AlertService) {
         super(dialogService);
@@ -47,6 +50,8 @@ export class LoginPopupComponent extends DialogComponent<LoginPopupModel, boolea
                 console.log("RES: " + res);
                 if(res.status === '200'){
                     console.log("RES STATUS :" + "Login successful");
+                    // let cart : ShoppingCart = JSON.parse(localStorage.getItem("cart"));
+                    // this.shoppingCartService.updateCartDB(cart)
                     this.confirm()
                     this.loading = false; 
                     // this.router.navigate([this.returnUrl]);

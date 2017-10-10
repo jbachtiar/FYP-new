@@ -13,6 +13,7 @@ import { ProductDetailComponent } from './product-detail/product-detail.componen
 import { MyaccountComponent } from './myaccount/myaccount.component'
 import { CheckoutComponent } from './checkout/checkout.component'
 import { PaymentComponent } from './payment/payment.component'
+import { HomeAccessoriesComponent } from './home-accessories/home-accessories.component'
 import { AuthGuard } from './guard/auth.guard'
 import { CartComponent } from './cart/cart.component'
 import { TrackOrderDetailComponent} from './track-order-detail/track-order-detail.component';
@@ -34,6 +35,7 @@ const appRoutes: Routes = [
     { path: 'checkout', component: CheckoutComponent, canActivate: [AuthGuard] /*, canDeactivate:[CanDeactivateGuard] */ },
     { path: 'checkout/payment', component: PaymentComponent, canActivate: [AuthGuard] },
     { path: 'cart', component: CartComponent },
+    { path: 'accessories', component: HomeAccessoriesComponent },
     { path: 'profile-sidebar/:orderId', component: TrackOrderDetailComponent },
     { path: 'activate-account/:email/:code', component: AccountVerificationComponent}
 ];

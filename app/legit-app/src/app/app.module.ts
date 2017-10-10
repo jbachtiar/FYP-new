@@ -60,6 +60,7 @@ import { TrackOrderDetailComponent } from './track-order-detail/track-order-deta
 import {MdExpansionModule} from '@angular/material'
 import { Angulartics2Module, Angulartics2GoogleAnalytics } from 'angulartics2';
 import { AccountVerificationComponent } from './account-verification/account-verification.component';
+import { HomeAccessoriesComponent } from './home-accessories/home-accessories.component';
 
 @NgModule({
   declarations: [
@@ -90,7 +91,8 @@ import { AccountVerificationComponent } from './account-verification/account-ver
     DeleteConfirmationPopupComponent,
     AddressBookComponent,
     TrackOrderDetailComponent,
-    AccountVerificationComponent
+    AccountVerificationComponent,
+    HomeAccessoriesComponent
   ],
   imports: [
     BrowserModule,
