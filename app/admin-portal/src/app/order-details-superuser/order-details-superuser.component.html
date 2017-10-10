@@ -132,12 +132,12 @@
         <form name="form" (ngSubmit)="f.form.valid && updateOrder()" #f="ngForm" novalidate>
           <label for="status">Status</label>
           <select [ngModelOptions]="{standalone: true}" [(ngModel)]="selectedStatus">
-            <option *ngFor="let s of statusMenu" [ngValue]="s">{{s}}</option>
+            <option *ngFor="let s of statusMenu" [ngValue]="s.statusName">{{s.statusName}}</option>
           </select>
 
           <label for="courier">Courier</label>
           <select [ngModelOptions]="{standalone: true}" [(ngModel)]="order.courierName">
-            <option *ngFor="let c of courierMenu" [ngValue]="c">{{c}}</option>
+            <option *ngFor="let c of courierMenu" [ngValue]="c.courierName">{{c.courierName}}</option>
           </select>
 
           <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !shippingTrackingNum.valid }">

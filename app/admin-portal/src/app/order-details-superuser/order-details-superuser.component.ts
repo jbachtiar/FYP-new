@@ -19,9 +19,12 @@ export class OrderDetailsSuperuserComponent implements OnInit {
   private status: any = {};
   private index: number = 0;
   orderStatusSize: any;
-  statusMap: any = { 'Payment Received': 1, 'In Production': 2, 'Packaging': 3, 'Pending for Shipment': 4, 'Shipped': 5, 'Completed': 6, 'Canceled': 7 }
-  statusMenu = ["Payment Received", "In Production", "Packaging", "Pending for Shipment", "Shipped", "Completed", "Canceled"];
-  courierMenu = ["Shun Feng", "DHL"];
+ // statusMap: any = { 'Payment Received': 1, 'In Production': 2, 'Packaging': 3, 'Pending for Shipment': 4, 'Shipped': 5, 'Completed': 6, 'Canceled': 7 }
+  statusMap: any ={};
+ // statusMenu = ["Payment Received", "In Production", "Packaging", "Pending for Shipment", "Shipped", "Completed", "Canceled"];
+  statusMenu: any;  
+//courierMenu = ["Shun Feng", "DHL"];
+  courierMenu: any;
   sizeMenu = ["Single", "Double", "Queen", "King"];
   patternMenu: any
   fabricMenu: any
@@ -81,6 +84,7 @@ export class OrderDetailsSuperuserComponent implements OnInit {
       }
     }
     this.selectedStatus = currentStatus.orderStatus.statusName;
+    console.log("selectedStatus"+ this.selectedStatus);
     this.initialStatus = currentStatus.orderStatus.statusName;
     //  return currentStatus.orderStatus.statusName;
 
@@ -92,6 +96,30 @@ export class OrderDetailsSuperuserComponent implements OnInit {
         this.patternMenu = patterns;
 
       });
+
+
+    this.orderService.getCouriers().subscribe(
+      couriers => {
+        this.courierMenu = couriers;
+        console.log("couriers"+ this.courierMenu);
+
+      });
+
+
+      this.orderService.getOrderStatus().subscribe(
+        status => {
+          this.statusMenu = status;
+          for (let s of this.statusMenu) {
+            this.statusMap[s.statusName]=s.statusId;
+          
+          } 
+
+          console.log("statusLog"+ this.statusMap);
+        
+      
+       
+  
+        });
 
 
 
@@ -110,10 +138,10 @@ export class OrderDetailsSuperuserComponent implements OnInit {
 
     this.productService.getPatternByName(patternName).subscribe(
       pattern => {
-        console.log("pattern" + patternName);
+        //console.log("pattern" + patternName);
         this.fabricMenu = pattern.fabrics;
         // this.selectedFabric = this.fabricMenu[0];
-        console.log("fabric" + this.fabricMenu);
+        //console.log("fabric" + this.fabricMenu);
 
       });
 
@@ -127,7 +155,7 @@ export class OrderDetailsSuperuserComponent implements OnInit {
         //console.log("pattern" + patternName);
         this.colourMenu = colour;
         // this.selectedFabric = this.fabricMenu[0];
-        console.log("color" + this.colourMenu);
+       // console.log("color" + this.colourMenu);
 
       });
 
@@ -140,14 +168,17 @@ export class OrderDetailsSuperuserComponent implements OnInit {
 
 
   updateOrder() {
+    console.log("status id"+this.selectedStatus);
 
     if (this.initialStatus == this.selectedStatus) {
       this.newStatusId = 0;
 
     } else {
       this.newStatusId = this.statusMap[this.selectedStatus];
+      console.log("status id"+this.newStatusId);
     }
 
+  
 
     let newOrder = {
       "orderId": this.orderId,
@@ -174,7 +205,7 @@ export class OrderDetailsSuperuserComponent implements OnInit {
 
     this.edit = false;
     this.editProd = false;
-    window.location.reload();
+    //window.location.reload();
 
 
 

@@ -21,6 +21,28 @@ export class OrderService {
 
     }
 
+    getCouriers() {
+        let params: URLSearchParams = new URLSearchParams();
+        let url = CONFIG.orderBackendUrl + '/getAllCouriers';
+        return this._http.get(url)
+            .map(res => {
+                return res.json().couriers;
+            });
+
+    }
+
+    getOrderStatus() {
+        let params: URLSearchParams = new URLSearchParams();
+        let url = CONFIG.orderStatusLogBackendUrl + '/getAllOrderStatus';
+        return this._http.get(url)
+            .map(res => {
+                return res.json().orderStatus;
+            });
+
+    }
+
+    
+
     getOrderById(orderId) {
         let params: URLSearchParams = new URLSearchParams();
         let url = CONFIG.orderBackendUrl + '/getOrderById?orderId=' + orderId;

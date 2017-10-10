@@ -9,9 +9,12 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import dao.CourierDAO;
 import dao.OrderDAO;
+import entity.Courier;
 import entity.Order;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.annotation.security.PermitAll;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
@@ -106,6 +109,48 @@ public class OrderService {
                 jsonOutput.addProperty("status", "200");
                 JsonArray orders = gson.toJsonTree(oArr).getAsJsonArray(); // convert arraylist to jsonArray
                 jsonOutput.add("orders", orders);
+                
+            }
+            
+        } catch (SQLException e) {
+            
+            jsonOutput.addProperty("status", "500");
+            jsonOutput.addProperty("msg", "OrderService: SQL Exception" + e.getMessage());
+            
+        }
+        
+        String finalJsonOutput = gson.toJson(jsonOutput);
+        return finalJsonOutput;
+    }
+    
+    @GET
+    @Path("/getAllCouriers")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getAllCouriers() {
+        
+        response.setHeader("Access-Control-Allow-Headers", "Content-Type");
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
+        
+        Gson gson = new GsonBuilder().create();
+        JsonObject jsonOutput = new JsonObject();
+        
+        JsonArray orderArray = new JsonArray();
+        CourierDAO courierDao= new CourierDAO();
+        
+        try {
+            
+            Courier[] cArr = courierDao.getAllCouriers();
+            if (cArr == null) {
+                
+                jsonOutput.addProperty("status", "500");
+                jsonOutput.addProperty("msg", "No Couriers Available");
+                
+            } else {
+                
+                jsonOutput.addProperty("status", "200");
+                JsonArray couriers = gson.toJsonTree(cArr).getAsJsonArray(); // convert array to jsonArray
+                jsonOutput.add("couriers", couriers);
                 
             }
             
