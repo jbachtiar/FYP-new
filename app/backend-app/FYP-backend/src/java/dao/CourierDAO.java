@@ -75,4 +75,32 @@ public class CourierDAO {
 
     }
 
+    public Courier[] getAllAvailableCouriers() throws SQLException {
+
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        ArrayList <Courier> result = new ArrayList<>();
+
+        String sql = "SELECT * FROM COURIER";
+
+        try {
+
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                String courierName = rs.getString("COURIER_NAME");
+                String trackingURL = rs.getString("TRACKING_URL");
+                result.add(new Courier(courierName, trackingURL));
+            }
+
+        } finally {
+            ConnectionManager.close(conn, stmt, rs);
+        }
+
+        return result.toArray(new Courier[result.size()]);
+
+    }
 }

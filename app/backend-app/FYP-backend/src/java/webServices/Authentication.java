@@ -150,9 +150,10 @@ public class Authentication {
                         //String name = customer.getName();
                         status = "200";
                         token = tokenManagement.createJWT(email, "highlander", "login");
-
+                        
                         responseMap.put("status", status);
                         responseMap.put("token", token);
+                        responseMap.put("roleId", ""+staff.getRoleId());
 
                     } else {
                         status = "Invalid password";
