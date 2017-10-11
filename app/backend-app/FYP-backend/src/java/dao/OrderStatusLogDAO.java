@@ -80,7 +80,7 @@ public class OrderStatusLogDAO {
             stmt.setInt(2, orderId);
             stmt.setInt(3, previousStatusId);
             stmt.executeUpdate();
-            updateDuration(orderId, previousStatusId);
+            String success = updateDuration(orderId, previousStatusId);
             
             stmt1 = conn.prepareStatement(sql1);
             stmt1.setInt(1, orderId);
@@ -99,7 +99,7 @@ public class OrderStatusLogDAO {
 
     }
     
-    public void updateDuration(int orderId, int previousStatusId) throws SQLException {
+    public String updateDuration(int orderId, int previousStatusId) throws SQLException {
         
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -121,7 +121,15 @@ public class OrderStatusLogDAO {
                 long diff = endTimeStamp.getTime() - startTimeStamp.getTime();
                 duration = (double)diff;
             }
+            
+            sql = "UPDATE ORDER_STATUS_LOG SET DURATION = ? WHERE ORDER_ID = ? AND STATUS_ID = ?";
+            stmt = conn.prepareStatement(sql);
+            stmt.setDouble(1, duration);
+            stmt.setInt(2, orderId);
+            stmt.setInt(3, previousStatusId);
+            stmt.executeUpdate();
 
+            return "Success";
         } finally {
             
             ConnectionManager.close(conn, stmt, rs);
