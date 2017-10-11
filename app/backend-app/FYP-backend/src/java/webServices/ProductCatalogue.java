@@ -53,7 +53,7 @@ public class ProductCatalogue {
 
     @Context
     private HttpServletResponse response;
-    
+
     @GET
     @Path("/getBeddings")
     @Produces(MediaType.APPLICATION_JSON)
@@ -96,23 +96,23 @@ public class ProductCatalogue {
         return finalJsonOutput;
 
     }
-    
+
     @GET
     @Path("/getProductById")
     @Produces(MediaType.APPLICATION_JSON)
     public Product getProductById(@QueryParam("productId") int productId) {
-        
+
         ProductDAO pDAO = new ProductDAO();
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
-        
+
         Gson gson = new GsonBuilder().create();
         JsonObject jsonOutput = new JsonObject();
 
         try {
-                jsonOutput.addProperty("status", "200");
-                Product p = pDAO.getProductById(productId);
-                return p;
+            jsonOutput.addProperty("status", "200");
+            Product p = pDAO.getProductById(productId);
+            return p;
 
         } catch (SQLException e) {
             System.out.println(e);
@@ -122,7 +122,7 @@ public class ProductCatalogue {
         }
 
     }
-    
+
     @GET
     @Path("/delete")
     @Produces(MediaType.APPLICATION_JSON)
@@ -131,13 +131,13 @@ public class ProductCatalogue {
         ProductDAO pDAO = new ProductDAO();
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
-        
+
         Gson gson = new GsonBuilder().create();
         JsonObject jsonOutput = new JsonObject();
 
         try {
-                jsonOutput.addProperty("status", "200");
-                pDAO.deleteProductById(productId);
+            jsonOutput.addProperty("status", "200");
+            pDAO.deleteProductById(productId);
 
         } catch (SQLException e) {
             System.out.println(e);
@@ -148,7 +148,34 @@ public class ProductCatalogue {
         String finalJsonOutput = gson.toJson(jsonOutput);
         return finalJsonOutput;
     }
-    
+
+    @GET
+    @Path("/getNextProductId")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getNextProductId(@QueryParam("productId") int productId) {
+
+        ProductDAO pDAO = new ProductDAO();
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
+
+        Gson gson = new GsonBuilder().create();
+        JsonObject jsonOutput = new JsonObject();
+
+        try {
+            int nextProductId = pDAO.getNextProductId();
+            jsonOutput.addProperty("status", "200");
+            jsonOutput.addProperty("nextProductId", nextProductId);
+
+        } catch (SQLException e) {
+            System.out.println(e);
+            jsonOutput.addProperty("status", "500");
+
+        }
+
+        String finalJsonOutput = gson.toJson(jsonOutput);
+        return finalJsonOutput;
+    }
+
     @OPTIONS
     @PermitAll
     @Path("/save")
@@ -158,42 +185,41 @@ public class ProductCatalogue {
         response.setHeader("Access-Control-Allow-Headers", "authorization");
 
     }
-    
+
     @POST
     @Path("/save")
     @Produces(MediaType.APPLICATION_JSON)
     public String saveProduct(@FormParam("product") String json) {
-        
+
         ProductDAO pDAO = new ProductDAO();
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
 
         Gson gs = new Gson();
         Product productToSave = gs.fromJson(json, Product.class);
-        
+
         Gson gson = new GsonBuilder().create();
         JsonObject jsonOutput = new JsonObject();
 
         try {
-                System.out.println("JSON: " + json);
-                
-                if(!pDAO.productCombinationExist(productToSave)){
-                    jsonOutput.addProperty("status", "200");
-                    jsonOutput.addProperty("newProductId", pDAO.addProduct(productToSave));
-                    
-                }else{
-                    
-                    jsonOutput.addProperty("status", "500");
-                    jsonOutput.addProperty("error: ", "Combination Exists");
-                }
-                
+            System.out.println("JSON: " + json);
+
+            if (!pDAO.productCombinationExist(productToSave)) {
+                jsonOutput.addProperty("status", "200");
+                jsonOutput.addProperty("newProductId", pDAO.addProduct(productToSave));
+
+            } else {
+
+                jsonOutput.addProperty("status", "500");
+                jsonOutput.addProperty("error: ", "Combination Exists");
+            }
 
         } catch (SQLException e) {
             System.out.println(e);
             jsonOutput.addProperty("status", "500");
             jsonOutput.addProperty("error: ", e.toString());
 
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e);
             jsonOutput.addProperty("status", "500");
             jsonOutput.addProperty("error: ", e.toString());
@@ -202,7 +228,7 @@ public class ProductCatalogue {
         String finalJsonOutput = gson.toJson(jsonOutput);
         return finalJsonOutput;
     }
-    
+
     @OPTIONS
     @PermitAll
     @Path("/update")
@@ -212,26 +238,26 @@ public class ProductCatalogue {
         response.setHeader("Access-Control-Allow-Headers", "authorization");
 
     }
-    
+
     @POST
     @Path("/update")
     @Produces(MediaType.APPLICATION_JSON)
     public String updateProduct(@FormParam("product") String json) {
-        
+
         ProductDAO pDAO = new ProductDAO();
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
 
         Gson gs = new Gson();
         Product productToUpdate = gs.fromJson(json, Product.class);
-        
+
         Gson gson = new GsonBuilder().create();
         JsonObject jsonOutput = new JsonObject();
 
         try {
-                System.out.println("JSON: " + json);
-                jsonOutput.addProperty("status", "200");
-                pDAO.updateProduct(productToUpdate);
+            System.out.println("JSON: " + json);
+            jsonOutput.addProperty("status", "200");
+            pDAO.updateProduct(productToUpdate);
 
         } catch (SQLException e) {
             System.out.println(e);
@@ -244,29 +270,25 @@ public class ProductCatalogue {
         return finalJsonOutput;
     }
 
-
-    
     @GET
     @Path("/GetFilters")
     @Produces(MediaType.APPLICATION_JSON)
     public String getAllFilters() {
-        
+
         response.setHeader("Access-Control-Allow-Headers", "Content-Type");
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
 
         Gson gson = new GsonBuilder().create();
         JsonObject jsonOutput = new JsonObject();
-        
+
         //get collection objects
         JsonArray collectionArray = new JsonArray();
         CollectionDAO collectionDao = new CollectionDAO();
 
-
         //get fabric objects
         JsonArray fabricArray = new JsonArray();
         FabricDAO fabricDao = new FabricDAO();
-        
 
         //get colour objects
         JsonArray colourArray = new JsonArray();
@@ -277,18 +299,18 @@ public class ProductCatalogue {
             Collection[] collectionArr = collectionDao.getCurrentCollections();
             Fabric[] fabricArr = fabricDao.getCurrentFabrics();
             Colour[] colourArr = colourDao.getCurrentColours();
-           
+
             jsonOutput.addProperty("status", "200");
             JsonArray collections = gson.toJsonTree(collectionArr).getAsJsonArray();
             JsonArray fabrics = gson.toJsonTree(fabricArr).getAsJsonArray();
             JsonArray colours = gson.toJsonTree(colourArr).getAsJsonArray();
-            
+
             JsonObject filter = new JsonObject();
-            
+
             filter.add("collections", collections);
             filter.add("fabrics", fabrics);
             filter.add("colours", colours);
-            
+
             jsonOutput.add("filters", filter);
 
         } catch (SQLException e) {
@@ -300,15 +322,14 @@ public class ProductCatalogue {
 
         String finalJsonOutput = gson.toJson(jsonOutput);
         return finalJsonOutput;
-        
+
     }
-    
-    
+
     @GET
     @Path("/FilterBeddingPatterns")
     @Produces(MediaType.APPLICATION_JSON)
     public String getFilteredProductsCatalogue(@QueryParam("collectionId") String stringCollectionId, @QueryParam("fabricId") String stringFabricId, @QueryParam("colourId") String stringColourId, @QueryParam("sortPrice") String sortPrice, @QueryParam("search") String search) {
-        
+
         response.setHeader("Access-Control-Allow-Headers", "Content-Type");
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
@@ -317,23 +338,23 @@ public class ProductCatalogue {
         JsonObject jsonOutput = new JsonObject();
         JsonArray patterns = new JsonArray();
         ProductDAO productDao = new ProductDAO();
-        
+
         int collectionId = 0;
         int fabricId = 0;
         int colourId = 0;
-        
-        if(!stringCollectionId.equals("undefined")){
-            
+
+        if (!stringCollectionId.equals("undefined")) {
+
             collectionId = Integer.parseInt(stringCollectionId);
         }
-        
-        if(!stringFabricId.equals("undefined")){
-            
+
+        if (!stringFabricId.equals("undefined")) {
+
             fabricId = Integer.parseInt(stringFabricId);
         }
-        
-        if(!stringColourId.equals("undefined")){
-            
+
+        if (!stringColourId.equals("undefined")) {
+
             colourId = Integer.parseInt(stringColourId);
         }
 
@@ -341,15 +362,15 @@ public class ProductCatalogue {
 
             ArrayList<Bedding> beddingDesigns = productDao.getFilteredBeddingPatterns(collectionId, fabricId, colourId, sortPrice, search);
             jsonOutput.addProperty("status", "200");
-            
-            if(sortPrice.equals("asc")){
-                
+
+            if (sortPrice.equals("asc")) {
+
                 Collections.sort(beddingDesigns, new BeddingComparator());
-                
-            }else if(sortPrice.equals("desc")){
-                
+
+            } else if (sortPrice.equals("desc")) {
+
                 Collections.sort(beddingDesigns, Collections.reverseOrder(new BeddingComparator()));
-                
+
             }
 
             for (Bedding b : beddingDesigns) {
@@ -610,7 +631,7 @@ public class ProductCatalogue {
         String finalJsonOutput = gson.toJson(jsonOutput);
         return finalJsonOutput;
     }
-    
+
     @GET
     @Path("/patternCombination")
     @Produces(MediaType.APPLICATION_JSON)
@@ -627,7 +648,7 @@ public class ProductCatalogue {
             FabricDAO fabricDao = new FabricDAO();
             CollectionDAO collectionDao = new CollectionDAO();
             Pattern pattern = patternDao.getPatternByName(patternName);
-            int patternId= pattern.getPatternId();
+            int patternId = pattern.getPatternId();
             ColourDAO colourDao = new ColourDAO();
             ProductDAO productDao = new ProductDAO();
             ArrayList<Fabric> fabrics = fabricDao.getFabricsByPatternId(patternId);
@@ -710,7 +731,6 @@ public class ProductCatalogue {
         return finalJsonOutput;
     }
 
-
     @GET
     @Path("/getProductId")
     @Produces(MediaType.APPLICATION_JSON)
@@ -731,11 +751,9 @@ public class ProductCatalogue {
             } else {
                 String productString = gson.toJson(p);
                 JsonElement productElement = parser.parse(productString);
-                
+
                 jsonOutput.addProperty("status", "200");
-                jsonOutput.add("product", productElement );
-                
-               
+                jsonOutput.add("product", productElement);
 
             }
         } catch (SQLException e) {
@@ -747,5 +765,5 @@ public class ProductCatalogue {
         String finalJsonOutput = gson.toJson(jsonOutput);
         return finalJsonOutput;
     }
-    
+
 }

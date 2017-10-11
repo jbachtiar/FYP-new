@@ -290,5 +290,15 @@ export class CatalogueService {
             });
     }
 
+    getNextProductId(){
+        let url = CONFIG.productCatalogueBackendUrl + '/getNextProductId';
+        let finalUrl = url 
+        return this._http.get(finalUrl)
+            .map(res => {
+                console.log(finalUrl)
+                return res.json();
+            });
+    }
+
 
 }
