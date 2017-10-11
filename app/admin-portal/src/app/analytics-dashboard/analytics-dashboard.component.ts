@@ -8,10 +8,12 @@ declare var gapi: any;
   styleUrls: ['./analytics-dashboard.component.css']
 })
 export class AnalyticsDashboardComponent implements OnInit {
-
+  loading: boolean = true;
+  
   constructor() { }
 
   ngOnInit() {
+    
     gapi.analytics.ready(function () {
 
       // Step 3: Authorize the user.
@@ -265,6 +267,7 @@ export class AnalyticsDashboardComponent implements OnInit {
           }
         }
         userBrowser.set(newIds).execute();
+        this.loading = false;
       });
     });
   }
