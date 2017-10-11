@@ -10,14 +10,15 @@ export class ManagerGuard implements CanActivate {
         //verify if have token
         if (localStorage.getItem('token')) {
             // logged in so return true
-            if(localStorage.getItem('roleId')=="2"){
+            let roleId = localStorage.getItem('roleId')
+            if(roleId=="1"||roleId=="2"){
                 return true;
             }
            
         }
 
         // not logged in so redirect to login page with the return url
-        this.router.navigate(['/']);
+        this.router.navigate(['orders']);
         return false;
     }
 }
