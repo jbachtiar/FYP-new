@@ -37,7 +37,7 @@ export class AnalyticsDashboardComponent implements OnInit {
           'dimensions': 'ga:date',
           'metrics': 'ga:sessions',
           'start-date': '30daysAgo',
-          'end-date': 'yesterday',
+          'end-date': 'today',
         },
         chart: {
           type: 'LINE',
@@ -115,7 +115,7 @@ export class AnalyticsDashboardComponent implements OnInit {
           'dimensions': 'ga:userType',
           'metrics': 'ga:users',
           'start-date': '30daysAgo',
-          'end-date': 'yesterday',
+          'end-date': 'today',
         },
         chart: {
           type: 'PIE',
@@ -146,7 +146,7 @@ export class AnalyticsDashboardComponent implements OnInit {
           metrics: 'ga:sessions',
           dimensions: 'ga:country',
           'start-date': '30daysAgo',
-          'end-date': 'yesterday',
+          'end-date': 'today',
           'max-results': 6,
           sort: '-ga:sessions'
         },
@@ -178,7 +178,7 @@ export class AnalyticsDashboardComponent implements OnInit {
           metrics: 'ga:pageviews',
           dimensions: 'ga:browser',
           'start-date': '30daysAgo',
-          'end-date': 'yesterday',
+          'end-date': 'today',
           'max-results': 6,
           sort: 'ga:pageviews'
         },
