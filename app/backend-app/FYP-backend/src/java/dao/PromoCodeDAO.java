@@ -21,30 +21,33 @@ import java.util.ArrayList;
 public class PromoCodeDAO {
 
     //Create 1 PromoCode
-    public void addPromoCode(PromoCode pc) throws SQLException {
+    public int addPromoCode(PromoCode pc) throws SQLException {
         
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
+        int newPromoId = getNextPromoCodeId();
 
-        String sql = "INSERT INTO PROMO_CODE (PROMO_CODE_ID, PROMO_CODE, PROMO_NAME, PROMO_TYPE, PROMO_VALUE, MIN_PURCHASE, MAX_DISCOUNT, QUOTA, COUNTER, START_DATE, END_DATE, DELETED) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO PROMO_CODE (PROMO_CODE_ID, PROMO_CODE, PROMO_NAME, PROMO_TYPE, PROMO_VALUE, PERCENT_OFF, MIN_PURCHASE, MAX_DISCOUNT, QUOTA, COUNTER, START_DATE, END_DATE, DELETED) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
         try {
             conn = ConnectionManager.getConnection();
             stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, pc.getPromoCodeId());
+            stmt.setInt(1, newPromoId);
             stmt.setString(2, pc.getPromoCode());
             stmt.setString(3, pc.getPromoName());
             stmt.setString(4, pc.getPromoType());
             stmt.setDouble(5, pc.getPromoValue());
-            stmt.setDouble(6, pc.getMinPurchase());
-            stmt.setDouble(7, pc.getMaxDiscount());
-            stmt.setInt(8, pc.getQuota());
-            stmt.setInt(9, pc.getCounter());
-            stmt.setDate(10, pc.getStartDate());
-            stmt.setDate(11, pc.getEndDate());
-            stmt.setDouble(12, 'N');
+            stmt.setInt(6, pc.getPercentOff());
+            stmt.setDouble(7, pc.getMinPurchase());
+            stmt.setDouble(8, pc.getMaxDiscount());
+            stmt.setInt(9, pc.getQuota());
+            stmt.setInt(10, pc.getCounter());
+            stmt.setDate(11, pc.getStartDate());
+            stmt.setDate(12, pc.getEndDate());
+            stmt.setDouble(13, 'N');
             stmt.executeUpdate();
+            return newPromoId;
 
             
         } finally {
@@ -108,13 +111,58 @@ public class PromoCodeDAO {
                 String promoName = rs.getString("PROMO_NAME");
                 String promoType = rs.getString("PROMO_TYPE");
                 double promoValue = rs.getDouble("PROMO_VALUE");
+                int percentOff = rs.getInt("PERCENT_OFF");
                 double minPurchase = rs.getDouble("MIN_PURCHASE");
                 double discount = rs.getDouble("MAX_DISCOUNT");
                 int quota = rs.getInt("QUOTA");
                 int counter = rs.getInt("COUNTER");
                 Date start_date = rs.getDate("START_DATE");
                 Date end_date = rs.getDate("END_DATE");
-                p = new PromoCode(promoId, promoCode, promoName, promoType, promoValue, minPurchase, discount, quota, counter, start_date, end_date);
+                p = new PromoCode(promoId, promoCode, promoName, promoType, promoValue, percentOff, minPurchase, discount, quota, counter, start_date, end_date);
+
+            }
+
+        } finally {
+            
+            ConnectionManager.close(conn, stmt, rs);
+            
+        }
+
+        return p;
+
+    }
+    
+    //Retrieve 1 PromoCode by ID
+    public PromoCode getPromoCodeByPromoCode(String promoCode) throws SQLException {
+
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        PromoCode p = null;
+
+        String sql = "SELECT * FROM PROMO_CODE WHERE PROMO_CODE = ? AND DELETED = 'N'";
+
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, promoCode);
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+
+                int promoId = rs.getInt("PROMO_CODE_ID");
+                String promoCode1 = rs.getString("PROMO_CODE");
+                String promoName = rs.getString("PROMO_NAME");
+                String promoType = rs.getString("PROMO_TYPE");
+                double promoValue = rs.getDouble("PROMO_VALUE");
+                int percentOff = rs.getInt("PERCENT_OFF");
+                double minPurchase = rs.getDouble("MIN_PURCHASE");
+                double discount = rs.getDouble("MAX_DISCOUNT");
+                int quota = rs.getInt("QUOTA");
+                int counter = rs.getInt("COUNTER");
+                Date start_date = rs.getDate("START_DATE");
+                Date end_date = rs.getDate("END_DATE");
+                p = new PromoCode(promoId, promoCode1, promoName, promoType, promoValue, percentOff, minPurchase, discount, quota, counter, start_date, end_date);
 
             }
 
@@ -152,13 +200,14 @@ public class PromoCodeDAO {
                 String promoName = rs.getString("PROMO_NAME");
                 String promoType = rs.getString("PROMO_TYPE");
                 double promoValue = rs.getDouble("PROMO_VALUE");
+                int percentOff = rs.getInt("PERCENT_OFF");
                 double minPurchase = rs.getDouble("MIN_PURCHASE");
                 double discount = rs.getDouble("MAX_DISCOUNT");
                 int quota = rs.getInt("QUOTA");
                 int counter = rs.getInt("COUNTER");
                 Date start_date = rs.getDate("START_DATE");
                 Date end_date = rs.getDate("END_DATE");
-                p = new PromoCode(promoId, promoCode, promoName, promoType, promoValue, minPurchase, discount, quota, counter, start_date, end_date);
+                p = new PromoCode(promoId, promoCode, promoName, promoType, promoValue, percentOff, minPurchase, discount, quota, counter, start_date, end_date);
                 promoList.add(p);
                 
             }
