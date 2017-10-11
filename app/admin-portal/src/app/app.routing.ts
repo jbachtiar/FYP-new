@@ -50,17 +50,17 @@ const appRoutes: Routes = [
     { path: 'orders/:orderId', component: OrderDetailsComponent, canActivate: [ManagerGuard]},
     { path: 'superuser', component: OrderManagementSuperuserComponent, canActivate: [SuperGuard]},
     { path: 'superuser/order/:orderId', component: OrderDetailsSuperuserComponent, canActivate: [SuperGuard]},
-    { path: 'catalogue', component: CatalogueComponent, canActivate: [ManagerGuard]},
-    { path: 'catalogue/product/:productId', component: ProductDetailsComponent, canActivate: [ManagerGuard]},
-    { path: 'catalogue/design/:patternId', component: DesignDetailsComponent, canActivate: [ManagerGuard]},
-    { path: 'catalogue/fabric/:fabricId', component: FabricDetailsComponent, canActivate: [ManagerGuard]},
-    { path: 'catalogue/colour/:colourId', component: ColourDetailsComponent, canActivate: [ManagerGuard]},
-    { path: 'catalogue/collection/:collectionId', component: CollectionDetailsComponent, canActivate: [ManagerGuard]},
-    { path: 'catalogue/add/product', component: ProductDetailsAddComponent, canActivate: [ManagerGuard]},
-    { path: 'catalogue/add/design', component: DesignDetailsAddComponent, canActivate: [ManagerGuard]},
-    { path: 'catalogue/add/fabric', component: FabricDetailsAddComponent, canActivate: [ManagerGuard]},
-    { path: 'catalogue/add/colour', component: ColourDetailsAddComponent, canActivate: [ManagerGuard]},
-    { path: 'catalogue/add/collection', component: CollectionDetailsAddComponent, canActivate: [ManagerGuard]}
+    { path: 'catalogue', component: CatalogueComponent, canActivate: [SuperGuard]},
+    { path: 'catalogue/product/:productId', component: ProductDetailsComponent, canActivate: [SuperGuard]},
+    { path: 'catalogue/design/:patternId', component: DesignDetailsComponent, canActivate: [SuperGuard]},
+    { path: 'catalogue/fabric/:fabricId', component: FabricDetailsComponent, canActivate: [SuperGuard]},
+    { path: 'catalogue/colour/:colourId', component: ColourDetailsComponent, canActivate: [SuperGuard]},
+    { path: 'catalogue/collection/:collectionId', component: CollectionDetailsComponent, canActivate: [SuperGuard]},
+    { path: 'catalogue/add/product', component: ProductDetailsAddComponent, canActivate: [SuperGuard]},
+    { path: 'catalogue/add/design', component: DesignDetailsAddComponent, canActivate: [SuperGuard]},
+    { path: 'catalogue/add/fabric', component: FabricDetailsAddComponent, canActivate: [SuperGuard]},
+    { path: 'catalogue/add/colour', component: ColourDetailsAddComponent, canActivate: [SuperGuard]},
+    { path: 'catalogue/add/collection', component: CollectionDetailsAddComponent, canActivate: [SuperGuard]}
     //{ path: 'register', component: RegisterComponent },
 ];
 
