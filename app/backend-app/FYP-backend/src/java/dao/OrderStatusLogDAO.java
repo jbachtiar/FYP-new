@@ -69,7 +69,7 @@ public class OrderStatusLogDAO {
         PreparedStatement stmt1 = null;
         ResultSet rs = null;
 
-        String sql = "UPDATE ORDER_STATUS_LOG SET END_TIMESTAMP = ?, DURATION_HOURS = ? WHERE ORDER_ID = ? AND STATUS_ID = ? AND DURATION_HOURS = 0";
+        String sql = "UPDATE ORDER_STATUS_LOG SET END_TIMESTAMP = ? WHERE ORDER_ID = ? AND STATUS_ID = ? AND DURATION_HOURS = 0";
         String sql1 = "INSERT ORDER_STATUS_LOG (ORDER_ID, STATUS_ID, START_TIMESTAMP, END_TIMESTAMP, DURATION_HOURS) VALUES (?,?,?,?,?)";
         
         try {
@@ -77,10 +77,10 @@ public class OrderStatusLogDAO {
             conn = ConnectionManager.getConnection();
             stmt = conn.prepareStatement(sql);
             stmt.setTimestamp(1, curr_ts);
-            stmt.setDouble(2, 10);
-            stmt.setInt(3, orderId);
-            stmt.setInt(4, previousStatusId);
+            stmt.setInt(2, orderId);
+            stmt.setInt(3, previousStatusId);
             stmt.executeUpdate();
+            updateDuration(orderId, previousStatusId);
             
             stmt1 = conn.prepareStatement(sql1);
             stmt1.setInt(1, orderId);
@@ -98,5 +98,37 @@ public class OrderStatusLogDAO {
         return "Success";
 
     }
+    
+    public void updateDuration(int orderId, int previousStatusId) throws SQLException {
+        
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        double duration = 0.0;
+
+        String sql = "SELECT START_TIMESTAMP, END_TIMESTAMP FROM ORDER_STATUS_LOG WHERE ORDER_ID = ? AND STATUS_ID = ?";
+
+        try {
+            
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+
+                Timestamp startTimeStamp = rs.getTimestamp("START_TIMESTAMP");
+                Timestamp endTimeStamp = rs.getTimestamp("END_TIMESTAMP");
+                long diff = endTimeStamp.getTime() - startTimeStamp.getTime();
+                duration = (double)diff;
+            }
+
+        } finally {
+            
+            ConnectionManager.close(conn, stmt, rs);
+            
+        }
+        
+    }
+
 
 }

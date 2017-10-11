@@ -18,7 +18,7 @@ public class PromoCode {
     private String promoName;
     private String promoType;
     private double promoValue;
-    private int percentOff;
+    //private int percentOff;
     private double minPurchase;
     private double maxDiscount;
     private int quota;
@@ -26,13 +26,13 @@ public class PromoCode {
     private Date startDate;
     private Date endDate;
 
-    public PromoCode(int promoCodeId, String promoCode, String promoName, String promoType, double promoValue, int percentOff, double minPurchase, double maxDiscount, int quota, int counter, Date startDate, Date endDate) {
+    public PromoCode(int promoCodeId, String promoCode, String promoName, String promoType, double promoValue, /*int percentOff,*/ double minPurchase, double maxDiscount, int quota, int counter, Date startDate, Date endDate) {
         this.promoCodeId = promoCodeId;
         this.promoCode = promoCode;
         this.promoName = promoName;
         this.promoType = promoType;
         this.promoValue = promoValue;
-        this.percentOff = percentOff;
+        //this.percentOff = percentOff;
         this.minPurchase = minPurchase;
         this.maxDiscount = maxDiscount;
         this.quota = quota;
@@ -128,7 +128,7 @@ public class PromoCode {
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
-
+/*
     public int getPercentOff() {
         return percentOff;
     }
@@ -136,5 +136,5 @@ public class PromoCode {
     public void setPercentOff(int percentOff) {
         this.percentOff = percentOff;
     }
-    
+*/   
 }

@@ -154,7 +154,7 @@ public class PromoCodeService {
                     
                 }else if(promoType.equals("Percent Off")){
                     
-                    discountAmount = purchaseAmt * (pc.getPercentOff()/100);
+                    discountAmount = purchaseAmt /* (pc.getPercentOff()/100)*/;
                 }
                 
                 if(discountAmount > pc.getMaxDiscount()){
@@ -245,7 +245,7 @@ public class PromoCodeService {
                     
                 }else if(promoType.equals("Percent Off")){
                     
-                    discountAmount = purchaseAmt * (pc.getPercentOff()/100);
+                    discountAmount = purchaseAmt /* (pc.getPercentOff()/100)*/;
                 }
                 
                 if(discountAmount > pc.getMaxDiscount()){
@@ -274,10 +274,20 @@ public class PromoCodeService {
         
     }
     
-    @GET
+    @OPTIONS
+    @PermitAll
+    @Path("/delete")
+    public void deletePromo() {
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
+        response.setHeader("Access-Control-Allow-Headers", "auhtorization");
+
+    }
+
+    @POST
     @Path("/delete")
     @Produces(MediaType.APPLICATION_JSON)
-    public String deletePromo(@QueryParam("PromoCodeId") int promoId) {
+    public String deletePromo(@FormParam("PromoCodeId") int promoId) {
         
         response.setHeader("Access-Control-Allow-Headers", "Content-Type");
         response.setHeader("Access-Control-Allow-Origin", "*");
