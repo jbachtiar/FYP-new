@@ -120,10 +120,12 @@
             <br>
             <br>
             <b>Courier :</b>
-            <br> {{order[0].courierName}}
+            <br> <span *ngIf="order[0].courierName!=null">{{order[0].courierName}}</span>
+            <span *ngIf="order[0].courierName==null">Not available yet.</span>
             <br>
             <b>Tracking No : </b>
-            <br> Not available yet.
+            <br> <span *ngIf="order[0].trackingNo!=null">{{order[0].trackingNo}}</span>
+            <span *ngIf="order[0].trackingNo==null">Not available yet.</span>
           </md-card-content>
           <hr>
           <md-card-header>
