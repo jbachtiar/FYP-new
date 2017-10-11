@@ -45,7 +45,7 @@ export class ProductDetailsComponent implements OnInit {
         this.selectedColour = this.product.colour
         this.selectedPattern = this.product.pattern
         this.patternUrl = CONFIG.eCommerceWebsiteUrl + '/productDetails/' + this.product.pattern.patternId
-        
+
         //add 0000 padding
         let temp = "" + product.productId
         var pad = "0000"
@@ -134,10 +134,25 @@ export class ProductDetailsComponent implements OnInit {
 
   onUploadImage(fileInput: any, image: any) {
     let AWSService = (<any>window).AWS
-    let imageUrl = ""
+
+
+    let fileName: string;
     console.log(AWSService)
     let file = fileInput.target.files[0];
-    let fileName = this.product.productId + '_' + image.imageId + '.png'
+    
+    let tempUrl = image.imageUrl
+    if (tempUrl.includes("https")) {
+      var res = tempUrl.split("/");
+      var prevFileName = res[res.length-1]
+      fileName = prevFileName.substring(0, prevFileName.indexOf('.')) + '_' + this.product.productId + '_' + image.imageId + '.png'
+    } else {
+      fileName = this.product.productId + '_' + image.imageId + '.png'
+    }
+
+    //loading animation
+    let imageUrl = "assets/img/loading_image.gif"
+    image['imageUrl'] = imageUrl
+
     AWSService.config.accessKeyId = 'AKIAJR7LKNNCXB6OVEPQ';
     AWSService.config.update({ region: 'us-west-2' });
     AWSService.config.secretAccessKey = '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';
@@ -152,7 +167,7 @@ export class ProductDetailsComponent implements OnInit {
     })
   }
 
-  onDelete(){
+  onDelete() {
     this.catService.deleteProduct(this.productId).subscribe(
       res => {
         if (res.status == 200) {
