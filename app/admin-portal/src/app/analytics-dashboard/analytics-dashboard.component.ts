@@ -8,12 +8,15 @@ declare var gapi: any;
   styleUrls: ['./analytics-dashboard.component.css']
 })
 export class AnalyticsDashboardComponent implements OnInit {
-
+  loading: boolean = true;
+  
   constructor() { }
 
   ngOnInit() {
+   
+    
     gapi.analytics.ready(function () {
-
+      
       // Step 3: Authorize the user.
 
       var CLIENT_ID = '28470806434-70vkmrvmro0pe549gvegrmspcqkao219.apps.googleusercontent.com';
@@ -265,6 +268,7 @@ export class AnalyticsDashboardComponent implements OnInit {
           }
         }
         userBrowser.set(newIds).execute();
+        this.loading = false;
       });
     });
   }

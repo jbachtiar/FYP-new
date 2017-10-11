@@ -29,38 +29,38 @@ import { ColourDetailsAddComponent } from './colour-details-add/colour-details-a
 import { CollectionDetailsAddComponent } from './collection-details-add/collection-details-add.component'
 
 import { AuthGuard } from './guard/guard';
+import { SuperGuard } from './guard/superGuard';
+import { ManagerGuard } from './guard/managerGuard';
 
 const appRoutes: Routes = [
+    // { path: '', component: AnalyticsDashboardComponent, canActivate: [SuperGuard] },
     { path: 'login', component: LoginComponent },
-    { path: 'homepage', component: HomepageComponent,  canActivate: [AuthGuard] },
+    // { path: 'homepage', component: HomepageComponent,  canActivate: [AuthGuard] },
     { path: 'user', component: UserComponent,  canActivate: [AuthGuard] },
-    { path: 'staffmanagement', component: StaffmanagementComponent,  canActivate: [AuthGuard] },
-    { path: 'promoCode', component: PromoCodeComponent,  canActivate: [AuthGuard] },
-    { path: 'patternList', component: PatternListComponent, canActivate: [AuthGuard]},
-    { path: 'patternList/patternDetails/:patternId', component: PatternDetailsComponent, canActivate: [AuthGuard]},
-    { path: 'patternList/addPatternDetails', component: PatternDetailsAddComponent, canActivate: [AuthGuard]},
-    { path: 'patternList/viewPatternDetails/:patternId', component: PatternDetailsViewComponent, canActivate: [AuthGuard]},
-    { path: 'orders', component: OrderFactoryManagerComponent, canActivate: [AuthGuard]},
+    { path: 'staffmanagement', component: StaffmanagementComponent,  canActivate: [SuperGuard] },
+    { path: 'promoCode', component: PromoCodeComponent,  canActivate: [SuperGuard] },
+    { path: 'patternList', component: PatternListComponent, canActivate: [ManagerGuard]},
+    { path: 'patternList/patternDetails/:patternId', component: PatternDetailsComponent, canActivate: [ManagerGuard]},
+    { path: 'patternList/addPatternDetails', component: PatternDetailsAddComponent, canActivate: [ManagerGuard]},
+    { path: 'patternList/viewPatternDetails/:patternId', component: PatternDetailsViewComponent, canActivate: [ManagerGuard]},
+    { path: 'orders', component: OrderFactoryManagerComponent, canActivate: [ManagerGuard]},
     { path: 'viewOrders', component: OrderFactoryWorkerComponent, canActivate: [AuthGuard]},
-    { path: 'analyticsdashboard', component: AnalyticsDashboardComponent, canActivate: [AuthGuard]},
-    { path: 'orders/:orderId', component: OrderDetailsComponent, canActivate: [AuthGuard]},
-    { path: 'orders/:orderId', component: OrderDetailsComponent, canActivate: [AuthGuard]},
-    { path: 'superuser', component: OrderManagementSuperuserComponent, canActivate: [AuthGuard]},
-    { path: 'superuser/order/:orderId', component: OrderDetailsSuperuserComponent, canActivate: [AuthGuard]},
-    { path: 'catalogue', component: CatalogueComponent, canActivate: [AuthGuard]},
-    { path: 'catalogue/product/:productId', component: ProductDetailsComponent, canActivate: [AuthGuard]},
-    { path: 'catalogue/design/:patternId', component: DesignDetailsComponent, canActivate: [AuthGuard]},
-    { path: 'catalogue/fabric/:fabricId', component: FabricDetailsComponent, canActivate: [AuthGuard]},
-    { path: 'catalogue/colour/:colourId', component: ColourDetailsComponent, canActivate: [AuthGuard]},
-    { path: 'catalogue/collection/:collectionId', component: CollectionDetailsComponent, canActivate: [AuthGuard]},
-    { path: 'catalogue/add/product', component: ProductDetailsAddComponent, canActivate: [AuthGuard]},
-    { path: 'catalogue/add/design', component: DesignDetailsAddComponent, canActivate: [AuthGuard]},
-    { path: 'catalogue/add/fabric', component: FabricDetailsAddComponent, canActivate: [AuthGuard]},
-    { path: 'catalogue/add/colour', component: ColourDetailsAddComponent, canActivate: [AuthGuard]},
-    { path: 'catalogue/add/collection', component: CollectionDetailsAddComponent, canActivate: [AuthGuard]}    
-    
-    
-    
+    { path: 'analyticsdashboard', component: AnalyticsDashboardComponent, canActivate: [SuperGuard]},
+    { path: 'orders/:orderId', component: OrderDetailsComponent, canActivate: [ManagerGuard]},
+    { path: 'orders/:orderId', component: OrderDetailsComponent, canActivate: [ManagerGuard]},
+    { path: 'superuser', component: OrderManagementSuperuserComponent, canActivate: [SuperGuard]},
+    { path: 'superuser/order/:orderId', component: OrderDetailsSuperuserComponent, canActivate: [SuperGuard]},
+    { path: 'catalogue', component: CatalogueComponent, canActivate: [ManagerGuard]},
+    { path: 'catalogue/product/:productId', component: ProductDetailsComponent, canActivate: [ManagerGuard]},
+    { path: 'catalogue/design/:patternId', component: DesignDetailsComponent, canActivate: [ManagerGuard]},
+    { path: 'catalogue/fabric/:fabricId', component: FabricDetailsComponent, canActivate: [ManagerGuard]},
+    { path: 'catalogue/colour/:colourId', component: ColourDetailsComponent, canActivate: [ManagerGuard]},
+    { path: 'catalogue/collection/:collectionId', component: CollectionDetailsComponent, canActivate: [ManagerGuard]},
+    { path: 'catalogue/add/product', component: ProductDetailsAddComponent, canActivate: [ManagerGuard]},
+    { path: 'catalogue/add/design', component: DesignDetailsAddComponent, canActivate: [ManagerGuard]},
+    { path: 'catalogue/add/fabric', component: FabricDetailsAddComponent, canActivate: [ManagerGuard]},
+    { path: 'catalogue/add/colour', component: ColourDetailsAddComponent, canActivate: [ManagerGuard]},
+    { path: 'catalogue/add/collection', component: CollectionDetailsAddComponent, canActivate: [ManagerGuard]}
     //{ path: 'register', component: RegisterComponent },
 ];
 

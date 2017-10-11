@@ -76,9 +76,9 @@ export class OrderDetailsSuperuserComponent implements OnInit {
     let status = statusLogs[0];
     console.log("STATUS: " + status)
     let currentStatus = status
-    let mostCurrentTimestamp = status.startTimeStamp;
+    var mostCurrentTimestamp = new Date(status.startTimeStamp);
     for (status of this.order.statusLogs) {
-      let timestamp = status.startTimeStamp;
+      var timestamp = new Date(status.startTimeStamp);
       console.log("current timestamp: " + timestamp + "> most current" + mostCurrentTimestamp)
       if (mostCurrentTimestamp < timestamp) {
         console.log("betul")

@@ -8,14 +8,15 @@ import { OrderService } from '../order.service';
   styleUrls: ['./track-order-detail.component.css']
 })
 export class TrackOrderDetailComponent implements OnInit {
-  
+
   @Input('orderId') inputOrderId: string;
-  private orderId: any={};
+  private orderId: any = {};
   private order: any = {};
   private orderItems: any = {}
   private statusLog: any = {}
   private statusId: number;
-  private loading : boolean = true;
+  private loading: boolean = true;
+  private
 
   color = 'accent';
   mode = 'determinate';
@@ -53,7 +54,7 @@ export class TrackOrderDetailComponent implements OnInit {
 
             //to make the icon of ongoing status pulse
             this.pulse[this.map[this.statusId]] = true;
-          this.loading = false;
+            this.loading = false;
           }
           this.loading = false;
         }
@@ -68,9 +69,9 @@ export class TrackOrderDetailComponent implements OnInit {
     let status = statusLogs[0];
     console.log("STATUS: " + status)
     let currentStatus = status
-    let mostCurrentTimestamp = status.startTimeStamp;
+    var mostCurrentTimestamp = new Date(status.startTimeStamp);
     for (status of this.order[0].statusLogs) {
-      let timestamp = status.startTimeStamp;
+      var timestamp = new Date(status.startTimeStamp);
       console.log("current timestamp: " + timestamp + "> most current" + mostCurrentTimestamp)
       if (mostCurrentTimestamp < timestamp) {
         console.log("betul")

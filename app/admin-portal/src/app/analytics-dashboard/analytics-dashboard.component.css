@@ -16,7 +16,9 @@ label{
 #view-selector{
     display: none !important;
 }
-
+/* #auth-button{
+    display: none !important;
+} */
 #timeline{
     font-family: 'Muli' !important;
 }
@@ -27,4 +29,5 @@ label{
 
 body{
     font-family: 'Muli' !important;
+    background-color: rgba(255, 255, 255, 0.00);
 }
