@@ -7,10 +7,9 @@ INSERT INTO STAFF_ROLE VALUES ('1','Admin');
 INSERT INTO STAFF_ROLE VALUES ('2','Factory Manager');
 INSERT INTO STAFF_ROLE VALUES ('3','Factory Worker');
 
-INSERT INTO STAFF VALUES ('staff@gmail.com','Ming','Xia','12345678','1234','1');
-INSERT INTO STAFF VALUES ('staff1@gmail.com','Tom','John','12345678','1234','2');
-INSERT INTO STAFF VALUES ('staff2@gmail.com','Matthew','Xia','12345678','1234','3');
-INSERT INTO STAFF VALUES ('staff3@gmail.com','James','Xia','12345678','1234','3');
+INSERT INTO STAFF VALUES ('super@gmail.com','Ming','Xia','12345678','1234','1');
+INSERT INTO STAFF VALUES ('manager@gmail.com','Tom','John','12345678','1234','2');
+INSERT INTO STAFF VALUES ('worker@gmail.com','Matthew','Xia','12345678','1234','3');
 
 INSERT INTO courier VALUES('Shun Feng','ShunFeng.com');
 

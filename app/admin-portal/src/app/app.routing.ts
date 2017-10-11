@@ -37,7 +37,7 @@ const appRoutes: Routes = [
     { path: 'login', component: LoginComponent },
     // { path: 'homepage', component: HomepageComponent,  canActivate: [AuthGuard] },
     { path: 'user', component: UserComponent,  canActivate: [AuthGuard] },
-    { path: 'staffmanagement', component: StaffmanagementComponent,  canActivate: [AuthGuard] },
+    { path: 'staffmanagement', component: StaffmanagementComponent,  canActivate: [SuperGuard] },
     { path: 'promoCode', component: PromoCodeComponent,  canActivate: [SuperGuard] },
     { path: 'patternList', component: PatternListComponent, canActivate: [ManagerGuard]},
     { path: 'patternList/patternDetails/:patternId', component: PatternDetailsComponent, canActivate: [ManagerGuard]},

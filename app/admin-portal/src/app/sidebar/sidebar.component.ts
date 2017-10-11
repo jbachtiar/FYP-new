@@ -38,7 +38,7 @@ export const ROUTES: RouteInfo[] = [
         path: 'staffmanagement', 
         title: 'Staff Management', 
         icon: 'ti-panel', 
-        class: ['1', '2'] 
+        class: ['1'] 
     },
     // { path: 'patternList', title: 'Patterns Catalog',  icon:'ti-view-list-alt', class: '' },
     { 
@@ -47,11 +47,11 @@ export const ROUTES: RouteInfo[] = [
         icon: 'ti-view-list-alt', 
         class: ['1', '2'] 
     },
-    { 
-        path: 'promoCode', 
-        title: 'Promo Code', 
-        icon: 'ti-text', 
-        class: ['1'] },
+    // { 
+    //     path: 'promoCode', 
+    //     title: 'Promo Code', 
+    //     icon: 'ti-text', 
+    //     class: ['1'] },
     { 
         path: 'superuser', 
         title: 'Superuser Management', 

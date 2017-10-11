@@ -13,9 +13,10 @@ export class AnalyticsDashboardComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+   
     
     gapi.analytics.ready(function () {
-
+      
       // Step 3: Authorize the user.
 
       var CLIENT_ID = '28470806434-70vkmrvmro0pe549gvegrmspcqkao219.apps.googleusercontent.com';
