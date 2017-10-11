@@ -266,6 +266,36 @@ public class PromoCodeService {
     }
     
     @GET
+    @Path("/delete")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String deletePromo(@QueryParam("PromoCodeId") int promoId) {
+        
+        response.setHeader("Access-Control-Allow-Headers", "Content-Type");
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
+        
+        PromoCodeDAO pcDAO = new PromoCodeDAO();
+        Gson gson = new GsonBuilder().create();
+        JsonObject jsonOutput = new JsonObject();
+        
+        try{
+
+            pcDAO.deletePromoCodeById(promoId);
+            jsonOutput.addProperty("status", "200");
+                   
+        }catch(SQLException e){
+            
+            jsonOutput.addProperty("status", "500");
+            jsonOutput.addProperty("error", e.getMessage());
+            
+        }
+       
+        String finalJsonOutput = gson.toJson(jsonOutput);
+        return finalJsonOutput;
+        
+    }
+    
+    @GET
     @Path("/getAllPromoCodes")
     @Produces(MediaType.APPLICATION_JSON)
     public String getAllPromoCodes() {
