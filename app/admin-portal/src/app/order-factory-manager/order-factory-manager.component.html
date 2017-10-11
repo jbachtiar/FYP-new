@@ -48,7 +48,7 @@
 
                     <data-table-column [property]=" 'order_TimeStamp' " [header]=" 'Date' " [sortable]="true " [resizable]="true ">
                         <template #dataTableCell let-item="item ">
-                            <span>{{item.order_TimeStamp | date:'yyyy-MM-dd H:mm'}}</span>
+                            <span>{{item.order_TimeStamp | date:'yyyy-MM-dd'}}</span>
                         </template>
                     </data-table-column>
 
