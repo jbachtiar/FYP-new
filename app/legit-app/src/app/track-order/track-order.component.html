@@ -30,7 +30,7 @@
                             $ {{co.netAmt}}.00
                         </td>
                         <td>
-                            {{co.order_TimeStamp}}
+                            {{co.order_TimeStamp | date:'yyyy-MM-dd H:mm'}}
                         </td>
                         <td *hideItDevice="['mobile','tablet']">
                             <button [disabled]="loading" class="button" (click)=viewOrder(co.orderId)>View Details</button>
@@ -67,7 +67,7 @@
                             $ {{co.netAmt}}.00
                         </td>
                         <td>
-                            {{co.order_TimeStamp}}
+                            {{co.order_TimeStamp | date:'yyyy-MM-dd H:mm'}}
                         </td>
                         <td *hideItDevice="['mobile','tablet']">
                             <button [disabled]="loading" class="button" (click)=viewOrder(co.orderId)>View Details</button>

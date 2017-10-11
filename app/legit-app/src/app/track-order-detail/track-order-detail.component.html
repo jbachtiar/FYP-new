@@ -101,7 +101,7 @@
   </div>
   <div class="" style="padding-top:10px;" *ngIf="!loading">
     <h1 class="title">ORDER 000000{{order[0].orderId}}</h1>
-    <i>{{order[0].order_TimeStamp}}</i>
+    <i>{{order[0].order_TimeStamp | date:'yyyy-MM-dd H:mm'}}</i>
     <hr>
     <div class="row">
 
@@ -193,7 +193,7 @@
   <div *ngIf="!loading">
     <div class="row" style="margin-top:10px; margin-bottom:10px">
       <h1 class="title">ORDER 000000{{order[0].orderId}}</h1>
-      <i>{{order[0].order_TimeStamp}}</i>
+      <i>{{order[0].order_TimeStamp | date:'yyyy-MM-dd H:mm'}}</i>
     </div>
 
     <md-card style="padding-top:5px !important;">
@@ -214,7 +214,7 @@
         <li class="event" *ngFor="let s of statusLog">
           <div class="member-infos">
             <h1 class='member-title'>{{s.orderStatus.statusName}}</h1>
-            <h2 class="member-location "><span class=''></span>{{s.startTimeStamp}}</h2>
+            <!-- <h2 class="member-location "><span class=''></span>{{s.startTimeStamp}}</h2> -->
           </div>
         </li>
       </ul>
