@@ -72,8 +72,12 @@ export class OrderDetailsComponent implements OnInit {
           // let statusId = 5
           console.log("STATUS ID: " + this.statusId)
           if (statusId != 6) {
+            this.orderIsCompleted = false;
+            
             if (statusId == 1) { 
               this.orderJustStarted = true;
+            } else{
+              this.orderJustStarted = false;
             }
             this.isDisabled[this.map[6]] = true
             this.bufferValue -= 4.1555
@@ -109,8 +113,12 @@ export class OrderDetailsComponent implements OnInit {
 
     console.log("UPDATE PROGRESS BAR STATUS: " + this.statusId)
     if (this.statusId != 6) {
+      this.orderIsCompleted = false;
+      
       if (this.statusId == 1) {
         this.orderJustStarted = true;
+      } else{
+        this.orderJustStarted = false;
       }
       this.isDisabled[this.map[6]] = true
       this.bufferValue -= 4.1555

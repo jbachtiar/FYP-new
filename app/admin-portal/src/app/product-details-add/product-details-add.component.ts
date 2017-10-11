@@ -86,6 +86,7 @@ export class ProductDetailsAddComponent implements OnInit {
   }
 
   submit() {
+    this.product.productType = "Bedding"
     if (this.productId == 0) {
       console.log("NEW PRODUCT: " + this.product)
       this.catService.saveProduct(this.product).subscribe(res => {

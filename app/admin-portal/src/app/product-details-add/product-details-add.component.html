@@ -9,8 +9,8 @@
   <div class="row">
     <div class="col-sm-6 col-md-6 col-lg-6">
       <form *ngIf="!loading" name="form" (ngSubmit)="f.form.valid && submit()" #f="ngForm" class="form" novalidate>
-        
-        <div class="form-group">
+
+        <!-- <div class="form-group">
           <div>
             <label for="type">Product Type</label>
           </div>
@@ -20,7 +20,7 @@
             </select>
           </div>
           <div *ngIf="(f.submitted && !type.valid && !product.productType) || (!type.valid && type.dirty)" class="help-block">Type is required</div>
-        </div>
+        </div> -->
         <div class="form-group">
           <div>
             <label for="patternName">Design </label>

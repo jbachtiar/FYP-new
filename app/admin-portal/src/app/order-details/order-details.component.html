@@ -1,228 +1,235 @@
 <div>
-<div class="row">
-  <div class="header col-12 text-center">
-    <b>
+  <div class="row">
+    <div class="header col-12 text-center">
+      <b>
       Order #{{orderId}}
     </b>
+    </div>
   </div>
-</div>
-<hr>
-<br/>
-<br/>
-<br/>
-<app-loading style="margin-top:0px" *ngIf="loading"></app-loading>
-<div *ngIf="!loading" class="box">
-  <md-progress-bar style="top:10px" class="example-margin" [color]="color" [mode]="mode" [value]="value" [bufferValue]="bufferValue">
-  </md-progress-bar>
+  <hr>
   <br/>
-  <div class="row">
-    <div class="col-12 progress-row">
-      <div class="button-row">
-        <div class="col-md-1">
-        </div>
-        <div class="col-md-1">
-          <div class="annotation">
-            <font color="#DD0330" style="font-size : 15px">
-              Payment<br/>Received
-            </font>
+  <br/>
+  <br/>
+  <app-loading style="margin-top:0px" *ngIf="loading"></app-loading>
+  <div *ngIf="!loading" class="box">
+    <md-progress-bar style="top:10px" class="example-margin" [color]="color" [mode]="mode" [value]="value" [bufferValue]="bufferValue">
+    </md-progress-bar>
+    <br/>
+    <div class="row">
+      <div class="col-12 progress-row">
+        <div class="button-row">
+          <div class="col-md-1">
           </div>
-          <button [ngClass]="{'pulse': pulse.payment}" md-fab color="warn" [disabled]="isDisabled.payment">
+          <div class="col-md-1">
+            <div class="annotation">
+              <font color="#DD0330" style="font-size : 15px">
+                Payment<br/>Received
+              </font>
+            </div>
+            <button [ngClass]="{'pulse': pulse.payment}" md-fab color="warn" [disabled]="isDisabled.payment">
         <i class="ti-wallet"></i>
       </button>
-        </div>
-
-        <div class="col-md-1">
-        </div>
-
-        <div class="col-md-1">
-          <div class="annotation">
-            <font color="#DD0330" style="font-size : 15px">
-              In<br/>Production
-            </font>
           </div>
-          <button [ngClass]="{'pulse': pulse.production}" md-fab color="warn" [disabled]="isDisabled.production">
+
+          <div class="col-md-1">
+          </div>
+
+          <div class="col-md-1">
+            <div class="annotation">
+              <font color="#DD0330" style="font-size : 15px">
+                In<br/>Production
+              </font>
+            </div>
+            <button [ngClass]="{'pulse': pulse.production}" md-fab color="warn" [disabled]="isDisabled.production">
           <span class="ti-cut"></span>
       </button>
-        </div>
-
-        <div class="col-md-1">
-        </div>
-
-        <div class="col-md-1">
-          <div class="annotation">
-            <font color="#DD0330" style="font-size : 15px">
-              <br/>Packaging
-            </font>
           </div>
-          <button [ngClass]="{'pulse': pulse.packaging}" md-fab color="warn" [disabled]="isDisabled.packaging">
+
+          <div class="col-md-1">
+          </div>
+
+          <div class="col-md-1">
+            <div class="annotation">
+              <font color="#DD0330" style="font-size : 15px">
+                <br/>Packaging
+              </font>
+            </div>
+            <button [ngClass]="{'pulse': pulse.packaging}" md-fab color="warn" [disabled]="isDisabled.packaging">
           <span class="ti-package"></span>
       </button>
-        </div>
-
-        <div class="col-md-1">
-        </div>
-
-        <div class="col-md-1">
-          <div class="annotation">
-            <font color="#DD0330" style="font-size : 15px">
-              Pending Shipment
-            </font>
           </div>
-          <button [ngClass]="{'pulse': pulse.preparation}" md-fab color="warn" [disabled]="isDisabled.preparation">
+
+          <div class="col-md-1">
+          </div>
+
+          <div class="col-md-1">
+            <div class="annotation">
+              <font color="#DD0330" style="font-size : 15px">
+                Pending Shipment
+              </font>
+            </div>
+            <button [ngClass]="{'pulse': pulse.preparation}" md-fab color="warn" [disabled]="isDisabled.preparation">
           <span class="ti-location-arrow"></span>
       </button>
-        </div>
-
-        <div class="col-md-1">
-        </div>
-
-        <div class="col-md-1">
-          <div class="annotation">
-            <font color="#DD0330" style="font-size : 15px">
-              <br/>Shipped
-            </font>
           </div>
-          <button [ngClass]="{'pulse': pulse.shipped}" md-fab color="warn" [disabled]="isDisabled.shipped">
+
+          <div class="col-md-1">
+          </div>
+
+          <div class="col-md-1">
+            <div class="annotation">
+              <font color="#DD0330" style="font-size : 15px">
+                <br/>Shipped
+              </font>
+            </div>
+            <button [ngClass]="{'pulse': pulse.shipped}" md-fab color="warn" [disabled]="isDisabled.shipped">
         <span class="ti-truck"></span>
       </button>
-        </div>
-
-        <div class="col-md-1">
-        </div>
-
-        <div class="col-md-1">
-          <div class="annotation">
-            <font color="#DD0330" style="font-size : 15px">
-              <br/>Completed
-            </font>
           </div>
-          <button [ngClass]="{'pulse': pulse.completed}" md-fab color="warn" [disabled]="isDisabled.completed">
+
+          <div class="col-md-1">
+          </div>
+
+          <div class="col-md-1">
+            <div class="annotation">
+              <font color="#DD0330" style="font-size : 15px">
+                <br/>Completed
+              </font>
+            </div>
+            <button [ngClass]="{'pulse': pulse.completed}" md-fab color="warn" [disabled]="isDisabled.completed">
             <span class="ti-check"></span>
           </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" style="margin-top:40px">
+      <div class="col-12 text-center">
+        <div class="button-row">
+          <button class="progress-button" md-raised-button [ngStyle]=" { 'background-color': 'white'} " (click)="onPrevious() " [disabled]="orderJustStarted">Previous Process</button>
+          <button class="progress-button" color="warn" md-raised-button (click)="onNext()" [disabled]="orderIsCompleted">Next Process</button>
         </div>
       </div>
     </div>
   </div>
+  <br/>
 
-  <div class="row" style="margin-top:40px">
-    <div class="col-12 text-center">
-      <div class="button-row">
-        <button class="progress-button" md-raised-button [ngStyle]=" { 'background-color': 'white'} " (click)="onPrevious() " [disabled]="orderJustStarted">Previous Process</button>
-        <button class="progress-button" color="warn" md-raised-button (click)="onNext()" [disabled]="orderIsCompleted">Next Process</button>
-      </div>
-    </div>
+  <div *ngIf="statusId==5 || statusId==6" class="container-fluid shipping-details">
+    <h4 class="title">Shipping Details</h4>
+    <md-card class="shipping-details">
+      <b>Courier:</b> <br/>{{order[0].courierName}}<br/><br/>
+      <b>Tracking Number:</b> <br/>{{order[0].trackingNo}}
+    </md-card>
   </div>
-</div>
-<br/>
 
-<div class="container-fluid">
-  <h4 class="title">Order Summary</h4>
-  <!-- <div class="card"> -->
-  <md-card>
-    <div *ngIf="statusId==2">
-      <div class="content table-responsive table-full-width">
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th>Product</th>
-              <th>ID</th>
-              <th>Type</th>
-              <th>Pattern</th>
-              <th>Fabric</th>
-              <th>Color</th>
-              <th>Size</th>
-              <th>Quantity</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let item of orderItems">
-              <td><img src="{{item.product.images[0].imageUrl}}" alt="..." class="img-product"><br/></td>
-              <td class="product-title">
-                {{item.product.productId}}
-              </td>
-              <td>
-                {{item.product.productType}}
-              </td>
-              <td>
-                {{item.product.pattern.patternName}}
-              </td>
-              <td>
-                {{item.product.fabric.fabricName}}
+  <div class="container-fluid">
+    <h4 class="title">Order Summary</h4>
+    <!-- <div class="card"> -->
+    <md-card>
+      <div *ngIf="statusId==2">
+        <div class="content table-responsive table-full-width">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th>ID</th>
+                <th>Type</th>
+                <th>Pattern</th>
+                <th>Fabric</th>
+                <th>Color</th>
+                <th>Size</th>
+                <th>Quantity</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of orderItems">
+                <td><img src="{{item.product.images[0].imageUrl}}" alt="..." class="img-product"><br/></td>
+                <td class="product-title">
+                  {{item.product.productId}}
+                </td>
+                <td>
+                  {{item.product.productType}}
+                </td>
+                <td>
+                  {{item.product.pattern.patternName}}
+                </td>
+                <td>
+                  {{item.product.fabric.fabricName}}
 
-              </td>
-              <td>
-                {{item.product.colour.colourName}}
-              </td>
-              <td>
-                {{item.product.size.sizeName}}
-              </td>
+                </td>
+                <td>
+                  {{item.product.colour.colourName}}
+                </td>
+                <td>
+                  {{item.product.size.sizeName}}
+                </td>
 
-              <td>
-                <!-- <button class="change-qty" (click)="decrement(item.product.productId)">-</button>  -->
-                {{item.quantity}}
-                <!-- <button class="change-qty" (click)="increment(item.product.productId)">+</button> -->
-              </td>
-              <td>
-                <button md-mini-fab color="basic" [disabled]="item.product.itemStatusBoolean" (click)="onItemStatusChange(item)"><span class="ti-check"></span></button>
-                <br/>
-                <div class="annotation">
-                  {{item.itemStatus}}
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+                <td>
+                  <!-- <button class="change-qty" (click)="decrement(item.product.productId)">-</button>  -->
+                  {{item.quantity}}
+                  <!-- <button class="change-qty" (click)="increment(item.product.productId)">+</button> -->
+                </td>
+                <td>
+                  <button md-mini-fab color="basic" [disabled]="item.product.itemStatusBoolean" (click)="onItemStatusChange(item)"><span class="ti-check"></span></button>
+                  <br/>
+                  <div class="annotation">
+                    {{item.itemStatus}}
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
-    <div *ngIf="statusId!=2">
-      <div class="content table-responsive table-full-width">
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th>Product</th>
-              <th>ID</th>
-              <th>Type</th>
-              <th>Pattern</th>
-              <th>Fabric</th>
-              <th>Color</th>
-              <th>Size</th>
-              <th>Quantity</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let item of orderItems">
-              <td><img src="{{item.product.images[0].imageUrl}}" alt="..." class="img-product"><br/></td>
-              <td class="product-title">
-                {{item.product.productId}}
-              </td>
-              <td>
-                {{item.product.productType}}
-              </td>
-              <td>
-                {{item.product.pattern.patternName}}
-              </td>
-              <td>
-                {{item.product.fabric.fabricName}}
+      <div *ngIf="statusId!=2">
+        <div class="content table-responsive table-full-width">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th>ID</th>
+                <th>Type</th>
+                <th>Pattern</th>
+                <th>Fabric</th>
+                <th>Color</th>
+                <th>Size</th>
+                <th>Quantity</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of orderItems">
+                <td><img src="{{item.product.images[0].imageUrl}}" alt="..." class="img-product"><br/></td>
+                <td class="product-title">
+                  {{item.product.productId}}
+                </td>
+                <td>
+                  {{item.product.productType}}
+                </td>
+                <td>
+                  {{item.product.pattern.patternName}}
+                </td>
+                <td>
+                  {{item.product.fabric.fabricName}}
 
-              </td>
-              <td>
-                {{item.product.colour.colourName}}
-              </td>
-              <td>
-                {{item.product.size.sizeName}}
-              </td>
+                </td>
+                <td>
+                  {{item.product.colour.colourName}}
+                </td>
+                <td>
+                  {{item.product.size.sizeName}}
+                </td>
 
-              <td>
-                {{item.quantity}}
-              </td>
-              
-            </tr>
-          </tbody>
-        </table>
+                <td>
+                  {{item.quantity}}
+                </td>
+
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
-  </md-card>
-  <hr>
-</div>
-
+    </md-card>
+    <hr>
+  </div>

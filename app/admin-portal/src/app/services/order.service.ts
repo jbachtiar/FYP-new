@@ -96,7 +96,7 @@ export class OrderService {
     }
 
     getAllCouriers() {
-        let url = CONFIG.orderBackendUrl + '/getCouriers'
+        let url = CONFIG.orderBackendUrl + '/getAllCouriers'
         return this._http.get(url)
             .map(res => {
                 return res.json().couriers;
