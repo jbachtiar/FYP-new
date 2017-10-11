@@ -110,7 +110,7 @@
         <!--<span text-left class="col-md-4" style="font-size:15px" class="label label-warning">{{product.collection_name}}</span>        <br><br>-->
         <!--<div text-left class="product-price" style="font-size:15px"> Starting from ${{(pattern.pattern_price+patter.fabric_price+product.colour_price)}} </div>-->
         <div *hideItDevice="['mobile','tablet']">
-          <h5>Material:</h5>
+          <h5>Fabric:</h5>
           <select [(ngModel)]="selectedFabric" (ngModelChange)="onFabricChange()">
             <option *ngFor="let fabric of pattern.fabrics" [ngValue]="fabric">{{fabric.fabric_name}} +${{fabric.fabric_price}}</option>
           </select>
@@ -132,7 +132,7 @@
           <br/><br/>
         </div>
         <div *showItDevice="['mobile','tablet']">
-          <h5 class="col-sm-12 col-xs-12">Material:</h5>
+          <h5 class="col-sm-12 col-xs-12">Fabric:</h5>
           <select class="col-sm-12 col-xs-12 form-control" [(ngModel)]="selectedFabric" (ngModelChange)="onFabricChange()">
               <option *ngFor="let fabric of pattern.fabrics" [ngValue]="fabric">{{fabric.fabric_name}} +${{fabric.fabric_price}}</option>
             </select>
