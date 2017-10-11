@@ -69,9 +69,18 @@ public class PromoCodeService {
 
         try {
                 System.out.println("JSON: " + json);
-                jsonOutput.addProperty("status", "200");       
-                jsonOutput.addProperty("newPromoCodeId", pcDAO.addPromoCode(promoToSave));
+                jsonOutput.addProperty("status", "200"); 
+                
+                if(pcDAO.getPromoCodeByPromoCode(promoToSave.getPromoCode()) != null){
+                    
+                    jsonOutput.addProperty("error", "Promo Code Exists");
+                    
+                }else{
+                    
+                    jsonOutput.addProperty("newPromoCodeId", pcDAO.addPromoCode(promoToSave));
 
+                }
+                
         } catch (SQLException e) {
 
             jsonOutput.addProperty("status", "500");
