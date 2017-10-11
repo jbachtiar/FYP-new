@@ -12,6 +12,7 @@ INSERT INTO STAFF VALUES ('manager@gmail.com','Tom','John','12345678','1234','2'
 INSERT INTO STAFF VALUES ('worker@gmail.com','Matthew','Xia','12345678','1234','3');
 
 INSERT INTO courier VALUES('Shun Feng','ShunFeng.com');
+INSERT INTO courier VALUES('DHL','http://www.dhl.com/en.html');
 
 
 INSERT INTO CUSTOMER_ADDRESS VALUES ('1', 'customer@gmail.com', 'Hui Yan', '91234230', '134 Highlander Ave 3','Singapore','Singapore','536748', 'Y');
