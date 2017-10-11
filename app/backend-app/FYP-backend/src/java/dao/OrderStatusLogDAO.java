@@ -80,7 +80,7 @@ public class OrderStatusLogDAO {
             stmt.setInt(2, orderId);
             stmt.setInt(3, previousStatusId);
             stmt.executeUpdate();
-            String success = updateDuration(orderId, previousStatusId, curr_ts);
+           // String success = updateDuration(orderId, previousStatusId, curr_ts);
             
             stmt1 = conn.prepareStatement(sql1);
             stmt1.setInt(1, orderId);
@@ -106,7 +106,7 @@ public class OrderStatusLogDAO {
         ResultSet rs = null;
         double duration = 0.0;
 
-        String sql = "SELECT START_TIMESTAMP, END_TIMESTAMP FROM ORDER_STATUS_LOG WHERE ORDER_ID = ? AND STATUS_ID = ? AND END_TIMESTAMP = ?";
+        String sql = "SELECT START_TIMESTAMP, END_TIMESTAMP FROM ORDER_STATUS_LOG WHERE ORDER_ID = ? AND STATUS_ID = ?";
 
         try {
             
