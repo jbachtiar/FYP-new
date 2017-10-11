@@ -219,7 +219,7 @@ export class OrderDetailsSuperuserComponent implements OnInit {
 
     this.edit = false;
     this.editProd = false;
-    //window.location.reload();
+    window.location.reload();
 
 
 

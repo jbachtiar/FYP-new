@@ -69,7 +69,7 @@ public class OrderStatusLogDAO {
         PreparedStatement stmt1 = null;
         ResultSet rs = null;
 
-        String sql = "UPDATE ORDER_STATUS_LOG SET END_TIMESTAMP = ?, DURATION_HOURS = ? WHERE ORDER_ID = ? AND STATUS_ID = ? AND DURATION_HOURS = 0";
+        String sql = "UPDATE ORDER_STATUS_LOG SET END_TIMESTAMP = ? WHERE ORDER_ID = ? AND STATUS_ID = ? AND DURATION_HOURS = 0";
         String sql1 = "INSERT ORDER_STATUS_LOG (ORDER_ID, STATUS_ID, START_TIMESTAMP, END_TIMESTAMP, DURATION_HOURS) VALUES (?,?,?,?,?)";
         
         try {
@@ -77,10 +77,10 @@ public class OrderStatusLogDAO {
             conn = ConnectionManager.getConnection();
             stmt = conn.prepareStatement(sql);
             stmt.setTimestamp(1, curr_ts);
-            stmt.setDouble(2, 10);
-            stmt.setInt(3, orderId);
-            stmt.setInt(4, previousStatusId);
+            stmt.setInt(2, orderId);
+            stmt.setInt(3, previousStatusId);
             stmt.executeUpdate();
+            String success = updateDuration(orderId, previousStatusId, curr_ts);
             
             stmt1 = conn.prepareStatement(sql1);
             stmt1.setInt(1, orderId);
@@ -92,11 +92,54 @@ public class OrderStatusLogDAO {
 
         } finally {
             ConnectionManager.close(conn, stmt, rs);
-            ConnectionManager.close(conn, stmt1, rs);
+            ConnectionManager.close(null, stmt1, null);
         }
 
         return "Success";
 
     }
+    
+    public String updateDuration(int orderId, int previousStatusId, Timestamp curr_ts) throws SQLException {
+        
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        double duration = 0.0;
+
+        String sql = "SELECT START_TIMESTAMP, END_TIMESTAMP FROM ORDER_STATUS_LOG WHERE ORDER_ID = ? AND STATUS_ID = ? AND END_TIMESTAMP = ?";
+
+        try {
+            
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, orderId);
+            stmt.setInt(2, previousStatusId);
+            stmt.setTimestamp(3, curr_ts);
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+
+                Timestamp startTimeStamp = rs.getTimestamp("START_TIMESTAMP");
+                Timestamp endTimeStamp = rs.getTimestamp("END_TIMESTAMP");
+                long diff = endTimeStamp.getTime() - startTimeStamp.getTime();
+                duration = (double)diff;
+            }
+            
+            sql = "UPDATE ORDER_STATUS_LOG SET DURATION = ? WHERE ORDER_ID = ? AND STATUS_ID = ?";
+            stmt = conn.prepareStatement(sql);
+            stmt.setDouble(1, duration);
+            stmt.setInt(2, orderId);
+            stmt.setInt(3, previousStatusId);
+            stmt.executeUpdate();
+
+            return "Success";
+        } finally {
+            
+            ConnectionManager.close(conn, stmt, rs);
+            
+        }
+        
+    }
+
 
 }

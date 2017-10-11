@@ -26,6 +26,7 @@ export class OrderDetailsComponent implements OnInit {
   pulse: any = { 'payment': false, 'production': false, 'packaging': false, 'preparation': false, 'shipped': false, 'completed': false };
   orderIsCompleted = false;
   orderJustStarted = false;
+  private loading = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -86,11 +87,14 @@ export class OrderDetailsComponent implements OnInit {
 
             //to make the icon of ongoing status pulse
             this.pulse[this.map[statusId]] = true;
+            this.loading = false
           } else {
             this.orderIsCompleted = true;
+            this.loading = false
           }
         } else {
           this.order[0]['currentStatus'] = 'NO DATA';
+          this.loading = false
         }
       });
     });

@@ -1,3 +1,4 @@
+<div>
 <div class="row">
   <div class="header col-12 text-center">
     <b>
@@ -9,7 +10,8 @@
 <br/>
 <br/>
 <br/>
-<div class="box">
+<app-loading style="margin-top:0px" *ngIf="loading"></app-loading>
+<div *ngIf="!loading" class="box">
   <md-progress-bar style="top:10px" class="example-margin" [color]="color" [mode]="mode" [value]="value" [bufferValue]="bufferValue">
   </md-progress-bar>
   <br/>
@@ -223,3 +225,4 @@
   </md-card>
   <hr>
 </div>
+
