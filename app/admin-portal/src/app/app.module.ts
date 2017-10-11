@@ -15,6 +15,10 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { UserComponent } from './user/user.component';
 import { StaffmanagementComponent } from './staffmanagement/staffmanagement.component';
 import { AuthGuard } from './guard/guard';
+import { ManagerGuard } from './guard/managerGuard';
+import { SuperGuard } from './guard/superGuard';
+import { WorkerGuard } from './guard/workerGuard'
+
 import { PatternListComponent } from './pattern-list/pattern-list.component'
 import { PatternDetailsComponent } from './pattern-details/pattern-details.component'
 import { CardComponent } from 'ng2-bootstrap-card/ng2-bootstrap-card';
@@ -140,6 +144,9 @@ import { ShippingDetailsPopupComponent } from './shipping-details-popup/shipping
   ],
   providers: [
     AuthGuard,
+    ManagerGuard,
+    SuperGuard,
+    WorkerGuard,
     ProductService,
     PagerService,
     PromoCodeService,

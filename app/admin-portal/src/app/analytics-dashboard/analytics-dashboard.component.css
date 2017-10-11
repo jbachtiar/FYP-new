@@ -16,7 +16,9 @@ label{
 #view-selector{
     display: none !important;
 }
-
+#auth-button{
+    display: none !important;
+}
 #timeline{
     font-family: 'Muli' !important;
 }
