@@ -47,14 +47,15 @@ export class OrderManagementSuperuserComponent implements OnInit {
           let status = o.statusLogs[0]
           console.log("STATUS: " + status)
           let currentStatus = status
-          let mostCurrentTimestamp = status.startTimeStamp;
+          var mostCurrentTimestamp = new Date(status.startTimeStamp);
           for (status of o.statusLogs) {
-            var timestamp = status.startTimeStamp;
+            var timestamp =new Date (status.startTimeStamp);
             if (mostCurrentTimestamp < timestamp) {
               mostCurrentTimestamp = timestamp;
               currentStatus = status;
             }
           }
+          // console.log("CURRENT STATUS: " +  =)
           o['currentStatus'] = currentStatus.orderStatus.statusName;
           o['currentStatusId'] = currentStatus.orderStatus.statusId;
           console.log("debug:"+o.address.email);
@@ -96,9 +97,9 @@ export class OrderManagementSuperuserComponent implements OnInit {
           let status = o.statusLogs[0]
           console.log("STATUS: " + status)
           let currentStatus = status
-          let mostCurrentTimestamp = status.startTimeStamp;
+          var mostCurrentTimestamp = new Date(status.startTimeStamp);
           for (status of o.statusLogs) {
-            var timestamp = status.startTimeStamp;
+            var timestamp = new Date(status.startTimeStamp);
             if (mostCurrentTimestamp < timestamp) {
               mostCurrentTimestamp = timestamp;
               currentStatus = status;
@@ -125,7 +126,6 @@ export class OrderManagementSuperuserComponent implements OnInit {
         console.log("FILTERED ORDERS: " + JSON.stringify(filteredOrders));
         
       } else {
-        console.log("ALL ORDERSSSSSSSSSSS kzl")
         this.orders = allOrders
       }
 

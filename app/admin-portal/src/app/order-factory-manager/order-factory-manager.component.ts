@@ -46,9 +46,9 @@ export class OrderFactoryManagerComponent implements OnInit {
           let status = o.statusLogs[0]
           console.log("STATUS: " + status)
           let currentStatus = status
-          let mostCurrentTimestamp = status.startTimeStamp;
+          var mostCurrentTimestamp = new Date(status.startTimeStamp);
           for (status of o.statusLogs) {
-            var timestamp = status.startTimeStamp;
+            var timestamp = new Date(status.startTimeStamp);
             if (mostCurrentTimestamp < timestamp) {
               mostCurrentTimestamp = timestamp;
               currentStatus = status;
@@ -91,9 +91,9 @@ export class OrderFactoryManagerComponent implements OnInit {
           let status = o.statusLogs[0]
           console.log("STATUS: " + status)
           let currentStatus = status
-          let mostCurrentTimestamp = status.startTimeStamp;
+          var mostCurrentTimestamp = new Date(status.startTimeStamp);
           for (status of o.statusLogs) {
-            var timestamp = status.startTimeStamp;
+            var timestamp = new Date(status.startTimeStamp);
             if (mostCurrentTimestamp < timestamp) {
               mostCurrentTimestamp = timestamp;
               currentStatus = status;

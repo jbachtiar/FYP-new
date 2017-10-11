@@ -51,10 +51,12 @@ export class OrderDetailsComponent implements OnInit {
         if (this.order[0]['statusLogs'].length > 0) {
           let status = this.order[0].statusLogs[0]
           let currentStatus = status
-          let mostCurrentTimestamp = status.startTimeStamp;
+          var mostCurrentTimestamp = new Date(status.startTimeStamp);
           for (status of this.order[0].statusLogs) {
-            let timestamp = status.startTimeStamp;
-            console.log("current timestamp: " + timestamp + "> most current" + mostCurrentTimestamp)
+            var timestamp = new Date(status.startTimeStamp);
+            console.log("mostCurrentTimestamp: " + mostCurrentTimestamp + "< timestamp" + timestamp )
+            let bigger= 3>2
+            console.log( "=" + (3>2))
             if (mostCurrentTimestamp < timestamp) {
               console.log("correct")
 
