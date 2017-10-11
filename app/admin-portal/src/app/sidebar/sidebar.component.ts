@@ -45,7 +45,7 @@ export const ROUTES: RouteInfo[] = [
         path: 'catalogue', 
         title: 'Catalogue', 
         icon: 'ti-view-list-alt', 
-        class: ['1', '2'] 
+        class: ['1'] 
     },
     // { 
     //     path: 'promoCode', 

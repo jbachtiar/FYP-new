@@ -27,7 +27,7 @@
                     <u (click)=closeModal()>View Full Details</u>
                   </a>
                 </h5>
-                <h5>Material:</h5>
+                <h5>Fabric:</h5>
                 <select [(ngModel)]="selectedFabric" (ngModelChange)="onFabricChange()">
                      <option *ngFor="let fabric of pattern.fabrics" [ngValue]="fabric">{{fabric.fabric_name}} +${{fabric.fabric_price}}</option>
                   </select>

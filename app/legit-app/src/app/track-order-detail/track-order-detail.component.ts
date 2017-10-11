@@ -34,6 +34,10 @@ export class TrackOrderDetailComponent implements OnInit {
       this.orderId = this.inputOrderId
       this.orderService.getOrderById(this.orderId).subscribe(orders => {
         this.order = orders;
+        this.order[0].order_TimeStamp = new Date(this.order[0].order_TimeStamp);
+        console.log("before : " + JSON.stringify(this.order[0].order_TimeStamp));
+        this.order[0].order_TimeStamp.setHours(this.order[0].order_TimeStamp.getHours()+8)
+
         this.orderItems = orders[0].orderItems;
         this.statusLog = orders[0].statusLogs;
         console.log(this.order)
