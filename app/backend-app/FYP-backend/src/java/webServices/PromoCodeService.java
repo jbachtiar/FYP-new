@@ -173,6 +173,142 @@ public class PromoCodeService {
         
     }
     
+    @GET
+    @Path("/use")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String usePromo(@QueryParam("PromoCode") String promoCode, @QueryParam("Amount") double purchaseAmt) {
+        
+        response.setHeader("Access-Control-Allow-Headers", "Content-Type");
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
+        
+        java.util.Date currentDate = new java.util.Date();
+        DateFormat df = new SimpleDateFormat("MM-dd-yyyy");
+        java.sql.Date currSqlDate = new java.sql.Date(currentDate.getTime());
+        
+        PromoCodeDAO pcDAO = new PromoCodeDAO();
+        Gson gson = new GsonBuilder().create();
+        JsonObject jsonOutput = new JsonObject();
+        
+        try{
+            
+            jsonOutput.addProperty("status", "200");
+            PromoCode pc = pcDAO.getPromoCodeByPromoCode(promoCode);
+            
+            if(pc == null){
+                
+                jsonOutput.addProperty("valid", "N");
+                jsonOutput.addProperty("discountAmt", 0);
+                jsonOutput.addProperty("reason", "Promo Code does not exist!");
+                
+            }else if(pc.getStartDate().after(currSqlDate)){
+                
+                jsonOutput.addProperty("valid", "N");
+                jsonOutput.addProperty("discountAmt", 0);
+                jsonOutput.addProperty("reason", "Promo has yet to start!");
+                
+            }else if(pc.getEndDate().before(currSqlDate)){
+                
+                jsonOutput.addProperty("valid", "N");
+                jsonOutput.addProperty("discountAmt", 0);
+                jsonOutput.addProperty("reason", "Promo has ended!");
+                
+            }else if(pc.getQuota() <= pc.getCounter()){
+                
+                jsonOutput.addProperty("valid", "N");
+                jsonOutput.addProperty("discountAmt", 0);
+                jsonOutput.addProperty("reason", "Promo has been fully redeemed!");
+                
+            }else if(pc.getMinPurchase() > purchaseAmt){
+                
+                jsonOutput.addProperty("valid", "N");
+                jsonOutput.addProperty("discountAmt", 0);
+                jsonOutput.addProperty("reason", "Min Purchase: " + pc.getMinPurchase());
+                
+            }else{
+                
+                double discountAmount = 0.00;
+                //find out what kind of promo
+                String promoType = pc.getPromoType();
+                if(promoType.equals("Dollar Off")){
+                    
+                    discountAmount = pc.getPromoValue();
+                    
+                }else if(promoType.equals("Percent Off")){
+                    
+                    discountAmount = purchaseAmt * (pc.getPercentOff()/100);
+                }
+                
+                if(discountAmount > pc.getMaxDiscount()){
+                    
+                    discountAmount = pc.getMaxDiscount();
+                    
+                }
+                
+                jsonOutput.addProperty("valid", "Y");
+                jsonOutput.addProperty("discountAmt", discountAmount);
+                pcDAO.usePromoCode(pc.getPromoCodeId(),pc.getCounter());
+                
+            }
+            
+        }catch(SQLException e){
+            
+            jsonOutput.addProperty("status", "500");
+            jsonOutput.addProperty("valid", "N");
+            jsonOutput.addProperty("discountAmt", 0);
+            jsonOutput.addProperty("error", e.getMessage());
+            
+        }
+       
+        String finalJsonOutput = gson.toJson(jsonOutput);
+        return finalJsonOutput;
+        
+    }
+    
+    @GET
+    @Path("/getAllPromoCodes")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getAllPromoCodes() {
+        
+        response.setHeader("Access-Control-Allow-Headers", "Content-Type");
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
+
+        Gson gson = new GsonBuilder().create();
+        JsonObject jsonOutput = new JsonObject();
+        
+        JsonArray promoCodeArray = new JsonArray();
+        PromoCodeDAO pcDao = new PromoCodeDAO();
+
+        try {
+
+            ArrayList<PromoCode> pcList = pcDao.getAllPromoCodes();
+            if (pcList == null) {
+                
+                jsonOutput.addProperty("status", "500");
+                jsonOutput.addProperty("msg", "No PromoCodes Available");
+                
+
+            } else {
+                
+                jsonOutput.addProperty("status", "200");
+                JsonArray promoCodes = gson.toJsonTree(pcList).getAsJsonArray(); // convert arraylist to jsonArray
+                jsonOutput.add("promoCodes", promoCodes);
+
+            }
+
+        } catch (SQLException e) {
+
+            jsonOutput.addProperty("status", "500");
+            jsonOutput.addProperty("msg", e.getMessage());
+
+        }
+
+        String finalJsonOutput = gson.toJson(jsonOutput);
+        return finalJsonOutput;
+        
+    }
+    
 
 //    @POST
 //    @Path("/retrieveAll")

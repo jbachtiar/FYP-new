@@ -177,7 +177,7 @@ public class PromoCodeDAO {
     }
 
     //Retrieve 1 PromoCode by ID
-    public PromoCode[] getAllPromoCodes() throws SQLException {
+    public ArrayList<PromoCode> getAllPromoCodes() throws SQLException {
 
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -218,11 +218,38 @@ public class PromoCodeDAO {
             
         }
 
-        PromoCode[] promoArr = promoList.toArray(new PromoCode[promoList.size()]);
-        return promoArr;
+        //PromoCode[] promoArr = promoList.toArray(new PromoCode[promoList.size()]);
+        return promoList;
 
     }
     
+    public void usePromoCode(int promoId, int counter){
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        
+        int newCounter = counter + 1;
+
+        String sql = "UPDATE PROMO_CODE SET COUNTER = ? WHERE PROMO_CODE_ID = ?";
+
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, newCounter);
+            stmt.setInt(2, promoId);
+            stmt.executeUpdate();
+
+        } catch(SQLException e){
+            
+        }    
+        finally {
+            
+            ConnectionManager.close(conn, stmt, rs);
+            
+        }
+        
+    }
+
     //Update
     public void updatePromoCode(PromoCode pc) throws SQLException{
         
