@@ -80,7 +80,7 @@ public class OrderStatusLogDAO {
             stmt.setInt(2, orderId);
             stmt.setInt(3, previousStatusId);
             stmt.executeUpdate();
-            String success = updateDuration(orderId, previousStatusId);
+            String success = updateDuration(orderId, previousStatusId, curr_ts);
             
             stmt1 = conn.prepareStatement(sql1);
             stmt1.setInt(1, orderId);
@@ -92,26 +92,29 @@ public class OrderStatusLogDAO {
 
         } finally {
             ConnectionManager.close(conn, stmt, rs);
-            ConnectionManager.close(conn, stmt1, rs);
+            ConnectionManager.close(null, stmt1, null);
         }
 
         return "Success";
 
     }
     
-    public String updateDuration(int orderId, int previousStatusId) throws SQLException {
+    public String updateDuration(int orderId, int previousStatusId, Timestamp curr_ts) throws SQLException {
         
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         double duration = 0.0;
 
-        String sql = "SELECT START_TIMESTAMP, END_TIMESTAMP FROM ORDER_STATUS_LOG WHERE ORDER_ID = ? AND STATUS_ID = ?";
+        String sql = "SELECT START_TIMESTAMP, END_TIMESTAMP FROM ORDER_STATUS_LOG WHERE ORDER_ID = ? AND STATUS_ID = ? AND END_TIMESTAMP = ?";
 
         try {
             
             conn = ConnectionManager.getConnection();
             stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, orderId);
+            stmt.setInt(2, previousStatusId);
+            stmt.setTimestamp(3, curr_ts);
             rs = stmt.executeQuery();
 
             while (rs.next()) {
