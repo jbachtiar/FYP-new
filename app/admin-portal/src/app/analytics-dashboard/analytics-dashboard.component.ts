@@ -79,7 +79,7 @@ export class AnalyticsDashboardComponent implements OnInit {
         reportType: 'ga',
         query: {
           'dimensions': 'ga:productName',
-          'metrics': 'ga:productAddsToCart',
+          'metrics': 'ga:productListClicks',
           'start-date': '30daysAgo',
           'end-date': 'today',
         },
