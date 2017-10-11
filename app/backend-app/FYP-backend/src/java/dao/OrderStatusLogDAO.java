@@ -86,7 +86,7 @@ public class OrderStatusLogDAO {
             stmt1.setInt(1, orderId);
             stmt1.setInt(2, newStatusId);
             stmt1.setTimestamp(3, curr_ts);
-            stmt1.setTimestamp(4, curr_ts);
+            stmt1.setTimestamp(4, null);
             stmt1.setDouble(5, 0);
             stmt1.executeUpdate();
 
