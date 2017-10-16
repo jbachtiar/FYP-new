@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from "@angular/router";
 import { HttpModule } from '@angular/http';
 import { CommonModule } from '@angular/common';
-import { MdTabsModule, MdButtonModule, MdProgressBarModule, MdChipsModule, MdCardModule } from '@angular/material';
+import { MatTabsModule, MatButtonModule, MatProgressBarModule, MatChipsModule, MatCardModule } from '@angular/material';
 
 import { routing } from './app.routing';
 
@@ -57,7 +57,7 @@ import { DeleteConfirmationPopupComponent } from './delete-confirmation-popup/de
 import { AddressBookComponent } from './address-book/address-book.component';
 import { TrackOrderDetailComponent } from './track-order-detail/track-order-detail.component';
 // import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MdExpansionModule} from '@angular/material'
+import {MatExpansionModule} from '@angular/material'
 import { Angulartics2Module, Angulartics2GoogleAnalytics } from 'angulartics2';
 import { AccountVerificationComponent } from './account-verification/account-verification.component';
 import { HomeAccessoriesComponent } from './home-accessories/home-accessories.component';
@@ -101,15 +101,15 @@ import { HomeAccessoriesComponent } from './home-accessories/home-accessories.co
     routing,
     BootstrapModalModule,
     CommonModule,
-    MdTabsModule, 
-    MdButtonModule, 
-    MdProgressBarModule, 
-    MdChipsModule, 
-    MdCardModule,
+    MatTabsModule, 
+    MatButtonModule, 
+    MatProgressBarModule, 
+    MatChipsModule, 
+    MatCardModule,
     CarouselModule,
     Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ]),
     ResponsiveModule,
-    MdExpansionModule,
+    MatExpansionModule,
     // BrowserAnimationsModule
   ],
   providers: [
