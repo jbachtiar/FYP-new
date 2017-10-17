@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
                   console.log(res.user);
                   
                   this.loading = false; 
-                  //this.router.navigate(['./homepage']);
+                  this.router.navigate(['/']);
                   window.location.reload();
                   //this.stopLoading()
                 }else{

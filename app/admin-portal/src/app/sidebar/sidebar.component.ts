@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-
 import { AuthenticationService } from '../services/authentication.service';
+import { StaffcontrolService } from '../services/staffcontrol.service'
+import { Router } from "@angular/router";
 
 declare var $: any;
 
@@ -18,45 +19,48 @@ export const ROUTES: RouteInfo[] = [
         icon: 'ti-stats-up',
         class: ['1']
     },
-    { 
-        path: 'orders', 
-        title: 'Order Management', 
-        icon: 'ti-pulse', 
-        class: ['1', '2'] },
-    { 
-        path: 'viewOrders', 
-        title: 'View Orders', 
-        icon: 'ti-view-list', 
-        class: ['1', '2','3'] 
+    {
+        path: 'orders',
+        title: 'Order Management',
+        icon: 'ti-pulse',
+        class: ['1', '2']
     },
-    { 
-        path: 'user', 
-        title: 'Admin Profile', 
-        icon: 'ti-user', 
-        class: ['1', '2', '3'] },
-    { 
-        path: 'staffmanagement', 
-        title: 'Staff Management', 
-        icon: 'ti-panel', 
-        class: ['1'] 
+    {
+        path: 'viewOrders',
+        title: 'View Orders',
+        icon: 'ti-view-list',
+        class: ['1', '2', '3']
+    },
+    {
+        path: 'user',
+        title: 'Admin Profile',
+        icon: 'ti-user',
+        class: ['1', '2', '3']
+    },
+    {
+        path: 'staffmanagement',
+        title: 'Staff Management',
+        icon: 'ti-panel',
+        class: ['1']
     },
     // { path: 'patternList', title: 'Patterns Catalog',  icon:'ti-view-list-alt', class: '' },
-    { 
-        path: 'catalogue', 
-        title: 'Catalogue', 
-        icon: 'ti-view-list-alt', 
-        class: ['1'] 
+    {
+        path: 'catalogue',
+        title: 'Catalogue',
+        icon: 'ti-view-list-alt',
+        class: ['1']
     },
     // { 
     //     path: 'promoCode', 
     //     title: 'Promo Code', 
     //     icon: 'ti-text', 
     //     class: ['1'] },
-    { 
-        path: 'superuser', 
-        title: 'Superuser Management', 
-        icon: 'ti-panel', 
-        class: ['1'] }
+    {
+        path: 'superuser',
+        title: 'Superuser Management',
+        icon: 'ti-panel',
+        class: ['1']
+    }
     //{ path: 'icons', title: 'Icons',  icon:'ti-pencil-alt2', class: '' },
     //{ path: 'maps', title: 'Maps',  icon:'ti-map', class: '' },
     //{ path: 'notifications', title: 'Notifications',  icon:'ti-bell', class: '' },
@@ -67,28 +71,51 @@ export const ROUTES: RouteInfo[] = [
     moduleId: module.id,
     selector: 'sidebar-cmp',
     templateUrl: 'sidebar.component.html',
-    providers: [AuthenticationService],
+    providers: [AuthenticationService, StaffcontrolService],
 })
 
 export class SidebarComponent implements OnInit {
     roleId = localStorage.getItem("roleId");
     public menuItems: any[] = [];
+    public roleName: string;
+    public authenticated: boolean = false;
+    public token;
 
-    constructor(private authenticationService: AuthenticationService, ) {
+    constructor(
+        private authenticationService: AuthenticationService, 
+        private staffcontrolservice: StaffcontrolService,
+        private router: Router) {
     }
 
     ngOnInit() {
-        console.log("role id: " + this.roleId)
-        for(let r of ROUTES){
-            console.log("routessss")
-            for(var i = 0; i<r.class.length; i++){
-                console.log("access" + r.class[i])
-                if (r.class[i]==this.roleId){
+        this.token = localStorage.getItem('token');
+        if(this.token!=null){
+            this.authenticated = true;
+        }
+        for (let r of ROUTES) {
+            for (var i = 0; i < r.class.length; i++) {
+                if (r.class[i] == this.roleId) {
                     this.menuItems.push(r)
                 }
             }
         }
         // this.menuItems = ROUTES.filter(menuItem => menuItem);
+        this.staffcontrolservice.getAllRoles()
+            .subscribe(
+            res => {
+                if (res.status === '200') {
+                    let roles = res.staffRoles
+                    for (let role of roles) {
+                        if (role.roleId == this.roleId){
+                            this.roleName = role.roleName
+                            console.log("role name: " + this.roleName)
+                        }
+                    }
+                
+                } else {
+                    console.log(res.status);
+                }
+            });
     }
     isNotMobileMenu() {
         if ($(window).width() > 991) {
@@ -98,6 +125,7 @@ export class SidebarComponent implements OnInit {
     }
     logout() {
         this.authenticationService.logout();
+        this.router.navigate(['login']);
         window.location.reload();
     }
 

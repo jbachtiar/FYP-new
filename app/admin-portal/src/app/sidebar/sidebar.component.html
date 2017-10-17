@@ -1,24 +1,26 @@
-
 <div class="sidebar-wrapper">
     <div class="logo">
         <a href="" class="simple-text">
             <div class="logo-img">
-                
+
             </div>
-            <img src="assets/img/highlanderlogo.png" height="100" width="90" class="img-product" />
+            <img src="assets/img/highlanderlogo.png" height="100" width="90" class="img-product" /><br/>
+            <h6>{{roleName}}</h6>
         </a>
     </div>
     <ul class="nav">
-            <li class="divider" ></li>
+        <li class="divider"></li>
         <li *ngFor="let menuItem of menuItems" routerLinkActive="active" class="{{menuItem.class}}">
             <a [routerLink]="[menuItem.path]">
                 <i class="{{menuItem.icon}}"></i>
                 <p>{{menuItem.title}}</p>
             </a>
-            
+
         </li>
-        <li>
-            <a (click)="logout()"><p>Logout</p></a>
+        <li *ngIf="authenticated">
+            <a (click)="logout()">
+                <p>Logout</p>
+            </a>
         </li>
     </ul>
 </div>
