@@ -24,7 +24,8 @@ export class LoginPopupComponent extends DialogComponent<LoginPopupModel, boolea
     message: string;
     private user: any = {};
     private loading: boolean = false;
-    private returnUrl: string;
+    private returnUrl: string;    
+    private currentUrl;
 
     constructor(
         dialogService: DialogService,
@@ -33,7 +34,12 @@ export class LoginPopupComponent extends DialogComponent<LoginPopupModel, boolea
         private shoppingCartService: ShoppingCartService,
         private authenticationService: AuthenticationService,
         private alertService: AlertService) {
-        super(dialogService);
+        super(dialogService);        
+    }
+    ngOnInit(){
+        this.currentUrl = this.router.url;
+        console.log("URL: " + this.currentUrl)
+        
     }
     confirm() {
         // we set dialog result as true on click on confirm button, 
@@ -52,6 +58,10 @@ export class LoginPopupComponent extends DialogComponent<LoginPopupModel, boolea
                     console.log("RES STATUS :" + "Login successful");
                     // let cart : ShoppingCart = JSON.parse(localStorage.getItem("cart"));
                     // this.shoppingCartService.updateCartDB(cart)
+                    if(this.currentUrl=="/register"){
+                        this.router.navigate(['']);
+                        window.location.reload();
+                    }
                     this.confirm()
                     this.loading = false; 
                     // this.router.navigate([this.returnUrl]);
