@@ -45,7 +45,7 @@ const appRoutes: Routes = [
     { path: 'patternList/viewPatternDetails/:patternId', component: PatternDetailsViewComponent, canActivate: [ManagerGuard]},
     { path: 'orders', component: OrderFactoryManagerComponent, canActivate: [ManagerGuard]},
     { path: 'viewOrders', component: OrderFactoryWorkerComponent, canActivate: [AuthGuard]},
-    { path: 'analyticsdashboard', component: AnalyticsDashboardComponent, canActivate: [SuperGuard]},
+    { path: 'analytics', component: AnalyticsDashboardComponent, canActivate: [SuperGuard]},
     { path: 'orders/:orderId', component: OrderDetailsComponent, canActivate: [ManagerGuard]},
     { path: 'orders/:orderId', component: OrderDetailsComponent, canActivate: [ManagerGuard]},
     { path: 'superuser', component: OrderManagementSuperuserComponent, canActivate: [SuperGuard]},

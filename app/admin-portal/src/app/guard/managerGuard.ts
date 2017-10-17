@@ -13,12 +13,14 @@ export class ManagerGuard implements CanActivate {
             let roleId = localStorage.getItem('roleId')
             if(roleId=="1"||roleId=="2"){
                 return true;
+            }else{
+                this.router.navigate(['orders']);
+                return false;
             }
            
-        }
-
-        // not logged in so redirect to login page with the return url
-        this.router.navigate(['orders']);
-        return false;
+        }else {
+            this.router.navigate(['login']);
+            return false;
+        }        
     }
 }

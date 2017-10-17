@@ -12,11 +12,13 @@ export class WorkerGuard implements CanActivate {
             // logged in so return true
             if(localStorage.getItem('roleId')=="3"){
                 return true;
+            }else{
+                this.router.navigate(['viewOrders']);
+                return false;
             }
-        }
-
-        // not logged in so redirect to login page with the return url
-        this.router.navigate(['viewOrders']);
-        return false;
+        }else {
+            this.router.navigate(['login']);
+            return false;
+        }      
     }
 }

@@ -13,7 +13,7 @@ export interface RouteInfo {
 
 export const ROUTES: RouteInfo[] = [
     {
-        path: 'analyticsdashboard',
+        path: 'analytics',
         title: 'Analytics Dashboard',
         icon: 'ti-stats-up',
         class: ['1']

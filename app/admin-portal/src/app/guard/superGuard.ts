@@ -10,13 +10,18 @@ export class SuperGuard implements CanActivate {
         //verify if have token
         if (localStorage.getItem('token')) {
             // logged in so return true
-            if(localStorage.getItem('roleId')=="1"){
+            if (localStorage.getItem('roleId') == "1") {
                 return true;
+            } else {
+                this.router.navigate(['analytics']);
+                return false;
             }
+        } else {
+            this.router.navigate(['login']);
+            return false;
         }
 
         // not logged in so redirect to login page with the return url
-        this.router.navigate(['/']);
-        return false;
+     
     }
 }
