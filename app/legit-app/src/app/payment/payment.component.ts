@@ -11,6 +11,7 @@ import { CartComponent } from '../cart/cart.component'
 import { NavbarComponent } from '../navbar/navbar.component'
 import { SharedService } from '../shared.service'
 import { OrderService } from '../order.service'
+declare var ga: any;
 
 @Component({
   selector: 'app-payment',
@@ -104,7 +105,45 @@ export class PaymentComponent implements OnInit {
 
         this.orderService.saveOrder(newOrder).subscribe(res => {
           res = res.json()
+
+          
           if (res.status == 200) {
+            //Google Analytics Start
+            (function (i, s, o, g, r, a?, m?) {
+              i['GoogleAnalyticsObject'] = r;
+              i[r] = i[r] || function () {
+                      (i[r].q = i[r].q || []).push(arguments)
+                  }, i[r].l = 1 * <any>new Date();
+              a = s.createElement(o),
+                  m = s.getElementsByTagName(o)[0];
+              a.async = 1;
+              a.src = g;
+              m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+            ga('create', 'UA-106185727-2', 'auto');
+            ga('require', 'ec');
+
+            for (let order of newOrder.orderItems) {
+              ga('ec:addProduct',{
+                // productFieldObject stores product click and other details
+                'id': order.product.productId, // Product ID/SKU - Type: string
+                'name': order.product.pattern.patternName, // Pattern name - Type: string
+                'category': 'Beddings', // Product category - Type: string
+                'price': order.unitPrice, // Product price - Type: numeric
+                'quantity': order.quantity, //Product Quantity
+                });
+            }
+
+            ga('ec:setAction', 'purchase',{
+             // actionFieldObject stores action data
+              'id':newOrder.orderId, // Transaction id - Type: string
+              'netAmt': newOrder.netAmt, // Net amount - Type: numeric
+              'discountAmt': newOrder.promoDiscAmt, // Discount amount - Type: numeric
+              'coupon': newOrder.promoCode // Order/Transaction coupon - Type: string
+             });
+            ga('send', 'pageview');
+            //end of Google Analytics
+            
             //empty cart
             this.updateCart()
             //save address if requested
