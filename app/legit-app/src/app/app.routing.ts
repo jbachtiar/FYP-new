@@ -16,6 +16,7 @@ import { PaymentComponent } from './payment/payment.component'
 import { HomeAccessoriesComponent } from './home-accessories/home-accessories.component'
 import { AuthGuard } from './guard/auth.guard'
 import { CartComponent } from './cart/cart.component'
+import { VirtualRealityComponent } from './virtual-reality/virtual-reality.component'
 import { TrackOrderDetailComponent} from './track-order-detail/track-order-detail.component';
 import { AccountVerificationComponent } from './account-verification/account-verification.component'
 //import { CanDeactivateGuard} from './guard/submitForm.guard'
@@ -37,7 +38,8 @@ const appRoutes: Routes = [
     { path: 'cart', component: CartComponent },
     { path: 'accessories', component: HomeAccessoriesComponent },
     { path: 'profile-sidebar/:orderId', component: TrackOrderDetailComponent },
-    { path: 'activate-account/:email/:code', component: AccountVerificationComponent}
+    { path: 'activate-account/:email/:code', component: AccountVerificationComponent},
+    { path: 'vr', component: VirtualRealityComponent},
 ];
 
 export const routing = RouterModule.forRoot(appRoutes);

@@ -61,6 +61,7 @@ import {MatExpansionModule} from '@angular/material'
 import { Angulartics2Module, Angulartics2GoogleAnalytics } from 'angulartics2';
 import { AccountVerificationComponent } from './account-verification/account-verification.component';
 import { HomeAccessoriesComponent } from './home-accessories/home-accessories.component';
+import { VirtualRealityComponent } from './virtual-reality/virtual-reality.component';
 
 @NgModule({
   declarations: [
@@ -92,7 +93,8 @@ import { HomeAccessoriesComponent } from './home-accessories/home-accessories.co
     AddressBookComponent,
     TrackOrderDetailComponent,
     AccountVerificationComponent,
-    HomeAccessoriesComponent
+    HomeAccessoriesComponent,
+    VirtualRealityComponent
   ],
   imports: [
     BrowserModule,
