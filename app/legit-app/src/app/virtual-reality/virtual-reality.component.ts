@@ -13,8 +13,8 @@ export class VirtualRealityComponent implements OnInit {
     window.addEventListener('load', onVrViewLoad)
     function onVrViewLoad() {
       var vrView = new VRView.Player('#vrview', {
-        image: './assets/images/360.png',
-        is_stereo: true
+        image: 'https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Product+Images/3_3.png',
+        //is_stereo: true
       });
     }
   }
