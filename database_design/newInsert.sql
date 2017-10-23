@@ -1,7 +1,7 @@
 INSERT INTO `customer` (`EMAIL`, `FIRST_NAME`, `LAST_NAME`, `PHONE_NO`, `PASSWORD`, `VERIFIED`) VALUES
-('customer2@gmail.com', 'Tan', 'Chen', '85823165', '1234', 'Y'),
-('customer3@gmail.com', 'Ming', 'Chen', '81123165', '1234', 'Y'),
-('customer@gmail.com', 'Huiyan', 'Chen', '85882165', '1234', 'Y');
+('customer2@gmail.com', 'Tan', 'Chen', '+6585823165', '1234', 'Y'),
+('customer3@gmail.com', 'Ming', 'Chen', '+6581123165', '1234', 'Y'),
+('customer@gmail.com', 'Huiyan', 'Chen', '+6585882165', '1234', 'Y');
 
 INSERT INTO `staff_role` (`ROLE_ID`, `ROLE_NAME`) VALUES
 (1, 'Admin'),

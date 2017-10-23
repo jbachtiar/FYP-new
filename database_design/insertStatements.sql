@@ -1,6 +1,6 @@
-﻿INSERT INTO CUSTOMER VALUES ('customer@gmail.com','Huiyan','Chen','85882165','1234','Y');
-INSERT INTO CUSTOMER VALUES ('customer2@gmail.com','Tan','Chen','85823165','1234','Y');
-INSERT INTO CUSTOMER VALUES ('customer3@gmail.com','Ming','Chen','81123165','1234','Y');
+﻿INSERT INTO CUSTOMER VALUES ('customer@gmail.com','Huiyan','Chen','+6585882165','1234','Y');
+INSERT INTO CUSTOMER VALUES ('customer2@gmail.com','Tan','Chen','+6585823165','1234','Y');
+INSERT INTO CUSTOMER VALUES ('customer3@gmail.com','Ming','Chen','+6581123165','1234','Y');
 
 
 INSERT INTO STAFF_ROLE VALUES ('1','Admin');
