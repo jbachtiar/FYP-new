@@ -280,6 +280,7 @@ export class ProductListComponent implements OnInit {
   }
 
   showQuickView(patternId, pattern_name){
+    //start of GA
     (function (i, s, o, g, r, a?, m?) {
       i['GoogleAnalyticsObject'] = r;
       i[r] = i[r] || function () {
@@ -301,18 +302,16 @@ export class ProductListComponent implements OnInit {
     'name': pattern_name, // Product name - Type: string
   
     'category': 'Beddings', // Product category - Type: string
-  
-    'brand': '[Server Variable]', // Product brand - Type: string
     
     });
     
-     ga('ec:setAction', 'click', {'list': 'Product List'});
+     ga('ec:setAction', 'detail');
     // Send checkout event 1 event to enhanced ecommerce
     // Send click with an event, then send user to product page.
      ga('send', 'event', 'enhanced ecommerce', 'Quick View Clicks', pattern_name);
      ga('send', 'pageview');
+    // end of GA
 
-    console.log("Quick view pattern ID: " + patternId)
      let disposable = this.dialogService.addDialog( QuickViewComponent, {
             title:'QuickView', 
             message:'',
@@ -351,12 +350,10 @@ export class ProductListComponent implements OnInit {
     'name': pattern_name, // Product name - Type: string
   
     'category': 'Beddings', // Product category - Type: string
-  
-    'brand': '[Server Variable]', // Product brand - Type: string
     
     });
     
-      ga('ec:setAction', 'click', {'list': 'Product List'});
+      ga('ec:setAction', 'detail');
     
       // Send click with an event, then send user to product page.
       ga('send', 'event', 'enhanced ecommerce', 'Product Detail Clicks', pattern_name);

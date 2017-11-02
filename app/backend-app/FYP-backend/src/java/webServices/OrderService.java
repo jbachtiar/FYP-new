@@ -83,6 +83,47 @@ public class OrderService {
     }
 
     @GET
+    @Path("/getNextOrderId")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getNextOrderId() {
+
+        response.setHeader("Access-Control-Allow-Headers", "Content-Type");
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
+
+        Gson gson = new GsonBuilder().create();
+        JsonObject jsonOutput = new JsonObject();
+
+        JsonArray orderArray = new JsonArray();
+        OrderDAO orderDao = new OrderDAO();
+
+        try {
+
+            int orderNum = orderDao.getNextOrderId();
+            if (orderNum == 0) {
+
+                jsonOutput.addProperty("status", "500");
+                jsonOutput.addProperty("msg", "Backend Error: No order id returned");
+
+            } else {
+                orderNum = orderNum-1;
+                jsonOutput.addProperty("status", "200");
+                jsonOutput.addProperty("orderid", orderNum);
+
+            }
+
+        } catch (SQLException e) {
+
+            jsonOutput.addProperty("status", "500");
+            jsonOutput.addProperty("msg", "OrderService: SQL Exception" + e.getMessage());
+
+        }
+
+        String finalJsonOutput = gson.toJson(jsonOutput);
+        return finalJsonOutput;
+    }
+
+    @GET
     @Path("/getAllOrders")
     @Produces(MediaType.APPLICATION_JSON)
     public String getAllOrders() {

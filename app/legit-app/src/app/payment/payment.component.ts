@@ -26,6 +26,7 @@ export class PaymentComponent implements OnInit {
   contact: string;
   address;
   save;
+  ordernum;
   // postalCode: string;
   totalPrice: string;
   private shoppingCart: ShoppingCart;
@@ -54,6 +55,7 @@ export class PaymentComponent implements OnInit {
     // this.postalCode = this.storageService.getPostCode();
     this.address = this.storageService.getAddress();
     this.save = this.storageService.getSaveAddress();
+    this.ordernum = this.orderService.getNextOrderID();
     console.log("ADDRESS oioioi: " + this.address);
 
     this.cartItem = this.shoppingCart.cartItems;
@@ -88,6 +90,7 @@ export class PaymentComponent implements OnInit {
         //reference id
         this.paymentRefNo = res.paymentRefNo
         //add order to database
+        console.log(this.ordernum + " HEREEEEEEEEEE");
         let newOrder = {
           "orderId": 0,
           "Timestamp": null,
@@ -136,7 +139,7 @@ export class PaymentComponent implements OnInit {
 
             ga('ec:setAction', 'purchase',{
              // actionFieldObject stores action data
-              'id':newOrder.orderId, // Transaction id - Type: string
+              'id':this.ordernum, // Transaction id - Type: string
               'netAmt': newOrder.netAmt, // Net amount - Type: numeric
               'discountAmt': newOrder.promoDiscAmt, // Discount amount - Type: numeric
               'coupon': newOrder.promoCode // Order/Transaction coupon - Type: string

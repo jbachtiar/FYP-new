@@ -78,6 +78,7 @@ public class Authentication {
                 responseMap.put("description", description);
             } else {
                 if (password != null && !password.equals("")) {
+                    //encrypt password
                     if (password.equals(customer.getPassword())) {
                         //out.println("exist");
                         //String name = customer.getName();
