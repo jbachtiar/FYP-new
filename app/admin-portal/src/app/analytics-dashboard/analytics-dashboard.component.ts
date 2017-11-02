@@ -244,16 +244,14 @@ export class AnalyticsDashboardComponent implements OnInit {
 
       var ecommerce3 = new gapi.analytics.googleCharts.DataChart({
         query: {
-          metrics: 'ga:itemRevenue',
-          dimensions: 'ga:session',
+          metrics: 'ga:sessions',
+          dimensions: 'ga:shoppingStage',
           'start-date': '7daysAgo',
           'end-date': 'today',
-          'max-results': 6,
-          sort: '-ga:itemRevenue'
         },
         chart: {
-          container: 'ecommerce1',
-          type: 'COLUMN',
+          container: 'ecommerce3',
+          type: 'BAR',
           options: {
             'legend': 'left',
             'title': 'Top Products',
@@ -373,6 +371,17 @@ export class AnalyticsDashboardComponent implements OnInit {
           }
         }
         ecommerce1.set(newIds).execute();
+        this.loading = false;
+      });
+
+      viewSelector.on('change', function (ids) {
+        
+        var newIds = {
+          query: {
+            ids: ids
+          }
+        }
+        ecommerce3.set(newIds).execute();
         this.loading = false;
       });
 
