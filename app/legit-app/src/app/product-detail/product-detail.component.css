@@ -28,20 +28,51 @@ body {
     border-bottom: 3px solid #B0A171;
 }
 
+.desc-header{
+    font-size: 30px;
+    border-bottom: 0.5px solid #B0A171;
+    
+    color: #B0A171;
+}
+
 .product-price{
     font-size: 18px;
-    color: black; 
+    color: #B0A171; 
     font-family: Georgia;
 }
 
 .description{
     font-family: Georgia;
-    border-bottom: 1px solid grey;
+    /* border-bottom: 1px solid grey; */
+}
+.btn{
+    background-color: white;
+    padding: 1px;
 }
 
+.color-image{
+    border-radius:10px;
+}
 .btn-default:hover, .btn-default:focus, .btn-primary:active, .btn-default.active, .open>.dropdown-toggle.btn-default {
     background-color: #B0A171; 
     color: white;
+}
+
+select{
+    height: 30px;
+    border-radius: 7px;
+    border-color: lightgrey;
+}
+
+select:focus, select:hover{
+        border: 1px solid #B0A171;
+
+}
+.btn[disabled], .btn:hover, .btn:focus, .btn:active, .btn.active, .open>.dropdown-toggle.btn {
+    background-color: #B0A171; 
+    cursor:auto;
+    color: white;
+    opacity: 1;
 }
 
 .btn-default{
@@ -181,6 +212,7 @@ img{
     }
     h5{
         font-size: 18px;
+        /* color:#B0A171; */
     }
     h4{
         font-size : 26px;
@@ -196,7 +228,6 @@ img{
     }
     .description{
         text-align: justify;
-        border : 0px;
     }
     #carousel-custom{
         width: 300px;

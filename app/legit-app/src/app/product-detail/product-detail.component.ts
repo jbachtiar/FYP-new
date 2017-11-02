@@ -86,6 +86,11 @@ export class ProductDetailComponent implements OnInit {
     this.loading = false;
   }
 
+  selectColour(colour){
+    this.selectedColour=colour;
+    this.onColourChange();
+  }
+
   onFabricChange() {
     this.selectedColour = this.selectedFabric.colours[0]; 
     this.selectedSize = this.selectedColour.sizes[0];
