@@ -51,8 +51,14 @@
           <tr style="border: 0px">
             <td></td>
             <td></td>
+            <td style="text-align: right; font-size: 16px; font-weight: bold">Discount</td>
+            <td>$ {{shoppingCart.discount}}.00</td>
+          </tr>
+          <tr style="border: 0px">
+            <td></td>
+            <td></td>
             <td style="text-align: right; font-size: 16px; font-weight: bold">Total Price</td>
-            <td>$ {{shoppingCart.price}}.00</td>
+            <td>$ {{shoppingCart.price-shoppingCart.discount}}.00</td>
           </tr>
         </table>
       </div>

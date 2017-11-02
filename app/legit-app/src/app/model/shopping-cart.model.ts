@@ -5,10 +5,12 @@ export class ShoppingCart {
   public cartItems: CartItem[] = new Array<CartItem>();
   public cartId: number;
   public price: number = 0;
+  public discount: number = 0;
 
   public updateFrom(src: ShoppingCart) {
     this.cartItems = src.cartItems;
     this.cartId = src.cartId;
     this.price = src.price;
+    this.discount = src.discount;
   }
 }

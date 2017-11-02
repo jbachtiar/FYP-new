@@ -152,10 +152,22 @@ export class ShoppingCartService {
 
     this.calculateCart(this.cart);
     this.save(this.cart);
+    this.cart.price -= this.cart.discount;
     this.dispatch(this.cart);
   }
 
+  public checkPromo(code: string, amount: number) {
+        let url = CONFIG.promoBackendUrl;
+        let finalUrl = url + "/check?PromoCode=" + code + "&Amount=" + amount;
 
+        return this._http.get(finalUrl)
+            .map(res => {
+                console.log(finalUrl)
+                console.log("promo is loaded" + res.json().promo);
+                return res.json().promo;
+            });
+        
+    }
 
   public empty(): void {
     const newCart = new ShoppingCart();

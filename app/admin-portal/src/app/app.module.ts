@@ -41,7 +41,7 @@ import { QRCodeModule } from 'angular2-qrcode';
 import { BootstrapModalModule } from 'ng2-bootstrap-modal';
 
 import { DataTableModule } from 'angular-4-data-table';
-import { MdTabsModule, MdButtonModule, MdProgressBarModule, MdChipsModule, MdCardModule, MatCardModule } from '@angular/material';
+import { MatTabsModule, MatButtonModule, MatProgressBarModule, MatChipsModule, MatCardModule} from '@angular/material';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { OrderFactoryWorkerComponent } from './order-factory-worker/order-factory-worker.component';
 import { Angulartics2Module, Angulartics2GoogleAnalytics } from 'angulartics2';
@@ -130,17 +130,17 @@ import { ShippingDetailsPopupComponent } from './shipping-details-popup/shipping
     QRCodeModule,
     BootstrapModalModule,
     DataTableModule,
-    MdTabsModule,
-    MdButtonModule,
-    MdProgressBarModule,
-    MdChipsModule,
+    MatTabsModule,
+    MatButtonModule,
+    MatProgressBarModule,
+    MatChipsModule,
     Ng2SearchPipeModule,
-    MdCardModule,
+    MatCardModule,
     MatCardModule,
     Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ])
     ],
   exports: [
-    MdTabsModule
+    MatTabsModule
   ],
   providers: [
     AuthGuard,

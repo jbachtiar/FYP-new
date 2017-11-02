@@ -28,6 +28,7 @@ export class CartService {
         });
     }
 
+
     updateCartItem(cartId: string, productId: string, qty: string) {
         let params: URLSearchParams = new URLSearchParams();
         params.set('cartId', cartId);
@@ -82,5 +83,6 @@ export class CartService {
             return res.json().total_price
         });
     }
+
 
 }

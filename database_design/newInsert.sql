@@ -1,4 +1,4 @@
-INSERT INTO `customer` (`EMAIL`, `FIRST_NAME`, `LAST_NAME`, `PHONE_NO`, `PASSWORD`, `VERIFIED`) VALUES
+﻿INSERT INTO `customer` (`EMAIL`, `FIRST_NAME`, `LAST_NAME`, `PHONE_NO`, `PASSWORD`, `VERIFIED`) VALUES
 ('customer2@gmail.com', 'Tan', 'Chen', '+6585823165', '1234', 'Y'),
 ('customer3@gmail.com', 'Ming', 'Chen', '+6581123165', '1234', 'Y'),
 ('customer@gmail.com', 'Huiyan', 'Chen', '+6585882165', '1234', 'Y');
@@ -123,9 +123,9 @@ INSERT INTO `order_status` (`STATUS_ID`, `STATUS_NAME`) VALUES
 
 
 INSERT INTO `promo_code` (`PROMO_CODE_ID`, `PROMO_CODE`, `PROMO_NAME`, `PROMO_TYPE`, `PROMO_VALUE`, `MIN_PURCHASE`, `MAX_DISCOUNT`, `QUOTA`, `COUNTER`, `START_DATE`, `END_DATE`, `DELETED`) VALUES
-(0, 'NONE', 'NONE', 'NONE', 0, 0, 0, 0, 0, '2017-08-27', '2017-09-10', 'N'),
-(1, 'WELCOME5', 'First Purchase', '% discount', 5, 50, 100, 10000, 0, '2017-08-27', '2017-09-10', 'N'),
-(2, '1MONTH', '1st Monthsary', '$ discount', 50, 200, 50, 10000, 0, '2017-09-27', '2017-10-27', 'N');
+(0, 'NONE', 'NONE', 'NONE', 0, 0, 0, 0, 0, '2017-08-27', '2020-09-10', 'N'),
+(1, 'WELCOME5', 'First Purchase', 'Percent discount', 5, 50, 100, 10000, 0, '2017-08-27', '2018-09-10', 'N'),
+(2, '1MONTH', '1st Monthsary', 'Dollar discount', 50, 200, 50, 10000, 0, '2017-09-27', '2018-10-27', 'N');
 
 
 INSERT INTO `bedding` (`PRODUCT_ID`, `SIZE_NAME`) VALUES

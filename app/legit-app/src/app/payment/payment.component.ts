@@ -69,14 +69,14 @@ export class PaymentComponent implements OnInit {
       token: (token: any) => {
         // You can access the token ID with `token.id`.
         // Get the token ID to our server-side code for use.
-        this.chargeStripe(token.id, this.shoppingCart.price * 100);
+        this.chargeStripe(token.id, (this.shoppingCart.price-this.shoppingCart.discount) * 100);
       }
     });
-    console.log("TOTAL PRICE :" + this.shoppingCart.price)
+    console.log("TOTAL PRICE :" + (this.shoppingCart.price-this.shoppingCart.discount))
     handler.open({
       name: 'Highlander',
       description: 'Secured Payment',
-      amount: this.shoppingCart.price * 100
+      amount: (this.shoppingCart.price-this.shoppingCart.discount) * 100
     });
   }
 
@@ -91,8 +91,8 @@ export class PaymentComponent implements OnInit {
         let newOrder = {
           "orderId": 0,
           "Timestamp": null,
-          "netAmt": this.shoppingCart.price,
-          "promoDiscAmt": 0,
+          "netAmt": this.shoppingCart.price-this.shoppingCart.discount,
+          "promoDiscAmt": this.shoppingCart.discount,
           "address": this.address,
           "paymentRefNo": this.paymentRefNo,
           "promoCode": null,

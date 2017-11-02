@@ -112,36 +112,47 @@ public class PromoCodeService {
             
             jsonOutput.addProperty("status", "200");
             PromoCode pc = pcDAO.getPromoCodeByPromoCode(promoCode);
-            
+            System.out.println(pc.getEndDate());
             if(pc == null){
                 
-                jsonOutput.addProperty("valid", "N");
-                jsonOutput.addProperty("discountAmt", 0);
-                jsonOutput.addProperty("reason", "Promo Code does not exist!");
+                
+                JsonObject temp = new JsonObject();
+                temp.addProperty("valid", "N");
+                temp.addProperty("discountAmt", 0);
+                temp.addProperty("reason", "Promo Code does not exist!");
+                jsonOutput.add("promo", temp);
                 
             }else if(pc.getStartDate().after(currSqlDate)){
                 
-                jsonOutput.addProperty("valid", "N");
-                jsonOutput.addProperty("discountAmt", 0);
-                jsonOutput.addProperty("reason", "Promo has yet to start!");
+                JsonObject temp = new JsonObject();
+                temp.addProperty("valid", "N");
+                temp.addProperty("discountAmt", 0);
+                temp.addProperty("reason", "Promo has yet to start!");
+                jsonOutput.add("promo", temp);
                 
             }else if(pc.getEndDate().before(currSqlDate)){
                 
-                jsonOutput.addProperty("valid", "N");
-                jsonOutput.addProperty("discountAmt", 0);
-                jsonOutput.addProperty("reason", "Promo has ended!");
+                JsonObject temp = new JsonObject();
+                temp.addProperty("valid", "N");
+                temp.addProperty("discountAmt", 0);
+                temp.addProperty("reason", "Promo has ended!");
+                jsonOutput.add("promo", temp);
                 
             }else if(pc.getQuota() <= pc.getCounter()){
                 
-                jsonOutput.addProperty("valid", "N");
-                jsonOutput.addProperty("discountAmt", 0);
-                jsonOutput.addProperty("reason", "Promo has been fully redeemed!");
+                JsonObject temp = new JsonObject();
+                temp.addProperty("valid", "N");
+                temp.addProperty("discountAmt", 0);
+                temp.addProperty("reason", "Promo has been fully redeemed!");
+                jsonOutput.add("promo", temp);
                 
             }else if(pc.getMinPurchase() > purchaseAmt){
                 
-                jsonOutput.addProperty("valid", "N");
-                jsonOutput.addProperty("discountAmt", 0);
-                jsonOutput.addProperty("reason", "Min Purchase: " + pc.getMinPurchase());
+                JsonObject temp = new JsonObject();
+                temp.addProperty("valid", "N");
+                temp.addProperty("discountAmt", 0);
+                temp.addProperty("reason", "Min Purchase: " + pc.getMinPurchase());
+                jsonOutput.add("promo", temp);
                 
             }else{
                 
@@ -163,8 +174,10 @@ public class PromoCodeService {
                     
                 }
                 
-                jsonOutput.addProperty("valid", "Y");
-                jsonOutput.addProperty("discountAmt", discountAmount);
+                JsonObject temp = new JsonObject();
+                temp.addProperty("valid", "Y");
+                temp.addProperty("discountAmt", discountAmount);
+                jsonOutput.add("promo", temp);
                 
             }
             

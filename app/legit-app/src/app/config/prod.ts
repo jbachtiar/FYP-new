@@ -18,6 +18,7 @@ export const prodConfig = {
     paymentBackendUrl: 'http://ec2-52-35-18-15.us-west-2.compute.amazonaws.com/FYP-backend/API/Payment',
     addressBackendUrl: 'http://ec2-52-35-18-15.us-west-2.compute.amazonaws.com/FYP-backend/API/AddressService',
     filterBackendUrl: 'http://ec2-52-35-18-15.us-west-2.compute.amazonaws.com/FYP-backend/API/ProductCatalogue/GetFilters',
-    orderBackendUrl: 'http://ec2-52-35-18-15.us-west-2.compute.amazonaws.com/FYP-backend/API/OrderService'
+    orderBackendUrl: 'http://ec2-52-35-18-15.us-west-2.compute.amazonaws.com/FYP-backend/API/OrderService',
+    promoBackendUrl: 'http://localhost:8084/FYP-backend/API/PromoService'
     
 }

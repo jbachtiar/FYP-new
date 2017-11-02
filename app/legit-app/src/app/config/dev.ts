@@ -17,5 +17,6 @@ export const devConfig = {
     paymentBackendUrl: 'http://localhost:8084/FYP-backend/API/Payment',
     addressBackendUrl: 'http://localhost:8084/FYP-backend/API/AddressService',
     orderBackendUrl: 'http://localhost:8084/FYP-backend/API/OrderService',
-    filterBackendUrl: 'http://localhost:8084/FYP-backend/API/ProductCatalogue/GetFilters'
+    filterBackendUrl: 'http://localhost:8084/FYP-backend/API/ProductCatalogue/GetFilters',
+    promoBackendUrl: 'http://localhost:8084/FYP-backend/API/PromoService'
 }

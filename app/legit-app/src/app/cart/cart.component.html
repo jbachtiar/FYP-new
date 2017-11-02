@@ -10,11 +10,12 @@
     <div class="col-md-6">
       <h1 class="title">My Shopping Cart</h1>
     </div>
-
-    <div class="col-md-6">
+  <div class="col-md-6">
       <button class="pull-right checkout" routerLink="/checkout" *hideItDevice="['mobile','tablet']">Checkout</button>
     </div>
+    
   </div>
+  
   <hr>
   <div class="row">
     <div class="col-sm-12 col-xs-12" *hideItDevice="['mobile','tablet']">
@@ -47,11 +48,19 @@
             <button class="remove" (click)="remove(item.product.productId)">remove</button>
           </td>
         </tr>
+
+        <tr>
+        <td colspan="3" style="text-align: right; font-size: 16px; font-weight:bold">Promo Code</td>
+        <td><input type="text" name="code" class="btn btn-default" [(ngModel)]="code"/></td>
+        <td><button class="remove" id = "check" (click)="onCheck(code)">apply</button></td>
+        </tr>
+
         <tr>
           <td colspan="3" style="text-align: right; font-size: 16px; font-weight:bold">Total Price</td>
           <td>$ {{shoppingCart.price}}.00</td>
           <td></td>
         </tr>
+
       </table>
     </div>
 
@@ -98,7 +107,7 @@
               </tr>
               <tr >
                   <td>Total</td>
-                  <td class="table-right" style="font-size: 24px;"><b>$ {{shoppingCart.price}}.00</b></td>
+                  <td class="table-right" style="font-size: 24px;"><b>$ {{shoppingCart.discount}}.00</b></td>
                 </tr>
             </tbody>
           </table>

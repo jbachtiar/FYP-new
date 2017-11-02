@@ -18,5 +18,6 @@ export const stagConfig = {
     paymentBackendUrl: 'http://localhost:8084/FYP-backend/API/Payment',
     addressBackendUrl: 'http://localhost:8084/FYP-backend/API/AddressService',  
     filterBackendUrl: 'http://localhost:8084/FYP-backend/API/ProductCatalogue/GetFilters',
-    orderBackendUrl: 'http://localhost:8084/FYP-backend/API/OrderService'
+    orderBackendUrl: 'http://localhost:8084/FYP-backend/API/OrderService',
+    promoBackendUrl: 'http://localhost:8084/FYP-backend/API/PromoService'
 }

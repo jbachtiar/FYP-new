@@ -27,6 +27,8 @@ export class CartComponent implements OnInit {
   private cartItem : CartItem[]
   private empty: boolean = true;
   subscription: Subscription;
+  private promo;
+  private discount: number = 0;
 
   public constructor(
     private shoppingCartService: ShoppingCartService,
@@ -42,6 +44,7 @@ export class CartComponent implements OnInit {
   }
 
   ngOnInit() {
+    
     this.sharedService.updateCart()
     console.log(JSON.stringify(this.shoppingCart))
     this.itemCount = this.shoppingCart.cartItems.length;
@@ -100,6 +103,22 @@ export class CartComponent implements OnInit {
     console.log("CART IS EMPTIED")
     this.shoppingCartService.empty()
     //window.location.reload()
+  }
+
+  onCheck(code: string){
+    console.log("CHECKING PROMO CODE " +code)
+
+    this.shoppingCartService.checkPromo(code, this.shoppingCart.price).subscribe(
+       promo => {
+        
+         this.promo = promo;
+         this.discount = promo.discountAmt;
+         console.log("PROMO CODE " + this.discount);
+         this.shoppingCart.discount = this.discount;
+         this.shoppingCartService.updateCart(this.shoppingCart);
+        
+    });
+
   }
 
   remove(productId: number){
