@@ -123,6 +123,27 @@ export class QuickViewComponent extends DialogComponent<QuickViewPopupModel, boo
   }
 
   addCart() {
+    //Start of GA
+    (function (i, s, o, g, r, a?, m?) {
+      i['GoogleAnalyticsObject'] = r;
+      i[r] = i[r] || function () {
+              (i[r].q = i[r].q || []).push(arguments)
+          }, i[r].l = 1 * <any>new Date();
+      a = s.createElement(o),
+          m = s.getElementsByTagName(o)[0];
+      a.async = 1;
+      a.src = g;
+      m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-106185727-2', 'auto');
+    ga('require', 'ec');
+    // Send checkout event 3 event to enhanced ecommerce
+    ga('ec:setAction', 'checkout', {'step': 3});
+    // Send click with an event
+    ga('send', 'event', 'Session Movement', 'Add Products');
+    ga('send', 'pageview');
+    //end of GA
+    
     //this.startLoading()
     // console.log("Pattern ID : " + this.patternId);
     // console.log("Fabric ID : " + this.selectedFabric.fabric_id);
