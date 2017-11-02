@@ -27,15 +27,15 @@ import { DesignDetailsAddComponent } from './design-details-add/design-details-a
 import { FabricDetailsAddComponent } from './fabric-details-add/fabric-details-add.component'
 import { ColourDetailsAddComponent } from './colour-details-add/colour-details-add.component'
 import { CollectionDetailsAddComponent } from './collection-details-add/collection-details-add.component'
-
+import { LandingPageComponent } from './landing-page/landing-page.component'
 import { AuthGuard } from './guard/guard';
 import { SuperGuard } from './guard/superGuard';
 import { ManagerGuard } from './guard/managerGuard';
 
 const appRoutes: Routes = [
-    // { path: '', component: AnalyticsDashboardComponent, canActivate: [SuperGuard] },
+    { path: '', component: LandingPageComponent, canActivate: [AuthGuard] },
     { path: 'login', component: LoginComponent },
-    // { path: 'homepage', component: HomepageComponent,  canActivate: [AuthGuard] },
+    // { path: '', component: HomepageComponent,  canActivate: [AuthGuard] },
     { path: 'user', component: UserComponent,  canActivate: [AuthGuard] },
     { path: 'staffmanagement', component: StaffmanagementComponent,  canActivate: [SuperGuard] },
     { path: 'promoCode', component: PromoCodeComponent,  canActivate: [SuperGuard] },

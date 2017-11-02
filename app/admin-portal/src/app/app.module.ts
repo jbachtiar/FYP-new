@@ -72,6 +72,7 @@ import { DesignDetailsComponent } from './design-details/design-details.componen
 import { DesignDetailsAddComponent } from './design-details-add/design-details-add.component';
 import { DesignDetailsEditComponent } from './design-details-edit/design-details-edit.component';
 import { ShippingDetailsPopupComponent } from './shipping-details-popup/shipping-details-popup.component';
+import { LandingPageComponent } from './landing-page/landing-page.component';
 
 
 @NgModule({
@@ -119,7 +120,8 @@ import { ShippingDetailsPopupComponent } from './shipping-details-popup/shipping
     DesignDetailsComponent,
     DesignDetailsAddComponent,
     DesignDetailsEditComponent,
-    ShippingDetailsPopupComponent
+    ShippingDetailsPopupComponent,
+    LandingPageComponent
   ],
   imports: [
     BrowserModule,
