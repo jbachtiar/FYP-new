@@ -11,19 +11,26 @@ export class PromoCodeService {
     constructor(private _http: Http) {}
 
 
-    getAllPromos(token: string) {
-        let params: URLSearchParams = new URLSearchParams();
-        let headers = new Headers();
+    getFilteredPatternList(collectionId: string, fabricId: string, colourId: string, sortPrice: String, query: string) {
+        let url = CONFIG.productCatalogueBackendUrl + '/adminPatternFilter';
+        let finalUrl = url + "?collectionId=" + collectionId + "&fabricId=" + fabricId + "&colourId=" + colourId + "&sortPrice=" + sortPrice + "&search=" + query;
+        return this._http.get(finalUrl)
+            .map(res => {
+                console.log(finalUrl)
+                return res.json().products;
+            });
+    }
 
+    
+    getAllPromos() {
 
-        headers.append(
-            'Content-type', 'application/x-www-form-urlencoded'
-        );
+        let url = CONFIG.promoCodeBackendUrl + '/getAllPromoCodes';
 
-        params.set('token', token);
-
-        return this._http.post(CONFIG.promoCodeBackendUrl + "/retrieveAll", params.toString(), { headers: headers })
-            .map(res => res.json());
+        return this._http.get(url)
+            .map(res => {
+                console.log(url)
+                return res.json().promoCodes;
+        });
     }
 
     deletePromo(token: string, promoId : string) {

@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { PromoCodeService } from '../services/promo-code.service';
-import { PromoCode } from '../models/promo-code';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-promo-code',
   templateUrl: './promo-code.component.html',
@@ -9,21 +10,27 @@ import { PromoCode } from '../models/promo-code';
 })
 export class PromoCodeComponent implements OnInit {
 
+  private promoList: any = [];
+  private params;
+
+
   constructor(
-    private promoCodeService: PromoCodeService
-  ) { }
-  private token: string = localStorage.getItem('token');
-  private promoList : PromoCode[];
+    private promoCodeService: PromoCodeService, private router: Router) {
+     }
 
   ngOnInit() {
-    this.promoCodeService.getAllPromos(this.token)
-      .subscribe(res => {
-        this.promoList = res.promos;        
-        console.log(JSON.stringify(this.promoList));
+    this.promoCodeService.getAllPromos().subscribe(
+      promoCodes => {
+        
+        this.promoList = promoCodes;        
         
       })
+
   }
 
-  
+  addPromo(): void {
+    let link = ['/addPromo']
+    this.router.navigate(link);
+  }
 
 }

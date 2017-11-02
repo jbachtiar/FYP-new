@@ -7,7 +7,7 @@ export const devConfig = {
     staffBackendUrl:'http://localhost:8084/FYP-backend/API/staff',
     quickViewBackendUrl: 'http://localhost:8084/FYP-backend/API/ProductCatalogue/pattern',
     eCommerceWebsiteUrl: 'http://localhost:4200',
-    promoCodeBackendUrl: 'http://localhost:8084/FYP-backend/API/promoCode',
+    promoCodeBackendUrl: 'http://localhost:8084/FYP-backend/API/PromoService',
     orderBackendUrl: 'http://localhost:8084/FYP-backend/API/OrderService',
     orderStatusLogBackendUrl: 'http://localhost:8084/FYP-backend/API/OrderStatusLogService',
     orderItemBackendUrl: 'http://localhost:8084/FYP-backend/API/OrderItemService',
