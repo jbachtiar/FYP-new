@@ -6,6 +6,8 @@
             <h2 style="text-align:center">Admin Login</h2>
             
             <app-loading *ngIf="loading"></app-loading>
+            <alert></alert>
+            
             <form name="form" *ngIf="!loading"(ngSubmit)="login()" #f="ngForm" novalidate>
                 <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !email.valid }">
                     <label for="email">Email</label>
