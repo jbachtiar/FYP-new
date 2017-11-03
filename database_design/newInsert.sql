@@ -1,4 +1,5 @@
-﻿INSERT INTO `customer` (`EMAIL`, `FIRST_NAME`, `LAST_NAME`, `PHONE_NO`, `PASSWORD`, `VERIFIED`) VALUES
+﻿
+INSERT INTO `customer` (`EMAIL`, `FIRST_NAME`, `LAST_NAME`, `PHONE_NO`, `PASSWORD`, `VERIFIED`) VALUES
 ('customer2@gmail.com', 'Tan', 'Chen', '+6585823165', '1234', 'Y'),
 ('customer3@gmail.com', 'Ming', 'Chen', '+6581123165', '1234', 'Y'),
 ('customer@gmail.com', 'Huiyan', 'Chen', '+6585882165', '1234', 'Y');
@@ -173,12 +174,14 @@ INSERT INTO `product_image` (`PRODUCT_ID`, `IMAGE_ID`, `IMAGE_URL`) VALUES
 (3, 2, 'https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Product+Images/3_2.png'),
 (4, 1, 'https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Product+Images/P4.png'),
 (4, 2, 'https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Product+Images/4_2.png'),
+(4, 3,'https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Product+Images/3_3.png'),
 (5, 1, 'https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Product+Images/P5.png'),
 (5, 2, 'https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Product+Images/5_2.png'),
 (6, 1, 'https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Product+Images/P6.png'),
 (6, 2, 'https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Product+Images/6_2.png'),
 (7, 1, 'https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Product+Images/P7.png'),
 (7, 2, 'https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Product+Images/7_2.png'),
+(7, 3, 'https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Product+Images/7_3.png'),
 (8, 1, 'https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Product+Images/P8.png'),
 (8, 2, 'https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Product+Images/8_2.png'),
 (9, 1, 'https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Product+Images/P9.png'),
