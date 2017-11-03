@@ -1,20 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../services/authentication.service';
 import { Router } from "@angular/router";
+import { AlertService } from '../services/alert.service'
 
 
 @Component({
   selector: 'login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  providers: [AuthenticationService]
+  providers: [AuthenticationService, AlertService]
 
 })
 export class LoginComponent implements OnInit {
   private user: any = {};
   private loading: boolean = false;
   
-  constructor(private authenticationService: AuthenticationService, private router: Router) { }
+  constructor(
+    private authenticationService: AuthenticationService, 
+    private router: Router,
+    private alertService: AlertService) { }
 
   ngOnInit() {
 
@@ -46,6 +50,8 @@ export class LoginComponent implements OnInit {
                   window.location.reload();
                   //this.stopLoading()
                 }else{
+                  console.log("RES STATUS :" + res.status);
+                  this.alertService.error(res.status);
                   this.stopLoading()
                   console.log(res.status);
                 }
