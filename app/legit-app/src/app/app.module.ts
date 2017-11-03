@@ -134,7 +134,8 @@ import { VirtualRealityComponent } from './virtual-reality/virtual-reality.compo
     QuickViewComponent, 
     CartPopupComponent,
     ConfirmationPopupComponent,
-    DeleteConfirmationPopupComponent
+    DeleteConfirmationPopupComponent,
+    VirtualRealityComponent
   ]
 })
 export class AppModule { }

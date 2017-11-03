@@ -10,6 +10,7 @@ import { DialogService } from "ng2-bootstrap-modal";
 import { SharedService } from "../shared.service"
 import { Product } from "../model/product";
 import { Pattern } from "../model/pattern";
+import { VirtualRealityComponent } from "../virtual-reality/virtual-reality.component";
 import { Angulartics2GoogleAnalytics } from 'angulartics2';
 declare var ga: any;
 
@@ -224,5 +225,21 @@ export class ProductDetailComponent implements OnInit {
   emptyCart() {
     this.shoppingCartService.empty();
     console.log("cart is emptied");
+  }
+
+  virtualReality(imageUrl){
+    let disposable = this.dialogService.addDialog( VirtualRealityComponent, {
+      title:'VR View', 
+      message:'',
+      imageUrl: imageUrl})
+    .subscribe((isConfirmed)=>{
+        //We get dialog result
+        if(isConfirmed) {
+            // window.location.reload();
+        }
+        else {
+            //do nothing
+        }
+    });
   }
 }

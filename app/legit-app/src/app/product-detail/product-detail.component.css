@@ -187,6 +187,63 @@ img{
     position: relative;
 }
 
+
+.bton {
+    /* margin-top: calc(50% + 25px); */
+    position: relative;
+    display: inline-block;
+    width: 214px;
+    /* height: 50px; */
+    font-size: 1em;
+    font-weight: bold;
+    line-height: 60px;
+    text-align: center;
+    text-transform: uppercase;
+    background-color: transparent;
+    cursor: pointer;
+    text-decoration:none;
+    font-family: 'Roboto', sans-serif;
+    font-weight:900;
+    font-size:17px;
+    letter-spacing: 0.045em;
+    margin-top: 10px;
+}
+
+.bton svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.bton svg rect {
+    /* stroke: #EC0033; */
+    stroke-width: 4;
+    stroke-dasharray: 353, 0;
+    stroke-dashoffset: 0;
+    stroke-linecap: square;
+    -webkit-transition: all 600ms ease;
+    transition: all 600ms ease;
+}
+
+.bton span{
+  background: rgb(255,130,130);
+  background: -moz-linear-gradient(left,  rgba(255,130,130,1) 0%, rgba(225,120,237,1) 100%);
+  background: -webkit-linear-gradient(left,  rgba(255,130,130,1) 0%,rgba(225,120,237,1) 100%);
+  background: linear-gradient(to right,  rgba(255,130,130,1) 0%,rgba(225,120,237,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff8282', endColorstr='#e178ed',GradientType=1 );
+  
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.bton:hover svg rect {
+    stroke-width: 4;
+    stroke-dasharray: 196, 543;
+    stroke-dashoffset: 485;
+}
+
+
+
 @media only screen and (max-width: 500px) {
     .button{
         width: 100%;

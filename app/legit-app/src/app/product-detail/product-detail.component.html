@@ -105,10 +105,15 @@
 
       <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7">
         <h3 class="product-name">{{pattern.pattern_name}}
+          <!-- <button type="button" class="btn btn-default button" (click)="virtualReality(selectedColour.images[2].imageUrl)">VR View</button> -->
           <h4 *showItDevice="['mobile','tablet']" class="pull-right">${{totalPrice}}</h4>
         </h3>
         <!--<span text-left class="col-md-4" style="font-size:15px" class="label label-warning">{{product.collection_name}}</span>        <br><br>-->
         <!--<div text-left class="product-price" style="font-size:15px"> Starting from ${{(pattern.pattern_price+patter.fabric_price+product.colour_price)}} </div>-->
+
+
+
+        <!-- web view -->
         <div *hideItDevice="['mobile','tablet']">
           <h5><i>Fabric:</i></h5>
           <select [(ngModel)]="selectedFabric" (ngModelChange)="onFabricChange()">
@@ -144,6 +149,7 @@
           </select>
           <br/>
         </div>
+        <!-- mobile view -->
         <div *showItDevice="['mobile','tablet']">
           <h5 class="col-sm-12 col-xs-12">Fabric:</h5>
           <select class="col-sm-12 col-xs-12 form-control" [(ngModel)]="selectedFabric" (ngModelChange)="onFabricChange()">
@@ -176,8 +182,24 @@
           <select class="col-sm-12 col-xs-12 form-control" [(ngModel)]="selectedQuantity">
               <option *ngFor="let q of quantity" [ngValue]="q">{{q}}</option>
             </select>
+
           <br/><br/>
         </div>
+        <br>
+        <a (click)="virtualReality(selectedColour.images[2].imageUrl)" class="bton">
+          <svg width="277" height="62">
+            <defs>
+              <linearGradient id="grad1">
+                <stop offset="0%" stop-color="#FF8282" />
+                <stop offset="100%" stop-color="#E178ED" />
+              </linearGradient>
+            </defs>
+            <rect x="5" y="5" rx="0" fill="none" stroke="url(#grad1)" width="200" height="50"></rect>
+          </svg>
+          <!--<span>Voir mes réalisations</span>-->
+          <span>VR View</span>
+        </a>
+        <br>
         <button type="button" (click)="addCart()" class="btn btn-default button" data-dismiss="modal"><span>Add to Cart</span></button>
         <!-- <button (click)="emptyCart()"></button>
         <h2 class="description"> Description</h2> -->
