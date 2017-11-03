@@ -34,8 +34,7 @@
           <!-- Indicators -->
           <ol class='carousel-indicators'>
             <li data-target='#carousel-custom' data-slide-to='0' class='active'><img src='{{selectedColour.images[0].imageUrl}}' class="thumb" alt='LOADING' /></li>
-            <li data-target='#carousel-custom' data-slide-to='1'><img src='{{selectedColour.images[1].imageUrl}}' class="thumb"
-                alt='LOADING2' /></li>
+            <li data-target='#carousel-custom' data-slide-to='1'><img src='{{selectedColour.images[1].imageUrl}}' class="thumb" alt='LOADING2' /></li>
             <!-- <li data-target='#carousel-custom' data-slide-to='2'><img src='https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Product+Images/1_3.png' class="thumb"
                 alt='LOADING3' /></li> -->
             <!-- <li data-target='#carousel-custom' data-slide-to='3'><img src='{{selectedColour.images[0].imageUrl}}' class ="thumb" alt='LOADING4' /></li> -->
@@ -96,8 +95,7 @@
           <!-- Indicators -->
           <ol class='carousel-indicators'>
             <li data-target='#carousel-custom' data-slide-to='0' class='active'><img src='{{selectedColour.images[0].imageUrl}}' class="thumb" alt='LOADING' /></li>
-            <li data-target='#carousel-custom' data-slide-to='1'><img src='{{selectedColour.images[1].imageUrl}}' class="thumb"
-                alt='LOADING2' /></li>
+            <li data-target='#carousel-custom' data-slide-to='1'><img src='{{selectedColour.images[1].imageUrl}}' class="thumb" alt='LOADING2' /></li>
             <!-- <li data-target='#carousel-custom' data-slide-to='2'><img src='https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Product+Images/1_3.png' class="thumb"
                 alt='LOADING3' /></li> -->
             <!-- <li data-target='#carousel-custom' data-slide-to='3'><img src='{{selectedColour.images[0].imageUrl}}' class ="thumb" alt='LOADING4' /></li> -->
@@ -106,31 +104,52 @@
       </div>
 
       <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7">
-        <h3 class="product-name">{{pattern.pattern_name}}<h4 *showItDevice="['mobile','tablet']" class="pull-right">${{totalPrice}}</h4></h3>
+        <h3 class="product-name">{{pattern.pattern_name}}
+          <!-- <button type="button" class="btn btn-default button" (click)="virtualReality(selectedColour.images[2].imageUrl)">VR View</button> -->
+          <h4 *showItDevice="['mobile','tablet']" class="pull-right">${{totalPrice}}</h4>
+        </h3>
         <!--<span text-left class="col-md-4" style="font-size:15px" class="label label-warning">{{product.collection_name}}</span>        <br><br>-->
         <!--<div text-left class="product-price" style="font-size:15px"> Starting from ${{(pattern.pattern_price+patter.fabric_price+product.colour_price)}} </div>-->
+
+
+
+        <!-- web view -->
         <div *hideItDevice="['mobile','tablet']">
-          <h5>Fabric:</h5>
+          <h5><i>Fabric:</i></h5>
           <select [(ngModel)]="selectedFabric" (ngModelChange)="onFabricChange()">
             <option *ngFor="let fabric of pattern.fabrics" [ngValue]="fabric">{{fabric.fabric_name}} +${{fabric.fabric_price}}</option>
           </select>
-          <h5>Colour:</h5>
+          <!-- <h5>Colour:</h5>
           <select [(ngModel)]="selectedColour" (ngModelChange)="onColourChange()">
             <option *ngFor="let colour of selectedFabric.colours" [ngValue]="colour">{{colour.colour_name}}</option>
-          </select>
-          <h5>Size:</h5>
+          </select> -->
+          <h5><i>Size:</i></h5>
           <select [(ngModel)]="selectedSize" (ngModelChange)="onSizeChange()">
             <option *ngFor="let size of selectedColour.sizes" [ngValue]="size">{{size.sizeName}}+${{size.sizePrice}}</option>
           </select>
           <br/><br/>
+          <table>
+            <tbody>
+              <tr>
+                <td *ngFor="let colour of selectedFabric.colours"><button [disabled]="colour.colour_name==selectedColour.colour_name" type="button" class="btn" (click)="selectColour(colour)"><img class="color-image" src='{{colour.images[0].imageUrl}}' height="50" width="50" alt='LOADING' /></button></td>
+              </tr>
+              <tr>
+                <td *ngFor="let colour of selectedFabric.colours">
+                  <font color="#B0A171">&nbsp;{{colour.colour_name}}</font>
+                </td>
+              </tr>
+            </tbody>
+          </table><br/>
+          <!-- <div class="col-md-1" *ngFor="let colour of selectedFabric.colours"><img src='{{colour.images[0].imageUrl}}' class="thumb" alt='LOADING' /></div> -->
           <h4>${{totalPrice}}</h4>
-          <h5>Quantity:</h5>
+          <h5><i>Quantity:</i></h5>
           <!--<input type=text>-->
           <select [(ngModel)]="selectedQuantity">
             <option *ngFor="let q of quantity" [ngValue]="q">{{q}}</option>
           </select>
-          <br/><br/>
+          <br/>
         </div>
+        <!-- mobile view -->
         <div *showItDevice="['mobile','tablet']">
           <h5 class="col-sm-12 col-xs-12">Fabric:</h5>
           <select class="col-sm-12 col-xs-12 form-control" [(ngModel)]="selectedFabric" (ngModelChange)="onFabricChange()">
@@ -150,12 +169,28 @@
           <select class="col-sm-12 col-xs-12 form-control" [(ngModel)]="selectedQuantity">
               <option *ngFor="let q of quantity" [ngValue]="q">{{q}}</option>
             </select>
-          
+
           <br/><br/>
         </div>
+        <a (click)="virtualReality(selectedColour.images[2].imageUrl)" class="bton">
+          <svg width="277" height="62">
+            <defs>
+              <linearGradient id="grad1">
+                <stop offset="0%" stop-color="#FF8282" />
+                <stop offset="100%" stop-color="#E178ED" />
+              </linearGradient>
+            </defs>
+            <rect x="5" y="5" rx="0" fill="none" stroke="url(#grad1)" width="200" height="50"></rect>
+          </svg>
+          <!--<span>Voir mes réalisations</span>-->
+          <span>VR View</span>
+        </a>
+        <br>
         <button type="button" (click)="addCart()" class="btn btn-default button" data-dismiss="modal"><span>Add to Cart</span></button>
         <!-- <button (click)="emptyCart()"></button>
         <h2 class="description"> Description</h2> -->
+        <br/><br/>
+        <h4 class="desc-header">Product Description</h4>
         <h4><b>Pattern</b></h4>
         <p>{{pattern.pattern_description}}</p>
         <h4><b>Fabric</b></h4>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AnalyticsDashboardService } from '../services/analytics-dashboard.service';
 declare var gapi: any;
+declare var google: any;
 
 @Component({
   selector: 'app-analytics-dashboard',
@@ -85,13 +86,14 @@ export class AnalyticsDashboardComponent implements OnInit {
           'metrics': 'ga:productListClicks',
           'start-date': '30daysAgo',
           'end-date': 'today',
+          sort: '-ga:productListClicks'
         },
         chart: {
           type: 'COLUMN',
           container: 'patternClicks',
           options: {
             'legend': 'left',
-            'title': 'Product Popularity',
+            'title': 'Top Viewed Products',
             // 'is3D':true,
             // 'width':400,
             // 'height':300
@@ -209,6 +211,98 @@ export class AnalyticsDashboardComponent implements OnInit {
       });
 
 
+      var ecommerce1 = new gapi.analytics.googleCharts.DataChart({
+        query: {
+          metrics: 'ga:itemRevenue,ga:itemQuantity,ga:cartToDetailRate,ga:buyToDetailRate',
+          dimensions: 'ga:productName',
+          'start-date': '7daysAgo',
+          'end-date': 'today',
+          'max-results': 6,
+          sort: '-ga:itemRevenue'
+        },
+        chart: {
+          container: 'ecommerce1',
+          type: 'TABLE',
+          options: {
+            'legend': 'left',
+            'title': 'Top Products',
+            // 'is3D':true,
+            // 'width':400,
+            // 'height':300
+            width: '100%',
+            fontName: 'Muli',
+            titleTextStyle: {
+              // color: <string>,
+              fontName: 'Muli',
+              fontSize: 20,
+              // bold: true
+              // italic: <boolean> 
+            }
+          }
+        }
+      });
+
+      var ecommerce3 = new gapi.analytics.googleCharts.DataChart({
+        query: {
+          metrics: 'ga:itemRevenue',
+          dimensions: 'ga:session',
+          'start-date': '7daysAgo',
+          'end-date': 'today',
+          'max-results': 6,
+          sort: '-ga:itemRevenue'
+        },
+        chart: {
+          container: 'ecommerce1',
+          type: 'COLUMN',
+          options: {
+            'legend': 'left',
+            'title': 'Top Products',
+            // 'is3D':true,
+            // 'width':400,
+            // 'height':300
+            width: '100%',
+            fontName: 'Muli',
+            titleTextStyle: {
+              // color: <string>,
+              fontName: 'Muli',
+              fontSize: 20,
+              // bold: true
+              // italic: <boolean> 
+            }
+          }
+        }
+      });
+
+      /*var ecommerce2 = new gapi.analytics.googleCharts.DataChart({
+        query: {
+          metrics: 'ga:cartToDetailRate',
+          dimensions: 'ga:productName',
+          'start-date': '7daysAgo',
+          'end-date': 'today',
+          'max-results': 6,
+        },
+        chart: {
+          container: 'ecommerce2',
+          type: 'PIE',
+          options: {
+            'legend': 'left',
+            'title': 'Top Products',
+            // 'is3D':true,
+            // 'width':400,
+            // 'height':300
+            width: '100%',
+            fontName: 'Muli',
+            titleTextStyle: {
+              // color: <string>,
+              fontName: 'Muli',
+              fontSize: 20,
+              // bold: true
+              // italic: <boolean> 
+            }
+          }
+        }
+      });*/
+
 
 
       // Step 6: Hook up the components to work together.
@@ -270,6 +364,20 @@ export class AnalyticsDashboardComponent implements OnInit {
         userBrowser.set(newIds).execute();
         this.loading = false;
       });
+
+      viewSelector.on('change', function (ids) {
+        
+        var newIds = {
+          query: {
+            ids: ids
+          }
+        }
+        ecommerce1.set(newIds).execute();
+        this.loading = false;
+      });
+
+
+
     });
   }
 
