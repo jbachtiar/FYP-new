@@ -6,6 +6,10 @@ body {
     padding-right: 30px;
 }
 
+.mobile-table{
+    margin-top: 10px;
+}
+
 .button{
     border: 1px solid #B0A171;
     background-color: #B0A171; 
