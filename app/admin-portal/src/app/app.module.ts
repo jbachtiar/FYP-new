@@ -29,6 +29,7 @@ import { ConfirmationPopupComponent } from './confirmation-popup/confirmation-po
 import { OrderFactoryManagerComponent } from './order-factory-manager/order-factory-manager.component';
 import { OrderDetailsComponent } from './order-details/order-details.component';
 import { PromoCodeComponent } from './promo-code/promo-code.component';
+import { PromoCodeAddComponent } from './promo-code-add/promo-code-add.component';
 
 import { ProductService } from './services/product.service';
 import { PagerService} from './services/pager.service'
@@ -92,6 +93,7 @@ import { AlertComponent } from './alert/alert.component';
     LoadingComponent,
     ConfirmationPopupComponent,
     PromoCodeComponent,
+    PromoCodeAddComponent,
     OrderFactoryManagerComponent,
     OrderDetailsComponent,
     OrderFactoryWorkerComponent,

@@ -29,8 +29,7 @@ export class PromoCodeComponent implements OnInit {
   }
 
   addPromo(): void {
-    let link = ['/addPromo']
+    let link = ['promoCode/addPromo']
     this.router.navigate(link);
   }
-
 }

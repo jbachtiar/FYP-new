@@ -5,29 +5,30 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { UserComponent } from './user/user.component';
 import { StaffmanagementComponent } from './staffmanagement/staffmanagement.component';
 //import { RegisterComponent } from './register/register.component'
-import { PatternListComponent} from './pattern-list/pattern-list.component'
-import { PatternDetailsComponent } from './pattern-details/pattern-details.component'
-import { PatternDetailsAddComponent } from './pattern-details-add/pattern-details-add.component'
-import { PatternDetailsViewComponent } from './pattern-details-view/pattern-details-view.component'
-import { PromoCodeComponent } from './promo-code/promo-code.component'
-import { OrderFactoryManagerComponent } from './order-factory-manager/order-factory-manager.component'
-import { OrderFactoryWorkerComponent } from './order-factory-worker/order-factory-worker.component'
+import { PatternListComponent} from './pattern-list/pattern-list.component';
+import { PatternDetailsComponent } from './pattern-details/pattern-details.component';
+import { PatternDetailsAddComponent } from './pattern-details-add/pattern-details-add.component';
+import { PatternDetailsViewComponent } from './pattern-details-view/pattern-details-view.component';
+import { PromoCodeComponent } from './promo-code/promo-code.component';
+import { PromoCodeAddComponent } from './promo-code-add/promo-code-add.component';
+import { OrderFactoryManagerComponent } from './order-factory-manager/order-factory-manager.component';
+import { OrderFactoryWorkerComponent } from './order-factory-worker/order-factory-worker.component';
 import { AnalyticsDashboardComponent } from './analytics-dashboard/analytics-dashboard.component';
 import { OrderDetailsComponent } from './order-details/order-details.component';
 import { OrderManagementSuperuserComponent} from './order-management-superuser/order-management-superuser.component';
 import { OrderDetailsSuperuserComponent} from './order-details-superuser/order-details-superuser.component';
-import { CatalogueComponent } from './catalogue/catalogue.component'
-import { ProductDetailsComponent } from './product-details/product-details.component'
-import { DesignDetailsComponent } from './design-details/design-details.component'
-import { FabricDetailsComponent } from './fabric-details/fabric-details.component'
-import { ColourDetailsComponent } from './colour-details/colour-details.component'
-import { CollectionDetailsComponent } from './collection-details/collection-details.component'
-import { ProductDetailsAddComponent } from './product-details-add/product-details-add.component'
-import { DesignDetailsAddComponent } from './design-details-add/design-details-add.component'
-import { FabricDetailsAddComponent } from './fabric-details-add/fabric-details-add.component'
-import { ColourDetailsAddComponent } from './colour-details-add/colour-details-add.component'
-import { CollectionDetailsAddComponent } from './collection-details-add/collection-details-add.component'
-import { LandingPageComponent } from './landing-page/landing-page.component'
+import { CatalogueComponent } from './catalogue/catalogue.component';
+import { ProductDetailsComponent } from './product-details/product-details.component';
+import { DesignDetailsComponent } from './design-details/design-details.component';
+import { FabricDetailsComponent } from './fabric-details/fabric-details.component';
+import { ColourDetailsComponent } from './colour-details/colour-details.component';
+import { CollectionDetailsComponent } from './collection-details/collection-details.component';
+import { ProductDetailsAddComponent } from './product-details-add/product-details-add.component';
+import { DesignDetailsAddComponent } from './design-details-add/design-details-add.component';
+import { FabricDetailsAddComponent } from './fabric-details-add/fabric-details-add.component';
+import { ColourDetailsAddComponent } from './colour-details-add/colour-details-add.component';
+import { CollectionDetailsAddComponent } from './collection-details-add/collection-details-add.component';
+import { LandingPageComponent } from './landing-page/landing-page.component';
 import { AuthGuard } from './guard/guard';
 import { SuperGuard } from './guard/superGuard';
 import { ManagerGuard } from './guard/managerGuard';
@@ -39,6 +40,7 @@ const appRoutes: Routes = [
     { path: 'user', component: UserComponent,  canActivate: [AuthGuard] },
     { path: 'staffmanagement', component: StaffmanagementComponent,  canActivate: [SuperGuard] },
     { path: 'promoCode', component: PromoCodeComponent,  canActivate: [SuperGuard] },
+    { path: 'promoCode/addPromo', component: PromoCodeAddComponent,  canActivate: [SuperGuard] },
     { path: 'patternList', component: PatternListComponent, canActivate: [ManagerGuard]},
     { path: 'patternList/patternDetails/:patternId', component: PatternDetailsComponent, canActivate: [ManagerGuard]},
     { path: 'patternList/addPatternDetails', component: PatternDetailsAddComponent, canActivate: [ManagerGuard]},

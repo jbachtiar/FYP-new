@@ -149,12 +149,10 @@ export class ShoppingCartService {
   public updateCart(cart: ShoppingCart) {
     this.cart = cart
     console.log(this.cart)
-
-    this.cart.price -= this.cart.discount;
     this.calculateCart(this.cart);
-    this.save(this.cart);
-    this.cart.price -= this.cart.discount;
+    this.save(this.cart);  
     this.dispatch(this.cart);
+    
   }
 
   public checkPromo(code: string, amount: number) {
