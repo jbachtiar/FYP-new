@@ -185,6 +185,18 @@ export class CatalogueService {
         }).map(res => res.json())
     }
 
+    savePromo(promo) {
+        let url = CONFIG.promoCodeBackendUrl + "/save";
+        let params: URLSearchParams = new URLSearchParams();
+        params.set('promoCode', JSON.stringify(promo));
+        const headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        return this._http.post(url, params.toString(), {
+            headers: headers
+        }).map(res => res.json())
+    }
+
+
     saveProduct(product) {
         let url = CONFIG.productCatalogueBackendUrl + "/save";
         let params: URLSearchParams = new URLSearchParams();
@@ -248,6 +260,23 @@ export class CatalogueService {
                 console.log(finalUrl)
                 return res.json();
             });
+    }
+
+    deletePromo(PromoCodeId : string) {
+        let params: URLSearchParams = new URLSearchParams();
+        params.set('PromoCodeId', PromoCodeId);
+
+        let headers = new Headers();
+        //headers.append ('Authorization', token);
+        headers.append(
+            'Content-type', 'application/x-www-form-urlencoded'
+        )
+
+        let url = CONFIG.promoCodeBackendUrl;
+        return this._http.post(url + '/delete', params.toString(), { headers })
+            .map(res => res.json());
+
+
     }
 
     deletePattern(patternId: string) {

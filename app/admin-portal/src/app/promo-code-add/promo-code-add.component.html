@@ -10,38 +10,69 @@
 
         <div class="form-group">
           <div>
-            <label for="code">Promo Code (for customer to enter)</label>
-              <input class="form-control" type="text" class="form-control" name='code' [(ngModel)]="promo.code" #code="ngModel" required/>
+            <label>Promo Code</label>
+              <input class="form-control" type="text" class="form-control" name='promoCode' [(ngModel)]="promo.promoCode" #promoCode="ngModel" required/>
           </div>
         </div>
 
         <div class="form-group">
           <div>
-            <label for="fabricName">Promo Name </label>
+            <label for="promoName">Promo Name </label>
+            <input class="form-control" type="text" class="form-control" name='promoName' [(ngModel)]="promo.promoName" #promoName="ngModel" required/>
           </div>
-          <div ng-class="{'valid':fabric.$valid}">
-            <select class="form-control" name='fabric' [(ngModel)]="product.fabric" #fabric="ngModel" required>
-                <option *ngFor="let f of fabrics" [ngValue]="f">{{f.fabricName}}</option>
-            </select>
-          </div>
-          <div *ngIf="(f.submitted && !fabric.valid && !product.fabric) || (!fabric.valid && fabric.dirty)" class="help-block">Fabric is required</div>
         </div>
 
         <div class="form-group">
           <div>
-            <label for="colour">Value</label>
+            <label>Promo Type</label>
           </div>
-          <div ng-class="{'valid':colour.$valid}">
-            <select class="form-control" name='colour' [(ngModel)]='product.colour' #colour="ngModel" required>
-                            <option *ngFor="let c of colours" [ngValue]="c">{{c.colourName}}</option>
+            <select class="form-control" name='promoType' [(ngModel)]='promo.promoType' #promoType="ngModel" required>
+              <option value="Dollar Off">$</option>
+              <option value="Percentage">%</option>
                         </select>
-          </div>
-          <div *ngIf="(f.submitted && !colour.valid && !product.colour) || (!colour.valid && colour.dirty)" class="help-block">Colour is required</div>
         </div>
+
+        <div class="form-group">
+          <div>
+            <label>Promo Value </label>
+            <input class="form-control" type="text" class="form-control" name='promoValue' [(ngModel)]="promo.promoValue" #promoValue="ngModel" required/>
+          </div>
+        </div>
+
+<div class="form-group">
+          <div>
+            <label>Min. Purchase Amount </label>
+            <input class="form-control" type="text" class="form-control" name='minPurchase' [(ngModel)]="promo.minPurchase" #minPurchase="ngModel" required/>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div>
+            <label>Max. Discount Amount </label>
+            <input class="form-control" type="text" class="form-control" name='maxDiscount' [(ngModel)]="promo.maxDiscount" #maxDiscount="ngModel" required/>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div>
+            <label>Start Date </label>
+            <input class="form-control" placeholder="mm-dd-yyyy" type="text" class="form-control" name='startDate' [(ngModel)]="promo.startDate" #startDate="ngModel" required/>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div>
+            <label>End Date </label>
+            <input class="form-control" placeholder="mm-dd-yyyy" type="text" class="form-control" name='endDate' [(ngModel)]="promo.endDate" #endDate="ngModel" required/>
+          </div>
+        </div>    
 
         <div class="form-group">
           <button md-raised-button [ngStyle]="{'background-color': 'lightcoral', 'color': 'white'}">Save</button>
         </div>
+
+
+
 
       </form>
 
