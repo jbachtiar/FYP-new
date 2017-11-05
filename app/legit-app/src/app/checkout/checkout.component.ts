@@ -48,6 +48,16 @@ export class CheckoutComponent implements OnInit {
   ngOnInit() {
     this.startLoading()
     this.cartItem = this.shoppingCart.cartItems
+    console.log("OMO" + this.shoppingCart.discount);
+
+    if(this.shoppingCart.discount == null){
+
+        this.shoppingCart.discount = 0;
+
+    }
+
+     console.log("OMO" + this.shoppingCart.discount);
+
     console.log(new Date().toLocaleDateString());
     console.log(this.token);
     this.sameAddre = true;

@@ -44,7 +44,7 @@ export class CartComponent implements OnInit {
   }
 
   ngOnInit() {
-    
+    this.shoppingCart.discount = 0;
     this.sharedService.updateCart()
     console.log(JSON.stringify(this.shoppingCart))
     this.itemCount = this.shoppingCart.cartItems.length;

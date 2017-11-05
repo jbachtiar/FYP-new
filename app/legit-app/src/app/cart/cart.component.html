@@ -11,7 +11,7 @@
       <h1 class="title">My Shopping Cart</h1>
     </div>
   <div class="col-md-6">
-      <button class="pull-right checkout" routerLink="/checkout" *hideItDevice="['mobile','tablet']">Checkout</button>
+      <button class="pull-right checkout"  (click)="onCheck(code)" routerLink="/checkout" *hideItDevice="['mobile','tablet']">Checkout</button>
     </div>
     
   </div>

@@ -150,6 +150,7 @@ export class ShoppingCartService {
     this.cart = cart
     console.log(this.cart)
 
+    this.cart.price -= this.cart.discount;
     this.calculateCart(this.cart);
     this.save(this.cart);
     this.cart.price -= this.cart.discount;

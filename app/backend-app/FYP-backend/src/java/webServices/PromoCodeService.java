@@ -112,7 +112,6 @@ public class PromoCodeService {
             
             jsonOutput.addProperty("status", "200");
             PromoCode pc = pcDAO.getPromoCodeByPromoCode(promoCode);
-            System.out.println(pc.getEndDate());
             if(pc == null){
                 
                 
@@ -165,7 +164,7 @@ public class PromoCodeService {
                     
                 }else if(promoType.equals("Percent Off")){
                     
-                    discountAmount = purchaseAmt /* (pc.getPercentOff()/100)*/;
+                    discountAmount = purchaseAmt* (pc.getPromoValue()/100);
                 }
                 
                 if(discountAmount > pc.getMaxDiscount()){
