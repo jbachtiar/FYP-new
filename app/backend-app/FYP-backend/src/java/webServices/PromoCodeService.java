@@ -175,6 +175,7 @@ public class PromoCodeService {
                 
                 JsonObject temp = new JsonObject();
                 temp.addProperty("valid", "Y");
+                temp.addProperty("reason","Applied!");
                 temp.addProperty("discountAmt", discountAmount);
                 jsonOutput.add("promo", temp);
                 
@@ -185,7 +186,7 @@ public class PromoCodeService {
             jsonOutput.addProperty("status", "500");
             jsonOutput.addProperty("valid", "N");
             jsonOutput.addProperty("discountAmt", 0);
-            jsonOutput.addProperty("error", e.getMessage());
+            jsonOutput.addProperty("reason", e.getMessage());
             
         }
        
