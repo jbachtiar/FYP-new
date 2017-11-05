@@ -46,6 +46,7 @@ export class CartComponent implements OnInit {
 
   ngOnInit() {
     this.promoMsg = "";
+    this.shoppingCart.promoMsg = "";
     this.shoppingCart.discount = 0;
     this.sharedService.updateCart()
     console.log(JSON.stringify(this.shoppingCart))
