@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { StorageService } from '../storage.service';
 import { CartService } from '../cart.service';
 import { ShoppingCart } from "../model/shopping-cart.model";
+import { PromoCode } from "../model/promo-code.model";
 import { CartItem } from "../model/cart-item.model";
 import { ShoppingCartService } from '../shopping-cart.service'
 import { DialogService } from "ng2-bootstrap-modal";
@@ -27,6 +28,8 @@ export class PaymentComponent implements OnInit {
   address;
   save;
   ordernum;
+  promoCode : PromoCode = new PromoCode() ;
+  
   // postalCode: string;
   totalPrice: string;
   private shoppingCart: ShoppingCart;
@@ -35,9 +38,7 @@ export class PaymentComponent implements OnInit {
   private paymentRefNo: string;
   private loading: boolean = false;
 
-
-  constructor(
-    private storageService: StorageService,
+  constructor(private storageService: StorageService,
     private cartService: CartService,
     private shoppingCartService: ShoppingCartService,
     private sharedService: SharedService,
@@ -83,6 +84,7 @@ export class PaymentComponent implements OnInit {
   }
 
   chargeStripe(token, amount) {
+
     this.shoppingCartService.chargeStripe(token, amount).subscribe(res => {
       console.log(res)
       res = res
@@ -91,6 +93,7 @@ export class PaymentComponent implements OnInit {
         this.paymentRefNo = res.paymentRefNo
         //add order to database
         console.log(this.ordernum + " HEREEEEEEEEEE");
+        this.promoCode.promoCodeId = this.shoppingCart.promoId;
         let newOrder = {
           "orderId": 0,
           "Timestamp": null,
@@ -98,7 +101,7 @@ export class PaymentComponent implements OnInit {
           "promoDiscAmt": this.shoppingCart.discount,
           "address": this.address,
           "paymentRefNo": this.paymentRefNo,
-          "promoCode": null,
+          "promoCode": this.promoCode,
           "orderItems": this.shoppingCart.cartItems,
           "statusLogs": [],
           "courierName": "",
