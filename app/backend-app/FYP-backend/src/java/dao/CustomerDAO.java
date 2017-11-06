@@ -162,14 +162,14 @@ public class CustomerDAO {
         if (retrieveCustomerByEmail(customer.getEmail()) == null) {
 
             try {
-
+                String pw = customer.getPassword();
                 conn = ConnectionManager.getConnection();
                 stmt = conn.prepareStatement(sql);
                 stmt.setString(1, customer.getEmail());
                 stmt.setString(2, customer.getFirstName());
                 stmt.setString(3, customer.getLastName());
                 stmt.setString(4, customer.getPhoneNo());
-                stmt.setString(5, customer.getPassword());
+                stmt.setString(5, pw);
                 stmt.setString(6, customer.getVerified());
 
                 stmt.executeUpdate();
