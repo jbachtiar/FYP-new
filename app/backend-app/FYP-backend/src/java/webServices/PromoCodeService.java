@@ -116,14 +116,21 @@ public class PromoCodeService {
             jsonOutput.addProperty("status", "200");
             PromoCode pc = pcDAO.getPromoCodeByPromoCode(promoCode);
             
+            java.sql.Date sqlStartDate = null;
+            java.sql.Date sqlEndDate = null;
+            
+            if(pc != null){
+                
              String startDate=pc.getStartDate();
              SimpleDateFormat sdf1 = new SimpleDateFormat("MM-dd-yyyy");
              java.util.Date sDate = sdf1.parse(startDate);
-             java.sql.Date sqlStartDate = new Date(sDate.getTime()); 
+             sqlStartDate = new Date(sDate.getTime()); 
              
              String endDate=pc.getEndDate();
              java.util.Date eDate = sdf1.parse(endDate);
-             java.sql.Date sqlEndDate = new Date(eDate.getTime()); 
+             sqlEndDate = new Date(eDate.getTime()); 
+                
+            } 
             
             
             if(pc == null){
