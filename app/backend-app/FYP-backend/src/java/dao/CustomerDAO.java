@@ -14,6 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import encryption.encryption;
 
 /**
  *
@@ -162,7 +163,9 @@ public class CustomerDAO {
         if (retrieveCustomerByEmail(customer.getEmail()) == null) {
 
             try {
-                String pw = customer.getPassword();
+                //encrypted
+                String pw = encryption.SHA1(customer.getPassword());
+                
                 conn = ConnectionManager.getConnection();
                 stmt = conn.prepareStatement(sql);
                 stmt.setString(1, customer.getEmail());
