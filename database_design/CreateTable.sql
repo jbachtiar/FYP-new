@@ -502,7 +502,18 @@ ENGINE = InnoDB;
 
 CREATE INDEX `fk_CART_DETAILS_PRODUCT1_idx` ON `mydb`.`CART_ITEM` (`PRODUCT_ID` ASC);
 
-
+-- -----------------------------------------------------
+-- Table `mydb`.`user_preferences`
+-- -----------------------------------------------------
+CREATE TABLE user_preferences (
+   user_id BIGINT NOT NULL,
+   product_id BIGINT NOT NULL,
+   preference FLOAT NOT NULL,
+   PRIMARY KEY (user_id, product_id),
+   INDEX (user_id),
+   INDEX (product_id)
+ );
+ 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
