@@ -55,7 +55,9 @@ export class PaymentComponent implements OnInit {
     // this.postalCode = this.storageService.getPostCode();
     this.address = this.storageService.getAddress();
     this.save = this.storageService.getSaveAddress();
-    this.ordernum = this.orderService.getNextOrderID();
+    this.orderService.getNextOrderID().subscribe(orderNum => {
+      this.ordernum = orderNum;
+    });
     console.log("ADDRESS oioioi: " + this.address);
 
     this.cartItem = this.shoppingCart.cartItems;
