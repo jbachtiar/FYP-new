@@ -139,6 +139,11 @@
               <b>Tracking No : </b>
               <br> <span *ngIf="order[0].trackingNo!=null">{{order[0].trackingNo}}</span>
               <span *ngIf="order[0].trackingNo==null">Not available yet.</span>
+              <br>
+              <b>Tracking URL : </b>
+              <br> <span *ngIf="order[0].trackingNo!=null">{{courier.trackingUrl}}</span>
+              <span *ngIf="order[0].trackingNo==null">Not available yet.</span>
+
             </md-card-content>
             <hr>
             <md-card-header>
