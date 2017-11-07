@@ -19,5 +19,5 @@ export const stagConfig = {
     addressBackendUrl: 'http://localhost:8084/FYP-backend/API/AddressService',  
     filterBackendUrl: 'http://localhost:8084/FYP-backend/API/ProductCatalogue/GetFilters',
     orderBackendUrl: 'http://localhost:8084/FYP-backend/API/OrderService',
-    promoBackendUrl: 'http://localhost:8084/FYP-backend/API/PromoService'
+    promoBackendUrl: 'http://ec2-52-35-18-15.us-west-2.compute.amazonaws.com/FYP-backend/API/PromoService'
 }

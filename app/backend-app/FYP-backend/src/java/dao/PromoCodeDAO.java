@@ -12,6 +12,9 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 /**
@@ -21,7 +24,7 @@ import java.util.ArrayList;
 public class PromoCodeDAO {
 
     //Create 1 PromoCode
-    public int addPromoCode(PromoCode pc) throws SQLException {
+    public int addPromoCode(PromoCode pc) throws SQLException, ParseException{
         
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -31,6 +34,16 @@ public class PromoCodeDAO {
         String sql = "INSERT INTO PROMO_CODE (PROMO_CODE_ID, PROMO_CODE, PROMO_NAME, PROMO_TYPE, PROMO_VALUE, MIN_PURCHASE, MAX_DISCOUNT, QUOTA, COUNTER, START_DATE, END_DATE, DELETED) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
 
         try {
+            
+            String startDate=pc.getStartDate();
+             SimpleDateFormat sdf1 = new SimpleDateFormat("MM-dd-yyyy");
+             java.util.Date sDate = sdf1.parse(startDate);
+             java.sql.Date sqlStartDate = new Date(sDate.getTime()); 
+             
+             String endDate=pc.getEndDate();
+             java.util.Date eDate = sdf1.parse(endDate);
+             java.sql.Date sqlEndDate = new Date(eDate.getTime()); 
+            
             conn = ConnectionManager.getConnection();
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, newPromoId);
@@ -43,9 +56,9 @@ public class PromoCodeDAO {
             stmt.setDouble(7, pc.getMaxDiscount());
             stmt.setInt(8, pc.getQuota());
             stmt.setInt(9, pc.getCounter());
-            stmt.setDate(10, pc.getStartDate());
-            stmt.setDate(11, pc.getEndDate());
-            stmt.setDouble(12, 'N');
+            stmt.setDate(10, sqlStartDate);
+            stmt.setDate(11, sqlEndDate);
+            stmt.setString(12, "N");
             stmt.executeUpdate();
             return newPromoId;
 
@@ -116,9 +129,14 @@ public class PromoCodeDAO {
                 double discount = rs.getDouble("MAX_DISCOUNT");
                 int quota = rs.getInt("QUOTA");
                 int counter = rs.getInt("COUNTER");
-                Date start_date = rs.getDate("START_DATE");
-                Date end_date = rs.getDate("END_DATE");
-                p = new PromoCode(promoId, promoCode, promoName, promoType, promoValue, /*percentOff,*/ minPurchase, discount, quota, counter, start_date, end_date);
+                Date sDate = rs.getDate("START_DATE");
+                Date eDate = rs.getDate("END_DATE");
+ 
+                DateFormat df = new SimpleDateFormat("MM-dd-yyyy");
+                String start_date = df.format(sDate);
+                String end_date = df.format(eDate);
+
+                p = new PromoCode(promoId, promoCode, promoName, promoType, promoValue, minPurchase, discount, quota, counter, start_date, end_date);
 
             }
 
@@ -160,8 +178,13 @@ public class PromoCodeDAO {
                 double discount = rs.getDouble("MAX_DISCOUNT");
                 int quota = rs.getInt("QUOTA");
                 int counter = rs.getInt("COUNTER");
-                Date start_date = rs.getDate("START_DATE");
-                Date end_date = rs.getDate("END_DATE");
+                Date sDate = rs.getDate("START_DATE");
+                Date eDate = rs.getDate("END_DATE");
+                
+                DateFormat df = new SimpleDateFormat("MM-dd-yyyy");
+                String start_date = df.format(sDate);
+                String end_date = df.format(eDate);
+                
                 p = new PromoCode(promoId, promoCode1, promoName, promoType, promoValue, /*percentOff,*/ minPurchase, discount, quota, counter, start_date, end_date);
 
             }
@@ -205,8 +228,13 @@ public class PromoCodeDAO {
                 double discount = rs.getDouble("MAX_DISCOUNT");
                 int quota = rs.getInt("QUOTA");
                 int counter = rs.getInt("COUNTER");
-                Date start_date = rs.getDate("START_DATE");
-                Date end_date = rs.getDate("END_DATE");
+                Date sDate = rs.getDate("START_DATE");
+                Date eDate = rs.getDate("END_DATE");
+                
+                DateFormat df = new SimpleDateFormat("MM-dd-yyyy");
+                String start_date = df.format(sDate);
+                String end_date = df.format(eDate);
+                
                 p = new PromoCode(promoId, promoCode, promoName, promoType, promoValue, /*percentOff,*/ minPurchase, discount, quota, counter, start_date, end_date);
                 promoList.add(p);
                 
@@ -249,7 +277,7 @@ public class PromoCodeDAO {
         }
         
     }
-
+/*
     //Update
     public void updatePromoCode(PromoCode pc) throws SQLException{
         
@@ -282,7 +310,7 @@ public class PromoCodeDAO {
         }
         
     }
-    
+*/  
     //Soft Delete
     public String deletePromoCodeById(int promoId) throws SQLException {
         

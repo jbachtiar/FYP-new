@@ -16,7 +16,7 @@ public class SendEmail {
         //localhost
 //        String verificationLink = "http://localhost:4200/activate-account/"+email+"/"+code;
         //deployed
-        String verificationLink = "http://highlander-app.s3-website-us-west-2.amazonaws.com/activate-account/"+email+"/"+code;
+        String verificationLink = "http://highlanderlondon.s3-website-ap-southeast-1.amazonaws.com/activate-account/"+email+"/"+code;
 
         final String username = "legit.test.acc";
         final String password = "leGITpassword$1";

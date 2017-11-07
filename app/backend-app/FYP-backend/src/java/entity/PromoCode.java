@@ -23,10 +23,10 @@ public class PromoCode {
     private double maxDiscount;
     private int quota;
     private int counter;
-    private Date startDate;
-    private Date endDate;
+    private String startDate;
+    private String endDate;
 
-    public PromoCode(int promoCodeId, String promoCode, String promoName, String promoType, double promoValue, /*int percentOff,*/ double minPurchase, double maxDiscount, int quota, int counter, Date startDate, Date endDate) {
+    public PromoCode(int promoCodeId, String promoCode, String promoName, String promoType, double promoValue, /*int percentOff,*/ double minPurchase, double maxDiscount, int quota, int counter, String startDate, String endDate) {
         this.promoCodeId = promoCodeId;
         this.promoCode = promoCode;
         this.promoName = promoName;
@@ -113,19 +113,19 @@ public class PromoCode {
         this.counter = counter;
     }
 
-    public Date getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public String getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
 /*

@@ -59,6 +59,19 @@ export class OrderService {
             });
     }
 
+    getCourierByName(courierName) {
+        let params: URLSearchParams = new URLSearchParams();
+        let url = CONFIG.orderBackendUrl + '/getCourierByName?courierName=' +courierName;
+        return this._http.get(url)
+            .map(res => {
+           
+                let courier = res.json().courier;
+              
+            
+                return courier;
+            });
+    }
+
     getPastOrderByCustomer(token: string) {
         let headers = new Headers();
         let url = CONFIG.orderBackendUrl;

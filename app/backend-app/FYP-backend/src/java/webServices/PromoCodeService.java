@@ -17,8 +17,10 @@ import entity.PromoCode;
 import entity.Staff;
 import java.sql.SQLException;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.sql.Date;
 import javax.annotation.security.PermitAll;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.FormParam;
@@ -55,8 +57,8 @@ public class PromoCodeService {
     @POST
     @Path("/save")
     @Produces(MediaType.APPLICATION_JSON)
-    public String savePromo(@FormParam("promoCode") String json) {
-        
+    public String savePromo(@FormParam("promoCode") String json) throws ParseException {
+        System.out.println(json);
         PromoCodeDAO pcDAO = new PromoCodeDAO();
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
@@ -85,6 +87,7 @@ public class PromoCodeService {
 
             jsonOutput.addProperty("status", "500");
             jsonOutput.addProperty("error", e.getMessage());
+            System.out.println(e.getMessage());
         }
 
         String finalJsonOutput = gson.toJson(jsonOutput);
@@ -94,7 +97,7 @@ public class PromoCodeService {
     @GET
     @Path("/check")
     @Produces(MediaType.APPLICATION_JSON)
-    public String checkPromo(@QueryParam("PromoCode") String promoCode, @QueryParam("Amount") double purchaseAmt) {
+    public String checkPromo(@QueryParam("PromoCode") String promoCode, @QueryParam("Amount") double purchaseAmt) throws ParseException {
         
         response.setHeader("Access-Control-Allow-Headers", "Content-Type");
         response.setHeader("Access-Control-Allow-Origin", "*");
@@ -112,7 +115,24 @@ public class PromoCodeService {
             
             jsonOutput.addProperty("status", "200");
             PromoCode pc = pcDAO.getPromoCodeByPromoCode(promoCode);
-            System.out.println(pc.getEndDate());
+            
+            java.sql.Date sqlStartDate = null;
+            java.sql.Date sqlEndDate = null;
+            
+            if(pc != null){
+                
+             String startDate=pc.getStartDate();
+             SimpleDateFormat sdf1 = new SimpleDateFormat("MM-dd-yyyy");
+             java.util.Date sDate = sdf1.parse(startDate);
+             sqlStartDate = new Date(sDate.getTime()); 
+             
+             String endDate=pc.getEndDate();
+             java.util.Date eDate = sdf1.parse(endDate);
+             sqlEndDate = new Date(eDate.getTime()); 
+                
+            } 
+            
+            
             if(pc == null){
                 
                 
@@ -122,7 +142,7 @@ public class PromoCodeService {
                 temp.addProperty("reason", "Promo Code does not exist!");
                 jsonOutput.add("promo", temp);
                 
-            }else if(pc.getStartDate().after(currSqlDate)){
+            }else if(sqlStartDate.after(currSqlDate)){
                 
                 JsonObject temp = new JsonObject();
                 temp.addProperty("valid", "N");
@@ -130,7 +150,7 @@ public class PromoCodeService {
                 temp.addProperty("reason", "Promo has yet to start!");
                 jsonOutput.add("promo", temp);
                 
-            }else if(pc.getEndDate().before(currSqlDate)){
+            }else if(sqlEndDate.before(currSqlDate)){
                 
                 JsonObject temp = new JsonObject();
                 temp.addProperty("valid", "N");
@@ -165,7 +185,7 @@ public class PromoCodeService {
                     
                 }else if(promoType.equals("Percent Off")){
                     
-                    discountAmount = purchaseAmt /* (pc.getPercentOff()/100)*/;
+                    discountAmount = purchaseAmt* (pc.getPromoValue()/100);
                 }
                 
                 if(discountAmount > pc.getMaxDiscount()){
@@ -176,6 +196,7 @@ public class PromoCodeService {
                 
                 JsonObject temp = new JsonObject();
                 temp.addProperty("valid", "Y");
+                temp.addProperty("reason","Applied!");
                 temp.addProperty("discountAmt", discountAmount);
                 jsonOutput.add("promo", temp);
                 
@@ -186,7 +207,7 @@ public class PromoCodeService {
             jsonOutput.addProperty("status", "500");
             jsonOutput.addProperty("valid", "N");
             jsonOutput.addProperty("discountAmt", 0);
-            jsonOutput.addProperty("error", e.getMessage());
+            jsonOutput.addProperty("reason", e.getMessage());
             
         }
        
@@ -194,7 +215,7 @@ public class PromoCodeService {
         return finalJsonOutput;
         
     }
-    
+ /*   
     @GET
     @Path("/use")
     @Produces(MediaType.APPLICATION_JSON)
@@ -258,7 +279,7 @@ public class PromoCodeService {
                     
                 }else if(promoType.equals("Percent Off")){
                     
-                    discountAmount = purchaseAmt /* (pc.getPercentOff()/100)*/;
+                    discountAmount = purchaseAmt * (pc.getPercentOff()/100);
                 }
                 
                 if(discountAmount > pc.getMaxDiscount()){
@@ -286,7 +307,7 @@ public class PromoCodeService {
         return finalJsonOutput;
         
     }
-    
+  */  
     @OPTIONS
     @PermitAll
     @Path("/delete")

@@ -20,7 +20,7 @@ export class AnalyticsDashboardComponent implements OnInit {
       
       // Step 3: Authorize the user.
 
-      var CLIENT_ID = '28470806434-70vkmrvmro0pe549gvegrmspcqkao219.apps.googleusercontent.com';
+      var CLIENT_ID = '28470806434-pin14j5t6mbhn0jlb3ofmbl5u8o133di.apps.googleusercontent.com';
 
       gapi.analytics.auth.authorize({
         container: 'auth-button',
@@ -84,7 +84,7 @@ export class AnalyticsDashboardComponent implements OnInit {
         query: {
           'dimensions': 'ga:productName',
           'metrics': 'ga:productListClicks',
-          'start-date': '30daysAgo',
+          'start-date': '7daysAgo',
           'end-date': 'today',
           sort: '-ga:productListClicks'
         },
@@ -244,16 +244,14 @@ export class AnalyticsDashboardComponent implements OnInit {
 
       var ecommerce3 = new gapi.analytics.googleCharts.DataChart({
         query: {
-          metrics: 'ga:itemRevenue',
-          dimensions: 'ga:session',
+          metrics: 'ga:sessions',
+          dimensions: 'ga:shoppingStage',
           'start-date': '7daysAgo',
           'end-date': 'today',
-          'max-results': 6,
-          sort: '-ga:itemRevenue'
         },
         chart: {
-          container: 'ecommerce1',
-          type: 'COLUMN',
+          container: 'ecommerce3',
+          type: 'BAR',
           options: {
             'legend': 'left',
             'title': 'Top Products',
@@ -373,6 +371,17 @@ export class AnalyticsDashboardComponent implements OnInit {
           }
         }
         ecommerce1.set(newIds).execute();
+        this.loading = false;
+      });
+
+      viewSelector.on('change', function (ids) {
+        
+        var newIds = {
+          query: {
+            ids: ids
+          }
+        }
+        ecommerce3.set(newIds).execute();
         this.loading = false;
       });
 

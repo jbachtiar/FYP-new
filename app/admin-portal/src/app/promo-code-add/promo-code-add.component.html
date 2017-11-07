@@ -1,0 +1,84 @@
+<md-card>
+  <div class="row">
+    <div class="header">
+      <h1> <b>New Promo Code</b></h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6 col-md-6 col-lg-6">
+      <form *ngIf="!loading" name="form" (ngSubmit)="f.form.valid && submit()" #f="ngForm" class="form" novalidate>
+
+        <div class="form-group">
+          <div>
+            <label>Promo Code</label>
+              <input class="form-control" type="text" class="form-control" name='promoCode' [(ngModel)]="promo.promoCode" #promoCode="ngModel" required/>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div>
+            <label for="promoName">Promo Name </label>
+            <input class="form-control" type="text" class="form-control" name='promoName' [(ngModel)]="promo.promoName" #promoName="ngModel" required/>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div>
+            <label>Promo Type</label>
+          </div>
+            <select class="form-control" name='promoType' [(ngModel)]='promo.promoType' #promoType="ngModel" required>
+              <option value="Dollar Off">$</option>
+              <option value="Percent Off">%</option>
+                        </select>
+        </div>
+
+        <div class="form-group">
+          <div>
+            <label>Promo Value </label>
+            <input class="form-control" type="text" class="form-control" name='promoValue' [(ngModel)]="promo.promoValue" #promoValue="ngModel" required/>
+          </div>
+        </div>
+
+<div class="form-group">
+          <div>
+            <label>Min. Purchase Amount </label>
+            <input class="form-control" type="text" class="form-control" name='minPurchase' [(ngModel)]="promo.minPurchase" #minPurchase="ngModel" required/>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div>
+            <label>Max. Discount Amount </label>
+            <input class="form-control" type="text" class="form-control" name='maxDiscount' [(ngModel)]="promo.maxDiscount" #maxDiscount="ngModel" required/>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div>
+            <label>Start Date </label>
+            <input class="form-control" placeholder="mm-dd-yyyy" type="text" class="form-control" name='startDate' [(ngModel)]="promo.startDate" #startDate="ngModel" required/>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div>
+            <label>End Date </label>
+            <input class="form-control" placeholder="mm-dd-yyyy" type="text" class="form-control" name='endDate' [(ngModel)]="promo.endDate" #endDate="ngModel" required/>
+          </div>
+        </div>    
+
+        <div class="form-group">
+          <button md-raised-button [ngStyle]="{'background-color': 'lightcoral', 'color': 'white'}">Save</button>
+        </div>
+
+
+
+
+      </form>
+
+    </div>
+
+
+  </div>
+  <!-- </div> -->
+</md-card>

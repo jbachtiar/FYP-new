@@ -1,4 +1,5 @@
-﻿INSERT INTO `customer` (`EMAIL`, `FIRST_NAME`, `LAST_NAME`, `PHONE_NO`, `PASSWORD`, `VERIFIED`) VALUES
+﻿
+INSERT INTO `customer` (`EMAIL`, `FIRST_NAME`, `LAST_NAME`, `PHONE_NO`, `PASSWORD`, `VERIFIED`) VALUES
 ('customer2@gmail.com', 'Tan', 'Chen', '+6585823165', '1234', 'Y'),
 ('customer3@gmail.com', 'Ming', 'Chen', '+6581123165', '1234', 'Y'),
 ('customer@gmail.com', 'Huiyan', 'Chen', '+6585882165', '1234', 'Y');
@@ -124,8 +125,8 @@ INSERT INTO `order_status` (`STATUS_ID`, `STATUS_NAME`) VALUES
 
 INSERT INTO `promo_code` (`PROMO_CODE_ID`, `PROMO_CODE`, `PROMO_NAME`, `PROMO_TYPE`, `PROMO_VALUE`, `MIN_PURCHASE`, `MAX_DISCOUNT`, `QUOTA`, `COUNTER`, `START_DATE`, `END_DATE`, `DELETED`) VALUES
 (0, 'NONE', 'NONE', 'NONE', 0, 0, 0, 0, 0, '2017-08-27', '2020-09-10', 'N'),
-(1, 'WELCOME5', 'First Purchase', 'Percent discount', 5, 50, 100, 10000, 0, '2017-08-27', '2018-09-10', 'N'),
-(2, '1MONTH', '1st Monthsary', 'Dollar discount', 50, 200, 50, 10000, 0, '2017-09-27', '2018-10-27', 'N');
+(1, 'WELCOME5', 'First Purchase', 'Percent Off', 5, 50, 100, 10000, 0, '2017-08-27', '2018-09-10', 'N'),
+(2, '1MONTH', '1st Monthsary', 'Dollar Off', 50, 200, 50, 10000, 0, '2017-09-27', '2018-10-27', 'N');
 
 
 INSERT INTO `bedding` (`PRODUCT_ID`, `SIZE_NAME`) VALUES
@@ -173,12 +174,14 @@ INSERT INTO `product_image` (`PRODUCT_ID`, `IMAGE_ID`, `IMAGE_URL`) VALUES
 (3, 2, 'https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Product+Images/3_2.png'),
 (4, 1, 'https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Product+Images/P4.png'),
 (4, 2, 'https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Product+Images/4_2.png'),
+(4, 3,'https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Product+Images/3_3.png'),
 (5, 1, 'https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Product+Images/P5.png'),
 (5, 2, 'https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Product+Images/5_2.png'),
 (6, 1, 'https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Product+Images/P6.png'),
 (6, 2, 'https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Product+Images/6_2.png'),
 (7, 1, 'https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Product+Images/P7.png'),
 (7, 2, 'https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Product+Images/7_2.png'),
+(7, 3, 'https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Product+Images/7_3.png'),
 (8, 1, 'https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Product+Images/P8.png'),
 (8, 2, 'https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Product+Images/8_2.png'),
 (9, 1, 'https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Product+Images/P9.png'),
