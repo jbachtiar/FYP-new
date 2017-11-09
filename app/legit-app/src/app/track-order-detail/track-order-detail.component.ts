@@ -16,7 +16,8 @@ export class TrackOrderDetailComponent implements OnInit {
   private statusLog: any = {}
   private statusId: number;
   private loading: boolean = true;
-  private
+  private courier: any={}
+  private courierName: any={}
 
   color = 'accent';
   mode = 'determinate';
@@ -34,6 +35,13 @@ export class TrackOrderDetailComponent implements OnInit {
       this.orderId = this.inputOrderId
       this.orderService.getOrderById(this.orderId).subscribe(orders => {
         this.order = orders;
+        console.log(orders[0].courierName);
+        
+        this.orderService.getCourierByName(orders[0].courierName).subscribe(courier => {
+          this.courier=courier;
+          console.log("courier"+this.courier);
+    
+        });
         this.order[0].order_TimeStamp = new Date(this.order[0].order_TimeStamp);
         console.log("before : " + JSON.stringify(this.order[0].order_TimeStamp));
         this.order[0].order_TimeStamp.setHours(this.order[0].order_TimeStamp.getHours()+8)
@@ -64,7 +72,10 @@ export class TrackOrderDetailComponent implements OnInit {
         }
 
       });
+      
 
+      console.log("courierName"+this.order[0].courierName);
+   
 
     });
   }

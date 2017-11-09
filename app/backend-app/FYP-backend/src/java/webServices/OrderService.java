@@ -8,6 +8,7 @@ package webServices;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import dao.BeddingSizeDAO;
 import dao.CourierDAO;
@@ -54,10 +55,12 @@ public class OrderService {
 
         JsonArray orderArray = new JsonArray();
         OrderDAO orderDao = new OrderDAO();
+        CourierDAO courierDao= new CourierDAO();
 
         try {
 
             Order[] oArr = orderDao.getOrderById(orderId);
+          
             if (oArr == null) {
 
                 jsonOutput.addProperty("status", "500");
@@ -194,6 +197,47 @@ public class OrderService {
                 jsonOutput.addProperty("status", "200");
                 JsonArray couriers = gson.toJsonTree(cArr).getAsJsonArray(); // convert array to jsonArray
                 jsonOutput.add("couriers", couriers);
+                
+            }
+            
+        } catch (SQLException e) {
+            
+            jsonOutput.addProperty("status", "500");
+            jsonOutput.addProperty("msg", "OrderService: SQL Exception" + e.getMessage());
+            
+        }
+        
+        String finalJsonOutput = gson.toJson(jsonOutput);
+        return finalJsonOutput;
+    }
+    
+    @GET
+        @Path("/getCourierByName")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getCouriersByName(@QueryParam("courierName") String courierName) {
+        
+        response.setHeader("Access-Control-Allow-Headers", "Content-Type");
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
+        
+        Gson gson = new GsonBuilder().create();
+        JsonObject jsonOutput = new JsonObject();
+        CourierDAO courierDao= new CourierDAO();
+        
+        try {
+            
+            Courier c = courierDao.getCourierByName(courierName);
+            if (c == null) {
+                
+                jsonOutput.addProperty("status", "500");
+                jsonOutput.addProperty("msg", "No Courier Available");
+                
+            } else {
+                
+                jsonOutput.addProperty("status", "200");
+                JsonElement courier = gson.toJsonTree(c).getAsJsonObject();
+                //JsonElement c = gson.toJsonTree(oArr).getAsJsonArray(); 
+                jsonOutput.add("courier", courier);
                 
             }
             
