@@ -8,6 +8,7 @@ package webServices;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
+import dao.AnalyticsDAO;
 import dao.CustomerDAO;
 import java.sql.SQLException;
 import javax.servlet.http.HttpServletResponse;
@@ -48,14 +49,52 @@ public class MahoutService {
             CustomerDAO cDAO = new CustomerDAO();
             int cId = cDAO.getCustIdByEmail(cEmail);
         
-            //insert to pref table
-            /*        
-            1. new row if new view
-            2. +1 to preference value, with every additional view (cap at 5)
-            3. Set preference value as 5, with add to cart
-            4. Set preference value as 10, with purchase
-            */
+            //check if custId*productId exist in user_preferences table
+            AnalyticsDAO aDAO = new AnalyticsDAO();
+            int currPref = aDAO.getPreference(cId, pId);
+            
+            //currPref == 0 means custId*productId does not exist
+            if(currPref == 0){
+                
+                //add to user_preferences table
+                aDAO.add(cId, pId, pValue);
+                
+            
+            }else{
+                
+                //user viewed product
+                if(pValue == 1){
+                    
+                    //+1 to preference value (cap at 5)
+                    if(currPref < 5){
+                        
+                        int newPref = currPref + pValue;
+                        aDAO.update(cId, pId, newPref);
+                        
+                    }
+                    
+                //user added product to cart
+                } else if(pValue == 5){
+                    
+                    if(currPref < 5){
+                        
+                        int newPref = pValue;
+                        aDAO.update(cId, pId, newPref);
+                        
+                    }
+                    
+                } else if(pValue == 10){
+                    
+                    if(currPref < 10){
+                        
+                        int newPref = pValue;
+                        aDAO.update(cId, pId, newPref);
+                        
+                    }
+                                  
+                }
 
+            }
             
         } catch(SQLException e){
             
