@@ -126,6 +126,32 @@ public class CustomerDAO {
         return "Success";
     }
 
+    public int getCustIdByEmail(String email) throws SQLException{
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        String sql = "SELECT CUSTID FROM CUSTOMER_MAP WHERE EMAIL=?";
+        int custId = 0;
+        
+            try {
+                conn = ConnectionManager.getConnection();
+                stmt = conn.prepareStatement(sql);
+                stmt.setString(1, email);
+                rs = stmt.executeQuery();
+                
+                while (rs.next()) {
+                    
+                    custId = rs.getInt("CUSTID");
+                
+                }
+                
+            } finally {
+                ConnectionManager.close(conn, stmt, rs);
+            }
+        return custId;
+    }
+    
     public String updateCustomerByEmail(String email, String firstName, String lastName, String phoneNo, String password) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
