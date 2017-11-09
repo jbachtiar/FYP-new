@@ -27,13 +27,17 @@ public class MahoutService {
     @GET
     @Path("/save")
     @Produces(MediaType.APPLICATION_JSON)
-    public String save(@QueryParam("custId") int cId, @QueryParam("productId") int pId, @QueryParam("prefValue") int pValue) {
+    public String save(@QueryParam("custEmail") String cEmail, @QueryParam("productId") int pId, @QueryParam("prefValue") int pValue) {
 
+        //convert email to customer id
         
-       /* 1. new row if new view
+        //insert to pref table
+/*        
+1. new row if new view
 2. +1 to preference value, with every additional view (cap at 5)
 3. Set preference value as 5, with add to cart
 4. Set preference value as 10, with purchase
+*//*
         PatternDAO pDAO = new PatternDAO();
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");

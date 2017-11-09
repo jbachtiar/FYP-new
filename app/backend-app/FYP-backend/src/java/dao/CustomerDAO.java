@@ -157,8 +157,15 @@ public class CustomerDAO {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
+        
+        PreparedStatement stmt1 = null;
+        ResultSet rs1 = null;
+        
+        int newCustId = getNextCustId();
 
         String sql = "INSERT INTO CUSTOMER VALUES (?,?,?,?,?,?)";
+        String sql2 = "INSERT INTO CUSTOMER_MAP VALUES (?,?)";
+        
         if (retrieveCustomerByEmail(customer.getEmail()) == null) {
 
             try {
@@ -173,9 +180,16 @@ public class CustomerDAO {
                 stmt.setString(6, customer.getVerified());
 
                 stmt.executeUpdate();
+                
+                stmt1 = conn.prepareStatement(sql2);
+                stmt1.setInt(1, newCustId);
+                stmt1.setString(2, customer.getEmail());
+                stmt1.executeUpdate();
+                
 
             } finally {
                 ConnectionManager.close(conn, stmt, rs);
+                ConnectionManager.close(null, stmt1, rs1);
             }
         } else {
             return "Customer already exist";
@@ -185,6 +199,37 @@ public class CustomerDAO {
 
     }
 
+    public int getNextCustId() throws SQLException {
+
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        int nextCustId = 0;
+
+        String sql = "SELECT MAX(CUSTID) AS MAX FROM CUSTOMER_MAP";
+
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+
+                nextCustId = rs.getInt("MAX") + 1;
+
+            }
+
+        } finally {
+
+            ConnectionManager.close(conn, stmt, rs);
+
+        }
+
+        return nextCustId;
+
+    }
+    
     public String deleteCustomerByEmail(String email) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
