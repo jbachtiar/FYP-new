@@ -76,4 +76,42 @@ public class AnalyticsDAO {
         
     }
     
+    
+    //this method is used, when the custId*productId does not exist in the db
+    public int getPreference(int custId, int productId) throws SQLException{
+        
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+       
+        String sql = "SELECT PREFERENCE FROM USER_PREFERENCES WHERE USER_ID = ? AND PRODUCT_ID = ?";
+        
+        //casting
+        BigDecimal custIdBd = new BigDecimal(custId);
+        BigDecimal productIdBd = new BigDecimal(productId);
+        Float prefFloat;
+        int finalInt = 0;
+           
+            try {
+                
+                conn = ConnectionManager.getConnection();
+                stmt = conn.prepareStatement(sql);
+                stmt.setBigDecimal(1, custIdBd);
+                stmt.setBigDecimal(2, productIdBd);               
+                rs = stmt.executeQuery();
+                
+                while (rs.next()) {
+                    
+                    prefFloat = rs.getFloat("PREFERENCE");
+                    finalInt = (int)(Math.round(prefFloat));
+                }
+                
+            } finally {
+                ConnectionManager.close(conn, stmt, rs);
+            }
+            
+        return finalInt;
+        
+    }
+    
 }
