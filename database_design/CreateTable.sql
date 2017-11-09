@@ -225,6 +225,16 @@ CREATE TABLE IF NOT EXISTS `mydb`.`CUSTOMER` (
   PRIMARY KEY (`EMAIL`))
 ENGINE = InnoDB;
 
+-- -----------------------------------------------------
+-- Table `mydb`.`CUSTOMER_MAP`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`CUSTOMER_MAP` ;
+
+CREATE TABLE IF NOT EXISTS `mydb`.`CUSTOMER_MAP` (
+  `CUSTID` INT NOT NULL,
+  `EMAIL` VARCHAR(200) NOT NULL,
+  PRIMARY KEY (`CUSTID`))
+ENGINE = InnoDB;
 
 -- -----------------------------------------------------
 -- Table `mydb`.`CUSTOMER_ADDRESS`

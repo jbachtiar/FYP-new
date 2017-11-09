@@ -4,6 +4,11 @@ INSERT INTO `customer` (`EMAIL`, `FIRST_NAME`, `LAST_NAME`, `PHONE_NO`, `PASSWOR
 ('customer3@gmail.com', 'Ming', 'Chen', '+6581123165', '1234', 'Y'),
 ('customer@gmail.com', 'Huiyan', 'Chen', '+6585882165', '1234', 'Y');
 
+INSERT INTO `customer_map` (`CUSTID`,`EMAIL`) VALUES
+(1,'customer@gmail.com'),
+(2,'customer2@gmail.com'),
+(3,'customer3@gmail.com');
+
 INSERT INTO `staff_role` (`ROLE_ID`, `ROLE_NAME`) VALUES
 (1, 'Admin'),
 (2, 'Factory Manager'),

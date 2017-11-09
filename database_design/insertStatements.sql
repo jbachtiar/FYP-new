@@ -2,6 +2,10 @@
 INSERT INTO CUSTOMER VALUES ('customer2@gmail.com','Tan','Chen','+6585823165','1234','Y');
 INSERT INTO CUSTOMER VALUES ('customer3@gmail.com','Ming','Chen','+6581123165','1234','Y');
 
+INSERT INTO CUSTOMER_MAP VALUES (1,'customer@gmail.com');
+INSERT INTO CUSTOMER_MAP VALUES (2,'customer2@gmail.com');
+INSERT INTO CUSTOMER_MAP VALUES (3,'customer3@gmail.com');
+
 
 INSERT INTO STAFF_ROLE VALUES ('1','Admin');
 INSERT INTO STAFF_ROLE VALUES ('2','Factory Manager');
