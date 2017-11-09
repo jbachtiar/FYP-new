@@ -131,7 +131,7 @@ public class CustomerDAO {
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
-        String sql = "SELECT CUSTID FROM CUSTOMER_MAP WHERE EMAIL=?";
+        String sql = "SELECT CUSTID FROM CUSTOMER_MAP WHERE EMAIL = ?  ";
         int custId = 0;
         
             try {
@@ -139,9 +139,9 @@ public class CustomerDAO {
                 stmt = conn.prepareStatement(sql);
                 stmt.setString(1, email);
                 rs = stmt.executeQuery();
-                
+
                 while (rs.next()) {
-                    
+
                     custId = rs.getInt("CUSTID");
                 
                 }
