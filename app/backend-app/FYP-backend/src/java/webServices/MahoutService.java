@@ -7,10 +7,15 @@ package webServices;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import dao.AnalyticsDAO;
 import dao.CustomerDAO;
+import dao.ProductDAO;
+import entity.Bedding;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -18,6 +23,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import mahout.Recommender;
+import org.apache.mahout.cf.taste.common.TasteException;
+import org.apache.mahout.cf.taste.recommender.RecommendedItem;
 
 /**
  *
@@ -40,6 +48,8 @@ public class MahoutService {
         
         Gson gson = new GsonBuilder().create();
         JsonObject jsonOutput = new JsonObject();
+        JsonArray productArray = new JsonArray();
+        ProductDAO productDAO = new ProductDAO();
         
         try{
 
@@ -96,15 +106,33 @@ public class MahoutService {
 
             }
             
-        } catch(SQLException e){
+            List<RecommendedItem> rList = Recommender.getRecommendations(cId, 4);
+            ArrayList<Bedding> pList = new ArrayList<Bedding>();
             
-            jsonOutput.addProperty("status", "200");
+            for (RecommendedItem item : rList) {
+
+                int productId = (int)item.getItemID();
+                pList.add(productDAO.getBeddingbyPId(productId));
+                
+            }
+            
+            JsonArray products = gson.toJsonTree(pList).getAsJsonArray(); // convert arraylist to jsonArray
+            jsonOutput.add("products", products);
+            
+        } catch(TasteException e){
+            
+            jsonOutput.addProperty("status", "500");
             jsonOutput.addProperty("error", e.getMessage());
             
-        }
-                        
-       return null;
-    
+        } catch(SQLException e){
+            
+            jsonOutput.addProperty("status", "500");
+            jsonOutput.addProperty("error", e.getMessage());
+            
+        } 
+                         
+       String finalJsonOutput = gson.toJson(jsonOutput);
+       return finalJsonOutput;
     }
     
 }
