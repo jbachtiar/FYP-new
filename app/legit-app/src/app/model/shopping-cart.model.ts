@@ -7,6 +7,7 @@ export class ShoppingCart {
   public price: number = 0;
   public discount: number = 0;
   public promoMsg: string = "";
+  public promoId: number;
 
   public updateFrom(src: ShoppingCart) {
     this.cartItems = src.cartItems;
@@ -14,5 +15,6 @@ export class ShoppingCart {
     this.price = src.price;
     this.discount = src.discount;
     this.promoMsg = src.promoMsg;
+    this.promoId = src.promoId;
   }
 }

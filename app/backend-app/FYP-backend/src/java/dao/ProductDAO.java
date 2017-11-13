@@ -348,6 +348,53 @@ public class ProductDAO {
         return beddings;
     }
 
+    public Bedding getBeddingbyPId(int pId) throws SQLException {
+
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Bedding b = null;
+
+        String sql = "SELECT  * FROM Pattern P, PRODUCT PR, BEDDING B WHERE P.PATTERN_ID=PR.PATTERN_ID AND PR.PRODUCT_ID=B.PRODUCT_ID AND PR.DELETED=? AND PR.PRODUCT_ID = ? group by P.PATTERN_NAME";
+
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, "N");
+            stmt.setInt(2, pId);
+
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+
+                int productId = rs.getInt("product_id");
+                int patternId = rs.getInt("pattern_id");
+                int colourId = rs.getInt("colour_id");
+                String sizeName = rs.getString("size_name");
+                int fabricId = rs.getInt("fabric_id");
+
+                PatternDAO dd = new PatternDAO();
+                ColourDAO cd = new ColourDAO();
+                ImageDAO id = new ImageDAO();
+                BeddingSizeDAO bzd = new BeddingSizeDAO();
+                FabricDAO fd = new FabricDAO();
+
+                Pattern d = dd.getPatternById(patternId);
+                Colour c = cd.getColourById(colourId);
+                BeddingSize bs = bzd.getBeddingSizeByName(sizeName);
+                Fabric f = fd.getFabricById(fabricId);
+                Image[] images = id.getAllImagesByProductId(productId);
+
+                b = new Bedding(bs, productId, "Bedding", d, c, f, images);
+            }
+
+        } finally {
+            ConnectionManager.close(conn, stmt, rs);
+        }
+        return b;
+    }
+    
+    
     public Product getProductById(int productId) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;

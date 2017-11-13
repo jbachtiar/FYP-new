@@ -225,6 +225,16 @@ CREATE TABLE IF NOT EXISTS `mydb`.`CUSTOMER` (
   PRIMARY KEY (`EMAIL`))
 ENGINE = InnoDB;
 
+-- -----------------------------------------------------
+-- Table `mydb`.`CUSTOMER_MAP`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`CUSTOMER_MAP` ;
+
+CREATE TABLE IF NOT EXISTS `mydb`.`CUSTOMER_MAP` (
+  `CUSTID` INT NOT NULL,
+  `EMAIL` VARCHAR(200) NOT NULL,
+  PRIMARY KEY (`CUSTID`))
+ENGINE = InnoDB;
 
 -- -----------------------------------------------------
 -- Table `mydb`.`CUSTOMER_ADDRESS`
@@ -502,7 +512,18 @@ ENGINE = InnoDB;
 
 CREATE INDEX `fk_CART_DETAILS_PRODUCT1_idx` ON `mydb`.`CART_ITEM` (`PRODUCT_ID` ASC);
 
-
+-- -----------------------------------------------------
+-- Table `mydb`.`user_preferences`
+-- -----------------------------------------------------
+CREATE TABLE user_preferences (
+   user_id BIGINT NOT NULL,
+   product_id BIGINT NOT NULL,
+   preference FLOAT NOT NULL,
+   PRIMARY KEY (user_id, product_id),
+   INDEX (user_id),
+   INDEX (product_id)
+ );
+ 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

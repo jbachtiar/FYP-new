@@ -126,6 +126,7 @@
               </md-card-title>
             </md-card-header>
             <md-card-content>
+              <br>
               <b>{{order[0].address.recipientName}}</b>
               <br> {{order[0].address.phoneNo}}
               <br> {{order[0].address.addressLine}}
@@ -139,6 +140,11 @@
               <b>Tracking No : </b>
               <br> <span *ngIf="order[0].trackingNo!=null">{{order[0].trackingNo}}</span>
               <span *ngIf="order[0].trackingNo==null">Not available yet.</span>
+              <br>
+              <b>Tracking URL : </b>
+              <br> <span *ngIf="order[0].trackingNo!=null">{{courier.trackingUrl}}</span>
+              <span *ngIf="order[0].trackingNo==null">Not available yet.</span>
+
             </md-card-content>
             <hr>
             <md-card-header>
@@ -147,6 +153,7 @@
               </md-card-title>
             </md-card-header>
             <md-card-content>
+              <br>
               <b>Total Price : </b>
               <br> $ {{order[0].netAmt}}.00
               <br>

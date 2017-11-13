@@ -30,6 +30,7 @@ export class CartComponent implements OnInit {
   private promo;
   private discount: number = 0;
   private promoMsg: string = "";
+  private promoId: number = 0;
 
   public constructor(
     private shoppingCartService: ShoppingCartService,
@@ -46,6 +47,8 @@ export class CartComponent implements OnInit {
 
   ngOnInit() {
     this.promoMsg = "";
+    this.promoId = 0;
+    this.shoppingCart.promoId = 0;
     this.shoppingCart.promoMsg = "";
     this.shoppingCart.discount = 0;
     this.sharedService.updateCart()
@@ -117,9 +120,11 @@ export class CartComponent implements OnInit {
          this.promo = promo;
          this.discount = promo.discountAmt;
          this.promoMsg = promo.reason;
+         this.promoId = promo.promoId;
          console.log("PROMO CODE " + this.discount);
          this.shoppingCart.discount = this.discount;
          this.shoppingCart.promoMsg = this.promoMsg;
+         this.shoppingCart.promoId = this.promoId;
          this.shoppingCartService.updateCart(this.shoppingCart);
         
     });

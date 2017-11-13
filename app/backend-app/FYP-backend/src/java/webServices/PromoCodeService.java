@@ -195,6 +195,7 @@ public class PromoCodeService {
                 }
                 
                 JsonObject temp = new JsonObject();
+                temp.addProperty("promoId", pc.getPromoCodeId());
                 temp.addProperty("valid", "Y");
                 temp.addProperty("reason","Applied!");
                 temp.addProperty("discountAmt", discountAmount);
