@@ -32,6 +32,7 @@ import javax.ws.rs.core.Context;
 //import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import tokenManagement.tokenManagement;
+import encryption.encryption;
 
 /**
  *
@@ -79,6 +80,7 @@ public class Authentication {
             } else {
                 if (password != null && !password.equals("")) {
                     //encrypt password
+                    password = encryption.SHA1(password);
                     if (password.equals(customer.getPassword())) {
                         //out.println("exist");
                         //String name = customer.getName();
