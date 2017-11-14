@@ -9,7 +9,26 @@ body {
 .mobile-table{
     margin-top: 10px;
 }
-
+.quickview {
+    position: relative;
+  }
+  .quickview:hover .overlay {
+    height: 15%;
+  }
+  
+  .quickview-text {
+    white-space: nowrap; 
+    color: #888888;
+    font-size: 18px;
+    position: absolute;
+    overflow: hidden;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    font-family: Georgia;
+    cursor: pointer;
+  }
 .button{
     border: 1px solid #B0A171;
     background-color: #B0A171; 
@@ -30,6 +49,31 @@ body {
     padding-top: 0px;
     margin-top: 0px;
     border-bottom: 3px solid #B0A171;
+}
+
+.image-recom{
+    border-bottom: 3px solid #B0A171;
+}
+
+.overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: white;
+    opacity: 20%;
+    overflow: hidden;
+    width: 100%;
+    height: 0;
+    transition: .5s ease;
+  }
+
+.product-name-recom{
+    color: #B0A171;
+    font-family: Georgia; 
+    padding-top: 0px;
+    margin-top: 0px;
+    border-top: 1.5px solid #B0A171;
 }
 
 .desc-header{
@@ -101,6 +145,15 @@ select:focus, select:hover{
 
 img{
     transition:all 0.3s ease;   
+}
+
+.img-product{
+    width: 50%;
+    height: 50%;
+}
+
+.img-product:hover {
+    box-shadow: 3px 3px 5px 5px #888888,
 }
 
 .button {

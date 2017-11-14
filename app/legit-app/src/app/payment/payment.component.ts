@@ -12,13 +12,15 @@ import { CartComponent } from '../cart/cart.component'
 import { NavbarComponent } from '../navbar/navbar.component'
 import { SharedService } from '../shared.service'
 import { OrderService } from '../order.service'
+import { ProductService } from '../product.service';
+
 declare var ga: any;
 
 @Component({
   selector: 'app-payment',
   templateUrl: './payment.component.html',
   styleUrls: ['./payment.component.css'],
-  providers: [ShoppingCartService, OrderService]
+  providers: [ShoppingCartService, OrderService, ProductService]
 })
 export class PaymentComponent implements OnInit {
   private carts: any = {};
@@ -37,6 +39,7 @@ export class PaymentComponent implements OnInit {
   private stripeToken;
   private paymentRefNo: string;
   private loading: boolean = false;
+  private token;
 
   constructor(private storageService: StorageService,
     private cartService: CartService,
@@ -45,11 +48,13 @@ export class PaymentComponent implements OnInit {
     private _ngZone: NgZone,
     private dialogService: DialogService,
     private orderService: OrderService,
+    private productService: ProductService,
     private router: Router) {
     this.shoppingCart = JSON.parse(localStorage.getItem('cart'), );
   }
 
   ngOnInit() {
+    this.token = localStorage.getItem("token")
     // this.firstName = this.storageService.getFirstName();
     this.name = this.storageService.getName();
     this.contact = this.storageService.getContact();
@@ -140,6 +145,8 @@ export class PaymentComponent implements OnInit {
                 'price': order.unitPrice, // Product price - Type: numeric
                 'quantity': order.quantity, //Product Quantity
                 });
+                //add data to mahout
+                this.productService.getProductRecommendation(this.token, order.product.productId, 10).subscribe()
             }
 
             ga('ec:setAction', 'purchase',{

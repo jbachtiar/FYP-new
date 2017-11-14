@@ -131,4 +131,16 @@ export class ProductService {
         //get token from stripe response
         //send token to backend
     }
+
+    
+    public getProductRecommendation(token: string, productId , prefValue: number) {
+        let url = CONFIG.mahoutBackendUrl + '/save'
+        let finalUrl = url + "?token=" + token + "&productId=" + productId + "&prefValue=" + prefValue;
+        return this._http.get(finalUrl)
+            .map(res => {
+                console.log(finalUrl)
+                console.log("product is loaded" + res.json().products);
+                return res.json().products;
+            });
+    } 
 }

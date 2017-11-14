@@ -166,7 +166,9 @@
           <br/><br/><br/>
           <table class="col-sm-12 col-xs-12">
             <tbody>
-              <tr><td>&nbsp;</td></tr>
+              <tr>
+                <td>&nbsp;</td>
+              </tr>
               <tr>
                 <td *ngFor="let colour of selectedFabric.colours"><button [disabled]="colour.colour_name==selectedColour.colour_name" type="button" class="btn" (click)="selectColour(colour)"><img class="color-image" src='{{colour.images[0].imageUrl}}' height="50" width="50" alt='LOADING' /></button></td>
               </tr>
@@ -211,6 +213,33 @@
         <h4><i>{{selectedFabric.fabric_name}}</i></h4>
         <p class="description">{{selectedFabric.fabric_description}}</p>
         <br>
+      </div>
+    </div>
+    <hr/>
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <font size=4>You might also like...</font>
+      </div>
+    </div>
+    <hr/>
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <div *ngFor="let product of recommendation">
+          <div class="col-sm-4 col-lg-4 col-md-4">
+            <div class="quickview">
+              <img class="image-recom" src="{{product.images[0].imageUrl}}" alt="..." class="img-thumbnail img-product" [routerLink]="['/productDetails', product.pattern.patternId]"
+                (click)=onProductClick(product.pattern.patternId,product.pattern.patternName)><br/>
+              <div class="overlay">
+                <div class="quickview-text" (click)=showQuickView(product.pattern.patternId,product.pattern.patternName)>Quick View</div>
+              </div>
+
+            </div>
+            <div class="text-center">
+              <h5 class="product-name-recom"><a (click)="onProductClick(product.pattern.patternId,product.pattern.patternName)" [routerLink]="['/productDetails', product.pattern.patternId]"><font size=4 color=#B0A171>{{product.pattern.patternName}}</font></a></h5>
+              <br/>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

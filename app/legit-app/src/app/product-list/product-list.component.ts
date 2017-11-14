@@ -14,7 +14,7 @@ declare var ga: any;
   providers: [ProductService, PagerService]
 })
 export class ProductListComponent implements OnInit {
-  
+
   selectedCollectionId;
   selectedFabricId;
   selectedColourId;
@@ -23,18 +23,18 @@ export class ProductListComponent implements OnInit {
   colours;
   fabrics;
   queriedSearch;
-  loading:boolean = true;
+  loading: boolean = true;
 
-  startLoading(){
+  startLoading() {
     this.loading = true;
   }
 
-  
-  stopLoading(){
+
+  stopLoading() {
     this.loading = false;
   }
-  onClear(){
-    
+  onClear() {
+
     this.startLoading();
     this.selectedCollection = undefined;
     this.selectedFabric = undefined;
@@ -47,13 +47,13 @@ export class ProductListComponent implements OnInit {
     this.queriedSearch = "";
 
     this.productService.getFilteredProductList("undefined", "undefined", "undefined", "undefined", this.queriedSearch).subscribe(
-       products => {
-        
-         this.products = products;
-         //initialise paginator 
-         this.setPage(1);
-         this.stopLoading()
-       });
+      products => {
+
+        this.products = products;
+        //initialise paginator 
+        this.setPage(1);
+        this.stopLoading()
+      });
 
     // this.productService.getProductList().subscribe(
     //   products => {
@@ -63,7 +63,7 @@ export class ProductListComponent implements OnInit {
     //   });
 
   }
-  
+
   onSelectCollection(collection) {
 
     this.startLoading()
@@ -99,11 +99,11 @@ export class ProductListComponent implements OnInit {
         this.setPage(1);
         this.stopLoading()
       });
-  
+
   }
 
   onSelectColour(colour) {
-    
+
     this.startLoading()
     this.selectedColourId = colour.colourId;
     console.log(this.selectedCollectionId);
@@ -120,7 +120,7 @@ export class ProductListComponent implements OnInit {
         this.stopLoading()
       });
   }
-    
+
 
   onSelectSort(sortid) {
     this.startLoading()
@@ -149,23 +149,23 @@ export class ProductListComponent implements OnInit {
     console.log(this.selectedSortPriceId);
     console.log(this.queriedSearch);
 
-		this.productService.getFilteredProductList(this.selectedCollectionId, this.selectedFabricId, this.selectedColourId, this.selectedSortPriceId, this.queriedSearch).subscribe(
+    this.productService.getFilteredProductList(this.selectedCollectionId, this.selectedFabricId, this.selectedColourId, this.selectedSortPriceId, this.queriedSearch).subscribe(
       products => {
         this.products = products;
         //initialise paginator 
         this.setPage(1);
         this.stopLoading()
       });
-	}
-    
-  
-  sortPrice:any = null;
+  }
+
+
+  sortPrice: any = null;
   sorts = [
-       {id: "asc", name: "Ascending"},
-       {id: "desc", name: "Descending"}
-     ];
-  
-  selectedCollection:any = null;
+    { id: "asc", name: "Ascending" },
+    { id: "desc", name: "Descending" }
+  ];
+
+  selectedCollection: any = null;
   // collections = [
   //      {id: "CO1", name: "Bestsellers"},
   //      {id: "CO2", name: "2018 Spring"},
@@ -173,7 +173,7 @@ export class ProductListComponent implements OnInit {
   //      {id: "CO4", name: "2017 Spring"}
   //    ];
 
-  selectedFabric:any = null;
+  selectedFabric: any = null;
   // fabrics = [
   //      {id: "F1", name: "Silk"},
   //      {id: "F2", name: "Modal"},
@@ -183,7 +183,7 @@ export class ProductListComponent implements OnInit {
   //      {id: "F6", name: "Polyester-Cotton"}
   //    ];
 
-  selectedColour:any = null;
+  selectedColour: any = null;
   // colours = [
   //      {id: "C1", name: "White"},
   //      {id: "C2", name: "Black"},
@@ -197,7 +197,7 @@ export class ProductListComponent implements OnInit {
   //      {id: "C10", name: "Gold"},
   //      {id: "C11", name: "Silver"}
   //    ];
-  
+
   //list of products 
   private products = []
 
@@ -211,12 +211,12 @@ export class ProductListComponent implements OnInit {
   pagedProducts: any[];
 
   constructor(
-    private productService:ProductService, 
+    private productService: ProductService,
     private pagerService: PagerService,
-    private dialogService:DialogService,
-    angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics, 
+    private dialogService: DialogService,
+    angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics,
     private router: Router) { }
-    
+
   ngOnInit() {
     this.startLoading()
     this.selectedCollection = undefined;
@@ -243,10 +243,10 @@ export class ProductListComponent implements OnInit {
     (function (i, s, o, g, r, a?, m?) {
       i['GoogleAnalyticsObject'] = r;
       i[r] = i[r] || function () {
-              (i[r].q = i[r].q || []).push(arguments)
-          }, i[r].l = 1 * <any>new Date();
+        (i[r].q = i[r].q || []).push(arguments)
+      }, i[r].l = 1 * <any>new Date();
       a = s.createElement(o),
-          m = s.getElementsByTagName(o)[0];
+        m = s.getElementsByTagName(o)[0];
       a.async = 1;
       a.src = g;
       m.parentNode.insertBefore(a, m)
@@ -254,87 +254,88 @@ export class ProductListComponent implements OnInit {
     ga('create', 'UA-106185727-2', 'auto');
     ga('require', 'ec');
     // Send checkout event 1 event to enhanced ecommerce
-    ga('ec:setAction', 'checkout', {'step': 2});
+    ga('ec:setAction', 'checkout', { 'step': 2 });
     // Send click with an event
     ga('send', 'event', 'Session Movement', 'View Products');
     ga('send', 'pageview');
   }
 
-  
-  
+
+
   // onSelect(product): void {
-	// 	let link = ['/productDetails', {patternId: product.id, fabricId: product.fabric_id, colourId: product.colour_id}];
+  // 	let link = ['/productDetails', {patternId: product.id, fabricId: product.fabric_id, colourId: product.colour_id}];
   //   this.router.navigate(link);
-	// }
+  // }
 
   setPage(page: number) {
-        if (page < 1) {
-            return;
-        }
- 
-        // get pager object from service
-        this.pager = this.pagerService.getPager(this.products.length, page);
- 
-        // get current page of items
-        this.pagedProducts = this.products.slice(this.pager.startIndex, this.pager.endIndex + 1);
+    if (page < 1) {
+      return;
+    }
+
+    // get pager object from service
+    this.pager = this.pagerService.getPager(this.products.length, page);
+
+    // get current page of items
+    this.pagedProducts = this.products.slice(this.pager.startIndex, this.pager.endIndex + 1);
   }
 
-  showQuickView(patternId, pattern_name){
+  showQuickView(patternId, pattern_name) {
     //start of GA
     (function (i, s, o, g, r, a?, m?) {
       i['GoogleAnalyticsObject'] = r;
       i[r] = i[r] || function () {
-              (i[r].q = i[r].q || []).push(arguments)
-          }, i[r].l = 1 * <any>new Date();
+        (i[r].q = i[r].q || []).push(arguments)
+      }, i[r].l = 1 * <any>new Date();
       a = s.createElement(o),
-          m = s.getElementsByTagName(o)[0];
+        m = s.getElementsByTagName(o)[0];
       a.async = 1;
       a.src = g;
       m.parentNode.insertBefore(a, m)
     })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
     ga('create', 'UA-106185727-2', 'auto');
     ga('require', 'ec');
-    ga('ec:addProduct',{
-    // productFieldObject stores product click and other details
-    
-    'id': patternId, // Product ID/SKU - Type: string
-    
-    'name': pattern_name, // Product name - Type: string
-  
-    'category': 'Beddings', // Product category - Type: string
-    
+    ga('ec:addProduct', {
+      // productFieldObject stores product click and other details
+
+      'id': patternId, // Product ID/SKU - Type: string
+
+      'name': pattern_name, // Product name - Type: string
+
+      'category': 'Beddings', // Product category - Type: string
+
     });
-    
-     ga('ec:setAction', 'detail');
+
+    ga('ec:setAction', 'detail');
     // Send checkout event 1 event to enhanced ecommerce
     // Send click with an event, then send user to product page.
-     ga('send', 'event', 'enhanced ecommerce', 'Quick View Clicks', pattern_name);
-     ga('send', 'pageview');
+    ga('send', 'event', 'enhanced ecommerce', 'Quick View Clicks', pattern_name);
+    ga('send', 'pageview');
     // end of GA
 
-     let disposable = this.dialogService.addDialog( QuickViewComponent, {
-            title:'QuickView', 
-            message:'',
-            patternId: patternId})
-          .subscribe((isConfirmed)=>{
-              //We get dialog result
-              if(isConfirmed) {
-                  // window.location.reload();
-              }
-              else {
-                  //do nothing
-              }
-          });
+    let disposable = this.dialogService.addDialog(QuickViewComponent, {
+      title: 'QuickView',
+      message: '',
+      patternId: patternId
+    })
+      .subscribe((isConfirmed) => {
+        //We get dialog result
+        if (isConfirmed) {
+          // window.location.reload();
+        }
+        else {
+          //do nothing
+        }
+      });
   }
 
-  onProductClick(patternId,pattern_name) {
+  onProductClick(patternId, pattern_name) {
     (function (i, s, o, g, r, a?, m?) {
       i['GoogleAnalyticsObject'] = r;
       i[r] = i[r] || function () {
-              (i[r].q = i[r].q || []).push(arguments)
-          }, i[r].l = 1 * <any>new Date();
+        (i[r].q = i[r].q || []).push(arguments)
+      }, i[r].l = 1 * <any>new Date();
       a = s.createElement(o),
-          m = s.getElementsByTagName(o)[0];
+        m = s.getElementsByTagName(o)[0];
       a.async = 1;
       a.src = g;
       m.parentNode.insertBefore(a, m)
@@ -342,23 +343,23 @@ export class ProductListComponent implements OnInit {
     console.log(pattern_name);
     ga('create', 'UA-106185727-2', 'auto');
     ga('require', 'ec');
-    ga('ec:addProduct',{
-    // productFieldObject stores product click and other details
-    
-    'id': patternId, // Product ID/SKU - Type: string
-    
-    'name': pattern_name, // Product name - Type: string
-  
-    'category': 'Beddings', // Product category - Type: string
-    
+    ga('ec:addProduct', {
+      // productFieldObject stores product click and other details
+
+      'id': patternId, // Product ID/SKU - Type: string
+
+      'name': pattern_name, // Product name - Type: string
+
+      'category': 'Beddings', // Product category - Type: string
+
     });
-    
-      ga('ec:setAction', 'detail');
-    
-      // Send click with an event, then send user to product page.
-      ga('send', 'event', 'enhanced ecommerce', 'Product Detail Clicks', pattern_name);
-    
-      ga('send', 'pageview');
+
+    ga('ec:setAction', 'detail');
+
+    // Send click with an event, then send user to product page.
+    ga('send', 'event', 'enhanced ecommerce', 'Product Detail Clicks', pattern_name);
+
+    ga('send', 'pageview');
 
   }
 }

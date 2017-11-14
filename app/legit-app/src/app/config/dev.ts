@@ -18,5 +18,6 @@ export const devConfig = {
     addressBackendUrl: 'http://localhost:8084/FYP-backend/API/AddressService',
     orderBackendUrl: 'http://localhost:8084/FYP-backend/API/OrderService',
     filterBackendUrl: 'http://localhost:8084/FYP-backend/API/ProductCatalogue/GetFilters',
-    promoBackendUrl: 'http://localhost:8084/FYP-backend/API/PromoService'
+    promoBackendUrl: 'http://localhost:8084/FYP-backend/API/PromoService',
+    mahoutBackendUrl: 'http://localhost:8084/FYP-backend/API/MahoutService'
 }
