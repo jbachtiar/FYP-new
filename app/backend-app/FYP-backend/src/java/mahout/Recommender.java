@@ -42,7 +42,7 @@ public class Recommender {
     private static final String PASSWORD = "";
     private static final String DATABASE = "mydb";
 
-    private static final int NEIGHBOR_HOOD_SIZE = 5;
+    private static final int NEIGHBOR_HOOD_SIZE =   10;
 
 //    public static UserBasedRecommender getRecommender() throws Exception {
 //
@@ -75,7 +75,7 @@ public class Recommender {
 //
 //        return recommender;
 //    }
-    public static List<RecommendedItem> getRecommendations(int custId, int noOfRecommendations) throws TasteException {
+    public static List<RecommendedItem> getRecommendations(int custId, int noOfRecommendations, Long[] guestProductIds) throws TasteException {
         MysqlDataSource dataSource = new MysqlDataSource();
         dataSource.setServerName(SERVER_NAME);
         dataSource.setUser(USER_NAME);
@@ -117,6 +117,11 @@ public class Recommender {
             GuestUserPreferences.put(1L, 5F);
             GuestUserPreferences.put(5L, 2F);
             GuestUserPreferences.put(6L, 3F);
+            for (int i = 0; i<guestProductIds.length; i++){
+                long pId = guestProductIds[i];
+                System.out.println("PID: " + pId);
+                GuestUserPreferences.put(pId, 5F);
+            }
 
             // fill a Mahout data structure with the user's preferences
             List<RecommendedItem> listOfRecommendations = new ArrayList<RecommendedItem>();
@@ -176,16 +181,25 @@ public class Recommender {
         List<RecommendedItem> recommendations;
 
         //getting 5 recommendations for custid = 1
-        recommendations = getRecommendations(1, 5);
+        recommendations = getRecommendations(1, 5, new Long[0]);
         displayRecommendations(1, recommendations);
 
         //getting 5 recommendations for custid = 2
-        recommendations = getRecommendations(2, 5);
+        recommendations = getRecommendations(2, 5, new Long[0]);
         displayRecommendations(2, recommendations);
 
         //getting 5 recommendations for guestid, which is always 0
         int guestid = 0;
-        recommendations = getRecommendations(guestid, 5);
+        Long[] ids= new Long[7];
+        ids[0] = 1L;
+        ids[1] = 2L;
+        ids[2] = 3L;
+        ids[3] = 4L;
+        ids[4] = 5L;
+        ids[5] = 6L;
+        ids[6] = 7L;
+                
+        recommendations = getRecommendations(guestid, 5, ids);
         displayRecommendations(guestid, recommendations);
     }
 }
