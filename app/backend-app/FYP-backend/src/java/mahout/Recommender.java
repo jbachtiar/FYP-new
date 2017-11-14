@@ -90,7 +90,7 @@ public class Recommender {
                 "user_preferences", "user_id", "product_id", "preference", null);
 
         // Build anonymous data model with previous datamodel for guest
-        PlusAnonymousConcurrentUserDataModel anonymousDataModel = new PlusAnonymousConcurrentUserDataModel(model, 10);
+        PlusAnonymousConcurrentUserDataModel anonymousDataModel = new PlusAnonymousConcurrentUserDataModel(model, 10000);
 
         /* Get Pearson correlation instance from given model */
         UserSimilarity similarity = new PearsonCorrelationSimilarity(model);
@@ -98,7 +98,7 @@ public class Recommender {
             * Computes a neighborhood consisting of the nearest n users to a given
             * user.
          */
-        UserNeighborhood neighborhood = new NearestNUserNeighborhood(NEIGHBOR_HOOD_SIZE, similarity, model);
+        UserNeighborhood neighborhood = new NearestNUserNeighborhood(NEIGHBOR_HOOD_SIZE, similarity, anonymousDataModel);
 
         /* Get Recommender */
         UserBasedRecommender recommender = new GenericUserBasedRecommender(anonymousDataModel, neighborhood, similarity);
@@ -107,66 +107,43 @@ public class Recommender {
             //guest recommender
 
             //create temporary user id for guest
-            long tempUserId = anonymousDataModel.takeAvailableUser();
+            long tempUserId = 9999999; //anonymousDataModel.takeAvailableUser();
             System.out.println("tempID: " + tempUserId);
 
             //create a list of preferences based on 5 bestsellers AND 1 to 5 latest collection products
-            Map<Long, Float> GuestUserPreferences = new HashMap<Long, Float>();
-//            for (the  5  best  {
-//                sellers
-//            }
-//            
-//                ) {
+            Map<Long, Float> GuestUserPreferences = new HashMap<>();
             GuestUserPreferences.put(3L, 3F);
             GuestUserPreferences.put(2L, 4F);
             GuestUserPreferences.put(1L, 5F);
             GuestUserPreferences.put(5L, 2F);
             GuestUserPreferences.put(6L, 3F);
 
-//            }
-//
-//            for (the latest  collection , biggest  {
-//                collection 
-//            }id, min 1, max 
-//                5) {
-//                GuestUserPreferences.put("productId", 1);
-//            }
             // fill a Mahout data structure with the user's preferences
             List<RecommendedItem> listOfRecommendations = new ArrayList<RecommendedItem>();
+            ArrayList<Long> toBeDeleted = new ArrayList<>();
             try {
                 PreferenceArray tempPrefs = new GenericUserPreferenceArray(GuestUserPreferences.size());
                 int i = 0;
                 for (Map.Entry<Long, Float> entry : GuestUserPreferences.entrySet()) {
                     long key = entry.getKey();
                     float value = entry.getValue();
-
-                    tempPrefs.setUserID(i, tempUserId);
-                    tempPrefs.setItemID(i, key);
-                    tempPrefs.setValue(i, value);
-
-                    System.out.println("itemid in hashmap: " + key);
-                    System.out.println("itemid in tempref: " + tempPrefs.getItemID(i));
-                    System.out.println("value in tempref: " + tempPrefs.getValue(i));
-
-                    System.out.println("size: " + tempPrefs.length());
+                    anonymousDataModel.setPreference(tempUserId, key, value);
+                    toBeDeleted.add(key);
                     i++;
-
                 }
-
-                // Add the temporaly preferences to model
-                anonymousDataModel.setTempPrefs(tempPrefs, tempUserId);
                 try {
                     return recommender.recommend(tempUserId, noOfRecommendations);
                 } catch (TasteException ex) {
-//                    Logger.getLogger(Recommender.class.getName()).log(Level.SEVERE, null, ex);
                     System.out.println("ERROR: " + ex.getMessage());
                 }
-                return listOfRecommendations;
-
+                return recommender.recommend(tempUserId, noOfRecommendations);
             } finally {
-
-                anonymousDataModel.releaseUser(tempUserId);
-
+                //release user
+                int k = 0;
+                while (k < toBeDeleted.size()) {
+                    anonymousDataModel.removePreference(tempUserId, toBeDeleted.get(k));
+                    k++;
+                }
             }
 
         } else {
