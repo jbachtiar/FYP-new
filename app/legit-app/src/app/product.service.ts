@@ -98,7 +98,6 @@ export class ProductService {
         //console.log('product ID: '+ res.json().productId);
 
 
-
     }
 
 
@@ -132,15 +131,25 @@ export class ProductService {
         //send token to backend
     }
 
-    
-    public getProductRecommendation(token: string, productId , prefValue: number, guestPreference: any = {}) {
+
+    public getProductRecommendation(token: string, productId, prefValue: number, guestPreference: any = {}) {
         let url = CONFIG.mahoutBackendUrl + '/save'
-        let finalUrl = url + "?token=" + token + "&productId=" + productId + "&prefValue=" + prefValue;
+        let finalUrl = url + "?token=" + token + "&productId=" + productId + "&prefValue=" + prefValue + "&guestItems=" + guestPreference;
         return this._http.get(finalUrl)
             .map(res => {
                 console.log(finalUrl)
                 console.log("product is loaded" + res.json().products);
                 return res.json().products;
             });
-    } 
+    }
+
+    public getProductIdsByPatternId(patternId) {
+        let url = CONFIG.productCatalogueBackendUrl + '/getAllProductIds'
+        let finalUrl = url + "?patternId=" + patternId;
+        return this._http.get(finalUrl)
+            .map(res => {
+                console.log(finalUrl)
+                return res.json().product_ids;
+            });
+    }
 }

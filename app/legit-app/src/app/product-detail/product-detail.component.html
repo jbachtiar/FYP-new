@@ -222,7 +222,8 @@
       </div>
     </div>
     <hr/>
-    <div class="row">
+    <app-loading *ngIf="recom_loading"></app-loading>
+    <div class="row" *ngIf="!recom_loading">
       <div class="col-md-12 text-center">
         <div *ngFor="let product of recommendation">
           <div class="col-sm-4 col-lg-4 col-md-4">

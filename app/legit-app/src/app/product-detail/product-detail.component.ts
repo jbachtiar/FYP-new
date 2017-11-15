@@ -42,7 +42,9 @@ export class ProductDetailComponent implements OnInit {
   loadingImage: boolean = false;
   selectedProduct: Product;
   token: string;
-  recommendation:any =[];
+  recommendation: any = [];
+  product_ids = [];
+  recom_loading = true;
 
   constructor(
     private shoppingCartService: ShoppingCartService,
@@ -51,7 +53,7 @@ export class ProductDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private dialogService: DialogService,
     private sharedService: SharedService,
-    private router: Router,    
+    private router: Router,
   ) { }
 
   onLoad() {
@@ -62,11 +64,54 @@ export class ProductDetailComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.token = localStorage.getItem("token")
+    console.log("token is: " + this.token)
+
     this.route.params.subscribe((params: Params) => {
       this.patternId = params['patternId']; // grab the parameter from url
-
     });
 
+    this.productService.getProductIdsByPatternId(this.patternId).subscribe(product_ids => {
+      this.product_ids = product_ids;
+      console.log("product_ids: " + product_ids)
+      if (!this.token) {
+        let guestPreference = JSON.parse(localStorage.getItem("guestPref"))
+        if(guestPreference == null){
+          guestPreference = {}
+        }
+        console.log("IM HEREEE as a guest")
+        // let guestPreference = {}
+        for (let id of this.product_ids) {
+          guestPreference[+id] = 5
+        }
+        console.log("guestpref: " + JSON.stringify(guestPreference))
+        
+        localStorage.setItem("guestPref", JSON.stringify(guestPreference))
+        this.productService.getProductRecommendation("", 0, 0, JSON.stringify(guestPreference)).subscribe(products => {
+          this.recommendation = products
+          console.log("the inside of the subscribe")
+          this.recom_loading = false;
+        });
+      } else {
+        console.log("IM HEREEEE asking for recom")
+        let tempRecom = []
+        for (let id of this.product_ids) {
+          console.log("ID: " + id)
+          this.productService.getProductRecommendation(this.token, id, 1, {}).subscribe(
+
+            products => {
+              console.log("the inside of the subscribe")
+              this.recommendation = products
+              // for (let p of tempRecom){
+              //   if(p!=null){
+              //     this.recommendation.push(p)
+              //   }
+              // }
+              console.log("RECOMM: " + JSON.stringify(this.recommendation))
+            });
+        }
+      }
+    });
 
     this.productService.getPatternById(this.patternId).subscribe(
       pattern => {
@@ -81,23 +126,6 @@ export class ProductDetailComponent implements OnInit {
         this.selectedFabricPrice = +this.selectedFabric.fabric_price
         this.totalPrice = this.pattern.pattern_price + this.selectedFabricPrice + this.selectedSizePrice
         this.stopLoading();
-      });
-
-    this.token = localStorage.getItem("token")
-    if (!this.token) {
-      this.token = ""
-      let patternId = 0
-      let guestPreference = {patternId: 1}
-      this.productService.getProductRecommendation(this.token, this.patternId, 1, guestPreference)
-    }
-    this.productService.getProductRecommendation(this.token, this.patternId, 1, {}).subscribe(
-      products => {
-        for (let p of products){
-          if(p!=null){
-            this.recommendation.push(p)
-          }
-        }
-        console.log("RECOMM: " + this.recommendation)
       });
   }
 
@@ -172,7 +200,7 @@ export class ProductDetailComponent implements OnInit {
     // console.log("Fabric ID : " + this.selectedFabric.fabric_id);
     // console.log("Colour ID : " + this.selectedColour.colour_id);
     //this.getProductId();
-    
+
     //add data to mahout
     this.productService.getProductRecommendation(this.token, this.patternId, 5).subscribe(products => this.recommendation)
     this.productService.getProductById(this.patternId, this.selectedFabric.fabric_id, this.selectedColour.colour_id)
@@ -350,10 +378,10 @@ export class ProductDetailComponent implements OnInit {
     ga('send', 'event', 'enhanced ecommerce', 'Product Detail Clicks', pattern_name);
 
     ga('send', 'pageview');
-    this.router.navigate(["/productDetails",patternId])
+    this.router.navigate(["/productDetails", patternId])
     window.location.reload();
 
   }
 
- 
+
 }
