@@ -12,7 +12,8 @@ export class StorageService {
     country
     postalCode: string;
     addressObject: object;
-    save:boolean
+    save:boolean;
+    isDisplayedDetail: boolean
 
 
     constructor() { }
@@ -23,6 +24,15 @@ export class StorageService {
     getName(): string {
         return this.name;
     }
+
+    getIsDisplayedDetail(){
+        return this.isDisplayedDetail;
+    }
+
+ 
+
+   
+
 
     getContact(): string {
         return this.contact;
@@ -57,6 +67,11 @@ export class StorageService {
     setShippingAddress(addressObject, save) {
         this.addressObject = addressObject
         this.save = save
+    }
+
+    setIsDisplayedDetail()  {
+        this.isDisplayedDetail=false;
+        
     }
 
 

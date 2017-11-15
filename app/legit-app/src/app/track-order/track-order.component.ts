@@ -3,6 +3,9 @@ import { OrderService } from '../order.service';
 import { Router } from '@angular/router';
 import { SharedService } from '../shared.service';
 import { DatePipe } from '@angular/common';
+import { StorageService } from '../storage.service';
+
+
 
 
 @Component({
@@ -21,9 +24,25 @@ export class TrackOrderComponent implements OnInit {
   private loading :boolean  = true;
   private details : boolean = false;
   private outputOrderId : number = 0;
+  private isDisplayTrackingOrderDetail;
+  private orderId: any = {};
+  private order: any = {};
+  private orderItems: any = {}
+  private statusLog: any = {}
+  private statusId: number;
+  private courier: any={}
+  private courierName: any={}
+
+  color = 'accent';
+  mode = 'determinate';
+  value = 100;
+  bufferValue = 100;
+  isDisabled: any = { 'payment': false, 'production': false, 'packaging': false, 'preparation': false, 'shipped': false, 'completed': false };
+  private map: any = { 1: 'payment', 2: 'production', 3: 'packaging', 4: 'preparation', 5: 'shipped', 6: 'completed' }
+  pulse: any = { 'payment': false, 'production': false, 'packaging': false, 'preparation': false, 'shipped': false, 'completed': false };
 
 
-  constructor(private orderService: OrderService, private router: Router, private shardService: SharedService) {
+  constructor(private orderService: OrderService, private storageService: StorageService, private router: Router, private shardService: SharedService) {
     this.token = localStorage.getItem('token');
 
   }
@@ -40,6 +59,7 @@ export class TrackOrderComponent implements OnInit {
           this.isDisplayPastOrder = false;
         }
       });
+    this.isDisplayTrackingOrderDetail=this.storageService.getIsDisplayedDetail();
     //console.log("haha" + JSON.stringify(this.pastOrders));
     this.orderService.getCurrentOrderByCustomer(this.token).subscribe(
       orders => {
@@ -95,8 +115,57 @@ export class TrackOrderComponent implements OnInit {
   viewOrder(orderId) {
     // let link = ['profile-sidebar', orderId];
     // this.router.navigate(link);
-    this.outputOrderId = orderId
+  //  this.outputOrderId = orderId
     this.details = true
+    this.isDisplayTrackingOrderDetail=true;
+  
+      // this.orderId = params['orderId']; // grab the parameter from url
+     
+      this.orderService.getOrderById(orderId).subscribe(orders => {
+        this.order = orders;
+        console.log(orders[0].courierName);
+        
+        this.orderService.getCourierByName(orders[0].courierName).subscribe(courier => {
+          this.courier=courier;
+          console.log("courier"+this.courier);
+    
+        });
+        this.order[0].order_TimeStamp = new Date(this.order[0].order_TimeStamp);
+        console.log("before : " + JSON.stringify(this.order[0].order_TimeStamp));
+        this.order[0].order_TimeStamp.setHours(this.order[0].order_TimeStamp.getHours()+8)
+
+        this.orderItems = orders[0].orderItems;
+        this.statusLog = orders[0].statusLogs;
+        console.log(this.order)
+        if (this.statusLog.length > 0) {
+          this.returnTheLatestOrderStatus(this.statusLog);
+          if (this.statusId != 6) {
+            this.isDisabled[this.map[6]] = true
+            this.bufferValue -= 4.1555
+
+            //to colour the icons with the completed statuses only and adjust progress bar buffer and value
+            for (var i = 5; i > this.statusId; i--) {
+              this.isDisabled[this.map[i]] = true;
+              this.bufferValue -= 16.569
+              console.log("this.value = " + this.value)
+            }
+            this.value = this.bufferValue - 16.569
+            this.bufferValue -= 16.569
+
+            //to make the icon of ongoing status pulse
+            this.pulse[this.map[this.statusId]] = true;
+            this.loading = false;
+          }
+          this.loading = false;
+        }
+
+      });
+      
+
+     // console.log("courierName"+this.order[0].courierName);
+   
+
+ 
     }
 
 
