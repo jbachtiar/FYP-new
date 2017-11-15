@@ -133,7 +133,7 @@ export class ProductService {
     }
 
     
-    public getProductRecommendation(token: string, productId , prefValue: number) {
+    public getProductRecommendation(token: string, productId , prefValue: number, guestPreference: any = {}) {
         let url = CONFIG.mahoutBackendUrl + '/save'
         let finalUrl = url + "?token=" + token + "&productId=" + productId + "&prefValue=" + prefValue;
         return this._http.get(finalUrl)

@@ -86,8 +86,11 @@ export class ProductDetailComponent implements OnInit {
     this.token = localStorage.getItem("token")
     if (!this.token) {
       this.token = ""
+      let patternId = 0
+      let guestPreference = {patternId: 1}
+      this.productService.getProductRecommendation(this.token, this.patternId, 1, guestPreference)
     }
-    this.productService.getProductRecommendation(this.token, this.patternId, 1).subscribe(
+    this.productService.getProductRecommendation(this.token, this.patternId, 1, {}).subscribe(
       products => {
         for (let p of products){
           if(p!=null){
