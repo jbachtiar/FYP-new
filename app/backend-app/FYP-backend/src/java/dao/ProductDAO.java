@@ -18,12 +18,44 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Huiyan
  */
 public class ProductDAO {
+
+    public ArrayList<Integer> getProductIdsByPatternId(int patternId) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        ArrayList<Integer> productIds = new ArrayList<>();
+
+        String sql = "SELECT * FROM `product` WHERE pattern_id = ?";
+        try {
+           
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sql);
+            
+            stmt.setInt(1, patternId);
+
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                int productId = rs.getInt("product_id");
+                productIds.add(productId);
+            }
+
+        } 
+        finally {
+            ConnectionManager.close(conn, stmt, rs);
+        }
+        return productIds;
+    }
+
+    
 
     public ArrayList<Bedding> getFilteredBeddingPatterns(int collectionId, int fabricId, int colourId, String sortPrice, String search) throws SQLException {
 
@@ -393,8 +425,7 @@ public class ProductDAO {
         }
         return b;
     }
-    
-    
+
     public Product getProductById(int productId) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
