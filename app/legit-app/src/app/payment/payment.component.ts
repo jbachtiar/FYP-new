@@ -146,7 +146,7 @@ export class PaymentComponent implements OnInit {
                 'quantity': order.quantity, //Product Quantity
                 });
                 //add data to mahout
-                this.productService.getProductRecommendation(this.token, order.product.productId, 10, {}).subscribe()
+                this.productService.getProductRecommendation(this.token, order.product.productId, 10, "{}").subscribe()
             }
 
             ga('ec:setAction', 'purchase',{

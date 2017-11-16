@@ -45,6 +45,7 @@ export class ProductDetailComponent implements OnInit {
   recommendation: any = [];
   product_ids = [];
   recom_loading = true;
+  show_recom = false;
 
   constructor(
     private shoppingCartService: ShoppingCartService,
@@ -91,13 +92,16 @@ export class ProductDetailComponent implements OnInit {
           this.recommendation = products
           console.log("the inside of the subscribe")
           this.recom_loading = false;
+          if (this.recommendation.length!=0){
+            this.show_recom = true;
+          }
         });
       } else {
         console.log("IM HEREEEE asking for recom")
         let tempRecom = []
         for (let id of this.product_ids) {
           console.log("ID: " + id)
-          this.productService.getProductRecommendation(this.token, id, 1, {}).subscribe(
+          this.productService.getProductRecommendation(this.token, id, 1, "{}").subscribe(
 
             products => {
               console.log("the inside of the subscribe")
@@ -107,7 +111,11 @@ export class ProductDetailComponent implements OnInit {
               //     this.recommendation.push(p)
               //   }
               // }
+              this.recom_loading = false;
               console.log("RECOMM: " + JSON.stringify(this.recommendation))
+              if (this.recommendation.length!=0){
+                this.show_recom = true;
+              }
             });
         }
       }
@@ -202,7 +210,9 @@ export class ProductDetailComponent implements OnInit {
     //this.getProductId();
 
     //add data to mahout
-    this.productService.getProductRecommendation(this.token, this.patternId, 5).subscribe(products => this.recommendation)
+    if(this.token){
+      this.productService.getProductRecommendation(this.token, this.patternId, 5, "{}").subscribe(products => this.recommendation)
+    }
     this.productService.getProductById(this.patternId, this.selectedFabric.fabric_id, this.selectedColour.colour_id)
       .subscribe(res => {
         console.log(res.product)
