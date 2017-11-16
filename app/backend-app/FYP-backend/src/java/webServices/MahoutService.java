@@ -111,13 +111,19 @@ public class MahoutService {
 
             }
 
-            List<RecommendedItem> rList = Recommender.getRecommendations(cId, 4, guestItemList);
+            List<RecommendedItem> rList = Recommender.getRecommendations(cId, 3, guestItemList);
             ArrayList<Bedding> pList = new ArrayList<Bedding>();
 
             for (RecommendedItem item : rList) {
 
                 int productId = (int) item.getItemID();
-                pList.add(productDAO.getBeddingbyPId(productId));
+                Bedding currBedding = productDAO.getBeddingbyPId(productId);
+                
+                if (currBedding != null){
+                    
+                    pList.add(currBedding);
+                    
+                }             
 
             }
 
