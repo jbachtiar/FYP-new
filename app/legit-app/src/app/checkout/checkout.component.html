@@ -126,25 +126,25 @@
               <br><b>Fabric:</b> {{item.product.fabric.fabricName}}
               <br><b>Colour:</b> {{item.product.colour.colourName}}
               <br><b>Size:</b> {{item.product.size.sizeName}}
-              <br> $ {{item.unitPrice}}.00
+              <br> {{item.unitPrice| currency:'USD':true:'1.2-2'}}
             </td>
             <td>
               {{item.quantity}}
             </td>
             <td>
-              $ {{item.quantity*item.unitPrice}}.00
+              {{item.quantity*item.unitPrice| currency:'USD':true:'1.2-2'}}
             </td>
 
           </tr>
           <tr style="border: 0px">
             <td colspan="3" style="text-align: right; font-size: 16px; font-weight: bold">Discount</td>
-            <td>$ {{shoppingCart.discount}}.00</td>
+            <td>{{shoppingCart.discount| currency:'USD':true:'1.2-2'}}</td>
 
           </tr>
           <tr style="border: 0px">
 
             <td colspan="3" style="text-align: right; font-size: 16px; font-weight: bold">Total Price</td>
-            <td>$ {{shoppingCart.price-shoppingCart.discount}}.00</td>
+            <td>{{shoppingCart.price-shoppingCart.discount| currency:'USD':true:'1.2-2'}}</td>
 
           </tr>
         </table>

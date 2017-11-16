@@ -39,26 +39,26 @@
               <br><b>Fabric:</b> {{item.product.fabric.fabricName}}
               <br><b>Colour:</b> {{item.product.colour.colourName}}
               <br><b>Size:</b> {{item.product.size.sizeName}}
-              <br> $ {{item.unitPrice}}.00
+              <br> {{item.unitPrice| currency:'USD':true:'1.2-2'}}
             </td>
             <td>
               {{item.quantity}}
             </td>
             <td>
-              $ {{item.quantity*item.unitPrice}}.00
+              {{item.quantity*item.unitPrice| currency:'USD':true:'1.2-2'}}
             </td>
           </tr>
           <tr style="border: 0px">
             <td></td>
             <td></td>
             <td style="text-align: right; font-size: 16px; font-weight: bold">Discount</td>
-            <td>$ {{shoppingCart.discount}}.00</td>
+            <td>{{shoppingCart.discount| currency:'USD':true:'1.2-2'}}</td>
           </tr>
           <tr style="border: 0px">
             <td></td>
             <td></td>
             <td style="text-align: right; font-size: 16px; font-weight: bold">Total Price</td>
-            <td>$ {{shoppingCart.price-shoppingCart.discount}}.00</td>
+            <td>{{shoppingCart.price-shoppingCart.discount| currency:'USD':true:'1.2-2'}}</td>
           </tr>
         </table>
       </div>
@@ -104,7 +104,7 @@
             <br><b>Fabric:</b> {{item.product.fabric.fabricName}}
             <br><b>Colour:</b> {{item.product.colour.colourName}}
             <br><b>Size:</b> {{item.product.size.sizeName}}
-            <br> {{item.quantity}} @ $ {{item.unitPrice}}.00
+            <br> {{item.quantity}} @ {{item.unitPrice| currency:'USD':true:'1.2-2'}}
             <br>
             <br>
           </div>
@@ -117,7 +117,7 @@
           <tbody>
             <tr>
               <td>Subtotal</td>
-              <td class="table-right"><b>$ {{shoppingCart.price}}.00</b></td>
+              <td class="table-right"><b>{{shoppingCart.price| currency:'USD':true:'1.2-2'}}</b></td>
             </tr>
             <tr>
               <td>Delivery</td>
@@ -125,7 +125,7 @@
             </tr>
             <tr>
               <td>Total</td>
-              <td class="table-right" style="font-size: 24px;"><b>$ {{shoppingCart.price}}.00</b></td>
+              <td class="table-right" style="font-size: 24px;"><b>{{shoppingCart.price| currency:'USD':true:'1.2-2'}}</b></td>
             </tr>
           </tbody>
         </table>

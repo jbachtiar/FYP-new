@@ -35,14 +35,15 @@
             <br><b>Fabric:</b> {{item.product.fabric.fabricName}}
             <br><b>Colour:</b> {{item.product.colour.colourName}}
             <br><b>Size:</b> {{item.product.size.sizeName}}
-            <br> $ {{item.unitPrice}}.00
+            <br> {{item.unitPrice| currency:'USD':true:'1.2-2'}}
+
           </td>
           <td>
             <button class="change-qty" (click)="decrement(item.product.productId)">-</button> {{item.quantity}}
             <button class="change-qty" (click)="increment(item.product.productId)">+</button>
           </td>
           <td>
-            $ {{item.quantity*item.unitPrice}}.00
+            {{item.quantity*item.unitPrice| currency:'USD':true:'1.2-2'}}
           </td>
           <td>
             <button class="remove" (click)="remove(item.product.productId)">remove</button>
@@ -57,13 +58,13 @@
 
         <tr>
           <td colspan="3" style="text-align: right; font-size: 16px; font-weight:bold">Discount</td>
-          <td>$ {{shoppingCart.discount}}.00</td>
+          <td>{{shoppingCart.discount| currency:'USD':true:'1.2-2'}}</td>
           <td>{{shoppingCart.promoMsg}}</td>
         </tr>
 
         <tr>
           <td colspan="3" style="text-align: right; font-size: 16px; font-weight:bold">Total Price</td>
-          <td>$ {{shoppingCart.price-shoppingCart.discount}}.00</td>
+          <td>{{shoppingCart.price-shoppingCart.discount| currency:'USD':true:'1.2-2'}}</td>
           <td></td>
         </tr>
 
@@ -85,7 +86,7 @@
             <br><b>Size:</b> {{item.product.size.sizeName}}
             <br>
             <button class="change-qty" (click)="decrement(item.product.productId)">-</button> {{item.quantity}}
-            <button class="change-qty" (click)="increment(item.product.productId)">+</button> @ $ {{item.unitPrice}}.00
+            <button class="change-qty" (click)="increment(item.product.productId)">+</button> @ {{item.unitPrice| currency:'USD':true:'1.2-2'}}
             <br>
             <br>
             <button class="remove pull-right" (click)="remove(item.product.productId)">remove</button>
@@ -105,7 +106,7 @@
             <tbody>
               <tr>
                 <td>Subtotal</td>
-                <td class="table-right"><b>$ {{shoppingCart.price}}.00</b></td>
+                <td class="table-right"><b>{{shoppingCart.price| currency:'USD':true:'1.2-2'}}</b></td>
               </tr>
               <tr >
                 <td>Delivery</td>
@@ -113,7 +114,7 @@
               </tr>
               <tr >
                   <td>Total</td>
-                  <td class="table-right" style="font-size: 24px;"><b>$ {{shoppingCart.discount}}.00</b></td>
+                  <td class="table-right" style="font-size: 24px;"><b>{{shoppingCart.discount| currency:'USD':true:'1.2-2'}}</b></td>
                 </tr>
             </tbody>
           </table>
