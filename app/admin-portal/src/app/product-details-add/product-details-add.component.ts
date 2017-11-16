@@ -150,7 +150,7 @@ export class ProductDetailsAddComponent implements OnInit {
     }
     images.push(newImage)
   }
-
+  //http://highlanderbucket.s3-website-ap-southeast-1.amazonaws.com
   onUploadImage(fileInput: any, image: any) {
     let nextProductId ;
     this.catService.getNextProductId().subscribe(res =>{
@@ -162,15 +162,19 @@ export class ProductDetailsAddComponent implements OnInit {
       console.log(AWSService)
       let file = fileInput.target.files[0];
       let fileName = nextProductId + '_' + image.imageId + '.png'
-      AWSService.config.accessKeyId = 'AKIAJR7LKNNCXB6OVEPQ';
-      AWSService.config.update({ region: 'us-west-2' });
-      AWSService.config.secretAccessKey = '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';
-      let bucket = new AWSService.S3({ params: { Bucket: 'elasticbeanstalk-us-west-2-126347216585/Product Images' } })
+      //new: AKIAJHFHLABO2226QJWA
+      //old: AKIAJR7LKNNCXB6OVEPQ
+      AWSService.config.accessKeyId = 'AKIAJHFHLABO2226QJWA';
+      AWSService.config.update({ region: 'ap-southeast-1' });
+      //new: atfhcJcE9dwTSrQBZLtU33G/zDJE4f9OeEHWTvLs
+      //old: dm4dlSmAXlI3LZBLfRc59b/w2cKH/AhjNSMSmSs5
+      AWSService.config.secretAccessKey = 'atfhcJcE9dwTSrQBZLtU33G/zDJE4f9OeEHWTvLs';
+      let bucket = new AWSService.S3({ params: { Bucket: 'highlanderbucket/Product Images' } })
       let params = { Key: fileName, Body: file, ACL: "public-read" };
       bucket.upload(params, function (error, res) {
         console.log('error', error);
         console.log('response', res);
-        imageUrl = 'https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Product+Images/' + fileName
+        imageUrl = 'https://s3-ap-southeast-1.amazonaws.com/highlanderbucket/Product+Images/' + fileName
         image['imageUrl'] = imageUrl
         image['fileInput'] = fileInput
         console.log("FC: " + JSON.stringify(image))
