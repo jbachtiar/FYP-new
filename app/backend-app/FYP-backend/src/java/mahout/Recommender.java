@@ -42,7 +42,7 @@ public class Recommender {
     private static final String PASSWORD = "";
     private static final String DATABASE = "mydb";
 
-    private static final int NEIGHBOR_HOOD_SIZE =   10;
+    private static final int NEIGHBOR_HOOD_SIZE = 5;
 
 //    public static UserBasedRecommender getRecommender() throws Exception {
 //
@@ -75,7 +75,7 @@ public class Recommender {
 //
 //        return recommender;
 //    }
-    public static List<RecommendedItem> getRecommendations(int custId, int noOfRecommendations, Long[] guestProductIds) throws TasteException {
+    public static List<RecommendedItem> getRecommendations(int custId, int noOfRecommendations, Map<Long, Float> GuestUserPreferences) throws TasteException {
         MysqlDataSource dataSource = new MysqlDataSource();
         dataSource.setServerName(SERVER_NAME);
         dataSource.setUser(USER_NAME);
@@ -111,18 +111,19 @@ public class Recommender {
             System.out.println("tempID: " + tempUserId);
 
             //create a list of preferences based on 5 bestsellers AND 1 to 5 latest collection products
-            Map<Long, Float> GuestUserPreferences = new HashMap<>();
+            //Map<Long, Float> GuestUserPreferences = new HashMap<>();
+            /*
             GuestUserPreferences.put(3L, 3F);
             GuestUserPreferences.put(2L, 4F);
             GuestUserPreferences.put(1L, 5F);
             GuestUserPreferences.put(5L, 2F);
             GuestUserPreferences.put(6L, 3F);
-            for (int i = 0; i<guestProductIds.length; i++){
+             */
+ /*for (int i = 0; i<guestProductIds.length; i++){
                 long pId = guestProductIds[i];
                 System.out.println("PID: " + pId);
-                GuestUserPreferences.put(pId, 5F);
-            }
-
+                GuestUserPreferences.put(pId, 1F);
+            }*/
             // fill a Mahout data structure with the user's preferences
             List<RecommendedItem> listOfRecommendations = new ArrayList<RecommendedItem>();
             ArrayList<Long> toBeDeleted = new ArrayList<>();
@@ -132,6 +133,7 @@ public class Recommender {
                 for (Map.Entry<Long, Float> entry : GuestUserPreferences.entrySet()) {
                     long key = entry.getKey();
                     float value = entry.getValue();
+                    System.out.println("key: " + key);
                     anonymousDataModel.setPreference(tempUserId, key, value);
                     toBeDeleted.add(key);
                     i++;
@@ -181,15 +183,17 @@ public class Recommender {
         List<RecommendedItem> recommendations;
 
         //getting 5 recommendations for custid = 1
-        recommendations = getRecommendations(1, 5, new Long[0]);
+        Map<Long, Float> SomeUserPreferences = new HashMap<>();
+        recommendations = getRecommendations(1, 5, SomeUserPreferences);
         displayRecommendations(1, recommendations);
 
         //getting 5 recommendations for custid = 2
-        recommendations = getRecommendations(2, 5, new Long[0]);
+        recommendations = getRecommendations(2, 5, SomeUserPreferences);
         displayRecommendations(2, recommendations);
 
         //getting 5 recommendations for guestid, which is always 0
         int guestid = 0;
+        /*
         Long[] ids= new Long[7];
         ids[0] = 1L;
         ids[1] = 2L;
@@ -197,9 +201,20 @@ public class Recommender {
         ids[3] = 4L;
         ids[4] = 5L;
         ids[5] = 6L;
-        ids[6] = 7L;
-                
-        recommendations = getRecommendations(guestid, 5, ids);
+        ids[6] = 7L;*/
+        Map<Long, Float> GuestUserPreferences = new HashMap<>();
+        GuestUserPreferences.put(2L, 3F);
+        GuestUserPreferences.put(3L, 4F);
+        GuestUserPreferences.put(4L, 5F);
+        GuestUserPreferences.put(5L, 2F);
+        GuestUserPreferences.put(6L, 3F);
+        GuestUserPreferences.put(7L, 3F);
+        GuestUserPreferences.put(8L, 3F);
+        GuestUserPreferences.put(9L, 3F);
+        GuestUserPreferences.put(10L, 3F);
+        
+
+        recommendations = getRecommendations(guestid, 5, GuestUserPreferences);
         displayRecommendations(guestid, recommendations);
     }
 }

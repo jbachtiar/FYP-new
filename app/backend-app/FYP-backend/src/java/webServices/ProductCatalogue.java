@@ -730,6 +730,35 @@ public class ProductCatalogue {
         String finalJsonOutput = gson.toJson(jsonOutput);
         return finalJsonOutput;
     }
+    
+    @GET
+    @Path("/getAllProductIds")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getProductIdsByPatternId(@QueryParam("patternId") int patternId){
+        response.setHeader("Access-Control-Allow-Origin", "*");
+
+        JsonObject jsonOutput = new JsonObject();
+        Gson gson = new GsonBuilder().create();
+        ProductDAO productDAO = new ProductDAO();
+        JsonParser parser = new JsonParser();
+        try{
+            ArrayList<Integer> productIds = productDAO.getProductIdsByPatternId(patternId);
+            if (productIds.isEmpty() || productIds == null) {
+                jsonOutput.addProperty("status", "Product not found");
+            } else {
+                String productIdString = gson.toJson(productIds);
+                JsonElement productIdElement = parser.parse(productIdString);
+                jsonOutput.addProperty("status", "200");
+                jsonOutput.add("product_ids", productIdElement);
+            }
+        }catch (SQLException e) {
+
+            jsonOutput.addProperty("status", "500");
+            jsonOutput.addProperty("error", e.getMessage());
+        }
+        String finalJsonOutput = gson.toJson(jsonOutput);
+        return finalJsonOutput;
+    }
 
     @GET
     @Path("/getProductId")

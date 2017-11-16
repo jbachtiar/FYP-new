@@ -5,7 +5,9 @@
  */
 package webServices;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
@@ -16,7 +18,9 @@ import dao.ProductDAO;
 import entity.Bedding;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -52,7 +56,7 @@ public class MahoutService {
         JsonArray productArray = new JsonArray();
         ProductDAO productDAO = new ProductDAO();
         String cEmail = "";
-        if (!token.equals("") && token!=null){
+        if (!token.equals("") && token != null) {
             cEmail = tokenManagement.parseJWT(token);
         }
         try {
@@ -62,54 +66,68 @@ public class MahoutService {
             //convert email to customer id
             CustomerDAO cDAO = new CustomerDAO();
             int cId = cDAO.getCustIdByEmail(cEmail);
-            
-            Long[] guestItemList = gson.fromJson(guestItems, Long[].class);
+
+            System.out.println("cId: " + cId);
+            java.lang.reflect.Type type = new TypeToken<Map<Long, Float>>() {
+            }.getType();
+            Map<Long, Float> guestItemList = gson.fromJson(guestItems, type);
 
             //check if custId*productId exist in user_preferences table
             AnalyticsDAO aDAO = new AnalyticsDAO();
             int currPref = aDAO.getPreference(cId, pId);
+            if (cId != 0) {
+                //currPref == 0 means custId*productId does not exist
+                if (currPref == 0) {
 
-            //currPref == 0 means custId*productId does not exist
-            if (currPref == 0) {
+                    //add to user_preferences table
+                    aDAO.add(cId, pId, pValue);
 
-                //add to user_preferences table
-                aDAO.add(cId, pId, pValue);
+                } else {
 
-            } else {
+                    //user viewed product
+                    if (pValue == 1) {
 
-                //user viewed product
-                if (pValue == 1) {
+                        //+1 to preference value (cap at 5)
+                        if (currPref < 5) {
 
-                    //+1 to preference value (cap at 5)
-                    if (currPref < 5) {
+                            int newPref = currPref + pValue;
+                            aDAO.update(cId, pId, newPref);
 
-                        int newPref = currPref + pValue;
-                        aDAO.update(cId, pId, newPref);
+                        }
 
-                    }
+                        //user added product to cart
+                    } else if (pValue == 5) {
 
-                    //user added product to cart
-                } else if (pValue == 5) {
+                        if (currPref < 5) {
 
-                    if (currPref < 5) {
+                            int newPref = pValue;
+                            aDAO.update(cId, pId, newPref);
 
-                        int newPref = pValue;
-                        aDAO.update(cId, pId, newPref);
+                        }
 
-                    }
+                    } else if (pValue == 10) {
 
-                } else if (pValue == 10) {
+                        if (currPref < 10) {
 
-                    if (currPref < 10) {
+                            int newPref = pValue;
+                            aDAO.update(cId, pId, newPref);
 
-                        int newPref = pValue;
-                        aDAO.update(cId, pId, newPref);
+                        }
 
                     }
 
                 }
-
             }
+//            int count = 0;
+//            while (count< guestItemList.length){
+//                GuestUserPreferences.put(guestItemList[1], 1F);
+//                count++;
+//            }
+//            GuestUserPreferences.put(guestItemList[0], 3F);
+//            GuestUserPreferences.put(guestItemList[1], 4F);
+//            GuestUserPreferences.put(guestItemList[2], 5F);
+//            GuestUserPreferences.put(guestItemList[3], 2F);
+//        GuestUserPreferences.put(5L, 3F);
 
             List<RecommendedItem> rList = Recommender.getRecommendations(cId, 3, guestItemList);
             ArrayList<Bedding> pList = new ArrayList<Bedding>();
@@ -140,6 +158,9 @@ public class MahoutService {
             jsonOutput.addProperty("status", "500");
             jsonOutput.addProperty("error", e.getMessage());
 
+        } catch (Exception e) {
+            jsonOutput.addProperty("status", "500");
+            jsonOutput.addProperty("error", e.getMessage());
         }
 
         String finalJsonOutput = gson.toJson(jsonOutput);
