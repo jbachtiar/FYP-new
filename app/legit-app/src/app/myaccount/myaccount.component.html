@@ -3,9 +3,9 @@
     <div class="row">
       <div class="col-md-3 col-sm-12 col-xs-12">
         <ul id="menu">
-          <li class="sub"><a class="sidebar-item active" (click)=manageAccount()>Manage Account</a></li>
-          <li class="sub"><a class="sidebar-item" (click)=manageAddressBook()>Address Book</a></li>
-          <li class="sub"><a class="sidebar-item" (click)=trackOrder()>Track Order</a></li>
+          <li class="sub"><button [ngStyle]="{'background-color': color.profile, 'color': fontColor.profile}" class="sidebar-item active" (click)=manageAccount()>Manage Account</button></li>
+          <li class="sub"><button [ngStyle]="{'background-color': color.address, 'color': fontColor.address}" class="sidebar-item" (click)=manageAddressBook()>Address Book</button></li>
+          <li class="sub"><button [ngStyle]="{'background-color': color.track, 'color': fontColor.track}" class="sidebar-item" (click)=trackOrder()>Track Order</button></li>
         </ul>
       </div>
       <div class="content col-md-9" style="padding-bottom:13px;">
