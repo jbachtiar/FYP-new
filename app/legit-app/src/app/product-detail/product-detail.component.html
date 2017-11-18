@@ -236,7 +236,11 @@
 
             </div>
             <div class="text-center">
-              <h5 class="product-name-recom"><a (click)="onProductClick(product.pattern.patternId,product.pattern.patternName)" [routerLink]="['/productDetails', product.pattern.patternId]"><font size=4 color=#B0A171>{{product.pattern.patternName}}</font></a></h5>
+              <h5 class="product-name-recom">
+                <a (click)="onProductClick(product.pattern.patternId,product.pattern.patternName)" [routerLink]="['/productDetails', product.pattern.patternId]">
+                  <font size=4 color=#B0A171>{{product.pattern.patternName}}</font>
+                </a>
+              </h5>
               <br/>
             </div>
           </div>
