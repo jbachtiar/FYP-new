@@ -14,11 +14,13 @@ export class SharedService {
     // Observable string sources
     private updateCartSource = new Subject<string>();
     private emptyCartSource = new Subject<string>();
+    private trackOrderSource = new Subject<string>();
 
     // Observable string streams
     updateCart$ = this.updateCartSource.asObservable();
     emptyCart$ = this.emptyCartSource.asObservable();
-
+    trackOrder$ = this.trackOrderSource.asObservable();
+    
     // Service message commands
     updateCart() {
         console.log("UPDATE CART SERVICE")
@@ -28,5 +30,10 @@ export class SharedService {
     emptyCart(){
         console.log("EMPTY CART SERVICE")
         this.emptyCartSource.next();
+    }
+
+    trackOrder(){
+        console.log("track order SERVICE")
+        this.trackOrderSource.next();
     }
 }

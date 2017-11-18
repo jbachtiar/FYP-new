@@ -185,13 +185,16 @@ export class PaymentComponent implements OnInit {
   showSuccessfulDialog() {
     let disposable = this.dialogService.addDialog(ConfirmationPopupComponent, {
       title: 'Congratulations!',
-      message: 'Your payment is successful. A confirmation email has been sent to your inbox.'
+      message: 'Your payment is successful. We can\'t wait to get the order delivered as much as you do!'
     })
       .subscribe((isConfirmed) => {
         if (isConfirmed) {
 
           this.loading = false;
-          this.router.navigate(['/']);
+          
+          this.router.navigate(['profile-sidebar']);
+          this.sharedService.trackOrder();
+          
         }
         else {
           
