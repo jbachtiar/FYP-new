@@ -57,7 +57,12 @@ export class MyaccountComponent implements OnInit {
     this.account = false;
     this.addressBook = true;
   }
-
+  
+  trackOrderClick(){
+    console.log('track order click')
+    window.location.reload();
+    this.trackOrder();
+  }
   trackOrder() {
     this.color = { 'profile': '#B0A171', 'address': '#B0A171', 'track': 'white' }
     this.fontColor = { 'profile': 'white', 'address': 'white', 'track': 'black' }
