@@ -974,110 +974,204 @@ INSERT INTO `order_status_log` (`ORDER_ID`, `STATUS_ID`, `START_TIMESTAMP`, `END
 (8, 1, '2017-10-11 13:52:33', NULL, 0),
 (9, 1, '2017-10-11 13:53:33', NULL, 0);
 
-INSERT INTO user_preferences VALUES(1,3,3);
-INSERT INTO user_preferences VALUES(1,4,3);
-INSERT INTO user_preferences VALUES(1,5,1);
-INSERT INTO user_preferences VALUES(1,6,4);
-INSERT INTO user_preferences VALUES(1,8,2);
-INSERT INTO user_preferences VALUES(2,0,3);
-INSERT INTO user_preferences VALUES(2,1,3);
-INSERT INTO user_preferences VALUES(2,4,2);
-INSERT INTO user_preferences VALUES(2,7,1);
-INSERT INTO user_preferences VALUES(2,8,1);
-INSERT INTO user_preferences VALUES(3,1,3);
-INSERT INTO user_preferences VALUES(3,2,3);
-INSERT INTO user_preferences VALUES(3,3,4);
-INSERT INTO user_preferences VALUES(3,5,3);
-INSERT INTO user_preferences VALUES(3,8,1);
-INSERT INTO user_preferences VALUES(4,0,3);
-INSERT INTO user_preferences VALUES(4,1,4);
-INSERT INTO user_preferences VALUES(4,2,3);
-INSERT INTO user_preferences VALUES(4,5,4);
-INSERT INTO user_preferences VALUES(4,7,3);
-INSERT INTO user_preferences VALUES(4,10,5);
-INSERT INTO user_preferences VALUES(5,1,3);
-INSERT INTO user_preferences VALUES(5,2,5);
-INSERT INTO user_preferences VALUES(5,6,1);
-INSERT INTO user_preferences VALUES(5,7,1);
-INSERT INTO user_preferences VALUES(6,1,1);
-INSERT INTO user_preferences VALUES(6,2,2);
-INSERT INTO user_preferences VALUES(6,3,3);
-INSERT INTO user_preferences VALUES(6,4,5);
-INSERT INTO user_preferences VALUES(6,7,1);
-INSERT INTO user_preferences VALUES(6,9,3);
-INSERT INTO user_preferences VALUES(6,10,1);
-INSERT INTO user_preferences VALUES(7,1,2);
-INSERT INTO user_preferences VALUES(7,7,1);
-INSERT INTO user_preferences VALUES(7,9,3);
-INSERT INTO user_preferences VALUES(7,10,5);
-INSERT INTO user_preferences VALUES(8,0,1);
-INSERT INTO user_preferences VALUES(8,1,1);
-INSERT INTO user_preferences VALUES(8,5,3);
-INSERT INTO user_preferences VALUES(8,6,3);
-INSERT INTO user_preferences VALUES(8,7,5);
-INSERT INTO user_preferences VALUES(8,8,1);
-INSERT INTO user_preferences VALUES(9,0,2);
-INSERT INTO user_preferences VALUES(9,1,1);
-INSERT INTO user_preferences VALUES(9,4,5);
-INSERT INTO user_preferences VALUES(9,6,1);
-INSERT INTO user_preferences VALUES(9,7,1);
-INSERT INTO user_preferences VALUES(9,8,5);
-INSERT INTO user_preferences VALUES(9,9,3);
-INSERT INTO user_preferences VALUES(10,0,2);
-INSERT INTO user_preferences VALUES(10,1,3);
-INSERT INTO user_preferences VALUES(10,2,1);
-INSERT INTO user_preferences VALUES(10,4,2);
-INSERT INTO user_preferences VALUES(10,6,3);
-INSERT INTO user_preferences VALUES(11,1,2);
-INSERT INTO user_preferences VALUES(11,2,2);
-INSERT INTO user_preferences VALUES(11,4,1);
-INSERT INTO user_preferences VALUES(11,5,3);
-INSERT INTO user_preferences VALUES(11,7,5);
-INSERT INTO user_preferences VALUES(12,0,1);
-INSERT INTO user_preferences VALUES(12,2,2);
-INSERT INTO user_preferences VALUES(12,3,5);
-INSERT INTO user_preferences VALUES(12,7,2);
-INSERT INTO user_preferences VALUES(12,8,2);
-INSERT INTO user_preferences VALUES(12,10,3);
-INSERT INTO user_preferences VALUES(13,1,2);
-INSERT INTO user_preferences VALUES(13,2,3);
-INSERT INTO user_preferences VALUES(13,3,3);
-INSERT INTO user_preferences VALUES(13,5,1);
-INSERT INTO user_preferences VALUES(13,7,5);
-INSERT INTO user_preferences VALUES(13,8,2);
-INSERT INTO user_preferences VALUES(14,2,2);
-INSERT INTO user_preferences VALUES(14,5,3);
-INSERT INTO user_preferences VALUES(14,6,1);
-INSERT INTO user_preferences VALUES(14,7,1);
-INSERT INTO user_preferences VALUES(14,8,4);
-INSERT INTO user_preferences VALUES(15,4,5);
-INSERT INTO user_preferences VALUES(15,5,1);
-INSERT INTO user_preferences VALUES(15,7,5);
-INSERT INTO user_preferences VALUES(15,8,1);
-INSERT INTO user_preferences VALUES(15,9,3);
-INSERT INTO user_preferences VALUES(15,10,4);
-INSERT INTO user_preferences VALUES(16,1,5);
-INSERT INTO user_preferences VALUES(16,2,5);
-INSERT INTO user_preferences VALUES(16,5,3);
-INSERT INTO user_preferences VALUES(16,7,3);
-INSERT INTO user_preferences VALUES(16,10,3);
-INSERT INTO user_preferences VALUES(17,0,1);
-INSERT INTO user_preferences VALUES(17,1,2);
-INSERT INTO user_preferences VALUES(17,2,1);
-INSERT INTO user_preferences VALUES(17,4,3);
-INSERT INTO user_preferences VALUES(17,5,2);
-INSERT INTO user_preferences VALUES(17,8,2);
-INSERT INTO user_preferences VALUES(18,1,1);
-INSERT INTO user_preferences VALUES(18,2,1);
-INSERT INTO user_preferences VALUES(18,5,3);
-INSERT INTO user_preferences VALUES(18,7,4);
-INSERT INTO user_preferences VALUES(18,8,2);
-INSERT INTO user_preferences VALUES(18,10,3);
-INSERT INTO user_preferences VALUES(19,0,1);
-INSERT INTO user_preferences VALUES(19,1,3);
-INSERT INTO user_preferences VALUES(19,5,1);
-INSERT INTO user_preferences VALUES(19,7,5);
-INSERT INTO user_preferences VALUES(20,5,5);
-INSERT INTO user_preferences VALUES(20,6,1);
-INSERT INTO user_preferences VALUES(20,8,2);
-INSERT INTO user_preferences VALUES(20,9,4);
+INSERT INTO `user_preferences` (`user_id`, `product_id`, `preference`) VALUES
+(0, 0, 0),
+(0, 1, 5),
+(0, 3, 5),
+(0, 4, 3),
+(1, 1, 5),
+(1, 3, 5),
+(1, 4, 5),
+(1, 5, 2),
+(1, 6, 5),
+(1, 7, 5),
+(1, 8, 2),
+(1, 9, 5),
+(1, 10, 3),
+(1, 11, 2),
+(2, 0, 3),
+(2, 1, 3),
+(2, 4, 2),
+(2, 7, 1),
+(2, 8, 1),
+(3, 1, 3),
+(3, 2, 3),
+(3, 3, 4),
+(3, 5, 3),
+(3, 8, 1),
+(4, 0, 3),
+(4, 1, 10),
+(4, 2, 3),
+(4, 3, 10),
+(4, 4, 10),
+(4, 5, 10),
+(4, 6, 5),
+(4, 7, 5),
+(4, 9, 5),
+(4, 10, 10),
+(4, 11, 1),
+(4, 12, 10),
+(5, 1, 3),
+(5, 2, 5),
+(5, 6, 1),
+(5, 7, 1),
+(6, 1, 1),
+(6, 2, 2),
+(6, 3, 3),
+(6, 4, 5),
+(6, 7, 1),
+(6, 9, 3),
+(6, 10, 1),
+(7, 1, 2),
+(7, 7, 1),
+(7, 9, 3),
+(7, 10, 5),
+(8, 0, 1),
+(8, 1, 1),
+(8, 5, 3),
+(8, 6, 3),
+(8, 7, 5),
+(8, 8, 1),
+(9, 0, 2),
+(9, 1, 1),
+(9, 4, 5),
+(9, 6, 1),
+(9, 7, 1),
+(9, 8, 5),
+(9, 9, 3),
+(10, 0, 2),
+(10, 1, 3),
+(10, 2, 1),
+(10, 4, 2),
+(10, 6, 3),
+(11, 1, 2),
+(11, 2, 2),
+(11, 4, 1),
+(11, 5, 3),
+(11, 7, 5),
+(12, 0, 1),
+(12, 2, 2),
+(12, 3, 5),
+(12, 7, 2),
+(12, 8, 2),
+(12, 10, 3),
+(13, 1, 2),
+(13, 2, 3),
+(13, 3, 3),
+(13, 5, 1),
+(13, 7, 5),
+(13, 8, 2),
+(14, 2, 2),
+(14, 5, 3),
+(14, 6, 1),
+(14, 7, 1),
+(14, 8, 4),
+(15, 4, 5),
+(15, 5, 1),
+(15, 7, 5),
+(15, 8, 1),
+(15, 9, 3),
+(15, 10, 4),
+(16, 1, 5),
+(16, 2, 5),
+(16, 5, 3),
+(16, 7, 3),
+(16, 10, 3),
+(17, 0, 1),
+(17, 1, 2),
+(17, 2, 1),
+(17, 4, 3),
+(17, 5, 2),
+(17, 8, 2),
+(18, 1, 1),
+(18, 2, 1),
+(18, 5, 3),
+(18, 7, 4),
+(18, 8, 2),
+(18, 10, 3),
+(19, 0, 1),
+(19, 1, 3),
+(19, 5, 1),
+(19, 7, 5),
+(20, 5, 5),
+(20, 6, 1),
+(20, 8, 2),
+(20, 9, 4),
+(21, 3, 10),
+(21, 4, 5),
+(21, 5, 4),
+(21, 12, 3),
+(22, 11, 1),
+(23, 10, 2),
+(24, 4, 5),
+(24, 5, 10),
+(24, 8, 2),
+(24, 9, 5),
+(24, 10, 3),
+(25, 6, 4),
+(25, 10, 1),
+(25, 11, 10),
+(26, 3, 5),
+(26, 4, 4),
+(26, 5, 4),
+(26, 11, 5),
+(27, 1, 10),
+(27, 2, 2),
+(27, 3, 3),
+(27, 4, 5),
+(28, 9, 2),
+(28, 10, 1),
+(28, 11, 5),
+(28, 12, 3),
+(29, 1, 5),
+(29, 2, 10),
+(29, 3, 2),
+(29, 4, 3),
+(29, 5, 4),
+(30, 4, 3),
+(30, 5, 4),
+(30, 6, 5),
+(30, 7, 5),
+(30, 8, 5),
+(30, 9, 5),
+(30, 10, 10),
+(31, 1, 5),
+(31, 2, 2),
+(31, 3, 1),
+(31, 4, 1),
+(31, 5, 1),
+(31, 8, 10),
+(31, 10, 1),
+(32, 2, 4),
+(32, 3, 2),
+(32, 4, 10),
+(32, 5, 5),
+(33, 6, 4),
+(33, 7, 2),
+(34, 2, 4),
+(34, 8, 1),
+(34, 10, 3),
+(35, 4, 5),
+(35, 6, 5),
+(35, 7, 5),
+(35, 8, 5),
+(35, 9, 10),
+(35, 11, 2),
+(36, 2, 10),
+(36, 3, 10),
+(36, 8, 10),
+(36, 9, 10),
+(36, 10, 5),
+(37, 1, 2),
+(37, 2, 2),
+(37, 3, 5),
+(37, 4, 3),
+(37, 5, 4),
+(38, 6, 5),
+(39, 3, 5),
+(39, 7, 5),
+(39, 9, 5),
+(40, 1, 2),
+(40, 2, 4),
+(40, 3, 3),
+(40, 8, 10);
