@@ -103,7 +103,7 @@ public class Registration {
                 cartDao.addCart(c, email);
 
                 //send verification link
-                SendEmail.sendVerificationEmail(email, hexString.toString());
+//                SendEmail.sendVerificationEmail(email, hexString.toString());
 
                 responseMap.put("status", "200");
             } else {
