@@ -31,3 +31,16 @@ body{
     font-family: 'Muli' !important;
     background-color: rgba(255, 255, 255, 0.00);
 }
+
+h3{
+    font-family: 'Muli' !important;
+   
+}
+hr{
+    border-color: #E3B2BC;
+}
+
+.analytics-section{
+    color:#DD0330;
+    text-align: center;
+}
