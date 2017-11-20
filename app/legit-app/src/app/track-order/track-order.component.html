@@ -27,7 +27,7 @@
                             {{returnTheLatestOrderStatus(co.statusLogs)}}
                         </td>
                         <td>
-                            $ {{co.netAmt}}.00
+                            $ {{co.netAmt| currency:'USD':true:'1.2-2'}}
                         </td>
                         <td>
                             {{co.order_TimeStamp | date:'yyyy-MM-dd H:mm'}}
@@ -64,7 +64,7 @@
                             {{returnTheLatestOrderStatus(co.statusLogs)}}
                         </td>
                         <td>
-                            $ {{co.netAmt}}.00
+                            $ {{co.netAmt| currency:'USD':true:'1.2-2'}}
                         </td>
                         <td>
                             {{co.order_TimeStamp | date:'yyyy-MM-dd H:mm'}}
