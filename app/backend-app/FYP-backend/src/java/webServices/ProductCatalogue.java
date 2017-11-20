@@ -556,10 +556,11 @@ public class ProductCatalogue {
 
             Collection c = collectionDao.getCollectionByPatternId(patternId);
             if (fabrics.isEmpty()) {
-                jsonOutput.addProperty("pattern", patternId);
-                jsonOutput.addProperty("status", "z not found");
+                jsonOutput.addProperty("printpatternid", patternId);
+                jsonOutput.addProperty("status", "Fabric is not found");
 
             } else {
+                jsonOutput.addProperty("printpatternid", patternId);
                 jsonOutput.addProperty("status", "200");
                 JsonObject patt = new JsonObject();
                 patt.addProperty("pattern_id", pattern.getPatternId());
@@ -656,7 +657,7 @@ public class ProductCatalogue {
 
             Collection c = collectionDao.getCollectionByPatternId(patternId);
             if (fabrics.isEmpty()) {
-                jsonOutput.addProperty("patternName", patternName);
+                jsonOutput.addProperty("printpatternid", patternName);
                 jsonOutput.addProperty("status", "Fabric not found");
 
             } else {
@@ -746,7 +747,7 @@ public class ProductCatalogue {
         try {
             ArrayList<Integer> productIds = productDAO.getProductIdsByPatternId(patternId);
             if (productIds.isEmpty() || productIds == null) {
-                jsonOutput.addProperty("pattern", patternId);
+                jsonOutput.addProperty("printpatternid", patternId);
                 jsonOutput.addProperty("status", "Product not found");
             } else {
                 String productIdString = gson.toJson(productIds);
