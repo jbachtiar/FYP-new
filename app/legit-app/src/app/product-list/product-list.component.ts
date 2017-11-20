@@ -296,13 +296,9 @@ export class ProductListComponent implements OnInit {
     ga('require', 'ec');
     ga('ec:addProduct', {
       // productFieldObject stores product click and other details
-
       'id': patternId, // Product ID/SKU - Type: string
-
       'name': pattern_name, // Product name - Type: string
-
       'category': 'Beddings', // Product category - Type: string
-
     });
 
     ga('ec:setAction', 'detail');
@@ -345,21 +341,22 @@ export class ProductListComponent implements OnInit {
     ga('require', 'ec');
     ga('ec:addProduct', {
       // productFieldObject stores product click and other details
-
       'id': patternId, // Product ID/SKU - Type: string
-
       'name': pattern_name, // Product name - Type: string
-
       'category': 'Beddings', // Product category - Type: string
-
     });
-
     ga('ec:setAction', 'detail');
-
     // Send click with an event, then send user to product page.
     ga('send', 'event', 'enhanced ecommerce', 'Product Detail Clicks', pattern_name);
-
     ga('send', 'pageview');
 
+    ga('ec:addProduct', {
+      // productFieldObject stores product click and other details
+      'id': patternId, // Product ID/SKU - Type: string
+      'name': pattern_name, // Product name - Type: string
+      'category': 'Beddings', // Product category - Type: string
+    });
+    ga('ec:setAction', 'click', {list: 'Beddings'});
+    ga('send', 'pageview');
   }
 }
