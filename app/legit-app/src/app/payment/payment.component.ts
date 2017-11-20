@@ -74,7 +74,8 @@ export class PaymentComponent implements OnInit {
     this.loading = true;
     console.log("CHECKOUT")
     var handler = (<any>window).StripeCheckout.configure({
-      key: 'pk_test_PcfRcpvH8lJ8P7GtXdwbTl9D',
+     // key: 'pk_test_PcfRcpvH8lJ8P7GtXdwbTl9D',
+      key: 'pk_live_XfcGgbtMrmhXsvU4QZdhUSfj',
       locale: 'auto',
       token: (token: any) => {
         // You can access the token ID with `token.id`.
