@@ -169,7 +169,7 @@ public class ProductDAO {
 
     }
 
-    //Create 1 Product
+    //Need to create multiple product, one for each fabric
     public int addProduct(Product p) throws SQLException {
 
         Connection conn = null;
@@ -181,58 +181,69 @@ public class ProductDAO {
         ResultSet rs1 = null;
 
         Image[] images = p.getImages();
-        int nextProductId = getNextProductId();
+        
+        //loop by fabric
+        FabricDAO fDAO = new FabricDAO();
+        ArrayList<Fabric> fList = new ArrayList<Fabric>();
+        fList = fDAO.getAllAvailableFabrics();
+        int nextProductId = 0;
+        
+        for(Fabric f : fList){
+            
+            int fID = f.getFabricId();
+            nextProductId = getNextProductId();
 
-        //before adding to the product table, need to add to its child tables first
-        String productType = p.getProductType();
-        if (productType.equals("Bedding")) {
+            //before adding to the product table, need to add to its child tables first
+            String productType = p.getProductType();
+            if (productType.equals("Bedding")) {
 
-            BeddingSizeDAO bsDAO = new BeddingSizeDAO();
-            ArrayList<BeddingSize> bsList = bsDAO.getAllBeddingSizes();
-            for (int i = 0; i < bsList.size(); i++) {
+                BeddingSizeDAO bsDAO = new BeddingSizeDAO();
+                ArrayList<BeddingSize> bsList = bsDAO.getAllBeddingSizes();
+                for (int i = 0; i < bsList.size(); i++) {
 
-                BeddingSize bs = bsList.get(i);
-                String sizeName = bs.getSizeName();
+                    BeddingSize bs = bsList.get(i);
+                    String sizeName = bs.getSizeName();
 
-                String sqlBedding = "INSERT INTO BEDDING (PRODUCT_ID, SIZE_NAME) VALUES (?,?)";
+                    String sqlBedding = "INSERT INTO BEDDING (PRODUCT_ID, SIZE_NAME) VALUES (?,?)";
 
-                try {
-                    conn1 = ConnectionManager.getConnection();
-                    stmt1 = conn1.prepareStatement(sqlBedding);
-                    stmt1.setInt(1, nextProductId);
-                    stmt1.setString(2, sizeName);
-                    stmt1.executeUpdate();
+                    try {
+                        conn1 = ConnectionManager.getConnection();
+                        stmt1 = conn1.prepareStatement(sqlBedding);
+                        stmt1.setInt(1, nextProductId);
+                        stmt1.setString(2, sizeName);
+                        stmt1.executeUpdate();
 
-                } finally {
-                    ConnectionManager.close(conn1, stmt1, rs1);
+                    } finally {
+                        ConnectionManager.close(conn1, stmt1, rs1);
+                    }
+
                 }
 
             }
 
-        }
+            String sql = "INSERT INTO PRODUCT (PRODUCT_ID, PRODUCT_TYPE, PATTERN_ID, COLOUR_ID, FABRIC_ID, DELETED) VALUES (?,?,?,?,?,?)";
 
-        String sql = "INSERT INTO PRODUCT (PRODUCT_ID, PRODUCT_TYPE, PATTERN_ID, COLOUR_ID, FABRIC_ID, DELETED) VALUES (?,?,?,?,?,?)";
+            try {
+                conn = ConnectionManager.getConnection();
+                stmt = conn.prepareStatement(sql);
+                stmt.setInt(1, nextProductId);
+                stmt.setString(2, p.getProductType());
+                stmt.setInt(3, p.getPattern().getPatternId());
+                stmt.setInt(4, p.getColour().getColourId());
+                stmt.setInt(5, fID);
+                stmt.setString(6, "N");
+                stmt.executeUpdate();
 
-        try {
-            conn = ConnectionManager.getConnection();
-            stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, nextProductId);
-            stmt.setString(2, p.getProductType());
-            stmt.setInt(3, p.getPattern().getPatternId());
-            stmt.setInt(4, p.getColour().getColourId());
-            stmt.setInt(5, p.getFabric().getFabricId());
-            stmt.setString(6, "N");
-            stmt.executeUpdate();
+                for (Image i : images) {
 
-            for (Image i : images) {
+                    ImageDAO iDao = new ImageDAO();
+                    iDao.addImage(nextProductId, i);
 
-                ImageDAO iDao = new ImageDAO();
-                iDao.addImage(nextProductId, i);
+                }
 
+            } finally {
+                ConnectionManager.close(conn, stmt, rs);
             }
-
-        } finally {
-            ConnectionManager.close(conn, stmt, rs);
         }
 
         return nextProductId;

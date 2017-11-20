@@ -50,11 +50,12 @@ export const ROUTES: RouteInfo[] = [
         icon: 'ti-view-list-alt',
         class: ['1']
     },
-    { 
-         path: 'promoCode', 
-         title: 'Promo Code', 
-         icon: 'ti-text', 
-         class: ['1'] },
+    {
+        path: 'promoCode',
+        title: 'Promo Code',
+        icon: 'ti-text',
+        class: ['1']
+    },
     {
         path: 'superuser',
         title: 'Superuser Management',
@@ -82,14 +83,14 @@ export class SidebarComponent implements OnInit {
     public token;
 
     constructor(
-        private authenticationService: AuthenticationService, 
+        private authenticationService: AuthenticationService,
         private staffcontrolservice: StaffcontrolService,
         private router: Router) {
     }
 
     ngOnInit() {
         this.token = localStorage.getItem('token');
-        if(this.token!=null){
+        if (this.token != null) {
             this.authenticated = true;
         }
         for (let r of ROUTES) {
@@ -106,12 +107,12 @@ export class SidebarComponent implements OnInit {
                 if (res.status === '200') {
                     let roles = res.staffRoles
                     for (let role of roles) {
-                        if (role.roleId == this.roleId){
+                        if (role.roleId == this.roleId) {
                             this.roleName = role.roleName
                             console.log("role name: " + this.roleName)
                         }
                     }
-                
+
                 } else {
                     console.log(res.status);
                 }
@@ -128,5 +129,9 @@ export class SidebarComponent implements OnInit {
         this.router.navigate(['login']);
         window.location.reload();
     }
-
+    onNavClick(item) {
+        if (item == "analytics") {
+            window.location.reload();
+        }
+    }
 }

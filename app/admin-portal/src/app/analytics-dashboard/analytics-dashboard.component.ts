@@ -48,7 +48,7 @@ export class AnalyticsDashboardComponent implements OnInit {
           container: 'timeline',
           options: {
             'legend': 'left',
-            'title': 'Audience Overview',
+            'title': 'Number of Visits',
             // 'is3D':true,
             // 'width':400,
             // 'height':300
@@ -85,7 +85,7 @@ export class AnalyticsDashboardComponent implements OnInit {
           'dimensions': 'ga:productName',
           'metrics': 'ga:productListClicks',
           'start-date': '30daysAgo',
-          'end-date': 'today',
+          'end-date': '6daysAgo',
           sort: '-ga:productListClicks'
         },
         chart: {
@@ -225,7 +225,7 @@ export class AnalyticsDashboardComponent implements OnInit {
           type: 'TABLE',
           options: {
             'legend': 'left',
-            'title': 'Top Products',
+            'title': 'Product Analysis',
             // 'is3D':true,
             // 'width':400,
             // 'height':300
