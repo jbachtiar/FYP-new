@@ -42,7 +42,8 @@ public class Payment {
         String status = "";
         // Set your secret key: remember to change this to your live secret key in production
         // See your keys here: https://dashboard.stripe.com/account/apikeys
-        Stripe.apiKey = "sk_test_U8hw5pb6Rs9LTaa67hANRXFW";
+       // Stripe.apiKey = "sk_test_U8hw5pb6Rs9LTaa67hANRXFW";
+       Stripe.apiKey = "sk_live_6V0W3m8e5LrEO4s2ZhFVgkq2";
 
         // Token is created using Stripe.js or Checkout!
         // Get the payment token ID submitted by the form:
