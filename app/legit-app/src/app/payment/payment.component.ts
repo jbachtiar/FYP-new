@@ -100,7 +100,6 @@ export class PaymentComponent implements OnInit {
         //reference id
         this.paymentRefNo = res.paymentRefNo
         //add order to database
-        console.log(this.ordernum + " HEREEEEEEEEEE");
         this.promoCode.promoCodeId = this.shoppingCart.promoId;
         let newOrder = {
           "orderId": 0,
@@ -149,7 +148,7 @@ export class PaymentComponent implements OnInit {
                 //add data to mahout
                 this.productService.getProductRecommendation(this.token, order.product.productId, 10, "{}").subscribe()
             }
-
+            console.log(this.ordernum + " is the order number");
             ga('ec:setAction', 'purchase',{
              // actionFieldObject stores action data
               'id':this.ordernum, // Transaction id - Type: string

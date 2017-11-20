@@ -92,14 +92,9 @@ export class OrderService {
 
     getNextOrderID() {
         let headers = new Headers();
-        let url = CONFIG.orderBackendUrl;
+        let url = CONFIG.orderBackendUrl + '/getNextOrderId';
 
-        let params: URLSearchParams = new URLSearchParams();
-        //headers.append ('Authorization', token); 
-        headers.append(
-            'Content-type', 'application/x-www-form-urlencoded'
-        )
-        return this._http.post(url + '/getNextOrderID', params.toString(), { headers })
+        return this._http.get(url)
             .map(res => {
                 let ordernum = res.json().orderid;
                 return ordernum;

@@ -22,7 +22,7 @@ export class MyaccountComponent implements OnInit {
   constructor(private sharedService: SharedService) {
     this.subscription = this.sharedService.trackOrder$.subscribe(
       () => {
-        alert('(Component2) Method called!');
+        //alert('(Component2) Method called!');
         this.selectedItem = "trackOrder"
         console.log("Selected item inside: " + this.selectedItem)
       });
