@@ -84,8 +84,8 @@ export class AnalyticsDashboardComponent implements OnInit {
         query: {
           'dimensions': 'ga:productName',
           'metrics': 'ga:productListClicks',
-          'start-date': '30daysAgo',
-          'end-date': '6daysAgo',
+          'start-date': '7daysAgo',
+          'end-date': 'today',
           sort: '-ga:productListClicks'
         },
         chart: {
