@@ -556,7 +556,8 @@ public class ProductCatalogue {
 
             Collection c = collectionDao.getCollectionByPatternId(patternId);
             if (fabrics.isEmpty()) {
-                jsonOutput.addProperty("status", "Fabric not found");
+                jsonOutput.addProperty("pattern", patternId);
+                jsonOutput.addProperty("status", "z not found");
 
             } else {
                 jsonOutput.addProperty("status", "200");
@@ -655,6 +656,7 @@ public class ProductCatalogue {
 
             Collection c = collectionDao.getCollectionByPatternId(patternId);
             if (fabrics.isEmpty()) {
+                jsonOutput.addProperty("patternName", patternName);
                 jsonOutput.addProperty("status", "Fabric not found");
 
             } else {
@@ -730,20 +732,21 @@ public class ProductCatalogue {
         String finalJsonOutput = gson.toJson(jsonOutput);
         return finalJsonOutput;
     }
-    
+
     @GET
     @Path("/getAllProductIds")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getProductIdsByPatternId(@QueryParam("patternId") int patternId){
+    public String getProductIdsByPatternId(@QueryParam("patternId") int patternId) {
         response.setHeader("Access-Control-Allow-Origin", "*");
 
         JsonObject jsonOutput = new JsonObject();
         Gson gson = new GsonBuilder().create();
         ProductDAO productDAO = new ProductDAO();
         JsonParser parser = new JsonParser();
-        try{
+        try {
             ArrayList<Integer> productIds = productDAO.getProductIdsByPatternId(patternId);
             if (productIds.isEmpty() || productIds == null) {
+                jsonOutput.addProperty("pattern", patternId);
                 jsonOutput.addProperty("status", "Product not found");
             } else {
                 String productIdString = gson.toJson(productIds);
@@ -751,7 +754,7 @@ public class ProductCatalogue {
                 jsonOutput.addProperty("status", "200");
                 jsonOutput.add("product_ids", productIdElement);
             }
-        }catch (SQLException e) {
+        } catch (SQLException e) {
 
             jsonOutput.addProperty("status", "500");
             jsonOutput.addProperty("error", e.getMessage());
@@ -776,7 +779,7 @@ public class ProductCatalogue {
             Product p = productDAO.getProductByPatternFabricColor(Integer.parseInt(patternId), Integer.parseInt(fabricId), Integer.parseInt(colourId));
             if (p == null) {
                 jsonOutput.addProperty("status", "Product not found");
-
+                jsonOutput.addProperty("pattern", patternId);
             } else {
                 String productString = gson.toJson(p);
                 JsonElement productElement = parser.parse(productString);
