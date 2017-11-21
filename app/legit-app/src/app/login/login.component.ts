@@ -55,12 +55,12 @@ login(){
         this.authenticationService.login(this.user.email, this.user.password)
         .subscribe(
             res => {
-                console.log("RES: " + res);
+          
                 if(res.status === '200'){
-                    console.log("RES STATUS :" + "Login successful");
+          
                     this.router.navigate([this.returnUrl]);
                 }else{
-                    console.log("RES STATUS :" + res.status);
+          
                     this.alertService.error(res.status);
                 }
             }

@@ -39,7 +39,7 @@ export class CartComponent implements OnInit {
     this.shoppingCart = JSON.parse(localStorage.getItem('cart'))
     this.subscription = this.sharedService.emptyCart$.subscribe(
         () => {
-          // alert('(Component2) Method called!');
+  
           this.emptyCart();
           this.sharedService.updateCart();
     });
@@ -52,12 +52,10 @@ export class CartComponent implements OnInit {
     this.shoppingCart.promoMsg = "";
     this.shoppingCart.discount = 0;
     this.sharedService.updateCart()
-    console.log(JSON.stringify(this.shoppingCart))
     this.itemCount = this.shoppingCart.cartItems.length;
     if(this.itemCount > 0){
       this.empty = false;
     }
-    //Google Analytics
     (function (i, s, o, g, r, a?, m?) {
       i['GoogleAnalyticsObject'] = r;
       i[r] = i[r] || function () {
@@ -71,26 +69,17 @@ export class CartComponent implements OnInit {
     })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
     ga('create', 'UA-106185727-2', 'auto');
     ga('require', 'ec');
-    // Send checkout event 1 event to enhanced ecommerce
     ga('ec:setAction', 'checkout', {'step': 4});
-    // Send click with an event
     ga('send', 'event', 'Session Movement', 'View Cart');
     ga('send', 'pageview');
-    //this.shoppingCartService.retrieveCartDB();
 
     this.cartItem = this.shoppingCart.cartItems
-    // this.cart = this.shoppingCartService.get();
-    // this.cartSubscription = this.cart.subscribe((cart) => {
-    // this.itemCount = cart.items.map((x) => x.quantity).reduce((p, n) => p + n, 0);
-    // });
     
   }
 
   //increase product qty
   increment(productId: number){
-    console.log("productID = " + productId)
-    console.log(this.shoppingCart.cartItems.find((p) => p.product.productId === productId))
-    
+  
     this.shoppingCart.cartItems.find((p) => p.product.productId === productId).quantity +=1
     this.shoppingCartService.updateCart(this.shoppingCart);
   }
@@ -106,13 +95,13 @@ export class CartComponent implements OnInit {
   }
 
   emptyCart(){
-    console.log("CART IS EMPTIED")
+  
     this.shoppingCartService.empty()
     //window.location.reload()
   }
 
   onCheck(code: string){
-    console.log("CHECKING PROMO CODE " +code)
+
 
     this.shoppingCartService.checkPromo(code, this.shoppingCart.price).subscribe(
        promo => {
@@ -121,7 +110,6 @@ export class CartComponent implements OnInit {
          this.discount = promo.discountAmt;
          this.promoMsg = promo.reason;
          this.promoId = promo.promoId;
-         console.log("PROMO CODE " + this.discount);
          this.shoppingCart.discount = this.discount;
          this.shoppingCart.promoMsg = this.promoMsg;
          this.shoppingCart.promoId = this.promoId;
@@ -137,23 +125,20 @@ export class CartComponent implements OnInit {
       message: 'Are you sure to remove this item from the cart?'
     })
       .subscribe((isConfirmed) => {
-        console.log("DIALOG")
         //We get dialog result
         if (isConfirmed) {
           let indexCut =  this.shoppingCart.cartItems.findIndex((p) => p.product.productId === productId)
           this.shoppingCart.cartItems.splice(indexCut,1)
-          console.log("PRODUCT ID : " + productId)
+        
           
           this.shoppingCartService.deleteItemDB(productId)
           this.shoppingCartService.updateCart(this.shoppingCart)
           if(this.shoppingCart.cartItems.length === 0){
             this.empty = true;
           }
-          //this.updateCart()
+         
           this.sharedService.updateCart();
-          //window.location.reload()
-
-          //Google Analytics
+    
           (function (i, s, o, g, r, a?, m?) {
             i['GoogleAnalyticsObject'] = r;
             i[r] = i[r] || function () {
@@ -165,7 +150,7 @@ export class CartComponent implements OnInit {
             a.src = g;
             m.parentNode.insertBefore(a, m)
           })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-          console.log();
+     
           ga('create', 'UA-106185727-2', 'auto');
           ga('require', 'ec');
           ga('ec:addProduct',{
@@ -188,7 +173,6 @@ export class CartComponent implements OnInit {
   }
 
   updateCart(){
-    console.log(this.shoppingCart);
     localStorage.setItem(this.CART_KEY, JSON.stringify(this.shoppingCart));
   }
 

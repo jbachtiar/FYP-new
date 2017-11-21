@@ -40,7 +40,7 @@ export class LoginPopupComponent extends DialogComponent<LoginPopupModel, boolea
     }
     ngOnInit(){
         this.currentUrl = this.router.url;
-        console.log("URL: " + this.currentUrl)
+ 
         
     }
     confirm() {
@@ -75,9 +75,9 @@ export class LoginPopupComponent extends DialogComponent<LoginPopupModel, boolea
         this.authenticationService.login(this.user.email, this.user.password)
         .subscribe(
             res => {
-                console.log("RES: " + res);
+             
                 if(res.status === '200'){
-                    console.log("RES STATUS :" + "Login successful");
+    
                     // let cart : ShoppingCart = JSON.parse(localStorage.getItem("cart"));
                     // this.shoppingCartService.updateCartDB(cart)
                     if(this.currentUrl=="/register"){
@@ -88,7 +88,7 @@ export class LoginPopupComponent extends DialogComponent<LoginPopupModel, boolea
                     this.loading = false; 
                     // this.router.navigate([this.returnUrl]);
                 }else{
-                    console.log("RES STATUS :" + res.status);
+              
                     this.alertService.error(res.description);
                     this.loading = false; 
                 }

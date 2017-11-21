@@ -64,7 +64,7 @@ export class PaymentComponent implements OnInit {
     this.orderService.getNextOrderID().subscribe(orderNum => {
       this.ordernum = orderNum;
     });
-    console.log("ADDRESS oioioi: " + this.address);
+
 
     this.cartItem = this.shoppingCart.cartItems;
   }
@@ -72,7 +72,7 @@ export class PaymentComponent implements OnInit {
   openCheckout() {
     
     this.loading = true;
-    console.log("CHECKOUT")
+
     var handler = (<any>window).StripeCheckout.configure({
       key: 'pk_test_PcfRcpvH8lJ8P7GtXdwbTl9D',
      // key: 'pk_live_XfcGgbtMrmhXsvU4QZdhUSfj',  real public key
@@ -83,7 +83,7 @@ export class PaymentComponent implements OnInit {
         this.chargeStripe(token.id, (this.shoppingCart.price-this.shoppingCart.discount) * 100);
       }
     });
-    console.log("TOTAL PRICE :" + (this.shoppingCart.price-this.shoppingCart.discount))
+
     handler.open({
       name: 'Highlander',
       description: 'Secured Payment',
@@ -94,7 +94,7 @@ export class PaymentComponent implements OnInit {
   chargeStripe(token, amount) {
 
     this.shoppingCartService.chargeStripe(token, amount).subscribe(res => {
-      console.log(res)
+  
       res = res
       if (res.status == 200) {
         //reference id
@@ -114,7 +114,7 @@ export class PaymentComponent implements OnInit {
           "courierName": "",
           "trackingNo": ""
         }
-        console.log(JSON.stringify(this.shoppingCart))
+      
 
         this.orderService.saveOrder(newOrder).subscribe(res => {
           res = res.json()
@@ -148,7 +148,7 @@ export class PaymentComponent implements OnInit {
                 //add data to mahout
                 this.productService.getProductRecommendation(this.token, order.product.productId, 10, "{}").subscribe()
             }
-            console.log(this.ordernum + " is the order number");
+
             ga('ec:setAction', 'purchase',{
              // actionFieldObject stores action data
               'id':this.ordernum, // Transaction id - Type: string
@@ -178,7 +178,7 @@ export class PaymentComponent implements OnInit {
   }
 
   updateCart() {
-    console.log("UPDATE CART FUNCTION")
+ 
     this.sharedService.emptyCart();
   }
 
@@ -249,7 +249,7 @@ export class PaymentComponent implements OnInit {
   saveAddress() {
     this.shoppingCartService.saveAddress(this.address).subscribe(res => {
       if (res.status == 200) {
-        console.log("Address has been saved");
+
       }
     });
   }

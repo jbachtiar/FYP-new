@@ -84,15 +84,7 @@ export class InlineEditComponent implements ControlValueAccessor, OnInit {
       
   }
 
- // editDone(): void {
-  
-   // this.editing = false;
-   // this.profileService.toggleSidebarVisibilty()
-    //console.log("saved");
-    
 
-    
- // }
    
   ngOnInit() {
   }

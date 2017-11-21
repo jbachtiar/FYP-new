@@ -35,20 +35,20 @@ export class TrackOrderDetailComponent implements OnInit {
       this.orderId = this.inputOrderId
       this.orderService.getOrderById(this.orderId).subscribe(orders => {
         this.order = orders;
-        console.log(orders[0].courierName);
+
         
         this.orderService.getCourierByName(orders[0].courierName).subscribe(courier => {
           this.courier=courier;
-          console.log("courier"+this.courier);
+         
     
         });
         this.order[0].order_TimeStamp = new Date(this.order[0].order_TimeStamp);
-        console.log("before : " + JSON.stringify(this.order[0].order_TimeStamp));
+    
         this.order[0].order_TimeStamp.setHours(this.order[0].order_TimeStamp.getHours()+8)
 
         this.orderItems = orders[0].orderItems;
         this.statusLog = orders[0].statusLogs;
-        console.log(this.order)
+    
         if (this.statusLog.length > 0) {
           this.returnTheLatestOrderStatus(this.statusLog);
           if (this.statusId != 6) {
@@ -59,7 +59,7 @@ export class TrackOrderDetailComponent implements OnInit {
             for (var i = 5; i > this.statusId; i--) {
               this.isDisabled[this.map[i]] = true;
               this.bufferValue -= 16.569
-              console.log("this.value = " + this.value)
+           
             }
             this.value = this.bufferValue - 16.569
             this.bufferValue -= 16.569
@@ -74,7 +74,7 @@ export class TrackOrderDetailComponent implements OnInit {
       });
       
 
-      console.log("courierName"+this.order[0].courierName);
+ 
    
 
     });
@@ -82,26 +82,25 @@ export class TrackOrderDetailComponent implements OnInit {
 
   returnTheLatestOrderStatus(statusLogs) {
     let status = statusLogs[0];
-    console.log("STATUS: " + status)
+ 
     let currentStatus = status
     var mostCurrentTimestamp = new Date(status.startTimeStamp);
     for (status of this.order[0].statusLogs) {
       var timestamp = new Date(status.startTimeStamp);
-      console.log("current timestamp: " + timestamp + "> most current" + mostCurrentTimestamp)
+      
       if (mostCurrentTimestamp < timestamp) {
-        console.log("betul")
 
         mostCurrentTimestamp = timestamp;
         currentStatus = status;
       }
     }
-    console.log("MOST CURRENT: " + mostCurrentTimestamp)
+ 
     //    this.order[0]['currentStatus'] = currentStatus.orderStatus.statusName;
 
     let statusId: number = currentStatus.orderStatus.statusId;
     this.statusId = statusId;
     // let statusId = 5
-    console.log("STATUS ID: " + this.statusId)
+ 
   }
 
 

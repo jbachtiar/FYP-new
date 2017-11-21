@@ -15,7 +15,7 @@ export class AppComponent {
               private _router: Router) {}
 
   onSelect(feature): void {
-    console.log("FEATURE: " + feature);
+   
     if (feature == "login"){
       let link = ['/login'];
       this._router.navigate(link);

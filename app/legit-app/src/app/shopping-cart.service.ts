@@ -55,8 +55,7 @@ export class ShoppingCartService {
 
   //Add Item to Cart
   public addItem(cartItem: CartItem): void {
-    console.log(cartItem)
-    console.log("token : " + this.token)
+
     this.cart = this.retrieve();
 
     // console.log("Cart Item")
@@ -65,25 +64,20 @@ export class ShoppingCartService {
     // console.log('each price : ' + cartItem.eachPrice)
 
 
-    //to check if the product exists in the cart
-    console.log(this.cart)
+ 
 
     this.item = this.cart.cartItems.find((p) => p.product.productId === cartItem.product.productId);
 
     if (this.item === undefined) {
       //if does not exist create new cart item
       this.item = cartItem;
-      console.log("item does not exist")
-
-      console.log('productId : ' + this.item.product.productId)
-      console.log('UnitPrice : ' + this.item.unitPrice)
-      console.log('quantity: ' + this.item.quantity)
+  
       //console.log(this.item)
 
       this.cart.cartItems.push(this.item);
     } else {
       //if exist add the quantity
-      console.log("item exist")
+     
       this.item.quantity += cartItem.quantity;
     }
 
@@ -109,14 +103,13 @@ export class ShoppingCartService {
     )
 
 
-    console.log("update cart DB")
+ 
     let url = CONFIG.updateCartBackendUrl;
-    console.log("url : " + url)
+
 
     return this._http.post(url, params.toString(), { headers: headers })
       .subscribe(res => {
-        console.log(cart)
-        console.log("IM HEERREE")
+  
       });
 
 
@@ -135,7 +128,7 @@ export class ShoppingCartService {
 
     let url = CONFIG.cartBackendUrl + "/retrieveCart";
 
-    console.log("HEY IM HERE");
+
     return this._http.post(url, params.toString(), { headers: headers })
       .subscribe(res => {
         this.cart = res.json().cart
@@ -148,7 +141,7 @@ export class ShoppingCartService {
 
   public updateCart(cart: ShoppingCart) {
     this.cart = cart
-    console.log(this.cart)
+  
     this.calculateCart(this.cart);
     this.save(this.cart);  
     this.dispatch(this.cart);
@@ -161,8 +154,7 @@ export class ShoppingCartService {
 
         return this._http.get(finalUrl)
             .map(res => {
-                console.log(finalUrl)
-                console.log("promo is loaded" + res.json().promo);
+              
                 return res.json().promo;
             });
         
@@ -195,13 +187,13 @@ export class ShoppingCartService {
   }
 
   private save(cart: ShoppingCart): void {
-    console.log("SAVE CART")
-    console.log(cart)
+
+  
     if (this.token) {
-      console.log("token exist")
+    
       this.updateCartDB(cart);
     } else {
-      console.log("token does not exist")
+  
     }
     //this.updateCartDB(cart)
     localStorage.setItem(CART_KEY, JSON.stringify(cart));
@@ -231,27 +223,26 @@ export class ShoppingCartService {
     )
 
 
-    console.log("DELETE cart DB")
+ 
     let url = CONFIG.cartBackendUrl + "/deleteItem";
-    console.log("url : " + url)
+ 
 
     return this._http.post(url, params.toString(), { headers: headers })
       .subscribe(res => {
-        //console.log(cart)
-        console.log("DELETE CART")
+
         this.retrieveCartDB()
       });
       
   }
 
   saveAddress(addressJson) {
-    console.log("NEW ADDRESS: " + JSON.stringify(addressJson))
+
 
     let params: URLSearchParams = new URLSearchParams();
-    console.log("SAVE ADDRESS SERVICE")
+
     params.set('address', JSON.stringify(addressJson));
 
-    console.log(params)
+
     const headers = new Headers();
     let url = CONFIG.addressBackendUrl + '/save'
     headers.append('Content-Type', 'application/x-www-form-urlencoded');

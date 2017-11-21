@@ -31,10 +31,10 @@ export class RegisterComponent implements OnInit {
     this.countries = this.profileService.getCountries();
     for (let c of this.countries) {
       this.countryCodes.push(c.dial_code);
-      console.log("COUNTRY CODE: " + c.dial_code)
+    
     }
     this.countryCodes.sort();
-    console.log("COUNTRY CODES: " + this.countryCodes)
+   
   }
 
   register() {
@@ -45,13 +45,13 @@ export class RegisterComponent implements OnInit {
       .subscribe(
       res => {
         if (res.status === '200') {
-          console.log("Registration successful");
+          // console.log("Registration successful");
           let disposable = this.dialogService.addDialog(ConfirmationPopupComponent, {
             title: 'Congratulations!',
             message: 'Your account has been created. Please verify your email to continue using your account.'
           })
             .subscribe((isConfirmed) => {
-              console.log("DIALOG")
+         
               //We get dialog result
               if (isConfirmed) {
                 this.router.navigate([this.returnUrl]);
@@ -61,13 +61,13 @@ export class RegisterComponent implements OnInit {
               }
             });
         } else {
-          console.log("Registration failed");
+          // console.log("Registration failed");
           let disposable = this.dialogService.addDialog(ConfirmationPopupComponent, {
             title: 'We are sorry!',
             message: 'Your account cannot be created. We think you already have an account with us.'
           })
             .subscribe((isConfirmed) => {
-              console.log("DIALOG")
+           
               //We get dialog result
               if (isConfirmed) {
                 //this.router.navigate([this.returnUrl]);

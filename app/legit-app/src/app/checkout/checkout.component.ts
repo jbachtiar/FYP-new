@@ -48,62 +48,39 @@ export class CheckoutComponent implements OnInit {
   ngOnInit() {
     this.startLoading()
     this.cartItem = this.shoppingCart.cartItems
-    console.log("OMO" + this.shoppingCart.discount);
 
     if(this.shoppingCart.discount == null){
 
         this.shoppingCart.discount = 0;
 
     }
-
-     console.log("OMO" + this.shoppingCart.discount);
-
-    console.log(new Date().toLocaleDateString());
-    console.log(this.token);
     this.sameAddre = true;
     this.profileService.displayProfile(this.token).subscribe(
       res => {
         if (res.status === '200') {
-          console.log("Retrieve successful");
-          // this.customer = this.profileService.getCustomer();
-          // this.user.firstName = this.customer.firstName;
-          // this.user.lastName = this.customer.lastName;
-          // this.user.contact = this.customer.contact
-          // this.user.address = this.customer.address;
-          // this.addressBook = this.user.address;
+
           this.user=res.user;
           this.addressBook=this.user.address
-          console.log("address book: " + JSON.stringify(this.addressBook))
           this.addressBook.forEach(a => {
             if (a.isDefault == "Y") {
-              console.log("default address: " + JSON.stringify(a))
+     
               this.selectedAddress = a;
             }
           });
-          console.log("EMAIL: " + this.addressBook[0].email)
           
         } else {
-          console.log("Retrieve failed");
+      
         }
       }
     )
     this.countries = this.profileService.getCountries();
     for (let c of this.countries){
          this.countryCodes.push(c.dial_code);
-         console.log("COUNTRY CODE: " + c.dial_code)
     }
     this.countryCodes.sort();
-    console.log("COUNTRY CODES: " + this.countryCodes)
 
     this.stopLoading()
-    // this.cartService.getCartItemByCartId("C1").subscribe(
-    //   carts => {
 
-    //     console.log("Cart items retrieved successfully");
-    //     this.carts = carts;
-
-
-    //   })
   }
 
   startLoading() {
@@ -136,7 +113,7 @@ export class CheckoutComponent implements OnInit {
     this.shoppingCart.cartItems.splice(indexCut, 1)
     this.updateCart()
     window.location.reload()
-    console.log('index: ' + indexCut)
+
   }
 
   updateCart() {
@@ -144,9 +121,7 @@ export class CheckoutComponent implements OnInit {
   }
 
   saveAddress() {
-    console.log("NEW ADDRESS: " + JSON.stringify(this.newAddress))
     this.newAddress['email']=this.addressBook[0].email
-    console.log("EMAIL: " + this.addressBook[0].email)
     this.newAddress['phoneNo']=this.newAddress.country_code+this.newAddress.contact
     this.newAddress['addressId'] = 0
     this.newAddress['isDefault'] = "N"
@@ -162,12 +137,12 @@ export class CheckoutComponent implements OnInit {
   sameAddress() {
     this.startLoading()
     if (this.user.sameAddress) {
-      console.log(this.token);
+
       this.sameAddre = true;
       this.profileService.displayProfile(this.token).subscribe(
         res => {
           if (res.status === '200') {
-            console.log("Retrieve successful");
+
             this.customer = this.profileService.getCustomer();
             this.user.firstName = this.customer.firstName;
             this.user.lastName = this.customer.lastName;
@@ -176,13 +151,13 @@ export class CheckoutComponent implements OnInit {
             this.addressBook = this.customer.address;
             this.addressBook.forEach(a => {
               if (a.default == "yes") {
-                console.log("default address: " + JSON.stringify(a))
+     
                 this.selectedAddress = a;
               }
             });
             // this.user.postCode = this.customer.postalCode;
           } else {
-            console.log("Retrieve failed");
+           
 
           }
           this.stopLoading()
@@ -207,9 +182,9 @@ export class CheckoutComponent implements OnInit {
     this.cartService.deleteCartItem("C1", cart.SKU, cart.quantity).subscribe(
       res => {
         if (res.status === '200') {
-          console.log("Deleted");
+         
         } else {
-          console.log("Unable to delete")
+       
         }
       }
     );
@@ -219,9 +194,9 @@ export class CheckoutComponent implements OnInit {
     this.cartService.updateCartItem("C1", c.SKU, c.quantity).subscribe(
       res => {
         if (res.status === '200') {
-          console.log("Updated");
+       
         } else {
-          console.log("Unable to update");
+      
         }
       }
     );
@@ -231,7 +206,7 @@ export class CheckoutComponent implements OnInit {
 
   submit() {
     let orderAddress: any = {}
-    console.log("ADDRESS: " + JSON.stringify(this.newAddress));
+
     if (this.isNewAddress) {
       // this.saveAddress()
       this.newAddress['email']=this.addressBook[0].email
@@ -246,20 +221,10 @@ export class CheckoutComponent implements OnInit {
     }
   
     this.router.navigateByUrl('/checkout/payment');
-    console.log("orderAddress in checkout ts: " + JSON.stringify(orderAddress))
+
     this.storageService.setShippingAddress(orderAddress, this.isSaveAddress);
 
-    // this.cartService.updateCart("C1", new Date().toLocaleDateString(), this.showTotalPrice()).subscribe(
-    //   res => {
-    //     if (res.status === '200') {
-
-    //       console.log("Updated");
-    //     } else {
-    //       console.log("Unable to update");
-    //     }
-    //   }
-    // );
-    // }
+ 
 
     //Start of GA
     (function (i, s, o, g, r, a?, m?) {
@@ -298,7 +263,6 @@ export class CheckoutComponent implements OnInit {
   }
 
   checkAddress() {
-    console.log("address is changed to: " + this.selectedAddress)
     if (this.selectedAddress == "New Address") {
       this.isNewAddress = true
     } else {

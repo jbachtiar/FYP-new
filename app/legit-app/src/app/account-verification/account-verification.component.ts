@@ -46,21 +46,21 @@ export class AccountVerificationComponent implements OnInit {
   }
 
   verifyAccount() {
-    console.log("VERIFIED")
+
     this.loading = true;
     //calling service
     this.authenticationService.login(this.user.email, this.user.password)
       .subscribe(
       res => {
-        console.log("RES: " + res);
+     
         if (res.status == '200') {
-          console.log("RES STATUS :" + "Login successful");
+         
           let disposable = this.dialogService.addDialog(ConfirmationPopupComponent, {
             title: 'Congratulations!',
             message: 'Your account is now active and ready to use.'
           })
             .subscribe((isConfirmed) => {
-              console.log("DIALOG")
+              
               //We get dialog result
               if (isConfirmed) {
                 this.router.navigate(['']);
@@ -79,7 +79,7 @@ export class AccountVerificationComponent implements OnInit {
 
         }
         else {
-          console.log("RES STATUS :" + res.status);
+         
           this.alertService.error(res.description);
         }
 

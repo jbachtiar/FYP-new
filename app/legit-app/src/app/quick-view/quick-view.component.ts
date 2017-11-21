@@ -74,7 +74,7 @@ export class QuickViewComponent extends DialogComponent<QuickViewPopupModel, boo
       pattern => {
         this.startLoading()
         this.pattern = pattern;
-        console.log(this.pattern);
+
         this.selectedFabric = pattern.fabrics[0]
         this.selectedColour = this.selectedFabric.colours[0]
         this.selectedSize = this.selectedColour.sizes[0];
@@ -94,20 +94,16 @@ export class QuickViewComponent extends DialogComponent<QuickViewPopupModel, boo
     this.selectedFabricPrice = +this.selectedFabric.fabric_price;
     this.totalPrice = this.pattern.pattern_price + this.selectedFabricPrice + this.selectedSizePrice;
 
-    console.log("RECALCULATED PRICE" + this.totalPrice);
   }
 
   onSizeChange() {
 
     this.selectedSizePrice = + this.selectedSize.sizePrice;
     this.totalPrice = this.pattern.pattern_price + this.selectedFabricPrice + this.selectedSizePrice
-    console.log("Pattern Price: " + this.pattern.pattern_price)
-    console.log("Fabric Price: " + this.selectedFabricPrice)
-    console.log("Size Price: " + this.selectedSizePrice)
 
 
 
-    console.log("RECALCULATED PRICE - fabric: " + this.totalPrice);
+
   }
 
   onColourChange() {
@@ -151,19 +147,15 @@ export class QuickViewComponent extends DialogComponent<QuickViewPopupModel, boo
     //this.getProductId();
     this.productService.getProductById(this.patternId, this.selectedFabric.fabric_id, this.selectedColour.colour_id)
       .subscribe(res => {
-        console.log(res.product)
+      
         this.selectedProduct = res.product;
-        console.log("selectedColour: " + this.selectedColour.colour_name)
-        console.log("selectedFabric: " + this.selectedFabric.fabric_id)
-        console.log("quantity: " + this.selectedQuantity)
-        console.log('thispID: ' + this.selectedProduct.productId)
+ 
 
 
         this.cartItem.product = this.selectedProduct
         this.cartItem.quantity = this.selectedQuantity
         this.cartItem.unitPrice = this.totalPrice
 
-        console.log(this.cartItem)
 
         this.shoppingCartService.addItem(this.cartItem)
 
@@ -175,7 +167,7 @@ export class QuickViewComponent extends DialogComponent<QuickViewPopupModel, boo
           message: ''
         })
           .subscribe((isConfirmed) => {
-            console.log("DIALOG")
+         
             //We get dialog result
             if (isConfirmed) {
               //do nothing
@@ -206,7 +198,7 @@ export class QuickViewComponent extends DialogComponent<QuickViewPopupModel, boo
       a.src = g;
       m.parentNode.insertBefore(a, m)
     })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-    console.log(this.selectedProduct.pattern.patternName);
+   
     ga('create', 'UA-106185727-2', 'auto');
     ga('require', 'ec');
     ga('ec:addProduct', {

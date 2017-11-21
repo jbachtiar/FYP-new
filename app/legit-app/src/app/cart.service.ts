@@ -71,7 +71,6 @@ export class CartService {
 
     deleteCartItem(cartId: string, productId: string, qty: string) {
         let url = CONFIG.clearCartBackendUrl;
-        console.log(productId);
         let finalUrl = url + "?cartId=" + cartId + "&productId=" + productId + "&qty=" + qty;
         return this._http.delete(finalUrl).map(res => res.json());
     }
