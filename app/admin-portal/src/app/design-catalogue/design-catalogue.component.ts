@@ -28,7 +28,7 @@ export class DesignCatalogueComponent implements OnInit {
   ngOnInit() {
     this.catService.getAllPatterns().subscribe(patterns => {
       this.patterns = patterns;
-      console.log("PATTERNS1: " + JSON.stringify(this.patterns))
+      // console.log("PATTERNS1: " + JSON.stringify(this.patterns))
 
 
 
@@ -42,14 +42,14 @@ export class DesignCatalogueComponent implements OnInit {
   reloadItems(params) {
     this.catService.getAllPatterns().subscribe(patterns => {
       this.patterns = patterns;
-      console.log("PATTERNS1: " + JSON.stringify(this.patterns))
+      // console.log("PATTERNS1: " + JSON.stringify(this.patterns))
 
-      console.log("PATTERNS: " + JSON.stringify(this.patterns))
+      // console.log("PATTERNS: " + JSON.stringify(this.patterns))
       this.params = params
       this.itemResource = new DataTableResource(this.patterns);
       this.itemResource.count().then(count => this.itemCount = count);
       this.itemResource.query(params).then(items => this.patterns = items);
-      console.log("ITEMS: " + JSON.stringify(this.patterns))
+      // console.log("ITEMS: " + JSON.stringify(this.patterns))
     });
   }
   rowClick(rowEvent) {

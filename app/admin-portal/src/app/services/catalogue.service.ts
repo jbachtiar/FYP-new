@@ -58,12 +58,12 @@ export class CatalogueService {
 
     getAllPatterns() {
         let url = CONFIG.patternBackendUrl + '/getPatterns';
-        console.log("URL: " + url);
+        // console.log("URL: " + url);
 
 
         return this._http.get(url)
             .map(res => {
-                console.log("PATTERNS3: " + JSON.stringify(res.json().patterns))
+                // console.log("PATTERNS3: " + JSON.stringify(res.json().patterns))
 
                 return res.json().patterns;
             });
@@ -74,7 +74,7 @@ export class CatalogueService {
         let finalUrl = url + "?productId=" + productId
         return this._http.get(finalUrl)
             .map(res => {
-                console.log(finalUrl)
+                // console.log(finalUrl)
                 return res.json();
             });
     }
@@ -84,7 +84,7 @@ export class CatalogueService {
         let finalUrl = url + "?patternId=" + patternId
         return this._http.get(finalUrl)
             .map(res => {
-                console.log(finalUrl)
+                // console.log(finalUrl)
                 return res.json();
             });
     }
@@ -94,7 +94,7 @@ export class CatalogueService {
         let finalUrl = url + "?fabricId=" + fabricId
         return this._http.get(finalUrl)
             .map(res => {
-                console.log(finalUrl)
+                // console.log(finalUrl)
                 return res.json();
             });
     }
@@ -104,7 +104,7 @@ export class CatalogueService {
         let finalUrl = url + "?colourId=" + colourId
         return this._http.get(finalUrl)
             .map(res => {
-                console.log(finalUrl)
+                // console.log(finalUrl)
                 return res.json();
             });
     }
@@ -114,7 +114,7 @@ export class CatalogueService {
         let finalUrl = url + "?patternName=" +patternName+"&fabricName="+fabricName
         return this._http.get(finalUrl)
             .map(res => {
-                console.log(finalUrl)
+                // console.log(finalUrl)
                 return res.json().colours;
             });
     }
@@ -125,7 +125,7 @@ export class CatalogueService {
         let finalUrl = url + "?collectionId=" + collId
         return this._http.get(finalUrl)
             .map(res => {
-                console.log(finalUrl)
+                // console.log(finalUrl)
                 return res.json();
             });
     }
@@ -257,7 +257,7 @@ export class CatalogueService {
         let finalUrl = url + "?productId=" + productId
         return this._http.get(finalUrl)
             .map(res => {
-                console.log(finalUrl)
+                // console.log(finalUrl)
                 return res.json();
             });
     }
@@ -284,7 +284,7 @@ export class CatalogueService {
         let finalUrl = url + "?patternId=" + patternId
         return this._http.get(finalUrl)
             .map(res => {
-                console.log(finalUrl)
+                // console.log(finalUrl)
                 return res.json();
             });
     }
@@ -294,7 +294,7 @@ export class CatalogueService {
         let finalUrl = url + "?fabricId=" + fabricId
         return this._http.get(finalUrl)
             .map(res => {
-                console.log(finalUrl)
+                // console.log(finalUrl)
                 return res.json();
             });
     }
@@ -304,7 +304,7 @@ export class CatalogueService {
         let finalUrl = url + "?colourId=" + colourId
         return this._http.get(finalUrl)
             .map(res => {
-                console.log(finalUrl)
+                // console.log(finalUrl)
                 return res.json();
             });
     }
@@ -314,7 +314,7 @@ export class CatalogueService {
         let finalUrl = url + "?collectionId=" + collId
         return this._http.get(finalUrl)
             .map(res => {
-                console.log(finalUrl)
+                // console.log(finalUrl)
                 return res.json();
             });
     }
@@ -324,7 +324,7 @@ export class CatalogueService {
         let finalUrl = url 
         return this._http.get(finalUrl)
             .map(res => {
-                console.log(finalUrl)
+                // console.log(finalUrl)
                 return res.json();
             });
     }

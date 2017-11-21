@@ -71,8 +71,8 @@ export class StaffcontrolService {
             // let options = new RequestOptions({ headers: headers, params: params });
             // return this._http.get('http://localhost:8084/FYP-backend/API/profile/retrieve', options )
             .map(res => {
-                console.log(url)
-                console.log(res.toString())
+                // console.log(url)
+                // console.log(res.toString())
                 return res.json();
 
 

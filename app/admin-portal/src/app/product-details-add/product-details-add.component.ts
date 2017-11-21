@@ -50,7 +50,7 @@ export class ProductDetailsAddComponent implements OnInit {
         }
       ]
     }
-    console.log("PRODUCT: " + JSON.stringify(this.product))
+    // console.log("PRODUCT: " + JSON.stringify(this.product))
     this.productId = this.product.productId
     this.selectedFabric = this.product.fabric
     this.selectedColour = this.product.colour
@@ -88,7 +88,7 @@ export class ProductDetailsAddComponent implements OnInit {
   submit() {
     this.product.productType = "Bedding"
     if (this.productId == 0) {
-      console.log("NEW PRODUCT: " + this.product)
+      // console.log("NEW PRODUCT: " + this.product)
       this.catService.saveProduct(this.product).subscribe(res => {
         if (res.status == 200) {
           this.productId = res.newProductId
@@ -142,7 +142,7 @@ export class ProductDetailsAddComponent implements OnInit {
 
   onAddImage() {
     let images = this.product.images
-    console.log(JSON.stringify(images))
+    // console.log(JSON.stringify(images))
     let lastId = images.length
     let newImage = {
       "imageId": lastId + 1,
@@ -159,7 +159,7 @@ export class ProductDetailsAddComponent implements OnInit {
       let AWSService = (<any>window).AWS
       let imageUrl = "assets/img/loading_image.gif"
       image['imageUrl'] = imageUrl
-      console.log(AWSService)
+      // console.log(AWSService)
       let file = fileInput.target.files[0];
       let fileName = nextProductId + '_' + image.imageId + '.png'
       //new: AKIAJHFHLABO2226QJWA
@@ -172,12 +172,12 @@ export class ProductDetailsAddComponent implements OnInit {
       let bucket = new AWSService.S3({ params: { Bucket: 'highlanderbucket/Product Images' } })
       let params = { Key: fileName, Body: file, ACL: "public-read" };
       bucket.upload(params, function (error, res) {
-        console.log('error', error);
-        console.log('response', res);
+        // console.log('error', error);
+        // console.log('response', res);
         imageUrl = 'https://s3-ap-southeast-1.amazonaws.com/highlanderbucket/Product+Images/' + fileName
         image['imageUrl'] = imageUrl
         image['fileInput'] = fileInput
-        console.log("FC: " + JSON.stringify(image))
+        // console.log("FC: " + JSON.stringify(image))
       })
     });
     

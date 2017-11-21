@@ -15,10 +15,10 @@ export class AppComponent {
 
   ngOnInit() {
         this.token = localStorage.getItem('token');
-        console.log("TOKEN: " + this.token)
+        // console.log("TOKEN: " + this.token)
         if(this.token!=null){
             this.authenticated = true;
         }
-        console.log("AUTHENTICATED: " + this.authenticated);
+        // ckonsole.log("AUTHENTICATED: " + this.authenticated);
     }
 }

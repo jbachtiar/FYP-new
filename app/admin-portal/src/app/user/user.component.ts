@@ -25,17 +25,17 @@ export class UserComponent implements OnInit {
 
   ngOnInit() {
     this.startLoading()
-    console.log(this.token);
+    // console.log(this.token);
 
     this.staffcontrolservice.displayProfile(this.token).subscribe(
       res => {
         if (res.status == 200) {
           this.user = res.staff
-          console.log(res.staff)
+          // console.log(res.staff)
           this.stopLoading()
         } else {
           this.stopLoading()
-          console.log("Retrieve failed");
+          // console.log("Retrieve failed");
 
         }
       });
@@ -64,18 +64,18 @@ export class UserComponent implements OnInit {
 
   cancelUpdate(){
     this.startLoading()
-    console.log(this.token);
+    // console.log(this.token);
 
     this.staffcontrolservice.displayProfile(this.token).subscribe(
       res => {
         if (res.status == 200) {
           this.user = res.staff
-          console.log(res.staff)
+          // console.log(res.staff)
           this.stopLoading()
           this.updateProf = false
         } else {
           this.stopLoading()
-          console.log("Retrieve failed");
+          // console.log("Retrieve failed");
           
           this.updateProf = false
         }
@@ -84,19 +84,19 @@ export class UserComponent implements OnInit {
 
   updateProfile() {
     this.startLoading()
-    console.log("Im HERE")
+    // console.log("Im HERE")
     this.staffcontrolservice.updateProfile(this.token, this.user)
       .subscribe(
       res => {
         if (res.status === '200') {
-          console.log(res.status);
+          // console.log(res.status);
           this.stopLoading()
           let disposable = this.dialogService.addDialog(ConfirmationPopupComponent, {
             title: "Succesful!",
             message: 'Profile has been updated!'
           })
         } else {
-          console.log(res.status);
+          // console.log(res.status);
           this.stopLoading()
           let disposable = this.dialogService.addDialog(ConfirmationPopupComponent, {
             title: "Update Failed",

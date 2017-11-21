@@ -34,7 +34,7 @@ export class StaffmanagementComponent implements OnInit {
           //console.log(JSON.stringify(this.staffRoles));
 
         } else {
-          console.log(res.status);
+          // console.log(res.status);
         }
       }
       )
@@ -47,7 +47,7 @@ export class StaffmanagementComponent implements OnInit {
           //console.log(JSON.stringify(this.staffs));
 
         } else {
-          console.log(res.status);
+          // console.log(res.status);
         }
       }
       )
@@ -68,7 +68,7 @@ export class StaffmanagementComponent implements OnInit {
       message: 'Adding in the process, you may lose your added inputs.'
     })
       .subscribe((isConfirmed) => {
-        console.log("DIALOG")
+        // console.log("DIALOG")
         //We get dialog result
         if (isConfirmed) {
           this.add = false;
@@ -88,7 +88,7 @@ export class StaffmanagementComponent implements OnInit {
       message: 'Editing in the process, you may lose your edited inputs.'
     })
       .subscribe((isConfirmed) => {
-        console.log("DIALOG")
+        // console.log("DIALOG")
         //We get dialog result
         if (isConfirmed) {
           this.edit = false;
@@ -114,14 +114,14 @@ export class StaffmanagementComponent implements OnInit {
       res => {
         if (res.status === '200') {
           //this.staffs = res.staffs;
-          console.log(res.status);
+          // console.log(res.status);
           this.stopLoading()
           let disposable = this.dialogService.addDialog(ConfirmationPopupComponent, {
             title: "Edit Succesful!",
             message: this.edStaff.firstName + " " + this.edStaff.lastName + '\'s details has been Updated!'
           })
             .subscribe((isConfirmed) => {
-              console.log("DIALOG")
+              // console.log("DIALOG")
               //We get dialog result
               if (isConfirmed) {
                 //this.emptyField()
@@ -133,7 +133,7 @@ export class StaffmanagementComponent implements OnInit {
               }
             });
         } else {
-          console.log(res.status);
+          // console.log(res.status);
           this.stopLoading()
         }
       }
@@ -147,13 +147,13 @@ export class StaffmanagementComponent implements OnInit {
       message: 'Are you sure to remove ' + s.firstName + " " + s.lastName + ' from the staff list?'
     })
       .subscribe((isConfirmed) => {
-        console.log("DIALOG")
+        // console.log("DIALOG")
         //We get dialog result
         if (isConfirmed) {
           this.staffcontrolservice.deleteStaff(this.token, s.email)
             .subscribe(
             res => {
-              console.log(res)
+              // console.log(res)
               this.ngOnInit()
             }
             )
@@ -172,24 +172,24 @@ export class StaffmanagementComponent implements OnInit {
   }
   addNewStaff() {
     //this.newStaff.roleId = 1
-    console.log(this.selectedRole)
-    console.log("ROLE ID 1 : " + JSON.stringify(this.newStaff))
-    console.log("ROLE ID:" + this.selectedRole.roleId)
-    console.log(this.newStaff)
+    // console.log(this.selectedRole)
+    // console.log("ROLE ID 1 : " + JSON.stringify(this.newStaff))
+    // console.log("ROLE ID:" + this.selectedRole.roleId)
+    // console.log(this.newStaff)
     this.startLoading()
     this.staffcontrolservice.addNewStaff(this.token, this.newStaff)
       .subscribe(
       res => {
         if (res.status === '200') {
           //this.staffs = res.staffs;
-          console.log(res.status);
+          // console.log(res.status);
           this.stopLoading()
           let disposable = this.dialogService.addDialog(ConfirmationPopupComponent, {
             title: "Succesful!",
             message: this.newStaff.firstName + " " + this.newStaff.lastName + ' has been added!'
           })
             .subscribe((isConfirmed) => {
-              console.log("DIALOG")
+              // console.log("DIALOG")
               //We get dialog result
               if (isConfirmed) {
                 this.emptyField()
@@ -201,7 +201,7 @@ export class StaffmanagementComponent implements OnInit {
               }
             });
         } else {
-          console.log(res.status);
+          // console.log(res.status);
           this.stopLoading()
         }
       }

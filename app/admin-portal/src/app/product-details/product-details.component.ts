@@ -56,7 +56,7 @@ export class ProductDetailsComponent implements OnInit {
             this.fabrics = fabrics;
             for (let f of this.fabrics) {
               if (f['fabricId'] == this.selectedFabric.fabricId) {
-                console.log("same")
+                // console.log("same")
                 this.product.fabric = f
               }
             }
@@ -113,7 +113,7 @@ export class ProductDetailsComponent implements OnInit {
     this.catService.updateProduct(this.product).subscribe(res => {
       res = res.json()
       if (res.status == 200) {
-        console.log(this.product)
+        // console.log(this.product)
         this.onEdit()
         alert("Changes Saved")
       } else {
@@ -137,7 +137,7 @@ export class ProductDetailsComponent implements OnInit {
 
 
     let fileName: string;
-    console.log(AWSService)
+    // console.log(AWSService)
     let file = fileInput.target.files[0];
     
     let tempUrl = image.imageUrl
@@ -159,11 +159,11 @@ export class ProductDetailsComponent implements OnInit {
     let bucket = new AWSService.S3({ params: { Bucket: 'highlanderbucket/Product Images' } })
     let params = { Key: fileName, Body: file, ACL: "public-read" };
     bucket.upload(params, function (error, res) {
-      console.log('error', error);
-      console.log('response', res);
+      // console.log('error', error);
+      // console.log('response', res);
       imageUrl = 'https://s3-ap-southeast-1.amazonaws.com/highlanderbucket/Product+Images/' + fileName
       image['imageUrl'] = imageUrl
-      console.log("FC: " + JSON.stringify(image))
+      // console.log("FC: " + JSON.stringify(image))
     })
   }
 
