@@ -109,12 +109,12 @@ export class SidebarComponent implements OnInit {
                     for (let role of roles) {
                         if (role.roleId == this.roleId) {
                             this.roleName = role.roleName
-                            console.log("role name: " + this.roleName)
+                            // console.log("role name: " + this.roleName)
                         }
                     }
 
                 } else {
-                    console.log(res.status);
+                    // console.log(res.status);
                 }
             });
     }

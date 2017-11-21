@@ -39,7 +39,7 @@ export class ShippingDetailsPopupComponent extends DialogComponent<ShippingDetai
   ngOnInit(){
     this.orderService.getOrderById(this.orderId).subscribe(order=>{
       this.order = order;
-      console.log(JSON.stringify(order))
+      // console.log(JSON.stringify(order))
     });
     this.orderService.getAllCouriers().subscribe(couriers =>{
       this.couriers = couriers;

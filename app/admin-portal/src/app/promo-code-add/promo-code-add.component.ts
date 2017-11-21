@@ -47,7 +47,7 @@ export class PromoCodeAddComponent implements OnInit {
 
     submit() {
 
-      console.log("NEW Promo: " + this.promo)
+      // console.log("NEW Promo: " + this.promo)
       this.catService.savePromo(this.promo).subscribe(res => {
         if (res.status == 200) {
           alert("New Promo Added");

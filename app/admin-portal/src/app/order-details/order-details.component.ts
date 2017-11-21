@@ -54,23 +54,23 @@ export class OrderDetailsComponent implements OnInit {
           var mostCurrentTimestamp = new Date(status.startTimeStamp);
           for (status of this.order[0].statusLogs) {
             var timestamp = new Date(status.startTimeStamp);
-            console.log("mostCurrentTimestamp: " + mostCurrentTimestamp + "< timestamp" + timestamp )
+            // console.log("mostCurrentTimestamp: " + mostCurrentTimestamp + "< timestamp" + timestamp )
             let bigger= 3>2
-            console.log( "=" + (3>2))
+            // console.log( "=" + (3>2))
             if (mostCurrentTimestamp < timestamp) {
-              console.log("correct")
+              // console.log("correct")
 
               mostCurrentTimestamp = timestamp;
               currentStatus = status;
             }
           }
-          console.log("MOST CURRENT: " + mostCurrentTimestamp)
+          // console.log("MOST CURRENT: " + mostCurrentTimestamp)
           this.order[0]['currentStatus'] = currentStatus.orderStatus.statusName;
 
           let statusId: number = currentStatus.orderStatus.statusId;
           this.statusId = statusId;
           // let statusId = 5
-          console.log("STATUS ID: " + this.statusId)
+          // console.log("STATUS ID: " + this.statusId)
           if (statusId != 6) {
             this.orderIsCompleted = false;
             
@@ -86,7 +86,7 @@ export class OrderDetailsComponent implements OnInit {
             for (var i = 5; i > statusId; i--) {
               this.isDisabled[this.map[i]] = true;
               this.bufferValue -= 16.569
-              console.log("this.value = " + this.value)
+              // console.log("this.value = " + this.value)
             }
             this.value = this.bufferValue - 16.569
             this.bufferValue -= 16.569
@@ -111,7 +111,7 @@ export class OrderDetailsComponent implements OnInit {
     this.value = 100;
     this.isDisabled = { 'payment': false, 'production': false, 'packaging': false, 'preparation': false, 'transit': false, 'completed': false };
 
-    console.log("UPDATE PROGRESS BAR STATUS: " + this.statusId)
+    // console.log("UPDATE PROGRESS BAR STATUS: " + this.statusId)
     if (this.statusId != 6) {
       this.orderIsCompleted = false;
       
@@ -127,7 +127,7 @@ export class OrderDetailsComponent implements OnInit {
       for (var i = 5; i > this.statusId; i--) {
         this.isDisabled[this.map[i]] = true;
         this.bufferValue -= 16.569
-        console.log("this.value = " + this.value)
+        // console.log("this.value = " + this.value)
       }
       this.value = this.bufferValue - 16.569
       this.bufferValue = 0
@@ -155,7 +155,7 @@ export class OrderDetailsComponent implements OnInit {
 
     //check if new status is shipping to enable enetering shipping details
     if (newStatus == 5) {
-      console.log("STATUS IS SHIPPED NOWWWWWW")
+      // console.log("STATUS IS SHIPPED NOWWWWWW")
       let disposable = this.dialogService.addDialog(ShippingDetailsPopupComponent, {
         title: '',
         message: '',
@@ -165,10 +165,10 @@ export class OrderDetailsComponent implements OnInit {
           if (isConfirmed) {
             this.orderService.updateOrderStatus(this.orderId, this.statusId, newStatus).subscribe(res => {
               if (res.status == "200") {
-                console.log("BEFORE STATUS: " + this.statusId)
+                // console.log("BEFORE STATUS: " + this.statusId)
                 this.statusId = this.statusId + 1;
-                console.log("ONNEXT")
-                console.log("AFTER STATUS: " + this.statusId)
+                // console.log("ONNEXT")
+                // console.log("AFTER STATUS: " + this.statusId)
                 this.updateProgressBar();
               }
             });
@@ -202,10 +202,10 @@ export class OrderDetailsComponent implements OnInit {
             if (isConfirmed) {
               this.orderService.updateOrderStatus(this.orderId, this.statusId, newStatus).subscribe(res => {
                 if (res.status == "200") {
-                  console.log("BEFORE STATUS: " + this.statusId)
+                  // console.log("BEFORE STATUS: " + this.statusId)
                   this.statusId = this.statusId + 1;
-                  console.log("ONNEXT")
-                  console.log("AFTER STATUS: " + this.statusId)
+                  // console.log("ONNEXT")
+                  // console.log("AFTER STATUS: " + this.statusId)
                   this.updateProgressBar();
                 }
               });
@@ -221,10 +221,10 @@ export class OrderDetailsComponent implements OnInit {
           if (isConfirmed) {
             this.orderService.updateOrderStatus(this.orderId, this.statusId, newStatus).subscribe(res => {
               if (res.status == "200") {
-                console.log("BEFORE STATUS: " + this.statusId)
+                // console.log("BEFORE STATUS: " + this.statusId)
                 this.statusId = this.statusId + 1;
-                console.log("ONNEXT")
-                console.log("AFTER STATUS: " + this.statusId)
+                // console.log("ONNEXT")
+                // console.log("AFTER STATUS: " + this.statusId)
                 this.updateProgressBar();
               }
             });
@@ -242,10 +242,10 @@ export class OrderDetailsComponent implements OnInit {
         if (isConfirmed) {
           this.orderService.updateOrderStatus(this.orderId, this.statusId, newStatus).subscribe(res => {
             if (res.status == "200") {
-              console.log("BEFORE STATUS: " + this.statusId)
+              // console.log("BEFORE STATUS: " + this.statusId)
               this.statusId = this.statusId - 1;
-              console.log("ONNEXT")
-              console.log("AFTER STATUS: " + this.statusId)
+              // console.log("ONNEXT")
+              // console.log("AFTER STATUS: " + this.statusId)
               this.updateProgressBar();
             }
           });
@@ -264,7 +264,7 @@ export class OrderDetailsComponent implements OnInit {
     item.itemStatus = "COMPLETE"
     item.product.itemStatusBoolean = true;
     this.orderService.updateItemStatus(this.orderId, item.product.productId, "COMPLETE").subscribe(res => {
-      console.log("ON ITEM STATUS CHANGE: " + res);
+      // console.log("ON ITEM STATUS CHANGE: " + res);
     })
   }
 }

@@ -48,7 +48,7 @@ export class OrderService {
         let url = CONFIG.orderBackendUrl + '/getOrderById?orderId=' + orderId;
         return this._http.get(url)
             .map(res => {
-                console.log("ORDER: " + res.json().orders)
+                // console.log("ORDER: " + res.json().orders)
                 let orders = res.json().orders;
                 //temp
                 let orderItems = orders[0].orderItems
@@ -66,7 +66,7 @@ export class OrderService {
         let url = CONFIG.orderStatusLogBackendUrl + '/update?orderId=' + orderId + '&previousStatusId=' + previousStatusId + '&newStatusId=' + newStatusId
         return this._http.get(url)
             .map(res => {
-                console.log("STATUS UPDATED")
+                // console.log("STATUS UPDATED")
                 return res.json();
             });
     }
@@ -81,13 +81,13 @@ export class OrderService {
 
     updateOrder(orderJson) {
         let url = CONFIG.orderBackendUrl + "/update";
-        console.log("NEW ORDER: " + JSON.stringify(orderJson))
+        // console.log("NEW ORDER: " + JSON.stringify(orderJson))
 
         let params: URLSearchParams = new URLSearchParams();
-        console.log("Update order SERVICE")
+        // console.log("Update order SERVICE")
         params.set('order', JSON.stringify(orderJson));
 
-        console.log(params)
+        // console.log(params)
         const headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
         return this._http.post(url, params.toString(), {

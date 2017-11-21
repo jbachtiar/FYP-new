@@ -44,7 +44,7 @@ export class OrderDetailsSuperuserComponent implements OnInit {
     this.route.params.subscribe((params: Params) => {
       this.orderId = params['orderId']; // grab the order id
       this.orderService.getOrderById(this.orderId).subscribe(orders => {
-        console.log("order uploaded" + JSON.stringify(orders[0]));
+        // console.log("order uploaded" + JSON.stringify(orders[0]));
         this.order = orders[0];
         this.status = this.order.statusLogs;
         //  console.log("status" + this.order.statusLogs[0].orderStatus.statusName);
@@ -74,14 +74,14 @@ export class OrderDetailsSuperuserComponent implements OnInit {
 
 
     let status = statusLogs[0];
-    console.log("STATUS: " + status)
+    // console.log("STATUS: " + status)
     let currentStatus = status
     var mostCurrentTimestamp = new Date(status.startTimeStamp);
     for (status of this.order.statusLogs) {
       var timestamp = new Date(status.startTimeStamp);
-      console.log("current timestamp: " + timestamp + "> most current" + mostCurrentTimestamp)
+      // console.log("current timestamp: " + timestamp + "> most current" + mostCurrentTimestamp)
       if (mostCurrentTimestamp < timestamp) {
-        console.log("betul")
+        // console.log("betul")
 
         mostCurrentTimestamp = timestamp;
         currentStatus = status;
@@ -90,7 +90,7 @@ export class OrderDetailsSuperuserComponent implements OnInit {
 
 
     this.selectedStatus = currentStatus.orderStatus.statusName;
-    console.log("selectedStatus" + this.selectedStatus);
+    // console.log("selectedStatus" + this.selectedStatus);
     this.initialStatus = currentStatus.orderStatus.statusName;
     //  return currentStatus.orderStatus.statusName;
 
@@ -115,7 +115,7 @@ export class OrderDetailsSuperuserComponent implements OnInit {
     this.orderService.getCouriers().subscribe(
       couriers => {
         this.courierMenu = couriers;
-        console.log("couriers" + this.courierMenu);
+        // console.log("couriers" + this.courierMenu);
 
       });
 
@@ -128,7 +128,7 @@ export class OrderDetailsSuperuserComponent implements OnInit {
 
         }
 
-        console.log("statusLog" + this.statusMap);
+        // console.log("statusLog" + this.statusMap);
 
 
 
@@ -163,7 +163,7 @@ export class OrderDetailsSuperuserComponent implements OnInit {
 
   onFabricChange(fabricName, patternName) {
     //this.selectedColour = this.selectedFabric.colours[0];
-    console.log("fabricName" + fabricName);
+    // console.log("fabricName" + fabricName);
     this.catalogueService.getColoursByPatternFabric(patternName, fabricName).subscribe(
       colour => {
         //console.log("pattern" + patternName);
@@ -182,14 +182,14 @@ export class OrderDetailsSuperuserComponent implements OnInit {
 
 
   updateOrder() {
-    console.log("status id" + this.selectedStatus);
+    // console.log("status id" + this.selectedStatus);
 
     if (this.initialStatus == this.selectedStatus) {
       this.newStatusId = 0;
 
     } else {
       this.newStatusId = this.statusMap[this.selectedStatus];
-      console.log("status id" + this.newStatusId);
+      // console.log("status id" + this.newStatusId);
     }
 
 
@@ -209,7 +209,7 @@ export class OrderDetailsSuperuserComponent implements OnInit {
       "trackingNo": this.order.trackingNo
 
     }
-    console.log(newOrder);
+    // console.log(newOrder);
     this.orderService.updateOrder(newOrder).subscribe(res => {
       res = res.json()
       if (res.status == 200) {

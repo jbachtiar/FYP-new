@@ -27,7 +27,7 @@ export class FabricCatalogueComponent implements OnInit {
   ngOnInit() {
     this.catService.getAllFabrics().subscribe(fabrics => {
       this.fabrics = fabrics;
-      console.log("PATTERNS1: " + JSON.stringify(this.fabrics))
+      // console.log("PATTERNS1: " + JSON.stringify(this.fabrics))
 
 
 
@@ -48,7 +48,7 @@ export class FabricCatalogueComponent implements OnInit {
       this.itemResource = new DataTableResource(this.fabrics);
       this.itemResource.count().then(count => this.itemCount = count);
       this.itemResource.query(params).then(items => this.fabrics = items);
-      console.log("ITEMS: " + JSON.stringify(this.fabrics))
+      // console.log("ITEMS: " + JSON.stringify(this.fabrics))
     });
     
   }

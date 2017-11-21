@@ -55,11 +55,11 @@ export class PatternListComponent implements OnInit {
 
     this.startLoading()
     this.selectedCollectionId = collection.collectionId;
-    console.log(this.selectedCollectionId);
-    console.log(this.selectedFabricId);
-    console.log(this.selectedColourId);
-    console.log(this.selectedSortPriceId);
-    console.log(this.queriedSearch);
+    // console.log(this.selectedCollectionId);
+    // console.log(this.selectedFabricId);
+    // console.log(this.selectedColourId);
+    // console.log(this.selectedSortPriceId);
+    // console.log(this.queriedSearch);
 
     this.productService.getFilteredProductList(this.selectedCollectionId, this.selectedFabricId, this.selectedColourId, this.selectedSortPriceId, this.queriedSearch).subscribe(
       products => {
@@ -73,11 +73,11 @@ export class PatternListComponent implements OnInit {
   onSelectFabric(fabric) {
     this.startLoading()
     this.selectedFabricId = fabric.fabricId;
-    console.log(this.selectedCollectionId);
-    console.log(this.selectedFabricId);
-    console.log(this.selectedColourId);
-    console.log(this.selectedSortPriceId);
-    console.log(this.queriedSearch);
+    // console.log(this.selectedCollectionId);
+    // console.log(this.selectedFabricId);
+    // console.log(this.selectedColourId);
+    // console.log(this.selectedSortPriceId);
+    // console.log(this.queriedSearch);
 
     this.productService.getFilteredProductList(this.selectedCollectionId, this.selectedFabricId, this.selectedColourId, this.selectedSortPriceId, this.queriedSearch).subscribe(
       products => {
@@ -93,11 +93,11 @@ export class PatternListComponent implements OnInit {
     
     this.startLoading()
     this.selectedColourId = colour.colourId;
-    console.log(this.selectedCollectionId);
-    console.log(this.selectedFabricId);
-    console.log(this.selectedColourId);
-    console.log(this.selectedSortPriceId);
-    console.log(this.queriedSearch);
+    // console.log(this.selectedCollectionId);
+    // console.log(this.selectedFabricId);
+    // console.log(this.selectedColourId);
+    // console.log(this.selectedSortPriceId);
+    // console.log(this.queriedSearch);
 
     this.productService.getFilteredProductList(this.selectedCollectionId, this.selectedFabricId, this.selectedColourId, this.selectedSortPriceId, this.queriedSearch).subscribe(
       products => {
@@ -112,11 +112,11 @@ export class PatternListComponent implements OnInit {
   onSelectSort(sortid) {
     this.startLoading()
     this.selectedSortPriceId = sortid.id;
-    console.log(this.selectedCollectionId);
-    console.log(this.selectedFabricId);
-    console.log(this.selectedColourId);
-    console.log(this.selectedSortPriceId);
-    console.log(this.queriedSearch);
+    // console.log(this.selectedCollectionId);
+    // console.log(this.selectedFabricId);
+    // console.log(this.selectedColourId);
+    // console.log(this.selectedSortPriceId);
+    // console.log(this.queriedSearch);
 
     this.productService.getFilteredProductList(this.selectedCollectionId, this.selectedFabricId, this.selectedColourId, this.selectedSortPriceId, this.queriedSearch).subscribe(
       products => {
@@ -130,11 +130,11 @@ export class PatternListComponent implements OnInit {
   onSearch(query: string): void {
     this.startLoading()
     this.queriedSearch = query;
-    console.log(this.selectedCollectionId);
-    console.log(this.selectedFabricId);
-    console.log(this.selectedColourId);
-    console.log(this.selectedSortPriceId);
-    console.log(this.queriedSearch);
+    // console.log(this.selectedCollectionId);
+    // console.log(this.selectedFabricId);
+    // console.log(this.selectedColourId);
+    // console.log(this.selectedSortPriceId);
+    // console.log(this.queriedSearch);
 
 		this.productService.getFilteredProductList(this.selectedCollectionId, this.selectedFabricId, this.selectedColourId, this.selectedSortPriceId, this.queriedSearch).subscribe(
       products => {
@@ -257,7 +257,7 @@ export class PatternListComponent implements OnInit {
  
         // get current page of items
         this.pagedPatterns = this.patterns.slice(this.pager.startIndex, this.pager.endIndex + 1);
-        console.log("PAGED PATTERNS: " + JSON.stringify(this.pagedPatterns))
+        // console.log("PAGED PATTERNS: " + JSON.stringify(this.pagedPatterns))
   }
 
 }

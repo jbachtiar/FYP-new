@@ -29,7 +29,7 @@ export class CollectionCatalogueComponent implements OnInit {
   ngOnInit() {
     this.catService.getAllCollections().subscribe(collections => {
       this.collections = collections;
-      console.log("PATTERNS1: " + JSON.stringify(this.collections))
+      // console.log("PATTERNS1: " + JSON.stringify(this.collections))
 
 
 
@@ -43,14 +43,14 @@ export class CollectionCatalogueComponent implements OnInit {
   reloadItems(params) {
     this.catService.getAllCollections().subscribe(collections => {
       this.collections = collections;
-      console.log("PATTERNS1: " + JSON.stringify(this.collections))
+      // console.log("PATTERNS1: " + JSON.stringify(this.collections))
 
-      console.log("PATTERNS: " + JSON.stringify(this.collections))
+      // console.log("PATTERNS: " + JSON.stringify(this.collections))
       this.params = params
       this.itemResource = new DataTableResource(this.collections);
       this.itemResource.count().then(count => this.itemCount = count);
       this.itemResource.query(params).then(items => this.collections = items);
-      console.log("ITEMS: " + JSON.stringify(this.collections))
+      // console.log("ITEMS: " + JSON.stringify(this.collections))
     });
   }
   rowClick(rowEvent) {

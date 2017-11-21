@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
   }
   login(){
     this.startLoading()
-    console.log("logging in")
+    // console.log("logging in")
 
     
         //calling service
@@ -42,18 +42,18 @@ export class LoginComponent implements OnInit {
           .subscribe(
               res => {
                 if(res.status === '200'){
-                  console.log(res.status);
-                  console.log(res.user);
+                  // console.log(res.status);
+                  // console.log(res.user);
                   
                   this.loading = false; 
                   this.router.navigate(['/']);
                   window.location.reload();
                   //this.stopLoading()
                 }else{
-                  console.log("RES STATUS :" + res.status);
+                  // console.log("RES STATUS :" + res.status);
                   this.alertService.error(res.status);
                   this.stopLoading()
-                  console.log(res.status);
+                  // console.log(res.status);
                 }
               }
         )

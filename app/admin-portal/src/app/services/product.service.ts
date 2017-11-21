@@ -28,7 +28,7 @@ export class ProductService {
         let finalUrl = url + "?collectionId=" + collectionId + "&fabricId=" + fabricId + "&colourId=" + colourId + "&sortPrice=" + sortPrice + "&search=" + query;
         return this._http.get(finalUrl)
             .map(res => {
-                console.log(finalUrl)
+                // console.log(finalUrl)
                 return res.json().products;
             });
     }
@@ -77,8 +77,8 @@ export class ProductService {
         let finalUrl = url + "?patternId=" + patternId
         return this._http.get(finalUrl)
             .map(res => {
-                console.log(finalUrl)
-                console.log("product is loaded: " + res.json().pattern);
+                // console.log(finalUrl)
+                // console.log("product is loaded: " + res.json().pattern);
                 return res.json().pattern;
             });
     }
@@ -88,8 +88,8 @@ export class ProductService {
         let finalUrl = url + "?patternName=" + patternName
         return this._http.get(finalUrl)
             .map(res => {
-                console.log(finalUrl)
-                console.log("product is loaded: " + res.json().pattern);
+                // console.log(finalUrl)
+                // console.log("product is loaded: " + res.json().pattern);
                 return res.json().pattern;
             });
     }
@@ -140,7 +140,7 @@ export class ProductService {
     }
 
     updatePattern(patternJson) {
-        console.log("UPDATE PATTERN SERVICE")
+        // console.log("UPDATE PATTERN SERVICE")
         var params = JSON.stringify(patternJson);
         const headers = new Headers();
         let url = CONFIG.productCatalogueBackendUrl + '/update'
@@ -155,8 +155,8 @@ export class ProductService {
         let url = CONFIG.filterBackendUrl
         return this._http.get(url)
             .map(res => {
-                console.log(url)
-                console.log("filter is loaded" + res.json().filters);
+                // console.log(url)
+                // console.log("filter is loaded" + res.json().filters);
                 return res.json().filters;
             });
     }
@@ -166,8 +166,8 @@ export class ProductService {
         let finalUrl = url + "?collectionId=" + collectionId + "&fabricId=" + fabricId + "&colourId=" + colourId + "&sortPrice=" + sortPrice + "&search=" + query;
         return this._http.get(finalUrl)
             .map(res => {
-                console.log(finalUrl)
-                console.log("product is loaded" + res.json().patterns);
+                // console.log(finalUrl)
+                // console.log("product is loaded" + res.json().patterns);
                 return res.json().patterns;
             });
     }

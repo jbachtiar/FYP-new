@@ -16,7 +16,7 @@ export class PromoCodeService {
         let finalUrl = url + "?collectionId=" + collectionId + "&fabricId=" + fabricId + "&colourId=" + colourId + "&sortPrice=" + sortPrice + "&search=" + query;
         return this._http.get(finalUrl)
             .map(res => {
-                console.log(finalUrl)
+                // console.log(finalUrl)
                 return res.json().products;
             });
     }
@@ -28,7 +28,7 @@ export class PromoCodeService {
 
         return this._http.get(url)
             .map(res => {
-                console.log(url)
+                // console.log(url)
                 return res.json().promoCodes;
         });
     }

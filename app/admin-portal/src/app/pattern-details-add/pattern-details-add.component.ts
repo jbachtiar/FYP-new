@@ -95,7 +95,7 @@ export class PatternDetailsAddComponent implements OnInit {
   }
   onAddAvailOptions() {
     this.patternAdded = true;
-    console.log(JSON.stringify(this.pattern))
+    // console.log(JSON.stringify(this.pattern))
     this.productService.updatePattern(this.pattern).subscribe(
       res => {
         var today = new Date();
@@ -108,7 +108,7 @@ export class PatternDetailsAddComponent implements OnInit {
         //   pattern => {
         //     this.pattern = pattern;
         //   });
-        console.log(res);
+        // console.log(res);
       });
   }
   
@@ -122,7 +122,7 @@ export class PatternDetailsAddComponent implements OnInit {
   }
 
   onSave() {
-    console.log(JSON.stringify(this.pattern))
+    // console.log(JSON.stringify(this.pattern))
     this.productService.updatePattern(this.pattern).subscribe(
       res => {
         var today = new Date();
@@ -130,13 +130,13 @@ export class PatternDetailsAddComponent implements OnInit {
         var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
         var dateTime = date + ' ' + time;
         this.res = "Last saved on " + dateTime; 
-        console.log(res);
+        // console.log(res);
         let disposable = this.dialogService.addDialog(ConfirmationPopupComponent, {
           title: 'Changes saved!',
           message: 'Saved on ' + dateTime
         })
           .subscribe((isConfirmed) => {
-            console.log("DIALOG")
+            // console.log("DIALOG")
             //We get dialog result
             if (isConfirmed) {
               // this.router.navigate([this.returnUrl]);
@@ -175,7 +175,7 @@ export class PatternDetailsAddComponent implements OnInit {
   fileEvent(fileInput: any, fabricColour: any) {
     let AWSService = (<any>window).AWS
     let imageUrl = ""
-    console.log(AWSService)
+    // console.log(AWSService)
     let file = fileInput.target.files[0];
     let fileName = this.patternId + '_' + fabricColour.colour_id + '.png'
     AWSService.config.accessKeyId = 'AKIAJR7LKNNCXB6OVEPQ';
@@ -184,11 +184,11 @@ export class PatternDetailsAddComponent implements OnInit {
     let bucket = new AWSService.S3({ params: { Bucket: 'elasticbeanstalk-us-west-2-126347216585/Product Images' } })
     let params = { Key: fileName, Body: file, ACL: "public-read" };
     bucket.upload(params, function (error, res) {
-      console.log('error', error);
-      console.log('response', res);
+      // console.log('error', error);
+      // console.log('response', res);
       imageUrl = 'https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Product+Images/' + fileName
       fabricColour['image_url'] = imageUrl
-      console.log("FC: " + JSON.stringify(fabricColour))
+      // console.log("FC: " + JSON.stringify(fabricColour))
     })
 
   }

@@ -29,7 +29,7 @@ export class ColourCatalogueComponent implements OnInit {
   ngOnInit() {
     this.catService.getAllColours().subscribe(colours => {
       this.colours = colours;
-      console.log("PATTERNS1: " + JSON.stringify(this.colours))
+      // console.log("PATTERNS1: " + JSON.stringify(this.colours))
 
 
 
@@ -50,7 +50,7 @@ export class ColourCatalogueComponent implements OnInit {
       this.itemResource = new DataTableResource(this.colours);
       this.itemResource.count().then(count => this.itemCount = count);
       this.itemResource.query(params).then(items => this.colours = items);
-      console.log("ITEMS: " + JSON.stringify(this.colours))
+      // console.log("ITEMS: " + JSON.stringify(this.colours))
     });
   }
   rowClick(rowEvent) {

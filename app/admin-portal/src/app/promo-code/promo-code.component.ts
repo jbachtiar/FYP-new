@@ -36,7 +36,7 @@ export class PromoCodeComponent implements OnInit {
   deletePromo(p) {
     this.catService.deletePromo(p.promoCodeId).subscribe(
       res => {
-          console.log(res)
+          // console.log(res)
           this.ngOnInit()
       });
 

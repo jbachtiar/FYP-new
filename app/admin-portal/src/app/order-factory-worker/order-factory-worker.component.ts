@@ -45,7 +45,7 @@ export class OrderFactoryWorkerComponent implements OnInit {
       for (let o of orders) {
         if (o.statusLogs.length > 0) {
           let status = o.statusLogs[0]
-          console.log("STATUS: " + status)
+          // console.log("STATUS: " + status)
           let currentStatus = status
           var mostCurrentTimestamp = new Date(status.startTimeStamp);
           for (status of o.statusLogs) {
@@ -61,7 +61,7 @@ export class OrderFactoryWorkerComponent implements OnInit {
           o['currentStatus'] = 'NO DATA';
         }
       }
-      console.log("ALL ORDERS: " + JSON.stringify(orders))
+      // console.log("ALL ORDERS: " + JSON.stringify(orders))
       
     })
   }
@@ -84,7 +84,7 @@ export class OrderFactoryWorkerComponent implements OnInit {
     }
 
     this.filterOrders(this.mapDB[statusId]);
-    console.log("status : "  + this.production)
+    // console.log("status : "  + this.production)
   }
 
   filterOrders(status) {
@@ -92,7 +92,7 @@ export class OrderFactoryWorkerComponent implements OnInit {
     this.orderService.getOrders().subscribe(orders => {
       allOrders = orders;
 
-      console.log("ORDERS: " + orders)
+      // console.log("ORDERS: " + orders)
 
       for (let o of allOrders) {
         if (o.statusLogs.length > 0) {
@@ -146,11 +146,11 @@ export class OrderFactoryWorkerComponent implements OnInit {
     this.itemResource = new DataTableResource(this.orders);
     this.itemResource.count().then(count => this.itemCount = count);    
     this.itemResource.query(params).then(orders => this.orders = orders);
-    console.log("ITEMS: " + JSON.stringify(this.orders))
+    // console.log("ITEMS: " + JSON.stringify(this.orders))
   }
 
   rowClick(rowEvent) {
-    console.log('Clicked');
+    // console.log('Clicked');
   }
 
   // rowDoubleClick(rowEvent) {

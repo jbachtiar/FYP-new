@@ -57,7 +57,7 @@ export class ProductCatalogueComponent implements OnInit {
       this.itemResource = new DataTableResource(this.products);
       this.itemResource.count().then(count => this.itemCount = count);
       this.itemResource.query(params).then(items => this.products = items);
-      console.log("ITEMS: " + JSON.stringify(this.products))
+      // console.log("ITEMS: " + JSON.stringify(this.products))
     });
   }
 

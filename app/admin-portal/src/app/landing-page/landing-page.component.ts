@@ -21,11 +21,11 @@ export class LandingPageComponent implements OnInit {
       res => {
         if (res.status == 200) {
           this.user = res.staff
-          console.log(res.staff)
+          // console.log(res.staff)
           this.stopLoading()
         } else {
           this.stopLoading()
-          console.log("Retrieve failed");
+          // console.log("Retrieve failed");
 
         }
       });

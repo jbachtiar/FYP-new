@@ -31,10 +31,10 @@ export class ProductDetailsEditComponent implements OnInit {
     });
     this.catService.getProductById(this.productId).subscribe(
       product => {
-        console.log("PRODUCT ID: " + this.productId)
+        // console.log("PRODUCT ID: " + this.productId)
         this.startLoading()
         this.product = product;
-        console.log("PRODUCT: " + JSON.stringify(this.product.fabric))
+        // console.log("PRODUCT: " + JSON.stringify(this.product.fabric))
         
         this.stopLoading()
       });

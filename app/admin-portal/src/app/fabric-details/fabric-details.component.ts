@@ -31,7 +31,7 @@ export class FabricDetailsComponent implements OnInit {
       item => {
         this.startLoading()
         this.item = item;
-        console.log(JSON.stringify(this.item))
+        // console.log(JSON.stringify(this.item))
         
         //add 0000 padding
         let temp = "" + item.fabricId
