@@ -31,10 +31,10 @@ export class RegisterComponent implements OnInit {
     this.countries = this.profileService.getCountries();
     for (let c of this.countries) {
       this.countryCodes.push(c.dial_code);
-      console.log("COUNTRY CODE: " + c.dial_code)
+    
     }
     this.countryCodes.sort();
-    console.log("COUNTRY CODES: " + this.countryCodes)
+   
   }
 
   register() {
@@ -51,7 +51,7 @@ export class RegisterComponent implements OnInit {
             message: 'Your account has been created. Please verify your email to continue using your account.'
           })
             .subscribe((isConfirmed) => {
-              console.log("DIALOG")
+         
               //We get dialog result
               if (isConfirmed) {
                 this.router.navigate([this.returnUrl]);

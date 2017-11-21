@@ -37,7 +37,7 @@ export class RegistrationService {
         let finalUrl = url + "?email=" + email + "&code=" + code;
         return this._http.get(finalUrl)
             .map(res => {
-                console.log(finalUrl)
+          
                 return res.json();
             });
     }
@@ -54,7 +54,7 @@ export class RegistrationService {
 
         return this._http.post(CONFIG.registrationBackendUrl + '/verifyAcc', params.toString(), { headers: headers })
             .map(res => {
-                console.log("RES: " + res)
+             
                 return res.json();
             });
     }

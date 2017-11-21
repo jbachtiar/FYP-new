@@ -71,11 +71,7 @@ export class ShoppingCartService {
     if (this.item === undefined) {
       //if does not exist create new cart item
       this.item = cartItem;
-      console.log("item does not exist")
-
-      console.log('productId : ' + this.item.product.productId)
-      console.log('UnitPrice : ' + this.item.unitPrice)
-      console.log('quantity: ' + this.item.quantity)
+  
       //console.log(this.item)
 
       this.cart.cartItems.push(this.item);
