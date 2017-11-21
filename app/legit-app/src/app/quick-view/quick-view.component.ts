@@ -221,5 +221,15 @@ export class QuickViewComponent extends DialogComponent<QuickViewPopupModel, boo
     // Send click with an event, then send user to product page.
     ga('send', 'event', 'Cart Movement', 'Product Added to Cart', this.selectedProduct.pattern.patternName);
     ga('send', 'pageview');
+    
+    ga('ec:addProduct', {
+      // productFieldObject stores product click and other details
+      'id': this.selectedProduct.pattern.patternId, // Product ID/SKU - Type: string
+      'name': this.selectedProduct.pattern.patternName, // Product name - Type: string
+      'category': 'Beddings', // Product category - Type: string
+      'price': this.cartItem.unitPrice, // Product price - Type: numeric
+    });
+    ga('ec:setAction', 'click', {list: 'Beddings'});
+    ga('send', 'pageview');
   }
 }
