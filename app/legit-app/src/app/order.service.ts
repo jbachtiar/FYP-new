@@ -13,13 +13,12 @@ export class OrderService {
 
     saveOrder(orderJson) {
         let url = CONFIG.orderBackendUrl + "/save";
-        console.log("NEW ORDER: " + JSON.stringify(orderJson))
+
 
         let params: URLSearchParams = new URLSearchParams();
-        console.log("SAVE order SERVICE")
+
         params.set('order', JSON.stringify(orderJson));
 
-        console.log(params)
         const headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
         return this._http.post(url, params.toString(), {
@@ -50,7 +49,7 @@ export class OrderService {
         let url = CONFIG.orderBackendUrl + '/getOrderById?orderId=' + orderId;
         return this._http.get(url)
             .map(res => {
-                console.log("ORDER: " + res.json().orders)
+             
                 let orders = res.json().orders;
                 //temp
                 let orderItems = orders[0].orderItems

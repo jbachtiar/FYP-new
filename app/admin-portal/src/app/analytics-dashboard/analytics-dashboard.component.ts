@@ -20,7 +20,7 @@ export class AnalyticsDashboardComponent implements OnInit {
       
       // Step 3: Authorize the user.
 
-      var CLIENT_ID = '28470806434-pin14j5t6mbhn0jlb3ofmbl5u8o133di.apps.googleusercontent.com';
+      var CLIENT_ID = '28470806434-1mskfeba3i1j64j3k7vqel8voejp1s14.apps.googleusercontent.com';
 
       gapi.analytics.auth.authorize({
         container: 'auth-button',

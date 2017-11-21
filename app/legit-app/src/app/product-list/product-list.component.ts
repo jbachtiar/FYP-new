@@ -68,11 +68,7 @@ export class ProductListComponent implements OnInit {
 
     this.startLoading()
     this.selectedCollectionId = collection.collectionId;
-    console.log(this.selectedCollectionId);
-    console.log(this.selectedFabricId);
-    console.log(this.selectedColourId);
-    console.log(this.selectedSortPriceId);
-    console.log(this.queriedSearch);
+
 
     this.productService.getFilteredProductList(this.selectedCollectionId, this.selectedFabricId, this.selectedColourId, this.selectedSortPriceId, this.queriedSearch).subscribe(
       products => {
@@ -86,11 +82,7 @@ export class ProductListComponent implements OnInit {
   onSelectFabric(fabric) {
     this.startLoading()
     this.selectedFabricId = fabric.fabricId;
-    console.log(this.selectedCollectionId);
-    console.log(this.selectedFabricId);
-    console.log(this.selectedColourId);
-    console.log(this.selectedSortPriceId);
-    console.log(this.queriedSearch);
+
 
     this.productService.getFilteredProductList(this.selectedCollectionId, this.selectedFabricId, this.selectedColourId, this.selectedSortPriceId, this.queriedSearch).subscribe(
       products => {
@@ -106,11 +98,7 @@ export class ProductListComponent implements OnInit {
 
     this.startLoading()
     this.selectedColourId = colour.colourId;
-    console.log(this.selectedCollectionId);
-    console.log(this.selectedFabricId);
-    console.log(this.selectedColourId);
-    console.log(this.selectedSortPriceId);
-    console.log(this.queriedSearch);
+
 
     this.productService.getFilteredProductList(this.selectedCollectionId, this.selectedFabricId, this.selectedColourId, this.selectedSortPriceId, this.queriedSearch).subscribe(
       products => {
@@ -125,11 +113,7 @@ export class ProductListComponent implements OnInit {
   onSelectSort(sortid) {
     this.startLoading()
     this.selectedSortPriceId = sortid.id;
-    console.log(this.selectedCollectionId);
-    console.log(this.selectedFabricId);
-    console.log(this.selectedColourId);
-    console.log(this.selectedSortPriceId);
-    console.log(this.queriedSearch);
+
 
     this.productService.getFilteredProductList(this.selectedCollectionId, this.selectedFabricId, this.selectedColourId, this.selectedSortPriceId, this.queriedSearch).subscribe(
       products => {
@@ -143,11 +127,7 @@ export class ProductListComponent implements OnInit {
   onSearch(query: string): void {
     this.startLoading()
     this.queriedSearch = query;
-    console.log(this.selectedCollectionId);
-    console.log(this.selectedFabricId);
-    console.log(this.selectedColourId);
-    console.log(this.selectedSortPriceId);
-    console.log(this.queriedSearch);
+
 
     this.productService.getFilteredProductList(this.selectedCollectionId, this.selectedFabricId, this.selectedColourId, this.selectedSortPriceId, this.queriedSearch).subscribe(
       products => {
@@ -166,37 +146,12 @@ export class ProductListComponent implements OnInit {
   ];
 
   selectedCollection: any = null;
-  // collections = [
-  //      {id: "CO1", name: "Bestsellers"},
-  //      {id: "CO2", name: "2018 Spring"},
-  //      {id: "CO3", name: "2018 Summer"},
-  //      {id: "CO4", name: "2017 Spring"}
-  //    ];
+
 
   selectedFabric: any = null;
-  // fabrics = [
-  //      {id: "F1", name: "Silk"},
-  //      {id: "F2", name: "Modal"},
-  //      {id: "F3", name: "Long Staple Cotton"},
-  //      {id: "F4", name: "Cotton"},
-  //      {id: "F5", name: "Lyocell Tencel"},
-  //      {id: "F6", name: "Polyester-Cotton"}
-  //    ];
+
 
   selectedColour: any = null;
-  // colours = [
-  //      {id: "C1", name: "White"},
-  //      {id: "C2", name: "Black"},
-  //      {id: "C3", name: "Red"},
-  //      {id: "C4", name: "Yellow"},
-  //      {id: "C5", name: "Blue"},
-  //      {id: "C6", name: "Green"},
-  //      {id: "C7", name: "Pink"},
-  //      {id: "C8", name: "Purple"},
-  //      {id: "C9", name: "Brown"},
-  //      {id: "C10", name: "Gold"},
-  //      {id: "C11", name: "Silver"}
-  //    ];
 
   //list of products 
   private products = []
@@ -223,6 +178,7 @@ export class ProductListComponent implements OnInit {
     this.selectedFabric = undefined;
     this.selectedColour = undefined;
     this.sortPrice = undefined;
+<<<<<<< HEAD
     // this.productService.getProductList().subscribe(
     //   products => {
     //     this.products = products;
@@ -232,6 +188,17 @@ export class ProductListComponent implements OnInit {
     //     this.stopLoading()
     //   });
     this.onClear();
+=======
+    this.productService.getProductList().subscribe(
+      products => {
+        this.products = products;
+ 
+        //initialise paginator 
+        this.setPage(1);
+        this.stopLoading()
+      });
+
+>>>>>>> 48d0ceb355064e003f6f50931f0f6778a15a6915
     this.productService.getProductCatalogueFilters().subscribe(
       filters => {
         this.collections = filters.collections;
@@ -336,7 +303,7 @@ export class ProductListComponent implements OnInit {
       a.src = g;
       m.parentNode.insertBefore(a, m)
     })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-    console.log(pattern_name);
+
     ga('create', 'UA-106185727-2', 'auto');
     ga('require', 'ec');
     ga('ec:addProduct', {

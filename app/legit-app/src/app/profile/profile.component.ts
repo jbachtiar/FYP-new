@@ -47,7 +47,7 @@ export class ProfileComponent implements OnInit {
 
 
   ngOnInit() {
-    console.log(this.token);
+
 
     this.profileService.displayProfile(this.token).subscribe(
       res => {
@@ -63,7 +63,7 @@ export class ProfileComponent implements OnInit {
 
           this.loading = false;
         } else {
-          console.log("Retrieve failed");
+   
 
         }
       }
@@ -93,13 +93,13 @@ export class ProfileComponent implements OnInit {
       .subscribe(
       res => {
         if (res.status === '200') {
-          console.log("Update successful");
+
           let disposable = this.dialogService.addDialog(ConfirmationPopupComponent, {
             title: 'Profile',
             message: 'Changes saved successfully!'
           })
             .subscribe((isConfirmed) => {
-              console.log("DIALOG")
+       
               //We get dialog result
               if (isConfirmed) {
                 // this.router.navigate([this.returnUrl]);
@@ -115,13 +115,13 @@ export class ProfileComponent implements OnInit {
           }, 5000);
 
         } else {
-          console.log("Update failed");
+      
           let disposable = this.dialogService.addDialog(ConfirmationPopupComponent, {
             title: 'Profile',
             message: 'Changes are not saved.'
           })
             .subscribe((isConfirmed) => {
-              console.log("DIALOG")
+          
               //We get dialog result
               if (isConfirmed) {
                 // this.router.navigate([this.returnUrl]);

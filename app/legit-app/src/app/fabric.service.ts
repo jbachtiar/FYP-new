@@ -13,9 +13,9 @@ export class FabricService {
     getFabricsByPatternId(patternId: string) {
         let url = CONFIG.fabricBackendUrl;
         let finalUrl= url+"?patternId="+patternId;
-        console.log(finalUrl);
+    
         return this._http.get(finalUrl).map(res => {
-            console.log("fabric is loaded"+res.json().status);
+     
         
             return res.json().fabrics;
               

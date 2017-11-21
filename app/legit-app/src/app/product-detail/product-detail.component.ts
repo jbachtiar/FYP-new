@@ -59,14 +59,14 @@ export class ProductDetailComponent implements OnInit {
 
   onLoad() {
     this.loadingImage = true;
-    console.log("LOADING : " + this.loadingImage)
+ 
     this.loadingImage = false;
-    console.log("LOADING : " + this.loadingImage)
+
   }
 
   ngOnInit() {
     this.token = localStorage.getItem("token")
-    console.log("token is: " + this.token)
+
 
     this.route.params.subscribe((params: Params) => {
       this.patternId = params['patternId']; // grab the parameter from url
@@ -74,37 +74,43 @@ export class ProductDetailComponent implements OnInit {
 
     this.productService.getProductIdsByPatternId(this.patternId).subscribe(product_ids => {
       this.product_ids = product_ids;
-      console.log("product_ids: " + product_ids)
+
       if (!this.token) {
         let guestPreference = JSON.parse(localStorage.getItem("guestPref"))
         if(guestPreference == null){
           guestPreference = {}
         }
-        console.log("IM HEREEE as a guest")
+     
         // let guestPreference = {}
         for (let id of this.product_ids) {
           guestPreference[+id] = 5
         }
-        console.log("guestpref: " + JSON.stringify(guestPreference))
+       
         
         localStorage.setItem("guestPref", JSON.stringify(guestPreference))
         this.productService.getProductRecommendation("", 0, 0, JSON.stringify(guestPreference)).subscribe(products => {
           this.recommendation = products
-          console.log("the inside of the subscribe")
+ 
           this.recom_loading = false;
           if (this.recommendation.length!=0){
             this.show_recom = true;
           }
         });
       } else {
-        console.log("IM HEREEEE asking for recom")
+       
         let tempRecom = []
+<<<<<<< HEAD
         // for (let id of this.product_ids) {
         //   console.log("ID: " + id)
           this.productService.getProductRecommendation(this.token, ""+this.product_ids, 1, "{}").subscribe(
+=======
+        for (let id of this.product_ids) {
+        
+          this.productService.getProductRecommendation(this.token, id, 1, "{}").subscribe(
+>>>>>>> 48d0ceb355064e003f6f50931f0f6778a15a6915
 
             products => {
-              console.log("the inside of the subscribe")
+        
               this.recommendation = products
               // for (let p of tempRecom){
               //   if(p!=null){
@@ -112,7 +118,7 @@ export class ProductDetailComponent implements OnInit {
               //   }
               // }
               this.recom_loading = false;
-              console.log("RECOMM: " + JSON.stringify(this.recommendation))
+      
               if (this.recommendation.length!=0){
                 this.show_recom = true;
               }
@@ -125,7 +131,7 @@ export class ProductDetailComponent implements OnInit {
       pattern => {
         this.startLoading()
         this.pattern = pattern;
-        console.log(JSON.stringify(this.pattern))
+
         //this.selectedProduct = pattern.product.fabrics[0];
         this.selectedFabric = pattern.fabrics[0]
         this.selectedColour = this.selectedFabric.colours[0]
@@ -157,20 +163,16 @@ export class ProductDetailComponent implements OnInit {
     this.selectedFabricPrice = +this.selectedFabric.fabric_price;
     this.totalPrice = this.pattern.pattern_price + this.selectedFabricPrice + this.selectedSizePrice;
 
-    console.log("RECALCULATED PRICE" + this.totalPrice);
+
   }
 
   onSizeChange() {
 
     this.selectedSizePrice = + this.selectedSize.sizePrice;
     this.totalPrice = this.pattern.pattern_price + this.selectedFabricPrice + this.selectedSizePrice
-    console.log("Pattern Price: " + this.pattern.pattern_price)
-    console.log("Fabric Price: " + this.selectedFabricPrice)
-    console.log("Size Price: " + this.selectedSizePrice)
 
 
 
-    console.log("RECALCULATED PRICE - fabric: " + this.totalPrice);
   }
 
   onColourChange() {
@@ -178,7 +180,7 @@ export class ProductDetailComponent implements OnInit {
     //this.totalPrice = this.pattern.pattern_price + this.selectedFabricPrice + this.selectedColourPrice;
     //   this.selectedSize = this.selectedColour.sizes[0];
     this.selectedSize = this.selectedColour.sizes[0];
-    // console.log("RECALCULATED PRICE" + this.totalPrice)
+
   }
 
   addCart() {
@@ -203,22 +205,14 @@ export class ProductDetailComponent implements OnInit {
     ga('send', 'pageview');
     //end of GA
 
-    //this.startLoading()
-    // console.log("Pattern ID : " + this.patternId);
-    // console.log("Fabric ID : " + this.selectedFabric.fabric_id);
-    // console.log("Colour ID : " + this.selectedColour.colour_id);
-    //this.getProductId();
+
 
     //add data to mahout
     
     this.productService.getProductById(this.patternId, this.selectedFabric.fabric_id, this.selectedColour.colour_id)
       .subscribe(res => {
-        console.log(res.product)
+    
         this.selectedProduct = res.product;
-        console.log("selectedColour: " + this.selectedColour.colour_name)
-        console.log("selectedFabric: " + this.selectedFabric.fabric_id)
-        console.log("quantity: " + this.selectedQuantity)
-        console.log('thispID: ' + this.selectedProduct.productId)
 
         if(this.token){
           console.log("productid: " + JSON.stringify(this.selectedProduct))
@@ -229,7 +223,7 @@ export class ProductDetailComponent implements OnInit {
         this.cartItem.quantity = this.selectedQuantity
         this.cartItem.unitPrice = this.totalPrice
 
-        console.log(this.cartItem)
+ 
 
         this.shoppingCartService.addItem(this.cartItem)
 
@@ -241,7 +235,7 @@ export class ProductDetailComponent implements OnInit {
           message: ''
         })
           .subscribe((isConfirmed) => {
-            console.log("DIALOG")
+
             //We get dialog result
             if (isConfirmed) {
               //do nothing
@@ -269,7 +263,7 @@ export class ProductDetailComponent implements OnInit {
       a.src = g;
       m.parentNode.insertBefore(a, m)
     })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-    console.log(this.cartItem.product.pattern.patternName + " hihi");
+
     ga('create', 'UA-106185727-2', 'auto');
     ga('require', 'ec');
     ga('ec:addProduct', {
@@ -289,7 +283,7 @@ export class ProductDetailComponent implements OnInit {
 
   emptyCart() {
     this.shoppingCartService.empty();
-    console.log("cart is emptied");
+
   }
 
   virtualReality(imageUrl) {
@@ -370,7 +364,7 @@ export class ProductDetailComponent implements OnInit {
       a.src = g;
       m.parentNode.insertBefore(a, m)
     })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-    console.log(pattern_name);
+
     ga('create', 'UA-106185727-2', 'auto');
     ga('require', 'ec');
     ga('ec:addProduct', {

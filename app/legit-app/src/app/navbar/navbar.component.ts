@@ -48,9 +48,9 @@ export class NavbarComponent implements OnInit {
         this.isIn = bool === false ? true : false;
     }
     ngOnInit() {
-        console.log("NAVBAR RELOADED")
+ 
         this.token = localStorage.getItem('token');
-        console.log("TOKEN: " + this.token)
+
         if (this.token != null) {
             this.authenticated = true;
             this.shoppingCartService.retrieveCartDB()
@@ -64,11 +64,11 @@ export class NavbarComponent implements OnInit {
 
         this.itemCount = this.shoppingCart.cartItems.length;
         this.sharedService.updateCart();
-        console.log("AUTHENTICATED: " + this.authenticated);
+
     }
 
     recalculateQty() {
-        console.log("QTY IS RECALCULATED")
+ 
         this.shoppingCart = JSON.parse(localStorage.getItem('cart'));
 
         if (!this.shoppingCart) {
@@ -106,7 +106,7 @@ export class NavbarComponent implements OnInit {
     }
 
     emptyCart() {
-        console.log("CART IS EMPTIED")
+  
         this.shoppingCartService.emptyLogout()
         //window.location.reload()
     }

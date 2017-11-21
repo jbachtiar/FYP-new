@@ -145,13 +145,14 @@ public class MahoutService {
 //            GuestUserPreferences.put(guestItemList[3], 2F);
 //        GuestUserPreferences.put(5L, 3F);
 
-            List<RecommendedItem> rList = Recommender.getRecommendations(cId, 10, guestItemList);
+            List<RecommendedItem> rList = Recommender.getRecommendations(cId, 20, guestItemList);
             ArrayList<Bedding> pList = new ArrayList<Bedding>();
             int previousPatternId = 0;
             
+            
             for (RecommendedItem item : rList) {
 
-                if(pList.size() == 2){
+                if(pList.size() == 3 || item == null){
                     
                     break;
                     

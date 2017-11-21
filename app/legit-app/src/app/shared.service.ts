@@ -23,17 +23,17 @@ export class SharedService {
     
     // Service message commands
     updateCart() {
-        console.log("UPDATE CART SERVICE")
+
         this.updateCartSource.next();
     }
 
     emptyCart(){
-        console.log("EMPTY CART SERVICE")
+      
         this.emptyCartSource.next();
     }
 
     trackOrder(){
-        console.log("track order SERVICE")
+     
         this.trackOrderSource.next();
     }
 }

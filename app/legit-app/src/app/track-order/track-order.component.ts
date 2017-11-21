@@ -35,7 +35,7 @@ export class TrackOrderComponent implements OnInit {
         this.pastOrders = orders;
         for( let o of this.pastOrders){
         }
-        console.log("past order" + JSON.stringify(this.pastOrders));
+
         if (this.pastOrders.length == 0) {
           this.isDisplayPastOrder = false;
         }
@@ -47,12 +47,11 @@ export class TrackOrderComponent implements OnInit {
         for( let o of this.currentOrders){
 
           o.order_TimeStamp = new Date(o.order_TimeStamp);
-          console.log("before : " + JSON.stringify(o.order_TimeStamp));
+
           o.order_TimeStamp.setHours(o.order_TimeStamp.getHours()+8)
-         //o.order_TimeStamp = o.order_TimeStamp.toString("yyyy-MM-dd") 
-          console.log(JSON.stringify(o.order_TimeStamp));
+
         }
-        console.log("current order" + JSON.stringify(this.currentOrders));
+   
         if (this.currentOrders.length == 0) {
           this.isDisplayCurrentOrder = false;
           this.loading = false
