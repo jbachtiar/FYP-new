@@ -34,7 +34,7 @@
             <b>Product ID:</b> {{item.product.productId}}
             <br><b>Fabric:</b> {{item.product.fabric.fabricName}}
             <br><b>Colour:</b> {{item.product.colour.colourName}}
-            <br><b>Size:</b> {{item.product.size.sizeName}}
+            <!-- <br><b>Size:</b> {{item.product.size.sizeName}} -->
             <br> {{item.unitPrice| currency:'USD':true:'1.2-2'}}
 
           </td>
@@ -83,7 +83,7 @@
             <b>Product ID:</b> {{item.product.productId}}
             <br><b>Fabric:</b> {{item.product.fabric.fabricName}}
             <br><b>Colour:</b> {{item.product.colour.colourName}}
-            <br><b>Size:</b> {{item.product.size.sizeName}}
+            <!-- <br><b>Size:</b> {{item.product.size.sizeName}} -->
             <br>
             <button class="change-qty" (click)="decrement(item.product.productId)">-</button> {{item.quantity}}
             <button class="change-qty" (click)="increment(item.product.productId)">+</button> @ {{item.unitPrice| currency:'USD':true:'1.2-2'}}

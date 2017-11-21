@@ -300,8 +300,8 @@ export class ProductListComponent implements OnInit {
       'name': pattern_name, // Product name - Type: string
       'category': 'Beddings', // Product category - Type: string
     });
-
     ga('ec:setAction', 'detail');
+    ga('send', 'pageview');
     // Send checkout event 1 event to enhanced ecommerce
     // Send click with an event, then send user to product page.
     ga('send', 'event', 'enhanced ecommerce', 'Quick View Clicks', pattern_name);
@@ -346,6 +346,7 @@ export class ProductListComponent implements OnInit {
       'category': 'Beddings', // Product category - Type: string
     });
     ga('ec:setAction', 'detail');
+    ga('send', 'pageview');
     // Send click with an event, then send user to product page.
     ga('send', 'event', 'enhanced ecommerce', 'Product Detail Clicks', pattern_name);
     ga('send', 'pageview');
