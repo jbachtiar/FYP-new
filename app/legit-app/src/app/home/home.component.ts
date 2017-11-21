@@ -72,7 +72,7 @@ export class HomeComponent implements OnInit {
           let p = products[i]
           this.products.push(p)
         }  
-        console.log("winter is coming: " + JSON.stringify(this.products))
+        //console.log("winter is coming: " + JSON.stringify(this.products))
       });
   }
 

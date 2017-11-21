@@ -99,15 +99,9 @@ export class ProductDetailComponent implements OnInit {
       } else {
        
         let tempRecom = []
-<<<<<<< HEAD
         // for (let id of this.product_ids) {
         //   console.log("ID: " + id)
           this.productService.getProductRecommendation(this.token, ""+this.product_ids, 1, "{}").subscribe(
-=======
-        for (let id of this.product_ids) {
-        
-          this.productService.getProductRecommendation(this.token, id, 1, "{}").subscribe(
->>>>>>> 48d0ceb355064e003f6f50931f0f6778a15a6915
 
             products => {
         
