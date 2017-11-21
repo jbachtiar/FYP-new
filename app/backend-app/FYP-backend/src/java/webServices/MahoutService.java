@@ -145,17 +145,30 @@ public class MahoutService {
 //            GuestUserPreferences.put(guestItemList[3], 2F);
 //        GuestUserPreferences.put(5L, 3F);
 
-            List<RecommendedItem> rList = Recommender.getRecommendations(cId, 3, guestItemList);
+            List<RecommendedItem> rList = Recommender.getRecommendations(cId, 10, guestItemList);
             ArrayList<Bedding> pList = new ArrayList<Bedding>();
-
+            int previousPatternId = 0;
+            
             for (RecommendedItem item : rList) {
 
+                if(pList.size() == 2){
+                    
+                    break;
+                    
+                }
+                
                 int productId = (int) item.getItemID();
                 Bedding currBedding = productDAO.getBeddingbyPId(productId);
                 
                 if (currBedding != null){
                     
-                    pList.add(currBedding);
+                    int patternId = currBedding.getPattern().getPatternId();
+                    if(previousPatternId != patternId){
+                        
+                        pList.add(currBedding);
+                        previousPatternId = patternId;
+                        
+                    }  
                     
                 }             
 
