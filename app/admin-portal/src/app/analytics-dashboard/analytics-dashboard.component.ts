@@ -86,7 +86,8 @@ export class AnalyticsDashboardComponent implements OnInit {
           'metrics': 'ga:productListClicks',
           'start-date': '7daysAgo',
           'end-date': 'today',
-          sort: '-ga:productListClicks'
+          sort: '-ga:productListClicks',
+          'max-results': 14
         },
         chart: {
           type: 'COLUMN',
@@ -180,12 +181,12 @@ export class AnalyticsDashboardComponent implements OnInit {
 
       var userBrowser = new gapi.analytics.googleCharts.DataChart({
         query: {
-          metrics: 'ga:pageviews',
+          metrics: 'ga:sessions',
           dimensions: 'ga:browser',
           'start-date': '30daysAgo',
           'end-date': 'today',
-          'max-results': 7,
-          sort: 'ga:pageviews'
+          'max-results': 8,
+          sort: 'ga:sessions'
         },
         chart: {
           container: 'userBrowser',
@@ -213,7 +214,7 @@ export class AnalyticsDashboardComponent implements OnInit {
 
       var ecommerce1 = new gapi.analytics.googleCharts.DataChart({
         query: {
-          metrics: 'ga:itemRevenue,ga:itemQuantity,ga:cartToDetailRate,ga:buyToDetailRate',
+          metrics: 'ga:itemRevenue,ga:itemQuantity,ga:buyToDetailRate',
           dimensions: 'ga:productName',
           'start-date': '7daysAgo',
           'end-date': 'today',
