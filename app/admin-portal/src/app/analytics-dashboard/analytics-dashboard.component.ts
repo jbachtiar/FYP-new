@@ -184,7 +184,7 @@ export class AnalyticsDashboardComponent implements OnInit {
           dimensions: 'ga:browser',
           'start-date': '30daysAgo',
           'end-date': 'today',
-          'max-results': 6,
+          'max-results': 7,
           sort: 'ga:pageviews'
         },
         chart: {

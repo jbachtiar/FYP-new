@@ -18,10 +18,11 @@ h5{
 p.solid {
     border-style: solid;
     border-color: #B0A171;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Georgia;
     font-size: 15px;
     padding: 5px;
     color: #B0A171;
+    cursor: default
 }
 
 p.separator{
@@ -132,4 +133,51 @@ row.img{
             
         }
     
+    }
+    .img-product:hover {
+        box-shadow: 3px 3px 5px 5px #888888
+    }
+    
+    
+    .overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-color: white;
+      opacity: 20%;
+      overflow: hidden;
+      width: 100%;
+      height: 0;
+      transition: .5s ease;
+    }
+    
+    .quickview {
+      position: relative;
+    }
+    .quickview:hover .overlay {
+      height: 15%;
+    }
+    
+    .quickview-text {
+      white-space: nowrap; 
+      color: #888888;
+      font-size: 18px;
+      position: absolute;
+      overflow: hidden;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+      font-family: Georgia;
+      cursor: pointer;
+    }
+    
+    .product-name{
+        font-size: 24px;
+        color: #B0A171;
+        font-family: Georgia; 
+    }
+    .solid{
+        font-family: Georgia; 
     }

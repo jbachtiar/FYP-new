@@ -223,15 +223,15 @@ export class ProductListComponent implements OnInit {
     this.selectedFabric = undefined;
     this.selectedColour = undefined;
     this.sortPrice = undefined;
-    this.productService.getProductList().subscribe(
-      products => {
-        this.products = products;
-        console.log(this.products);
-        //initialise paginator 
-        this.setPage(1);
-        this.stopLoading()
-      });
-
+    // this.productService.getProductList().subscribe(
+    //   products => {
+    //     this.products = products;
+    //     console.log(this.products);
+    //     //initialise paginator 
+    //     this.setPage(1);
+    //     this.stopLoading()
+    //   });
+    this.onClear();
     this.productService.getProductCatalogueFilters().subscribe(
       filters => {
         this.collections = filters.collections;

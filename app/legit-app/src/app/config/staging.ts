@@ -7,7 +7,7 @@ export const stagConfig = {
     quickViewBackendUrl: 'http://ec2-54-169-154-10.ap-southeast-1.compute.amazonaws.com/FYP-backend/API/ProductCatalogue/product',
     fabricBackendUrl: 'http://ec2-54-169-154-10.ap-southeast-1.compute.amazonaws.com/FYP-backend/API/FabricCatalogue/fabrics',
     productDetailsBackendUrl: 'http://ec2-54-169-154-10.ap-southeast-1.compute.amazonaws.com/FYP-backend/API/ProductCatalogue/customization',
-    filteredProductListBackendUrl: 'http://ec2-54-169-154-10.ap-southeast-1.compute.amazonaws.com/FYP-backend/API/ProductCatalogue/filtersort',
+    filteredProductListBackendUrl: 'http://ec2-54-169-154-10.ap-southeast-1.compute.amazonaws.com/FYP-backend/API/ProductCatalogue/FilterBeddingPatterns',
     searchedProductListBackendUrl: 'http://ec2-54-169-154-10.ap-southeast-1.compute.amazonaws.com/FYP-backend/API/ProductCatalogue/search',
     getCartItemBackendUrl: 'http://ec2-54-169-154-10.ap-southeast-1.compute.amazonaws.com/FYP-backend/API/Cart/items',
     updateCartItemBackendUrl: 'http://ec2-54-169-154-10.ap-southeast-1.compute.amazonaws.com/FYP-backend/API/Cart/updateCartItems',

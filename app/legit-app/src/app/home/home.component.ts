@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { ProductService } from '../product.service'
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
+  providers: [ProductService]
 })
 export class HomeComponent implements OnInit {
+  products:any=[]
   taxonList = [{
     "id": 4,
     "name": "Mugs",
@@ -55,9 +58,22 @@ export class HomeComponent implements OnInit {
     "taxonomy_id": 2,
     "taxons": null
   }];
-  constructor() { }
+  constructor(private productService: ProductService) { }
 
   ngOnInit() {
+    this.getWinterCollection();
+  }
+
+  
+  getWinterCollection(): void {
+    this.productService.getFilteredProductList("5", undefined, undefined, undefined, undefined).subscribe(
+      products => {
+        for (var i=0; i<3; i++){
+          let p = products[i]
+          this.products.push(p)
+        }  
+        console.log("winter is coming: " + JSON.stringify(this.products))
+      });
   }
 
 }

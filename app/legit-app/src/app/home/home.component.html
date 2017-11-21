@@ -15,7 +15,7 @@
     <div class="row-header">
       <div class="col-md-8 col-md-offset-2">
         <div class="header-title">
-          FALL 2017
+          Winter 2017
         </div>
 
         <div class="col-md-8 col-md-offset-5">
@@ -24,7 +24,7 @@
 
         <div class="col-md-8 col-md-offset-2">
           <div class="header-intro">
-            <p>Inspired by rain forests, Highlander invites you to a journey of exotic experience.
+            <p>Inspired by winter forests, Highlander invites you to a journey of exotic experience.
               <p>
           </div>
         </div>
@@ -36,27 +36,41 @@
     <!-- product list -->
     <div class="container">
       <div class="row">
-        <!-- product #1 -->
-        <div class="col-sm-4 col-lg-4 col-md-4">
-          <img src="https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Product+Images/P1.png" class="img-thumbnail img-product" /><br>
-          <h5 class="product-name">CUSHION</h5>
+        <div *ngFor="let product of products" class="col-sm-4 col-lg-4 col-md-4">
+          <div class="quickview">
+            <img src="{{product.images[0].imageUrl}}" alt="..." class="img-thumbnail img-product" [routerLink]="['/productDetails', product.pattern_id]"
+              (click)=onProductClick(product.pattern_id,product.design_name)><br/>
+            <!-- <div class="overlay">
+              <div class="quickview-text" (click)=showQuickView(product.pattern_id,product.design_name)>Quick View</div>
+
+            </div> -->
+            <div class="text-center">
+              <h5 class="product-name"><a class="product-name" [routerLink]="['/productDetails', product.pattern_id]">{{product.design_name}}</a></h5>
+              <br/><br/>
+            </div>
+          </div>
         </div>
+        <!-- product #1 -->
+        <!-- <div class="col-sm-4 col-lg-4 col-md-4">
+          <img src="https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Product+Images/P1.png" class="img-thumbnail img-product"
+          /><br>
+          <h5 class="product-name">CUSHION</h5>
+        </div> -->
 
         <!-- product #2 -->
-        <div class="col-sm-4 col-lg-4 col-md-4">
-          <img src="https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Product+Images/P2.png" class="img-thumbnail img-product" /><br>
+        <!-- <div class="col-sm-4 col-lg-4 col-md-4">
+          <img src="https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Product+Images/P2.png" class="img-thumbnail img-product"
+          /><br>
           <h5 class="product-name">PILLOW</h5>
-        </div>
+        </div> -->
 
         <!-- product #3 -->
-        <div class="col-sm-4 col-lg-4 col-md-4">
-          <img src="https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Product+Images/P3.png" class="img-thumbnail img-product" /><br>
+        <!-- <div class="col-sm-4 col-lg-4 col-md-4">
+          <img src="https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Product+Images/P3.png" class="img-thumbnail img-product"
+          /><br>
           <h5 class="product-name">LAMP</h5>
-        </div>
+        </div> -->
       </div>
-
-      <br />
-      <br />
       <!-- view gallery button-->
       <div class="col-sm-4 col-sm-offset-4">
         <p class="solid" routerLink="/products">View Full Collection</p>

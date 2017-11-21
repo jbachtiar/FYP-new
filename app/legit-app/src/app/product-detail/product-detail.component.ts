@@ -99,9 +99,9 @@ export class ProductDetailComponent implements OnInit {
       } else {
         console.log("IM HEREEEE asking for recom")
         let tempRecom = []
-        for (let id of this.product_ids) {
-          console.log("ID: " + id)
-          this.productService.getProductRecommendation(this.token, id, 1, "{}").subscribe(
+        // for (let id of this.product_ids) {
+        //   console.log("ID: " + id)
+          this.productService.getProductRecommendation(this.token, ""+this.product_ids, 1, "{}").subscribe(
 
             products => {
               console.log("the inside of the subscribe")
@@ -117,7 +117,7 @@ export class ProductDetailComponent implements OnInit {
                 this.show_recom = true;
               }
             });
-        }
+        // }
       }
     });
 
@@ -210,9 +210,7 @@ export class ProductDetailComponent implements OnInit {
     //this.getProductId();
 
     //add data to mahout
-    if(this.token){
-      this.productService.getProductRecommendation(this.token, this.patternId, 5, "{}").subscribe(products => this.recommendation)
-    }
+    
     this.productService.getProductById(this.patternId, this.selectedFabric.fabric_id, this.selectedColour.colour_id)
       .subscribe(res => {
         console.log(res.product)
@@ -222,6 +220,10 @@ export class ProductDetailComponent implements OnInit {
         console.log("quantity: " + this.selectedQuantity)
         console.log('thispID: ' + this.selectedProduct.productId)
 
+        if(this.token){
+          console.log("productid: " + JSON.stringify(this.selectedProduct))
+          this.productService.getProductRecommendation(this.token, this.selectedProduct.productId, 5, "{}").subscribe(products => this.recommendation)
+        }
 
         this.cartItem.product = this.selectedProduct
         this.cartItem.quantity = this.selectedQuantity
