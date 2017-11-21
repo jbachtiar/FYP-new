@@ -11,34 +11,42 @@
         <div class="content">
           <table>
             <thead>
-              <th>ID</th>
-              <th>Promo Code</th>
-              <th>Promo Name</th>
-              <th>Type</th>
-              <th>Value</th>
-              <th>Start Date</th>
-              <th>End Date</th>
+              <th style="text-align: center">ID</th>
+              <th style="text-align: center">Promo Code</th>
+              <th style="text-align: center">Promo Name</th>
+              <th style="text-align: center">Type</th>
+              <th style="text-align: center">Value</th>
+              <th style="text-align: center">Min. Purchase</th>
+              <th style="text-align: center">Max Discount</th>
+              <th style="text-align: center">Start Date</th>
+              <th style="text-align: center">End Date</th>
             </thead>
             <tbody *ngFor="let p of promoList">
-              <td>
+              <td style="text-align: center">
                 {{p.promoCodeId}}
               </td>
-              <td>
+              <td style="text-align: center">
                 {{p.promoCode}}
               </td>
-              <td>
+              <td style="text-align: center">
                 {{p.promoName}}
               </td>
-              <td>
+              <td style="text-align: center">
                 {{p.promoType}}
               </td>
-              <td>
+              <td style="text-align: center">
                 {{p.promoValue}}
               </td>
-              <td>
+              <td style="text-align: center">
+                {{p.minPurchase}}
+              </td>
+              <td style="text-align: center">
+                {{p.maxDiscount}}
+              </td>
+              <td style="text-align: center">
                 {{p.startDate}}
               </td>
-              <td>
+              <td style="text-align: center">
                 {{p.endDate}}
               </td>
               <td>
