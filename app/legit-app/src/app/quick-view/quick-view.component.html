@@ -29,7 +29,7 @@
                 </h5>
                 <h5>Fabric:</h5>
                 <select [(ngModel)]="selectedFabric" (ngModelChange)="onFabricChange()">
-                     <option *ngFor="let fabric of pattern.fabrics" [ngValue]="fabric">{{fabric.fabric_name}} +${{fabric.fabric_price}}</option>
+                     <option *ngFor="let fabric of pattern.fabrics" [ngValue]="fabric">{{fabric.fabric_name}} +{{fabric.fabric_price| currency:'USD':true:'1.2-2'}}</option>
                   </select>
                 <h5>Colour:</h5>
                 <select [(ngModel)]="selectedColour" (ngModelChange)="onColourChange()">
@@ -37,12 +37,12 @@
                   </select>
                 <h5>Size:</h5>
                 <select [(ngModel)]="selectedSize" (ngModelChange)="onSizeChange()">
-                    <option *ngFor="let size of selectedColour.sizes" [ngValue]="size">{{size.sizeName}}+${{size.sizePrice}}</option>
+                    <option *ngFor="let size of selectedColour.sizes" [ngValue]="size">{{size.sizeName}}+{{size.sizePrice| currency:'USD':true:'1.2-2'}}</option>
                   </select>
 
 
                 <br/><br/>
-                <h4>${{totalPrice}}</h4>
+                <h4>{{totalPrice| currency:'USD':true:'1.2-2'}}</h4>
                 <h5>Quantity:</h5>
                 <!--<input type=text>-->
                 <select [(ngModel)]="selectedQuantity">

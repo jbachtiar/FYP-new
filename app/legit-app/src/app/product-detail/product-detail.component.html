@@ -141,7 +141,7 @@
             </tbody>
           </table><br/>
           <!-- <div class="col-md-1" *ngFor="let colour of selectedFabric.colours"><img src='{{colour.images[0].imageUrl}}' class="thumb" alt='LOADING' /></div> -->
-          <h4>${{totalPrice}}</h4>
+          <h4>{{totalPrice| currency:'USD':true:'1.2-2'}}</h4>
           <h5><i>Quantity:</i></h5>
           <!--<input type=text>-->
           <select [(ngModel)]="selectedQuantity">
@@ -161,7 +161,7 @@
             </select> -->
           <h5 class="col-sm-12 col-xs-12">Size:</h5>
           <select class="col-sm-12 col-xs-12 form-control" [(ngModel)]="selectedSize" (ngModelChange)="onSizeChange()">
-              <option *ngFor="let size of selectedColour.sizes" [ngValue]="size">{{size.sizeName}}+${{size.sizePrice}}</option>
+              <option *ngFor="let size of selectedColour.sizes" [ngValue]="size">{{size.sizeName}}+{{size.sizePrice| currency:'USD':true:'1.2-2'}}</option>
           </select>
           <br/><br/><br/>
           <table class="col-sm-12 col-xs-12">
