@@ -17,30 +17,20 @@ export class ProductService {
 
         return this._http.get(url)
             .map(res => {
-                //console.log("product is loaded"+res.json().patterns);
+           
                 return res.json().patterns;
                 // return mockJson.products;
             });
     }
 
-    //getProductById(productId: string) {
-    // let url = CONFIG.quickViewBackendUrl;
-    // let finalUrl = url + "?productId=" + productId;
-    // return this._http.get(finalUrl).map(res => {
-    //   console.log("product is loaded" + res.json().status);
 
-    //  return res.json().product;
-
-    //  });
-    // }
 
     getPatternById(patternId: string) {
         let url = CONFIG.productCatalogueBackendUrl + '/customize';
         let finalUrl = url + "?patternId=" + patternId
         return this._http.get(finalUrl)
             .map(res => {
-                console.log(finalUrl)
-                console.log("product is loaded" + res.json().pattern);
+
                 return res.json().pattern;
                 // return mockJson.pattern;
             });
@@ -51,8 +41,7 @@ export class ProductService {
       let finalUrl = url + "?collectionId=" + collectionId + "&fabricId=" + fabricId + "&colourId=" + colourId + "&sortPrice=" + sortPrice
        return this._http.get(finalUrl)
           .map(res => {
-              console.log(finalUrl)
-              console.log("product is loaded"+res.json().products);
+
               return res.json().products;
           });
   }
@@ -61,8 +50,7 @@ export class ProductService {
       let finalUrl = url + "?search=" + query;
        return this._http.get(finalUrl)
           .map(res => {
-              console.log(finalUrl)
-              console.log("product is loaded"+res.json().products);
+ 
               return res.json().products;
           });
   }*/
@@ -72,22 +60,19 @@ export class ProductService {
         let finalUrl = url + "?collectionId=" + collectionId + "&fabricId=" + fabricId + "&colourId=" + colourId + "&sortPrice=" + sortPrice + "&search=" + query;
         return this._http.get(finalUrl)
             .map(res => {
-                console.log(finalUrl)
-                console.log("product is loaded" + res.json().patterns);
+         
                 return res.json().patterns;
             });
     }
 
     public getProductById(patternId: string, fabricId: string, colourId: string) {
-        console.log('pattern: ' + patternId)
-        console.log('fabric: ' + fabricId)
-        console.log('colour: ' + colourId)
+
 
 
         let url = CONFIG.productCatalogueBackendUrl + '/getProductId?patternId=' + patternId + '&fabricId=' + fabricId + '&colourId=' + colourId;
         return this._http.get(url)
             .map(res => {
-                //console.log(res.json().productId)
+           
 
                 if (res.status === 200) {
 
@@ -95,7 +80,7 @@ export class ProductService {
 
                 }
             })
-        //console.log('product ID: '+ res.json().productId);
+
 
 
     }
@@ -119,8 +104,7 @@ export class ProductService {
         let url = CONFIG.filterBackendUrl
         return this._http.get(url)
             .map(res => {
-                console.log(url)
-                console.log("filter is loaded" + res.json().filters);
+         
                 return res.json().filters;
             });
     }
@@ -137,8 +121,7 @@ export class ProductService {
         let finalUrl = url + "?token=" + token + "&productId=" + productId + "&prefValue=" + prefValue + "&guestItems=" + guestPreference;
         return this._http.get(finalUrl)
             .map(res => {
-                console.log(finalUrl)
-                console.log("product is loaded" + res.json().products);
+            
                 return res.json().products;
             });
     }
@@ -148,7 +131,7 @@ export class ProductService {
         let finalUrl = url + "?patternId=" + patternId;
         return this._http.get(finalUrl)
             .map(res => {
-                console.log(finalUrl)
+           
                 return res.json().product_ids;
             });
     }

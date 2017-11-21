@@ -10,12 +10,11 @@ let env = 'dev'
 
 if (env === 'production') {
   config = prodConfig;
-  console.log('Running with PRODUCTION configurations!');
 } else if (env === 'staging') {
   config = stagConfig;
-  console.log('Running with STAGING configurations!');
+
 } else {
-  console.log('Running with DEV configurations');
+
 }
 
 export const CONFIG = config;

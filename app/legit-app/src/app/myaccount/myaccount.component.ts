@@ -24,13 +24,13 @@ export class MyaccountComponent implements OnInit {
       () => {
         //alert('(Component2) Method called!');
         this.selectedItem = "trackOrder"
-        console.log("Selected item inside: " + this.selectedItem)
+
       });
   }
 
   ngOnInit() {
 
-    console.log("Selected item outside: " + this.selectedItem)
+
     
     this.track = false;
     this.account = true;
@@ -59,7 +59,7 @@ export class MyaccountComponent implements OnInit {
   }
   
   trackOrderClick(){
-    console.log('track order click')
+
     window.location.reload();
     this.trackOrder();
   }

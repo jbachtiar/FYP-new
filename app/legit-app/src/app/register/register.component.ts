@@ -45,7 +45,7 @@ export class RegisterComponent implements OnInit {
       .subscribe(
       res => {
         if (res.status === '200') {
-          console.log("Registration successful");
+          // console.log("Registration successful");
           let disposable = this.dialogService.addDialog(ConfirmationPopupComponent, {
             title: 'Congratulations!',
             message: 'Your account has been created. Please verify your email to continue using your account.'
@@ -61,13 +61,13 @@ export class RegisterComponent implements OnInit {
               }
             });
         } else {
-          console.log("Registration failed");
+          // console.log("Registration failed");
           let disposable = this.dialogService.addDialog(ConfirmationPopupComponent, {
             title: 'We are sorry!',
             message: 'Your account cannot be created. We think you already have an account with us.'
           })
             .subscribe((isConfirmed) => {
-              console.log("DIALOG")
+           
               //We get dialog result
               if (isConfirmed) {
                 //this.router.navigate([this.returnUrl]);

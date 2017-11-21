@@ -36,7 +36,7 @@ export class ProfileService {
 
     // toggleSidebarVisibilty() {
     //   this.sidebarVisibilityChange.next(!this.isSidebarVisible);
-    //console.log(this.isSidebarVisible);
+
     // }
 
     displayProfile(token: string) {
@@ -50,7 +50,7 @@ export class ProfileService {
         headers.append(
             'Content-type', 'application/x-www-form-urlencoded'
         )
-        console.log(token);
+
         return this._http.post(url + '/retrieve', params.toString(), { headers })
 
             // let options = new RequestOptions({ headers: headers, params: params });
@@ -70,7 +70,7 @@ export class ProfileService {
                         postalCode: user.postalCode,
                         password: user.password
                     }
-                    console.log(this.customer);
+             
 
                     return user;
 
