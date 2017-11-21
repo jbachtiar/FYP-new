@@ -16,6 +16,7 @@ import dao.AnalyticsDAO;
 import dao.CustomerDAO;
 import dao.ProductDAO;
 import entity.Bedding;
+import java.lang.reflect.Array;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,7 +47,7 @@ public class MahoutService {
     @GET
     @Path("/save")
     @Produces(MediaType.APPLICATION_JSON)
-    public String save(@QueryParam("token") String token, @QueryParam("productId") int pId, @QueryParam("prefValue") int pValue, @QueryParam("guestItems") String guestItems) {
+    public String save(@QueryParam("token") String token, @QueryParam("productId") String pId, @QueryParam("prefValue") int pValue, @QueryParam("guestItems") String guestItems) {
 
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
@@ -71,51 +72,66 @@ public class MahoutService {
             java.lang.reflect.Type type = new TypeToken<Map<Long, Float>>() {
             }.getType();
             Map<Long, Float> guestItemList = gson.fromJson(guestItems, type);
+            
+            //array of product ids
+            System.out.println("pId: " + pId);
+            //java.lang.reflect.Type typeArray = new TypeToken<Array>() {
+            //}.getType();
+            //int[] productIdList = gson.fromJson(pId, typeArray);
+            String[] productIdList = pId.split(",");
 
             //check if custId*productId exist in user_preferences table
             AnalyticsDAO aDAO = new AnalyticsDAO();
-            int currPref = aDAO.getPreference(cId, pId);
-            if (cId != 0) {
-                //currPref == 0 means custId*productId does not exist
-                if (currPref == 0) {
+            int iPiD = 0;
+            
+            for(String productId : productIdList){
+                
+                iPiD = Integer.parseInt(productId);
+                int currPref = aDAO.getPreference(cId, iPiD);
+            
+                if (cId != 0) {
+                    
+                    //currPref == 0 means custId*productId does not exist
+                    if (currPref == 0) {
 
                     //add to user_preferences table
-                    aDAO.add(cId, pId, pValue);
+                    aDAO.add(cId, iPiD, pValue);
 
-                } else {
+                    } else {
 
-                    //user viewed product
-                    if (pValue == 1) {
+                        //user viewed product
+                        if (pValue == 1) {
 
-                        //+1 to preference value (cap at 5)
-                        if (currPref < 5) {
+                            //+1 to preference value (cap at 5)
+                            if (currPref < 5) {
 
-                            int newPref = currPref + pValue;
-                            aDAO.update(cId, pId, newPref);
+                                int newPref = currPref + pValue;
+                                aDAO.update(cId, iPiD, newPref);
 
-                        }
+                            }
 
                         //user added product to cart
-                    } else if (pValue == 5) {
+                        } else if (pValue == 5) {
 
-                        if (currPref < 5) {
+                            if (currPref < 5) {
 
-                            int newPref = pValue;
-                            aDAO.update(cId, pId, newPref);
+                                int newPref = pValue;
+                                aDAO.update(cId, iPiD, newPref);
 
-                        }
+                            }
 
-                    } else if (pValue == 10) {
+                        } else if (pValue == 10) {
 
-                        if (currPref < 10) {
+                            if (currPref < 10) {
 
-                            int newPref = pValue;
-                            aDAO.update(cId, pId, newPref);
+                                int newPref = pValue;
+                                aDAO.update(cId, iPiD, newPref);
+
+                            }
 
                         }
 
                     }
-
                 }
             }
 //            int count = 0;
