@@ -159,14 +159,14 @@ export class PatternDetailsComponent implements OnInit {
     let file = fileInput.target.files[0];
     let fileName = this.patternId + '_' + fabricColour.colour_id + '.png'
     AWSService.config.accessKeyId = '';
-    AWSService.config.update({ region: 'us-west-2' });
+    AWSService.config.update({ region: '' });
     AWSService.config.secretAccessKey = '';
-    let bucket = new AWSService.S3({ params: { Bucket: 'elasticbeanstalk-us-west-2-126347216585/Product Images' } })
+    let bucket = new AWSService.S3({ params: { Bucket: '' } })
     let params = { Key: fileName, Body: file, ACL: "public-read" };
     bucket.upload(params, function (error, res) {
       // console.log('error', error);
       // console.log('response', res);
-      imageUrl = 'https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Product+Images/' + fileName
+      imageUrl = '' + fileName
       fabricColour['image_url'] = imageUrl
       // console.log("FC: " + JSON.stringify(fabricColour))
     })

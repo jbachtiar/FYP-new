@@ -18,8 +18,8 @@ public class SendEmail {
         //deployed
         String verificationLink = "http://highlanderlondon.s3-website-ap-southeast-1.amazonaws.com/activate-account/"+email+"/"+code;
 
-        final String username = "legit.test.acc";
-        final String password = "leGITpassword$1";
+        final String username = "";
+        final String password = "";
 
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
@@ -37,7 +37,7 @@ public class SendEmail {
         try {
 
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress("legit.test.acc@gmail.com"));
+            message.setFrom(new InternetAddress(""));
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(email));
             message.setSubject("Highlander Email Verification");

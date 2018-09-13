@@ -153,15 +153,15 @@ export class ProductDetailsComponent implements OnInit {
     let imageUrl = "assets/img/loading_image.gif"
     image['imageUrl'] = imageUrl
 
-    AWSService.config.accessKeyId = 'AKIAJHFHLABO2226QJWA';
-    AWSService.config.update({ region: 'ap-southeast-1' });
-    AWSService.config.secretAccessKey = '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';
-    let bucket = new AWSService.S3({ params: { Bucket: 'highlanderbucket/Product Images' } })
+    AWSService.config.accessKeyId = '';
+    AWSService.config.update({ region: '' });
+    AWSService.config.secretAccessKey = '';
+    let bucket = new AWSService.S3({ params: { Bucket: '' } })
     let params = { Key: fileName, Body: file, ACL: "public-read" };
     bucket.upload(params, function (error, res) {
       // console.log('error', error);
       // console.log('response', res);
-      imageUrl = 'https://s3-ap-southeast-1.amazonaws.com/highlanderbucket/Product+Images/' + fileName
+      imageUrl = '' + fileName
       image['imageUrl'] = imageUrl
       // console.log("FC: " + JSON.stringify(image))
     })

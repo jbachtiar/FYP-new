@@ -98,43 +98,6 @@ export class ProductDetailsAddComponent implements OnInit {
         } else {
           alert("Changes cannot be saved")
         }
-
-
-
-        // let AWSService = (<any>window).AWS
-        // for (let i of this.product.images) {
-        //   let fileInput = i.fileInput
-        //   let imageUrl = ""
-        //   console.log(AWSService)
-        //   let file = fileInput.target.files[0];
-        //   let fileName = this.productId + '_' + i.imageId + '.png'
-        //   AWSService.config.accessKeyId = 'AKIAJR7LKNNCXB6OVEPQ';
-        //   AWSService.config.update({ region: 'us-west-2' });
-        //   AWSService.config.secretAccessKey = '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';
-        //   let bucket = new AWSService.S3({ params: { Bucket: 'elasticbeanstalk-us-west-2-126347216585/Product Images' } })
-        //   let params = { Key: fileName, Body: file, ACL: "public-read" };
-        //   bucket.upload(params, function (error, res) {
-        //     console.log('error', error);
-        //     console.log('response', res);
-        //     imageUrl = 'https://s3-us-west-2.amazonaws.com/elasticbeanstalk-us-west-2-126347216585/Product+Images/' + fileName
-        //     i['imageUrl'] = imageUrl
-        //     console.log("FC: " + JSON.stringify(i))
-
-
-        //   })
-        // }
-        // console.log("NEW PRODUCT after image: " + this.product)
-        // console.log("NEW PRODUCTID after image: " + this.productId)
-
-        // this.catService.updateProduct(this.product).subscribe(res => {
-        //   if (res.status == 200) {
-        //     alert("New Product Added ID: " + this.productId)
-        //     let link = ['/catalogue/product/' + this.productId];
-        //     this.router.navigate(link);
-        //   } else {
-        //     alert("Changes cannot be saved")
-        //   }
-        // });
       });
     }
 
@@ -162,19 +125,16 @@ export class ProductDetailsAddComponent implements OnInit {
       // console.log(AWSService)
       let file = fileInput.target.files[0];
       let fileName = nextProductId + '_' + image.imageId + '.png'
-      //new: AKIAJHFHLABO2226QJWA
-      //old: AKIAJR7LKNNCXB6OVEPQ
-      AWSService.config.accessKeyId = 'AKIAJHFHLABO2226QJWA';
-      AWSService.config.update({ region: 'ap-southeast-1' });
-      //new: atfhcJcE9dwTSrQBZLtU33G/zDJE4f9OeEHWTvLs
-      //old: dm4dlSmAXlI3LZBLfRc59b/w2cKH/AhjNSMSmSs5
-      AWSService.config.secretAccessKey = 'atfhcJcE9dwTSrQBZLtU33G/zDJE4f9OeEHWTvLs';
-      let bucket = new AWSService.S3({ params: { Bucket: 'highlanderbucket/Product Images' } })
+      
+      AWSService.config.accessKeyId = '';
+      AWSService.config.update({ region: '' });
+      AWSService.config.secretAccessKey = '';
+      let bucket = new AWSService.S3({ params: { Bucket: '' } })
       let params = { Key: fileName, Body: file, ACL: "public-read" };
       bucket.upload(params, function (error, res) {
         // console.log('error', error);
         // console.log('response', res);
-        imageUrl = 'https://s3-ap-southeast-1.amazonaws.com/highlanderbucket/Product+Images/' + fileName
+        imageUrl = '' + fileName
         image['imageUrl'] = imageUrl
         image['fileInput'] = fileInput
         // console.log("FC: " + JSON.stringify(image))
