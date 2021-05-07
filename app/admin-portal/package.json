@@ -36,7 +36,7 @@
     "ngx-tabs": "0.0.13",
     "rxjs": "^5.4.3",
     "typings": "^2.1.1",
-    "underscore": "^1.8.3",
+    "underscore": "^1.12.1",
     "zone.js": "^0.8.17"
   },
   "devDependencies": {
